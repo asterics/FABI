@@ -18,6 +18,7 @@ namespace MouseApp2
 {
     public partial class FabiGUI : Form
     {
+        const string VERSION_STRING = "1.0";
 
         const int CMD_NOACTION = 0;
         const int CMD_NEXT = 1;
@@ -75,6 +76,8 @@ namespace MouseApp2
         public FabiGUI()
         {
             InitializeComponent();
+
+            Text += " " + VERSION_STRING;
             foreach (string str in commands)
             {
                 Button1FunctionBox.Items.Add(str);
