@@ -12,13 +12,10 @@ using System.Windows.Forms;
 using System.IO.Ports;
 using System.IO;
 
-
-
 namespace MouseApp2
 {
     public partial class FabiGUI : Form
     {
-        const string VERSION_STRING = "1.0";
 
         const int CMD_NOACTION = 0;
         const int CMD_NEXT = 1;
@@ -67,8 +64,6 @@ namespace MouseApp2
 
         public delegate void SlotValuesDelegate(string newValues);
         public SlotValuesDelegate slotValuesDelegate;
-        public delegate void RawValuesDelegate(string newValues);
-        public RawValuesDelegate rawValuesDelegate;
         public delegate void LoadValuesDelegate(string newValues);
         public LoadValuesDelegate loadValuesDelegate;
         public delegate void StoreValuesDelegate(string newValues);
@@ -78,8 +73,6 @@ namespace MouseApp2
         public FabiGUI()
         {
             InitializeComponent();
-
-            Text += " " + VERSION_STRING;
             foreach (string str in commands)
             {
                 Button1FunctionBox.Items.Add(str);
@@ -88,16 +81,6 @@ namespace MouseApp2
                 Button4FunctionBox.Items.Add(str);
                 Button5FunctionBox.Items.Add(str);
                 Button6FunctionBox.Items.Add(str);
-                Button1LongFunctionBox.Items.Add(str);
-                Button2LongFunctionBox.Items.Add(str);
-                Button3LongFunctionBox.Items.Add(str);
-                Button4LongFunctionBox.Items.Add(str);
-                Button5LongFunctionBox.Items.Add(str);
-                Button6LongFunctionBox.Items.Add(str);
-                SipFunctionMenu.Items.Add(str);
-                LongSipFunctionMenu.Items.Add(str);
-                PuffFunctionMenu.Items.Add(str);
-                LongPuffFunctionMenu.Items.Add(str);
             }
 
             Button1FunctionBox.SelectedIndex = CMD_PRESS_LEFT;
@@ -106,16 +89,6 @@ namespace MouseApp2
             Button4FunctionBox.SelectedIndex = CMD_WHEEL_UP;
             Button5FunctionBox.SelectedIndex = CMD_WHEEL_DOWN;
             Button6FunctionBox.SelectedIndex = CMD_NEXT;
-            Button1LongFunctionBox.SelectedIndex = CMD_PRESS_LEFT;
-            Button2LongFunctionBox.SelectedIndex = CMD_CLICK_RIGHT;
-            Button3LongFunctionBox.SelectedIndex = CMD_CLICK_DOUBLE;
-            Button4LongFunctionBox.SelectedIndex = CMD_WHEEL_UP;
-            Button5LongFunctionBox.SelectedIndex = CMD_WHEEL_DOWN;
-            Button6LongFunctionBox.SelectedIndex = CMD_NEXT;
-            SipFunctionMenu.SelectedIndex = CMD_PRESS_LEFT;
-            LongSipFunctionMenu.SelectedIndex = CMD_NOACTION;
-            PuffFunctionMenu.SelectedIndex = CMD_CLICK_RIGHT;
-            LongPuffFunctionMenu.SelectedIndex = CMD_NOACTION;
 
             foreach (string str in keyOptions)
             {
@@ -125,16 +98,6 @@ namespace MouseApp2
                 Button4ComboBox.Items.Add(str);
                 Button5ComboBox.Items.Add(str);
                 Button6ComboBox.Items.Add(str);
-                Button1LongComboBox.Items.Add(str);
-                Button2LongComboBox.Items.Add(str);
-                Button3LongComboBox.Items.Add(str);
-                Button4LongComboBox.Items.Add(str);
-                Button5LongComboBox.Items.Add(str);
-                Button6LongComboBox.Items.Add(str);
-                SipComboBox.Items.Add(str);
-                LongSipComboBox.Items.Add(str);
-                PuffComboBox.Items.Add(str);
-                LongPuffComboBox.Items.Add(str);
             }
 
             updateComPorts();
@@ -261,17 +224,9 @@ namespace MouseApp2
             portComboBox.DataSource = ports;
 
             this.slotValuesDelegate = new SlotValuesDelegate(gotSlotValues);
-            this.rawValuesDelegate = new RawValuesDelegate(gotValues);
             this.loadValuesDelegate = new LoadValuesDelegate(gotLoadValues);
             this.storeValuesDelegate = new StoreValuesDelegate(gotStoreValues);
 
-            BeginInvoke(this.rawValuesDelegate, new Object[] { "512" });
-        }
-
-        // update paint areas if tabs are changed
-        private void tabControl_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            BeginInvoke(this.rawValuesDelegate, new Object[] { "512" });
         }
 
         public void gotStoreValues(String newValues)
@@ -312,24 +267,6 @@ namespace MouseApp2
 
         }
 
-        // draw live values on panels 
-
-        public void gotValues(String newValues)
-        {
-            if (newValues.Length == 0)
-                return;
-
-            //  Console.WriteLine(newValues);
-            pressureLabel.Text = newValues;
-            Int32 value = 1023 - Convert.ToInt32(newValues);
-            Graphics g = panel1.CreateGraphics();
-            Brush brush = new SolidBrush(Color.Green);
-            Brush brush2 = new SolidBrush(Color.White);
-            value = value * panel1.Height / 1024;
-            g.FillRectangle(brush, 0, panel1.Height - value, 30, value);
-            g.FillRectangle(brush2, 0, 0, 30, panel1.Height - value);
-        }
-
 
         public void gotLoadValues(String newValues)
         {
@@ -363,42 +300,6 @@ namespace MouseApp2
                     case 18: Button6FunctionBox.SelectedIndex = Int32.Parse(actToken); break;
                     case 19: Button6NumericParameter.Value = Int32.Parse(actToken); break;
                     case 20: Button6ParameterText.Text = actToken; break;
-                    case 21: Button1LongFunctionBox.SelectedIndex = Int32.Parse(actToken); break;
-                    case 22: Button1LongNumericParameter.Value = Int32.Parse(actToken); break;
-                    case 23: Button1LongParameterText.Text = actToken; break;
-                    case 24: Button1LongSlide.Value = Int32.Parse(actToken); break;
-                    case 25: Button2LongFunctionBox.SelectedIndex = Int32.Parse(actToken); break;
-                    case 26: Button2LongNumericParameter.Value = Int32.Parse(actToken); break;
-                    case 27: Button2LongParameterText.Text = actToken; break;
-                    case 28: Button2LongSlide.Value = Int32.Parse(actToken); break;
-                    case 29: Button3LongFunctionBox.SelectedIndex = Int32.Parse(actToken); break;
-                    case 30: Button3LongNumericParameter.Value = Int32.Parse(actToken); break;
-                    case 31: Button3LongParameterText.Text = actToken; break;
-                    case 32: Button3LongSlide.Value = Int32.Parse(actToken); break;
-                    case 33: Button4LongFunctionBox.SelectedIndex = Int32.Parse(actToken); break;
-                    case 34: Button4LongNumericParameter.Value = Int32.Parse(actToken); break;
-                    case 35: Button4LongParameterText.Text = actToken; break;
-                    case 36: Button4LongSlide.Value = Int32.Parse(actToken); break;
-                    case 37: Button5LongFunctionBox.SelectedIndex = Int32.Parse(actToken); break;
-                    case 38: Button5LongNumericParameter.Value = Int32.Parse(actToken); break;
-                    case 39: Button5LongParameterText.Text = actToken; break;
-                    case 40: Button5LongSlide.Value = Int32.Parse(actToken); break;
-                    case 41: Button6LongFunctionBox.SelectedIndex = Int32.Parse(actToken); break;
-                    case 42: Button6LongNumericParameter.Value = Int32.Parse(actToken); break;
-                    case 43: Button6LongParameterText.Text = actToken; break;
-                    case 44: Button6LongSlide.Value = Int32.Parse(actToken); break;
-                    case 45: SipFunctionMenu.SelectedIndex = Int32.Parse(actToken); break;
-                    case 46: SipNumericParameter.Value = Int32.Parse(actToken); break;
-                    case 47: SipParameterText.Text = actToken; break;
-                    case 48: LongSipFunctionMenu.SelectedIndex = Int32.Parse(actToken); break;
-                    case 49: LongSipNumericParameter.Value = Int32.Parse(actToken); break;
-                    case 50: LongSipParameterText.Text = actToken; break;
-                    case 51: PuffFunctionMenu.SelectedIndex = Int32.Parse(actToken); break;
-                    case 52: PuffNumericParameter.Value = Int32.Parse(actToken); break;
-                    case 53: PuffParameterText.Text = actToken; break;
-                    case 54: LongPuffFunctionMenu.SelectedIndex = Int32.Parse(actToken); break;
-                    case 55: LongPuffNumericParameter.Value = Int32.Parse(actToken); break;
-                    case 56: LongPuffParameterText.Text = actToken; break;
                     default: done = true; break;
                 }
                 newValues = newValues.Substring(actToken.Length + 3);
@@ -445,10 +346,6 @@ namespace MouseApp2
                     try  {
                         receivedString = serialPort1.ReadLine();
                         Console.WriteLine("received:"+receivedString);
-                        if (receivedString.ToUpper().StartsWith("AT RR "))  // raw report found ?
-                        {
-                            BeginInvoke(this.rawValuesDelegate, new Object[] { receivedString.Substring(6) });
-                        }
                         if (receivedString.ToUpper().StartsWith("SLOT"))  // slot name found ?
                         {
                             BeginInvoke(this.slotValuesDelegate, new Object[] { receivedString.Substring(6) });
@@ -606,29 +503,13 @@ namespace MouseApp2
         private void updateOneButton(int button, int cmdIndex, String parameter, String numParameter)
         {
             sendCmd("AT BM " + button);  // store command to this button function !
-            switch (cmdIndex)
-            {
-                case CMD_NOACTION: sendCmd("AT IDLE"); break;
-                case CMD_NEXT: sendCmd("AT NEXT"); break;
-                case CMD_CLICK_LEFT: sendCmd("AT CL"); break;
-                case CMD_CLICK_RIGHT: sendCmd("AT CR"); break;
-                case CMD_CLICK_MIDDLE: sendCmd("AT CM"); break;
-                case CMD_CLICK_DOUBLE: sendCmd("AT CD"); break;
-                case CMD_PRESS_LEFT: sendCmd("AT PL"); break;
-                case CMD_PRESS_RIGHT: sendCmd("AT PR"); break;
-                case CMD_PRESS_MIDDLE: sendCmd("AT PM"); break;
-                case CMD_WHEEL_UP: sendCmd("AT WU"); break;
-                case CMD_WHEEL_DOWN: sendCmd("AT WD"); break;
-                case CMD_MOVE_X: sendCmd("AT MX " + numParameter); break;
-                case CMD_MOVE_Y: sendCmd("AT MY " + numParameter); break;
-                case CMD_WRITE_TEXT: sendCmd("AT KW " + parameter); break;
-                case CMD_PRESS_KEYS: sendCmd("AT KP " + parameter); break;
-            }
-        }
 
-        private void updateOneLongButton(int button, int cmdIndex, String parameter, String numParameter, Int32 longDelay)
-        {
-            sendCmd("AT BML " + longDelay + " " + button);  // store command to this button function !
+            if (parameter.Length > 30)
+            {
+                addToLog("Maximum Keystring length for button " + button + " is exceeded, please reduce to 30 characters ! ");
+                MessageBox.Show("Maximum Keystring length for button " + button + " is exceeded, please reduce to 30 characters ! ");
+                parameter = "";
+            }
             switch (cmdIndex)
             {
                 case CMD_NOACTION: sendCmd("AT IDLE"); break;
@@ -660,28 +541,12 @@ namespace MouseApp2
             addToLog("Applying Settings...");
             if (serialPort1.IsOpen)
             {
-                sendCmd("AT TS " + sipThresholdLabel.Text);
-                sendCmd("AT TP " + puffThresholdLabel.Text);
-                sendCmd("AT TT " + timeThresholdLabel.Text);
-
                 updateOneButton(1, Button1FunctionBox.SelectedIndex, Button1ParameterText.Text, Button1NumericParameter.Value.ToString());
                 updateOneButton(2, Button2FunctionBox.SelectedIndex, Button2ParameterText.Text, Button2NumericParameter.Value.ToString());
                 updateOneButton(3, Button3FunctionBox.SelectedIndex, Button3ParameterText.Text, Button3NumericParameter.Value.ToString());
                 updateOneButton(4, Button4FunctionBox.SelectedIndex, Button4ParameterText.Text, Button4NumericParameter.Value.ToString());
                 updateOneButton(5, Button5FunctionBox.SelectedIndex, Button5ParameterText.Text, Button5NumericParameter.Value.ToString());
                 updateOneButton(6, Button6FunctionBox.SelectedIndex, Button6ParameterText.Text, Button6NumericParameter.Value.ToString());
-
-                updateOneLongButton(7, Button1LongFunctionBox.SelectedIndex, Button1LongParameterText.Text, Button1LongNumericParameter.Value.ToString(), Button1LongSlide.Value);
-                updateOneLongButton(8, Button2LongFunctionBox.SelectedIndex, Button2LongParameterText.Text, Button2LongNumericParameter.Value.ToString(), Button2LongSlide.Value);
-                updateOneLongButton(9, Button3LongFunctionBox.SelectedIndex, Button3LongParameterText.Text, Button3LongNumericParameter.Value.ToString(), Button3LongSlide.Value);
-                updateOneLongButton(10, Button4LongFunctionBox.SelectedIndex, Button4LongParameterText.Text, Button4LongNumericParameter.Value.ToString(), Button4LongSlide.Value);
-                updateOneLongButton(11, Button5LongFunctionBox.SelectedIndex, Button5LongParameterText.Text, Button5LongNumericParameter.Value.ToString(), Button5LongSlide.Value);
-                updateOneLongButton(12, Button6LongFunctionBox.SelectedIndex, Button6LongParameterText.Text, Button6LongNumericParameter.Value.ToString(), Button6LongSlide.Value);
-
-                updateOneButton(13, SipFunctionMenu.SelectedIndex, SipParameterText.Text, SipNumericParameter.Value.ToString());
-                updateOneButton(14, LongSipFunctionMenu.SelectedIndex, LongSipParameterText.Text, LongSipNumericParameter.Value.ToString());
-                updateOneButton(15, PuffFunctionMenu.SelectedIndex, PuffParameterText.Text, PuffNumericParameter.Value.ToString());
-                updateOneButton(16, LongPuffFunctionMenu.SelectedIndex, LongPuffParameterText.Text, LongPuffNumericParameter.Value.ToString());
                 addToLog("The selected settings have been applied.");
             }
             else addToLog("Please connect a device before applying configuration changes.");
@@ -699,68 +564,6 @@ namespace MouseApp2
             }
         }
 
-
-        //Update scrollbar -> text
-        private void sipThresholdBar_Scroll(object sender, EventArgs e)
-        {
-            sipThresholdLabel.Text = sipThresholdBar.Value.ToString();
-        }
-        private void puffThresholdBar_Scroll(object sender, EventArgs e)
-        {
-            puffThresholdLabel.Text = puffThresholdBar.Value.ToString();
-        }
-        private void timeThresholdBar_Scroll(object sender, EventArgs e)
-        {
-            timeThresholdLabel.Text = timeThresholdBar.Value.ToString();
-        }
-        private void Button1LongSlide_Scroll(object sender, EventArgs e)
-        {
-            Button1LongTimeLabel.Text = Button1LongSlide.Value.ToString();
-        }
-        private void Button2LongSlide_Scroll(object sender, EventArgs e)
-        {
-            Button2LongTimeLabel.Text = Button2LongSlide.Value.ToString();
-        }
-        private void Button3LongSlide_Scroll(object sender, EventArgs e)
-        {
-            Button3LongTimeLabel.Text = Button3LongSlide.Value.ToString();
-        }
-        private void Button4LongSlide_Scroll(object sender, EventArgs e)
-        {
-            Button4LongTimeLabel.Text = Button4LongSlide.Value.ToString();
-        }
-        private void Button5LongSlide_Scroll(object sender, EventArgs e)
-        {
-            Button5LongTimeLabel.Text = Button5LongSlide.Value.ToString();
-        }
-        private void Button6LongSlide_Scroll(object sender, EventArgs e)
-        {
-            Button6LongTimeLabel.Text = Button6LongSlide.Value.ToString();
-        }
-
-        private void SipFunctionMenu_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            updateVisibility(SipFunctionMenu.SelectedIndex, SipParameterText, SipNumericParameter, SipComboBox, SipParameterLabel);
-        }
-
-        private void LongSipFunctionMenu_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            updateVisibility(LongSipFunctionMenu.SelectedIndex, LongSipParameterText, LongSipNumericParameter, LongSipComboBox, LongSipParameterLabel);
-        }
-
-        private void PuffFunctionMenu_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            updateVisibility(PuffFunctionMenu.SelectedIndex, PuffParameterText, PuffNumericParameter, PuffComboBox, PuffParameterLabel);
-        }
-
-        private void LongPuffFunctionMenu_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            updateVisibility(LongPuffFunctionMenu.SelectedIndex, LongPuffParameterText, LongPuffNumericParameter, LongPuffComboBox, LongPuffParameterLabel);
-        }
-
-
-
-        //Update the parameter fields, according to the action
         private void Button1FunctionBox_SelectedIndexChanged_1(object sender, EventArgs e)
         {
             updateVisibility(Button1FunctionBox.SelectedIndex, Button1ParameterText, Button1NumericParameter, Button1ComboBox, Button1Label);
@@ -791,56 +594,6 @@ namespace MouseApp2
             updateVisibility(Button6FunctionBox.SelectedIndex, Button6ParameterText, Button6NumericParameter, Button6ComboBox, Button6Label);
         }
 
-        private void Button1LongFunctionBox_SelectedIndexChanged_1(object sender, EventArgs e)
-        {
-            updateVisibility(Button1LongFunctionBox.SelectedIndex, Button1LongParameterText, Button1LongNumericParameter, Button1LongComboBox, Button1LongLabel);
-        }
-
-        private void Button2LongFunctionBox_SelectedIndexChanged_1(object sender, EventArgs e)
-        {
-            updateVisibility(Button2LongFunctionBox.SelectedIndex, Button2LongParameterText, Button2LongNumericParameter, Button2LongComboBox, Button2LongLabel);
-        }
-
-        private void Button3LongFunctionBox_SelectedIndexChanged_1(object sender, EventArgs e)
-        {
-            updateVisibility(Button3LongFunctionBox.SelectedIndex, Button3LongParameterText, Button3LongNumericParameter, Button3LongComboBox, Button3LongLabel);
-        }
-
-        private void Button4LongFunctionBox_SelectedIndexChanged_1(object sender, EventArgs e)
-        {
-            updateVisibility(Button4LongFunctionBox.SelectedIndex, Button4LongParameterText, Button4LongNumericParameter, Button4LongComboBox, Button4LongLabel);
-        }
-
-        private void Button5LongFunctionBox_SelectedIndexChanged_1(object sender, EventArgs e)
-        {
-            updateVisibility(Button5LongFunctionBox.SelectedIndex, Button5LongParameterText, Button5LongNumericParameter, Button5LongComboBox, Button5LongLabel);
-        }
-
-        private void Button6LongFunctionBox_SelectedIndexChanged_1(object sender, EventArgs e)
-        {
-            updateVisibility(Button6LongFunctionBox.SelectedIndex, Button6LongParameterText, Button6LongNumericParameter, Button6LongComboBox, Button6LongLabel);
-        }
-
-
-        private void SipComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            updateKeyCodeParameter(SipComboBox, SipParameterText);
-        }
-
-        private void LongSipComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            updateKeyCodeParameter(LongSipComboBox, LongSipParameterText);
-        }
-
-        private void PuffComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            updateKeyCodeParameter(PuffComboBox, PuffParameterText);
-        }
-
-        private void LongPuffComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            updateKeyCodeParameter(LongPuffComboBox, LongPuffParameterText);
-        }
 
 
         private void updateKeyCodeParameter(ComboBox cb, TextBox tb)
@@ -860,10 +613,12 @@ namespace MouseApp2
         {
             updateKeyCodeParameter(Button1ComboBox,Button1ParameterText);
         }
+
         private void Button2ComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             updateKeyCodeParameter(Button2ComboBox, Button2ParameterText);
         }
+
         private void Button3ComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             updateKeyCodeParameter(Button3ComboBox, Button3ParameterText);
@@ -882,29 +637,5 @@ namespace MouseApp2
         }
 
 
-        private void Button1LongComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            updateKeyCodeParameter(Button1LongComboBox, Button1LongParameterText);
-        }
-        private void Button2LongComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            updateKeyCodeParameter(Button2LongComboBox, Button2LongParameterText);
-        }
-        private void Button3LongComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            updateKeyCodeParameter(Button3LongComboBox, Button3LongParameterText);
-        }
-        private void Button4LongComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            updateKeyCodeParameter(Button4LongComboBox, Button4LongParameterText);
-        }
-        private void Button5LongComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            updateKeyCodeParameter(Button5LongComboBox, Button5LongParameterText);
-        }
-        private void Button6LongComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            updateKeyCodeParameter(Button6LongComboBox, Button6LongParameterText);
-        }
     }
 }
