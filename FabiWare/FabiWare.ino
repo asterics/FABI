@@ -81,13 +81,13 @@
 
 #ifdef TEENSY
   int8_t  input_map[NUMBER_OF_PHYSICAL_BUTTONS]={19,20,21,22,23,24};  //  mapa physical button pins to button index 0,1,2  
-  int8_t  led_map[NUMBER_OF_LEDS]={1,2,3};                 //  maps leds pins   
+  int8_t  led_map[NUMBER_OF_LEDS]={1,2,3,4};                 //  maps leds pins   
   uint8_t LED_PIN = 6;                                    //  Led output pin
 #endif
 
 #ifdef ARDUINO_PRO_MICRO
   int8_t  input_map[NUMBER_OF_PHYSICAL_BUTTONS]={2,3,4,5,6,7};
-  int8_t  led_map[NUMBER_OF_LEDS]={8,9,10};            
+  int8_t  led_map[NUMBER_OF_LEDS]={8,9,10,16};            
   uint8_t LED_PIN = 17;
 #endif
 
@@ -509,9 +509,10 @@ void BlinkLed()
 
 void UpdateLeds()
 {  
-   if (actSlot & 1) digitalWrite (led_map[0],LOW); else digitalWrite (led_map[0],HIGH); 
-   if (actSlot & 2) digitalWrite (led_map[1],LOW); else digitalWrite (led_map[1],HIGH); 
-   if (actSlot & 4) digitalWrite (led_map[2],LOW); else digitalWrite (led_map[2],HIGH); 
+   if (actSlot == 1) digitalWrite (led_map[0],LOW); else digitalWrite (led_map[0],HIGH); 
+   if (actSlot == 2) digitalWrite (led_map[1],LOW); else digitalWrite (led_map[1],HIGH); 
+   if (actSlot == 3) digitalWrite (led_map[2],LOW); else digitalWrite (led_map[2],HIGH); 
+   if (actSlot == 4) digitalWrite (led_map[3],LOW); else digitalWrite (led_map[3],HIGH); 
 }
 
 
