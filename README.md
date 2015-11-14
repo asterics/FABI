@@ -5,6 +5,9 @@ typing desired keyboard keys by using buttons and special/individual input metho
 helpful for people who cannot use standard computer input devices – enabling them to play
 games, surf the internet, write emails and much more.
 
+![An opened FABI box, where you can see the Teensy microcontroller board and the 6 jackplugs](https://github.com/asterics/FABI/blob/master/img/7.jpg "FABI box with jackplugs")
+![A FABI box, where 3 different external buttons are connected](https://github.com/asterics/FABI/blob/master/img/7.jpg "FABI box with external buttons")
+
 ## How?
 
 The FABI Interface can be actuated via dedicated buttons, momentary switches or self-made
@@ -35,3 +38,7 @@ most reasonably priced flexible assistive button interface we know !!
 
 The folder _case designs_ contains different acrylic glass designs for example applications.
 Some of the examples are also located in the wiki.
+
+
+![An opened FABI box, where you can see the Teensy microcontroller board and the 6 jackplugs](https://github.com/asterics/FABI/blob/master/img/7.jpg "FABI box with jackplugs")
+![A FABI box, where 3 different external buttons are connected](https://github.com/asterics/FABI/blob/master/img/7.jpg "FABI box with external buttons")
