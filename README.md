@@ -6,7 +6,7 @@ helpful for people who cannot use standard computer input devices – enabling t
 games, surf the internet, write emails and much more.
 
 ![An opened FABI box, where you can see the Teensy microcontroller board and the 6 jackplugs](https://github.com/asterics/FABI/blob/master/img/7.jpg "FABI box with jackplugs")
-![A FABI box, where 3 different external buttons are connected](https://github.com/asterics/FABI/blob/master/img/7.jpg "FABI box with external buttons")
+![A FABI box, where 3 different external buttons are connected](https://github.com/asterics/FABI/blob/master/img/8.jpg "FABI box with external buttons")
 
 ## How?
 
