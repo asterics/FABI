@@ -39,6 +39,4 @@ most reasonably priced flexible assistive button interface we know !!
 The folder _case designs_ contains different acrylic glass designs for example applications.
 Some of the examples are also located in the wiki.
 
-
-![An opened FABI box, where you can see the Teensy microcontroller board and the 6 jackplugs](https://github.com/asterics/FABI/blob/master/img/7.jpg "FABI box with jackplugs")
-![A FABI box, where 3 different external buttons are connected](https://github.com/asterics/FABI/blob/master/img/7.jpg "FABI box with external buttons")
+![A wooden piece with 6 buttons, arranged between, left and right of your hands. Enabling faster working with shortcuts on each button](https://github.com/asterics/FABI/blob/master/img/2.jpg "RapidCoding prototype, powered by FABI")
