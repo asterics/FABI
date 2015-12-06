@@ -1,5 +1,7 @@
 #include <stdlib.h>
 #include <gtk/gtk.h>
+#include <string.h>
+#include "serial.h"
 
 GtkWidget *comboCOM = NULL;
 
@@ -69,7 +71,7 @@ int main (int argc, char *argv[])
 
   /* Create the main window */
   win = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-  vbox = gtk_vbox_new(FALSE, 0);
+  vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
   gtk_container_set_border_width (GTK_CONTAINER (win), 8);
   gtk_window_set_title (GTK_WINDOW (win), "FABI Settings Manager");
   gtk_window_set_position (GTK_WINDOW (win), GTK_WIN_POS_CENTER);
@@ -109,10 +111,10 @@ int main (int argc, char *argv[])
     //gtk_container_add (GTK_CONTAINER (vbox), hboxStatus);
 
     /* Status part (Frame -> Table) */
-    fbox = gtk_fixed_new();
+    fbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,0);
     frameStatus = gtk_frame_new("Status");
-    gtk_fixed_put(GTK_FIXED(fbox),frameStatus,0,0);
-    gtk_widget_set_size_request(frameStatus,600,170);
+    gtk_container_add(GTK_CONTAINER(fbox), frameStatus);
+    gtk_widget_set_size_request(frameStatus,800,170);
     gtk_container_add(GTK_CONTAINER(vbox), fbox);
 
     tableStatus = gtk_table_new(4, 7, FALSE);
@@ -127,10 +129,21 @@ int main (int argc, char *argv[])
 
     //Drop Down "COM Port"
     comboCOM = gtk_combo_box_text_new();
-    //TODO: richtige COM ports lesen...
-    gtk_combo_box_text_append(GTK_COMBO_BOX(comboCOM), NULL, "COM1");
-    gtk_combo_box_text_append(GTK_COMBO_BOX(comboCOM), NULL, "COM2");
-    gtk_combo_box_text_append(GTK_COMBO_BOX(comboCOM), NULL, "COM3");
+    char comlist[512];
+    listComPorts(comlist);
+
+    char *token; //token of different COM port names
+    char *dup = strdup(comlist); //duplicate, to own the memory (SEGFAULT otherwise...)
+    while ((token = strsep(&dup, ";")) != NULL)
+    {
+        if(strcmp(token,"") != 0)
+        {
+            gtk_combo_box_text_append(GTK_COMBO_BOX(comboCOM), NULL, (gchar*)token);
+        }
+    }
+    free(dup);
+    free(token);
+
     gtk_table_attach_defaults(GTK_TABLE(tableStatus),comboCOM,0,1,1,2);
 
     //Button "Connect/Disconnect"
@@ -173,7 +186,7 @@ int main (int argc, char *argv[])
 
     /* Save/Load/Slot Actions */
     alignSave = gtk_alignment_new(0,1,1,0);
-    hboxSave = gtk_hbox_new(TRUE,0);
+    hboxSave = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,0);
     gtk_container_add(GTK_CONTAINER(alignSave), hboxSave);
 
     btnSaveApply = gtk_button_new_with_label("Apply Settings");

@@ -33,6 +33,7 @@
 			<Add option="`pkg-config gtk+-2.0 --cflags`" />
 			<Add option="`pkg-config gtk+-3.0 --cflags`" />
 			<Add option="-mms-bitfields -IC:/GTK/include/gtk-3.0 -IC:/GTK/include/cairo -IC:/GTK/include/pango-1.0 -IC:/GTK/include/atk-1.0 -IC:/GTK/include/cairo -IC:/GTK/include/pixman-1 -IC:/GTK/include -IC:/GTK/include/freetype2 -IC:/GTK/include -IC:/GTK/include/libpng15 -IC:/GTK/include/gdk-pixbuf-2.0 -IC:/GTK/include/libpng15 -IC:/GTK/include/glib-2.0 -IC:/GTK/lib/glib-2.0/include" />
+			<Add option="-DARCH_WIN" />
 		</Compiler>
 		<Linker>
 			<Add option="`pkg-config gtk+-2.0 --libs`" />
