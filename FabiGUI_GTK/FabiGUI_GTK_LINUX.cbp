@@ -39,6 +39,7 @@
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="main.h" />
 		<Unit filename="serial.c">
 			<Option compilerVar="CC" />
 		</Unit>

@@ -1,9 +1,6 @@
 # depslib dependency file v1.0
-1449399529 source:/home/beni/sync/Projects/FH/FABI/FabiGUI_GTK/main.c
-	<stdlib.h>
-	<gtk/gtk.h>
-	<string.h>
-	"serial.h"
+1449487849 source:/home/beni/sync/Projects/FH/FABI/FabiGUI_GTK/main.c
+	"main.h"
 
 1433694361 /usr/include/gtk-2.0/gtk/gtk.h
 	<gdk/gdk.h>
@@ -3849,7 +3846,7 @@
 
 1447777212 /usr/include/gtk-3.0/gtk/gtk-autocleanups.h
 
-1449397415 source:/home/beni/sync/Projects/FH/FABI/FabiGUI_GTK/serial.c
+1449401208 source:/home/beni/sync/Projects/FH/FABI/FabiGUI_GTK/serial.c
 	"serial.h"
 
 1449397254 /home/beni/sync/Projects/FH/FABI/FabiGUI_GTK/serial.h
@@ -3861,4 +3858,10 @@
 	<termios.h>
 	<dirent.h>
 	<stdlib.h>
+
+1449487557 /home/beni/sync/Projects/FH/FABI/FabiGUI_GTK/main.h
+	<stdlib.h>
+	<gtk/gtk.h>
+	<string.h>
+	"serial.h"
 
