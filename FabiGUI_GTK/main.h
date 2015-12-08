@@ -48,6 +48,9 @@ static void createGUILoadStore(GtkWidget *mainBox, GtkWidget *win);
 //Build the log GUI
 static void createGUILog(GtkWidget *mainBox, GtkWidget *win);
 
+#ifdef ARCH_WIN
+char* strsep(char** stringp, const char* delim);
+#endif // ARCH_WIN
 
 
 #endif // MAIN_H_INCLUDED

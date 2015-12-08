@@ -415,10 +415,11 @@ void logAdd(char * logmessage)
     static char* message[LOG_LENGTH];
     static char* time[LOG_LENGTH];
     static int isFilled = 0;
+    int i = 0;
 
     if(isFilled == 0)
     {
-        for(int i = 0; i < LOG_LENGTH; i++)
+        for(i = 0; i < LOG_LENGTH; i++)
         {
             message[i] = strdup("");
             time[i] = strdup("");
@@ -426,7 +427,7 @@ void logAdd(char * logmessage)
         isFilled = 1;
     }
 
-    for(int i = LOG_LENGTH-2; i >= 0 ; i--)
+    for(i = LOG_LENGTH-2; i >= 0 ; i--)
     {
         strcpy(message[i+1],message[i]);
         strcpy(time[i+1],time[i]);
@@ -436,7 +437,7 @@ void logAdd(char * logmessage)
 
     gtk_list_store_clear(logStore);
 
-    for(int i = 0; i < LOG_LENGTH; i++)
+    for(i = 0; i < LOG_LENGTH; i++)
     {
         gtk_list_store_prepend(logStore,&logIter);
         gtk_list_store_set(logStore,&logIter,0,time[i],1,message[i],-1);
@@ -511,6 +512,26 @@ void comboAction6_selected(GtkWidget *widget, gpointer window)
     printf("TBD: process action selection for button6\n");
 }
 
+#ifdef ARCH_WIN
+char* strsep(char** stringp, const char* delim)
+{
+  char* start = *stringp;
+  char* p;
 
+  p = (start != NULL) ? strpbrk(start, delim) : NULL;
+
+  if (p == NULL)
+  {
+    *stringp = NULL;
+  }
+  else
+  {
+    *p = '\0';
+    *stringp = p + 1;
+  }
+
+  return start;
+}
+#endif // ARCH_WIN
 
 
