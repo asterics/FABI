@@ -13,6 +13,21 @@
 static void about (GtkWidget *wid, GtkWidget *win);
 //Button "Connect": connect/disconnect to FABI...
 static void connect (GtkWidget *wid, GtkWidget *win);
+//Callback for selected serial port from combobox
+void combo_selected(GtkWidget *widget, gpointer window);
+
+//ComboBox callback button 1 action
+void comboAction1_selected(GtkWidget *widget, gpointer window);
+//ComboBox callback button 2 action
+void comboAction2_selected(GtkWidget *widget, gpointer window);
+//ComboBox callback button 3 action
+void comboAction3_selected(GtkWidget *widget, gpointer window);
+//ComboBox callback button 4 action
+void comboAction4_selected(GtkWidget *widget, gpointer window);
+//ComboBox callback button 5 action
+void comboAction5_selected(GtkWidget *widget, gpointer window);
+//ComboBox callback button 6 action
+void comboAction6_selected(GtkWidget *widget, gpointer window);
 
 
 /** General methods for the main... **/

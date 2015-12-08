@@ -22,12 +22,15 @@ void listComPorts(char* list)
         struct dirent* dp;
 
         dirp = opendir("/dev/serial/by-id");
-        while ((dp = readdir(dirp)) != NULL)
+        if(dirp != NULL)
         {
-            if(strcmp(dp->d_name,".") != 0 && strcmp(dp->d_name,"..") != 0)
+            while ((dp = readdir(dirp)) != NULL)
             {
-                strcat(list,dp->d_name);
-                strcat(list,(char *)";");
+                if(strcmp(dp->d_name,".") != 0 && strcmp(dp->d_name,"..") != 0)
+                {
+                    strcat(list,dp->d_name);
+                    strcat(list,(char *)";");
+                }
             }
         }
     #endif // ARCH_LINUX
@@ -61,8 +64,8 @@ int openCOM(char* name)
     #endif // ARCH_WIN
 
     #ifdef ARCH_LINUX
-        int ret = open(name, O_RDWR | O_NOCTTY | O_NDELAY);
-        if(ret > 0)
+        fd = open(name, O_RDWR | O_NOCTTY | O_NDELAY);
+        if(fd > 0)
         {
             tcgetattr(fd, &options);
             /* set baudrate to 9600 */
@@ -77,7 +80,7 @@ int openCOM(char* name)
             //options.c_cflag &= ~CNEW_RTSCTS;
 
         }
-        return ret;
+        return fd;
     #endif // ARCH_LINUX
 }
 

@@ -1,8 +1,12 @@
 #include "main.h"
 
-GtkWidget *comboCOM = NULL;
+
 GtkListStore *logStore = NULL;
 GtkTreeIter logIter;
+GtkWidget *labelConnected = NULL;
+GtkWidget *btnStatusConnect = NULL;
+char currentCOMPort[512];
+int isConnected = 0;
 
 
 int main (int argc, char *argv[])
@@ -33,6 +37,9 @@ int main (int argc, char *argv[])
 
     //Create the action GUI part
     createGUIActions(vbox,win);
+
+    //Create the buttons for Loading/Storing
+    createGUILoadStore(vbox,win);
 
     //Create the log GUI part
     createGUILog(vbox,win);
@@ -77,8 +84,8 @@ static void createGUIMenubar(GtkWidget *mainBox, GtkWidget *win)
 
     gtk_menu_shell_append(GTK_MENU_SHELL(menubar), fileMi);
     gtk_menu_shell_append(GTK_MENU_SHELL(menubar), aboutMi);
-    gtk_menu_shell_append(GTK_MENU_SHELL(menubar), aboutMenu);
-    gtk_menu_shell_append(GTK_MENU_SHELL(menubar), fileMenu);
+    /*gtk_menu_shell_append(GTK_MENU_SHELL(menubar), aboutMenu);
+    gtk_menu_shell_append(GTK_MENU_SHELL(menubar), fileMenu);*/
     gtk_box_pack_start(GTK_BOX(mainBox), menubar, FALSE, FALSE, 0);
 }
 
@@ -90,8 +97,7 @@ static void createGUIStatus(GtkWidget *mainBox, GtkWidget *win)
     GtkWidget *labelStatus1 = NULL;
     GtkWidget *tableStatus = NULL;
     GtkWidget *labelStatus2 = NULL;
-    GtkWidget *labelConnected = NULL;
-    GtkWidget *btnStatusConnect = NULL;
+    GtkWidget *comboCOM = NULL;
 
     tableStatus = gtk_grid_new();
 
@@ -117,6 +123,8 @@ static void createGUIStatus(GtkWidget *mainBox, GtkWidget *win)
     free(dup);
     free(token);
 
+    g_signal_connect(G_OBJECT(comboCOM), "changed",G_CALLBACK(combo_selected), G_OBJECT(win));
+
     gtk_grid_attach(GTK_GRID(tableStatus),comboCOM,0,1,1,1);
 
     //Button "Connect/Disconnect"
@@ -130,7 +138,6 @@ static void createGUIStatus(GtkWidget *mainBox, GtkWidget *win)
     gtk_grid_attach(GTK_GRID(tableStatus),labelStatus2,2,0,1,1);
 
     labelConnected = gtk_label_new("Not connected");
-    //TODO: Farbe..
     gtk_label_set_justify(GTK_LABEL(labelConnected), GTK_JUSTIFY_LEFT);
     gtk_grid_attach(GTK_GRID(tableStatus),labelConnected,2,1,1,1);
 
@@ -143,18 +150,162 @@ static void createGUIActions(GtkWidget *mainBox, GtkWidget *win)
 {
     //Button Actions
     GtkWidget *notebook = NULL;
-    GtkWidget *alignAction = NULL;
     GtkWidget *tableActions = NULL;
 
-    /* Button Actions (Align->Notebook->Table) */
-    alignAction = gtk_alignment_new(0, 0, 1, 1);
-    tableActions = gtk_table_new(8, 9, TRUE);
-    gtk_table_set_row_spacings(GTK_TABLE(tableActions), 2);
-    gtk_table_set_col_spacings(GTK_TABLE(tableActions), 2);
+    GtkWidget *labelB1 = gtk_label_new("Button 1");
+    GtkWidget *labelB2 = gtk_label_new("Button 2");
+    GtkWidget *labelB3 = gtk_label_new("Button 3");
+    GtkWidget *labelB4 = gtk_label_new("Button 4");
+    GtkWidget *labelB5 = gtk_label_new("Button 5");
+    GtkWidget *labelB6 = gtk_label_new("Button 6");
+
+    GtkWidget *dropB1 = gtk_combo_box_text_new();
+    GtkWidget *dropB2 = gtk_combo_box_text_new();
+    GtkWidget *dropB3 = gtk_combo_box_text_new();
+    GtkWidget *dropB4 = gtk_combo_box_text_new();
+    GtkWidget *dropB5 = gtk_combo_box_text_new();
+    GtkWidget *dropB6 = gtk_combo_box_text_new();
+
+    //Build grid
+    tableActions = gtk_grid_new();
+    gtk_grid_set_column_homogeneous(GTK_GRID(tableActions),TRUE);
+
+    //build each drop down menu
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB1),"No action");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB1),"Switch to next configuration");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB1),"Click left mouse button");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB1),"Click right mouse button");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB1),"Click middle mouse button");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB1),"Double click left mouse button");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB1),"Hold left mouse button");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB1),"Hold right mouse button");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB1),"Hold middle mouse button");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB1),"Mouse wheel up");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB1),"Mouse wheel down");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB1),"Mouse move X");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB1),"Mouse move Y");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB1),"Write text");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB1),"Press keys");
+    g_signal_connect(G_OBJECT(dropB1), "changed",G_CALLBACK(comboAction1_selected), G_OBJECT(win));
+
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB2),"No action");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB2),"Switch to next configuration");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB2),"Click left mouse button");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB2),"Click right mouse button");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB2),"Click middle mouse button");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB2),"Double click left mouse button");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB2),"Hold left mouse button");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB2),"Hold right mouse button");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB2),"Hold middle mouse button");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB2),"Mouse wheel up");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB2),"Mouse wheel down");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB2),"Mouse move X");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB2),"Mouse move Y");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB2),"Write text");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB2),"Press keys");
+    g_signal_connect(G_OBJECT(dropB2), "changed",G_CALLBACK(comboAction2_selected), G_OBJECT(win));
+
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB3),"No action");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB3),"Switch to next configuration");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB3),"Click left mouse button");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB3),"Click right mouse button");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB3),"Click middle mouse button");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB3),"Double click left mouse button");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB3),"Hold left mouse button");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB3),"Hold right mouse button");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB3),"Hold middle mouse button");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB3),"Mouse wheel up");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB3),"Mouse wheel down");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB3),"Mouse move X");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB3),"Mouse move Y");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB3),"Write text");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB3),"Press keys");
+    g_signal_connect(G_OBJECT(dropB3), "changed",G_CALLBACK(comboAction3_selected), G_OBJECT(win));
+
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB4),"No action");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB4),"Switch to next configuration");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB4),"Click left mouse button");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB4),"Click right mouse button");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB4),"Click middle mouse button");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB4),"Double click left mouse button");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB4),"Hold left mouse button");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB4),"Hold right mouse button");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB4),"Hold middle mouse button");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB4),"Mouse wheel up");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB4),"Mouse wheel down");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB4),"Mouse move X");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB4),"Mouse move Y");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB4),"Write text");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB4),"Press keys");
+    g_signal_connect(G_OBJECT(dropB4), "changed",G_CALLBACK(comboAction4_selected), G_OBJECT(win));
+
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB5),"No action");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB5),"Switch to next configuration");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB5),"Click left mouse button");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB5),"Click right mouse button");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB5),"Click middle mouse button");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB5),"Double click left mouse button");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB5),"Hold left mouse button");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB5),"Hold right mouse button");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB5),"Hold middle mouse button");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB5),"Mouse wheel up");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB5),"Mouse wheel down");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB5),"Mouse move X");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB5),"Mouse move Y");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB5),"Write text");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB5),"Press keys");
+    g_signal_connect(G_OBJECT(dropB5), "changed",G_CALLBACK(comboAction5_selected), G_OBJECT(win));
+
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB6),"No action");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB6),"Switch to next configuration");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB6),"Click left mouse button");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB6),"Click right mouse button");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB6),"Click middle mouse button");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB6),"Double click left mouse button");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB6),"Hold left mouse button");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB6),"Hold right mouse button");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB6),"Hold middle mouse button");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB6),"Mouse wheel up");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB6),"Mouse wheel down");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB6),"Mouse move X");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB6),"Mouse move Y");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB6),"Write text");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB6),"Press keys");
+    g_signal_connect(G_OBJECT(dropB6), "changed",G_CALLBACK(comboAction6_selected), G_OBJECT(win));
+
+
+
+    /** attach everything to the grid **/
+    /** TODO: parameter fields... */
+    //Button 1
+    gtk_grid_attach(GTK_GRID(tableActions),labelB1,0,0,4,1);
+    gtk_grid_attach(GTK_GRID(tableActions),dropB1,0,1,4,1);
+
+    //Button 2
+    gtk_grid_attach(GTK_GRID(tableActions),labelB2,0,3,4,1);
+    gtk_grid_attach(GTK_GRID(tableActions),dropB2,0,4,4,1);
+
+    //Button 3
+    gtk_grid_attach(GTK_GRID(tableActions),labelB3,0,6,4,1);
+    gtk_grid_attach(GTK_GRID(tableActions),dropB3,0,7,4,1);
+
+    //Button 4
+    gtk_grid_attach(GTK_GRID(tableActions),labelB4,4,0,4,1);
+    gtk_grid_attach(GTK_GRID(tableActions),dropB4,4,1,4,1);
+
+    //Button 5
+    gtk_grid_attach(GTK_GRID(tableActions),labelB5,4,3,4,1);
+    gtk_grid_attach(GTK_GRID(tableActions),dropB5,4,4,4,1);
+
+    //Button 6
+    gtk_grid_attach(GTK_GRID(tableActions),labelB6,4,6,4,1);
+    gtk_grid_attach(GTK_GRID(tableActions),dropB6,4,7,4,1);
+
+
+
     notebook = gtk_notebook_new();
-    gtk_notebook_append_page(notebook,tableActions,gtk_label_new("Select button press functions"));
-    gtk_container_add(GTK_CONTAINER(alignAction), notebook);
-    gtk_container_add(GTK_CONTAINER(mainBox), alignAction);
+    gtk_notebook_append_page(GTK_NOTEBOOK(notebook),tableActions,gtk_label_new("Select button press functions"));
+    gtk_container_add(GTK_CONTAINER(mainBox), notebook);
 }
 //Build the load/store GUI for the slots
 static void createGUILoadStore(GtkWidget *mainBox, GtkWidget *win)
@@ -169,6 +320,7 @@ static void createGUILoadStore(GtkWidget *mainBox, GtkWidget *win)
     /* Save/Load/Slot Actions */
     //alignSave = gtk_alignment_new(0,1,1,0);
     hboxSave = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,0);
+    gtk_box_set_homogeneous(GTK_BOX(hboxSave),TRUE);
     //gtk_container_add(GTK_CONTAINER(alignSave), hboxSave);
 
     btnSaveApply = gtk_button_new_with_label("Apply Settings");
@@ -216,9 +368,44 @@ static void about (GtkWidget *wid, GtkWidget *win)
     gtk_widget_destroy (dialog);
 }
 
+void combo_selected(GtkWidget *widget, gpointer window)
+{
+  strcpy(currentCOMPort,gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(widget)));
+}
+
 static void connect (GtkWidget *wid, GtkWidget *win)
 {
-    printf("TBD: connect method.\n");
+    char *comName;
+    comName = strdup("");
+
+    #ifdef ARCH_LINUX
+        strcat(comName,"/dev/serial/by-id/");
+    #endif // ARCH_LINUX
+
+    if(isConnected == 0)
+    {
+        if(currentCOMPort != NULL && strlen(currentCOMPort) != 0)
+        {
+            strcat(comName,currentCOMPort);
+            int ret = openCOM(comName);
+            if(ret < 0)
+            {
+                logAdd("Error connecting to the serial port.");
+            } else {
+                logAdd("Connected!");
+                isConnected = 1;
+                gtk_label_set_text(GTK_LABEL(labelConnected),"Connected");
+                gtk_button_set_label(GTK_BUTTON(wid),"Disconnect");
+            }
+        }
+    } else {
+        closeCOM();
+        logAdd("Disconnected!");
+        isConnected = 0;
+        gtk_label_set_text(GTK_LABEL(labelConnected),"Not connected");
+        gtk_button_set_label(GTK_BUTTON(wid),"Connect");
+    }
+
 }
 
 
@@ -285,7 +472,7 @@ static GtkWidget *createLog (void)
                                                "text", 1,
                                                NULL);
 
-    model = logStore;
+    model = GTK_TREE_MODEL(logStore);
 
     gtk_tree_view_set_model (GTK_TREE_VIEW (view), model);
 
@@ -297,3 +484,33 @@ static GtkWidget *createLog (void)
 
     return view;
 }
+
+
+void comboAction1_selected(GtkWidget *widget, gpointer window)
+{
+    printf("TBD: process action selection for button1\n");
+}
+void comboAction2_selected(GtkWidget *widget, gpointer window)
+{
+    printf("TBD: process action selection for button2\n");
+}
+void comboAction3_selected(GtkWidget *widget, gpointer window)
+{
+    printf("TBD: process action selection for button3\n");
+}
+void comboAction4_selected(GtkWidget *widget, gpointer window)
+{
+    printf("TBD: process action selection for button4\n");
+}
+void comboAction5_selected(GtkWidget *widget, gpointer window)
+{
+    printf("TBD: process action selection for button5\n");
+}
+void comboAction6_selected(GtkWidget *widget, gpointer window)
+{
+    printf("TBD: process action selection for button6\n");
+}
+
+
+
+
