@@ -33,6 +33,11 @@ void comboAction6_selected(GtkWidget *widget, gpointer window);
 /** General methods for the main... **/
 //Log facility: add a log entry
 void logAdd(char * logmessage);
+//Set the label for each button to the corresponding parameter type
+void setParameterLabel(GtkWidget *label, char* selection);
+void setParameterExtras(GtkWidget *spinMouseMove, GtkWidget *textWriteText, GtkWidget *textLabelKeys, GtkWidget *dropKeys, char* selection);
+void populateKeyCodes(GtkWidget *dropDown);
+void populateActions(GtkWidget *dropDown);
 
 /** GUI builder **/
 //Create the log facility

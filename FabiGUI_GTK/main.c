@@ -8,6 +8,41 @@ GtkWidget *btnStatusConnect = NULL;
 char currentCOMPort[512];
 int isConnected = 0;
 
+GtkWidget *labelParameterB1 = NULL;
+GtkWidget *labelParameterB2 = NULL;
+GtkWidget *labelParameterB3 = NULL;
+GtkWidget *labelParameterB4 = NULL;
+GtkWidget *labelParameterB5 = NULL;
+GtkWidget *labelParameterB6 = NULL;
+
+GtkWidget *spinMouseMoveB1 = NULL;
+GtkWidget *spinMouseMoveB2 = NULL;
+GtkWidget *spinMouseMoveB3 = NULL;
+GtkWidget *spinMouseMoveB4 = NULL;
+GtkWidget *spinMouseMoveB5 = NULL;
+GtkWidget *spinMouseMoveB6 = NULL;
+
+GtkWidget *textWriteTextB1 = NULL;
+GtkWidget *textWriteTextB2 = NULL;
+GtkWidget *textWriteTextB3 = NULL;
+GtkWidget *textWriteTextB4 = NULL;
+GtkWidget *textWriteTextB5 = NULL;
+GtkWidget *textWriteTextB6 = NULL;
+
+GtkWidget *textLabelKeysB1 = NULL;
+GtkWidget *textLabelKeysB2 = NULL;
+GtkWidget *textLabelKeysB3 = NULL;
+GtkWidget *textLabelKeysB4 = NULL;
+GtkWidget *textLabelKeysB5 = NULL;
+GtkWidget *textLabelKeysB6 = NULL;
+
+GtkWidget *dropKeysB1 = NULL;
+GtkWidget *dropKeysB2 = NULL;
+GtkWidget *dropKeysB3 = NULL;
+GtkWidget *dropKeysB4 = NULL;
+GtkWidget *dropKeysB5 = NULL;
+GtkWidget *dropKeysB6 = NULL;
+
 
 int main (int argc, char *argv[])
 {
@@ -46,6 +81,36 @@ int main (int argc, char *argv[])
 
     /* Enter the main loop */
     gtk_widget_show_all (win);
+
+    /* Hide some widgets again... */
+    gtk_widget_hide(GTK_WIDGET(spinMouseMoveB1));
+    gtk_widget_hide(GTK_WIDGET(spinMouseMoveB2));
+    gtk_widget_hide(GTK_WIDGET(spinMouseMoveB3));
+    gtk_widget_hide(GTK_WIDGET(spinMouseMoveB4));
+    gtk_widget_hide(GTK_WIDGET(spinMouseMoveB5));
+    gtk_widget_hide(GTK_WIDGET(spinMouseMoveB6));
+
+    gtk_widget_hide(GTK_WIDGET(textLabelKeysB1));
+    gtk_widget_hide(GTK_WIDGET(textLabelKeysB2));
+    gtk_widget_hide(GTK_WIDGET(textLabelKeysB3));
+    gtk_widget_hide(GTK_WIDGET(textLabelKeysB4));
+    gtk_widget_hide(GTK_WIDGET(textLabelKeysB5));
+    gtk_widget_hide(GTK_WIDGET(textLabelKeysB6));
+
+    gtk_widget_hide(GTK_WIDGET(textWriteTextB1));
+    gtk_widget_hide(GTK_WIDGET(textWriteTextB2));
+    gtk_widget_hide(GTK_WIDGET(textWriteTextB3));
+    gtk_widget_hide(GTK_WIDGET(textWriteTextB4));
+    gtk_widget_hide(GTK_WIDGET(textWriteTextB5));
+    gtk_widget_hide(GTK_WIDGET(textWriteTextB6));
+
+    gtk_widget_hide(GTK_WIDGET(dropKeysB1));
+    gtk_widget_hide(GTK_WIDGET(dropKeysB2));
+    gtk_widget_hide(GTK_WIDGET(dropKeysB3));
+    gtk_widget_hide(GTK_WIDGET(dropKeysB4));
+    gtk_widget_hide(GTK_WIDGET(dropKeysB5));
+    gtk_widget_hide(GTK_WIDGET(dropKeysB6));
+
     gtk_main ();
     return 0;
 }
@@ -159,6 +224,13 @@ static void createGUIActions(GtkWidget *mainBox, GtkWidget *win)
     GtkWidget *labelB5 = gtk_label_new("Button 5");
     GtkWidget *labelB6 = gtk_label_new("Button 6");
 
+    labelParameterB1 = gtk_label_new("");
+    labelParameterB2 = gtk_label_new("");
+    labelParameterB3 = gtk_label_new("");
+    labelParameterB4 = gtk_label_new("");
+    labelParameterB5 = gtk_label_new("");
+    labelParameterB6 = gtk_label_new("");
+
     GtkWidget *dropB1 = gtk_combo_box_text_new();
     GtkWidget *dropB2 = gtk_combo_box_text_new();
     GtkWidget *dropB3 = gtk_combo_box_text_new();
@@ -166,140 +238,130 @@ static void createGUIActions(GtkWidget *mainBox, GtkWidget *win)
     GtkWidget *dropB5 = gtk_combo_box_text_new();
     GtkWidget *dropB6 = gtk_combo_box_text_new();
 
+    spinMouseMoveB1 = gtk_spin_button_new(NULL,1.0,0);
+    spinMouseMoveB2 = gtk_spin_button_new(NULL,1.0,0);
+    spinMouseMoveB3 = gtk_spin_button_new(NULL,1.0,0);
+    spinMouseMoveB4 = gtk_spin_button_new(NULL,1.0,0);
+    spinMouseMoveB5 = gtk_spin_button_new(NULL,1.0,0);
+    spinMouseMoveB6 = gtk_spin_button_new(NULL,1.0,0);
+
+    gtk_spin_button_set_range(GTK_SPIN_BUTTON(spinMouseMoveB1),-50.0,50.0);
+    gtk_spin_button_set_range(GTK_SPIN_BUTTON(spinMouseMoveB2),-50.0,50.0);
+    gtk_spin_button_set_range(GTK_SPIN_BUTTON(spinMouseMoveB3),-50.0,50.0);
+    gtk_spin_button_set_range(GTK_SPIN_BUTTON(spinMouseMoveB4),-50.0,50.0);
+    gtk_spin_button_set_range(GTK_SPIN_BUTTON(spinMouseMoveB5),-50.0,50.0);
+    gtk_spin_button_set_range(GTK_SPIN_BUTTON(spinMouseMoveB6),-50.0,50.0);
+    gtk_spin_button_set_increments (GTK_SPIN_BUTTON(spinMouseMoveB1),1.0,2.0);
+    gtk_spin_button_set_increments (GTK_SPIN_BUTTON(spinMouseMoveB2),1.0,2.0);
+    gtk_spin_button_set_increments (GTK_SPIN_BUTTON(spinMouseMoveB3),1.0,2.0);
+    gtk_spin_button_set_increments (GTK_SPIN_BUTTON(spinMouseMoveB4),1.0,2.0);
+    gtk_spin_button_set_increments (GTK_SPIN_BUTTON(spinMouseMoveB5),1.0,2.0);
+    gtk_spin_button_set_increments (GTK_SPIN_BUTTON(spinMouseMoveB6),1.0,2.0);
+
+    textWriteTextB1 = gtk_entry_new();
+    textWriteTextB2 = gtk_entry_new();
+    textWriteTextB3 = gtk_entry_new();
+    textWriteTextB4 = gtk_entry_new();
+    textWriteTextB5 = gtk_entry_new();
+    textWriteTextB6 = gtk_entry_new();
+
+    textLabelKeysB1 = gtk_label_new("Keys:");
+    textLabelKeysB2 = gtk_label_new("Keys:");
+    textLabelKeysB3 = gtk_label_new("Keys:");
+    textLabelKeysB4 = gtk_label_new("Keys:");
+    textLabelKeysB5 = gtk_label_new("Keys:");
+    textLabelKeysB6 = gtk_label_new("Keys:");
+
+    dropKeysB1 = gtk_combo_box_text_new();
+    dropKeysB2 = gtk_combo_box_text_new();
+    dropKeysB3 = gtk_combo_box_text_new();
+    dropKeysB4 = gtk_combo_box_text_new();
+    dropKeysB5 = gtk_combo_box_text_new();
+    dropKeysB6 = gtk_combo_box_text_new();
+
+    //Build the key codes drop down
+    populateKeyCodes(dropKeysB1);
+    populateKeyCodes(dropKeysB2);
+    populateKeyCodes(dropKeysB3);
+    populateKeyCodes(dropKeysB4);
+    populateKeyCodes(dropKeysB5);
+    populateKeyCodes(dropKeysB6);
+
     //Build grid
     tableActions = gtk_grid_new();
     gtk_grid_set_column_homogeneous(GTK_GRID(tableActions),TRUE);
 
-    //build each drop down menu
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB1),"No action");
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB1),"Switch to next configuration");
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB1),"Click left mouse button");
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB1),"Click right mouse button");
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB1),"Click middle mouse button");
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB1),"Double click left mouse button");
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB1),"Hold left mouse button");
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB1),"Hold right mouse button");
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB1),"Hold middle mouse button");
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB1),"Mouse wheel up");
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB1),"Mouse wheel down");
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB1),"Mouse move X");
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB1),"Mouse move Y");
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB1),"Write text");
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB1),"Press keys");
+    //build each drop down menu & attach signals
+    populateActions(dropB1);
     g_signal_connect(G_OBJECT(dropB1), "changed",G_CALLBACK(comboAction1_selected), G_OBJECT(win));
-
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB2),"No action");
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB2),"Switch to next configuration");
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB2),"Click left mouse button");
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB2),"Click right mouse button");
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB2),"Click middle mouse button");
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB2),"Double click left mouse button");
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB2),"Hold left mouse button");
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB2),"Hold right mouse button");
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB2),"Hold middle mouse button");
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB2),"Mouse wheel up");
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB2),"Mouse wheel down");
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB2),"Mouse move X");
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB2),"Mouse move Y");
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB2),"Write text");
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB2),"Press keys");
+    populateActions(dropB2);
     g_signal_connect(G_OBJECT(dropB2), "changed",G_CALLBACK(comboAction2_selected), G_OBJECT(win));
-
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB3),"No action");
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB3),"Switch to next configuration");
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB3),"Click left mouse button");
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB3),"Click right mouse button");
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB3),"Click middle mouse button");
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB3),"Double click left mouse button");
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB3),"Hold left mouse button");
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB3),"Hold right mouse button");
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB3),"Hold middle mouse button");
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB3),"Mouse wheel up");
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB3),"Mouse wheel down");
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB3),"Mouse move X");
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB3),"Mouse move Y");
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB3),"Write text");
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB3),"Press keys");
+    populateActions(dropB3);
     g_signal_connect(G_OBJECT(dropB3), "changed",G_CALLBACK(comboAction3_selected), G_OBJECT(win));
-
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB4),"No action");
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB4),"Switch to next configuration");
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB4),"Click left mouse button");
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB4),"Click right mouse button");
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB4),"Click middle mouse button");
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB4),"Double click left mouse button");
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB4),"Hold left mouse button");
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB4),"Hold right mouse button");
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB4),"Hold middle mouse button");
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB4),"Mouse wheel up");
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB4),"Mouse wheel down");
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB4),"Mouse move X");
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB4),"Mouse move Y");
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB4),"Write text");
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB4),"Press keys");
+    populateActions(dropB4);
     g_signal_connect(G_OBJECT(dropB4), "changed",G_CALLBACK(comboAction4_selected), G_OBJECT(win));
-
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB5),"No action");
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB5),"Switch to next configuration");
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB5),"Click left mouse button");
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB5),"Click right mouse button");
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB5),"Click middle mouse button");
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB5),"Double click left mouse button");
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB5),"Hold left mouse button");
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB5),"Hold right mouse button");
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB5),"Hold middle mouse button");
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB5),"Mouse wheel up");
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB5),"Mouse wheel down");
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB5),"Mouse move X");
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB5),"Mouse move Y");
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB5),"Write text");
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB5),"Press keys");
+    populateActions(dropB5);
     g_signal_connect(G_OBJECT(dropB5), "changed",G_CALLBACK(comboAction5_selected), G_OBJECT(win));
-
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB6),"No action");
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB6),"Switch to next configuration");
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB6),"Click left mouse button");
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB6),"Click right mouse button");
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB6),"Click middle mouse button");
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB6),"Double click left mouse button");
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB6),"Hold left mouse button");
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB6),"Hold right mouse button");
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB6),"Hold middle mouse button");
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB6),"Mouse wheel up");
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB6),"Mouse wheel down");
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB6),"Mouse move X");
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB6),"Mouse move Y");
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB6),"Write text");
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropB6),"Press keys");
+    populateActions(dropB6);
     g_signal_connect(G_OBJECT(dropB6), "changed",G_CALLBACK(comboAction6_selected), G_OBJECT(win));
 
 
 
     /** attach everything to the grid **/
-    /** TODO: parameter fields... */
     //Button 1
     gtk_grid_attach(GTK_GRID(tableActions),labelB1,0,0,4,1);
     gtk_grid_attach(GTK_GRID(tableActions),dropB1,0,1,4,1);
+    gtk_grid_attach(GTK_GRID(tableActions),labelParameterB1,0,2,1,1);
+    gtk_grid_attach(GTK_GRID(tableActions),spinMouseMoveB1,1,2,1,1);
+    gtk_grid_attach(GTK_GRID(tableActions),textLabelKeysB1,0,2,2,1);
+    gtk_grid_attach(GTK_GRID(tableActions),dropKeysB1,2,2,2,1);
+    gtk_grid_attach(GTK_GRID(tableActions),textWriteTextB1,1,2,3,1);
+
 
     //Button 2
     gtk_grid_attach(GTK_GRID(tableActions),labelB2,0,3,4,1);
     gtk_grid_attach(GTK_GRID(tableActions),dropB2,0,4,4,1);
+    gtk_grid_attach(GTK_GRID(tableActions),labelParameterB2,0,5,1,1);
+    gtk_grid_attach(GTK_GRID(tableActions),spinMouseMoveB2,1,5,1,1);
+    gtk_grid_attach(GTK_GRID(tableActions),textLabelKeysB2,0,5,2,1);
+    gtk_grid_attach(GTK_GRID(tableActions),dropKeysB2,2,5,2,1);
+    gtk_grid_attach(GTK_GRID(tableActions),textWriteTextB2,1,5,3,1);
 
     //Button 3
     gtk_grid_attach(GTK_GRID(tableActions),labelB3,0,6,4,1);
     gtk_grid_attach(GTK_GRID(tableActions),dropB3,0,7,4,1);
+    gtk_grid_attach(GTK_GRID(tableActions),labelParameterB3,0,8,1,1);
+    gtk_grid_attach(GTK_GRID(tableActions),spinMouseMoveB3,1,8,1,1);
+    gtk_grid_attach(GTK_GRID(tableActions),textLabelKeysB3,0,8,2,1);
+    gtk_grid_attach(GTK_GRID(tableActions),dropKeysB3,2,8,2,1);
+    gtk_grid_attach(GTK_GRID(tableActions),textWriteTextB3,1,8,3,1);
 
     //Button 4
     gtk_grid_attach(GTK_GRID(tableActions),labelB4,4,0,4,1);
     gtk_grid_attach(GTK_GRID(tableActions),dropB4,4,1,4,1);
+    gtk_grid_attach(GTK_GRID(tableActions),labelParameterB4,4,2,1,1);
+    gtk_grid_attach(GTK_GRID(tableActions),spinMouseMoveB4,5,2,1,1);
+    gtk_grid_attach(GTK_GRID(tableActions),textLabelKeysB4,4,2,2,1);
+    gtk_grid_attach(GTK_GRID(tableActions),dropKeysB4,6,2,2,1);
+    gtk_grid_attach(GTK_GRID(tableActions),textWriteTextB4,5,2,3,1);
 
     //Button 5
     gtk_grid_attach(GTK_GRID(tableActions),labelB5,4,3,4,1);
     gtk_grid_attach(GTK_GRID(tableActions),dropB5,4,4,4,1);
+    gtk_grid_attach(GTK_GRID(tableActions),labelParameterB5,4,5,1,1);
+    gtk_grid_attach(GTK_GRID(tableActions),spinMouseMoveB5,5,5,1,1);
+    gtk_grid_attach(GTK_GRID(tableActions),textLabelKeysB5,4,5,2,1);
+    gtk_grid_attach(GTK_GRID(tableActions),dropKeysB5,6,5,2,1);
+    gtk_grid_attach(GTK_GRID(tableActions),textWriteTextB5,5,5,3,1);
 
     //Button 6
     gtk_grid_attach(GTK_GRID(tableActions),labelB6,4,6,4,1);
     gtk_grid_attach(GTK_GRID(tableActions),dropB6,4,7,4,1);
+    gtk_grid_attach(GTK_GRID(tableActions),labelParameterB6,4,8,1,1);
+    gtk_grid_attach(GTK_GRID(tableActions),spinMouseMoveB6,5,8,1,1);
+    gtk_grid_attach(GTK_GRID(tableActions),textLabelKeysB6,4,8,2,1);
+    gtk_grid_attach(GTK_GRID(tableActions),dropKeysB6,6,8,2,1);
+    gtk_grid_attach(GTK_GRID(tableActions),textWriteTextB6,5,8,3,1);
 
 
 
@@ -489,27 +551,329 @@ static GtkWidget *createLog (void)
 
 void comboAction1_selected(GtkWidget *widget, gpointer window)
 {
+    char selection[256];
+    strcpy(selection,gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(widget)));
+
+    setParameterLabel(labelParameterB1,selection);
+    setParameterExtras(spinMouseMoveB1, textWriteTextB1, textLabelKeysB1, dropKeysB1, selection);
     printf("TBD: process action selection for button1\n");
 }
 void comboAction2_selected(GtkWidget *widget, gpointer window)
 {
+    char selection[256];
+    strcpy(selection,gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(widget)));
+
+    setParameterLabel(labelParameterB2,selection);
+    setParameterExtras(spinMouseMoveB2, textWriteTextB2, textLabelKeysB2, dropKeysB2, selection);
     printf("TBD: process action selection for button2\n");
 }
 void comboAction3_selected(GtkWidget *widget, gpointer window)
 {
+    char selection[256];
+    strcpy(selection,gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(widget)));
+
+    setParameterLabel(labelParameterB3,selection);
+    setParameterExtras(spinMouseMoveB3, textWriteTextB3, textLabelKeysB3, dropKeysB3, selection);
     printf("TBD: process action selection for button3\n");
 }
 void comboAction4_selected(GtkWidget *widget, gpointer window)
 {
+    char selection[256];
+    strcpy(selection,gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(widget)));
+
+    setParameterLabel(labelParameterB4,selection);
+    setParameterExtras(spinMouseMoveB4, textWriteTextB4, textLabelKeysB4, dropKeysB4, selection);
     printf("TBD: process action selection for button4\n");
 }
 void comboAction5_selected(GtkWidget *widget, gpointer window)
 {
+    char selection[256];
+    strcpy(selection,gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(widget)));
+
+    setParameterLabel(labelParameterB5,selection);
+    setParameterExtras(spinMouseMoveB5, textWriteTextB5, textLabelKeysB5, dropKeysB5, selection);
     printf("TBD: process action selection for button5\n");
 }
 void comboAction6_selected(GtkWidget *widget, gpointer window)
 {
+    char selection[256];
+    strcpy(selection,gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(widget)));
+
+    setParameterLabel(labelParameterB6,selection);
+    setParameterExtras(spinMouseMoveB6, textWriteTextB6, textLabelKeysB6, dropKeysB6, selection);
     printf("TBD: process action selection for button6\n");
+}
+
+void populateKeyCodes(GtkWidget *dropDown)
+{
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropDown),"Clear!");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropDown),"KEY_A");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropDown),"KEY_B");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropDown),"KEY_C");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropDown),"KEY_D");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropDown),"KEY_E");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropDown),"KEY_F");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropDown),"KEY_G");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropDown),"KEY_H");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropDown),"KEY_I");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropDown),"KEY_J");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropDown),"KEY_K");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropDown),"KEY_L");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropDown),"KEY_M");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropDown),"KEY_N");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropDown),"KEY_O");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropDown),"KEY_P");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropDown),"KEY_Q");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropDown),"KEY_R");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropDown),"KEY_S");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropDown),"KEY_T");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropDown),"KEY_U");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropDown),"KEY_V");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropDown),"KEY_W");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropDown),"KEY_X");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropDown),"KEY_Y");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropDown),"KEY_Z");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropDown),"KEY_1");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropDown),"KEY_2");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropDown),"KEY_3");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropDown),"KEY_4");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropDown),"KEY_5");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropDown),"KEY_6");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropDown),"KEY_7");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropDown),"KEY_8");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropDown),"KEY_9");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropDown),"KEY_0");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropDown),"KEY_F1");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropDown),"KEY_F2");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropDown),"KEY_F3");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropDown),"KEY_F4");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropDown),"KEY_F5");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropDown),"KEY_F6");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropDown),"KEY_F7");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropDown),"KEY_F8");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropDown),"KEY_F9");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropDown),"KEY_F10");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropDown),"KEY_F11");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropDown),"KEY_F12");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropDown),"KEY_UP");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropDown),"KEY_DOWN");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropDown),"KEY_LEFT");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropDown),"KEY_RIGHT");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropDown),"KEY_SPACE");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropDown),"KEY_ALT");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropDown),"KEY_ENTER");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropDown),"KEY_BACKSPACE");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropDown),"KEY_CAPS_LOCK");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropDown),"KEY_CTRL");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropDown),"KEY_DELETE");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropDown),"KEY_END");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropDown),"KEY_ESC");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropDown),"KEY_GUI");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropDown),"KEY_HOME");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropDown),"KEY_INSERT");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropDown),"KEY_NUM_LOCK");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropDown),"KEY_PAGE_UP");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropDown),"KEY_PAGE_DOWN");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropDown),"KEY_PAUSE");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropDown),"KEY_RIGHT_ALT");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropDown),"KEY_RIGHT_GUI");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropDown),"KEY_SCROLL_LOCK");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropDown),"KEY_SHIFT");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropDown),"KEY_TAB");
+}
+
+void populateActions(GtkWidget *dropDown)
+{
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropDown),"No action");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropDown),"Switch to next configuration");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropDown),"Click left mouse button");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropDown),"Click right mouse button");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropDown),"Click middle mouse button");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropDown),"Double click left mouse button");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropDown),"Hold left mouse button");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropDown),"Hold right mouse button");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropDown),"Hold middle mouse button");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropDown),"Mouse wheel up");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropDown),"Mouse wheel down");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropDown),"Mouse move X");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropDown),"Mouse move Y");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropDown),"Write text");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dropDown),"Press keys");
+}
+
+void setParameterLabel(GtkWidget *label, char* selection)
+{
+    if(strcmp(selection, "No action") == 0)
+    {
+        gtk_label_set_text(GTK_LABEL(label),"");
+    }
+    if(strcmp(selection, "Switch to next configuration") == 0)
+    {
+        gtk_label_set_text(GTK_LABEL(label),"");
+    }
+    if(strcmp(selection, "Click left mouse button") == 0)
+    {
+        gtk_label_set_text(GTK_LABEL(label),"");
+    }
+    if(strcmp(selection, "Click right mouse button") == 0)
+    {
+        gtk_label_set_text(GTK_LABEL(label),"");
+    }
+    if(strcmp(selection, "Click middle mouse button") == 0)
+    {
+        gtk_label_set_text(GTK_LABEL(label),"");
+    }
+    if(strcmp(selection, "Hold left mouse button") == 0)
+    {
+        gtk_label_set_text(GTK_LABEL(label),"");
+    }
+    if(strcmp(selection, "Hold right mouse button") == 0)
+    {
+        gtk_label_set_text(GTK_LABEL(label),"");
+    }
+    if(strcmp(selection, "Hold middle mouse button") == 0)
+    {
+        gtk_label_set_text(GTK_LABEL(label),"");
+    }
+    if(strcmp(selection, "Double click left mouse button") == 0)
+    {
+        gtk_label_set_text(GTK_LABEL(label),"");
+    }
+    if(strcmp(selection, "Mouse wheel up") == 0)
+    {
+        gtk_label_set_text(GTK_LABEL(label),"");
+    }
+    if(strcmp(selection, "Mouse wheel down") == 0)
+    {
+        gtk_label_set_text(GTK_LABEL(label),"");
+    }
+    if(strcmp(selection, "Mouse move X") == 0)
+    {
+        gtk_label_set_text(GTK_LABEL(label),"Speed:");
+    }
+    if(strcmp(selection, "Mouse move Y") == 0)
+    {
+        gtk_label_set_text(GTK_LABEL(label),"Speed:");
+    }
+    if(strcmp(selection, "Write text") == 0)
+    {
+        gtk_label_set_text(GTK_LABEL(label),"Text:");
+    }
+    if(strcmp(selection, "Press keys") == 0)
+    {
+        gtk_label_set_text(GTK_LABEL(label),"");
+    }
+
+}
+
+void setParameterExtras(GtkWidget *spinMouseMove, GtkWidget *textWriteText, GtkWidget *textLabelKeys, GtkWidget *dropKeys, char* selection)
+{
+    if(strcmp(selection, "No action") == 0)
+    {
+        gtk_widget_hide(GTK_WIDGET(spinMouseMove));
+        gtk_widget_hide(GTK_WIDGET(textWriteText));
+        gtk_widget_hide(GTK_WIDGET(textLabelKeys));
+        gtk_widget_hide(GTK_WIDGET(dropKeys));
+    }
+    if(strcmp(selection, "Switch to next configuration") == 0)
+    {
+        gtk_widget_hide(GTK_WIDGET(spinMouseMove));
+        gtk_widget_hide(GTK_WIDGET(textWriteText));
+        gtk_widget_hide(GTK_WIDGET(textLabelKeys));
+        gtk_widget_hide(GTK_WIDGET(dropKeys));
+    }
+    if(strcmp(selection, "Click left mouse button") == 0)
+    {
+        gtk_widget_hide(GTK_WIDGET(spinMouseMove));
+        gtk_widget_hide(GTK_WIDGET(textWriteText));
+        gtk_widget_hide(GTK_WIDGET(textLabelKeys));
+        gtk_widget_hide(GTK_WIDGET(dropKeys));
+    }
+    if(strcmp(selection, "Click right mouse button") == 0)
+    {
+        gtk_widget_hide(GTK_WIDGET(spinMouseMove));
+        gtk_widget_hide(GTK_WIDGET(textWriteText));
+        gtk_widget_hide(GTK_WIDGET(textLabelKeys));
+        gtk_widget_hide(GTK_WIDGET(dropKeys));
+    }
+    if(strcmp(selection, "Click middle mouse button") == 0)
+    {
+        gtk_widget_hide(GTK_WIDGET(spinMouseMove));
+        gtk_widget_hide(GTK_WIDGET(textWriteText));
+        gtk_widget_hide(GTK_WIDGET(textLabelKeys));
+        gtk_widget_hide(GTK_WIDGET(dropKeys));
+    }
+    if(strcmp(selection, "Hold left mouse button") == 0)
+    {
+        gtk_widget_hide(GTK_WIDGET(spinMouseMove));
+        gtk_widget_hide(GTK_WIDGET(textWriteText));
+        gtk_widget_hide(GTK_WIDGET(textLabelKeys));
+        gtk_widget_hide(GTK_WIDGET(dropKeys));
+    }
+    if(strcmp(selection, "Hold right mouse button") == 0)
+    {
+        gtk_widget_hide(GTK_WIDGET(spinMouseMove));
+        gtk_widget_hide(GTK_WIDGET(textWriteText));
+        gtk_widget_hide(GTK_WIDGET(textLabelKeys));
+        gtk_widget_hide(GTK_WIDGET(dropKeys));
+    }
+    if(strcmp(selection, "Hold middle mouse button") == 0)
+    {
+        gtk_widget_hide(GTK_WIDGET(spinMouseMove));
+        gtk_widget_hide(GTK_WIDGET(textWriteText));
+        gtk_widget_hide(GTK_WIDGET(textLabelKeys));
+        gtk_widget_hide(GTK_WIDGET(dropKeys));
+    }
+    if(strcmp(selection, "Double click left mouse button") == 0)
+    {
+        gtk_widget_hide(GTK_WIDGET(spinMouseMove));
+        gtk_widget_hide(GTK_WIDGET(textWriteText));
+        gtk_widget_hide(GTK_WIDGET(textLabelKeys));
+        gtk_widget_hide(GTK_WIDGET(dropKeys));
+    }
+    if(strcmp(selection, "Mouse wheel up") == 0)
+    {
+        gtk_widget_hide(GTK_WIDGET(spinMouseMove));
+        gtk_widget_hide(GTK_WIDGET(textWriteText));
+        gtk_widget_hide(GTK_WIDGET(textLabelKeys));
+        gtk_widget_hide(GTK_WIDGET(dropKeys));
+    }
+    if(strcmp(selection, "Mouse wheel down") == 0)
+    {
+        gtk_widget_hide(GTK_WIDGET(spinMouseMove));
+        gtk_widget_hide(GTK_WIDGET(textWriteText));
+        gtk_widget_hide(GTK_WIDGET(textLabelKeys));
+        gtk_widget_hide(GTK_WIDGET(dropKeys));
+    }
+    if(strcmp(selection, "Mouse move X") == 0)
+    {
+        gtk_widget_show(GTK_WIDGET(spinMouseMove));
+        gtk_widget_hide(GTK_WIDGET(textWriteText));
+        gtk_widget_hide(GTK_WIDGET(textLabelKeys));
+        gtk_widget_hide(GTK_WIDGET(dropKeys));
+    }
+    if(strcmp(selection, "Mouse move Y") == 0)
+    {
+        gtk_widget_show(GTK_WIDGET(spinMouseMove));
+        gtk_widget_hide(GTK_WIDGET(textWriteText));
+        gtk_widget_hide(GTK_WIDGET(textLabelKeys));
+        gtk_widget_hide(GTK_WIDGET(dropKeys));
+    }
+    if(strcmp(selection, "Write text") == 0)
+    {
+        gtk_widget_hide(GTK_WIDGET(spinMouseMove));
+        gtk_widget_show(GTK_WIDGET(textWriteText));
+        gtk_widget_hide(GTK_WIDGET(textLabelKeys));
+        gtk_widget_hide(GTK_WIDGET(dropKeys));
+    }
+    if(strcmp(selection, "Press keys") == 0)
+    {
+        gtk_widget_hide(GTK_WIDGET(spinMouseMove));
+        gtk_widget_hide(GTK_WIDGET(textWriteText));
+        gtk_widget_show(GTK_WIDGET(textLabelKeys));
+        gtk_widget_show(GTK_WIDGET(dropKeys));
+    }
+
 }
 
 #ifdef ARCH_WIN
