@@ -13,7 +13,7 @@ void listComPorts(char* list)
 {
     #ifdef ARCH_WIN
         //Test...
-        list = strdup("COM1;COM2");
+        strcpy("COM1;COM2");
     #endif // ARCH_WIN
 
     #ifdef ARCH_LINUX
