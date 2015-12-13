@@ -3,13 +3,13 @@
 #include <stdint.h>
 
 
-// #define TEENSY                 //  if a Teensy controller is used
-#define ARDUINO_PRO_MICRO   //  if Arduino Leonardo or Arduino Pro Micro is used 
+#define TEENSY                 //  if a Teensy controller is used
+//#define ARDUINO_PRO_MICRO   //  if Arduino Leonardo or Arduino Pro Micro is used 
  
 
 #define NUMBER_OF_BUTTONS 6          // number of connected or virtual switches
 #define NUMBER_OF_PHYSICAL_BUTTONS 6  // number of connected switches
-#define NUMBER_OF_LEDS      3         // number of connected leds
+#define NUMBER_OF_LEDS      4         // number of connected leds
 #define MAX_SLOTS          5          // maximum number of EEPROM memory slots
 
 #define MAX_KEYSTRING_LEN 26          // maximum lenght for key identifiers / keyboard text
