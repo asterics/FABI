@@ -16,6 +16,9 @@ static void connect (GtkWidget *wid, GtkWidget *win);
 //Callback for selected serial port from combobox
 void combo_selected(GtkWidget *widget, gpointer window);
 
+//Button "Apply": send current configraution to FABI...
+static void apply (GtkWidget *wid, GtkWidget *win);
+
 //ComboBox callback button 1 action
 void comboAction1_selected(GtkWidget *widget, gpointer window);
 //ComboBox callback button 2 action
@@ -34,8 +37,10 @@ void comboAction6_selected(GtkWidget *widget, gpointer window);
 //Log facility: add a log entry
 void logAdd(char * logmessage);
 //Set the label for each button to the corresponding parameter type
+int getSelectionIndex(char * selection);
 void setParameterLabel(GtkWidget *label, char* selection);
 void setParameterExtras(GtkWidget *spinMouseMove, GtkWidget *textWriteText, GtkWidget *textLabelKeys, GtkWidget *dropKeys, char* selection);
+void setButtonCommand(int buttonNumber, GtkWidget *spinMouseMove, GtkWidget *textWriteText, GtkWidget *textLabelKeys, char* selection);
 void populateKeyCodes(GtkWidget *dropDown);
 void populateActions(GtkWidget *dropDown);
 
