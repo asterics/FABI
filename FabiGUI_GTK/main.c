@@ -376,6 +376,8 @@ static void createGUILoadStore(GtkWidget *mainBox, GtkWidget *win)
     GtkWidget *hboxSave = NULL;
     GtkWidget *btnSaveClearAll = NULL;
     GtkWidget *btnSaveApply = NULL;
+    GtkWidget *textSlotName = NULL;
+    GtkWidget *dropSlotName = NULL;
     GtkWidget *btnSaveStoreAs = NULL;
     GtkWidget *btnSaveLoad = NULL;
 
@@ -390,6 +392,12 @@ static void createGUILoadStore(GtkWidget *mainBox, GtkWidget *win)
 
     btnSaveStoreAs = gtk_button_new_with_label("Store Slot as:");
     gtk_container_add(GTK_CONTAINER(hboxSave), btnSaveStoreAs);
+
+    textSlotName = gtk_entry_new();
+    gtk_container_add(GTK_CONTAINER(hboxSave), textSlotName);
+
+    dropSlotName = gtk_combo_box_text_new();
+    gtk_container_add(GTK_CONTAINER(hboxSave), dropSlotName);
 
     btnSaveLoad = gtk_button_new_with_label("Load Slot");
     gtk_container_add(GTK_CONTAINER(hboxSave), btnSaveLoad);
