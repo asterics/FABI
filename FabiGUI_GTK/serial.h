@@ -23,8 +23,13 @@
 #include <stdlib.h>
 
 void listComPorts(char* list);
+int processSerialCommand(char * cmd);
+void gotLoadValues(char *);
+void gotSlotName(char *);
+
+
 int writeCOM(char* str, int len);
-char* readCOM(void);
+int readCOM(char * buffer, int size);
 int openCOM(char* name);
 int closeCOM(void);
 #endif // SERIAL_H_INCLUDED

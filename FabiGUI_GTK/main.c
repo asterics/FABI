@@ -43,7 +43,19 @@ GtkWidget *dropKeysB4 = NULL;
 GtkWidget *dropKeysB5 = NULL;
 GtkWidget *dropKeysB6 = NULL;
 
-char ButtonCommands [6][100] = {"AT CL\n","AT CL\n","AT CL\n","AT CL\n","AT CL\n","AT CL\n",""};
+GtkWidget *dropB1 = NULL;
+GtkWidget *dropB2 = NULL;
+GtkWidget *dropB3 = NULL;
+GtkWidget *dropB4 = NULL;
+GtkWidget *dropB5 = NULL;
+GtkWidget *dropB6 = NULL;
+
+
+GtkWidget *comboSlotNames = NULL;
+
+char cmd [100];  // command string for sending AT commands
+
+char ButtonCommands [7][100] = {"AT CL\n","AT CL\n","AT CL\n","AT CL\n","AT CL\n","AT CL\n",""};
 
 char actions[100][40] = {"No action","Switch to next configuration","Click left mouse button","Click right mouse button",
                      "Click middle mouse button","Double click left mouse button","Hold left mouse button","Hold right mouse button",
@@ -248,12 +260,12 @@ static void createGUIActions(GtkWidget *mainBox, GtkWidget *win)
     labelParameterB5 = gtk_label_new("");
     labelParameterB6 = gtk_label_new("");
 
-    GtkWidget *dropB1 = gtk_combo_box_text_new();
-    GtkWidget *dropB2 = gtk_combo_box_text_new();
-    GtkWidget *dropB3 = gtk_combo_box_text_new();
-    GtkWidget *dropB4 = gtk_combo_box_text_new();
-    GtkWidget *dropB5 = gtk_combo_box_text_new();
-    GtkWidget *dropB6 = gtk_combo_box_text_new();
+    dropB1 = gtk_combo_box_text_new();
+    dropB2 = gtk_combo_box_text_new();
+    dropB3 = gtk_combo_box_text_new();
+    dropB4 = gtk_combo_box_text_new();
+    dropB5 = gtk_combo_box_text_new();
+    dropB6 = gtk_combo_box_text_new();
 
     spinMouseMoveB1 = gtk_spin_button_new(NULL,1.0,0);
     spinMouseMoveB2 = gtk_spin_button_new(NULL,1.0,0);
@@ -311,16 +323,22 @@ static void createGUIActions(GtkWidget *mainBox, GtkWidget *win)
     //build each drop down menu & attach signals
     populateActions(dropB1);
     g_signal_connect(G_OBJECT(dropB1), "changed",G_CALLBACK(comboAction1_selected), G_OBJECT(win));
+    gtk_combo_box_set_active(GTK_COMBO_BOX(dropB1), 2);
     populateActions(dropB2);
     g_signal_connect(G_OBJECT(dropB2), "changed",G_CALLBACK(comboAction2_selected), G_OBJECT(win));
+    gtk_combo_box_set_active(GTK_COMBO_BOX(dropB2), 2);
     populateActions(dropB3);
     g_signal_connect(G_OBJECT(dropB3), "changed",G_CALLBACK(comboAction3_selected), G_OBJECT(win));
+    gtk_combo_box_set_active(GTK_COMBO_BOX(dropB3), 2);
     populateActions(dropB4);
     g_signal_connect(G_OBJECT(dropB4), "changed",G_CALLBACK(comboAction4_selected), G_OBJECT(win));
+    gtk_combo_box_set_active(GTK_COMBO_BOX(dropB4), 2);
     populateActions(dropB5);
     g_signal_connect(G_OBJECT(dropB5), "changed",G_CALLBACK(comboAction5_selected), G_OBJECT(win));
+    gtk_combo_box_set_active(GTK_COMBO_BOX(dropB5), 2);
     populateActions(dropB6);
     g_signal_connect(G_OBJECT(dropB6), "changed",G_CALLBACK(comboAction6_selected), G_OBJECT(win));
+    gtk_combo_box_set_active(GTK_COMBO_BOX(dropB6), 2);
 
 
 
@@ -411,11 +429,21 @@ static void createGUILoadStore(GtkWidget *mainBox, GtkWidget *win)
     btnSaveStoreAs = gtk_button_new_with_label("Store Slot as:");
     gtk_container_add(GTK_CONTAINER(hboxSave), btnSaveStoreAs);
 
-    textSlotName = gtk_entry_new();
-    gtk_container_add(GTK_CONTAINER(hboxSave), textSlotName);
+//<<<<<<< HEAD
 
-    dropSlotName = gtk_combo_box_text_new();
-    gtk_container_add(GTK_CONTAINER(hboxSave), dropSlotName);
+    comboSlotNames = gtk_combo_box_text_new();
+    g_signal_connect(G_OBJECT(comboSlotNames), "changed",G_CALLBACK(comboSlotName_selected), G_OBJECT(win));
+    gtk_container_add(GTK_CONTAINER(hboxSave), comboSlotNames);
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(comboSlotNames),"default");
+//    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(comboSlotNames),"dummy");
+
+//=======
+//    textSlotName = gtk_entry_new();
+//    gtk_container_add(GTK_CONTAINER(hboxSave), textSlotName);
+
+//    dropSlotName = gtk_combo_box_text_new();
+//    gtk_container_add(GTK_CONTAINER(hboxSave), dropSlotName);
+//>>>>>>> bdb943c1d5b68ea38c402abd05a2bb50cb64ddc6
 
     btnSaveLoad = gtk_button_new_with_label("Load Slot");
     gtk_container_add(GTK_CONTAINER(hboxSave), btnSaveLoad);
@@ -461,17 +489,30 @@ void combo_selected(GtkWidget *widget, gpointer window)
   strcpy(currentCOMPort,gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(widget)));
 }
 
+void comboSlotName_selected(GtkWidget *widget, gpointer window)
+{
+    if(isConnected != 0)
+    {
+       char * selectedSlot=gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(widget));
+
+       if (strlen(selectedSlot)>1)
+       {
+          sprintf(cmd,"AT LOAD %s\n",selectedSlot);
+          processSerialCommand(cmd);
+       }
+    }
+    else  logAdd("Please connect serial port first.");
+}
+
+
 
 static void apply (GtkWidget *wid, GtkWidget *win)
 {
+    int i;
 
     if(isConnected != 0)
     {
-        int i;
-        char cmd[100];
-
       printf("Now writing settings to serial Port..\n");
-
       for (i=0; i<6; i++)
       {
           sprintf(cmd,"AT BM %d\n",i+1);
@@ -480,15 +521,10 @@ static void apply (GtkWidget *wid, GtkWidget *win)
 
           writeCOM(ButtonCommands[i],strlen(ButtonCommands[i]));
           printf(ButtonCommands[i]);
-
       }
-    //  writeCOM("AT MX 20\n",9);
       printf("Settings applied.\n");
-
     }
-    else   {
-                logAdd("Please connect serial port first.");
-    }
+    else   logAdd("Please connect serial port first.");
 }
 
 static void connect (GtkWidget *wid, GtkWidget *win)
@@ -515,12 +551,18 @@ static void connect (GtkWidget *wid, GtkWidget *win)
                 logAdd("Error connecting to the serial port.");
             } else {
                 logAdd("Connected!");
+
                 isConnected = 1;
                 gtk_label_set_text(GTK_LABEL(labelConnected),"Connected");
                 gtk_button_set_label(GTK_BUTTON(wid),"Disconnect");
+
+   //             gtk_combo_box_text_remove_all(GTK_COMBO_BOX_TEXT(comboSlotNames));
+                if (processSerialCommand("AT LIST\n") > 1)
+                   logAdd("FABI Device recognized !\n");
+                else  logAdd("Cound not connect to FABI device !\n");
+
             }
         }
-        printf("open com port\n");
     } else {
         closeCOM();
         logAdd("Disconnected!");
@@ -532,11 +574,33 @@ static void connect (GtkWidget *wid, GtkWidget *win)
 }
 
 
+int getTime(char * timeBuffer)
+{
+   GTimeVal  time;
+   GDate    *date_heap;
+   gchar     tmp_buffer[256];
+
+   /* Get current time (measured as offset from Epoch) */
+   g_get_current_time( &time );
+   printf( "Offset from Epoch: %ld seconds, %ld microseconds\n",
+          time.tv_sec, time.tv_usec );
+
+   /* Convert offset to real date */
+   date_heap = g_date_new();
+   g_date_set_time_val( date_heap, &time );
+   g_date_strftime( tmp_buffer, 256, "%x", date_heap );
+   printf( "Current date (heap):  %s\n", tmp_buffer );
+   strcpy(timeBuffer,tmp_buffer);
+   g_date_free( date_heap );
+
+   return( 0 );
+}
+
 void logAdd(char * logmessage)
 {
     #define LOG_LENGTH 10
     static char message[LOG_LENGTH][256];
-    static char time[LOG_LENGTH][25];
+    static char time[LOG_LENGTH][50];
     static int isFilled = 0;
     int i = 0;
 
@@ -557,7 +621,9 @@ void logAdd(char * logmessage)
     }
     if (strlen(logmessage)<256)
        strcpy(message[0],logmessage);
-    strcpy(time[0],"time");
+
+//    strcpy(time[0],"time");
+    getTime(time[0]);
 
     gtk_list_store_clear(logStore);
 
@@ -755,6 +821,8 @@ void setButtonCommand(int buttonNumber, GtkWidget *spinMouseMove, GtkWidget *tex
    int i=getSelectionIndex(selection);
    buttonNumber--;
 
+   // TBD: add parameters to AT command (from spinMouseMove or textWriteText)
+
     switch (i) {
       case 0: strcpy (ButtonCommands[buttonNumber],"AT IDLE\n"); break;
       case 1: strcpy (ButtonCommands[buttonNumber],"AT NEXT\n"); break;
@@ -772,6 +840,70 @@ void setButtonCommand(int buttonNumber, GtkWidget *spinMouseMove, GtkWidget *tex
       case 13: strcpy (ButtonCommands[buttonNumber],"AT KW hallo\n"); break;
       case 14: strcpy (ButtonCommands[buttonNumber],"AT KP KEY_A\n"); break;
       }
+}
+
+void gotSlotName(char * newName)
+{
+    printf("Slotname received:%s\n",newName);
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(comboSlotNames),newName);
+}
+
+void gotLoadValues(char * newValues)
+{
+    char * actToken = newValues;
+    char * nextToken = strstr(actToken,"-,-");
+    int i=0;
+    int done = 0;
+
+   // TBD: get parameters from AT command (to spinMouseMove or textWriteText)
+
+
+    while ((nextToken!=0) && (!done))
+    {
+        *nextToken=0;
+        printf("Found Token %d:%s\n",i,actToken);
+        switch (i)
+        {
+            case 0: printf("SlotName=%s\n",actToken);  break;  // slotname
+            case 1: break;  // mouse wheel stepsize, currently not used
+            case 2: break;  // time threshold for longpress, currently not used
+            case 3: printf("Button1DropBoxSelection=%s\n",actToken);
+                    gtk_combo_box_set_active(GTK_COMBO_BOX(dropB1),atoi(actToken)); break;
+            case 4: printf("Button1ParameterValue=%s\n",actToken);
+                    gtk_spin_button_set_value(GTK_SPIN_BUTTON(spinMouseMoveB1),atoi(actToken));break;
+            case 5: printf("Button1ParameterText=%s\n",actToken);
+                    gtk_entry_set_text(GTK_ENTRY(textWriteTextB1),actToken); break;
+            case 6: printf("Button2DropBoxSelection=%s\n",actToken);
+                    gtk_combo_box_set_active(GTK_COMBO_BOX(dropB2),atoi(actToken)); break;
+            case 7: printf("Button2ParameterValue=%s\n",actToken); break;
+            case 8: printf("Button2ParameterText=%s\n",actToken); break;
+            case 9: printf("Button3DropBoxSelection=%s\n",actToken);
+                    gtk_combo_box_set_active(GTK_COMBO_BOX(dropB3),atoi(actToken)); break;
+            case 10: printf("Button3ParameterValue=%s\n",actToken); break;
+            case 11: printf("Button3ParameterText=%s\n",actToken); break;
+            case 12: printf("Button4DropBoxSelection=%s\n",actToken);
+                    gtk_combo_box_set_active(GTK_COMBO_BOX(dropB4),atoi(actToken)); break;
+            case 13: printf("Button4ParameterValue=%s\n",actToken); break;
+            case 14: printf("Button4ParameterText=%s\n",actToken); break;
+            case 15: printf("Button5DropBoxSelection=%s\n",actToken);
+                    gtk_combo_box_set_active(GTK_COMBO_BOX(dropB5),atoi(actToken)); break;
+            case 16: printf("Button5ParameterValue=%s\n",actToken); break;
+            case 17: printf("Button5ParameterText=%s\n",actToken); break;
+            case 18: printf("Button6DropBoxSelection=%s\n",actToken);
+                    gtk_combo_box_set_active(GTK_COMBO_BOX(dropB6),atoi(actToken)); break;
+            case 19: printf("Button6ParameterValue=%s\n",actToken); break;
+            case 20: printf("Button6ParameterText=%s\n",actToken);
+            default: done = 1; break;
+        }
+
+        if (!done)
+        {
+          actToken=nextToken+3;
+          nextToken=strstr(actToken,"-,-");
+          i++;
+        }
+    }
+
 }
 
 

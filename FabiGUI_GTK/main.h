@@ -16,6 +16,10 @@ static void connect (GtkWidget *wid, GtkWidget *win);
 //Callback for selected serial port from combobox
 void combo_selected(GtkWidget *widget, gpointer window);
 
+//Callback for selected slot name
+void comboSlotName_selected(GtkWidget *widget, gpointer window);
+
+
 //Button "Apply": send current configraution to FABI...
 static void apply (GtkWidget *wid, GtkWidget *win);
 

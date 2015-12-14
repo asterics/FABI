@@ -17,7 +17,6 @@ void listComPorts(char* list)
     #endif // ARCH_WIN
 
     #ifdef ARCH_LINUX
-        int count = 0;
         DIR* dirp;
         struct dirent* dp;
 
@@ -46,15 +45,57 @@ int writeCOM(char* str, int len)
     #endif // ARCH_LINUX
 }
 
-char* readCOM()
+int readCOM(char * buffer, int size)
 {
     #ifdef ARCH_WIN
 
     #endif // ARCH_WIN
 
     #ifdef ARCH_LINUX
-
+     return(read(fd,buffer,size));
     #endif // ARCH_LINUX
+}
+
+int processSerialCommand(char * cmd)
+{
+    int totalBytes=0;
+    char buffer[8192];
+    char * actpos;
+    int numBytes;
+
+    printf("Processing Command:%s",cmd);
+    writeCOM(cmd,strlen(cmd));
+    usleep(1000000);  // wait 100 millisecond to let the uC respond
+
+    do
+    {
+        numBytes=readCOM(buffer,8191);
+        if (numBytes>0) {
+            totalBytes+=numBytes;
+            buffer[numBytes]=0;
+            actpos=buffer;
+            printf("Read %d Bytes:%s\n",numBytes,actpos);
+            if ((actpos=strstr(buffer,"loading:"))!=NULL)
+                  gotLoadValues(actpos+8);
+            else {
+              actpos=buffer;
+              while ((actpos=strstr(actpos,"Slot"))!=NULL)
+              {
+                  actpos+=6;
+//                  printf("\ntrying:%s\n",actpos);
+                  char * begin=actpos;
+                  while((*actpos!=0)&&(*actpos!='\r')&&(*actpos!='\n')) actpos++;
+                  *actpos=0;
+//                  printf("\ncut:%s\n",begin);
+
+                  gotSlotName(begin);
+                  actpos++;
+              }
+            }
+         }
+    } while (numBytes >0);
+    printf("Serial Read ended with return value %d\n",numBytes);
+    return(totalBytes);
 }
 
 int openCOM(char* name)
@@ -80,6 +121,7 @@ int openCOM(char* name)
             //options.c_cflag &= ~CNEW_RTSCTS;
 
         }
+        fcntl(fd,F_SETFL, FNDELAY);  // set non-blocking read
         return fd;
     #endif // ARCH_LINUX
 }
@@ -93,4 +135,5 @@ int closeCOM()
     #ifdef ARCH_LINUX
         close(fd);
     #endif // ARCH_LINUX
+    return(0);
 }
