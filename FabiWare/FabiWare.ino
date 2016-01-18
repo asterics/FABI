@@ -38,7 +38,7 @@ struct settingsType settings = {      // type definition see fabi.h
 struct buttonType buttons [NUMBER_OF_BUTTONS];                     // array for all buttons - type definition see fabi.h 
 struct buttonDebouncerType buttonDebouncers [NUMBER_OF_BUTTONS];   // array for all buttonsDebouncers - type definition see fabi.h 
 
-uint8_t DebugOutput = DEBUG_FULLOUTPUT;        // default: very chatty at the serial interface ...
+uint8_t DebugOutput = DEBUG_NOOUTPUT;        // default: not so chatty at the serial interface ...
 
 int clickTime=DEFAULT_CLICK_TIME;
 int waitTime=DEFAULT_WAIT_TIME;

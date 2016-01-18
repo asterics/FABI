@@ -86,7 +86,7 @@ void readFromEEPROM(char * slotname)
       while ((act_slotname[i++]=EEPROM.read(address++)) != 0) ; 
       
       if (DebugOutput==DEBUG_FULLOUTPUT)  
-        Serial.print("found slotname "); Serial.println(act_slotname);
+      {  Serial.print("found slotname "); Serial.println(act_slotname);}
      
       if (slotname)  {
         if (!strcmp(act_slotname, slotname)) found=1;  
@@ -94,7 +94,7 @@ void readFromEEPROM(char * slotname)
       
       address=tmpStartAddress;
       if (found)  {
-        if (DebugOutput==DEBUG_FULLOUTPUT) 
+    //    if (DebugOutput==DEBUG_FULLOUTPUT) 
            
         p = (uint8_t*) &settings;
         for (int t=0;t<sizeof(settingsType);t++)
@@ -104,7 +104,7 @@ void readFromEEPROM(char * slotname)
         for (int i=0;i<NUMBER_OF_BUTTONS*sizeof(buttonType);i++) 
            *p++=EEPROM.read(address++);
 
-        if (reportSlotParameters)  
+        // if (reportSlotParameters)  
           printCurrentSlot();
 
         actSlot=numSlots+1; 

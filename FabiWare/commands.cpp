@@ -214,18 +214,18 @@ void performCommand (uint8_t cmd, int16_t par1, char * keystring, int8_t periodi
             break;
         case CMD_LA:
                if (DebugOutput==DEBUG_FULLOUTPUT)  
-                 Serial.println("laod all slots");
+                 Serial.println("load all slots");
                release_all();
                reportSlotParameters=1;
                readFromEEPROM(keystring);
                reportSlotParameters=0;
-               readFromEEPROM(0);
+               // readFromEEPROM(0);
             break;
         case CMD_LI:
                if (DebugOutput==DEBUG_FULLOUTPUT)  
                  Serial.println("list slots: ");
                release_all();
-               reportSlotParameters=1;   // connection to host: start reporting slot parameters !
+               // reportSlotParameters=1;   // connection to host: start reporting slot parameters !
                listSlots();
             break;
         case CMD_NE:
