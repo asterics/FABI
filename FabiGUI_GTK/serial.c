@@ -1,4 +1,5 @@
 #include "serial.h"
+#include "parser.h"
 
 #ifdef ARCH_WIN
 
@@ -61,7 +62,7 @@ int processSerialCommand(char * cmd)
     int totalBytes=0;
     char buffer[8192];
     char * actpos;
-    int numBytes;
+    int numBytes,i;
 
     printf("Processing Command:%s",cmd);
     writeCOM(cmd,strlen(cmd));
@@ -75,23 +76,8 @@ int processSerialCommand(char * cmd)
             buffer[numBytes]=0;
             actpos=buffer;
             printf("Read %d Bytes:%s\n",numBytes,actpos);
-            if ((actpos=strstr(buffer,"loading:"))!=NULL)
-                  gotLoadValues(actpos+8);
-            else {
-              actpos=buffer;
-              while ((actpos=strstr(actpos,"Slot"))!=NULL)
-              {
-                  actpos+=6;
-//                  printf("\ntrying:%s\n",actpos);
-                  char * begin=actpos;
-                  while((*actpos!=0)&&(*actpos!='\r')&&(*actpos!='\n')) actpos++;
-                  *actpos=0;
-//                  printf("\ncut:%s\n",begin);
-
-                  gotSlotName(begin);
-                  actpos++;
-              }
-            }
+            for (i=0;i<numBytes;i++)
+               parseByte(buffer[i]);
          }
     } while (numBytes >0);
     printf("Serial Read ended with return value %d\n",numBytes);
@@ -137,3 +123,19 @@ int closeCOM()
     #endif // ARCH_LINUX
     return(0);
 }
+
+
+
+
+//#include "parser.h"
+#include "commands.h"
+
+
+
+
+
+
+
+
+
+

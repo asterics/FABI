@@ -36,10 +36,18 @@
 		<Linker>
 			<Add option="`pkg-config gtk+-3.0 --libs`" />
 		</Linker>
+		<Unit filename="commands.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="commands.h" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="main.h" />
+		<Unit filename="parser.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="parser.h" />
 		<Unit filename="serial.c">
 			<Option compilerVar="CC" />
 		</Unit>

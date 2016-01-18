@@ -24,9 +24,6 @@
 
 void listComPorts(char* list);
 int processSerialCommand(char * cmd);
-void gotLoadValues(char *);
-void gotSlotName(char *);
-
 
 int writeCOM(char* str, int len);
 int readCOM(char * buffer, int size);
