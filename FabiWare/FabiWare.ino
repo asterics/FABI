@@ -18,6 +18,8 @@
 
 // global variables
 
+uint8_t DebugOutput=0;  // Use 1 for chatty serial output (but it won't be compatible with GUI)
+
 #ifdef TEENSY
   int8_t  input_map[NUMBER_OF_PHYSICAL_BUTTONS]={16,17,18,19,20,21,22,23,24};  //  map physical button pins to button index 0,1,2  
   int8_t  led_map[NUMBER_OF_LEDS]={1,2,3};                //  maps leds pins   
@@ -37,8 +39,6 @@ struct settingsType settings = {      // type definition see fabi.h
 
 struct buttonType buttons [NUMBER_OF_BUTTONS];                     // array for all buttons - type definition see fabi.h 
 struct buttonDebouncerType buttonDebouncers [NUMBER_OF_BUTTONS];   // array for all buttonsDebouncers - type definition see fabi.h 
-
-uint8_t DebugOutput = DEBUG_NOOUTPUT;        // default: not so chatty at the serial interface ...
 
 int clickTime=DEFAULT_CLICK_TIME;
 int waitTime=DEFAULT_WAIT_TIME;
@@ -80,8 +80,9 @@ void setup() {
     // delay(5000);
     // while (!Serial) ;
    
-   if (DebugOutput==DEBUG_FULLOUTPUT)  
+   if (DebugOutput==1) {  
      Serial.println("Flexible Assistive Button Interface started !");
+   }
 
    #ifdef ARDUINO_PRO_MICRO   // only needed for Arduino, automatically done for Teensy(duino)
      Mouse.begin();
@@ -108,8 +109,9 @@ void setup() {
 
    readFromEEPROM(0);  // read button modes from first EEPROM slot if available !  
    BlinkLed();
-   if (DebugOutput==DEBUG_FULLOUTPUT)  
+   if (DebugOutput==1) {  
      Serial.print("Free RAM:");  Serial.println(freeRam());
+   }
 }
 
 ///////////////////////////////

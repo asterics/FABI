@@ -34,7 +34,7 @@ void saveToEEPROM(char * slotname)
      }
    }
    
-   if (DebugOutput==DEBUG_FULLOUTPUT)  {
+   if (DebugOutput==1) {  
      Serial.print("Writing slot "); if (slotname) Serial.print(slotname);
      Serial.print(" starting from EEPROM address "); Serial.println(address);
    }
@@ -77,7 +77,6 @@ void readFromEEPROM(char * slotname)
    {
       uint8_t found=0;
       
-      if (reportSlotParameters) found=1;
       if ((!slotname) && (address==nextSlotAddress)) found=1;
       address++;
 
@@ -85,17 +84,16 @@ void readFromEEPROM(char * slotname)
       uint8_t i=0;
       while ((act_slotname[i++]=EEPROM.read(address++)) != 0) ; 
       
-      if (DebugOutput==DEBUG_FULLOUTPUT)  
-      {  Serial.print("found slotname "); Serial.println(act_slotname);}
+      if (DebugOutput==1) {  
+         Serial.print("found slotname "); Serial.println(act_slotname);
+      }
      
       if (slotname)  {
         if (!strcmp(act_slotname, slotname)) found=1;  
       }
       
       address=tmpStartAddress;
-      if (found)  {
-    //    if (DebugOutput==DEBUG_FULLOUTPUT) 
-           
+      if ((found) || (reportSlotParameters==REPORT_ALL_SLOTS))  {       
         p = (uint8_t*) &settings;
         for (int t=0;t<sizeof(settingsType);t++)
             *p++=EEPROM.read(address++);
@@ -104,7 +102,7 @@ void readFromEEPROM(char * slotname)
         for (int i=0;i<NUMBER_OF_BUTTONS*sizeof(buttonType);i++) 
            *p++=EEPROM.read(address++);
 
-        // if (reportSlotParameters)  
+        if (reportSlotParameters!=REPORT_NONE)  
           printCurrentSlot();
 
         actSlot=numSlots+1; 
@@ -118,11 +116,11 @@ void readFromEEPROM(char * slotname)
    if (tmpSlotAddress) nextSlotAddress=tmpSlotAddress;
    if (nextSlotAddress==EmptySlotAddress) nextSlotAddress=0;
    
-   if (DebugOutput==DEBUG_FULLOUTPUT)  
-   {
+   if (DebugOutput==1) {  
        Serial.print(numSlots); Serial.print(" slots were found in EEPROM, occupying ");
        Serial.print(address); Serial.println(" bytes.");
    }
+   
    if (reportSlotParameters) 
      Serial.println("END");   // important: end marker for slot parameter list (command "load all" - AT LA)
 

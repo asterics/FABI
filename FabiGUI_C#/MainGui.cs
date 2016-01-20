@@ -404,6 +404,8 @@ namespace MouseApp2
         {
             storeSlot(actSlot);   
             storeSettingsToFabi();
+            actSlot = 0;
+            displaySlot(actSlot);
         }
 
         private void loadSlotSettingsMenuItem_Click(object sender, EventArgs e)
@@ -539,7 +541,6 @@ namespace MouseApp2
         {
             Button5ParameterText.Text = "";
         }
-
         private void Button6ComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             updateKeyCodeParameter(Button6ComboBox, Button6ParameterText);
@@ -676,6 +677,8 @@ namespace MouseApp2
         {
             MessageBox.Show("Fabi V2.0 - AsTeRICS Academy\nFor more information see: http://www.asterics-academy.net");
         }
+
+    
 
     }
 }

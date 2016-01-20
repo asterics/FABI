@@ -49,13 +49,14 @@
 #define PARTYPE_INT   2
 #define PARTYPE_STRING  3
 
+#define REPORT_NONE  0  
+#define REPORT_ONE_SLOT  1
+#define REPORT_ALL_SLOTS 2
+
 #define DEFAULT_WAIT_TIME       5   // wait time for one loop interation in milliseconds
 #define DEFAULT_CLICK_TIME      8    // time for mouse click (loop iterations from press to release)
 #define DOUBLECLICK_MULTIPLIER  5    // CLICK_TIME factor for double clicks
 #define DEFAULT_DEBOUNCING_TIME 7   // debouncing interval for button-press / release
-
-#define DEBUG_NOOUTPUT 0
-#define DEBUG_FULLOUTPUT 1
 
 
 struct settingsType {
