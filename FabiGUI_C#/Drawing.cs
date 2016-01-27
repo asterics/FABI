@@ -12,13 +12,16 @@ namespace MouseApp2
 
         public void drawRawValues(String newValues)
         {
+            
+
             if (newValues.Length == 0)
                 return;
 
-            //  Console.WriteLine(newValues);
 
             String[] values = newValues.Split(',');
-            if (values.Length == 1)
+      //      Console.WriteLine(newValues+" - "+values.Length);
+
+            if (values.Length == 2)
             {
                 Int32 value = Convert.ToInt32(values[0]); //1023-Convert.ToInt32(values[0]);
                 pressureLabel.Text = value.ToString();
