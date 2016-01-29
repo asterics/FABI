@@ -28,6 +28,7 @@ namespace MouseApp2
                 serialPort1.ReadTimeout = 10000;
                 serialPort1.WriteTimeout = 10000;
                 serialPort1.NewLine = "\n";
+                serialPort1.Encoding=System.Text.Encoding.Default;
 
                 try
                 {
@@ -55,7 +56,7 @@ namespace MouseApp2
                 Console.WriteLine("Send:" + command);
                 try
                 {
-                    serialPort1.Write(command + "\r");
+                   serialPort1.Write(command + "\r");
                 }
                 catch (Exception ex)
                 {
@@ -64,7 +65,6 @@ namespace MouseApp2
                 }
             }
         }
-
 
         public void WorkThreadFunction()
         {
@@ -80,6 +80,10 @@ namespace MouseApp2
                     try
                     {
                         receivedString = serialPort1.ReadLine();
+//                        byte[] my_bytes = System.Text.Encoding.Default.GetBytes(command);
+
+
+
                         if (!receivedString.Contains("VALUES"))
                            Console.Write("received:" + receivedString);
                         BeginInvoke(this.stringReceivedDelegate, new Object[] { receivedString });
