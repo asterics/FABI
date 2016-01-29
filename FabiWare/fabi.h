@@ -25,7 +25,7 @@
 #include "commands.h"
 
 
-#define VERSION_STRING "FABI v2.0"
+#define VERSION_STRING "FABI v2.1"
 
 //#define TEENSY                 //  if a Teensy controller is used
 #define ARDUINO_PRO_MICRO   //  if Arduino Leonardo or Arduino Pro Micro is used 
@@ -40,7 +40,10 @@
 #define NUMBER_OF_LEDS     3          // number of connected leds
 #define MAX_SLOTS          3          // maximum number of EEPROM memory slots
 
-#define MAX_KEYSTRING_LEN 18          // maximum lenght for key identifiers / keyboard text
+
+#define MOUSE_ACCELDELAY   50         // steps to reach mouse move speed
+
+#define MAX_KEYSTRING_LEN 40          // maximum lenght for key identifiers / keyboard text
 #define MAX_SLOTNAME_LEN  15          // maximum lenght for a slotname
 #define MAX_CMDLEN MAX_KEYSTRING_LEN+3
 
@@ -93,6 +96,9 @@ extern struct buttonType buttons[NUMBER_OF_BUTTONS];
 extern struct buttonDebouncerType buttonDebouncers[NUMBER_OF_BUTTONS];
 extern const struct atCommandType atCommands[];
 
+extern const int usToDE[];
+
+
 extern uint8_t leftMouseButton;
 extern uint8_t middleMouseButton;
 extern uint8_t rightMouseButton;
@@ -116,6 +122,8 @@ void BlinkLed();
 int freeRam ();
 void parseByte (int newByte);
 
+int getKeycode(char*);
+void sendToKeyboard( char * );
 void setKeyValues(char* text); // presses individual keys
 void releaseKeys(char* text);  // releases individual keys
 void release_all();            // releases all previously pressed keys and buttons

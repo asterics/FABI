@@ -15,7 +15,6 @@
 #include "fabi.h"        //  Bounce library used for button debouncing
 #include <EEPROM.h>
 
-
 // global variables
 
 uint8_t DebugOutput=0;  // Use 1 for chatty serial output (but it won't be compatible with GUI)
@@ -50,6 +49,8 @@ uint8_t actSlot=0;
 
 int8_t moveX=0;       
 int8_t moveY=0;       
+uint8_t moveXcnt=0;       
+uint8_t moveYcnt=0;       
 uint8_t leftMouseButton=0,old_leftMouseButton=0;
 uint8_t middleMouseButton=0,old_middleMouseButton=0;
 uint8_t rightMouseButton=0,old_rightMouseButton=0;
@@ -81,7 +82,7 @@ void setup() {
     // while (!Serial) ;
    
    if (DebugOutput==1) {  
-     Serial.println("Flexible Assistive Button Interface started !");
+     Serial.println(F("Flexible Assistive Button Interface started !"));
    }
 
    #ifdef ARDUINO_PRO_MICRO   // only needed for Arduino, automatically done for Teensy(duino)
@@ -105,18 +106,20 @@ void setup() {
       buttons[i].keystring[0]=0;
    }
 
+
    initDebouncers(); 
 
    readFromEEPROM(0);  // read button modes from first EEPROM slot if available !  
    BlinkLed();
    if (DebugOutput==1) {  
-     Serial.print("Free RAM:");  Serial.println(freeRam());
+     Serial.print(F("Free RAM:"));  Serial.println(freeRam());
    }
 }
 
 ///////////////////////////////
 // Loop: the main program loop
 ///////////////////////////////
+
 
 void loop() {  
 
@@ -129,10 +132,17 @@ void loop() {
       for (int i=0;i<NUMBER_OF_PHYSICAL_BUTTONS;i++)    // update button press / release events
           handleButton(i, -1, digitalRead(input_map[i]) == LOW ? 1 : 0);    
         
+      if (moveX==0) moveXcnt=0; 
+      if (moveY==0) moveYcnt=0; 
       if ((moveX!=0) || (moveY!=0))   // movement induced by button actions  
       {
         if (cnt2++%4==0)
-          Mouse.move(moveX, moveY);
+        {
+          if (moveX!=0) if (moveXcnt<MOUSE_ACCELDELAY) moveXcnt++;
+          if (moveY!=0) if (moveYcnt<MOUSE_ACCELDELAY) moveYcnt++;
+
+          Mouse.move(moveX * moveXcnt/MOUSE_ACCELDELAY, moveY * moveYcnt/MOUSE_ACCELDELAY);
+        }
       }
 
       // handle running clicks or double clicks
@@ -169,7 +179,7 @@ void loop() {
     
      // handle Keyboard output (single key press/release is done seperately via setKeyValues() ) 
      if (writeKeystring) {
-        Keyboard.print(writeKeystring);
+        sendToKeyboard(writeKeystring);
         writeKeystring=0;
     }    
        

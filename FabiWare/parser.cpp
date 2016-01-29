@@ -59,7 +59,7 @@ void parseCommand (char * cmdstr)
             {
                case PARTYPE_UINT: actpos=strtok(NULL," "); if (get_uint(actpos, &num)) cmd=i ; break;
                case PARTYPE_INT:  actpos=strtok(NULL," ");  if (get_int(actpos, &num)) cmd=i ; break;
-               case PARTYPE_STRING: actpos=strtok(NULL," "); cmd=i ; break;
+               case PARTYPE_STRING: actpos+=3; if (*actpos)  cmd=i ;  break;
                default: cmd=i; actpos=0; break;
             }
           }
@@ -67,7 +67,7 @@ void parseCommand (char * cmdstr)
     }
     
     if (cmd>-1)  performCommand(cmd,num,actpos,0);        
-    else   Serial.println("?");              
+    else   Serial.println('?');              
 }
 
 
@@ -85,7 +85,7 @@ void parseByte (int newByte)  // parse an incoming commandbyte from serial inter
             break;
         case 2: 
                 if ((newByte==13) || (newByte==10))  // AT reply: "OK" 
-                {  Serial.println("OK");  readstate=0; }
+                {  Serial.println(F("OK"));  readstate=0; }
                 else if (newByte==' ') { cmdlen=0; readstate++; } 
                 else goto err;
             break;
@@ -93,9 +93,9 @@ void parseByte (int newByte)  // parse an incoming commandbyte from serial inter
                 if ((newByte==13) || (newByte==10) || (cmdlen>=MAX_CMDLEN-1))
                 {  cmdstring[cmdlen]=0;  parseCommand(cmdstring); 
                   readstate=0; }
-                else cmdstring[cmdlen++]=newByte;
+                else  cmdstring[cmdlen++]=newByte; 
             break;   
-        default: err: Serial.println("?");readstate=0;
+        default: err: Serial.println('?');readstate=0;
    }
 }
 

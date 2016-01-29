@@ -1,7 +1,7 @@
 #include "fabi.h"
 #include <EEPROM.h>
 
-#define SLOT_VALID 123
+#define SLOT_VALID 21
 
 int nextSlotAddress=0;
 
@@ -35,8 +35,8 @@ void saveToEEPROM(char * slotname)
    }
    
    if (DebugOutput==1) {  
-     Serial.print("Writing slot "); if (slotname) Serial.print(slotname);
-     Serial.print(" starting from EEPROM address "); Serial.println(address);
+     Serial.print(F("Writing slot ")); if (slotname) Serial.print(slotname);
+     Serial.print(F(" starting from EEPROM address ")); Serial.println(address);
    }
    
    // start with new slot 
@@ -85,7 +85,7 @@ void readFromEEPROM(char * slotname)
       while ((act_slotname[i++]=EEPROM.read(address++)) != 0) ; 
       
       if (DebugOutput==1) {  
-         Serial.print("found slotname "); Serial.println(act_slotname);
+         Serial.print(F("found slotname ")); Serial.println(act_slotname);
       }
      
       if (slotname)  {
@@ -117,12 +117,12 @@ void readFromEEPROM(char * slotname)
    if (nextSlotAddress==EmptySlotAddress) nextSlotAddress=0;
    
    if (DebugOutput==1) {  
-       Serial.print(numSlots); Serial.print(" slots were found in EEPROM, occupying ");
-       Serial.print(address); Serial.println(" bytes.");
+       Serial.print(numSlots); Serial.print(F(" slots were found in EEPROM, occupying "));
+       Serial.print(address); Serial.println(F(" bytes."));
    }
    
    if (reportSlotParameters) 
-     Serial.println("END");   // important: end marker for slot parameter list (command "load all" - AT LA)
+     Serial.println(F("END"));   // important: end marker for slot parameter list (command "load all" - AT LA)
 
 }
 
@@ -144,7 +144,7 @@ void listSlots()
      numSlots++;
      address++;
      tmpStartAddress=address;
-     Serial.print("Slot"); Serial.print(numSlots); Serial.print(":"); 
+     Serial.print(F("Slot")); Serial.print(numSlots); Serial.print(":"); 
      while ((b=EEPROM.read(address++)) != 0)   // print slot name
          Serial.write(b);
      Serial.println();
