@@ -1,6 +1,6 @@
 
 /* 
-     Assistive Button Interface (FABI) Version 2.0  - AsTeRICS Academy 2015 - http://www.asterics-academy.net
+     Assistive Button Interface (FABI) Version 2.1  - AsTeRICS Academy 2015 - http://www.asterics-academy.net
       allows control of HID functions via switches and/or AT-commands  
    
 
@@ -35,7 +35,7 @@
   #include <Keyboard.h>
 #endif
 
-#define NUMBER_OF_BUTTONS 11          // number of connected or virtual switches
+#define NUMBER_OF_BUTTONS  11         // number of connected or virtual switches
 #define NUMBER_OF_PHYSICAL_BUTTONS 9  // number of connected switches
 #define NUMBER_OF_LEDS     3          // number of connected leds
 #define MAX_SLOTS          3          // maximum number of EEPROM memory slots
@@ -66,6 +66,8 @@ struct settingsType {
   char slotname[MAX_SLOTNAME_LEN];     // EEPROM data is stored only until ths string's end
   uint8_t  ws;     // wheel stepsize  
   uint16_t tt;     // threshold time 
+  uint16_t ts;     // threshold sip
+  uint16_t tp;     // threshold puff 
 };
 
 struct atCommandType {                      // holds settings for a button function 
@@ -90,6 +92,7 @@ struct buttonDebouncerType {              // holds working data for button debou
 extern uint8_t DebugOutput;
 extern uint8_t actSlot;
 extern uint8_t reportSlotParameters;
+extern uint8_t reportRawValues;
 extern struct settingsType settings;
 extern int EmptySlotAddress;
 extern struct buttonType buttons[NUMBER_OF_BUTTONS];

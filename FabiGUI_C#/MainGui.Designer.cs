@@ -1219,6 +1219,7 @@
             this.clearButtonPuff.Text = "x";
             this.clearButtonPuff.UseVisualStyleBackColor = true;
             this.clearButtonPuff.Visible = false;
+            this.clearButtonPuff.Click += new System.EventHandler(this.clearButtonPuff_Click);
             // 
             // PuffComboBox
             // 
@@ -1229,6 +1230,7 @@
             this.PuffComboBox.Size = new System.Drawing.Size(76, 24);
             this.PuffComboBox.TabIndex = 154;
             this.PuffComboBox.Visible = false;
+            this.PuffComboBox.SelectedIndexChanged += new System.EventHandler(this.PuffComboBox_SelectedIndexChanged);
             // 
             // PuffParameterLabel
             // 
@@ -1272,6 +1274,7 @@
             this.PuffFunctionMenu.Name = "PuffFunctionMenu";
             this.PuffFunctionMenu.Size = new System.Drawing.Size(228, 24);
             this.PuffFunctionMenu.TabIndex = 149;
+            this.PuffFunctionMenu.SelectedIndexChanged += new System.EventHandler(this.PuffFunctionMenu_SelectedIndexChanged);
             // 
             // PuffParameterText
             // 
@@ -1295,16 +1298,18 @@
             this.clearButtonSip.Text = "x";
             this.clearButtonSip.UseVisualStyleBackColor = true;
             this.clearButtonSip.Visible = false;
+            this.clearButtonSip.Click += new System.EventHandler(this.clearButtonSip_Click);
             // 
             // SipComboBox
             // 
             this.SipComboBox.FormattingEnabled = true;
-            this.SipComboBox.Location = new System.Drawing.Point(368, 50);
+            this.SipComboBox.Location = new System.Drawing.Point(368, 48);
             this.SipComboBox.Margin = new System.Windows.Forms.Padding(4);
             this.SipComboBox.Name = "SipComboBox";
             this.SipComboBox.Size = new System.Drawing.Size(76, 24);
             this.SipComboBox.TabIndex = 147;
             this.SipComboBox.Visible = false;
+            this.SipComboBox.SelectedIndexChanged += new System.EventHandler(this.SipComboBox_SelectedIndexChanged);
             // 
             // SipParameterLabel
             // 
@@ -1348,6 +1353,7 @@
             this.SipFunctionMenu.Name = "SipFunctionMenu";
             this.SipFunctionMenu.Size = new System.Drawing.Size(226, 24);
             this.SipFunctionMenu.TabIndex = 142;
+            this.SipFunctionMenu.SelectedIndexChanged += new System.EventHandler(this.SipFunctionMenu_SelectedIndexChanged);
             // 
             // SipParameterText
             // 
@@ -1443,7 +1449,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(569, 54);
+            this.label4.Location = new System.Drawing.Point(569, 40);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(65, 17);
@@ -1454,7 +1460,7 @@
             // 
             this.pressureDrawPanel.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.pressureDrawPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pressureDrawPanel.Location = new System.Drawing.Point(580, 92);
+            this.pressureDrawPanel.Location = new System.Drawing.Point(580, 78);
             this.pressureDrawPanel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pressureDrawPanel.Name = "pressureDrawPanel";
             this.pressureDrawPanel.Size = new System.Drawing.Size(62, 250);
@@ -1463,7 +1469,7 @@
             // pressureLabel
             // 
             this.pressureLabel.AutoSize = true;
-            this.pressureLabel.Location = new System.Drawing.Point(580, 71);
+            this.pressureLabel.Location = new System.Drawing.Point(580, 57);
             this.pressureLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.pressureLabel.Name = "pressureLabel";
             this.pressureLabel.Size = new System.Drawing.Size(16, 17);
@@ -1485,7 +1491,7 @@
             // 
             this.puffThresholdBar.AllowDrop = true;
             this.puffThresholdBar.LargeChange = 20;
-            this.puffThresholdBar.Location = new System.Drawing.Point(641, 75);
+            this.puffThresholdBar.Location = new System.Drawing.Point(641, 67);
             this.puffThresholdBar.Margin = new System.Windows.Forms.Padding(4);
             this.puffThresholdBar.Maximum = 1023;
             this.puffThresholdBar.Minimum = 512;
@@ -1493,7 +1499,7 @@
             this.puffThresholdBar.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.puffThresholdBar.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.puffThresholdBar.RightToLeftLayout = true;
-            this.puffThresholdBar.Size = new System.Drawing.Size(56, 143);
+            this.puffThresholdBar.Size = new System.Drawing.Size(56, 151);
             this.puffThresholdBar.TabIndex = 117;
             this.puffThresholdBar.TickFrequency = 40;
             this.puffThresholdBar.Value = 525;
@@ -1514,7 +1520,7 @@
             // sipThresholdLabel
             // 
             this.sipThresholdLabel.AutoSize = true;
-            this.sipThresholdLabel.Location = new System.Drawing.Point(506, 180);
+            this.sipThresholdLabel.Location = new System.Drawing.Point(506, 170);
             this.sipThresholdLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.sipThresholdLabel.Name = "sipThresholdLabel";
             this.sipThresholdLabel.Size = new System.Drawing.Size(32, 17);
@@ -1524,13 +1530,13 @@
             // sipThresholdBar
             // 
             this.sipThresholdBar.LargeChange = 20;
-            this.sipThresholdBar.Location = new System.Drawing.Point(520, 201);
+            this.sipThresholdBar.Location = new System.Drawing.Point(520, 191);
             this.sipThresholdBar.Margin = new System.Windows.Forms.Padding(4);
             this.sipThresholdBar.Maximum = 512;
             this.sipThresholdBar.Name = "sipThresholdBar";
             this.sipThresholdBar.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.sipThresholdBar.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.sipThresholdBar.Size = new System.Drawing.Size(56, 141);
+            this.sipThresholdBar.Size = new System.Drawing.Size(56, 151);
             this.sipThresholdBar.TabIndex = 114;
             this.sipThresholdBar.TickFrequency = 40;
             this.sipThresholdBar.Value = 500;
@@ -1539,7 +1545,7 @@
             // thresholdLabelForSip
             // 
             this.thresholdLabelForSip.AutoSize = true;
-            this.thresholdLabelForSip.Location = new System.Drawing.Point(493, 161);
+            this.thresholdLabelForSip.Location = new System.Drawing.Point(493, 151);
             this.thresholdLabelForSip.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.thresholdLabelForSip.Name = "thresholdLabelForSip";
             this.thresholdLabelForSip.Size = new System.Drawing.Size(66, 17);

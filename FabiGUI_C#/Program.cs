@@ -25,7 +25,7 @@ namespace MouseApp2
             {
                 if (!mutex.WaitOne(0, false))
                 {
-                    MessageBox.Show("FlipMouseGUI is already running !");
+                    MessageBox.Show("FabiGUI is already running !");
                     return;
                 }
 

@@ -19,6 +19,11 @@
 
 uint8_t DebugOutput=0;  // Use 1 for chatty serial output (but it won't be compatible with GUI)
 
+#define SIP_BUTTON    9
+#define PUFF_BUTTON  10
+#define PRESSURE_SENSOR_PIN A0
+
+
 #ifdef TEENSY
   int8_t  input_map[NUMBER_OF_PHYSICAL_BUTTONS]={16,17,18,19,20,21,22,23,24};  //  map physical button pins to button index 0,1,2  
   int8_t  led_map[NUMBER_OF_LEDS]={1,2,3};                //  maps leds pins   
@@ -32,7 +37,7 @@ uint8_t DebugOutput=0;  // Use 1 for chatty serial output (but it won't be compa
 #endif
 
 struct settingsType settings = {      // type definition see fabi.h
-    "empty", 3,  1000                 // wheel step,  threshold time (short/longpress)
+    "empty", 3,  1000, 0, 1023        // slotname, wheel step, threshold time (short/longpress), sip threshold, puff threshold
 }; 
 
 
@@ -44,7 +49,7 @@ int waitTime=DEFAULT_WAIT_TIME;
 
 int EmptySlotAddress = 0;
 uint8_t reportSlotParameters = 0;
-
+uint8_t valueReportCount=0;
 uint8_t actSlot=0;
 
 int8_t moveX=0;       
@@ -62,6 +67,9 @@ uint8_t doubleClickRunning=0;
 int inByte=0;
 char * keystring=0;
 char * writeKeystring=0;
+uint16_t pressure=0;
+uint8_t reportRawValues = 0;
+
 uint8_t cnt =0,cnt2=0;
 
 
@@ -123,6 +131,8 @@ void setup() {
 
 void loop() {  
 
+      pressure = analogRead(PRESSURE_SENSOR_PIN);
+
       while (Serial.available() > 0) {
         // get incoming byte:
         inByte = Serial.read();
@@ -131,6 +141,10 @@ void loop() {
     
       for (int i=0;i<NUMBER_OF_PHYSICAL_BUTTONS;i++)    // update button press / release events
           handleButton(i, -1, digitalRead(input_map[i]) == LOW ? 1 : 0);    
+
+      if (settings.ts>0)    handleButton(SIP_BUTTON, -1, pressure < settings.ts ? 1 : 0); 
+      if (settings.tp<1023) handleButton(PUFF_BUTTON, -1, pressure > settings.tp ? 1 : 0);
+
         
       if (moveX==0) moveXcnt=0; 
       if (moveY==0) moveYcnt=0; 
@@ -182,6 +196,14 @@ void loop() {
         sendToKeyboard(writeKeystring);
         writeKeystring=0;
     }    
+
+
+    if (reportRawValues)   { 
+       if (valueReportCount++ > 10) {      // report raw values !
+           Serial.print("VALUES:");Serial.print(pressure);Serial.println(",");  
+        valueReportCount=0; 
+      }
+    }
        
     UpdateLeds();
     delay(waitTime);  // to limit move movement speed. TBD: remove delay, use millis() !

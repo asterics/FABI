@@ -11,7 +11,8 @@ const struct atCommandType atCommands[] PROGMEM = {
     {"MY"  , PARTYPE_INT  },  {"KW"  , PARTYPE_STRING},{"KP"  , PARTYPE_STRING},{"KR"  , PARTYPE_STRING},
     {"RA"  , PARTYPE_NONE },  {"SA"  , PARTYPE_STRING},{"LO"  , PARTYPE_STRING},{"LA"  , PARTYPE_NONE },
     {"LI"  , PARTYPE_NONE },  {"NE"  , PARTYPE_NONE }, {"DE"  , PARTYPE_NONE }, {"NC"  , PARTYPE_NONE }, 
-    {"E1"  , PARTYPE_NONE },  {"E0"  , PARTYPE_NONE }
+    {"E1"  , PARTYPE_NONE },  {"E0"  , PARTYPE_NONE }, {"SR"  , PARTYPE_NONE }, {"ER"  , PARTYPE_NONE },
+    {"TS"  , PARTYPE_UINT },  {"TP"  , PARTYPE_UINT }
 };
 
 
@@ -35,6 +36,8 @@ void printCurrentSlot()
 {
         Serial.print(F("Slot:"));  Serial.println(settings.slotname);
         Serial.print(F("AT WS ")); Serial.println(settings.ws);
+        Serial.print(F("AT TS ")); Serial.println(settings.ts);
+        Serial.print(F("AT TP ")); Serial.println(settings.tp);
         for (int i=0;i<NUMBER_OF_BUTTONS;i++) 
         {
            Serial.print(F("AT BM ")); 
@@ -272,6 +275,22 @@ void performCommand (uint8_t cmd, int16_t par1, char * keystring, int8_t periodi
             break;
         case CMD_E0:
                DebugOutput=0; 
+            break;
+        case CMD_SR:
+              reportRawValues=1;
+            break;
+        case CMD_ER:
+              reportRawValues=0;
+            break;
+        case CMD_TS:
+               if (DebugOutput==1)  
+                 Serial.println(F("set threshold sip"));
+               settings.ts=par1;
+            break;
+        case CMD_TP:
+               if (DebugOutput==1)  
+                 Serial.println(F("set threshold puff"));
+               settings.tp=par1;
             break;
     
     }

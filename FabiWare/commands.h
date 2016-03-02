@@ -41,11 +41,12 @@
           
     Housekeeping commands:
 
-          AT SA <string>  save settings and current button modes to next free eeprom slot under given name (e.g. AT SAVE mouse1)
+          AT SA <string>  save settings and current button modes to slot under given name 
+                          if slot exists it will be overwritten, else a new slot will be appended (e.g. AT SAVE mouse1)
           AT LO <string>  load button modes from eeprom slot (e.g. AT LOAD mouse1 -> loads profile named "mouse1")
           AT LA           load all slots (displays names and settings of all stored slots) 
           AT LI           list all saved mode names 
-          AT NE           next mode will be loaded (wrap around after last slot)
+          AT NE           next slot will be loaded (wrap around after last slot)
           AT DE           delete EEPROM content (delete all stored slots)
           AT NC           no command (idle operation)
           AT E0           turn echo off (no debug output on serial console, default and GUI compatible)
@@ -75,7 +76,7 @@
 enum atCommands {
   CMD_ID, CMD_BM, CMD_CL, CMD_CR, CMD_CM, CMD_CD, CMD_PL, CMD_PR, CMD_PM, CMD_RL, CMD_RR, CMD_RM,
   CMD_WU, CMD_WD, CMD_WS, CMD_MX, CMD_MY, CMD_KW, CMD_KP, CMD_KR, CMD_RA, CMD_SA, CMD_LO, CMD_LA,
-  CMD_LI, CMD_NE, CMD_DE, CMD_NC, CMD_E1, CMD_E0,
+  CMD_LI, CMD_NE, CMD_DE, CMD_NC, CMD_E1, CMD_E0, CMD_SR, CMD_ER, CMD_TS, CMD_TP,
   NUM_COMMANDS
 };
 

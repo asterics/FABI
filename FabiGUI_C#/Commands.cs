@@ -5,7 +5,7 @@
   (sent via serial interface, 115200 baud, using spaces between parameters.  Enter (<cr>, ASCII-code 0x0d) finishes a command)
    
          AT                returns "OK"
-         AT ID             returns identification string (e.g. "FLipMouse V2.0")
+         AT ID             returns identification string (e.g. "FABI v2.1")
          AT BM <uint>      puts button into programming mode (e.g. "AT BM 2" -> next AT-command defines the new function for button 2)
                            for the FLipmouse, there are 11 buttons available (3 physical buttons, 8 virtual functions): 
 
@@ -248,7 +248,7 @@ namespace MouseApp2
             public List<String> settingStrings = new List<String>();
             public Slot()
             {
-                this.slotName = "mouse";
+                this.slotName = "cursorkeys";
                 init();
             }
             public Slot(String slotName)

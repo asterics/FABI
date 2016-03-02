@@ -2,7 +2,7 @@
 
 /* 
      FLipMouseGUI - Graphical user Interface for FlipMouse / FlipWare firmware
-       built upon Assistive Button Interface (FABI) Version 2.0  - AsTeRICS Academy 2015 - http://www.asterics-academy.net
+       built upon Assistive Button Interface (FABI) Version 2.1  - AsTeRICS Academy 2015/2016 - http://www.asterics-academy.net
    
      for a list of supported AT commands, see commands.cs
    
@@ -29,7 +29,7 @@ namespace MouseApp2
 {
     public partial class FabiGUI : Form
     {
-        const string VERSION_STRING = "2.0";
+        const string VERSION_STRING = "2.1";
 
         const int SPECIALMODE_CHANGE_STEP = 5;
         const int PRESSURE_CHANGE_STEP = 1;
@@ -57,7 +57,7 @@ namespace MouseApp2
             slots.Clear();
             slots.Add(new Slot());
             slotNames.Items.Clear();
-            slotNames.Items.Add("mouse");
+            slotNames.Items.Add("cursorkeys");
         }
 
         public void storeSlot(int slotNumber)
@@ -675,10 +675,8 @@ namespace MouseApp2
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Fabi V2.0 - AsTeRICS Academy\nFor more information see: http://www.asterics-academy.net");
-        }
-
-    
+            MessageBox.Show("Fabi V2.1 - AsTeRICS Academy\nFor more information see: http://www.asterics-academy.net");
+        }  
 
     }
 }
