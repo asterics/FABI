@@ -51,6 +51,11 @@
           AT NC           no command (idle operation)
           AT E0           turn echo off (no debug output on serial console, default and GUI compatible)
           AT E1           turn echo on (debug output on serial console)
+          AT SR           start reporting raw values (sensor value of A0, starting with "VALUES:") 
+          AT ER           end reporting raw values
+          AT TS <uint>    treshold for sip action  (0-512)
+          AT TP <uint>    treshold for puff action (512-1023)
+
           
 
    supported key identifiers for key press command (AT KP):
