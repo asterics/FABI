@@ -5,12 +5,16 @@
 #include <gtk/gtk.h>
 #include <string.h>
 #include "serial.h"
+#include "commands.h"
+//#include <delay.h>
 
 
 /** Callback methods for GUI actions... **/
 
 //About dailog...
 static void about (GtkWidget *wid, GtkWidget *win);
+//Quit Program
+static void quit (GtkWidget *win);
 //Button "Connect": connect/disconnect to FABI...
 static void connect (GtkWidget *wid, GtkWidget *win);
 //Callback for selected serial port from combobox
@@ -22,6 +26,8 @@ void comboSlotName_selected(GtkWidget *widget, gpointer window);
 
 //Button "Apply": send current configraution to FABI...
 static void apply (GtkWidget *wid, GtkWidget *win);
+static void save (GtkWidget *wid, GtkWidget *win);
+void write2fabi(); //write from struct to fabi
 
 //ComboBox callback button 1 action
 void comboAction1_selected(GtkWidget *widget, gpointer window);
@@ -35,6 +41,20 @@ void comboAction4_selected(GtkWidget *widget, gpointer window);
 void comboAction5_selected(GtkWidget *widget, gpointer window);
 //ComboBox callback button 6 action
 void comboAction6_selected(GtkWidget *widget, gpointer window);
+//ComboBox callback button 7 action
+void comboAction7_selected(GtkWidget *widget, gpointer window);
+//ComboBox callback button 8 action
+void comboAction8_selected(GtkWidget *widget, gpointer window);
+//ComboBox callback button 9 action
+void comboAction9_selected(GtkWidget *widget, gpointer window);
+//ComboBox callback button 8 action
+void comboActionS_selected(GtkWidget *widget, gpointer window);
+//ComboBox callback button 9 action
+void comboActionP_selected(GtkWidget *widget, gpointer window);
+//Link
+static gboolean activate_link (GtkWidget *label, const gchar *uri, gpointer data);
+static void response_cb (GtkWidget *dialog, gint response_id, gpointer data);
+
 
 
 /** General methods for the main... **/
@@ -61,6 +81,7 @@ static void createGUIActions(GtkWidget *mainBox, GtkWidget *win);
 static void createGUILoadStore(GtkWidget *mainBox, GtkWidget *win);
 //Build the log GUI
 static void createGUILog(GtkWidget *mainBox, GtkWidget *win);
+
 
 #ifdef ARCH_WIN
 char* strsep(char** stringp, const char* delim);

@@ -42,6 +42,7 @@ int writeCOM(char* str, int len)
 
     #endif // ARCH_WIN
     #ifdef ARCH_LINUX
+    printf("Hierbin ich\n");
         return write(fd, str, len);
     #endif // ARCH_LINUX
 }
@@ -53,6 +54,7 @@ int readCOM(char * buffer, int size)
     #endif // ARCH_WIN
 
     #ifdef ARCH_LINUX
+    printf("das war ich\n");
      return(read(fd,buffer,size));
     #endif // ARCH_LINUX
 }

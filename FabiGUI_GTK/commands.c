@@ -1,5 +1,8 @@
 #include "commands.h"
 
+//char ButtonCommands [7][100] = {"AT CL\n","AT CL\n","AT CL\n","AT CL\n","AT CL\n","AT CL\n",""};
+char ButtonCommands[15][6] = {"AT NC", "AT NE", "AT CL", "AT CR", "AT CM", "AT CD", "AT PL", "AT PR", "AT PM", "AT WU", "AT WD", "AT MX", "AT MY", "AT KW", "AT KP"};
+                                                                                                                        //int   //int   //sting     //sting
 
 struct atCommandType atCommands[]  = {
     {"ID"  , PARTYPE_NONE },  {"BM"  , PARTYPE_UINT }, {"CL"  , PARTYPE_NONE }, {"CR"  , PARTYPE_NONE },
@@ -107,6 +110,14 @@ void performCommand (uint8_t cmd, int16_t par1, char * keystring, int8_t periodi
     if (actButton != 0)  // if last command was BM (set buttonmode): store current command for this button !!
     {
           printf("Got new mode for button %d:%d,%d,%s\n",actButton,cmd,par1,keystring);
+          //printf("Button%d %s %d %s\n",actButton, atCommandsEnum[cmd],par1,keystring);
+        //GUI_COM
+          GUI_COM[activeSlot].Commands[actButton]=cmd;
+          GUI_COM[activeSlot].par[actButton]=par1;
+          if(keystring !=0)
+                strncpy(GUI_COM[activeSlot].key[actButton], keystring, strlen(keystring));
+          printf("%d:%d:%d:%s\n",actButton,GUI_COM[activeSlot].Commands[actButton],GUI_COM[activeSlot].par[actButton],GUI_COM[activeSlot].key[actButton]);
+
 
         //buttons[actButton-1].mode=cmd;
         //buttons[actButton-1].value=par1;
@@ -126,6 +137,133 @@ void performCommand (uint8_t cmd, int16_t par1, char * keystring, int8_t periodi
                    actButton=par1;
                else  printf("?\n");
             break;
+        /*
+        case CMD_CL:
+                printf("Command found: CL");
+                break;
+        case CMD_CR:
+                printf("Command found: CR");
+                break;
+        case CMD_CM:
+                printf("Command found: CM");
+                break;
+        case CMD_CD:
+                printf("Command found: CD");
+                break;
+        case CMD_PL:
+                printf("Command found: PL");
+                break;
+        case CMD_PR:
+                printf("Command found: PR");
+                break;
+        case CMD_PM:
+                printf("Command found: PM");
+                break;
+        case CMD_RL:
+                printf("Command found: RL");
+                break;
+        case CMD_RR:
+                printf("Command found: RR");
+                break;
+        case CMD_RM:
+                printf("Command found: RM");
+                break;
+        case CMD_WU:
+                printf("Command found: WU");
+                break;
+        case CMD_WD:
+                printf("Command found: WD");
+                break;
+        case CMD_WS:
+                printf("Command found: WS");
+                break;
+        case CMD_MX:
+                printf("Command found: MX");
+                break;
+        case CMD_MY:
+                printf("Command found: MY");
+                break;
+        case CMD_KW:
+                printf("Command found: KW");
+                break;
+        case CMD_KP:
+                printf("Command found: KP");
+                break;
+        case CMD_KR:
+                printf("Command found: KR");
+                break;
+        case CMD_RA:
+                printf("Command found: RA");
+                break;
+        case CMD_SA:
+                printf("Command found: SA");
+                break;
+        case CMD_LO:
+                printf("Command found: LO");
+                break;
+        case CMD_LA:
+                printf("Command found: LA");
+                break;
+        case CMD_LI:
+                printf("Command found: LI");
+                break;
+        case CMD_NE:
+                printf("Command found: NE");
+                break;
+        case CMD_DE:
+                printf("Command found: DE");
+                break;
+        case CMD_NC:
+                printf("Command found: NC");
+                break;
+        */
 
     }
 }
+
+
+void InitParsVar()
+{
+    int i;
+    int j;
+    int l;
+
+    activeSlot=0;
+
+    for (i=0; i<9; i++)
+    {
+        GUI_COM[i].Loadstate=0;
+
+        for (j=0; j<30; j++)
+        {
+            GUI_COM[i].slotname[j]='\0';
+        }
+
+        for (j=0; j<30; j++)
+        {
+            GUI_COM[i].Commands[j]=0;
+        }
+
+        for (j=0; j<30; j++)
+        {
+            GUI_COM[i].par[j]=0;
+        }
+        for (j=0; j<30; j++)
+        {
+            for (l=0; l<15; l++)
+            {
+                GUI_COM[i].key[j][l]='\0';
+            }
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
