@@ -2,6 +2,7 @@
 #define SERIAL_H_INCLUDED
 
 #ifdef ARCH_WIN
+    #include <windows.h> /* Windows functions */
 #endif // ARCH_WIN
 
 #ifdef ARCH_LINUX
