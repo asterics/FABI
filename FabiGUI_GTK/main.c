@@ -889,7 +889,7 @@ void combo_selected(GtkWidget *widget, gpointer window)
 
 void comboSlotName_selected(GtkWidget *widget, gpointer window)
 {
-    int i = 0;
+    //int i = 0;
 
     if(isConnected != 0)
     {
@@ -1834,7 +1834,7 @@ void write2fabi() //static void apply (GtkWidget *wid, GtkWidget *win)
             }
             printf("2,5\n");
 
-            if(k=0)
+            if(k==0)
             {
             if(GUI_COM[activeSlot].Commands[i]==12) //interger parameter
             {
@@ -1855,6 +1855,7 @@ void write2fabi() //static void apply (GtkWidget *wid, GtkWidget *win)
             }
             }
 
+
             printf("3\n");
             writeCOM(cmd,strlen(cmd));
             printf("4\n");
@@ -1868,6 +1869,7 @@ void write2fabi() //static void apply (GtkWidget *wid, GtkWidget *win)
 		sprintf(cmd, "AT SA %s\n", GUI_COM[activeSlot].slotname);
 		writeCOM(cmd,strlen(cmd));
         printf("Settings applied.\n");
+        logAdd("Settings applied!");
     }
     else
     {logAdd("Please connect serial port first.");}

@@ -3,7 +3,8 @@
 #include <stdio.h>
 
 #ifdef ARCH_WIN
-    HANDLE hComm;
+    HANDLE hComm;      // port handle
+
 #endif // ARCH_WIN
 
 #ifdef ARCH_LINUX
@@ -18,39 +19,36 @@ void listComPorts(char* list)
         int i;
         char Device[7];
         char DEVICE[15];
-//        DEVICE = SerialPort::GetPortNames();
-//        printf(DEVICE);
 
-        for (i = 1; i < 257; i++)
+        for (i = 1; i <= 256; i++)
             {
             sprintf(Device,"COM%d",i);
 //            printf("verbinde %s\n", Device);
             sprintf(DEVICE, "\\\\.\\%s", Device);
 
-            hComm = CreateFile( DEVICE,
+            hComm = CreateFile (DEVICE,
                                 GENERIC_READ | GENERIC_WRITE,
                                 0,               //  must be opened with exclusive-access
                                 NULL,            //  default security attributes
                                 OPEN_EXISTING,   //  must use OPEN_EXISTING
                                 FILE_ATTRIBUTE_NORMAL, // not overlapped I/O
-                                NULL );          //  hTemplate must be NULL for comm devices
+                                NULL);          //  hTemplate must be NULL for comm devices
 
-             if (hComm == INVALID_HANDLE_VALUE) ;  //printf("failed\n");         //  do nothing
-             else
+             if (!(hComm == INVALID_HANDLE_VALUE))
                 {
-//                printf("%s Verfügbar\n", Device);
+                printf("%s Verfügbar\n", Device);
                 strcat(list, Device);
                 strcat(list, ";");
-                printf("Comlist: %s\n", list);
-
                 CloseHandle(hComm);
                 }
             }
 
+            printf("Comlist: %s\n", list);
+
     #endif // ARCH_WIN
 
     #ifdef ARCH_LINUX
-        DIR* dirp;
+        DgIR* dirp;
         struct dirent* dp;
 
         dirp = opendir("/dev/serial/by-id");
@@ -71,9 +69,14 @@ void listComPorts(char* list)
 int writeCOM(char* str, int len)
 {
     #ifdef ARCH_WIN
-        WriteFile(hComm, str, len, NULL, NULL);
+        return WriteFile(hComm, str, len, NULL, NULL);
+/*        if (WriteFile(hComm, str, len, NULL, NULL))
+        {
         printf("Daten gesendet\n");
         return 1;
+        }
+        else return 0;
+*/
     #endif // ARCH_WIN
 
     #ifdef ARCH_LINUX
@@ -88,18 +91,14 @@ int readCOM(char* buffer, int size)
         printf("read data...\n");
         DWORD numBytes = 0;           // number of read bytes.
 
-        //if(ReadFile(hComm, buffer, size, &numBytes, NULL))
+        if(ReadFile(hComm, buffer, size, &numBytes, NULL))
         // much shorter latency time with a smaller buffer!
-        if(ReadFile(hComm, buffer, 100, &numBytes, NULL))
+        //if(ReadFile(hComm, buffer, 100, &numBytes, NULL))
         {
             printf("Reading of %d Bytes ready.\n", (int)numBytes);
             return (int)numBytes;
         }
-        else
-        {
-            return 0;
-        }
-
+        else return 0;
 
     #endif // ARCH_WIN
 
@@ -163,35 +162,24 @@ int openCOM(char* name)
         {
         printf("Connected\n");
 
-
 		dcbSerialParams.DCBlength=sizeof(dcbSerialParams);
-
-		if (!GetCommState(hComm, &dcbSerialParams))
-		{
-			return -1;      //error getting state
-		}
+		if (!GetCommState(hComm, &dcbSerialParams)) return -1; // error
 		dcbSerialParams.BaudRate=CBR_9600;
 		dcbSerialParams.ByteSize=8;
 		dcbSerialParams.StopBits=ONESTOPBIT;
 		dcbSerialParams.Parity=NOPARITY;
+		if(!SetCommState(hComm, &dcbSerialParams)) return -1;   // error
+		printf("Serial parameters set\n");
 
-		if(!SetCommState(hComm, &dcbSerialParams))
-		{
-			return -1;      //error setting serial port state
-		}
-
-		GetCommTimeouts(hComm, &timeouts);
-
+		if (!GetCommTimeouts(hComm, &timeouts)) return -1;
 		timeouts.ReadIntervalTimeout=10;
 		timeouts.ReadTotalTimeoutConstant=1;
-		timeouts.ReadTotalTimeoutMultiplier=1;
+		timeouts.ReadTotalTimeoutMultiplier=0;
             // timeouts.WriteTotalTimeoutConstant=0;
             // timeouts.WriteTotalTimeoutMultiplier=0;
-		if(!SetCommTimeouts(hComm, &timeouts))
-		{
-			return -1;         //error occurred. Inform user
-		}
-		printf("serial parameters and timeout set\n");
+		if(!SetCommTimeouts(hComm, &timeouts)) return -1;  // error
+
+		printf("Serial timeouts set\n");
 
 		return 1;
         }
@@ -232,7 +220,6 @@ int closeCOM()
     #endif // ARCH_LINUX
     return(0);
 }
-
 
 
 //#include "parser.h"
