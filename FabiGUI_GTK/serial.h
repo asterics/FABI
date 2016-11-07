@@ -4,6 +4,7 @@
 #ifdef ARCH_WIN
     #include <windows.h> /* Windows functions */
     #include <unistd.h>  /* UNIX standard function definitions */
+    #include <stdio.h>
 #endif // ARCH_WIN
 
 #ifdef ARCH_LINUX

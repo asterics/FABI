@@ -293,37 +293,21 @@ static void createGUIStatus(GtkWidget *mainBox, GtkWidget *win)
     gtk_label_set_use_markup (GTK_LABEL (label), TRUE);
     g_signal_connect (label, "activate-link", G_CALLBACK (activate_link), NULL);
 
+
+
     //Label 1
     labelStatus1 = gtk_label_new("Please select the COM port of your FABI:");
     gtk_label_set_justify(GTK_LABEL(labelStatus1), GTK_JUSTIFY_LEFT);
     gtk_grid_attach(GTK_GRID(tableStatus),labelStatus1,0,0,2,1);
     gtk_grid_attach(GTK_GRID(tableStatus),label,0,2,2,1);
 
-/*    //Drop Down "COM Port"
-    comboCOM = gtk_combo_box_text_new();
-    char comlist[512] = "L E E R";
-    listComPorts(comlist);
-
-    char* token;                                //token of different COM port names
-    char* dup = strdup(comlist);                //duplicate, to own the memory (SEGFAULT otherwise...)
-    while ((token = strsep(&dup, ";")) != NULL)
-//    while ((token = strsep((char**)&comlist, ";")) != NULL)
-    {
-        if(strcmp(token,"") != 0)
-        {
-            gtk_combo_box_text_append(GTK_COMBO_BOX_TEXT(comboCOM), NULL, (gchar*)token);
-        }
-    }
-    //free(dup);
-    //free(token);      */
-
-//Drop Down "COM Port"
+    //Drop Down "COM Port"
     comboCOM = gtk_combo_box_text_new();
     char comlist[512] = "";     //COM1;COM2;COM3;COM4;COM5;";
     listComPorts(comlist);
 
-    char* token;                                //token of different COM port names
-    char* dup = strdup(comlist);                //duplicate, to own the memory (SEGFAULT otherwise...)
+    char *token; //token of different COM port names
+    char *dup = strdup(comlist); //duplicate, to own the memory (SEGFAULT otherwise...)
     while ((token = strsep(&dup, ";")) != NULL)
 //    while ((token = strsep((char**)&comlist, ";")) != NULL)
     {
@@ -334,8 +318,6 @@ static void createGUIStatus(GtkWidget *mainBox, GtkWidget *win)
     }
     //free(dup);
     //free(token);
-
-
 
     g_signal_connect(G_OBJECT(comboCOM), "changed",G_CALLBACK(combo_selected), G_OBJECT(win));
 
@@ -750,8 +732,8 @@ static void createGUIActions(GtkWidget *mainBox, GtkWidget *win)
     GtkWidget *labelSmax = gtk_label_new(Gmaxs);
     GtkWidget *labelPmin = gtk_label_new(Gmaxp);
     GtkWidget *labelPmax = gtk_label_new(Gminp);
-    GtkWidget *labelSTH = gtk_label_new("                Threshold");
-    GtkWidget *labelPTH = gtk_label_new("                Threshold");
+    GtkWidget *labelSTH = gtk_label_new("                                 Threshold");
+    GtkWidget *labelPTH = gtk_label_new("                                 Threshold");
 
 
     //Sip Button
@@ -889,7 +871,7 @@ void combo_selected(GtkWidget *widget, gpointer window)
 
 void comboSlotName_selected(GtkWidget *widget, gpointer window)
 {
-    //int i = 0;
+//    int i = 0;
 
     if(isConnected != 0)
     {
@@ -1169,14 +1151,15 @@ static void apply (GtkWidget *wid, GtkWidget *win)
 
 static void connecting (GtkWidget *wid, GtkWidget *win)
 {
+
     char comName[256] = {0};
     // comName = strdup("");     (!!)
-    // strcpy(comName,"COM4");
+    //strcpy(comName,"");
+
 
 #ifdef ARCH_LINUX
     strcat(comName,"/dev/serial/by-id/");
 #endif // ARCH_LINUX
-
     //char antwort[3];
 
 //    writeCOM("AT\n", strlen("AT\n"));
@@ -1218,7 +1201,7 @@ static void connecting (GtkWidget *wid, GtkWidget *win)
             }
             else
             {
-                logAdd("Connected!");
+                logAdd("Connected");
 
                 isConnected = 1;
                 gtk_label_set_text(GTK_LABEL(labelConnected),"Connected");
@@ -1227,7 +1210,7 @@ static void connecting (GtkWidget *wid, GtkWidget *win)
                 //             gtk_combo_box_text_remove_all(GTK_COMBO_BOX_TEXT(comboSlotNames));
                 if (processSerialCommand("AT LI\n") > 1)
                 {
-                    logAdd("FABI Device recognized!");
+                    logAdd("FABI device recognized");
 
 //                        GtkWidget *dialog = NULL;
 //                        GtkDialogFlags flags = GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT;
@@ -1255,15 +1238,20 @@ static void connecting (GtkWidget *wid, GtkWidget *win)
 //
 //                         }
 
+
+
                 }
-                else  logAdd("Can not connect to FABI device!");
+                else  logAdd("Could not connect to FABI device!");
+
+
+
             }
         }
     }
     else
     {
         closeCOM();
-        logAdd("Disconnected!");
+        logAdd("Disconnected");
         isConnected = 0;
         gtk_label_set_text(GTK_LABEL(labelConnected),"Not connected");
         gtk_button_set_label(GTK_BUTTON(wid),"Connect");
@@ -1855,7 +1843,6 @@ void write2fabi() //static void apply (GtkWidget *wid, GtkWidget *win)
             }
             }
 
-
             printf("3\n");
             writeCOM(cmd,strlen(cmd));
             printf("4\n");
@@ -1869,7 +1856,7 @@ void write2fabi() //static void apply (GtkWidget *wid, GtkWidget *win)
 		sprintf(cmd, "AT SA %s\n", GUI_COM[activeSlot].slotname);
 		writeCOM(cmd,strlen(cmd));
         printf("Settings applied.\n");
-        logAdd("Settings applied!");
+        logAdd("Settings applied");
     }
     else
     {logAdd("Please connect serial port first.");}

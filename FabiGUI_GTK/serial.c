@@ -1,10 +1,8 @@
 #include "serial.h"
 #include "parser.h"
-#include <stdio.h>
 
 #ifdef ARCH_WIN
     HANDLE hComm;      // port handle
-
 #endif // ARCH_WIN
 
 #ifdef ARCH_LINUX
@@ -15,7 +13,6 @@
 void listComPorts(char* list)
 {
     #ifdef ARCH_WIN
-//        *list = "";
         int i;
         char Device[7];
         char DEVICE[15];
@@ -48,7 +45,7 @@ void listComPorts(char* list)
     #endif // ARCH_WIN
 
     #ifdef ARCH_LINUX
-        DgIR* dirp;
+        DIR* dirp;
         struct dirent* dp;
 
         dirp = opendir("/dev/serial/by-id");
@@ -69,14 +66,14 @@ void listComPorts(char* list)
 int writeCOM(char* str, int len)
 {
     #ifdef ARCH_WIN
-        return WriteFile(hComm, str, len, NULL, NULL);
-/*        if (WriteFile(hComm, str, len, NULL, NULL))
+        DWORD numBytesRead = 0;           // number of read bytes.
+//        return WriteFile(hComm, str, len, &numBytesRead, NULL);
+        if (WriteFile(hComm, str, len, &numBytesRead, NULL))
         {
-        printf("Daten gesendet\n");
-        return 1;
+            printf("%d Bytes gesendet\n", (int)numBytesRead);
+            return 1;
         }
         else return 0;
-*/
     #endif // ARCH_WIN
 
     #ifdef ARCH_LINUX
@@ -85,21 +82,18 @@ int writeCOM(char* str, int len)
     #endif // ARCH_LINUX
 }
 
-int readCOM(char* buffer, int size)
+int readCOM(char * buffer, int size)
 {
     #ifdef ARCH_WIN
         printf("read data...\n");
         DWORD numBytes = 0;           // number of read bytes.
 
         if(ReadFile(hComm, buffer, size, &numBytes, NULL))
-        // much shorter latency time with a smaller buffer!
-        //if(ReadFile(hComm, buffer, 100, &numBytes, NULL))
         {
             printf("Reading of %d Bytes ready.\n", (int)numBytes);
             return (int)numBytes;
         }
         else return 0;
-
     #endif // ARCH_WIN
 
     #ifdef ARCH_LINUX
@@ -108,33 +102,30 @@ int readCOM(char* buffer, int size)
     #endif // ARCH_LINUX
 }
 
-
 int processSerialCommand(char * cmd)
 {
     int totalBytes=0;
-    char buffer[8192] = {0};
+    char buffer[8192];
     char * actpos;
     int numBytes,i;
-//    printf("Processing Command:%s",cmd);
+
+    printf("Processing Command:%s",cmd);
     writeCOM(cmd,strlen(cmd));
     usleep(1000000);  // wait 100 millisecond to let the uC respond
 
     do
     {
         numBytes=readCOM(buffer,8191);
-        if (numBytes>0)
-        {
+        if (numBytes>0) {
             totalBytes+=numBytes;
             buffer[numBytes]=0;
             actpos=buffer;
-            printf("Read %d Bytes: %s\n",numBytes,actpos);
-            for (i=0;i<numBytes; i++)
-                parseByte(buffer[i]);
+            printf("Read %d Bytes:%s\n",numBytes,actpos);
+            for (i=0;i<numBytes;i++)
+               parseByte(buffer[i]);
          }
-         else printf("read ready\n");
     } while (numBytes >0);
-
-    //printf("Serial Read ended with return value %d\n",numBytes);
+    // printf("Serial Read ended with return value %d\n",numBytes);
     printf("Serial Read ended with return value %d\n",totalBytes);
     return(totalBytes);
 }
@@ -142,7 +133,6 @@ int processSerialCommand(char * cmd)
 int openCOM(char* name)
 {
     #ifdef ARCH_WIN
-        //TODO: Win Implementation
         DCB dcbSerialParams = {0};
         COMMTIMEOUTS timeouts = {0};
         char NAME[10];
@@ -172,7 +162,7 @@ int openCOM(char* name)
 		printf("Serial parameters set\n");
 
 		if (!GetCommTimeouts(hComm, &timeouts)) return -1;
-		timeouts.ReadIntervalTimeout=10;
+		timeouts.ReadIntervalTimeout=100;
 		timeouts.ReadTotalTimeoutConstant=1;
 		timeouts.ReadTotalTimeoutMultiplier=0;
             // timeouts.WriteTotalTimeoutConstant=0;
@@ -183,7 +173,6 @@ int openCOM(char* name)
 
 		return 1;
         }
-
     #endif // ARCH_WIN
 
     #ifdef ARCH_LINUX
@@ -211,8 +200,8 @@ int openCOM(char* name)
 int closeCOM()
 {
     #ifdef ARCH_WIN
-    CloseHandle(hComm);
-    printf("COM closed\n");
+        CloseHandle(hComm);
+        printf("COM closed\n");
     #endif // ARCH_WIN
 
     #ifdef ARCH_LINUX
@@ -220,6 +209,8 @@ int closeCOM()
     #endif // ARCH_LINUX
     return(0);
 }
+
+
 
 
 //#include "parser.h"
