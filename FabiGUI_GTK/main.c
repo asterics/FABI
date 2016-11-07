@@ -301,6 +301,24 @@ static void createGUIStatus(GtkWidget *mainBox, GtkWidget *win)
     gtk_grid_attach(GTK_GRID(tableStatus),labelStatus1,0,0,2,1);
     gtk_grid_attach(GTK_GRID(tableStatus),label,0,2,2,1);
 
+    /*    //Drop Down "COM Port"
+    comboCOM = gtk_combo_box_text_new();
+    char comlist[512] = "L E E R";
+    listComPorts(comlist);
+
+    char* token;                                //token of different COM port names
+    char* dup = strdup(comlist);                //duplicate, to own the memory (SEGFAULT otherwise...)
+    while ((token = strsep(&dup, ";")) != NULL)
+//    while ((token = strsep((char**)&comlist, ";")) != NULL)
+    {
+        if(strcmp(token,"") != 0)
+        {
+            gtk_combo_box_text_append(GTK_COMBO_BOX_TEXT(comboCOM), NULL, (gchar*)token);
+        }
+    }
+    //free(dup);
+    //free(token);      */
+
     //Drop Down "COM Port"
     comboCOM = gtk_combo_box_text_new();
     char comlist[512] = "";     //COM1;COM2;COM3;COM4;COM5;";
