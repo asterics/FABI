@@ -16,7 +16,7 @@ static void about (GtkWidget *wid, GtkWidget *win);
 //Quit Program
 static void quit (GtkWidget *win);
 //Button "Connect": connect/disconnect to FABI...
-static void connect (GtkWidget *wid, GtkWidget *win);
+static void connecting (GtkWidget *wid, GtkWidget *win);
 //Callback for selected serial port from combobox
 void combo_selected(GtkWidget *widget, gpointer window);
 
