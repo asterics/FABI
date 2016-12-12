@@ -1,42 +1,23 @@
-# Welcome to FABI
+ 
+# Getting started
 
-The FABI (Flexible Assistive Button Interface) allows control of a computer’s mouse cursor and
-typing desired keyboard keys by using buttons and special/individual input methods. It can be
-helpful for people who cannot use standard computer input devices – enabling them to play
-games, surf the internet, write emails and much more.
+This folder contains the second version of the FABI configuration GUI. Instead of using C# (version 1), version 2 is based on plain C with GTK+v3.
+GTK enables a cross-platform compiling for the GUI. Currently, the build system is based on Code:Blocks, which is easy to install and use on Windows and Linux.
 
-![An opened FABI box, where you can see the Teensy microcontroller board and the 6 jackplugs](https://github.com/asterics/FABI/blob/master/img/7.jpg "FABI box with jackplugs")
-![A FABI box, where 3 different external buttons are connected](https://github.com/asterics/FABI/blob/master/img/8.jpg "FABI box with external buttons")
+# First steps - Windows
 
-## How?
-
-The FABI Interface can be actuated via dedicated buttons, momentary switches or self-made
-electrical contacts. FABI consists of a hardware module (a low-cost microcontroller which behaves
-as a computer mouse and/or keyboard) and a graphical software application for configuration of
-the desired functions.
-
-## Where should I start?
-
-This user manual includes a “do-it-yourself” building guide for your personal FABI device,
-describing the necessary hardware components and the Graphical User Interface application for
-the configuration of the different functions. A configured FABI module can be used on any
-computer (Windows, Linux or Mac) without installation of special software, because the FABI
-module behaves exactly like a standard mouse and keyboard which is plugged into your computer.
-
-Nevertheless, for configuring the desired functions via the GUI application a driver installation is
-necessary. The driver installation is also explained in the software section of this manual.
-FABI is an open source Assistive Technology module developed by the AsTeRICS Academy
-Project of the University of Applied Sciences, Technikum Wien
-(see http://www.asterics-academy.net).
-
-All software and hardware documents are open source and we took care to use the most
-affordable components available on the market to establish these functionalities – making FABI the
-most reasonably priced flexible assistive button interface we know !!
+- Install Code:BLocks from http://codeblocks.org/
+- Extract the gtk+-bundle file (from this folder) to C:\. The resulting path should be: C:\GTK\... If this is not the case, please adjust the project build options. IMPORTANT: do not use a path with spaces!
+- Add the path C:\GTK\bin to the PATH environment variable.
+- Open the FabiGUI_GTK_WIN.cbp Code:Blocks project file
+- Press F9 (Build and run)
+- If everything is fine, you should see the GUI
 
 
-## Example applications
+# First steps - Linux
 
-The folder _case designs_ contains different acrylic glass designs for example applications.
-Some of the examples are also located in the wiki.
+- Install Code:Blocks and the gtk-dev files via your packet manager (e.g. Debian: apt-get install codeblocks libgtk-3-dev)
+- Open the FabiGUI_GTK_LINUX.cbp Code:Blocks project file
+- Press F9 (Build and run)
+- If everything is fine, you should see the GUI
 
-![A wooden piece with 6 buttons, arranged between, left and right of your hands. Enabling faster working with shortcuts on each button](https://github.com/asterics/FABI/blob/master/img/2.jpg "RapidCoding prototype, powered by FABI")
