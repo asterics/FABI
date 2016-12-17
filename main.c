@@ -14,6 +14,7 @@
 
 gint a=250;
 gint timer = 0;
+gint NumberSlotNames = 1;
 GtkListStore *logStore = NULL;
 GtkTreeIter logIter;
 GtkWidget *labelConnected = NULL;
@@ -1056,6 +1057,7 @@ void gotSlotName(char * newName)
 {
     printf("Slotname received:%s\n",newName);
     gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(comboSlotNames),newName);
+    NumberSlotNames++;
 }
 
 static void save (GtkWidget *wid, GtkWidget *win)
@@ -1096,6 +1098,7 @@ static void save (GtkWidget *wid, GtkWidget *win)
 
      const gchar * text = gtk_entry_buffer_get_text (display_entry);
      gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(comboSlotNames), text);
+     NumberSlotNames++;
 
      dialog1 = gtk_message_dialog_new (GTK_WINDOW (win), GTK_DIALOG_MODAL, GTK_MESSAGE_INFO, GTK_BUTTONS_OK,
                                                 "Saved Slot as: %s", text);
@@ -1274,8 +1277,15 @@ static void connecting (GtkWidget *wid, GtkWidget *win)
         isConnected = 0;
         gtk_label_set_text(GTK_LABEL(labelConnected),"Not connected");
         gtk_button_set_label(GTK_BUTTON(wid),"Connect");
-    }
 
+        // delete list of available Slots
+        gtk_combo_box_set_active (GTK_COMBO_BOX(comboSlotNames), 0);
+        while (NumberSlotNames > 0)
+        {
+            gtk_combo_box_text_remove (GTK_COMBO_BOX_TEXT(comboSlotNames), 1);    // delete first item
+            NumberSlotNames--;
+        }
+    }
 }
 
 
@@ -1901,7 +1911,6 @@ void fillComboCOM(void)
 
         // save active setting
         activeCOM = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(comboCOM));
-
 
         // set first item to active and delete the rest
         gtk_combo_box_set_active (GTK_COMBO_BOX(comboCOM), 0);
