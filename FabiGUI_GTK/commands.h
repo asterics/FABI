@@ -71,6 +71,23 @@
 #include <stdint.h>
 #include <string.h>
 
+// alle ausgelesenen kommandos
+struct COM_FOR_GUI{
+    //stelle des arry entspricht der button nummer
+    int Loadstate;
+    char slotname[30];
+    int Commands[30];
+    int par[30];
+    char key[30][15];
+    char text[30][20];
+}GUI_COM[9];
+
+
+extern char ButtonCommands [15][6];
+
+int activeSlot;
+
+
 // command identifiers
 
 enum atCommandsEnum {
@@ -98,5 +115,7 @@ extern struct atCommandType atCommands[];
 
 void performCommand (uint8_t cmd, int16_t par1, char * keystring, int8_t periodicMouseMovement);
 void parseCommand (char * cmdstr);
+void InitParsVar();
+
 
 #endif

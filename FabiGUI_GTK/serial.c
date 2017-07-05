@@ -2,7 +2,7 @@
 #include "parser.h"
 
 #ifdef ARCH_WIN
-
+    HANDLE hComm;      // port handle
 #endif // ARCH_WIN
 
 #ifdef ARCH_LINUX
@@ -13,8 +13,35 @@
 void listComPorts(char* list)
 {
     #ifdef ARCH_WIN
-        //Test...
-        strcpy("COM1;COM2");
+        int i;
+        char Device[7];
+        char DEVICE[15];
+
+        for (i = 1; i <= 256; i++)
+            {
+            sprintf(Device,"COM%d",i);
+//            printf("verbinde %s\n", Device);
+            sprintf(DEVICE, "\\\\.\\%s", Device);
+
+            hComm = CreateFile (DEVICE,
+                                GENERIC_READ | GENERIC_WRITE,
+                                0,               //  must be opened with exclusive-access
+                                NULL,            //  default security attributes
+                                OPEN_EXISTING,   //  must use OPEN_EXISTING
+                                FILE_ATTRIBUTE_NORMAL, // not overlapped I/O
+                                NULL);          //  hTemplate must be NULL for comm devices
+
+             if (!(hComm == INVALID_HANDLE_VALUE))
+                {
+                printf("%s Verfügbar\n", Device);
+                strcat(list, Device);
+                strcat(list, ";");
+                CloseHandle(hComm);
+                }
+            }
+
+            printf("Comlist: %s\n", list);
+
     #endif // ARCH_WIN
 
     #ifdef ARCH_LINUX
@@ -39,9 +66,18 @@ void listComPorts(char* list)
 int writeCOM(char* str, int len)
 {
     #ifdef ARCH_WIN
-
+        DWORD numBytesRead = 0;           // number of read bytes.
+//        return WriteFile(hComm, str, len, &numBytesRead, NULL);
+        if (WriteFile(hComm, str, len, &numBytesRead, NULL))
+        {
+            printf("%d Bytes gesendet\n", (int)numBytesRead);
+            return 1;
+        }
+        else return 0;
     #endif // ARCH_WIN
+
     #ifdef ARCH_LINUX
+    printf("Hierbin ich\n");
         return write(fd, str, len);
     #endif // ARCH_LINUX
 }
@@ -49,10 +85,19 @@ int writeCOM(char* str, int len)
 int readCOM(char * buffer, int size)
 {
     #ifdef ARCH_WIN
+        printf("read data...\n");
+        DWORD numBytes = 0;           // number of read bytes.
 
+        if(ReadFile(hComm, buffer, size, &numBytes, NULL))
+        {
+            printf("Reading of %d Bytes ready.\n", (int)numBytes);
+            return (int)numBytes;
+        }
+        else return 0;
     #endif // ARCH_WIN
 
     #ifdef ARCH_LINUX
+    printf("das war ich\n");
      return(read(fd,buffer,size));
     #endif // ARCH_LINUX
 }
@@ -80,14 +125,54 @@ int processSerialCommand(char * cmd)
                parseByte(buffer[i]);
          }
     } while (numBytes >0);
-    printf("Serial Read ended with return value %d\n",numBytes);
+    // printf("Serial Read ended with return value %d\n",numBytes);
+    printf("Serial Read ended with return value %d\n",totalBytes);
     return(totalBytes);
 }
 
 int openCOM(char* name)
 {
     #ifdef ARCH_WIN
-        //TODO: Win Implementation
+        DCB dcbSerialParams = {0};
+        COMMTIMEOUTS timeouts = {0};
+        char NAME[10];
+
+        printf("Connect %s\n", name);
+        sprintf(NAME, "\\\\.\\%s", name);
+        hComm = CreateFile( NAME,
+                            GENERIC_READ | GENERIC_WRITE,
+                            0,               //  must be opened with exclusive-access
+                            NULL,            //  default security attributes
+                            OPEN_EXISTING,   //  must use OPEN_EXISTING
+                            FILE_ATTRIBUTE_NORMAL, // not overlapped I/O
+                            NULL );          //  hTemplate must be NULL for comm devices
+
+        if (hComm == INVALID_HANDLE_VALUE) return -1;       // error opening port; abort
+        else
+        {
+        printf("Connected\n");
+
+		dcbSerialParams.DCBlength=sizeof(dcbSerialParams);
+		if (!GetCommState(hComm, &dcbSerialParams)) return -1; // error
+		dcbSerialParams.BaudRate=CBR_9600;
+		dcbSerialParams.ByteSize=8;
+		dcbSerialParams.StopBits=ONESTOPBIT;
+		dcbSerialParams.Parity=NOPARITY;
+		if(!SetCommState(hComm, &dcbSerialParams)) return -1;   // error
+		printf("Serial parameters set\n");
+
+		if (!GetCommTimeouts(hComm, &timeouts)) return -1;
+		timeouts.ReadIntervalTimeout=100;
+		timeouts.ReadTotalTimeoutConstant=1;
+		timeouts.ReadTotalTimeoutMultiplier=0;
+            // timeouts.WriteTotalTimeoutConstant=0;
+            // timeouts.WriteTotalTimeoutMultiplier=0;
+		if(!SetCommTimeouts(hComm, &timeouts)) return -1;  // error
+
+		printf("Serial timeouts set\n");
+
+		return 1;
+        }
     #endif // ARCH_WIN
 
     #ifdef ARCH_LINUX
@@ -115,7 +200,8 @@ int openCOM(char* name)
 int closeCOM()
 {
     #ifdef ARCH_WIN
-        //TODO: Win Implementation
+        CloseHandle(hComm);
+        printf("COM closed\n");
     #endif // ARCH_WIN
 
     #ifdef ARCH_LINUX
