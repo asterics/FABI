@@ -1,8 +1,8 @@
 ﻿
 
 /* 
-     FLipMouseGUI - Graphical user Interface for FlipMouse / FlipWare firmware
-       built upon Assistive Button Interface (FABI) Version 2.1  - AsTeRICS Academy 2015/2016 - http://www.asterics-academy.net
+     FabiGUI - Graphical user Interface for the FABI box
+       built upon Assistive Button Interface (FABI) Version 2.2  - AsTeRICS Foundation 2017 - http://www.asterics-academy.net
    
      for a list of supported AT commands, see commands.cs
    
@@ -29,7 +29,7 @@ namespace MouseApp2
 {
     public partial class FabiGUI : Form
     {
-        const string VERSION_STRING = "2.1";
+        const string VERSION_STRING = "2.2";
 
         const int SPECIALMODE_CHANGE_STEP = 5;
         const int PRESSURE_CHANGE_STEP = 1;
@@ -248,6 +248,7 @@ namespace MouseApp2
                         loadSlotSettingsMenuItem.Enabled = true;
                         storeSlotSettingsMenuItem.Enabled = true;
                         ApplyButton.Enabled = true;
+                        StoreButton.Enabled = true;
                         connectComButton.Enabled = false;
 
                         IdTimer.Interval = 1500;
@@ -271,6 +272,7 @@ namespace MouseApp2
             loadSlotSettingsMenuItem.Enabled = false;
             storeSlotSettingsMenuItem.Enabled = false;
             ApplyButton.Enabled = false;
+            StoreButton.Enabled = false;
             connectComButton.Enabled = true;
         }
 
@@ -394,7 +396,7 @@ namespace MouseApp2
                 sendEndReportingCommand();
                 sendApplyCommands();
                 sendStartReportingCommand();
-                addToLog("The selected settings have been applied to the FLipmouse");
+                addToLog("The selected settings have been applied to the FABI box");
 
             }
             else addToLog("Please connect a device before applying configuration changes.");            
@@ -675,7 +677,7 @@ namespace MouseApp2
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Fabi V2.1 - AsTeRICS Academy\nFor more information see: http://www.asterics-academy.net");
+            MessageBox.Show("Fabi V"+VERSION_STRING+" - AsTeRICS Foundation\nFor more information see: http://www.asterics-academy.net");
         }  
 
     }

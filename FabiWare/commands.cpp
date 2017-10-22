@@ -2,6 +2,8 @@
 #include "fabi.h"
 
 uint8_t actButton=0;
+extern void parseCommand (char * cmdstr);
+
 
 const struct atCommandType atCommands[] PROGMEM = {
     {"ID"  , PARTYPE_NONE },  {"BM"  , PARTYPE_UINT }, {"CL"  , PARTYPE_NONE }, {"CR"  , PARTYPE_NONE },
@@ -12,7 +14,7 @@ const struct atCommandType atCommands[] PROGMEM = {
     {"RA"  , PARTYPE_NONE },  {"SA"  , PARTYPE_STRING},{"LO"  , PARTYPE_STRING},{"LA"  , PARTYPE_NONE },
     {"LI"  , PARTYPE_NONE },  {"NE"  , PARTYPE_NONE }, {"DE"  , PARTYPE_NONE }, {"NC"  , PARTYPE_NONE }, 
     {"E1"  , PARTYPE_NONE },  {"E0"  , PARTYPE_NONE }, {"SR"  , PARTYPE_NONE }, {"ER"  , PARTYPE_NONE },
-    {"TS"  , PARTYPE_UINT },  {"TP"  , PARTYPE_UINT }
+    {"TS"  , PARTYPE_UINT },  {"TP"  , PARTYPE_UINT }, {"MA"  , PARTYPE_STRING},{"WA"  , PARTYPE_UINT  }
 };
 
 
@@ -292,6 +294,36 @@ void performCommand (uint8_t cmd, int16_t par1, char * keystring, int8_t periodi
                  Serial.println(F("set threshold puff"));
                settings.tp=par1;
             break;
+        case CMD_MA:
+               {
+                 char current[MAX_KEYSTRING_LEN];  // TBD: save memory here via improved command extraction ...
+                 char *cmd_copy_ptr, backslash;
+                 uint8_t len;
+
+                 // do the macro stuff: feed single commands to parser, seperator: ';'
+                 cmd_copy_ptr=keystring;
+                 while (*cmd_copy_ptr)
+                 {
+                    len=0;backslash=0;
+                    while ((*cmd_copy_ptr) && ((*cmd_copy_ptr != ';') || backslash) && (len<MAX_KEYSTRING_LEN-1))
+                    {
+                       if ((*cmd_copy_ptr == '\\') && (!backslash))   // check for escape character
+                         backslash=1; 
+                       else  {
+                        current[len++] = *cmd_copy_ptr;
+                        backslash=0;
+                      }
+                      cmd_copy_ptr++;
+                    }
+                    current[len]=0; 
+                    parseCommand(current);
+                    if (*cmd_copy_ptr) cmd_copy_ptr++;
+                 }
+               }
+               break;
+        case CMD_WA:
+                delay(par1);
+               break;
     
     }
 }

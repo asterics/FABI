@@ -11,7 +11,7 @@ namespace MouseApp2
 {
     public partial class FabiGUI
     {
-        int flipMouseOnline=0;
+        int fabiOnline=0;
 
 
         // serial port / communication handling
@@ -103,7 +103,7 @@ namespace MouseApp2
         {
             IdTimer.Stop();
             
-            if (flipMouseOnline == 0)
+            if (fabiOnline == 0)
             {
                 addToLog("ID-Timeout ! No Fabi module found !");
                 disconnnectComButton_Click(this, null);
@@ -151,7 +151,7 @@ namespace MouseApp2
         public void gotID(String newLine)
         {
             addToLog("Fabi detected:" + newLine);
-            flipMouseOnline = 1;
+            fabiOnline = 1;
             slotNames.Items.Clear();
             sendStartReportingCommand();   // start reporting raw values !
 
@@ -204,7 +204,7 @@ namespace MouseApp2
                     addToLog("Error disconnecting COM Port");
                 }
             }
-            flipMouseOnline = 0;
+            fabiOnline = 0;
         }
 
         public void storeSettingsToFabi()
@@ -213,7 +213,7 @@ namespace MouseApp2
             {
                 Cursor.Current = Cursors.WaitCursor;
                 sendEndReportingCommand();
-                sendClearCommand();  // delete all slots on FlipMouse
+                sendClearCommand();  // delete all slots
 
                 slotCounter = 0;
                 for (slotCounter = 0; slotCounter < slots.Count; slotCounter++)
@@ -226,7 +226,7 @@ namespace MouseApp2
                 addToLog("The settings were stored!");
                 sendNextCommand();
                 sendStartReportingCommand();
-                Thread.Sleep(3000);  // time to activate config in flipmouse
+                Thread.Sleep(3000);  // time to activate config
                 Cursor.Current = Cursors.Default;
             }
 

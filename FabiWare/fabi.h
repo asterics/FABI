@@ -25,7 +25,7 @@
 #include "commands.h"
 
 
-#define VERSION_STRING "FABI v2.1"
+#define VERSION_STRING "FABI v2.2"
 
 //#define TEENSY                 //  if a Teensy controller is used
 #define ARDUINO_PRO_MICRO   //  if Arduino Leonardo or Arduino Pro Micro is used 
@@ -43,7 +43,7 @@
 
 #define MOUSE_ACCELDELAY   50         // steps to reach mouse move speed
 
-#define MAX_KEYSTRING_LEN 40          // maximum lenght for key identifiers / keyboard text
+#define MAX_KEYSTRING_LEN 90          // maximum lenght for key identifiers / keyboard text
 #define MAX_SLOTNAME_LEN  15          // maximum lenght for a slotname
 #define MAX_CMDLEN MAX_KEYSTRING_LEN+3
 

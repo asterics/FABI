@@ -35,7 +35,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.connectComButton = new System.Windows.Forms.Button();
             this.disconnectComButton = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
             this.portStatus = new System.Windows.Forms.Label();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.Buttons1Tab = new System.Windows.Forms.TabPage();
@@ -158,6 +157,7 @@
             this.newSlotButton = new System.Windows.Forms.Button();
             this.deleteSlotButton = new System.Windows.Forms.Button();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.StoreButton = new System.Windows.Forms.Button();
             this.tabControl.SuspendLayout();
             this.Buttons1Tab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Button4NumericParameter)).BeginInit();
@@ -185,7 +185,7 @@
             // 
             // portComboBox
             // 
-            this.portComboBox.Location = new System.Drawing.Point(126, 54);
+            this.portComboBox.Location = new System.Drawing.Point(108, 54);
             this.portComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.portComboBox.Name = "portComboBox";
             this.portComboBox.Size = new System.Drawing.Size(155, 24);
@@ -195,7 +195,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(46, 56);
+            this.label3.Location = new System.Drawing.Point(27, 56);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(71, 17);
@@ -204,7 +204,7 @@
             // 
             // connectComButton
             // 
-            this.connectComButton.Location = new System.Drawing.Point(290, 51);
+            this.connectComButton.Location = new System.Drawing.Point(367, 51);
             this.connectComButton.Margin = new System.Windows.Forms.Padding(4);
             this.connectComButton.Name = "connectComButton";
             this.connectComButton.Size = new System.Drawing.Size(83, 28);
@@ -217,7 +217,7 @@
             // 
             this.disconnectComButton.Enabled = false;
             this.disconnectComButton.ForeColor = System.Drawing.Color.Black;
-            this.disconnectComButton.Location = new System.Drawing.Point(379, 51);
+            this.disconnectComButton.Location = new System.Drawing.Point(457, 51);
             this.disconnectComButton.Margin = new System.Windows.Forms.Padding(4);
             this.disconnectComButton.Name = "disconnectComButton";
             this.disconnectComButton.Size = new System.Drawing.Size(93, 28);
@@ -226,21 +226,11 @@
             this.disconnectComButton.UseVisualStyleBackColor = true;
             this.disconnectComButton.Click += new System.EventHandler(this.disconnnectComButton_Click);
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(652, 58);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(82, 17);
-            this.label1.TabIndex = 11;
-            this.label1.Text = "Port Status:";
-            // 
             // portStatus
             // 
             this.portStatus.AutoSize = true;
             this.portStatus.ForeColor = System.Drawing.Color.SlateGray;
-            this.portStatus.Location = new System.Drawing.Point(739, 58);
+            this.portStatus.Location = new System.Drawing.Point(268, 58);
             this.portStatus.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.portStatus.Name = "portStatus";
             this.portStatus.Size = new System.Drawing.Size(94, 17);
@@ -1692,12 +1682,12 @@
             // 
             this.ApplyButton.Enabled = false;
             this.ApplyButton.ForeColor = System.Drawing.Color.Black;
-            this.ApplyButton.Location = new System.Drawing.Point(480, 51);
+            this.ApplyButton.Location = new System.Drawing.Point(607, 51);
             this.ApplyButton.Margin = new System.Windows.Forms.Padding(4);
             this.ApplyButton.Name = "ApplyButton";
             this.ApplyButton.Size = new System.Drawing.Size(118, 28);
             this.ApplyButton.TabIndex = 36;
-            this.ApplyButton.Text = "Apply settings";
+            this.ApplyButton.Text = "Test settings";
             this.ApplyButton.UseVisualStyleBackColor = true;
             this.ApplyButton.Click += new System.EventHandler(this.ApplyButton_Click);
             // 
@@ -1726,15 +1716,29 @@
             this.deleteSlotButton.UseVisualStyleBackColor = true;
             this.deleteSlotButton.Click += new System.EventHandler(this.deleteSlotButton_Click);
             // 
+            // StoreButton
+            // 
+            this.StoreButton.Enabled = false;
+            this.StoreButton.ForeColor = System.Drawing.Color.Black;
+            this.StoreButton.Location = new System.Drawing.Point(734, 51);
+            this.StoreButton.Margin = new System.Windows.Forms.Padding(4);
+            this.StoreButton.Name = "StoreButton";
+            this.StoreButton.Size = new System.Drawing.Size(118, 28);
+            this.StoreButton.TabIndex = 83;
+            this.StoreButton.Text = "Store settings";
+            this.StoreButton.UseVisualStyleBackColor = true;
+            this.StoreButton.Click += new System.EventHandler(this.storeSlotSettingsMenuItem_Click);
+            // 
             // FabiGUI
             // 
-            this.AccessibleDescription = "FlipMouseGUI";
-            this.AccessibleName = "FlipMouseGUI";
+            this.AccessibleDescription = "FabiGUI";
+            this.AccessibleName = "FabiGUI";
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(885, 695);
+            this.Controls.Add(this.StoreButton);
             this.Controls.Add(this.deleteSlotButton);
             this.Controls.Add(this.newSlotButton);
             this.Controls.Add(this.nextSlotButton);
@@ -1742,7 +1746,6 @@
             this.Controls.Add(this.slotNames);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.tabControl);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.portStatus);
             this.Controls.Add(this.ApplyButton);
             this.Controls.Add(this.disconnectComButton);
@@ -1792,7 +1795,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button connectComButton;
         private System.Windows.Forms.Button disconnectComButton;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label portStatus;
         private System.Windows.Forms.TabControl tabControl;
         private System.Windows.Forms.GroupBox groupBox1;
@@ -1915,6 +1917,7 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ComboBox SipFunctionMenu;
         private System.Windows.Forms.TextBox SipParameterText;
+        private System.Windows.Forms.Button StoreButton;
     }
 }
 

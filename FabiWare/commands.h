@@ -5,9 +5,13 @@
    (sent via serial interface, 115200 baud, using spaces between parameters.  Enter (<cr>, ASCII-code 0x0d) finishes a command)
    
           AT                returns "OK"
-          AT ID             returns identification string (e.g. "FLipMouse V2.0")
+          AT ID             returns identification string (e.g. "Fabi V2.2")
           AT BM <uint>      puts button into programming mode (e.g. "AT BM 2" -> next AT-command defines the new function for button 2)
                             for the FABI, there are 11 buttons available (9 physical buttons, 2 virtual functions - sip / puff) 
+
+          AT MA <string>  execute a command macro containing multiple commands (separated by semicolon) 
+                          example: "AT MA MX 100;MY 100;CL;"  use backslash to mask semicolon: "AT MA KW \;;CL;" writes a semicolon and then clicks left 
+          AT WA <uint>    wait (given in milliseconds, useful for macro commands)
 
     USB HID commands:
       
@@ -56,6 +60,7 @@
           AT TS <uint>    treshold for sip action  (0-512)
           AT TP <uint>    treshold for puff action (512-1023)
 
+
           
 
    supported key identifiers for key press command (AT KP):
@@ -64,6 +69,7 @@
     KEY_M   KEY_N   KEY_O   KEY_P    KEY_Q   KEY_R   KEY_S   KEY_T   KEY_U   KEY_V    KEY_W    KEY_X 
     KEY_Y   KEY_Z   KEY_1   KEY_2    KEY_3   KEY_4   KEY_5   KEY_6   KEY_7   KEY_8    KEY_9    KEY_0
     KEY_F1  KEY_F2  KEY_F3  KEY_F4   KEY_F5  KEY_F6  KEY_F7  KEY_F8  KEY_F9  KEY_F10  KEY_F11  KEY_F12	
+    KEY_F13 KEY_F14 KEY_F15 KEY_F16  KEY_F17 KEY_F18 KEY_F19 KEY_F20 KEY_F21 KEY_F22  KEY_F23  KEY_F24  
     
     KEY_RIGHT   KEY_LEFT       KEY_DOWN        KEY_UP      KEY_ENTER    KEY_ESC   KEY_BACKSPACE   KEY_TAB	
     KEY_HOME    KEY_PAGE_UP    KEY_PAGE_DOWN   KEY_DELETE  KEY_INSERT   KEY_END	  KEY_NUM_LOCK    KEY_SCROLL_LOCK
@@ -81,7 +87,7 @@
 enum atCommands {
   CMD_ID, CMD_BM, CMD_CL, CMD_CR, CMD_CM, CMD_CD, CMD_PL, CMD_PR, CMD_PM, CMD_RL, CMD_RR, CMD_RM,
   CMD_WU, CMD_WD, CMD_WS, CMD_MX, CMD_MY, CMD_KW, CMD_KP, CMD_KR, CMD_RA, CMD_SA, CMD_LO, CMD_LA,
-  CMD_LI, CMD_NE, CMD_DE, CMD_NC, CMD_E1, CMD_E0, CMD_SR, CMD_ER, CMD_TS, CMD_TP,
+  CMD_LI, CMD_NE, CMD_DE, CMD_NC, CMD_E1, CMD_E0, CMD_SR, CMD_ER, CMD_TS, CMD_TP, CMD_MA, CMD_WA,
   NUM_COMMANDS
 };
 

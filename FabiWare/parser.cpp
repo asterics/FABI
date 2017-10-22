@@ -90,10 +90,10 @@ void parseByte (int newByte)  // parse an incoming commandbyte from serial inter
                 else goto err;
             break;
         case 3: 
-                if ((newByte==13) || (newByte==10) || (cmdlen>=MAX_CMDLEN-1))
+                if ((newByte==13) || (newByte==10))
                 {  cmdstring[cmdlen]=0;  parseCommand(cmdstring); 
                   readstate=0; }
-                else  cmdstring[cmdlen++]=newByte; 
+                else if(cmdlen<MAX_CMDLEN-1) cmdstring[cmdlen++]=newByte; 
             break;   
         default: err: Serial.println('?');readstate=0;
    }

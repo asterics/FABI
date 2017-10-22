@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("FLipMouseGUI")]
+[assembly: AssemblyTitle("FabiGUI")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("AsTeRICS Academy")]
-[assembly: AssemblyProduct("FLipMouseGUI")]
+[assembly: AssemblyProduct("FabiGUI")]
 [assembly: AssemblyCopyright("Copyright © AsTeRICS Academy 2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

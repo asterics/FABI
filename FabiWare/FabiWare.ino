@@ -1,6 +1,6 @@
   
 /* 
-     Flexible Assistive Button Interface (FABI)  Version 2.0  - AsTeRICS Academy 2015 - http://www.asterics-academy.net
+     Flexible Assistive Button Interface (FABI)  Version 2.2  - AsTeRICS Foundation 2017 - http://www.asterics-academy.net
       allows control of HID functions via momentary switches and/or AT-commands  
    
 
@@ -12,7 +12,7 @@
 
 */
 
-#include "fabi.h"        //  Bounce library used for button debouncing
+#include "fabi.h"
 #include <EEPROM.h>
 
 // global variables
@@ -240,6 +240,7 @@ void initDebouncers()
 
 void release_all()  // releases all previously pressed keys
 {
+    // Serial.println("release all!");
     Keyboard.releaseAll();
     leftMouseButton=0;
     rightMouseButton=0;
