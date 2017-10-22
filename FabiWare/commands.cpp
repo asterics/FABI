@@ -196,8 +196,8 @@ void performCommand (uint8_t cmd, int16_t par1, char * keystring, int8_t periodi
             break;
         case CMD_KW:
                if (DebugOutput==1)   
-               {  Serial.print(F("keyboard write: ")); Serial.println(keystring); }
-               writeKeystring=keystring;
+               { Serial.print(F("keyboard write: ")); Serial.println(keystring); } 
+               sendToKeyboard(keystring);
                break;
         case CMD_KP:
                if (DebugOutput==1)   
