@@ -37,10 +37,15 @@ void saveToEEPROM(char * slotname)
    if (DebugOutput==1) {  
      Serial.print(F("Writing slot ")); if (slotname) Serial.print(slotname);
      Serial.print(F(" starting from EEPROM address ")); Serial.println(address);
+
+     if ( address + (sizeof(settingsType)+NUMBER_OF_BUTTONS*sizeof(buttonType)+1) > EEPROM_SIZE)
+     { Serial.print(F(" EEPROM too small, aborting! ")); return; }
+     
    }
    
    // start with new slot 
-   EEPROM.write(address++,SLOT_VALID);  
+   EEPROM.write(address,SLOT_VALID);     
+   address++;
 
    // update slotname
    if (!slotname) settings.slotname[0]=0;
@@ -72,7 +77,7 @@ void readFromEEPROM(char * slotname)
    uint8_t done;
    uint8_t numSlots=0;
    uint8_t* p;
-   
+
    while (EEPROM.read(address)==SLOT_VALID)  // indicates valid eeprom content !
    {
       uint8_t found=0;

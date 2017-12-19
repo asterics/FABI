@@ -38,13 +38,13 @@
 #define NUMBER_OF_BUTTONS  11         // number of connected or virtual switches
 #define NUMBER_OF_PHYSICAL_BUTTONS 9  // number of connected switches
 #define NUMBER_OF_LEDS     3          // number of connected leds
-#define MAX_SLOTS          3          // maximum number of EEPROM memory slots
+#define EEPROM_SIZE        1023       // maximum size of EEPROM storage
 
 
 #define MOUSE_ACCELDELAY   50         // steps to reach mouse move speed
 
-#define MAX_KEYSTRING_LEN 90          // maximum lenght for key identifiers / keyboard text
-#define MAX_SLOTNAME_LEN  15          // maximum lenght for a slotname
+#define MAX_KEYSTRING_LEN 25          // maximum lenght for key identifiers / keyboard text
+#define MAX_SLOTNAME_LEN  10          // maximum lenght for a slotname
 #define MAX_CMDLEN MAX_KEYSTRING_LEN+3
 
 #define PARTYPE_NONE  0
