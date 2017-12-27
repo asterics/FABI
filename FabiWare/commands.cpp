@@ -1,9 +1,6 @@
 
 #include "fabi.h"
 
-uint8_t actButton=0;
-extern void parseCommand (char * cmdstr);
-
 
 const struct atCommandType atCommands[] PROGMEM = {
     {"ID"  , PARTYPE_NONE },  {"BM"  , PARTYPE_UINT }, {"CL"  , PARTYPE_NONE }, {"CR"  , PARTYPE_NONE },
@@ -14,25 +11,10 @@ const struct atCommandType atCommands[] PROGMEM = {
     {"RA"  , PARTYPE_NONE },  {"SA"  , PARTYPE_STRING},{"LO"  , PARTYPE_STRING},{"LA"  , PARTYPE_NONE },
     {"LI"  , PARTYPE_NONE },  {"NE"  , PARTYPE_NONE }, {"DE"  , PARTYPE_NONE }, {"NC"  , PARTYPE_NONE }, 
     {"E1"  , PARTYPE_NONE },  {"E0"  , PARTYPE_NONE }, {"SR"  , PARTYPE_NONE }, {"ER"  , PARTYPE_NONE },
-    {"TS"  , PARTYPE_UINT },  {"TP"  , PARTYPE_UINT }, {"MA"  , PARTYPE_STRING},{"WA"  , PARTYPE_UINT  }
+    {"TS"  , PARTYPE_UINT },  {"TP"  , PARTYPE_UINT }, {"MA"  , PARTYPE_STRING},{"WA"  , PARTYPE_UINT  },
+    {"TT"  , PARTYPE_UINT },  {"AP"  , PARTYPE_UINT }, {"AR"  , PARTYPE_UINT},  {"AI"  , PARTYPE_UINT  },
+    {"FR"  , PARTYPE_NONE }
 };
-
-
-void initButtons() {
-     buttons[0].mode=CMD_NE;  // default function for first button: switch to next slot
-     buttons[1].mode=CMD_KP; strcpy(buttons[1].keystring,"KEY_ESC ");;
-     buttons[2].mode=CMD_NC;  // no command
-     buttons[3].mode=CMD_KP; strcpy(buttons[3].keystring,"KEY_UP ");
-     buttons[4].mode=CMD_KP; strcpy(buttons[4].keystring,"KEY_DOWN ");
-     buttons[5].mode=CMD_KP; strcpy(buttons[5].keystring,"KEY_LEFT ");
-     buttons[6].mode=CMD_KP; strcpy(buttons[6].keystring,"KEY_RIGHT ");
-     buttons[7].mode=CMD_PL;   // press left mouse button
-     buttons[8].mode=CMD_NC;   // no command 
-     buttons[9].mode=CMD_CD;   // click double                        
-     buttons[10].mode=CMD_CR;  // click right      
-     buttons[11].mode=CMD_NC;  // no command      
-}
-
 
 void printCurrentSlot()
 {
@@ -40,6 +22,10 @@ void printCurrentSlot()
         Serial.print(F("AT WS ")); Serial.println(settings.ws);
         Serial.print(F("AT TS ")); Serial.println(settings.ts);
         Serial.print(F("AT TP ")); Serial.println(settings.tp);
+        Serial.print(F("AT TT ")); Serial.println(settings.tt);
+        Serial.print(F("AT AP ")); Serial.println(settings.ap);
+        Serial.print(F("AT AR ")); Serial.println(settings.ar);
+        Serial.print(F("AT AI ")); Serial.println(settings.ai);
         for (int i=0;i<NUMBER_OF_BUTTONS;i++) 
         {
            Serial.print(F("AT BM ")); 
@@ -54,31 +40,36 @@ void printCurrentSlot()
             {
                case PARTYPE_UINT: 
                case PARTYPE_INT:  Serial.print(' ');Serial.print(buttons[i].value); break;
-               case PARTYPE_STRING: Serial.print(' ');Serial.print(buttons[i].keystring); break;
+               case PARTYPE_STRING: Serial.print(' ');Serial.print(getKeystring(i)); break;
             }
             Serial.println("");
         }
 }
 
 
-
 // perform a command  (called from parser.cpp)
 //   cmd: command identifier
-//   par1: optional numeric parameter
+//   parNum: optional numeric parameter
+//   parString: optional numeric parameter
 //   periodicMouseMovement: if true, mouse will continue moving - if false: only one movement
-void performCommand (uint8_t cmd, int16_t par1, char * keystring, int8_t periodicMouseMovement)
+void performCommand (uint8_t cmd, int16_t parNum, char * parString, int8_t periodicMouseMovement)
 {
+    static uint8_t actButton=0;
+
     if (actButton != 0)  // if last command was BM (set buttonmode): store current command for this button !!
     {
         if (DebugOutput==1) {
           Serial.print(F("got new mode for button ")); Serial.print(actButton);Serial.print(':');
-          Serial.print(cmd);Serial.print(',');Serial.print(par1);Serial.print(',');Serial.println(keystring);
+          Serial.print(cmd);Serial.print(',');Serial.print(parNum);Serial.print(',');Serial.println(parString);
         }
         buttons[actButton-1].mode=cmd;
-        buttons[actButton-1].value=par1;
-        if (keystring==0) buttons[actButton-1].keystring[0]=0;
-        else strcpy(buttons[actButton-1].keystring,keystring);
+        buttons[actButton-1].value=parNum;
+        if (parString==0) setKeystring(actButton-1,"");
+        else setKeystring(actButton-1,parString);
         actButton=0;
+        if (DebugOutput==1) {
+           printKeystrings();
+        }
         return;  // do not actually execute the command (just store it)
     }
     
@@ -89,10 +80,10 @@ void performCommand (uint8_t cmd, int16_t par1, char * keystring, int8_t periodi
         case CMD_BM:
                release_all();
                if (DebugOutput==1)
-                  Serial.print(F("set mode for button ")); Serial.println(par1);
+               {   Serial.print(F("set mode for button ")); Serial.println(parNum); }
                
-               if ((par1>0) && (par1<=NUMBER_OF_BUTTONS))
-                   actButton=par1;
+               if ((parNum>0) && (parNum<=NUMBER_OF_BUTTONS))
+                   actButton=parNum;
                else  Serial.println('?');
             break;
         
@@ -180,36 +171,34 @@ void performCommand (uint8_t cmd, int16_t par1, char * keystring, int8_t periodi
                if (DebugOutput==1)
                  Serial.println(F("wheel step"));
                
-               settings.ws=par1;
+               settings.ws=parNum;
             break;
         case CMD_MX:
                if (DebugOutput==1) 
-               {  Serial.print(F("mouse move x ")); Serial.println(par1); }
-               if (periodicMouseMovement) moveX=par1;
-               else Mouse.move(par1, 0);
+               {  Serial.print(F("mouse move x ")); Serial.println(parNum); }
+               if (periodicMouseMovement) moveX=parNum;
+               else Mouse.move(parNum, 0);
             break;
         case CMD_MY:
                if (DebugOutput==1)   
-               {  Serial.print(F("mouse move y ")); Serial.println(par1); }
-               if (periodicMouseMovement) moveY=par1;
-               else Mouse.move(0, par1);
+               {  Serial.print(F("mouse move y ")); Serial.println(parNum); }
+               if (periodicMouseMovement) moveY=parNum;
+               else Mouse.move(0, parNum);
             break;
         case CMD_KW:
                if (DebugOutput==1)   
-               { Serial.print(F("keyboard write: ")); Serial.println(keystring); } 
-               sendToKeyboard(keystring);
+               { Serial.print(F("keyboard write: ")); Serial.println(parString); } 
+               sendToKeyboard(parString);
                break;
         case CMD_KP:
                if (DebugOutput==1)   
-               {  Serial.print(F("key press: ")); Serial.println(keystring); }
-               if (keystring[strlen(keystring)-1] != ' ') strcat(keystring," ");
-               setKeyValues(keystring);
+               {  Serial.print(F("key press: ")); Serial.println(parString); }
+               pressSingleKeys(parString);
                break;
         case CMD_KR:
                if (DebugOutput==1)   
-               {  Serial.print(F("key release: "));  Serial.println(keystring); }
-               strcat(keystring," ");
-               releaseKeys(keystring);             
+               {  Serial.print(F("key release: "));  Serial.println(parString); }
+               releaseSingleKeys(parString);             
                break;
         case CMD_RA:
                if (DebugOutput==1) 
@@ -220,17 +209,17 @@ void performCommand (uint8_t cmd, int16_t par1, char * keystring, int8_t periodi
               
         case CMD_SA:
                if (DebugOutput==1) 
-               {  Serial.print(F("save slot "));  Serial.println(keystring); }
+               {  Serial.print(F("save slot "));  Serial.println(parString); }
                release_all();
-               saveToEEPROM(keystring); 
+               saveToEEPROM(parString); 
             break;
         case CMD_LO:
                if (DebugOutput==1) 
-               {  Serial.print(F("load slot: ")); Serial.println(keystring); }
-               if (keystring) {
+               {  Serial.print(F("load slot: ")); Serial.println(parString); }
+               if (parString) {
                  release_all();
                  reportSlotParameters=REPORT_ONE_SLOT;
-                 readFromEEPROM(keystring);
+                 readFromEEPROM(parString);
                  reportSlotParameters=REPORT_NONE;
                }
             break;
@@ -240,7 +229,7 @@ void performCommand (uint8_t cmd, int16_t par1, char * keystring, int8_t periodi
                
                release_all();
                reportSlotParameters=REPORT_ALL_SLOTS;
-               readFromEEPROM(keystring);
+               readFromEEPROM(parString);
                reportSlotParameters=REPORT_NONE;
                readFromEEPROM(0);
             break;
@@ -287,42 +276,62 @@ void performCommand (uint8_t cmd, int16_t par1, char * keystring, int8_t periodi
         case CMD_TS:
                if (DebugOutput==1)  
                  Serial.println(F("set threshold sip"));
-               settings.ts=par1;
+               settings.ts=parNum;
             break;
         case CMD_TP:
                if (DebugOutput==1)  
                  Serial.println(F("set threshold puff"));
-               settings.tp=par1;
+               settings.tp=parNum;
+            break;
+        case CMD_TT:
+               if (DebugOutput==1)  
+                 Serial.println(F("set threshold time"));
+               settings.tt=parNum;
+            break;
+        case CMD_AP:
+               if (DebugOutput==1)  
+                 Serial.println(F("set antitremor press"));
+               settings.ap=parNum;
+            break;
+        case CMD_AR:
+               if (DebugOutput==1)  
+                 Serial.println(F("set antitremor release"));
+               settings.ar=parNum;
+            break;
+        case CMD_AI:
+               if (DebugOutput==1)  
+                 Serial.println(F("set antitremor idle"));
+               settings.ai=parNum;
             break;
         case CMD_MA:
-               {
-                 char current[MAX_KEYSTRING_LEN];  // TBD: save memory here via improved command extraction ...
-                 char *cmd_copy_ptr, backslash;
-                 uint8_t len;
+               {                 
+                 // make a copy from keystring because processing will be destructive...
+                 memmove(cmdstring, parString, strlen(parString) + 1);
+                 uint8_t lastCmd=0;
+                 char * cmdStart=cmdstring, *cmdEnd;
 
-                 // do the macro stuff: feed single commands to parser, seperator: ';'
-                 cmd_copy_ptr=keystring;
-                 while (*cmd_copy_ptr)
-                 {
-                    len=0;backslash=0;
-                    while ((*cmd_copy_ptr) && ((*cmd_copy_ptr != ';') || backslash) && (len<MAX_KEYSTRING_LEN-1))
-                    {
-                       if ((*cmd_copy_ptr == '\\') && (!backslash))   // check for escape character
-                         backslash=1; 
-                       else  {
-                        current[len++] = *cmd_copy_ptr;
-                        backslash=0;
-                      }
-                      cmd_copy_ptr++;
-                    }
-                    current[len]=0; 
-                    parseCommand(current);
-                    if (*cmd_copy_ptr) cmd_copy_ptr++;
-                 }
+                 // do the macro stuff: feed single commands to parser, separator: ';'
+                 do {
+                   cmdEnd=cmdStart;
+                   while ((*cmdEnd!=';') && (*cmdEnd)) {
+                    // use backslash for passing special characters (; or \). note: copy also 0-delimiter! 
+                    if (*cmdEnd =='\\') memmove (cmdEnd, cmdEnd+1, strlen(cmdEnd));
+                    cmdEnd++;
+                   }
+                   if (!(*cmdEnd)) lastCmd=1;
+                   else *cmdEnd=0; 
+                   parseCommand(cmdStart);
+                   cmdStart=cmdEnd+1;
+                   if (!(*cmdStart)) lastCmd=1;
+                 } while (!lastCmd);                 
                }
                break;
         case CMD_WA:
-                delay(par1);
+                delay(parNum);
+               break;
+        case CMD_FR:
+               Serial.print(F("FREE EEPROM (%):"));
+               Serial.println((int)((uint32_t) freeEEPROMbytes * 100 / EEPROM_SIZE));
                break;
     
     }

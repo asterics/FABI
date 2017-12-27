@@ -139,6 +139,21 @@
             this.sipThresholdLabel = new System.Windows.Forms.Label();
             this.sipThresholdBar = new System.Windows.Forms.TrackBar();
             this.thresholdLabelForSip = new System.Windows.Forms.Label();
+            this.SettingsTab = new System.Windows.Forms.TabPage();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.antiTremorIdleLabel = new System.Windows.Forms.Label();
+            this.antiTremorIdleBar = new System.Windows.Forms.TrackBar();
+            this.label14 = new System.Windows.Forms.Label();
+            this.antiTremorReleaseLabel = new System.Windows.Forms.Label();
+            this.antiTremorReleaseBar = new System.Windows.Forms.TrackBar();
+            this.label10 = new System.Windows.Forms.Label();
+            this.antiTremorPressLabel = new System.Windows.Forms.Label();
+            this.antiTremorPressBar = new System.Windows.Forms.TrackBar();
+            this.label9 = new System.Windows.Forms.Label();
+            this.timeThresholdLabel = new System.Windows.Forms.Label();
+            this.timeThresholdBar = new System.Windows.Forms.TrackBar();
+            this.label2 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.activityLogTextbox = new System.Windows.Forms.RichTextBox();
             this.slotNames = new System.Windows.Forms.ComboBox();
@@ -158,6 +173,8 @@
             this.deleteSlotButton = new System.Windows.Forms.Button();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.StoreButton = new System.Windows.Forms.Button();
+            this.freeMemPanel = new System.Windows.Forms.Panel();
+            this.freeMemLabel = new System.Windows.Forms.Label();
             this.tabControl.SuspendLayout();
             this.Buttons1Tab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Button4NumericParameter)).BeginInit();
@@ -175,6 +192,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.SipNumericParameter)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.puffThresholdBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.sipThresholdBar)).BeginInit();
+            this.SettingsTab.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.antiTremorIdleBar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.antiTremorReleaseBar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.antiTremorPressBar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.timeThresholdBar)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -185,17 +207,17 @@
             // 
             // portComboBox
             // 
-            this.portComboBox.Location = new System.Drawing.Point(108, 54);
+            this.portComboBox.Location = new System.Drawing.Point(126, 54);
             this.portComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.portComboBox.Name = "portComboBox";
-            this.portComboBox.Size = new System.Drawing.Size(155, 24);
+            this.portComboBox.Size = new System.Drawing.Size(116, 24);
             this.portComboBox.TabIndex = 60;
             this.portComboBox.Click += new System.EventHandler(this.portComboBox_Click);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(27, 56);
+            this.label3.Location = new System.Drawing.Point(51, 57);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(71, 17);
@@ -204,7 +226,7 @@
             // 
             // connectComButton
             // 
-            this.connectComButton.Location = new System.Drawing.Point(367, 51);
+            this.connectComButton.Location = new System.Drawing.Point(349, 53);
             this.connectComButton.Margin = new System.Windows.Forms.Padding(4);
             this.connectComButton.Name = "connectComButton";
             this.connectComButton.Size = new System.Drawing.Size(83, 28);
@@ -217,7 +239,7 @@
             // 
             this.disconnectComButton.Enabled = false;
             this.disconnectComButton.ForeColor = System.Drawing.Color.Black;
-            this.disconnectComButton.Location = new System.Drawing.Point(457, 51);
+            this.disconnectComButton.Location = new System.Drawing.Point(438, 53);
             this.disconnectComButton.Margin = new System.Windows.Forms.Padding(4);
             this.disconnectComButton.Name = "disconnectComButton";
             this.disconnectComButton.Size = new System.Drawing.Size(93, 28);
@@ -230,7 +252,7 @@
             // 
             this.portStatus.AutoSize = true;
             this.portStatus.ForeColor = System.Drawing.Color.SlateGray;
-            this.portStatus.Location = new System.Drawing.Point(268, 58);
+            this.portStatus.Location = new System.Drawing.Point(245, 58);
             this.portStatus.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.portStatus.Name = "portStatus";
             this.portStatus.Size = new System.Drawing.Size(94, 17);
@@ -242,7 +264,8 @@
             this.tabControl.Controls.Add(this.Buttons1Tab);
             this.tabControl.Controls.Add(this.Button2Tab);
             this.tabControl.Controls.Add(this.SipPuffLevelsTab);
-            this.tabControl.Location = new System.Drawing.Point(50, 103);
+            this.tabControl.Controls.Add(this.SettingsTab);
+            this.tabControl.Location = new System.Drawing.Point(50, 99);
             this.tabControl.Margin = new System.Windows.Forms.Padding(4);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
@@ -725,7 +748,7 @@
             // Button5Label
             // 
             this.Button5Label.AutoSize = true;
-            this.Button5Label.Location = new System.Drawing.Point(127, 55);
+            this.Button5Label.Location = new System.Drawing.Point(149, 55);
             this.Button5Label.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.Button5Label.Name = "Button5Label";
             this.Button5Label.Size = new System.Drawing.Size(78, 17);
@@ -736,7 +759,7 @@
             // label27
             // 
             this.label27.AutoSize = true;
-            this.label27.Location = new System.Drawing.Point(101, 24);
+            this.label27.Location = new System.Drawing.Point(123, 24);
             this.label27.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label27.Name = "label27";
             this.label27.Size = new System.Drawing.Size(104, 17);
@@ -747,7 +770,7 @@
             // 
             this.clearButton5.Enabled = false;
             this.clearButton5.ForeColor = System.Drawing.Color.Black;
-            this.clearButton5.Location = new System.Drawing.Point(534, 51);
+            this.clearButton5.Location = new System.Drawing.Point(556, 51);
             this.clearButton5.Margin = new System.Windows.Forms.Padding(4);
             this.clearButton5.Name = "clearButton5";
             this.clearButton5.Size = new System.Drawing.Size(36, 28);
@@ -760,7 +783,7 @@
             // Button5ComboBox
             // 
             this.Button5ComboBox.FormattingEnabled = true;
-            this.Button5ComboBox.Location = new System.Drawing.Point(533, 24);
+            this.Button5ComboBox.Location = new System.Drawing.Point(555, 24);
             this.Button5ComboBox.Margin = new System.Windows.Forms.Padding(4);
             this.Button5ComboBox.Name = "Button5ComboBox";
             this.Button5ComboBox.Size = new System.Drawing.Size(161, 24);
@@ -770,7 +793,7 @@
             // 
             // Button5NumericParameter
             // 
-            this.Button5NumericParameter.Location = new System.Drawing.Point(216, 55);
+            this.Button5NumericParameter.Location = new System.Drawing.Point(238, 55);
             this.Button5NumericParameter.Margin = new System.Windows.Forms.Padding(4);
             this.Button5NumericParameter.Minimum = new decimal(new int[] {
             100,
@@ -790,7 +813,7 @@
             // label28
             // 
             this.label28.AutoSize = true;
-            this.label28.Location = new System.Drawing.Point(153, 56);
+            this.label28.Location = new System.Drawing.Point(175, 56);
             this.label28.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label28.Name = "label28";
             this.label28.Size = new System.Drawing.Size(0, 17);
@@ -798,7 +821,7 @@
             // 
             // Button5ParameterText
             // 
-            this.Button5ParameterText.Location = new System.Drawing.Point(216, 54);
+            this.Button5ParameterText.Location = new System.Drawing.Point(238, 54);
             this.Button5ParameterText.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Button5ParameterText.Name = "Button5ParameterText";
             this.Button5ParameterText.ReadOnly = true;
@@ -808,7 +831,7 @@
             // label31
             // 
             this.label31.AutoSize = true;
-            this.label31.Location = new System.Drawing.Point(121, 27);
+            this.label31.Location = new System.Drawing.Point(143, 27);
             this.label31.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label31.Name = "label31";
             this.label31.Size = new System.Drawing.Size(0, 17);
@@ -817,7 +840,7 @@
             // Button5FunctionBox
             // 
             this.Button5FunctionBox.FormattingEnabled = true;
-            this.Button5FunctionBox.Location = new System.Drawing.Point(216, 24);
+            this.Button5FunctionBox.Location = new System.Drawing.Point(238, 24);
             this.Button5FunctionBox.Margin = new System.Windows.Forms.Padding(4);
             this.Button5FunctionBox.Name = "Button5FunctionBox";
             this.Button5FunctionBox.Size = new System.Drawing.Size(311, 24);
@@ -828,7 +851,7 @@
             // 
             this.clearButton9.Enabled = false;
             this.clearButton9.ForeColor = System.Drawing.Color.Black;
-            this.clearButton9.Location = new System.Drawing.Point(533, 323);
+            this.clearButton9.Location = new System.Drawing.Point(555, 323);
             this.clearButton9.Margin = new System.Windows.Forms.Padding(4);
             this.clearButton9.Name = "clearButton9";
             this.clearButton9.Size = new System.Drawing.Size(36, 28);
@@ -842,7 +865,7 @@
             // 
             this.clearButton8.Enabled = false;
             this.clearButton8.ForeColor = System.Drawing.Color.Black;
-            this.clearButton8.Location = new System.Drawing.Point(533, 256);
+            this.clearButton8.Location = new System.Drawing.Point(555, 256);
             this.clearButton8.Margin = new System.Windows.Forms.Padding(4);
             this.clearButton8.Name = "clearButton8";
             this.clearButton8.Size = new System.Drawing.Size(36, 28);
@@ -856,7 +879,7 @@
             // 
             this.clearButton7.Enabled = false;
             this.clearButton7.ForeColor = System.Drawing.Color.Black;
-            this.clearButton7.Location = new System.Drawing.Point(533, 187);
+            this.clearButton7.Location = new System.Drawing.Point(555, 187);
             this.clearButton7.Margin = new System.Windows.Forms.Padding(4);
             this.clearButton7.Name = "clearButton7";
             this.clearButton7.Size = new System.Drawing.Size(36, 28);
@@ -870,7 +893,7 @@
             // 
             this.clearButton6.Enabled = false;
             this.clearButton6.ForeColor = System.Drawing.Color.Black;
-            this.clearButton6.Location = new System.Drawing.Point(533, 119);
+            this.clearButton6.Location = new System.Drawing.Point(555, 119);
             this.clearButton6.Margin = new System.Windows.Forms.Padding(4);
             this.clearButton6.Name = "clearButton6";
             this.clearButton6.Size = new System.Drawing.Size(36, 28);
@@ -883,7 +906,7 @@
             // Button9ComboBox
             // 
             this.Button9ComboBox.FormattingEnabled = true;
-            this.Button9ComboBox.Location = new System.Drawing.Point(533, 295);
+            this.Button9ComboBox.Location = new System.Drawing.Point(555, 295);
             this.Button9ComboBox.Margin = new System.Windows.Forms.Padding(4);
             this.Button9ComboBox.Name = "Button9ComboBox";
             this.Button9ComboBox.Size = new System.Drawing.Size(161, 24);
@@ -893,7 +916,7 @@
             // 
             // Button9NumericParameter
             // 
-            this.Button9NumericParameter.Location = new System.Drawing.Point(216, 325);
+            this.Button9NumericParameter.Location = new System.Drawing.Point(238, 325);
             this.Button9NumericParameter.Margin = new System.Windows.Forms.Padding(4);
             this.Button9NumericParameter.Minimum = new decimal(new int[] {
             100,
@@ -913,7 +936,7 @@
             // Button9Label
             // 
             this.Button9Label.AutoSize = true;
-            this.Button9Label.Location = new System.Drawing.Point(123, 327);
+            this.Button9Label.Location = new System.Drawing.Point(145, 327);
             this.Button9Label.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.Button9Label.Name = "Button9Label";
             this.Button9Label.Size = new System.Drawing.Size(78, 17);
@@ -922,7 +945,7 @@
             // 
             // Button9ParameterText
             // 
-            this.Button9ParameterText.Location = new System.Drawing.Point(216, 325);
+            this.Button9ParameterText.Location = new System.Drawing.Point(238, 325);
             this.Button9ParameterText.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Button9ParameterText.Name = "Button9ParameterText";
             this.Button9ParameterText.ReadOnly = true;
@@ -932,17 +955,17 @@
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(97, 299);
+            this.label15.Location = new System.Drawing.Point(32, 299);
             this.label15.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(104, 17);
+            this.label15.Size = new System.Drawing.Size(192, 17);
             this.label15.TabIndex = 134;
-            this.label15.Text = "Button9 Action:";
+            this.label15.Text = "Button9 / LongPress3 Action:";
             // 
             // Button9FunctionBox
             // 
             this.Button9FunctionBox.FormattingEnabled = true;
-            this.Button9FunctionBox.Location = new System.Drawing.Point(216, 295);
+            this.Button9FunctionBox.Location = new System.Drawing.Point(238, 295);
             this.Button9FunctionBox.Margin = new System.Windows.Forms.Padding(4);
             this.Button9FunctionBox.Name = "Button9FunctionBox";
             this.Button9FunctionBox.Size = new System.Drawing.Size(311, 24);
@@ -952,7 +975,7 @@
             // Button8ComboBox
             // 
             this.Button8ComboBox.FormattingEnabled = true;
-            this.Button8ComboBox.Location = new System.Drawing.Point(533, 229);
+            this.Button8ComboBox.Location = new System.Drawing.Point(555, 229);
             this.Button8ComboBox.Margin = new System.Windows.Forms.Padding(4);
             this.Button8ComboBox.Name = "Button8ComboBox";
             this.Button8ComboBox.Size = new System.Drawing.Size(161, 24);
@@ -963,7 +986,7 @@
             // Button7ComboBox
             // 
             this.Button7ComboBox.FormattingEnabled = true;
-            this.Button7ComboBox.Location = new System.Drawing.Point(533, 159);
+            this.Button7ComboBox.Location = new System.Drawing.Point(555, 159);
             this.Button7ComboBox.Margin = new System.Windows.Forms.Padding(4);
             this.Button7ComboBox.Name = "Button7ComboBox";
             this.Button7ComboBox.Size = new System.Drawing.Size(161, 24);
@@ -974,7 +997,7 @@
             // Button6ComboBox
             // 
             this.Button6ComboBox.FormattingEnabled = true;
-            this.Button6ComboBox.Location = new System.Drawing.Point(533, 91);
+            this.Button6ComboBox.Location = new System.Drawing.Point(555, 91);
             this.Button6ComboBox.Margin = new System.Windows.Forms.Padding(4);
             this.Button6ComboBox.Name = "Button6ComboBox";
             this.Button6ComboBox.Size = new System.Drawing.Size(161, 24);
@@ -984,7 +1007,7 @@
             // 
             // Button8NumericParameter
             // 
-            this.Button8NumericParameter.Location = new System.Drawing.Point(216, 259);
+            this.Button8NumericParameter.Location = new System.Drawing.Point(238, 259);
             this.Button8NumericParameter.Margin = new System.Windows.Forms.Padding(4);
             this.Button8NumericParameter.Minimum = new decimal(new int[] {
             100,
@@ -1003,7 +1026,7 @@
             // 
             // Button7NumericParameter
             // 
-            this.Button7NumericParameter.Location = new System.Drawing.Point(216, 189);
+            this.Button7NumericParameter.Location = new System.Drawing.Point(238, 189);
             this.Button7NumericParameter.Margin = new System.Windows.Forms.Padding(4);
             this.Button7NumericParameter.Minimum = new decimal(new int[] {
             100,
@@ -1022,7 +1045,7 @@
             // 
             // Button6NumericParameter
             // 
-            this.Button6NumericParameter.Location = new System.Drawing.Point(216, 119);
+            this.Button6NumericParameter.Location = new System.Drawing.Point(238, 119);
             this.Button6NumericParameter.Margin = new System.Windows.Forms.Padding(4);
             this.Button6NumericParameter.Minimum = new decimal(new int[] {
             100,
@@ -1042,7 +1065,7 @@
             // Button8Label
             // 
             this.Button8Label.AutoSize = true;
-            this.Button8Label.Location = new System.Drawing.Point(124, 260);
+            this.Button8Label.Location = new System.Drawing.Point(146, 260);
             this.Button8Label.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.Button8Label.Name = "Button8Label";
             this.Button8Label.Size = new System.Drawing.Size(78, 17);
@@ -1051,7 +1074,7 @@
             // 
             // Button8ParameterText
             // 
-            this.Button8ParameterText.Location = new System.Drawing.Point(216, 259);
+            this.Button8ParameterText.Location = new System.Drawing.Point(238, 259);
             this.Button8ParameterText.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Button8ParameterText.Name = "Button8ParameterText";
             this.Button8ParameterText.ReadOnly = true;
@@ -1061,7 +1084,7 @@
             // Button7Label
             // 
             this.Button7Label.AutoSize = true;
-            this.Button7Label.Location = new System.Drawing.Point(123, 192);
+            this.Button7Label.Location = new System.Drawing.Point(145, 192);
             this.Button7Label.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.Button7Label.Name = "Button7Label";
             this.Button7Label.Size = new System.Drawing.Size(78, 17);
@@ -1070,7 +1093,7 @@
             // 
             // Button7ParameterText
             // 
-            this.Button7ParameterText.Location = new System.Drawing.Point(216, 189);
+            this.Button7ParameterText.Location = new System.Drawing.Point(238, 189);
             this.Button7ParameterText.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Button7ParameterText.Name = "Button7ParameterText";
             this.Button7ParameterText.ReadOnly = true;
@@ -1080,7 +1103,7 @@
             // Button6Label
             // 
             this.Button6Label.AutoSize = true;
-            this.Button6Label.Location = new System.Drawing.Point(126, 123);
+            this.Button6Label.Location = new System.Drawing.Point(148, 123);
             this.Button6Label.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.Button6Label.Name = "Button6Label";
             this.Button6Label.Size = new System.Drawing.Size(78, 17);
@@ -1090,7 +1113,7 @@
             // 
             // Button6ParameterText
             // 
-            this.Button6ParameterText.Location = new System.Drawing.Point(216, 119);
+            this.Button6ParameterText.Location = new System.Drawing.Point(238, 119);
             this.Button6ParameterText.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Button6ParameterText.Name = "Button6ParameterText";
             this.Button6ParameterText.ReadOnly = true;
@@ -1100,17 +1123,17 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(97, 231);
+            this.label11.Location = new System.Drawing.Point(33, 231);
             this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(104, 17);
+            this.label11.Size = new System.Drawing.Size(192, 17);
             this.label11.TabIndex = 120;
-            this.label11.Text = "Button8 Action:";
+            this.label11.Text = "Button8 / LongPress2 Action:";
             // 
             // Button8FunctionBox
             // 
             this.Button8FunctionBox.FormattingEnabled = true;
-            this.Button8FunctionBox.Location = new System.Drawing.Point(216, 229);
+            this.Button8FunctionBox.Location = new System.Drawing.Point(238, 229);
             this.Button8FunctionBox.Margin = new System.Windows.Forms.Padding(4);
             this.Button8FunctionBox.Name = "Button8FunctionBox";
             this.Button8FunctionBox.Size = new System.Drawing.Size(311, 24);
@@ -1120,17 +1143,17 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(98, 164);
+            this.label12.Location = new System.Drawing.Point(35, 164);
             this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(104, 17);
+            this.label12.Size = new System.Drawing.Size(192, 17);
             this.label12.TabIndex = 118;
-            this.label12.Text = "Button7 Action:";
+            this.label12.Text = "Button7 / LongPress1 Action:";
             // 
             // Button7FunctionBox
             // 
             this.Button7FunctionBox.FormattingEnabled = true;
-            this.Button7FunctionBox.Location = new System.Drawing.Point(216, 159);
+            this.Button7FunctionBox.Location = new System.Drawing.Point(238, 159);
             this.Button7FunctionBox.Margin = new System.Windows.Forms.Padding(4);
             this.Button7FunctionBox.Name = "Button7FunctionBox";
             this.Button7FunctionBox.Size = new System.Drawing.Size(311, 24);
@@ -1140,7 +1163,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(102, 94);
+            this.label13.Location = new System.Drawing.Point(124, 94);
             this.label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(104, 17);
@@ -1150,7 +1173,7 @@
             // Button6FunctionBox
             // 
             this.Button6FunctionBox.FormattingEnabled = true;
-            this.Button6FunctionBox.Location = new System.Drawing.Point(216, 91);
+            this.Button6FunctionBox.Location = new System.Drawing.Point(238, 91);
             this.Button6FunctionBox.Margin = new System.Windows.Forms.Padding(4);
             this.Button6FunctionBox.Name = "Button6FunctionBox";
             this.Button6FunctionBox.Size = new System.Drawing.Size(311, 24);
@@ -1542,6 +1565,201 @@
             this.thresholdLabelForSip.TabIndex = 113;
             this.thresholdLabelForSip.Text = "Sip Level";
             // 
+            // SettingsTab
+            // 
+            this.SettingsTab.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.SettingsTab.Controls.Add(this.label16);
+            this.SettingsTab.Controls.Add(this.label1);
+            this.SettingsTab.Controls.Add(this.antiTremorIdleLabel);
+            this.SettingsTab.Controls.Add(this.antiTremorIdleBar);
+            this.SettingsTab.Controls.Add(this.label14);
+            this.SettingsTab.Controls.Add(this.antiTremorReleaseLabel);
+            this.SettingsTab.Controls.Add(this.antiTremorReleaseBar);
+            this.SettingsTab.Controls.Add(this.label10);
+            this.SettingsTab.Controls.Add(this.antiTremorPressLabel);
+            this.SettingsTab.Controls.Add(this.antiTremorPressBar);
+            this.SettingsTab.Controls.Add(this.label9);
+            this.SettingsTab.Controls.Add(this.timeThresholdLabel);
+            this.SettingsTab.Controls.Add(this.timeThresholdBar);
+            this.SettingsTab.Controls.Add(this.label2);
+            this.SettingsTab.Location = new System.Drawing.Point(4, 25);
+            this.SettingsTab.Name = "SettingsTab";
+            this.SettingsTab.Size = new System.Drawing.Size(780, 366);
+            this.SettingsTab.TabIndex = 6;
+            this.SettingsTab.Text = "Settings";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(95, 99);
+            this.label16.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label16.Name = "label16";
+            this.label16.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.label16.Size = new System.Drawing.Size(566, 17);
+            this.label16.TabIndex = 129;
+            this.label16.Text = "(Long Press Action for Button1=Button 7, for Button2=Button8  and for Button3=But" +
+                "ton9)";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(639, 56);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Name = "label1";
+            this.label1.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.label1.Size = new System.Drawing.Size(107, 17);
+            this.label1.TabIndex = 128;
+            this.label1.Text = "(5000=disable) ";
+            // 
+            // antiTremorIdleLabel
+            // 
+            this.antiTremorIdleLabel.AutoSize = true;
+            this.antiTremorIdleLabel.Location = new System.Drawing.Point(615, 280);
+            this.antiTremorIdleLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.antiTremorIdleLabel.Name = "antiTremorIdleLabel";
+            this.antiTremorIdleLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.antiTremorIdleLabel.Size = new System.Drawing.Size(16, 17);
+            this.antiTremorIdleLabel.TabIndex = 127;
+            this.antiTremorIdleLabel.Text = "1";
+            // 
+            // antiTremorIdleBar
+            // 
+            this.antiTremorIdleBar.LargeChange = 20;
+            this.antiTremorIdleBar.Location = new System.Drawing.Point(283, 277);
+            this.antiTremorIdleBar.Margin = new System.Windows.Forms.Padding(4);
+            this.antiTremorIdleBar.Maximum = 500;
+            this.antiTremorIdleBar.Minimum = 1;
+            this.antiTremorIdleBar.Name = "antiTremorIdleBar";
+            this.antiTremorIdleBar.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.antiTremorIdleBar.Size = new System.Drawing.Size(330, 56);
+            this.antiTremorIdleBar.SmallChange = 10;
+            this.antiTremorIdleBar.TabIndex = 126;
+            this.antiTremorIdleBar.TickFrequency = 10;
+            this.antiTremorIdleBar.Value = 1;
+            this.antiTremorIdleBar.Scroll += new System.EventHandler(this.antiTremorIdleBar_Scroll);
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(144, 280);
+            this.label14.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label14.Name = "label14";
+            this.label14.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.label14.Size = new System.Drawing.Size(134, 17);
+            this.label14.TabIndex = 125;
+            this.label14.Text = "Antitremor Idle Time";
+            // 
+            // antiTremorReleaseLabel
+            // 
+            this.antiTremorReleaseLabel.AutoSize = true;
+            this.antiTremorReleaseLabel.Location = new System.Drawing.Point(617, 223);
+            this.antiTremorReleaseLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.antiTremorReleaseLabel.Name = "antiTremorReleaseLabel";
+            this.antiTremorReleaseLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.antiTremorReleaseLabel.Size = new System.Drawing.Size(16, 17);
+            this.antiTremorReleaseLabel.TabIndex = 124;
+            this.antiTremorReleaseLabel.Text = "2";
+            // 
+            // antiTremorReleaseBar
+            // 
+            this.antiTremorReleaseBar.LargeChange = 20;
+            this.antiTremorReleaseBar.Location = new System.Drawing.Point(285, 220);
+            this.antiTremorReleaseBar.Margin = new System.Windows.Forms.Padding(4);
+            this.antiTremorReleaseBar.Maximum = 500;
+            this.antiTremorReleaseBar.Minimum = 1;
+            this.antiTremorReleaseBar.Name = "antiTremorReleaseBar";
+            this.antiTremorReleaseBar.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.antiTremorReleaseBar.Size = new System.Drawing.Size(330, 56);
+            this.antiTremorReleaseBar.TabIndex = 123;
+            this.antiTremorReleaseBar.TickFrequency = 10;
+            this.antiTremorReleaseBar.Value = 2;
+            this.antiTremorReleaseBar.Scroll += new System.EventHandler(this.antiTremorReleaseBar_Scroll);
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(94, 223);
+            this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label10.Name = "label10";
+            this.label10.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.label10.Size = new System.Drawing.Size(186, 17);
+            this.label10.TabIndex = 122;
+            this.label10.Text = "Antitremor-Time for Release";
+            // 
+            // antiTremorPressLabel
+            // 
+            this.antiTremorPressLabel.AutoSize = true;
+            this.antiTremorPressLabel.Location = new System.Drawing.Point(616, 170);
+            this.antiTremorPressLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.antiTremorPressLabel.Name = "antiTremorPressLabel";
+            this.antiTremorPressLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.antiTremorPressLabel.Size = new System.Drawing.Size(16, 17);
+            this.antiTremorPressLabel.TabIndex = 121;
+            this.antiTremorPressLabel.Text = "5";
+            // 
+            // antiTremorPressBar
+            // 
+            this.antiTremorPressBar.LargeChange = 20;
+            this.antiTremorPressBar.Location = new System.Drawing.Point(283, 167);
+            this.antiTremorPressBar.Margin = new System.Windows.Forms.Padding(4);
+            this.antiTremorPressBar.Maximum = 500;
+            this.antiTremorPressBar.Minimum = 1;
+            this.antiTremorPressBar.Name = "antiTremorPressBar";
+            this.antiTremorPressBar.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.antiTremorPressBar.Size = new System.Drawing.Size(330, 56);
+            this.antiTremorPressBar.TabIndex = 120;
+            this.antiTremorPressBar.TickFrequency = 10;
+            this.antiTremorPressBar.Value = 5;
+            this.antiTremorPressBar.Scroll += new System.EventHandler(this.antiTremorPressBar_Scroll);
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(110, 170);
+            this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label9.Name = "label9";
+            this.label9.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.label9.Size = new System.Drawing.Size(170, 17);
+            this.label9.TabIndex = 119;
+            this.label9.Text = "Antitremor-Time for Press";
+            // 
+            // timeThresholdLabel
+            // 
+            this.timeThresholdLabel.AutoSize = true;
+            this.timeThresholdLabel.Location = new System.Drawing.Point(598, 56);
+            this.timeThresholdLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.timeThresholdLabel.Name = "timeThresholdLabel";
+            this.timeThresholdLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.timeThresholdLabel.Size = new System.Drawing.Size(40, 17);
+            this.timeThresholdLabel.TabIndex = 118;
+            this.timeThresholdLabel.Text = "5000";
+            // 
+            // timeThresholdBar
+            // 
+            this.timeThresholdBar.LargeChange = 1000;
+            this.timeThresholdBar.Location = new System.Drawing.Point(269, 56);
+            this.timeThresholdBar.Margin = new System.Windows.Forms.Padding(4);
+            this.timeThresholdBar.Maximum = 5000;
+            this.timeThresholdBar.Name = "timeThresholdBar";
+            this.timeThresholdBar.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.timeThresholdBar.Size = new System.Drawing.Size(330, 56);
+            this.timeThresholdBar.SmallChange = 200;
+            this.timeThresholdBar.TabIndex = 117;
+            this.timeThresholdBar.TickFrequency = 500;
+            this.timeThresholdBar.Value = 5000;
+            this.timeThresholdBar.Scroll += new System.EventHandler(this.timeThresholdBar_Scroll);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(48, 56);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Name = "label2";
+            this.label2.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.label2.Size = new System.Drawing.Size(221, 17);
+            this.label2.TabIndex = 116;
+            this.label2.Text = "Threshold Time Short/Long Press";
+            // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.activityLogTextbox);
@@ -1549,7 +1767,7 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox1.Size = new System.Drawing.Size(785, 118);
+            this.groupBox1.Size = new System.Drawing.Size(785, 103);
             this.groupBox1.TabIndex = 74;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Activity-Log";
@@ -1562,7 +1780,7 @@
             this.activityLogTextbox.Margin = new System.Windows.Forms.Padding(4);
             this.activityLogTextbox.Name = "activityLogTextbox";
             this.activityLogTextbox.ReadOnly = true;
-            this.activityLogTextbox.Size = new System.Drawing.Size(736, 75);
+            this.activityLogTextbox.Size = new System.Drawing.Size(736, 60);
             this.activityLogTextbox.TabIndex = 63;
             this.activityLogTextbox.Text = "";
             // 
@@ -1571,7 +1789,7 @@
             this.slotNames.CausesValidation = false;
             this.slotNames.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.slotNames.ForeColor = System.Drawing.SystemColors.MenuHighlight;
-            this.slotNames.Location = new System.Drawing.Point(339, 513);
+            this.slotNames.Location = new System.Drawing.Point(339, 510);
             this.slotNames.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.slotNames.Name = "slotNames";
             this.slotNames.Size = new System.Drawing.Size(206, 28);
@@ -1657,7 +1875,7 @@
             // 
             // prevSlotButton
             // 
-            this.prevSlotButton.Location = new System.Drawing.Point(186, 506);
+            this.prevSlotButton.Location = new System.Drawing.Point(186, 503);
             this.prevSlotButton.Margin = new System.Windows.Forms.Padding(4);
             this.prevSlotButton.Name = "prevSlotButton";
             this.prevSlotButton.Size = new System.Drawing.Size(143, 40);
@@ -1669,7 +1887,7 @@
             // nextSlotButton
             // 
             this.nextSlotButton.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.nextSlotButton.Location = new System.Drawing.Point(553, 506);
+            this.nextSlotButton.Location = new System.Drawing.Point(553, 503);
             this.nextSlotButton.Margin = new System.Windows.Forms.Padding(4);
             this.nextSlotButton.Name = "nextSlotButton";
             this.nextSlotButton.Size = new System.Drawing.Size(145, 40);
@@ -1682,7 +1900,7 @@
             // 
             this.ApplyButton.Enabled = false;
             this.ApplyButton.ForeColor = System.Drawing.Color.Black;
-            this.ApplyButton.Location = new System.Drawing.Point(607, 51);
+            this.ApplyButton.Location = new System.Drawing.Point(592, 53);
             this.ApplyButton.Margin = new System.Windows.Forms.Padding(4);
             this.ApplyButton.Name = "ApplyButton";
             this.ApplyButton.Size = new System.Drawing.Size(118, 28);
@@ -1694,7 +1912,7 @@
             // newSlotButton
             // 
             this.newSlotButton.ForeColor = System.Drawing.Color.Black;
-            this.newSlotButton.Location = new System.Drawing.Point(51, 506);
+            this.newSlotButton.Location = new System.Drawing.Point(51, 503);
             this.newSlotButton.Margin = new System.Windows.Forms.Padding(4);
             this.newSlotButton.Name = "newSlotButton";
             this.newSlotButton.Size = new System.Drawing.Size(126, 40);
@@ -1707,7 +1925,7 @@
             // 
             this.deleteSlotButton.ForeColor = System.Drawing.Color.Black;
             this.deleteSlotButton.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.deleteSlotButton.Location = new System.Drawing.Point(708, 506);
+            this.deleteSlotButton.Location = new System.Drawing.Point(708, 503);
             this.deleteSlotButton.Margin = new System.Windows.Forms.Padding(4);
             this.deleteSlotButton.Name = "deleteSlotButton";
             this.deleteSlotButton.Size = new System.Drawing.Size(131, 40);
@@ -1720,7 +1938,7 @@
             // 
             this.StoreButton.Enabled = false;
             this.StoreButton.ForeColor = System.Drawing.Color.Black;
-            this.StoreButton.Location = new System.Drawing.Point(734, 51);
+            this.StoreButton.Location = new System.Drawing.Point(715, 53);
             this.StoreButton.Margin = new System.Windows.Forms.Padding(4);
             this.StoreButton.Name = "StoreButton";
             this.StoreButton.Size = new System.Drawing.Size(118, 28);
@@ -1728,6 +1946,32 @@
             this.StoreButton.Text = "Store settings";
             this.StoreButton.UseVisualStyleBackColor = true;
             this.StoreButton.Click += new System.EventHandler(this.storeSlotSettingsMenuItem_Click);
+            // 
+            // freeMemPanel
+            // 
+            this.freeMemPanel.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.freeMemPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.freeMemPanel.Enabled = false;
+            this.freeMemPanel.Location = new System.Drawing.Point(715, 89);
+            this.freeMemPanel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.freeMemPanel.Name = "freeMemPanel";
+            this.freeMemPanel.Size = new System.Drawing.Size(118, 26);
+            this.freeMemPanel.TabIndex = 121;
+            // 
+            // freeMemLabel
+            // 
+            this.freeMemLabel.AutoSize = true;
+            this.freeMemLabel.BackColor = System.Drawing.Color.Transparent;
+            this.freeMemLabel.Enabled = false;
+            this.freeMemLabel.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.freeMemLabel.Location = new System.Drawing.Point(592, 93);
+            this.freeMemLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.freeMemLabel.Name = "freeMemLabel";
+            this.freeMemLabel.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.freeMemLabel.Size = new System.Drawing.Size(109, 17);
+            this.freeMemLabel.TabIndex = 158;
+            this.freeMemLabel.Text = "mem usage: 0%";
+            this.freeMemLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // FabiGUI
             // 
@@ -1737,13 +1981,15 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(885, 695);
+            this.ClientSize = new System.Drawing.Size(885, 681);
+            this.Controls.Add(this.freeMemLabel);
             this.Controls.Add(this.StoreButton);
             this.Controls.Add(this.deleteSlotButton);
             this.Controls.Add(this.newSlotButton);
             this.Controls.Add(this.nextSlotButton);
             this.Controls.Add(this.prevSlotButton);
             this.Controls.Add(this.slotNames);
+            this.Controls.Add(this.freeMemPanel);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.tabControl);
             this.Controls.Add(this.portStatus);
@@ -1780,6 +2026,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.SipNumericParameter)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.puffThresholdBar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.sipThresholdBar)).EndInit();
+            this.SettingsTab.ResumeLayout(false);
+            this.SettingsTab.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.antiTremorIdleBar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.antiTremorReleaseBar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.antiTremorPressBar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.timeThresholdBar)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -1918,6 +2170,23 @@
         private System.Windows.Forms.ComboBox SipFunctionMenu;
         private System.Windows.Forms.TextBox SipParameterText;
         private System.Windows.Forms.Button StoreButton;
+        private System.Windows.Forms.TabPage SettingsTab;
+        private System.Windows.Forms.Label timeThresholdLabel;
+        private System.Windows.Forms.TrackBar timeThresholdBar;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label antiTremorPressLabel;
+        private System.Windows.Forms.TrackBar antiTremorPressBar;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label antiTremorIdleLabel;
+        private System.Windows.Forms.TrackBar antiTremorIdleBar;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label antiTremorReleaseLabel;
+        private System.Windows.Forms.TrackBar antiTremorReleaseBar;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Panel freeMemPanel;
+        private System.Windows.Forms.Label freeMemLabel;
     }
 }
 

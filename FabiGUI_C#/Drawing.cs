@@ -9,17 +9,13 @@ namespace MouseApp2
     public partial class FabiGUI
     {
         // draw live values on panels 
-
         public void drawRawValues(String newValues)
         {
             
-
             if (newValues.Length == 0)
                 return;
 
-
             String[] values = newValues.Split(',');
-      //      Console.WriteLine(newValues+" - "+values.Length);
 
             if (values.Length == 2)
             {
@@ -46,6 +42,16 @@ namespace MouseApp2
                     g.FillRectangle(brush2, 0, 0, sipLevelIndicatorPanel.Width - 1, sipLevelIndicatorPanel.Height - 1);
                 
             }
+        }
+
+        public void drawFreeMem(int percent)
+        {    
+                Graphics g = freeMemPanel.CreateGraphics();
+                Brush brush = new SolidBrush(Color.LightBlue);
+                Brush brush2 = new SolidBrush(Color.White);
+                percent = percent * freeMemPanel.Width / 100;
+                g.FillRectangle(brush2, 0, 0, freeMemPanel.Width - 1, freeMemPanel.Height - 1);
+                g.FillRectangle(brush, 0, 0, percent, freeMemPanel.Height - 1);
         }
     }
 }

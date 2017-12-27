@@ -1,9 +1,5 @@
 #include "fabi.h"
 
-uint8_t readstate=0;
-static char cmdstring[MAX_CMDLEN];
-
-
 uint8_t get_uint(char * str, int16_t * result)
 {
     int num=0;
@@ -29,12 +25,20 @@ uint8_t get_int(char * str, int16_t * result)
     return(1);    
 }
 
+// convert character to uppercase
+char charUp (char c) {
+  if ((c >= 'a') && (c<='z'))  
+    c=c-'a'+'A';
+  return(c);
+}
+
+// convert string to uppercase
 void strup (char * str)   // convert to upper case letters
 {
   if (!str) return;
   while (*str)
   {
-    if ((*str>='a') && (*str<='z')) *str=*str-'a'+'A';
+    *str=charUp(*str);
     str++;
   }
 }
@@ -44,44 +48,50 @@ void parseCommand (char * cmdstr)
     int8_t cmd=-1;
     int16_t num=0;
     
-     // Serial.print("parseCommand:"); Serial.println(cmdstr);
-    char * actpos = strtok(cmdstr," ");   // see a nice explaination of strtok here:  http://www.reddit.com/r/arduino/comments/2h9l1l/using_the_strtok_function/
-    if (actpos) 
-    {
-        int i;
-        strup(actpos);
-        
-        for (i=0;(i<NUM_COMMANDS)&&(cmd==-1);i++)
-        {
-          if (!strcmp_FM(actpos,(uint_farptr_t_FM)atCommands[i].atCmd))  {
-            // Serial.print ("partype="); Serial.println (pgm_read_byte_near(&(atCommands[i].partype)));
-            switch (pgm_read_byte_near(&(atCommands[i].partype))) 
-            {
-               case PARTYPE_UINT: actpos=strtok(NULL," "); if (get_uint(actpos, &num)) cmd=i ; break;
-               case PARTYPE_INT:  actpos=strtok(NULL," ");  if (get_int(actpos, &num)) cmd=i ; break;
-               case PARTYPE_STRING: actpos+=3; if (*actpos)  cmd=i ;  break;
-               default: cmd=i; actpos=0; break;
-            }
+    // Serial.print("parseCommand:"); Serial.println(cmdstr); 
+    //char * actpos = strtok(cmdstr," ");   // see a nice explaination of strtok here:  http://www.reddit.com/r/arduino/comments/2h9l1l/using_the_strtok_function/
+
+    // skip leading spaces
+    char * actpos = cmdstr;
+    while ( *actpos  == ' ') actpos++;
+
+    if (strlen (actpos) > 1) {
+                  
+      for (int i=0;(i<NUM_COMMANDS)&&(cmd==-1);i++)
+      {
+        if ((charUp(actpos[0]) == pgm_read_byte_near(&(atCommands[i].atCmd[0]))) &&
+            (charUp(actpos[1]) == pgm_read_byte_near(&(atCommands[i].atCmd[1])))) {
+
+          // Serial.print ("partype="); Serial.println (pgm_read_byte_near(&(atCommands[i].partype)));
+          switch (pgm_read_byte_near(&(atCommands[i].partype))) 
+          {
+             case PARTYPE_UINT: actpos+=2; while(*actpos==' ') actpos++;
+                                if (get_uint(actpos, &num)) cmd=i ; actpos=0; break;
+             case PARTYPE_INT:  actpos+=2; while(*actpos==' ') actpos++;  
+                                if (get_int(actpos, &num)) cmd=i ; actpos=0; break;
+             case PARTYPE_STRING: actpos+=3; if (*actpos)  cmd=i ;  break;
+             default: cmd=i; actpos=0; break;
           }
-        }          
-    }
-    
+        }
+      }          
+    } 
+       
     if (cmd>-1)  performCommand(cmd,num,actpos,0);        
     else   Serial.println('?');              
 }
 
 
-
 void parseByte (int newByte)  // parse an incoming commandbyte from serial interface, perform command if valid
 {
+   static uint8_t readstate=0;
    static uint8_t cmdlen=0;
   
       switch (readstate) {
         case 0: 
-                if ((newByte=='A') || (newByte=='a')) readstate++;
+                if (charUp(newByte)=='A') readstate++;
              break;
         case 1: 
-                if ((newByte=='T') || (newByte=='t')) readstate++; else readstate=0;
+                if (charUp(newByte)=='T') readstate++; else readstate=0;
             break;
         case 2: 
                 if ((newByte==13) || (newByte==10))  // AT reply: "OK" 

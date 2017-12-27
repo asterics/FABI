@@ -2,7 +2,7 @@
 
 /* 
      FabiGUI - Graphical user Interface for the FABI box
-       built upon Assistive Button Interface (FABI) Version 2.2  - AsTeRICS Foundation 2017 - http://www.asterics-academy.net
+       built upon Assistive Button Interface (FABI) Version 2.3  - AsTeRICS Foundation - http://www.asterics-foundation.org
    
      for a list of supported AT commands, see commands.cs
    
@@ -29,7 +29,7 @@ namespace MouseApp2
 {
     public partial class FabiGUI : Form
     {
-        const string VERSION_STRING = "2.2";
+        const string VERSION_STRING = "2.3";
 
         const int SPECIALMODE_CHANGE_STEP = 5;
         const int PRESSURE_CHANGE_STEP = 1;
@@ -49,7 +49,7 @@ namespace MouseApp2
         System.Windows.Forms.Timer IdTimer = new System.Windows.Forms.Timer();
 
 
-        const int MAX_SLOTS = 3;
+        const int MAX_SLOTS = 10;
         public List<Slot> slots = new List<Slot>();
 
         public void initSlots()
@@ -235,6 +235,8 @@ namespace MouseApp2
                     disconnectComButton.Enabled = true;
                     loadSlotSettingsMenuItem.Enabled = true;
                     storeSlotSettingsMenuItem.Enabled = true;
+                    freeMemLabel.Enabled = true;
+                    freeMemPanel.Enabled = true;
                 }
                 else
                 {
@@ -247,6 +249,8 @@ namespace MouseApp2
                         disconnectComButton.Enabled = true;
                         loadSlotSettingsMenuItem.Enabled = true;
                         storeSlotSettingsMenuItem.Enabled = true;
+                        freeMemLabel.Enabled = true;
+                        freeMemPanel.Enabled = true;
                         ApplyButton.Enabled = true;
                         StoreButton.Enabled = true;
                         connectComButton.Enabled = false;
@@ -274,6 +278,8 @@ namespace MouseApp2
             ApplyButton.Enabled = false;
             StoreButton.Enabled = false;
             connectComButton.Enabled = true;
+            freeMemLabel.Enabled = false;
+            freeMemPanel.Enabled = false;
         }
 
 
@@ -678,6 +684,28 @@ namespace MouseApp2
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Fabi V"+VERSION_STRING+" - AsTeRICS Foundation\nFor more information see: http://www.asterics-academy.net");
+        }
+
+        private void timeThresholdBar_Scroll(object sender, EventArgs e)
+        {
+            timeThresholdLabel.Text = timeThresholdBar.Value.ToString();
+
+        }
+
+        private void antiTremorPressBar_Scroll(object sender, EventArgs e)
+        {
+            antiTremorPressLabel.Text = antiTremorPressBar.Value.ToString();
+        }
+
+        private void antiTremorReleaseBar_Scroll(object sender, EventArgs e)
+        {
+            antiTremorReleaseLabel.Text = antiTremorReleaseBar.Value.ToString();
+        }
+
+        private void antiTremorIdleBar_Scroll(object sender, EventArgs e)
+        {
+            antiTremorIdleLabel.Text = antiTremorIdleBar.Value.ToString();
+
         }  
 
     }

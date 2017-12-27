@@ -5,13 +5,23 @@
    (sent via serial interface, 115200 baud, using spaces between parameters.  Enter (<cr>, ASCII-code 0x0d) finishes a command)
    
           AT                returns "OK"
-          AT ID             returns identification string (e.g. "Fabi V2.2")
+          AT ID             returns identification string (e.g. "Fabi V2.3")
           AT BM <uint>      puts button into programming mode (e.g. "AT BM 2" -> next AT-command defines the new function for button 2)
                             for the FABI, there are 11 buttons available (9 physical buttons, 2 virtual functions - sip / puff) 
 
           AT MA <string>  execute a command macro containing multiple commands (separated by semicolon) 
                           example: "AT MA MX 100;MY 100;CL;"  use backslash to mask semicolon: "AT MA KW \;;CL;" writes a semicolon and then clicks left 
           AT WA <uint>    wait (given in milliseconds, useful for macro commands)
+
+    Commands for changing settings:
+    
+          AT WS <uint>    set mouse wheel stepsize (e.g. "AT WS 3" sets the wheel stepsize to 3 rows)
+          AT TS <uint>    threshold for sip action  (0-512)
+          AT TP <uint>    threshold for puff action (512-1023)
+          AT TT <uint>    threshold time between short and long press action (5000=disable)
+          AT AP <uint>    antitremor press time (1-500)
+          AT AR <uint>    antitremor release time (1-500)
+          AT AI <uint>    antitremor idle time (1-500)
 
     USB HID commands:
       
@@ -30,7 +40,6 @@
           
           AT WU             move mouse wheel up  
           AT WD             move mouse wheel down  
-          AT WS <uint>      set mouse wheel stepsize (e.g. "AT WS 3" sets the wheel stepsize to 3 rows)
    
           AT MX <int>       move mouse in x direction (e.g. "AT MX 4" moves cursor 4 pixels to the right)  
           AT MY <int>       move mouse in y direction (e.g. "AT MY -10" moves cursor 10 pixels up)  
@@ -46,20 +55,18 @@
     Housekeeping commands:
 
           AT SA <string>  save settings and current button modes to slot under given name 
-                          if slot exists it will be overwritten, else a new slot will be appended (e.g. AT SAVE mouse1)
-          AT LO <string>  load button modes from eeprom slot (e.g. AT LOAD mouse1 -> loads profile named "mouse1")
+                          a new slot will be appended (e.g. AT SA mouse1)
+          AT LO <string>  load button modes from eeprom slot (e.g. AT LO mouse1 -> loads profile named "mouse1")
           AT LA           load all slots (displays names and settings of all stored slots) 
-          AT LI           list all saved mode names 
+          AT LI           list all saved slot names 
           AT NE           next slot will be loaded (wrap around after last slot)
           AT DE           delete EEPROM content (delete all stored slots)
           AT NC           no command (idle operation)
           AT E0           turn echo off (no debug output on serial console, default and GUI compatible)
           AT E1           turn echo on (debug output on serial console)
-          AT SR           start reporting raw values (sensor value of A0, starting with "VALUES:") 
-          AT ER           end reporting raw values
-          AT TS <uint>    treshold for sip action  (0-512)
-          AT TP <uint>    treshold for puff action (512-1023)
-
+          AT SR           start periodic reporting analog values (A0) over serial (starting with "VALUES:") 
+          AT ER           end reporting analog values
+          AT FR           report free EEPROM bytes in % (starting with "FREE:") 
 
           
 
@@ -88,7 +95,7 @@ enum atCommands {
   CMD_ID, CMD_BM, CMD_CL, CMD_CR, CMD_CM, CMD_CD, CMD_PL, CMD_PR, CMD_PM, CMD_RL, CMD_RR, CMD_RM,
   CMD_WU, CMD_WD, CMD_WS, CMD_MX, CMD_MY, CMD_KW, CMD_KP, CMD_KR, CMD_RA, CMD_SA, CMD_LO, CMD_LA,
   CMD_LI, CMD_NE, CMD_DE, CMD_NC, CMD_E1, CMD_E0, CMD_SR, CMD_ER, CMD_TS, CMD_TP, CMD_MA, CMD_WA,
-  NUM_COMMANDS
+  CMD_TT, CMD_AP, CMD_AR, CMD_AI, CMD_FR, NUM_COMMANDS
 };
 
 #endif

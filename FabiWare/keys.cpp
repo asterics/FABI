@@ -68,26 +68,6 @@
 
 #endif
 
-#define KEY_ADD     0
-#define KEY_RELEASE 1
-
-int keyAction=KEY_ADD;
-
-void updateKey(int key)
-{
-   if (keyAction==KEY_ADD)
-      Keyboard.press(key);     // press keys individually   
-   else
-      Keyboard.release(key);   // release keys individually    
-}
-
-
-void releaseKeys (char * text)
-{
-   keyAction=KEY_RELEASE; 
-   setKeyValues(text);
-   keyAction=KEY_ADD; 
-}
 
 int getKeycode(char* acttoken)
 {
@@ -185,67 +165,89 @@ int getKeycode(char* acttoken)
     return(0);
 }
 
-// press all supported keys 
-// text is a string which contains the key identifiers eg. "KEY_CTRL KEY_C" for Ctrl-C
-void setKeyValues(char* text)
+uint16_t getNextKeyName(char* keyNames, char* singleKeyName)
 {
-  char tmptxt[MAX_KEYSTRING_LEN];   // for parsing keystrings
-  char * acttoken;
-  int modifiers=0;
+  int i=0,j=0;
+  while (keyNames[i]==' ') i++;
+  while ((keyNames[i]!=' ') && (keyNames[i])) {
+     singleKeyName[j++]=keyNames[i++];
+  }
+  singleKeyName[j]=0;
+  return(i);
+}
 
-  strcpy(tmptxt, text); 
-  acttoken = strtok(tmptxt," ");
-
-  while (acttoken)
+// press sequence of supported single keys 
+// text is a string which contains the key identifiers eg. "KEY_CTRL KEY_C" for Ctrl-C
+void pressSingleKeys(char* keyNames)
+{
+  int len;
+  char singleKeyName[20];   // e.g. KEY_A
+  while (len=getNextKeyName(keyNames,singleKeyName))
   {
-    int kc=getKeycode(acttoken);
-    if (kc) updateKey(kc);
-    acttoken = strtok(NULL," ");
+    int kc=getKeycode(singleKeyName);
+    if (kc) Keyboard.press(kc);
+    keyNames+=len;
   }
 }
 
-
-void writeTranslatedKeys( char * p1)
+// release sequence of supported single keys 
+// text is a string which contains the key identifiers eg. "KEY_CTRL KEY_C" for Ctrl-C
+void releaseSingleKeys (char * keyNames)
 {
-  int k;
-     while (*p1) {
-          if (KEYBOARD_LAYOUT == KBD_DE)
-             k=pgm_read_word_near(&(usToDE[(uint8_t)*p1]));  // get the translated keycode (DE layout)
-          else k=*p1;
-          
-         // Serial.print ("char:"); Serial.print(*p1); Serial.print(" -> ");Serial.print(k);Serial.print(" (");
-         // if (k&MOD_ALTGR) Serial.print("AltGr + "); if (k&MOD_SHIFT) Serial.print("Shift + "); 
-         // Serial.print((char)(k&0xff)); Serial.println(")");
-
-          if (k&MOD_ALTGR) Keyboard.press(KEY_RIGHT_ALT); 
-          if (k&MOD_SHIFT) Keyboard.press(KEY_LEFT_SHIFT); 
-          Keyboard.press(k&0xff); 
-          Keyboard.release(k&0xff); 
-          if (k&MOD_SHIFT) Keyboard.release(KEY_LEFT_SHIFT); 
-          if (k&MOD_ALTGR) Keyboard.release(KEY_RIGHT_ALT);
-          p1++;
-       }
+  int len;
+  char singleKeyName[20];
+  while (len=getNextKeyName(keyNames,singleKeyName))
+  {
+    int kc=getKeycode(singleKeyName);
+    if (kc) Keyboard.release(kc);
+    keyNames+=len;
+  }
 }
 
+// write a sequence of characters, translated to locale using modifier keys
+void writeTranslatedKeys(char * str, int len)
+{
+   int k;
+   for (int i=0; i<len; i++) {
+      if (KEYBOARD_LAYOUT == KBD_DE)
+         k=pgm_read_word_near(&(usToDE[(uint8_t)str[i]]));  // get the translated keycode (DE layout)
+      else k=str[i];
+      
+     // Serial.print ("char:"); Serial.print(*p1); Serial.print(" -> ");Serial.print(k);Serial.print(" (");
+     // if (k&MOD_ALTGR) Serial.print("AltGr + "); if (k&MOD_SHIFT) Serial.print("Shift + "); 
+     // Serial.print((char)(k&0xff)); Serial.println(")");
+
+      if (k&MOD_ALTGR) Keyboard.press(KEY_RIGHT_ALT); 
+      if (k&MOD_SHIFT) Keyboard.press(KEY_LEFT_SHIFT); 
+      Keyboard.press(k&0xff); 
+      Keyboard.release(k&0xff); 
+      if (k&MOD_SHIFT) Keyboard.release(KEY_LEFT_SHIFT); 
+      if (k&MOD_ALTGR) Keyboard.release(KEY_RIGHT_ALT);
+   }
+}
+
+// write a string to the keyboard, replacing special keys (identified by "KEY_NAME") with their keycodes
 void sendToKeyboard(char * writeKeystring)
 {
-    char tmp[MAX_KEYSTRING_LEN]; 
-    char * p1, *p2, *p3;
-    strcpy (tmp,writeKeystring);
-    p1=tmp;
-    p2=strstr(p1,"KEY_");
-    while (p2)
-    { 
-       p3=p2; while ((*p3!=' ') && (*p3)) p3++; 
-       if (*p3) {*p3=0; p3++;}
-       int kc= getKeycode(p2);
-       *p2=0; 
-       if (p1!=p2) writeTranslatedKeys (p1);
-       if (kc)  Keyboard.write(kc); 
-       p1=p3; if (*p1) p2=strstr(p1,"KEY_"); else p2=0;
+    char singleKeyName[20];
+    char * actpos = writeKeystring;
+    char * specialKeyLocation=strstr(actpos,"KEY_");
+
+    while (specialKeyLocation) {
+        // write all normal characters until the special key position
+        writeTranslatedKeys (actpos, specialKeyLocation-actpos);
+        //extract name of special key
+        getNextKeyName(specialKeyLocation,singleKeyName);
+        int kc=getKeycode(singleKeyName);
+        if (kc)  Keyboard.write(kc);
+        // continue after special key name
+        actpos= specialKeyLocation+strlen(singleKeyName);
+        specialKeyLocation=strstr(actpos,"KEY_");
     }
-    writeTranslatedKeys(p1);
+    // write remainder of normal characters   
+    writeTranslatedKeys(actpos, strlen(actpos));
 }
+
 
 
 // here comes a character translation table - this works only for DE by now ...

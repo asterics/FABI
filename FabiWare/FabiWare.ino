@@ -1,6 +1,6 @@
   
 /* 
-     Flexible Assistive Button Interface (FABI)  Version 2.2  - AsTeRICS Foundation 2017 - http://www.asterics-academy.net
+     Flexible Assistive Button Interface (FABI)  Version 2.3  - AsTeRICS Foundation - http://www.asterics-foundation.org
       allows control of HID functions via momentary switches and/or AT-commands  
    
 
@@ -37,17 +37,21 @@ uint8_t DebugOutput=0;  // Use 1 for chatty serial output (but it won't be compa
 #endif
 
 struct settingsType settings = {      // type definition see fabi.h
-    "empty", 3,  1000, 0, 1023        // slotname, wheel step, threshold time (short/longpress), sip threshold, puff threshold
+    "slot1", DEFAULT_WHEEL_STEPSIZE, DEFAULT_TRESHOLD_TIME, 
+    DEFAULT_SIP_THRESHOLD, DEFAULT_PUFF_THRESHOLD,
+    DEFAULT_ANTITREMOR_PRESS, DEFAULT_ANTITREMOR_RELEASE, DEFAULT_ANTITREMOR_IDLE
 }; 
 
 
 struct buttonType buttons [NUMBER_OF_BUTTONS];                     // array for all buttons - type definition see fabi.h 
 struct buttonDebouncerType buttonDebouncers [NUMBER_OF_BUTTONS];   // array for all buttonsDebouncers - type definition see fabi.h 
+char   cmdstring[MAX_CMDLEN];                 // buffer for incoming AT commands
+char   keystringBuffer[KEYSTRING_BUFFER_LEN]; // buffer for all string parameters for the buttons of a slot
+uint16_t freeEEPROMbytes=0;
 
 int clickTime=DEFAULT_CLICK_TIME;
 int waitTime=DEFAULT_WAIT_TIME;
 
-int EmptySlotAddress = 0;
 uint8_t reportSlotParameters = 0;
 uint8_t valueReportCount=0;
 uint8_t actSlot=0;
@@ -65,8 +69,6 @@ uint8_t middleClickRunning=0;
 uint8_t doubleClickRunning=0;
 
 int inByte=0;
-char * keystring=0;
-char * writeKeystring=0;
 uint16_t pressure=0;
 uint8_t reportRawValues = 0;
 
@@ -111,7 +113,7 @@ void setup() {
    {
       buttons[i].mode=CMD_PL;              // default command for every button is left mouse click
       buttons[i].value=0;
-      buttons[i].keystring[0]=0;
+      keystringBuffer[i]=0;
    }
 
 
@@ -140,10 +142,10 @@ void loop() {
       }
     
       for (int i=0;i<NUMBER_OF_PHYSICAL_BUTTONS;i++)    // update button press / release events
-          handleButton(i, -1, digitalRead(input_map[i]) == LOW ? 1 : 0);    
+          handleButton(i, i+6, digitalRead(input_map[i]) == LOW ? BUTTON_PRESSED : BUTTON_RELEASED);    
 
-      if (settings.ts>0)    handleButton(SIP_BUTTON, -1, pressure < settings.ts ? 1 : 0); 
-      if (settings.tp<1023) handleButton(PUFF_BUTTON, -1, pressure > settings.tp ? 1 : 0);
+      if (settings.ts>0)    handleButton(SIP_BUTTON, -1, pressure < settings.ts ? BUTTON_PRESSED : BUTTON_RELEASED); 
+      if (settings.tp<1023) handleButton(PUFF_BUTTON, -1, pressure > settings.tp ? BUTTON_PRESSED : BUTTON_RELEASED);
 
         
       if (moveX==0) moveXcnt=0; 
@@ -189,15 +191,8 @@ void loop() {
       if  (rightMouseButton!=old_rightMouseButton)  {
          if (rightMouseButton) Mouse.press(MOUSE_RIGHT); else Mouse.release(MOUSE_RIGHT);
          old_rightMouseButton=rightMouseButton;
-     }
+    }
     
-     // handle Keyboard output (single key press/release is done seperately via setKeyValues() ) 
-     if (writeKeystring) {
-        sendToKeyboard(writeKeystring);
-        writeKeystring=0;
-    }    
-
-
     if (reportRawValues)   { 
        if (valueReportCount++ > 10) {      // report raw values !
            Serial.print("VALUES:");Serial.print(pressure);Serial.println(",");  
@@ -206,13 +201,13 @@ void loop() {
     }
        
     UpdateLeds();
-    delay(waitTime);  // to limit move movement speed. TBD: remove delay, use millis() !
+    delay(waitTime);  // to limit movement speed. TBD: remove delay, use millis() !
 }
 
 
 void handlePress (int buttonIndex)   // a button was pressed
 {   
-    performCommand(buttons[buttonIndex].mode,buttons[buttonIndex].value,buttons[buttonIndex].keystring,1);
+    performCommand(buttons[buttonIndex].mode,buttons[buttonIndex].value,getKeystring(buttonIndex),1);
 }
 
 void handleRelease (int buttonIndex)    // a button was released
@@ -223,7 +218,7 @@ void handleRelease (int buttonIndex)    // a button was released
      case CMD_PM: middleMouseButton=0; break;
      case CMD_MX: moveX=0; break;      
      case CMD_MY: moveY=0; break;      
-     case CMD_KP: releaseKeys(buttons[buttonIndex].keystring); break; 
+     case CMD_KP: releaseSingleKeys(getKeystring(buttonIndex)); break; 
    }
 }
 
@@ -231,10 +226,10 @@ void initDebouncers()
 {
    for (int i=0; i<NUMBER_OF_BUTTONS; i++)   // initialize button array
    {
-      buttonDebouncers[i].bounceState=0;
-      buttonDebouncers[i].stableState=0;
-      buttonDebouncers[i].bounceCount=0;
-      buttonDebouncers[i].longPressed=0;
+      buttonDebouncers[i].pressCount=0;
+      buttonDebouncers[i].releaseCount=0;
+      buttonDebouncers[i].idleCount=0;
+      buttonDebouncers[i].pressState=BUTTONSTATE_NOT_PRESSED;
    }
 }
 
@@ -250,47 +245,97 @@ void release_all()  // releases all previously pressed keys
 }
 
 
-void handleButton(int i, int l, uint8_t state)    // button debouncing and longpress detection  
-{                                                 //   (if button i is pressed long and index l>=0, virtual button l is activated !)
-   if ( buttonDebouncers[i].bounceState == state) {
-     if (buttonDebouncers[i].bounceCount < DEFAULT_DEBOUNCING_TIME) {
-       buttonDebouncers[i].bounceCount++;
-       if (buttonDebouncers[i].bounceCount == DEFAULT_DEBOUNCING_TIME) {
-          if (state != buttonDebouncers[i].stableState)
-          { 
-            buttonDebouncers[i].stableState=state;
-            if (state == 1) { 
-              handlePress(i); 
-              buttonDebouncers[i].timestamp=millis();
-            }
-            else {
-              if (buttonDebouncers[i].longPressed)
-              {
-                 buttonDebouncers[i].longPressed=0;
-                 handleRelease(l);
-              }
-              else handleRelease(i);  
-            }
-          }
+// button debouncing and longpress detection  
+// (if button i is pressed long and index l>=0, virtual button l is activated !)
+void handleButton(int i, int l, uint8_t actState)    
+{ 
+    if (buttonDebouncers[i].pressState==BUTTONSTATE_IDLE) {
+       buttonDebouncers[i].idleCount++;
+       if (buttonDebouncers[i].idleCount >= settings.ai) {
+        buttonDebouncers[i].idleCount=0;
+        buttonDebouncers[i].pressCount=0;
+        buttonDebouncers[i].releaseCount=0;
+        buttonDebouncers[i].pressState=BUTTONSTATE_NOT_PRESSED;
        }
-     }
-     else { 
-       if ((millis()-buttonDebouncers[i].timestamp > settings.tt ) && (l>=0))
-       {
-            if ((state == 1) && (buttonDebouncers[i].longPressed==0) && (buttons[l].mode!=CMD_NC)) {
-           buttonDebouncers[i].longPressed=1; 
-           handleRelease(i);
+       return;
+    }
+            
+    if ((actState == BUTTON_PRESSED)) // && (buttonDebouncers[i].pressState == BUTTONSTATE_NOT_PRESSED)) 
+    {
+       buttonDebouncers[i].releaseCount=0;
+       if (buttonDebouncers[i].pressCount<=settings.tt)
+          buttonDebouncers[i].pressCount++;           
+       if (buttonDebouncers[i].pressCount==settings.ap) {
+           handlePress(i);           
+           buttonDebouncers[i].pressState=BUTTONSTATE_SHORT_PRESSED;           
+       }
+       if ((buttonDebouncers[i].pressCount==settings.tt) && (settings.tt<5000) && (l>=0) && (l<NUMBER_OF_BUTTONS)) {
+           handleRelease(i);           
            handlePress(l);
-          }
+           buttonDebouncers[i].pressState=BUTTONSTATE_LONG_PRESSED;           
        }
-     }
-   }
-   else {
-     buttonDebouncers[i].bounceState = state;
-     buttonDebouncers[i].bounceCount=0;     
-   }
+    }
+    
+    if ((actState == BUTTON_RELEASED)) // && (buttonDebouncers[i].pressState != BUTTONSTATE_NOT_PRESSED)) 
+    {
+       buttonDebouncers[i].pressCount=0;           
+       if (buttonDebouncers[i].releaseCount<=settings.ar)
+         buttonDebouncers[i].releaseCount++;           
+       if (buttonDebouncers[i].releaseCount==settings.ar) {
+         if(buttonDebouncers[i].pressState==BUTTONSTATE_SHORT_PRESSED) { 
+            handleRelease(i);
+            buttonDebouncers[i].pressState=BUTTONSTATE_IDLE;
+         }
+         else if(buttonDebouncers[i].pressState==BUTTONSTATE_LONG_PRESSED) {
+            handleRelease(l);
+            buttonDebouncers[i].pressState=BUTTONSTATE_IDLE;
+         }
+       }
+    }
 }   
 
+char * getKeystring (uint8_t button) 
+{
+  char *s=keystringBuffer;
+  for (int i=0;i<button;i++)
+  {
+    while (*s) s++;
+    s++;    
+  }
+  return(s);
+}
+
+uint16_t keystringMemUsage(uint8_t button)
+{
+  uint16_t sum=0;
+  for (int i=button; i<NUMBER_OF_BUTTONS;i++)
+    sum+=strlen(getKeystring(i))+1;
+  return(sum);
+}
+
+void setKeystring (uint8_t button, char * text)
+{
+  if (keystringMemUsage(0)-strlen(getKeystring(button))+strlen(text) >= KEYSTRING_BUFFER_LEN)
+     return;
+
+  if (button < NUMBER_OF_BUTTONS-1) {
+    uint16_t bytesToCopy=keystringMemUsage(button+1);
+    int16_t delta = strlen(text)-strlen(getKeystring(button));
+    memmove(getKeystring(button+1)+delta, getKeystring(button+1), bytesToCopy);
+  }
+  strcpy(getKeystring(button),text);
+}
+
+void printKeystrings ()
+{
+  Serial.print("Used RAM for Keystrings:");Serial.print(keystringMemUsage(0));
+  Serial.print(" (free: ");Serial.print(KEYSTRING_BUFFER_LEN-keystringMemUsage(0));
+  Serial.println(")");
+
+  for (int i=0;i<NUMBER_OF_BUTTONS;i++) {
+    Serial.print("Keystring ");Serial.print(i);Serial.print(":");Serial.println(getKeystring(i));
+  }
+}
 
 void BlinkLed()
 {

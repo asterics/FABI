@@ -82,11 +82,11 @@ namespace MouseApp2
                         receivedString = serialPort1.ReadLine();
 //                        byte[] my_bytes = System.Text.Encoding.Default.GetBytes(command);
 
-
-
                         if (!receivedString.Contains("VALUES"))
                            Console.Write("received:" + receivedString);
-                        BeginInvoke(this.stringReceivedDelegate, new Object[] { receivedString });
+
+                        if (!receivedString.Contains("VALUES"))
+                           BeginInvoke(this.stringReceivedDelegate, new Object[] { receivedString });
                     }
                     catch (Exception ex)
                     {
@@ -133,6 +133,12 @@ namespace MouseApp2
             {
                 gotEnd();
             }
+            else if (newLine.ToUpper().StartsWith(PREFIX_FREE_EEPROM))
+            {
+                int freePercent = Int32.Parse(newLine.Substring(newLine.IndexOf(":")+1));
+                freeMemLabel.Text = "mem usage:"+(100-freePercent).ToString() +"%";
+                drawFreeMem(100-freePercent);
+            }
 
         }
 
@@ -143,6 +149,7 @@ namespace MouseApp2
 
               actSlot = 0;
               displaySlot(actSlot);
+              sendFreeMemCommand();          
 
               addToLog("The settings were loaded from Fabi device!");
               sendStartReportingCommand();          
@@ -150,7 +157,7 @@ namespace MouseApp2
 
         public void gotID(String newLine)
         {
-            addToLog("Fabi detected:" + newLine);
+            addToLog("Fabi detected:");
             fabiOnline = 1;
             slotNames.Items.Clear();
             sendStartReportingCommand();   // start reporting raw values !
@@ -224,9 +231,10 @@ namespace MouseApp2
                     addToLog("Slot " + slots[slotCounter].slotName + " is stored into Fabi device.");
                 }
                 addToLog("The settings were stored!");
+                sendFreeMemCommand();          
                 sendNextCommand();
                 sendStartReportingCommand();
-                Thread.Sleep(3000);  // time to activate config
+                // Thread.Sleep(3000);  // time to activate config
                 Cursor.Current = Cursors.Default;
             }
 

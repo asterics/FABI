@@ -1,17 +1,26 @@
 ﻿
 /* 
- 
    Supported AT-commands:  
    (sent via serial interface, 115200 baud, using spaces between parameters.  Enter (<cr>, ASCII-code 0x0d) finishes a command)
    
           AT                returns "OK"
-          AT ID             returns identification string (e.g. "Fabi V2.2")
+          AT ID             returns identification string (e.g. "Fabi V2.3")
           AT BM <uint>      puts button into programming mode (e.g. "AT BM 2" -> next AT-command defines the new function for button 2)
                             for the FABI, there are 11 buttons available (9 physical buttons, 2 virtual functions - sip / puff) 
 
           AT MA <string>  execute a command macro containing multiple commands (separated by semicolon) 
                           example: "AT MA MX 100;MY 100;CL;"  use backslash to mask semicolon: "AT MA KW \;;CL;" writes a semicolon and then clicks left 
           AT WA <uint>    wait (given in milliseconds, useful for macro commands)
+
+    Commands for changing settings:
+    
+          AT WS <uint>    set mouse wheel stepsize (e.g. "AT WS 3" sets the wheel stepsize to 3 rows)
+          AT TS <uint>    threshold for sip action  (0-512)
+          AT TP <uint>    threshold for puff action (512-1023)
+          AT TT <uint>    threshold time between short and long press action (5000=disable)
+          AT AP <uint>    antitremor press time (1-500)
+          AT AR <uint>    antitremor release time (1-500)
+          AT AI <uint>    antitremor idle time (1-500)
 
     USB HID commands:
       
@@ -30,7 +39,6 @@
           
           AT WU             move mouse wheel up  
           AT WD             move mouse wheel down  
-          AT WS <uint>      set mouse wheel stepsize (e.g. "AT WS 3" sets the wheel stepsize to 3 rows)
    
           AT MX <int>       move mouse in x direction (e.g. "AT MX 4" moves cursor 4 pixels to the right)  
           AT MY <int>       move mouse in y direction (e.g. "AT MY -10" moves cursor 10 pixels up)  
@@ -46,20 +54,18 @@
     Housekeeping commands:
 
           AT SA <string>  save settings and current button modes to slot under given name 
-                          if slot exists it will be overwritten, else a new slot will be appended (e.g. AT SAVE mouse1)
-          AT LO <string>  load button modes from eeprom slot (e.g. AT LOAD mouse1 -> loads profile named "mouse1")
+                          a new slot will be appended (e.g. AT SA mouse1)
+          AT LO <string>  load button modes from eeprom slot (e.g. AT LO mouse1 -> loads profile named "mouse1")
           AT LA           load all slots (displays names and settings of all stored slots) 
-          AT LI           list all saved mode names 
+          AT LI           list all saved slot names 
           AT NE           next slot will be loaded (wrap around after last slot)
           AT DE           delete EEPROM content (delete all stored slots)
           AT NC           no command (idle operation)
           AT E0           turn echo off (no debug output on serial console, default and GUI compatible)
           AT E1           turn echo on (debug output on serial console)
-          AT SR           start reporting raw values (sensor value of A0, starting with "VALUES:") 
-          AT ER           end reporting raw values
-          AT TS <uint>    treshold for sip action  (0-512)
-          AT TP <uint>    treshold for puff action (512-1023)
-
+          AT SR           start periodic reporting analog values (A0) over serial (starting with "VALUES:") 
+          AT ER           end reporting analog values
+          AT FR           report free EEPROM bytes in % (starting with "FREE:") 
 
           
 
@@ -75,7 +81,7 @@
     KEY_HOME    KEY_PAGE_UP    KEY_PAGE_DOWN   KEY_DELETE  KEY_INSERT   KEY_END	  KEY_NUM_LOCK    KEY_SCROLL_LOCK
     KEY_SPACE   KEY_CAPS_LOCK  KEY_PAUSE       KEY_SHIFT   KEY_CTRL     KEY_ALT   KEY_RIGHT_ALT   KEY_GUI 
     KEY_RIGHT_GUI
-    
+        
 */
 
 
@@ -111,6 +117,7 @@ namespace MouseApp2
         const string PREFIX_SLOT_NAME = "SLOT:";
         const string PREFIX_AT_COMMAND = "AT ";
         const string PREFIX_END_OF_SLOTS = "END";
+        const string PREFIX_FREE_EEPROM = "FREE EEPROM";
 
 
         public AllCommands allCommands = new AllCommands();
@@ -146,10 +153,14 @@ namespace MouseApp2
             allCommands.add(new Command("AT NC", PARTYPE_NONE, "No Command", COMBOENTRY_YES, GUITYPE_STANDARD));
             allCommands.add(new Command("AT SR", PARTYPE_NONE, "Start Rawvalue reports", COMBOENTRY_NO, GUITYPE_STANDARD));
             allCommands.add(new Command("AT ER", PARTYPE_NONE, "End Rawvalue reports", COMBOENTRY_NO, GUITYPE_STANDARD));
-            allCommands.add(new Command("AT TS", PARTYPE_UINT, "Theshold Sip", COMBOENTRY_NO, GUITYPE_SLIDER));
-            allCommands.add(new Command("AT TP", PARTYPE_UINT, "Theshold Puff", COMBOENTRY_NO, GUITYPE_SLIDER));
+            allCommands.add(new Command("AT TS", PARTYPE_UINT, "Threshold Sip", COMBOENTRY_NO, GUITYPE_SLIDER));
+            allCommands.add(new Command("AT TP", PARTYPE_UINT, "Threshold Puff", COMBOENTRY_NO, GUITYPE_SLIDER));
             allCommands.add(new Command("AT MA", PARTYPE_STRING, "Execute Command Macro", COMBOENTRY_YES, GUITYPE_TEXTFIELD));
             allCommands.add(new Command("AT WA", PARTYPE_UINT, "Wait (milliseconds)", COMBOENTRY_NO, GUITYPE_STANDARD));
+            allCommands.add(new Command("AT TT", PARTYPE_UINT, "Threshold Time Longpress", COMBOENTRY_NO, GUITYPE_SLIDER));
+            allCommands.add(new Command("AT AP", PARTYPE_UINT, "Antitremor Press time", COMBOENTRY_NO, GUITYPE_SLIDER));
+            allCommands.add(new Command("AT AR", PARTYPE_UINT, "Antitremor Release time", COMBOENTRY_NO, GUITYPE_SLIDER));
+            allCommands.add(new Command("AT AI", PARTYPE_UINT, "Antitremor Idle time", COMBOENTRY_NO, GUITYPE_SLIDER));
         }
 
 
@@ -157,8 +168,12 @@ namespace MouseApp2
 
         public void initCommandGuiLinks()
         {
-            commandGuiLinks.Add(new CommandGuiLink("AT TS", sipThresholdBar, sipThresholdLabel, "500"));
-            commandGuiLinks.Add(new CommandGuiLink("AT TP", puffThresholdBar, puffThresholdLabel, "525"));
+            commandGuiLinks.Add(new CommandGuiLink("AT TT", timeThresholdBar, timeThresholdLabel, "5000"));
+            commandGuiLinks.Add(new CommandGuiLink("AT AP", antiTremorPressBar, antiTremorPressLabel, "5"));
+            commandGuiLinks.Add(new CommandGuiLink("AT AR", antiTremorReleaseBar, antiTremorReleaseLabel, "2"));
+            commandGuiLinks.Add(new CommandGuiLink("AT AI", antiTremorIdleBar, antiTremorIdleLabel, "1"));
+            commandGuiLinks.Add(new CommandGuiLink("AT TS", sipThresholdBar, sipThresholdLabel, "0"));
+            commandGuiLinks.Add(new CommandGuiLink("AT TP", puffThresholdBar, puffThresholdLabel, "1023"));
             commandGuiLinks.Add(new CommandGuiLink("AT BM 01", Button1FunctionBox, Button1ParameterText, Button1NumericParameter, "AT KP KEY_UP "));
             commandGuiLinks.Add(new CommandGuiLink("AT BM 02", Button2FunctionBox, Button2ParameterText, Button2NumericParameter, "AT KP KEY_DOWN "));
             commandGuiLinks.Add(new CommandGuiLink("AT BM 03", Button3FunctionBox, Button3ParameterText, Button3NumericParameter, "AT KP KEY_LEFT "));
@@ -206,6 +221,10 @@ namespace MouseApp2
         public void sendStartReportingCommand()
         {
             sendCmd("AT SR");
+        }
+        public void sendFreeMemCommand()
+        {
+            sendCmd("AT FR");
         }
 
         public void sendSaveSlotCommands(String slotname)
