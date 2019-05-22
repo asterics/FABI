@@ -152,9 +152,11 @@ void performCommand (uint8_t cmd, int16_t parNum, char * parString, int8_t perio
                  Serial.println(F("wheel up"));
                
                #ifdef ARDUINO_PRO_MICRO
-                  Mouse.move(0,0,-settings.ws); 
+				  if(settings.ws != 0) Mouse.move(0,0,-settings.ws); 
+				  else Mouse.move(0,0,-DEFAULT_WHEEL_STEPSIZE); 
                #else
-                  Mouse.scroll(-settings.ws); 
+				  if(settings.ws != 0) Mouse.scroll(-settings.ws); 
+				  else Mouse.scroll(-DEFAULT_WHEEL_STEPSIZE); 
                #endif
             break;
         case CMD_WD:
@@ -162,9 +164,11 @@ void performCommand (uint8_t cmd, int16_t parNum, char * parString, int8_t perio
                  Serial.println(F("wheel down"));
               
                #ifdef ARDUINO_PRO_MICRO
-                  Mouse.move(0,0,settings.ws); 
+				  if(settings.ws != 0) Mouse.move(0,0,settings.ws); 
+				  else Mouse.move(0,0,DEFAULT_WHEEL_STEPSIZE); 
                #else
-                  Mouse.scroll(settings.ws); 
+				  if(settings.ws != 0) Mouse.scroll(settings.ws); 
+				  else Mouse.scroll(DEFAULT_WHEEL_STEPSIZE); 
                #endif
             break;
         case CMD_WS:
