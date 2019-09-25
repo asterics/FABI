@@ -1,0 +1,44 @@
+
+# 3D printed FABI cases
+
+This folder contains 3D printable versions of FABI cases and button cases.
+
+## FABI case
+
+Please print **fabi_base.stl** and **fabi_top.stl**.
+You need following electronic parts:
+
+* Arduino Pro Micro (either from Sparkfun or Aliexpress)
+* 8 Jack plugs of type PJ-392 (Aliexpress or any other supplier)
+* Hot glue for fixing the jack plugs
+* Wire
+
+![Image of an assembled FABI box](/fabi.png?raw=true)
+![Differently colored FABI boxes](/fabi2.png?raw=true)
+
+## Buttons
+
+The button designs are used for Arcade buttons. Depending on the ordered button diameter, please print either **button_24mm.stl** or **button_30mm.stl**.
+
+Following parts are necessary (in addition to the 3D print):
+
+* Arcade button (either 24mm or 30mm diameter)
+* 3.5mm jack plug stereo audio cable (you can cut a plug-to-plug wire into half for 2 buttons)
+
+After printing the case, you need to remove the built-in support material within the button.
+
+![Image of a 24mm button](/button24mm.png?raw=true)
+![Image of a 30mm button](/button30mm.png?raw=true)
+
+
+## Print settings & tools
+
+All designs are made with FreeCAD v0.17.
+
+Recommended print settings:
+
+* 0.2-0.35mm
+* No support
+* Please use PLA or other biocompatible/-degradable filament (we use GreenTec from extrudr.at)
+
+All designs are tested on a Prusa i3 MK2.
