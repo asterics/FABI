@@ -13,8 +13,8 @@ You need following electronic parts:
 * Hot glue for fixing the jack plugs
 * Wire
 
-![Image of an assembled FABI box](/fabi.png?raw=true)
-![Differently colored FABI boxes](/fabi2.png?raw=true)
+![Image of an assembled FABI box](/img/fabi2.png?raw=true)
+![Differently colored FABI boxes](/img/fabi3.png?raw=true)
 
 ## Buttons
 
@@ -27,8 +27,8 @@ Following parts are necessary (in addition to the 3D print):
 
 After printing the case, you need to remove the built-in support material within the button.
 
-![Image of a 24mm button](/button24mm.png?raw=true)
-![Image of a 30mm button](/button30mm.png?raw=true)
+![Image of a 24mm button](/img/button24mm.png?raw=true)
+![Image of a 30mm button](/img/button30mm.png?raw=true)
 
 
 ## Print settings & tools
