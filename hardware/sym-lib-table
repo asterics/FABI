@@ -1,0 +1,3 @@
+(sym_lib_table
+  (lib (name ProMicro)(type Legacy)(uri ${KIPRJMOD}/kicad_libs/ProMicro-symbol/ProMicro.lib)(options "")(descr ""))
+)
