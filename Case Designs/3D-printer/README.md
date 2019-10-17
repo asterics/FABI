@@ -18,17 +18,10 @@ You need following electronic parts:
 
 ## Buttons
 
-The button designs are used for Arcade buttons. Depending on the ordered button diameter, please print either **button_24mm.stl** or **button_30mm.stl**.
-
-Following parts are necessary (in addition to the 3D print):
-
-* Arcade button (either 24mm or 30mm diameter)
-* 3.5mm jack plug stereo audio cable (you can cut a plug-to-plug wire into half for 2 buttons)
-
-After printing the case, you need to remove the built-in support material within the button.
+We provide different button cases for different use-cases.
+Please have a look into the buttons folder for the different designs.
 
 ![Image of a 24mm button](/img/button24mm.png?raw=true)
-![Image of a 30mm button](/img/button30mm.png?raw=true)
 
 
 ## Print settings & tools
