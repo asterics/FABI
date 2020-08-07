@@ -124,6 +124,17 @@ void setup() {
    if (DebugOutput==1) {  
      Serial.print(F("Free RAM:"));  Serial.println(freeRam());
    }
+   
+   /* Enable for debugging the clock registers in any case of problems.
+   delay(1000);
+   Serial.print(F("Clock register:"));
+   Serial.print(CLKSEL0); Serial.print(":");
+   Serial.print(CLKSEL1); Serial.print(":");
+   Serial.print(CLKSTA); Serial.print(":");
+   Serial.print(CLKPR); Serial.print(":");
+   Serial.print(PLLCSR); Serial.print(":");
+   Serial.print(PLLFRQ); Serial.println(":");
+   */
 }
 
 ///////////////////////////////
@@ -201,7 +212,30 @@ void loop() {
     }
        
     UpdateLeds();
-    delay(waitTime);  // to limit movement speed. TBD: remove delay, use millis() !
+    
+    //we need a workaround for different clock settings on Arduino Pro Micro boards.
+    //millis is not working correctly, the delay seems to be 8x higher if wrong clock
+    //settings are active. If the "defect" Pro Micro is booted via double reset, it works.
+    //The difference does not affect USB, because the Mega32U4 has multiple valid settings
+    //for driving USB with 48MHz.
+    
+    //Good clock settings: CLKPR = 0 (no prescaler); PLLFRQ = 0x4A (96MHz PLL, divide by 2 for USB)
+    //"Bad" clock settings: CLKPR = 0x03 (prescaler 8); PLLFRQ = 0x04 (48MHz PLL, USB connected directly)
+    #ifdef ARDUINO_PRO_MICRO
+		//these register settings might be used with 8MHz too, and there is no problem if F_CPU is also 8MHz.
+		#if F_CPU == 16000000l
+			if(CLKPR == 0x00 && PLLFRQ == 0x4A) //good settings
+			{
+				delay(waitTime);
+			} else {
+				delayMicroseconds((waitTime*1000) / 8);
+			}
+		#else
+			delay(waitTime);
+		#endif
+    #else
+		delay(waitTime);  // to limit movement speed. TBD: remove delay, use millis() !
+	#endif
 }
 
 
