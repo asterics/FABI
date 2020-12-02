@@ -85,7 +85,6 @@ namespace MouseApp2
                         if (!receivedString.Contains("VALUES"))
                            Console.Write("received:" + receivedString);
 
-                        if (!receivedString.Contains("VALUES"))
                            BeginInvoke(this.stringReceivedDelegate, new Object[] { receivedString });
                     }
                     catch (Exception ex)
