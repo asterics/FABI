@@ -297,13 +297,13 @@ void handleButton(int i, int l, uint8_t actState)
     if ((actState == BUTTON_PRESSED)) // && (buttonDebouncers[i].pressState == BUTTONSTATE_NOT_PRESSED)) 
     {
        buttonDebouncers[i].releaseCount=0;
-       if (buttonDebouncers[i].pressCount<=settings.tt)
+       if (buttonDebouncers[i].pressCount<=settings.tt>>2)
           buttonDebouncers[i].pressCount++;           
        if (buttonDebouncers[i].pressCount==settings.ap) {
            handlePress(i);           
            buttonDebouncers[i].pressState=BUTTONSTATE_SHORT_PRESSED;           
        }
-       if ((buttonDebouncers[i].pressCount==settings.tt) && (settings.tt<5000) && (l>=0) && (l<NUMBER_OF_BUTTONS)) {
+       if ((buttonDebouncers[i].pressCount==settings.tt>>2) && (settings.tt<5000) && (l>=0) && (l<NUMBER_OF_BUTTONS)) {
            handleRelease(i);           
            handlePress(l);
            buttonDebouncers[i].pressState=BUTTONSTATE_LONG_PRESSED;           
