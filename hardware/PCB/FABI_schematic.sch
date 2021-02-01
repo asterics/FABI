@@ -523,7 +523,7 @@ U 1 1 5F49020A
 P 7200 5050
 F 0 "J9" H 7250 5467 50  0000 C CNN
 F 1 "Conn_02x05_Odd_Even" H 7250 5376 50  0000 C CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_2x05_P2.54mm_Vertical" H 7200 5050 50  0001 C CNN
+F 2 "Connector_PinSocket_2.54mm:PinSocket_2x05_P2.54mm_Vertical" H 7200 5050 50  0001 C CNN
 F 3 "~" H 7200 5050 50  0001 C CNN
 	1    7200 5050
 	1    0    0    -1  
@@ -850,4 +850,60 @@ Wire Wire Line
 	2350 5550 2600 5550
 Wire Wire Line
 	2350 5850 2600 5850
+$Comp
+L power:VCC #PWR020
+U 1 1 602264EC
+P 6350 3050
+F 0 "#PWR020" H 6350 2900 50  0001 C CNN
+F 1 "VCC" V 6365 3223 50  0000 C CNN
+F 2 "" H 6350 3050 50  0001 C CNN
+F 3 "" H 6350 3050 50  0001 C CNN
+	1    6350 3050
+	0    -1   -1   0   
+$EndComp
+Text GLabel 6300 2950 0    39   Input ~ 0
+1
+Text GLabel 6300 2850 0    39   Input ~ 0
+2
+Wire Wire Line
+	6300 2850 6350 2850
+Wire Wire Line
+	6300 2950 6350 2950
+$Comp
+L power:GND #PWR019
+U 1 1 6022BF5D
+P 6350 3150
+F 0 "#PWR019" H 6350 2900 50  0001 C CNN
+F 1 "GND" V 6355 3022 50  0000 R CNN
+F 2 "" H 6350 3150 50  0001 C CNN
+F 3 "" H 6350 3150 50  0001 C CNN
+	1    6350 3150
+	0    1    -1   0   
+$EndComp
+$Comp
+L Connector:Conn_01x04_Female J11_disp1
+U 1 1 60220EC3
+P 6550 2950
+F 0 "J11_disp1" H 6578 2926 50  0000 L CNN
+F 1 "Conn_01x04_Female" H 6578 2835 50  0000 L CNN
+F 2 "Connector_PinSocket_2.54mm:PinSocket_1x04_P2.54mm_Vertical" H 6550 2950 50  0001 C CNN
+F 3 "~" H 6550 2950 50  0001 C CNN
+	1    6550 2950
+	1    0    0    -1  
+$EndComp
+Text Notes 6075 2975 0    39   ~ 0
+SCL
+Text Notes 6075 2875 0    39   ~ 0
+SDA
+$Comp
+L Connector:Conn_01x04_Male J11
+U 1 1 60287AE3
+P 8700 3250
+F 0 "J11" H 8808 3531 50  0000 C CNN
+F 1 "Conn_01x04_Male" H 8808 3440 50  0000 C CNN
+F 2 "Connector:display" H 8700 3250 50  0001 C CNN
+F 3 "~" H 8700 3250 50  0001 C CNN
+	1    8700 3250
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
