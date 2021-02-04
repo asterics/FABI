@@ -50,9 +50,9 @@ NoConn ~ 2350 6450
 NoConn ~ 2350 6350
 NoConn ~ 2350 7150
 NoConn ~ 2350 7250
-Text GLabel 1850 3350 0    39   Input ~ 0
+Text GLabel 1850 3950 0    39   Input ~ 0
 1
-Text GLabel 1850 3450 0    39   Input ~ 0
+Text GLabel 1850 4050 0    39   Input ~ 0
 2
 Text GLabel 1850 3550 0    39   Input ~ 0
 3
@@ -62,9 +62,9 @@ Text GLabel 1850 3750 0    39   Input ~ 0
 5
 Text GLabel 1850 3850 0    39   Input ~ 0
 6
-Text GLabel 1850 3950 0    39   Input ~ 0
+Text GLabel 3600 3950 2    39   Input ~ 0
 7
-Text GLabel 1850 4050 0    39   Input ~ 0
+Text GLabel 3600 4050 2    39   Input ~ 0
 8
 Wire Wire Line
 	1850 3250 1850 3150
@@ -318,7 +318,7 @@ L power:VCC #PWR015
 U 1 1 5F4DD0FF
 P 5650 4850
 F 0 "#PWR015" H 5650 4700 50  0001 C CNN
-F 1 "VCC" H 5665 5023 50  0000 C CNN
+F 1 "VCC" V 5665 4978 50  0000 L CNN
 F 2 "" H 5650 4850 50  0001 C CNN
 F 3 "" H 5650 4850 50  0001 C CNN
 	1    5650 4850
@@ -335,8 +335,6 @@ F 3 "" H 5650 5050 50  0001 C CNN
 	1    5650 5050
 	-1   0    0    -1  
 $EndComp
-Text Label 5650 4950 0    39   ~ 0
-NEOPIXEL
 Text Label 3600 3650 0    39   ~ 0
 MPX
 Text Notes 1050 4350 0    39   ~ 0
@@ -962,9 +960,9 @@ F 3 "" H 8950 3250 50  0001 C CNN
 	0    -1   -1   0   
 $EndComp
 Text GLabel 8925 2950 0    39   Input ~ 0
-1
+SCL
 Text GLabel 8925 2625 0    39   Input ~ 0
-2
+SDA
 $Comp
 L power:GND #PWR020
 U 1 1 60275866
@@ -976,10 +974,6 @@ F 3 "" H 8950 3350 50  0001 C CNN
 	1    8950 3350
 	0    1    -1   0   
 $EndComp
-Text Notes 8700 2975 0    39   ~ 0
-SCL
-Text Notes 8700 2650 0    39   ~ 0
-SDA
 Wire Wire Line
 	9800 3050 9800 2625
 Wire Wire Line
@@ -1114,18 +1108,18 @@ Text GLabel 3600 3450 2    39   Input ~ 0
 AddOn_Pin2
 Text GLabel 3600 3850 2    39   Input ~ 0
 AddOn_Pin3
-Text GLabel 3600 3950 2    39   Input ~ 0
-AddOn_Pin4
-Text GLabel 3600 4050 2    39   Input ~ 0
-AddOn_Pin5
 Text GLabel 7000 4950 0    39   Input ~ 0
 AddOn_Pin3
 Text GLabel 7500 4850 2    39   Input ~ 0
 AddOn_Pin2
 Text GLabel 7000 4850 0    39   Input ~ 0
 AddOn_Pin1
-Text GLabel 7000 5050 0    39   Input ~ 0
-AddOn_Pin5
-Text GLabel 7500 4950 2    39   Input ~ 0
-AddOn_Pin4
+Text GLabel 1850 3350 0    39   Input ~ 0
+SCL
+Text GLabel 1850 3450 0    39   Input ~ 0
+SDA
+NoConn ~ 7500 4950
+NoConn ~ 7000 5050
+Text Label 5650 4950 0    39   ~ 0
+NEOPIXEL
 $EndSCHEMATC

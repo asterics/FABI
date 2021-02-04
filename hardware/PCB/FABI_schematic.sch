@@ -171,61 +171,61 @@ SMD
 $Comp
 L Power_Protection:SP0504BAHT D12
 U 1 1 5F3C5FAA
-P 4200 4900
-F 0 "D12" H 4505 4946 50  0000 L CNN
-F 1 "SP0504BAHT" H 4250 4700 50  0000 L CNN
-F 2 "Package_TO_SOT_SMD:SOT-23-5" H 4500 4850 50  0001 L CNN
-F 3 "http://www.littelfuse.com/~/media/files/littelfuse/technical%20resources/documents/data%20sheets/sp05xxba.pdf" H 4325 5025 50  0001 C CNN
-	1    4200 4900
+P 4250 4900
+F 0 "D12" H 4555 4946 50  0000 L CNN
+F 1 "SP0504BAHT" H 4300 4700 50  0000 L CNN
+F 2 "Package_TO_SOT_SMD:SOT-23-5" H 4550 4850 50  0001 L CNN
+F 3 "http://www.littelfuse.com/~/media/files/littelfuse/technical%20resources/documents/data%20sheets/sp05xxba.pdf" H 4375 5025 50  0001 C CNN
+	1    4250 4900
 	1    0    0    -1  
 $EndComp
 $Comp
 L Power_Protection:SP0504BAHT D11
 U 1 1 5F3C6CE7
-P 3550 4900
-F 0 "D11" H 3855 4946 50  0000 L CNN
-F 1 "SP0504BAHT" H 3600 4700 50  0000 L CNN
-F 2 "Package_TO_SOT_SMD:SOT-23-5" H 3850 4850 50  0001 L CNN
-F 3 "http://www.littelfuse.com/~/media/files/littelfuse/technical%20resources/documents/data%20sheets/sp05xxba.pdf" H 3675 5025 50  0001 C CNN
-	1    3550 4900
+P 3600 4900
+F 0 "D11" H 3905 4946 50  0000 L CNN
+F 1 "SP0504BAHT" H 3650 4700 50  0000 L CNN
+F 2 "Package_TO_SOT_SMD:SOT-23-5" H 3900 4850 50  0001 L CNN
+F 3 "http://www.littelfuse.com/~/media/files/littelfuse/technical%20resources/documents/data%20sheets/sp05xxba.pdf" H 3725 5025 50  0001 C CNN
+	1    3600 4900
 	1    0    0    -1  
 $EndComp
-Text GLabel 3750 4700 1    39   Input ~ 0
+Text GLabel 3800 4700 1    39   Input ~ 0
 1
-Text GLabel 3450 4700 1    39   Input ~ 0
+Text GLabel 3500 4700 1    39   Input ~ 0
 2
-Text GLabel 3550 4700 1    39   Input ~ 0
+Text GLabel 3600 4700 1    39   Input ~ 0
 3
-Text GLabel 3650 4700 1    39   Input ~ 0
+Text GLabel 3700 4700 1    39   Input ~ 0
 4
-Text GLabel 4200 4700 1    39   Input ~ 0
+Text GLabel 4250 4700 1    39   Input ~ 0
 5
-Text GLabel 4100 4700 1    39   Input ~ 0
+Text GLabel 4150 4700 1    39   Input ~ 0
 6
-Text GLabel 4400 4700 1    39   Input ~ 0
+Text GLabel 4450 4700 1    39   Input ~ 0
 7
-Text GLabel 4300 4700 1    39   Input ~ 0
+Text GLabel 4350 4700 1    39   Input ~ 0
 8
 $Comp
 L power:GND #PWR026
 U 1 1 5F3C927A
-P 3550 5100
-F 0 "#PWR026" H 3550 4850 50  0001 C CNN
-F 1 "GND" V 3555 4972 50  0000 R CNN
-F 2 "" H 3550 5100 50  0001 C CNN
-F 3 "" H 3550 5100 50  0001 C CNN
-	1    3550 5100
+P 3600 5100
+F 0 "#PWR026" H 3600 4850 50  0001 C CNN
+F 1 "GND" V 3605 4972 50  0000 R CNN
+F 2 "" H 3600 5100 50  0001 C CNN
+F 3 "" H 3600 5100 50  0001 C CNN
+	1    3600 5100
 	-1   0    0    -1  
 $EndComp
 $Comp
 L power:GND #PWR027
 U 1 1 5F3C9749
-P 4200 5100
-F 0 "#PWR027" H 4200 4850 50  0001 C CNN
-F 1 "GND" V 4205 4972 50  0000 R CNN
-F 2 "" H 4200 5100 50  0001 C CNN
-F 3 "" H 4200 5100 50  0001 C CNN
-	1    4200 5100
+P 4250 5100
+F 0 "#PWR027" H 4250 4850 50  0001 C CNN
+F 1 "GND" V 4255 4972 50  0000 R CNN
+F 2 "" H 4250 5100 50  0001 C CNN
+F 3 "" H 4250 5100 50  0001 C CNN
+	1    4250 5100
 	-1   0    0    -1  
 $EndComp
 Text Notes 3550 4350 0    39   ~ 0
@@ -399,10 +399,10 @@ Wire Notes Line
 	4850 4400 4850 5550
 Wire Notes Line
 	3300 4400 4850 4400
-Text GLabel 3650 3550 2    39   Input ~ 0
-buzzer_pin
+Text GLabel 3600 3550 2    39   Input ~ 0
+Buzzer_Pin
 Text GLabel 9325 4625 0    39   Input ~ 0
-buzzer_pin
+Buzzer_Pin
 $Comp
 L power:GND #PWR0101
 U 1 1 602224F3
@@ -416,8 +416,6 @@ F 3 "" H 9000 5250 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	9325 4625 9425 4625
-Wire Wire Line
-	3600 3550 3650 3550
 Wire Notes Line
 	10100 4400 10100 5550
 Wire Notes Line
