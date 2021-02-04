@@ -288,39 +288,28 @@ F 3 "" H 7000 5250 50  0001 C CNN
 	0    -1   -1   0   
 $EndComp
 $Comp
-L Sensor_Pressure:MPXA6115A U1
-U 1 1 5F4DAB0A
-P 5650 6400
-F 0 "U1" H 5220 6446 50  0000 R CNN
-F 1 "MPXV7007GP" H 5550 6000 50  0000 R CNN
-F 2 "MPXV7007:MPXV7007GP" H 5150 6050 50  0001 C CNN
-F 3 "http://www.nxp.com/files/sensors/doc/data_sheet/MPXA6115A.pdf" H 5650 7000 50  0001 C CNN
-	1    5650 6400
-	1    0    0    -1  
-$EndComp
-$Comp
 L power:VCC #PWR017
 U 1 1 5F4DB56F
-P 5650 6100
-F 0 "#PWR017" H 5650 5950 50  0001 C CNN
-F 1 "VCC" H 5665 6273 50  0000 C CNN
-F 2 "" H 5650 6100 50  0001 C CNN
-F 3 "" H 5650 6100 50  0001 C CNN
-	1    5650 6100
+P 6350 6200
+F 0 "#PWR017" H 6350 6050 50  0001 C CNN
+F 1 "VCC" H 6365 6373 50  0000 C CNN
+F 2 "" H 6350 6200 50  0001 C CNN
+F 3 "" H 6350 6200 50  0001 C CNN
+	1    6350 6200
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:GND #PWR018
 U 1 1 5F4DBD2F
-P 5650 6700
-F 0 "#PWR018" H 5650 6450 50  0001 C CNN
-F 1 "GND" V 5655 6572 50  0000 R CNN
-F 2 "" H 5650 6700 50  0001 C CNN
-F 3 "" H 5650 6700 50  0001 C CNN
-	1    5650 6700
+P 6350 6800
+F 0 "#PWR018" H 6350 6550 50  0001 C CNN
+F 1 "GND" V 6355 6672 50  0000 R CNN
+F 2 "" H 6350 6800 50  0001 C CNN
+F 3 "" H 6350 6800 50  0001 C CNN
+	1    6350 6800
 	-1   0    0    -1  
 $EndComp
-Text Label 6050 6400 0    39   ~ 0
+Text Label 6750 6500 0    39   ~ 0
 MPX
 $Comp
 L Connector:Conn_01x03_Male J10
@@ -394,13 +383,7 @@ Wire Notes Line
 Wire Notes Line
 	6200 4400 5050 4400
 Wire Notes Line
-	5050 5750 6200 5750
-Wire Notes Line
-	6200 5750 6200 7300
-Wire Notes Line
-	6200 7300 5050 7300
-Wire Notes Line
-	5050 7300 5050 5750
+	4975 7300 4975 5750
 Text Notes 6900 4350 0    39   ~ 0
 ESP32 miniBT addon board
 Wire Notes Line
@@ -430,23 +413,21 @@ Wire Notes Line
 	3300 4400 4850 4400
 Text GLabel 3650 3550 2    39   Input ~ 0
 buzzer_pin
-Text GLabel 8900 4700 0    39   Input ~ 0
+Text GLabel 9325 4625 0    39   Input ~ 0
 buzzer_pin
 $Comp
 L power:GND #PWR0101
 U 1 1 602224F3
-P 8850 5100
-F 0 "#PWR0101" H 8850 4850 50  0001 C CNN
-F 1 "GND" V 8855 4972 50  0000 R CNN
-F 2 "" H 8850 5100 50  0001 C CNN
-F 3 "" H 8850 5100 50  0001 C CNN
-	1    8850 5100
+P 9000 5250
+F 0 "#PWR0101" H 9000 5000 50  0001 C CNN
+F 1 "GND" H 9005 5077 50  0000 C CNN
+F 2 "" H 9000 5250 50  0001 C CNN
+F 3 "" H 9000 5250 50  0001 C CNN
+	1    9000 5250
 	-1   0    0    -1  
 $EndComp
 Wire Wire Line
-	8850 5100 9000 5100
-Wire Wire Line
-	8900 4700 9000 4700
+	9325 4625 9425 4625
 Wire Wire Line
 	3600 3550 3650 3550
 Wire Notes Line
@@ -460,16 +441,16 @@ Wire Notes Line
 $Comp
 L CMI-9605IC-0380T:CMI-9605IC-0380T bzr1
 U 1 1 60230DDB
-P 9100 4900
-F 0 "bzr1" H 9229 4946 50  0000 L CNN
-F 1 "CMI-9605IC-0380T" H 9229 4855 50  0000 L CNN
-F 2 "CMI-9605IC-0380T:CUI_CMI-9605IC-0380T" H 9100 4900 50  0001 L BNN
-F 3 "" H 9100 4900 50  0001 L BNN
-F 4 "1.0" H 9100 4900 50  0001 L BNN "PARTREV"
-F 5 "5.00mm" H 9100 4900 50  0001 L BNN "MAXIMUM_PACKAGE_HEIGHT"
-F 6 "Manufacturer Recommendations" H 9100 4900 50  0001 L BNN "STANDARD"
-F 7 "CUI Inc." H 9100 4900 50  0001 L BNN "MANUFACTURER"
-	1    9100 4900
+P 9525 4825
+F 0 "bzr1" H 9654 4825 50  0000 L CNN
+F 1 "CMI-9605IC-0380T" H 9654 4780 50  0001 L CNN
+F 2 "CMI-9605IC-0380T:CUI_CMI-9605IC-0380T" H 9525 4825 50  0001 L BNN
+F 3 "" H 9525 4825 50  0001 L BNN
+F 4 "1.0" H 9525 4825 50  0001 L BNN "PARTREV"
+F 5 "5.00mm" H 9525 4825 50  0001 L BNN "MAXIMUM_PACKAGE_HEIGHT"
+F 6 "Manufacturer Recommendations" H 9525 4825 50  0001 L BNN "STANDARD"
+F 7 "CUI Inc." H 9525 4825 50  0001 L BNN "MANUFACTURER"
+	1    9525 4825
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -528,59 +509,14 @@ F 3 "~" H 2150 7250 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:VCC #PWR020
-U 1 1 602264EC
-P 6075 2725
-F 0 "#PWR020" H 6075 2575 50  0001 C CNN
-F 1 "VCC" V 6090 2898 50  0000 C CNN
-F 2 "" H 6075 2725 50  0001 C CNN
-F 3 "" H 6075 2725 50  0001 C CNN
-	1    6075 2725
-	0    -1   -1   0   
-$EndComp
-Text GLabel 6025 2625 0    39   Input ~ 0
-1
-Text GLabel 6025 2525 0    39   Input ~ 0
-2
-Wire Wire Line
-	6025 2525 6075 2525
-Wire Wire Line
-	6025 2625 6075 2625
-$Comp
-L power:GND #PWR019
-U 1 1 6022BF5D
-P 6075 2825
-F 0 "#PWR019" H 6075 2575 50  0001 C CNN
-F 1 "GND" V 6080 2697 50  0000 R CNN
-F 2 "" H 6075 2825 50  0001 C CNN
-F 3 "" H 6075 2825 50  0001 C CNN
-	1    6075 2825
-	0    1    -1   0   
-$EndComp
-$Comp
-L Connector:Conn_01x04_Female J11_disp1
-U 1 1 60220EC3
-P 6275 2625
-F 0 "J11_disp1" H 6303 2601 50  0000 L CNN
-F 1 "Conn_01x04_Female" H 6303 2510 50  0000 L CNN
-F 2 "Connector_PinSocket_2.54mm:PinSocket_1x04_P2.54mm_Vertical" H 6275 2625 50  0001 C CNN
-F 3 "~" H 6275 2625 50  0001 C CNN
-	1    6275 2625
-	1    0    0    -1  
-$EndComp
-Text Notes 5800 2650 0    39   ~ 0
-SCL
-Text Notes 5800 2550 0    39   ~ 0
-SDA
-$Comp
 L Connector:Conn_01x04_Male J11
 U 1 1 60287AE3
-P 6000 3650
-F 0 "J11" H 6108 3931 50  0000 C CNN
-F 1 "Conn_01x04_Male" H 6108 3840 50  0000 C CNN
-F 2 "Connector:display" H 6000 3650 50  0001 C CNN
-F 3 "~" H 6000 3650 50  0001 C CNN
-	1    6000 3650
+P 6950 3300
+F 0 "J11" H 7058 3581 50  0000 C CNN
+F 1 "Conn_01x04_Male" H 7058 3490 50  0000 C CNN
+F 2 "Connector:display" H 6950 3300 50  0001 C CNN
+F 3 "~" H 6950 3300 50  0001 C CNN
+	1    6950 3300
 	1    0    0    -1  
 $EndComp
 NoConn ~ 1100 4750
@@ -599,32 +535,9 @@ F 3 "" H 1450 5150 50  0001 C CNN
 $EndComp
 NoConn ~ 1100 4850
 Wire Wire Line
-	1200 4850 1300 4850
-Connection ~ 1300 4850
-Wire Wire Line
-	1300 4850 1475 4850
-$Comp
-L Diode:1.5KExxA D1
-U 1 1 5F3D9B1D
-P 1300 5000
-F 0 "D1" V 1254 4923 50  0000 R CNN
-F 1 "P6KE6.8A" V 1345 4923 50  0000 R CNN
-F 2 "Diode_THT:D_DO-201AE_P12.70mm_Horizontal" H 1300 4800 50  0001 C CNN
-F 3 "https://www.vishay.com/docs/88301/15ke.pdf" H 1250 5000 50  0001 C CNN
-F 4 "1703028" V 1300 5000 50  0001 C CNN "Farnell"
-F 5 "171-9669" V 1300 5000 50  0001 C CNN "RS-components"
-	1    1300 5000
-	0    -1   -1   0   
-$EndComp
-Wire Wire Line
 	1200 4850 1200 5050
 Wire Wire Line
-	1300 5150 1450 5150
-Connection ~ 1300 5150
-Wire Wire Line
 	1100 5050 1200 5050
-Wire Wire Line
-	1100 5150 1300 5150
 $Comp
 L Connector:Cliff_68125 J1
 U 1 1 601CBF3E
@@ -636,10 +549,10 @@ F 3 "~" H 900 4850 50  0001 C CNN
 	1    900  4850
 	1    0    0    -1  
 $EndComp
-NoConn ~ 6200 3550
-NoConn ~ 6200 3650
-NoConn ~ 6200 3750
-NoConn ~ 6200 3850
+NoConn ~ 7150 3200
+NoConn ~ 7150 3300
+NoConn ~ 7150 3400
+NoConn ~ 7150 3500
 Wire Notes Line
 	600  7700 600  4400
 NoConn ~ 1100 5550
@@ -658,32 +571,9 @@ F 3 "" H 1450 5950 50  0001 C CNN
 $EndComp
 NoConn ~ 1100 5650
 Wire Wire Line
-	1200 5650 1300 5650
-Connection ~ 1300 5650
-Wire Wire Line
-	1300 5650 1475 5650
-$Comp
-L Diode:1.5KExxA D2
-U 1 1 601F0D22
-P 1300 5800
-F 0 "D2" V 1254 5723 50  0000 R CNN
-F 1 "P6KE6.8A" V 1345 5723 50  0000 R CNN
-F 2 "Diode_THT:D_DO-201AE_P12.70mm_Horizontal" H 1300 5600 50  0001 C CNN
-F 3 "https://www.vishay.com/docs/88301/15ke.pdf" H 1250 5800 50  0001 C CNN
-F 4 "1703028" V 1300 5800 50  0001 C CNN "Farnell"
-F 5 "171-9669" V 1300 5800 50  0001 C CNN "RS-components"
-	1    1300 5800
-	0    -1   -1   0   
-$EndComp
-Wire Wire Line
 	1200 5650 1200 5850
 Wire Wire Line
-	1300 5950 1450 5950
-Connection ~ 1300 5950
-Wire Wire Line
 	1100 5850 1200 5850
-Wire Wire Line
-	1100 5950 1300 5950
 $Comp
 L Connector:Cliff_68125 J2
 U 1 1 601F0D2D
@@ -717,14 +607,14 @@ $Comp
 L Diode:1.5KExxA D3
 U 1 1 6019D298
 P 1300 6600
-F 0 "D3" V 1254 6523 50  0000 R CNN
-F 1 "P6KE6.8A" V 1345 6523 50  0000 R CNN
+F 0 "D3" V 1254 6680 50  0000 L CNN
+F 1 "P6KE6.8A" V 1345 6680 50  0000 L CNN
 F 2 "Diode_THT:D_DO-201AE_P12.70mm_Horizontal" H 1300 6400 50  0001 C CNN
 F 3 "https://www.vishay.com/docs/88301/15ke.pdf" H 1250 6600 50  0001 C CNN
 F 4 "1703028" V 1300 6600 50  0001 C CNN "Farnell"
 F 5 "171-9669" V 1300 6600 50  0001 C CNN "RS-components"
 	1    1300 6600
-	0    -1   -1   0   
+	0    1    1    0   
 $EndComp
 Wire Wire Line
 	1200 6450 1200 6650
@@ -759,14 +649,14 @@ $Comp
 L Diode:1.5KExxA D4
 U 1 1 601A1BD9
 P 1300 7400
-F 0 "D4" V 1254 7323 50  0000 R CNN
-F 1 "P6KE6.8A" V 1345 7323 50  0000 R CNN
+F 0 "D4" V 1254 7480 50  0000 L CNN
+F 1 "P6KE6.8A" V 1345 7480 50  0000 L CNN
 F 2 "Diode_THT:D_DO-201AE_P12.70mm_Horizontal" H 1300 7200 50  0001 C CNN
 F 3 "https://www.vishay.com/docs/88301/15ke.pdf" H 1250 7400 50  0001 C CNN
 F 4 "1703028" V 1300 7400 50  0001 C CNN "Farnell"
 F 5 "171-9669" V 1300 7400 50  0001 C CNN "RS-components"
 	1    1300 7400
-	0    -1   -1   0   
+	0    1    1    0   
 $EndComp
 Wire Wire Line
 	1200 7250 1200 7450
@@ -798,14 +688,14 @@ $Comp
 L Diode:1.5KExxA D5
 U 1 1 601A4B48
 P 2550 5000
-F 0 "D5" V 2504 4923 50  0000 R CNN
-F 1 "P6KE6.8A" V 2595 4923 50  0000 R CNN
+F 0 "D5" V 2504 5080 50  0000 L CNN
+F 1 "P6KE6.8A" V 2595 5080 50  0000 L CNN
 F 2 "Diode_THT:D_DO-201AE_P12.70mm_Horizontal" H 2550 4800 50  0001 C CNN
 F 3 "https://www.vishay.com/docs/88301/15ke.pdf" H 2500 5000 50  0001 C CNN
 F 4 "1703028" V 2550 5000 50  0001 C CNN "Farnell"
 F 5 "171-9669" V 2550 5000 50  0001 C CNN "RS-components"
 	1    2550 5000
-	0    -1   -1   0   
+	0    1    1    0   
 $EndComp
 Wire Wire Line
 	2450 4850 2450 5050
@@ -838,14 +728,14 @@ $Comp
 L Diode:1.5KExxA D6
 U 1 1 601ABB73
 P 2550 5800
-F 0 "D6" V 2504 5723 50  0000 R CNN
-F 1 "P6KE6.8A" V 2595 5723 50  0000 R CNN
+F 0 "D6" V 2504 5880 50  0000 L CNN
+F 1 "P6KE6.8A" V 2595 5880 50  0000 L CNN
 F 2 "Diode_THT:D_DO-201AE_P12.70mm_Horizontal" H 2550 5600 50  0001 C CNN
 F 3 "https://www.vishay.com/docs/88301/15ke.pdf" H 2500 5800 50  0001 C CNN
 F 4 "1703028" V 2550 5800 50  0001 C CNN "Farnell"
 F 5 "171-9669" V 2550 5800 50  0001 C CNN "RS-components"
 	1    2550 5800
-	0    -1   -1   0   
+	0    1    1    0   
 $EndComp
 Wire Wire Line
 	2450 5650 2450 5850
@@ -869,33 +759,23 @@ F 3 "" H 2700 6750 50  0001 C CNN
 	1    2700 6750
 	0    -1   1    0   
 $EndComp
-Wire Wire Line
-	2450 6450 2550 6450
-Connection ~ 2550 6450
-Wire Wire Line
-	2550 6450 2725 6450
 $Comp
 L Diode:1.5KExxA D7
 U 1 1 601AD14E
 P 2550 6600
-F 0 "D7" V 2504 6523 50  0000 R CNN
-F 1 "P6KE6.8A" V 2595 6523 50  0000 R CNN
+F 0 "D7" V 2504 6680 50  0000 L CNN
+F 1 "P6KE6.8A" V 2595 6680 50  0000 L CNN
 F 2 "Diode_THT:D_DO-201AE_P12.70mm_Horizontal" H 2550 6400 50  0001 C CNN
 F 3 "https://www.vishay.com/docs/88301/15ke.pdf" H 2500 6600 50  0001 C CNN
 F 4 "1703028" V 2550 6600 50  0001 C CNN "Farnell"
 F 5 "171-9669" V 2550 6600 50  0001 C CNN "RS-components"
 	1    2550 6600
-	0    -1   -1   0   
+	0    1    1    0   
 $EndComp
 Wire Wire Line
 	2450 6450 2450 6650
 Wire Wire Line
-	2550 6750 2700 6750
-Connection ~ 2550 6750
-Wire Wire Line
 	2350 6650 2450 6650
-Wire Wire Line
-	2350 6750 2550 6750
 Text GLabel 2725 7250 2    39   Input ~ 0
 8
 $Comp
@@ -909,33 +789,23 @@ F 3 "" H 2700 7550 50  0001 C CNN
 	1    2700 7550
 	0    -1   1    0   
 $EndComp
-Wire Wire Line
-	2450 7250 2550 7250
-Connection ~ 2550 7250
-Wire Wire Line
-	2550 7250 2725 7250
 $Comp
 L Diode:1.5KExxA D8
 U 1 1 601AE91D
 P 2550 7400
-F 0 "D8" V 2504 7323 50  0000 R CNN
-F 1 "P6KE6.8A" V 2595 7323 50  0000 R CNN
+F 0 "D8" V 2504 7480 50  0000 L CNN
+F 1 "P6KE6.8A" V 2595 7480 50  0000 L CNN
 F 2 "Diode_THT:D_DO-201AE_P12.70mm_Horizontal" H 2550 7200 50  0001 C CNN
 F 3 "https://www.vishay.com/docs/88301/15ke.pdf" H 2500 7400 50  0001 C CNN
 F 4 "1703028" V 2550 7400 50  0001 C CNN "Farnell"
 F 5 "171-9669" V 2550 7400 50  0001 C CNN "RS-components"
 	1    2550 7400
-	0    -1   -1   0   
+	0    1    1    0   
 $EndComp
 Wire Wire Line
 	2450 7250 2450 7450
 Wire Wire Line
-	2550 7550 2700 7550
-Connection ~ 2550 7550
-Wire Wire Line
 	2350 7450 2450 7450
-Wire Wire Line
-	2350 7550 2550 7550
 $Comp
 L Connector:Cliff_68125 J7
 U 1 1 6020893A
@@ -950,4 +820,302 @@ $EndComp
 Text Notes 8975 4350 0    39   ~ 0
 Buzzer
 Connection ~ 1300 7550
+$Comp
+L Device:R R5
+U 1 1 601AB4BF
+P 9200 5025
+F 0 "R5" V 9407 5025 50  0000 C CNN
+F 1 "4.7k" V 9316 5025 50  0000 C CNN
+F 2 "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal" V 9130 5025 50  0001 C CNN
+F 3 "~" H 9200 5025 50  0001 C CNN
+	1    9200 5025
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	9000 5025 9050 5025
+Wire Wire Line
+	9350 5025 9425 5025
+$Comp
+L Diode:1.5KExxA D2
+U 1 1 601F0D22
+P 1300 5800
+F 0 "D2" V 1254 5880 50  0000 L CNN
+F 1 "P6KE6.8A" V 1345 5880 50  0000 L CNN
+F 2 "Diode_THT:D_DO-201AE_P12.70mm_Horizontal" H 1300 5600 50  0001 C CNN
+F 3 "https://www.vishay.com/docs/88301/15ke.pdf" H 1250 5800 50  0001 C CNN
+F 4 "1703028" V 1300 5800 50  0001 C CNN "Farnell"
+F 5 "171-9669" V 1300 5800 50  0001 C CNN "RS-components"
+	1    1300 5800
+	0    1    1    0   
+$EndComp
+$Comp
+L Diode:1.5KExxA D1
+U 1 1 5F3D9B1D
+P 1300 5000
+F 0 "D1" V 1254 5080 50  0000 L CNN
+F 1 "P6KE6.8A" V 1345 5080 50  0000 L CNN
+F 2 "Diode_THT:D_DO-201AE_P12.70mm_Horizontal" H 1300 4800 50  0001 C CNN
+F 3 "https://www.vishay.com/docs/88301/15ke.pdf" H 1250 5000 50  0001 C CNN
+F 4 "1703028" V 1300 5000 50  0001 C CNN "Farnell"
+F 5 "171-9669" V 1300 5000 50  0001 C CNN "RS-components"
+	1    1300 5000
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	1100 5150 1300 5150
+Wire Wire Line
+	1200 4850 1300 4850
+Connection ~ 1300 4850
+Wire Wire Line
+	1300 4850 1475 4850
+Connection ~ 1300 5150
+Wire Wire Line
+	1300 5150 1450 5150
+Wire Wire Line
+	1200 5650 1300 5650
+Wire Wire Line
+	1100 5950 1300 5950
+Connection ~ 1300 5650
+Wire Wire Line
+	1300 5650 1475 5650
+Connection ~ 1300 5950
+Wire Wire Line
+	1300 5950 1450 5950
+Wire Wire Line
+	2450 6450 2550 6450
+Wire Wire Line
+	2350 6750 2550 6750
+Connection ~ 2550 6450
+Wire Wire Line
+	2550 6450 2725 6450
+Connection ~ 2550 6750
+Wire Wire Line
+	2550 6750 2700 6750
+Wire Wire Line
+	2450 7250 2550 7250
+Wire Wire Line
+	2350 7550 2550 7550
+Connection ~ 2550 7250
+Wire Wire Line
+	2550 7250 2725 7250
+Connection ~ 2550 7550
+Wire Wire Line
+	2550 7550 2700 7550
+$Comp
+L Device:C C1
+U 1 1 601FACC9
+P 5525 6500
+F 0 "C1" H 5640 6546 50  0000 L CNN
+F 1 "100n" H 5640 6455 50  0000 L CNN
+F 2 "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P5.00mm" H 5563 6350 50  0001 C CNN
+F 3 "~" H 5525 6500 50  0001 C CNN
+	1    5525 6500
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5525 6350 5525 6200
+Wire Wire Line
+	5525 6650 5525 6800
+Wire Wire Line
+	5125 6350 5125 6200
+Connection ~ 5525 6200
+$Comp
+L Sensor_Pressure:MPXA6115A U1
+U 1 1 5F4DAB0A
+P 6350 6500
+F 0 "U1" H 5920 6546 50  0000 R CNN
+F 1 "MPXV7007GP" H 6250 6100 50  0000 R CNN
+F 2 "MPXV7007:MPXV7007GP" H 5850 6150 50  0001 C CNN
+F 3 "http://www.nxp.com/files/sensors/doc/data_sheet/MPXA6115A.pdf" H 6350 7100 50  0001 C CNN
+	1    6350 6500
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5125 6650 5125 6800
+$Comp
+L Device:C C2
+U 1 1 6021926D
+P 5125 6500
+F 0 "C2" H 5240 6546 50  0000 L CNN
+F 1 "100n" H 5240 6455 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder" H 5163 6350 50  0001 C CNN
+F 3 "~" H 5125 6500 50  0001 C CNN
+	1    5125 6500
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5125 6200 5525 6200
+Wire Wire Line
+	5125 6800 5525 6800
+Connection ~ 5525 6800
+Wire Wire Line
+	5525 6200 6350 6200
+Connection ~ 6350 6200
+Wire Wire Line
+	5525 6800 6350 6800
+Connection ~ 6350 6800
+Wire Notes Line
+	6850 5750 6850 7300
+Wire Notes Line
+	4975 5750 6850 5750
+Wire Notes Line
+	4975 7300 6850 7300
+$Comp
+L power:VCC #PWR019
+U 1 1 6027585C
+P 8950 3250
+F 0 "#PWR019" H 8950 3100 50  0001 C CNN
+F 1 "VCC" V 8965 3423 50  0000 C CNN
+F 2 "" H 8950 3250 50  0001 C CNN
+F 3 "" H 8950 3250 50  0001 C CNN
+	1    8950 3250
+	0    -1   -1   0   
+$EndComp
+Text GLabel 8925 2950 0    39   Input ~ 0
+1
+Text GLabel 8925 2625 0    39   Input ~ 0
+2
+$Comp
+L power:GND #PWR020
+U 1 1 60275866
+P 8950 3350
+F 0 "#PWR020" H 8950 3100 50  0001 C CNN
+F 1 "GND" V 8955 3222 50  0000 R CNN
+F 2 "" H 8950 3350 50  0001 C CNN
+F 3 "" H 8950 3350 50  0001 C CNN
+	1    8950 3350
+	0    1    -1   0   
+$EndComp
+Text Notes 8700 2975 0    39   ~ 0
+SCL
+Text Notes 8700 2650 0    39   ~ 0
+SDA
+Wire Wire Line
+	9800 3050 9800 2625
+Wire Wire Line
+	9700 2925 9700 3250
+Wire Wire Line
+	9700 3250 9800 3250
+Wire Wire Line
+	9800 3150 9750 3150
+Wire Wire Line
+	9750 3150 9750 2950
+$Comp
+L Device:R R8
+U 1 1 6031DA69
+P 9300 2775
+F 0 "R8" H 9230 2821 50  0000 R CNN
+F 1 "4.7k" H 9230 2730 50  0000 R CNN
+F 2 "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal" V 9230 2775 50  0001 C CNN
+F 3 "~" H 9300 2775 50  0001 C CNN
+	1    9300 2775
+	1    0    0    -1  
+$EndComp
+Connection ~ 9225 2950
+Wire Wire Line
+	9225 2950 8925 2950
+Wire Wire Line
+	9300 2925 9300 3250
+$Comp
+L Device:R R7
+U 1 1 6031DA63
+P 9225 3100
+F 0 "R7" H 9155 3146 50  0000 R CNN
+F 1 "4.7k" H 9155 3055 50  0000 R CNN
+F 2 "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal" V 9155 3100 50  0001 C CNN
+F 3 "~" H 9225 3100 50  0001 C CNN
+	1    9225 3100
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8950 3250 9225 3250
+Connection ~ 9225 3250
+Wire Wire Line
+	9225 3250 9300 3250
+Connection ~ 9300 3250
+Connection ~ 9700 3250
+Connection ~ 9300 2625
+Wire Wire Line
+	9300 2625 8925 2625
+Wire Wire Line
+	8950 3350 9800 3350
+$Comp
+L Connector:Conn_01x04_Female J11_disp1
+U 1 1 6027586C
+P 10000 3150
+F 0 "J11_disp1" H 10028 3126 50  0000 L CNN
+F 1 "Conn_01x04_Female" H 10028 3035 50  0000 L CNN
+F 2 "Connector_PinSocket_2.54mm:PinSocket_1x04_P2.54mm_Vertical" H 10000 3150 50  0001 C CNN
+F 3 "~" H 10000 3150 50  0001 C CNN
+	1    10000 3150
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	9625 3250 9700 3250
+Connection ~ 9625 3250
+Connection ~ 9625 2950
+Wire Wire Line
+	9750 2950 9625 2950
+Wire Wire Line
+	9300 3250 9625 3250
+Wire Wire Line
+	9225 2950 9625 2950
+$Comp
+L Device:R R9
+U 1 1 602F7E46
+P 9625 3100
+F 0 "R9" H 9555 3146 50  0000 R CNN
+F 1 "4.7k" H 9555 3055 50  0000 R CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 9555 3100 50  0001 C CNN
+F 3 "~" H 9625 3100 50  0001 C CNN
+	1    9625 3100
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R6
+U 1 1 6037812A
+P 9200 5175
+F 0 "R6" V 9085 5175 50  0000 C CNN
+F 1 "4.7k" V 8994 5175 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 9130 5175 50  0001 C CNN
+F 3 "~" H 9200 5175 50  0001 C CNN
+	1    9200 5175
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	9425 5025 9425 5175
+Wire Wire Line
+	9425 5175 9350 5175
+Wire Wire Line
+	9050 5175 9000 5175
+Wire Wire Line
+	9000 5025 9000 5175
+Wire Wire Line
+	9000 5175 9000 5250
+Connection ~ 9000 5175
+Connection ~ 9425 5025
+Text Notes 9140 5210 0    39   ~ 0
+SMD
+Text Notes 9665 3165 1    39   ~ 0
+SMD
+Connection ~ 9700 2625
+Wire Wire Line
+	9700 2625 9300 2625
+Wire Wire Line
+	9700 2625 9800 2625
+$Comp
+L Device:R R10
+U 1 1 602F9FD4
+P 9700 2775
+F 0 "R10" H 9630 2821 50  0000 R CNN
+F 1 "4.7k" H 9630 2730 50  0000 R CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 9630 2775 50  0001 C CNN
+F 3 "~" H 9700 2775 50  0001 C CNN
+	1    9700 2775
+	1    0    0    -1  
+$EndComp
+Text Notes 9735 2835 1    39   ~ 0
+SMD
+Text Notes 5305 6414 2    39   ~ 0
+SMD
 $EndSCHEMATC
