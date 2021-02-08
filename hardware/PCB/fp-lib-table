@@ -1,3 +1,4 @@
 (fp_lib_table
   (lib (name CMI-9605IC-0380T)(type KiCad)(uri ${KIPRJMOD}/kicad_libs/CMI-9605IC-0380T)(options "")(descr ""))
+  (lib (name ProMicro)(type KiCad)(uri ${KIPRJMOD}/kicad_libs/ProMicro.pretty)(options "")(descr ""))
 )
