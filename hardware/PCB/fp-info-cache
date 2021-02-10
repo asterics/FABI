@@ -1,4 +1,4 @@
-19037336768973923
+19040562500635790
 Battery
 BatteryHolder_Bulgin_BX0036_1xC
 Bulgin Battery Holder, BX0036, Battery Type C (https://www.bulgin.com/products/pub/media/bulgin/data/Battery_holders.pdf)
@@ -50736,12 +50736,19 @@ One digit LED 7 segment SA39-11 SC39-11 SA39-12 SC39-12
 10
 10
 FABI_customLibs
+91601304LF
+91601-304LF-2
+Connector
+0
+12
+4
+FABI_customLibs
 OLED_display_091
 
 
 0
-4
-4
+0
+0
 Ferrite_THT
 LairdTech_28C0236-0JW-10
 Ferrite, vertical, LairdTech 28C0236-0JW-10, https://assets.lairdtech.com/home/brandworld/files/28C0236-0JW-10.pdf, JW Miller core https://www.bourns.com/products/magnetic-products/j.w.-miller-through-hole-ferrite-beads-emi-filters
@@ -76326,6 +76333,13 @@ Alps rotary encoder, EC12E..., vertical shaft, mounting holes with circular dril
 rotary encoder
 0
 5
+4
+SamacSys_Parts
+FABI_display_connector
+FABI_display_connector_based_on_91601304LF
+Connector
+0
+12
 4
 SamacSys_Parts
 FC68125

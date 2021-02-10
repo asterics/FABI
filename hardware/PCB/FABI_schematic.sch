@@ -910,76 +910,65 @@ Wire Notes Line
 $Comp
 L power:VCC #PWR019
 U 1 1 6027585C
-P 8750 3350
-F 0 "#PWR019" H 8750 3200 50  0001 C CNN
-F 1 "VCC" V 8765 3523 50  0000 C CNN
-F 2 "" H 8750 3350 50  0001 C CNN
-F 3 "" H 8750 3350 50  0001 C CNN
-	1    8750 3350
+P 8020 3240
+F 0 "#PWR019" H 8020 3090 50  0001 C CNN
+F 1 "VCC" V 8035 3413 50  0000 C CNN
+F 2 "" H 8020 3240 50  0001 C CNN
+F 3 "" H 8020 3240 50  0001 C CNN
+	1    8020 3240
 	0    -1   -1   0   
 $EndComp
-Text GLabel 8720 3050 0    39   Input ~ 0
+Text GLabel 7990 2940 0    39   Input ~ 0
 SCL
-Text GLabel 8725 2700 0    39   Input ~ 0
+Text GLabel 7995 2590 0    39   Input ~ 0
 SDA
 $Comp
 L power:GND #PWR020
 U 1 1 60275866
-P 8750 3450
-F 0 "#PWR020" H 8750 3200 50  0001 C CNN
-F 1 "GND" V 8755 3322 50  0000 R CNN
-F 2 "" H 8750 3450 50  0001 C CNN
-F 3 "" H 8750 3450 50  0001 C CNN
-	1    8750 3450
+P 8020 3340
+F 0 "#PWR020" H 8020 3090 50  0001 C CNN
+F 1 "GND" V 8025 3212 50  0000 R CNN
+F 2 "" H 8020 3340 50  0001 C CNN
+F 3 "" H 8020 3340 50  0001 C CNN
+	1    8020 3340
 	0    1    -1   0   
 $EndComp
 $Comp
 L Device:R R8
 U 1 1 6031DA69
-P 9100 2850
-F 0 "R8" H 9030 2896 50  0000 R CNN
-F 1 "4.7k" H 9030 2805 50  0000 R CNN
-F 2 "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal" V 9030 2850 50  0001 C CNN
-F 3 "~" H 9100 2850 50  0001 C CNN
-	1    9100 2850
+P 8370 2740
+F 0 "R8" H 8300 2786 50  0000 R CNN
+F 1 "4.7k" H 8300 2695 50  0000 R CNN
+F 2 "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal" V 8300 2740 50  0001 C CNN
+F 3 "~" H 8370 2740 50  0001 C CNN
+	1    8370 2740
 	1    0    0    -1  
 $EndComp
 $Comp
 L Device:R R7
 U 1 1 6031DA63
-P 9000 3200
-F 0 "R7" H 8930 3246 50  0000 R CNN
-F 1 "4.7k" H 8930 3155 50  0000 R CNN
-F 2 "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal" V 8930 3200 50  0001 C CNN
-F 3 "~" H 9000 3200 50  0001 C CNN
-	1    9000 3200
+P 8270 3090
+F 0 "R7" H 8200 3136 50  0000 R CNN
+F 1 "4.7k" H 8200 3045 50  0000 R CNN
+F 2 "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal" V 8200 3090 50  0001 C CNN
+F 3 "~" H 8270 3090 50  0001 C CNN
+	1    8270 3090
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	8750 3350 9000 3350
-Connection ~ 9100 2700
+	8020 3240 8270 3240
+Connection ~ 8370 2590
 Wire Wire Line
-	9100 2700 8725 2700
-$Comp
-L Connector:Conn_01x04_Female J11_disp1
-U 1 1 6027586C
-P 10190 2800
-F 0 "J11_disp1" H 10218 2776 50  0000 L CNN
-F 1 "Conn_01x04_Female" H 10218 2685 50  0000 L CNN
-F 2 "FABI_customLibs:OLED_display_091" H 10190 2800 50  0001 C CNN
-F 3 "~" H 10190 2800 50  0001 C CNN
-	1    10190 2800
-	1    0    0    -1  
-$EndComp
+	8370 2590 7995 2590
 $Comp
 L Device:R R9
 U 1 1 602F7E46
-P 9400 3200
-F 0 "R9" H 9330 3246 50  0000 R CNN
-F 1 "4.7k" H 9330 3155 50  0000 R CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 9330 3200 50  0001 C CNN
-F 3 "~" H 9400 3200 50  0001 C CNN
-	1    9400 3200
+P 8670 3090
+F 0 "R9" H 8600 3136 50  0000 R CNN
+F 1 "4.7k" H 8600 3045 50  0000 R CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 8600 3090 50  0001 C CNN
+F 3 "~" H 8670 3090 50  0001 C CNN
+	1    8670 3090
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -1007,22 +996,22 @@ Connection ~ 9000 5175
 Connection ~ 9425 5025
 Text Notes 9140 5210 0    39   ~ 0
 SMD
-Text Notes 9440 3240 1    39   ~ 0
+Text Notes 8710 3130 1    39   ~ 0
 SMD
 Wire Wire Line
-	9500 2700 9100 2700
+	8770 2590 8370 2590
 $Comp
 L Device:R R10
 U 1 1 602F9FD4
-P 9500 2850
-F 0 "R10" H 9430 2896 50  0000 R CNN
-F 1 "4.7k" H 9430 2805 50  0000 R CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 9430 2850 50  0001 C CNN
-F 3 "~" H 9500 2850 50  0001 C CNN
-	1    9500 2850
+P 8770 2740
+F 0 "R10" H 8700 2786 50  0000 R CNN
+F 1 "4.7k" H 8700 2695 50  0000 R CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 8700 2740 50  0001 C CNN
+F 3 "~" H 8770 2740 50  0001 C CNN
+	1    8770 2740
 	1    0    0    -1  
 $EndComp
-Text Notes 9535 2910 1    39   ~ 0
+Text Notes 8805 2800 1    39   ~ 0
 SMD
 Text Notes 5305 6414 2    39   ~ 0
 SMD
@@ -1196,82 +1185,66 @@ F 3 "" H 7000 5250 50  0001 C CNN
 $EndComp
 Text Notes 3230 2430 0    39   ~ 0
 RAW:   unregulated voltage input for the Pro Micro\nVCC:   regulated voltage, 5V at 500mA\n
+Wire Wire Line
+	8770 2590 9090 2590
+Connection ~ 8770 2590
+Wire Wire Line
+	8370 2890 8370 3240
+Connection ~ 8370 3240
+Wire Wire Line
+	8370 3240 8670 3240
+Wire Wire Line
+	8770 2890 8770 3240
+Connection ~ 8770 3240
+Connection ~ 8270 3240
+Wire Wire Line
+	8270 3240 8370 3240
+Connection ~ 8670 3240
+Wire Wire Line
+	8670 3240 8770 3240
+Wire Wire Line
+	7990 2940 8270 2940
+Connection ~ 8270 2940
+Wire Wire Line
+	8270 2940 8670 2940
+Connection ~ 8670 2940
+Wire Wire Line
+	8670 2940 8870 2940
+Wire Wire Line
+	8770 3240 8940 3240
+Wire Wire Line
+	8940 3240 8940 3440
+Wire Wire Line
+	8870 2940 8870 3540
+Wire Wire Line
+	9090 2590 9090 3640
+NoConn ~ 9990 3540
+NoConn ~ 9990 3640
+NoConn ~ 9990 3440
+NoConn ~ 9990 3340
 $Comp
-L SamacSys_Parts:91601-304LF J11_display_socket1
-U 1 1 6025E661
-P 10190 3450
-F 0 "J11_display_socket1" H 10590 3715 50  0000 C CNN
-F 1 "91601-304LF" H 10590 3624 50  0000 C CNN
-F 2 "SamacSys_Parts:91601304LF" H 10840 3550 50  0001 L CNN
-F 3 "http://www.mouser.com/datasheet/2/18/91601-1289404.pdf" H 10840 3450 50  0001 L CNN
-F 4 "Dubox 2.54mm, Board to Board Connector, PCB Mounted Receptacle, Vertical , Surface Mount, Dual Entry ,Single row , 4 Positions, 2.54mm (0.100in) Pitch" H 10840 3350 50  0001 L CNN "Description"
-F 5 "8" H 10840 3250 50  0001 L CNN "Height"
-F 6 "649-91601-304LF" H 10840 3150 50  0001 L CNN "Mouser Part Number"
-F 7 "https://www.mouser.com/Search/Refine.aspx?Keyword=649-91601-304LF" H 10840 3050 50  0001 L CNN "Mouser Price/Stock"
-F 8 "Amphenol" H 10840 2950 50  0001 L CNN "Manufacturer_Name"
-F 9 "91601-304LF" H 10840 2850 50  0001 L CNN "Manufacturer_Part_Number"
-	1    10190 3450
+L FABI_customLib:dispaly_connector_91601-304LF J11
+U 1 1 603EB941
+P 9190 3340
+F 0 "J11" H 9590 3605 50  0000 C CNN
+F 1 "dispaly_connector_91601-304LF" H 9590 3514 50  0000 C CNN
+F 2 "FABI_customLibs:91601304LF" H 10390 3390 50  0001 L CNN
+F 3 "http://www.mouser.com/datasheet/2/18/91601-1289404.pdf" H 10390 3290 50  0001 L CNN
+F 4 "Dubox 2.54mm, Board to Board Connector, PCB Mounted Receptacle, Vertical , Surface Mount, Dual Entry ,Single row , 4 Positions, 2.54mm (0.100in) Pitch" H 10390 3190 50  0001 L CNN "Description"
+F 5 "8" H 10390 3090 50  0001 L CNN "Height"
+F 6 "649-91601-304LF" H 10390 2990 50  0001 L CNN "Mouser Part Number"
+F 7 "https://www.mouser.com/Search/Refine.aspx?Keyword=649-91601-304LF" H 10390 2890 50  0001 L CNN "Mouser Price/Stock"
+F 8 "Amphenol" H 9390 2790 50  0001 L CNN "Manufacturer_Name"
+F 9 "91601-304LF" H 9390 2690 50  0001 L CNN "Manufacturer_Part_Number"
+	1    9190 3340
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	9500 2700 9820 2700
-Connection ~ 9500 2700
+	8020 3340 9190 3340
 Wire Wire Line
-	9100 3000 9100 3350
-Connection ~ 9100 3350
+	8940 3440 9190 3440
 Wire Wire Line
-	9100 3350 9400 3350
+	8870 3540 9190 3540
 Wire Wire Line
-	9500 3000 9500 3350
-Connection ~ 9500 3350
-Connection ~ 9000 3350
-Wire Wire Line
-	9000 3350 9100 3350
-Connection ~ 9400 3350
-Wire Wire Line
-	9400 3350 9500 3350
-Wire Wire Line
-	8720 3050 9000 3050
-Connection ~ 9000 3050
-Wire Wire Line
-	9000 3050 9400 3050
-Connection ~ 9400 3050
-Wire Wire Line
-	9400 3050 9600 3050
-Wire Wire Line
-	9600 3050 9600 2800
-Wire Wire Line
-	9600 2800 9990 2800
-Wire Wire Line
-	9670 3350 9670 2900
-Wire Wire Line
-	9670 2900 9990 2900
-Wire Wire Line
-	9500 3350 9670 3350
-Wire Wire Line
-	9740 3000 9990 3000
-Wire Wire Line
-	9740 3000 9740 3450
-Wire Wire Line
-	9740 3450 8750 3450
-Wire Wire Line
-	9740 3450 10190 3450
-Connection ~ 9740 3450
-Wire Wire Line
-	9670 3350 9670 3550
-Wire Wire Line
-	9670 3550 10190 3550
-Connection ~ 9670 3350
-Wire Wire Line
-	9600 3050 9600 3650
-Wire Wire Line
-	9600 3650 10190 3650
-Connection ~ 9600 3050
-Wire Wire Line
-	9820 2700 9820 3750
-Wire Wire Line
-	9820 3750 10190 3750
-Connection ~ 9820 2700
-Wire Wire Line
-	9820 2700 9990 2700
+	9090 3640 9190 3640
 $EndSCHEMATC

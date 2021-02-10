@@ -961,17 +961,6 @@ Connection ~ 9100 2700
 Wire Wire Line
 	9100 2700 8725 2700
 $Comp
-L Connector:Conn_01x04_Female J11_disp1
-U 1 1 6027586C
-P 10190 2800
-F 0 "J11_disp1" H 10218 2776 50  0000 L CNN
-F 1 "Conn_01x04_Female" H 10218 2685 50  0000 L CNN
-F 2 "FABI_customLibs:OLED_display_091" H 10190 2800 50  0001 C CNN
-F 3 "~" H 10190 2800 50  0001 C CNN
-	1    10190 2800
-	1    0    0    -1  
-$EndComp
-$Comp
 L Device:R R9
 U 1 1 602F7E46
 P 9400 3200
@@ -1196,25 +1185,8 @@ F 3 "" H 7000 5250 50  0001 C CNN
 $EndComp
 Text Notes 3230 2430 0    39   ~ 0
 RAW:   unregulated voltage input for the Pro Micro\nVCC:   regulated voltage, 5V at 500mA\n
-$Comp
-L SamacSys_Parts:91601-304LF J11_display_socket1
-U 1 1 6025E661
-P 10000 3850
-F 0 "J11_display_socket1" H 10400 4115 50  0000 C CNN
-F 1 "91601-304LF" H 10400 4024 50  0000 C CNN
-F 2 "SamacSys_Parts:91601304LF" H 10650 3950 50  0001 L CNN
-F 3 "http://www.mouser.com/datasheet/2/18/91601-1289404.pdf" H 10650 3850 50  0001 L CNN
-F 4 "Dubox 2.54mm, Board to Board Connector, PCB Mounted Receptacle, Vertical , Surface Mount, Dual Entry ,Single row , 4 Positions, 2.54mm (0.100in) Pitch" H 10650 3750 50  0001 L CNN "Description"
-F 5 "8" H 10650 3650 50  0001 L CNN "Height"
-F 6 "649-91601-304LF" H 10650 3550 50  0001 L CNN "Mouser Part Number"
-F 7 "https://www.mouser.com/Search/Refine.aspx?Keyword=649-91601-304LF" H 10650 3450 50  0001 L CNN "Mouser Price/Stock"
-F 8 "Amphenol" H 10650 3350 50  0001 L CNN "Manufacturer_Name"
-F 9 "91601-304LF" H 10650 3250 50  0001 L CNN "Manufacturer_Part_Number"
-	1    10000 3850
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
-	9500 2700 9990 2700
+	9500 2700 9820 2700
 Connection ~ 9500 2700
 Wire Wire Line
 	9100 3000 9100 3350
@@ -1239,19 +1211,40 @@ Connection ~ 9400 3050
 Wire Wire Line
 	9400 3050 9600 3050
 Wire Wire Line
-	9600 3050 9600 2800
-Wire Wire Line
-	9600 2800 9990 2800
-Wire Wire Line
-	9670 3350 9670 2900
-Wire Wire Line
-	9670 2900 9990 2900
-Wire Wire Line
 	9500 3350 9670 3350
 Wire Wire Line
-	9740 3000 9990 3000
+	9670 3350 9670 3550
 Wire Wire Line
-	9740 3000 9740 3450
+	9600 3050 9600 3650
 Wire Wire Line
-	9740 3450 8750 3450
+	9820 2700 9820 3750
+NoConn ~ 10720 3650
+NoConn ~ 10720 3750
+NoConn ~ 10720 3550
+NoConn ~ 10720 3450
+$Comp
+L FABI_customLib:dispaly_connector_91601-304LF J11
+U 1 1 603EB941
+P 9920 3450
+F 0 "J11" H 10320 3715 50  0000 C CNN
+F 1 "dispaly_connector_91601-304LF" H 10320 3624 50  0000 C CNN
+F 2 "FABI_customLibs:91601304LF" H 11120 3500 50  0001 L CNN
+F 3 "http://www.mouser.com/datasheet/2/18/91601-1289404.pdf" H 11120 3400 50  0001 L CNN
+F 4 "Dubox 2.54mm, Board to Board Connector, PCB Mounted Receptacle, Vertical , Surface Mount, Dual Entry ,Single row , 4 Positions, 2.54mm (0.100in) Pitch" H 11120 3300 50  0001 L CNN "Description"
+F 5 "8" H 11120 3200 50  0001 L CNN "Height"
+F 6 "649-91601-304LF" H 11120 3100 50  0001 L CNN "Mouser Part Number"
+F 7 "https://www.mouser.com/Search/Refine.aspx?Keyword=649-91601-304LF" H 11120 3000 50  0001 L CNN "Mouser Price/Stock"
+F 8 "Amphenol" H 10120 2900 50  0001 L CNN "Manufacturer_Name"
+F 9 "91601-304LF" H 10120 2800 50  0001 L CNN "Manufacturer_Part_Number"
+	1    9920 3450
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8750 3450 9920 3450
+Wire Wire Line
+	9670 3550 9920 3550
+Wire Wire Line
+	9600 3650 9920 3650
+Wire Wire Line
+	9820 3750 9920 3750
 $EndSCHEMATC
