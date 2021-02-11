@@ -5,7 +5,7 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 1
 Title "FABI PCB for 8 jack plugs (ESP32 addon board conn)"
-Date "2020-08-15"
+Date "2021-02-11"
 Rev ""
 Comp "AsTeRICS Foundation"
 Comment1 "www.asterics-foundation.org"
@@ -38,22 +38,8 @@ NoConn ~ 2350 6450
 NoConn ~ 2350 6350
 NoConn ~ 2350 7150
 NoConn ~ 2350 7250
-Text GLabel 1850 3950 0    39   Input ~ 0
-1
-Text GLabel 1850 4050 0    39   Input ~ 0
-2
-Text GLabel 1850 3550 0    39   Input ~ 0
-3
-Text GLabel 1850 3650 0    39   Input ~ 0
-4
-Text GLabel 1850 3750 0    39   Input ~ 0
-5
-Text GLabel 1850 3850 0    39   Input ~ 0
-6
 Text GLabel 3600 3950 2    39   Input ~ 0
 7
-Text GLabel 3600 4050 2    39   Input ~ 0
-8
 Wire Wire Line
 	1850 3250 1850 3150
 Text Label 1850 3050 2    39   ~ 0
@@ -118,7 +104,7 @@ U 1 1 5F39FBC8
 P 3550 6700
 F 0 "R4" H 3620 6746 50  0000 L CNN
 F 1 "18k" H 3620 6655 50  0000 L CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 3480 6700 50  0001 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 3480 6700 50  0001 C CNN
 F 3 "~" H 3550 6700 50  0001 C CNN
 	1    3550 6700
 	1    0    0    -1  
@@ -129,7 +115,7 @@ U 1 1 5F39FBCE
 P 3550 6300
 F 0 "R3" H 3620 6346 50  0000 L CNN
 F 1 "10k" H 3620 6255 50  0000 L CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 3480 6300 50  0001 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 3480 6300 50  0001 C CNN
 F 3 "~" H 3550 6300 50  0001 C CNN
 	1    3550 6300
 	1    0    0    -1  
@@ -375,8 +361,6 @@ Wire Notes Line
 	4850 4400 4850 5550
 Wire Notes Line
 	3300 4400 4850 4400
-Text GLabel 3600 3550 2    39   Input ~ 0
-Buzzer_Pin
 Text GLabel 9325 4625 0    39   Input ~ 0
 Buzzer_Pin
 $Comp
@@ -872,7 +856,7 @@ U 1 1 5F4DAB0A
 P 6350 6500
 F 0 "U1" H 5920 6546 50  0000 R CNN
 F 1 "MPXV7007GP" H 6250 6100 50  0000 R CNN
-F 2 "MPXV7007:MPXV7007GP" H 5850 6150 50  0001 C CNN
+F 2 "MPXV7007GP:MPXV7007GP" H 5850 6150 50  0001 C CNN
 F 3 "http://www.nxp.com/files/sensors/doc/data_sheet/MPXA6115A.pdf" H 6350 7100 50  0001 C CNN
 	1    6350 6500
 	1    0    0    -1  
@@ -996,7 +980,7 @@ Connection ~ 9000 5175
 Connection ~ 9425 5025
 Text Notes 9140 5210 0    39   ~ 0
 SMD
-Text Notes 8710 3130 1    39   ~ 0
+Text Notes 8700 3150 1    39   ~ 0
 SMD
 Wire Wire Line
 	8770 2590 8370 2590
@@ -1035,17 +1019,6 @@ NoConn ~ 7500 4950
 NoConn ~ 7000 5050
 Text Label 5650 4950 0    39   ~ 0
 NEOPIXEL
-$Comp
-L ProMicro:ProMicro U2
-U 1 1 601F96F3
-P 2700 3500
-F 0 "U2" H 2725 4275 50  0000 C CNN
-F 1 "ProMicro" H 2725 4184 50  0000 C CNN
-F 2 "ProMicro:ProMicro" H 2250 4150 50  0001 C CNN
-F 3 "" H 2250 4150 50  0001 C CNN
-	1    2700 3500
-	1    0    0    -1  
-$EndComp
 Connection ~ 1850 3150
 $Comp
 L Device:R R14
@@ -1218,10 +1191,37 @@ Wire Wire Line
 	8870 2940 8870 3540
 Wire Wire Line
 	9090 2590 9090 3640
-NoConn ~ 9990 3540
-NoConn ~ 9990 3640
-NoConn ~ 9990 3440
-NoConn ~ 9990 3340
+Wire Wire Line
+	8020 3340 9190 3340
+Wire Wire Line
+	9090 3640 9190 3640
+Text GLabel 1850 3750 0    39   Input ~ 0
+4
+Text GLabel 1850 3650 0    39   Input ~ 0
+5
+Text GLabel 1850 3950 0    39   Input ~ 0
+2
+Text GLabel 1850 4050 0    39   Input ~ 0
+1
+Text GLabel 1850 3850 0    39   Input ~ 0
+3
+Text GLabel 1850 3550 0    39   Input ~ 0
+Buzzer_Pin
+$Comp
+L ProMicro:ProMicro U2
+U 1 1 601F96F3
+P 2700 3500
+F 0 "U2" H 2725 4275 50  0000 C CNN
+F 1 "ProMicro" H 2725 4184 50  0000 C CNN
+F 2 "ProMicro:ProMicro" H 2250 4150 50  0001 C CNN
+F 3 "" H 2250 4150 50  0001 C CNN
+	1    2700 3500
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	9190 3440 8940 3440
+Wire Wire Line
+	9190 3540 8870 3540
 $Comp
 L FABI_customLib:dispaly_connector_91601-304LF J11
 U 1 1 603EB941
@@ -1239,12 +1239,8 @@ F 9 "91601-304LF" H 9390 2690 50  0001 L CNN "Manufacturer_Part_Number"
 	1    9190 3340
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	8020 3340 9190 3340
-Wire Wire Line
-	8940 3440 9190 3440
-Wire Wire Line
-	8870 3540 9190 3540
-Wire Wire Line
-	9090 3640 9190 3640
+Text GLabel 3600 4050 2    39   Input ~ 0
+8
+Text GLabel 3600 3550 2    39   Input ~ 0
+6
 $EndSCHEMATC

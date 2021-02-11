@@ -847,38 +847,17 @@ Wire Wire Line
 	5525 6350 5525 6200
 Wire Wire Line
 	5525 6650 5525 6800
-Wire Wire Line
-	5125 6350 5125 6200
-Connection ~ 5525 6200
 $Comp
 L Sensor_Pressure:MPXA6115A U1
 U 1 1 5F4DAB0A
 P 6350 6500
 F 0 "U1" H 5920 6546 50  0000 R CNN
 F 1 "MPXV7007GP" H 6250 6100 50  0000 R CNN
-F 2 "MPXV7007:MPXV7007GP" H 5850 6150 50  0001 C CNN
+F 2 "MPXV7007GP:MPXV7007GP" H 5850 6150 50  0001 C CNN
 F 3 "http://www.nxp.com/files/sensors/doc/data_sheet/MPXA6115A.pdf" H 6350 7100 50  0001 C CNN
 	1    6350 6500
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	5125 6650 5125 6800
-$Comp
-L Device:C C2
-U 1 1 6021926D
-P 5125 6500
-F 0 "C2" H 5240 6546 50  0000 L CNN
-F 1 "100n" H 5240 6455 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder" H 5163 6350 50  0001 C CNN
-F 3 "~" H 5125 6500 50  0001 C CNN
-	1    5125 6500
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	5125 6200 5525 6200
-Wire Wire Line
-	5125 6800 5525 6800
-Connection ~ 5525 6800
 Wire Wire Line
 	5525 6200 6350 6200
 Connection ~ 6350 6200
@@ -996,8 +975,6 @@ F 3 "~" H 8770 2740 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Text Notes 8805 2800 1    39   ~ 0
-SMD
-Text Notes 5305 6414 2    39   ~ 0
 SMD
 Text GLabel 3600 3350 2    39   Input ~ 0
 AddOn_Pin1
@@ -1243,4 +1220,27 @@ Text GLabel 3600 4050 2    39   Input ~ 0
 8
 Text GLabel 3600 3550 2    39   Input ~ 0
 6
+Connection ~ 5525 6800
+Connection ~ 5525 6200
+Text Notes 5305 6414 2    39   ~ 0
+SMD
+Wire Wire Line
+	5125 6800 5525 6800
+Wire Wire Line
+	5125 6200 5525 6200
+$Comp
+L Device:C C2
+U 1 1 6021926D
+P 5125 6500
+F 0 "C2" H 5240 6546 50  0000 L CNN
+F 1 "100n" H 5240 6455 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder" H 5163 6350 50  0001 C CNN
+F 3 "~" H 5125 6500 50  0001 C CNN
+	1    5125 6500
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5125 6650 5125 6800
+Wire Wire Line
+	5125 6350 5125 6200
 $EndSCHEMATC
