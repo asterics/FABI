@@ -1018,28 +1018,28 @@ Text GLabel 6750 6450 3    39   Input ~ 0
 MPX
 Text GLabel 3610 3470 2    39   Input ~ 0
 NEOPIXEL
-Text GLabel 5590 4800 0    39   Input ~ 0
+Text GLabel 5570 4800 0    39   Input ~ 0
 NEOPIXEL
 $Comp
 L power:GND #PWR016
 U 1 1 5F4DD6BE
-P 5590 4700
-F 0 "#PWR016" H 5590 4450 50  0001 C CNN
-F 1 "GND" V 5595 4572 50  0000 R CNN
-F 2 "" H 5590 4700 50  0001 C CNN
-F 3 "" H 5590 4700 50  0001 C CNN
-	1    5590 4700
+P 5570 4700
+F 0 "#PWR016" H 5570 4450 50  0001 C CNN
+F 1 "GND" V 5575 4572 50  0000 R CNN
+F 2 "" H 5570 4700 50  0001 C CNN
+F 3 "" H 5570 4700 50  0001 C CNN
+	1    5570 4700
 	0    1    -1   0   
 $EndComp
 $Comp
 L Connector:Conn_01x03_Male J10
 U 1 1 5F4DCE7D
-P 5790 4800
-F 0 "J10" H 5898 4490 50  0000 C CNN
-F 1 "Conn_01x03_Male" H 5898 4590 50  0000 C CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical" H 5790 4800 50  0001 C CNN
-F 3 "~" H 5790 4800 50  0001 C CNN
-	1    5790 4800
+P 5770 4800
+F 0 "J10" H 5878 4490 50  0000 C CNN
+F 1 "Conn_01x03_Male" H 5878 4590 50  0000 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical" H 5770 4800 50  0001 C CNN
+F 3 "~" H 5770 4800 50  0001 C CNN
+	1    5770 4800
 	-1   0    0    1   
 $EndComp
 Connection ~ 1860 2870
@@ -1053,7 +1053,7 @@ U 1 1 601F96F3
 P 2710 3220
 F 0 "U2" H 2735 3995 50  0000 C CNN
 F 1 "ProMicro" H 2735 3904 50  0000 C CNN
-F 2 "ProMicro:ProMicro" H 2260 3870 50  0001 C CNN
+F 2 "FABI_customLibs:ProMicro" H 2260 3870 50  0001 C CNN
 F 3 "" H 2260 3870 50  0001 C CNN
 	1    2710 3220
 	1    0    0    -1  
@@ -1100,12 +1100,12 @@ R_x ... SMD Resistor\nRx  ... THT Resistor\n
 $Comp
 L power:VDD #PWR0103
 U 1 1 6031B043
-P 5590 4900
-F 0 "#PWR0103" H 5590 4750 50  0001 C CNN
-F 1 "VDD" V 5605 5028 50  0000 L CNN
-F 2 "" H 5590 4900 50  0001 C CNN
-F 3 "" H 5590 4900 50  0001 C CNN
-	1    5590 4900
+P 5570 4900
+F 0 "#PWR0103" H 5570 4750 50  0001 C CNN
+F 1 "VDD" V 5585 5028 50  0000 L CNN
+F 2 "" H 5570 4900 50  0001 C CNN
+F 3 "" H 5570 4900 50  0001 C CNN
+	1    5570 4900
 	0    -1   -1   0   
 $EndComp
 Wire Wire Line
@@ -1130,50 +1130,6 @@ Text GLabel 3610 3670 2    39   Input ~ 0
 AUX_7
 Text GLabel 3610 3770 2    39   Input ~ 0
 AUX_8
-$Comp
-L Mechanical:MountingHole H1
-U 1 1 606D8EE1
-P 10100 1100
-F 0 "H1" H 10200 1146 50  0000 L CNN
-F 1 "MountingHole" H 10200 1055 50  0000 L CNN
-F 2 "MountingHole:MountingHole_3mm" H 10100 1100 50  0001 C CNN
-F 3 "~" H 10100 1100 50  0001 C CNN
-	1    10100 1100
-	1    0    0    -1  
-$EndComp
-$Comp
-L Mechanical:MountingHole H2
-U 1 1 606D952C
-P 10100 1300
-F 0 "H2" H 10200 1346 50  0000 L CNN
-F 1 "MountingHole" H 10200 1255 50  0000 L CNN
-F 2 "MountingHole:MountingHole_3mm" H 10100 1300 50  0001 C CNN
-F 3 "~" H 10100 1300 50  0001 C CNN
-	1    10100 1300
-	1    0    0    -1  
-$EndComp
-$Comp
-L Mechanical:MountingHole H3
-U 1 1 606DCA97
-P 10100 1500
-F 0 "H3" H 10200 1546 50  0000 L CNN
-F 1 "MountingHole" H 10200 1455 50  0000 L CNN
-F 2 "MountingHole:MountingHole_3mm" H 10100 1500 50  0001 C CNN
-F 3 "~" H 10100 1500 50  0001 C CNN
-	1    10100 1500
-	1    0    0    -1  
-$EndComp
-$Comp
-L Mechanical:MountingHole H4
-U 1 1 606DFEF8
-P 10100 1700
-F 0 "H4" H 10200 1746 50  0000 L CNN
-F 1 "MountingHole" H 10200 1655 50  0000 L CNN
-F 2 "MountingHole:MountingHole_3mm" H 10100 1700 50  0001 C CNN
-F 3 "~" H 10100 1700 50  0001 C CNN
-	1    10100 1700
-	1    0    0    -1  
-$EndComp
 Wire Notes Line
 	4975 5700 6850 5700
 Text Notes 7130 5660 0    39   ~ 0
@@ -1350,5 +1306,62 @@ F 2 "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal" V 7910 3460 
 F 3 "~" H 7980 3460 50  0001 C CNN
 	1    7980 3460
 	1    0    0    1   
+$EndComp
+Text GLabel 5450 5220 0    39   Input ~ 0
+NEOPIXEL
+$Comp
+L power:GND #PWR015
+U 1 1 60329107
+P 5450 5120
+F 0 "#PWR015" H 5450 4870 50  0001 C CNN
+F 1 "GND" V 5455 4992 50  0000 R CNN
+F 2 "" H 5450 5120 50  0001 C CNN
+F 3 "" H 5450 5120 50  0001 C CNN
+	1    5450 5120
+	0    1    -1   0   
+$EndComp
+$Comp
+L power:VDD #PWR028
+U 1 1 6032910D
+P 5450 5320
+F 0 "#PWR028" H 5450 5170 50  0001 C CNN
+F 1 "VDD" V 5465 5448 50  0000 L CNN
+F 2 "" H 5450 5320 50  0001 C CNN
+F 3 "" H 5450 5320 50  0001 C CNN
+	1    5450 5320
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Connector:Conn_01x01_Male J11_data1
+U 1 1 6032D010
+P 5650 5220
+F 0 "J11_data1" H 5622 5198 50  0000 R CNN
+F 1 "Conn_01x01_Male" H 5622 5243 50  0001 R CNN
+F 2 "Connector_Wire:SolderWirePad_1x01_SMD_1x2mm" H 5650 5220 50  0001 C CNN
+F 3 "~" H 5650 5220 50  0001 C CNN
+	1    5650 5220
+	-1   0    0    1   
+$EndComp
+$Comp
+L Connector:Conn_01x01_Male J11_GND1
+U 1 1 60327A50
+P 5650 5120
+F 0 "J11_GND1" H 5622 5098 50  0000 R CNN
+F 1 "Conn_01x01_Male" H 5622 5143 50  0001 R CNN
+F 2 "Connector_Wire:SolderWirePad_1x01_SMD_1x2mm" H 5650 5120 50  0001 C CNN
+F 3 "~" H 5650 5120 50  0001 C CNN
+	1    5650 5120
+	-1   0    0    1   
+$EndComp
+$Comp
+L Connector:Conn_01x01_Male J11_VDD1
+U 1 1 603306CD
+P 5650 5320
+F 0 "J11_VDD1" H 5622 5298 50  0000 R CNN
+F 1 "Conn_01x01_Male" H 5622 5343 50  0001 R CNN
+F 2 "Connector_Wire:SolderWirePad_1x01_SMD_1x2mm" H 5650 5320 50  0001 C CNN
+F 3 "~" H 5650 5320 50  0001 C CNN
+	1    5650 5320
+	-1   0    0    1   
 $EndComp
 $EndSCHEMATC

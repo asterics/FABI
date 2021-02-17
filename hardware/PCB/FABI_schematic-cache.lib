@@ -58,6 +58,23 @@ X ~ 6SR 200 100 100 L 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
+# Connector_Conn_01x01_Male
+#
+DEF Connector_Conn_01x01_Male J 0 40 Y N 1 F N
+F0 "J" 0 100 50 H V C CNN
+F1 "Connector_Conn_01x01_Male" 0 -100 50 H V C CNN
+F2 "" 0 0 50 H I C CNN
+F3 "" 0 0 50 H I C CNN
+$FPLIST
+ Connector*:*
+$ENDFPLIST
+DRAW
+S 34 5 0 -5 1 1 6 F
+P 2 1 1 6 50 0 34 0 N
+X Pin_1 1 200 0 150 L 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
 # Connector_Conn_01x03_Male
 #
 DEF Connector_Conn_01x03_Male J 0 40 Y N 1 F N
@@ -189,21 +206,6 @@ X 1 1 0 0 200 R 50 50 0 0 P
 X 3 3 0 -100 200 R 50 50 0 0 P
 X 5 5 0 -200 200 R 50 50 0 0 P
 X 7 7 0 -300 200 R 50 50 0 0 P
-ENDDRAW
-ENDDEF
-#
-# Mechanical_MountingHole
-#
-DEF Mechanical_MountingHole H 0 40 Y Y 1 F N
-F0 "H" 0 200 50 H V C CNN
-F1 "Mechanical_MountingHole" 0 125 50 H V C CNN
-F2 "" 0 0 50 H I C CNN
-F3 "" 0 0 50 H I C CNN
-$FPLIST
- MountingHole*
-$ENDFPLIST
-DRAW
-C 0 0 50 0 1 50 N
 ENDDRAW
 ENDDEF
 #

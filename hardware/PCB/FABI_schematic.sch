@@ -835,79 +835,9 @@ Text GLabel 1860 3170 0    39   Input ~ 0
 SCL
 NoConn ~ 7590 4910
 NoConn ~ 7090 5010
-$Comp
-L Device:R R4
-U 1 1 6021AB8E
-P 6110 3340
-F 0 "R4" H 6180 3386 50  0000 L CNN
-F 1 "18k" H 6180 3295 50  0000 L CNN
-F 2 "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal" V 6040 3340 50  0001 C CNN
-F 3 "~" H 6110 3340 50  0001 C CNN
-	1    6110 3340
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:R R3
-U 1 1 6021AB94
-P 6110 2940
-F 0 "R3" H 6180 2986 50  0000 L CNN
-F 1 "10k" H 6180 2895 50  0000 L CNN
-F 2 "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal" V 6040 2940 50  0001 C CNN
-F 3 "~" H 6110 2940 50  0001 C CNN
-	1    6110 2940
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	6110 3090 6110 3140
-$Comp
-L power:GND #PWR022
-U 1 1 6021AB9D
-P 6110 3490
-F 0 "#PWR022" H 6110 3240 50  0001 C CNN
-F 1 "GND" V 6115 3362 50  0000 R CNN
-F 2 "" H 6110 3490 50  0001 C CNN
-F 3 "" H 6110 3490 50  0001 C CNN
-	1    6110 3490
-	-1   0    0    -1  
-$EndComp
-$Comp
-L Device:R R_4
-U 1 1 6021ABA3
-P 5350 3340
-F 0 "R_4" H 5420 3386 50  0000 L CNN
-F 1 "18k" H 5420 3295 50  0000 L CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 5280 3340 50  0001 C CNN
-F 3 "~" H 5350 3340 50  0001 C CNN
-	1    5350 3340
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:R R_3
-U 1 1 6021ABA9
-P 5350 2940
-F 0 "R_3" H 5420 2986 50  0000 L CNN
-F 1 "10k" H 5420 2895 50  0000 L CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 5280 2940 50  0001 C CNN
-F 3 "~" H 5350 2940 50  0001 C CNN
-	1    5350 2940
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	5350 3090 5350 3140
-$Comp
-L power:GND #PWR021
-U 1 1 6021ABB2
-P 5350 3490
-F 0 "#PWR021" H 5350 3240 50  0001 C CNN
-F 1 "GND" V 5355 3362 50  0000 R CNN
-F 2 "" H 5350 3490 50  0001 C CNN
-F 3 "" H 5350 3490 50  0001 C CNN
-	1    5350 3490
-	-1   0    0    -1  
-$EndComp
-Text Notes 6210 2620 0    39   ~ 0
+Text Notes 6130 2680 0    39   ~ 0
 THT
-Text Notes 5320 2620 0    39   ~ 0
+Text Notes 5240 2680 0    39   ~ 0
 SMD
 Wire Notes Line
 	5120 2420 6670 2420
@@ -920,27 +850,13 @@ Wire Notes Line
 Wire Notes Line
 	6670 2420 6670 3970
 Wire Wire Line
-	5380 2760 5350 2760
+	5300 2820 5270 2820
 Wire Wire Line
-	5350 2760 5350 2790
+	5270 2820 5270 2850
 Wire Wire Line
-	6140 2760 6110 2760
+	6060 2820 6030 2820
 Wire Wire Line
-	6110 2760 6110 2790
-Text GLabel 5370 3140 2    39   Input ~ 0
-ESP_AddOn_Pin1
-Text GLabel 6130 3140 2    39   Input ~ 0
-ESP_AddOn_Pin1
-Wire Wire Line
-	6130 3140 6110 3140
-Connection ~ 6110 3140
-Wire Wire Line
-	6110 3140 6110 3190
-Wire Wire Line
-	5370 3140 5350 3140
-Connection ~ 5350 3140
-Wire Wire Line
-	5350 3140 5350 3190
+	6030 2820 6030 2850
 Wire Wire Line
 	3610 2970 3840 2970
 Wire Wire Line
@@ -1018,28 +934,28 @@ Text GLabel 6750 6450 3    39   Input ~ 0
 MPX
 Text GLabel 3610 3470 2    39   Input ~ 0
 NEOPIXEL
-Text GLabel 5590 4800 0    39   Input ~ 0
+Text GLabel 5570 4800 0    39   Input ~ 0
 NEOPIXEL
 $Comp
 L power:GND #PWR016
 U 1 1 5F4DD6BE
-P 5590 4700
-F 0 "#PWR016" H 5590 4450 50  0001 C CNN
-F 1 "GND" V 5595 4572 50  0000 R CNN
-F 2 "" H 5590 4700 50  0001 C CNN
-F 3 "" H 5590 4700 50  0001 C CNN
-	1    5590 4700
+P 5570 4700
+F 0 "#PWR016" H 5570 4450 50  0001 C CNN
+F 1 "GND" V 5575 4572 50  0000 R CNN
+F 2 "" H 5570 4700 50  0001 C CNN
+F 3 "" H 5570 4700 50  0001 C CNN
+	1    5570 4700
 	0    1    -1   0   
 $EndComp
 $Comp
 L Connector:Conn_01x03_Male J10
 U 1 1 5F4DCE7D
-P 5790 4800
-F 0 "J10" H 5898 4490 50  0000 C CNN
-F 1 "Conn_01x03_Male" H 5898 4590 50  0000 C CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical" H 5790 4800 50  0001 C CNN
-F 3 "~" H 5790 4800 50  0001 C CNN
-	1    5790 4800
+P 5770 4800
+F 0 "J10" H 5878 4490 50  0000 C CNN
+F 1 "Conn_01x03_Male" H 5878 4590 50  0000 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical" H 5770 4800 50  0001 C CNN
+F 3 "~" H 5770 4800 50  0001 C CNN
+	1    5770 4800
 	-1   0    0    1   
 $EndComp
 Connection ~ 1860 2870
@@ -1100,19 +1016,19 @@ R_x ... SMD Resistor\nRx  ... THT Resistor\n
 $Comp
 L power:VDD #PWR0103
 U 1 1 6031B043
-P 5590 4900
-F 0 "#PWR0103" H 5590 4750 50  0001 C CNN
-F 1 "VDD" V 5605 5028 50  0000 L CNN
-F 2 "" H 5590 4900 50  0001 C CNN
-F 3 "" H 5590 4900 50  0001 C CNN
-	1    5590 4900
+P 5570 4900
+F 0 "#PWR0103" H 5570 4750 50  0001 C CNN
+F 1 "VDD" V 5585 5028 50  0000 L CNN
+F 2 "" H 5570 4900 50  0001 C CNN
+F 3 "" H 5570 4900 50  0001 C CNN
+	1    5570 4900
 	0    -1   -1   0   
 $EndComp
 Wire Wire Line
 	8380 2960 8800 2960
-Text GLabel 6140 2760 2    39   Input ~ 0
+Text GLabel 6060 2820 2    39   Input ~ 0
 AddOn_Pin1
-Text GLabel 5380 2760 2    39   Input ~ 0
+Text GLabel 5300 2820 2    39   Input ~ 0
 AddOn_Pin1
 Text GLabel 3610 3570 2    39   Input ~ 0
 AddOn_Pin3
@@ -1130,50 +1046,6 @@ Text GLabel 3610 3670 2    39   Input ~ 0
 AUX_7
 Text GLabel 3610 3770 2    39   Input ~ 0
 AUX_8
-$Comp
-L Mechanical:MountingHole H1
-U 1 1 606D8EE1
-P 10100 1100
-F 0 "H1" H 10200 1146 50  0000 L CNN
-F 1 "MountingHole" H 10200 1055 50  0000 L CNN
-F 2 "MountingHole:MountingHole_3mm" H 10100 1100 50  0001 C CNN
-F 3 "~" H 10100 1100 50  0001 C CNN
-	1    10100 1100
-	1    0    0    -1  
-$EndComp
-$Comp
-L Mechanical:MountingHole H2
-U 1 1 606D952C
-P 10100 1300
-F 0 "H2" H 10200 1346 50  0000 L CNN
-F 1 "MountingHole" H 10200 1255 50  0000 L CNN
-F 2 "MountingHole:MountingHole_3mm" H 10100 1300 50  0001 C CNN
-F 3 "~" H 10100 1300 50  0001 C CNN
-	1    10100 1300
-	1    0    0    -1  
-$EndComp
-$Comp
-L Mechanical:MountingHole H3
-U 1 1 606DCA97
-P 10100 1500
-F 0 "H3" H 10200 1546 50  0000 L CNN
-F 1 "MountingHole" H 10200 1455 50  0000 L CNN
-F 2 "MountingHole:MountingHole_3mm" H 10100 1500 50  0001 C CNN
-F 3 "~" H 10100 1500 50  0001 C CNN
-	1    10100 1500
-	1    0    0    -1  
-$EndComp
-$Comp
-L Mechanical:MountingHole H4
-U 1 1 606DFEF8
-P 10100 1700
-F 0 "H4" H 10200 1746 50  0000 L CNN
-F 1 "MountingHole" H 10200 1655 50  0000 L CNN
-F 2 "MountingHole:MountingHole_3mm" H 10100 1700 50  0001 C CNN
-F 3 "~" H 10100 1700 50  0001 C CNN
-	1    10100 1700
-	1    0    0    -1  
-$EndComp
 Wire Notes Line
 	4975 5700 6850 5700
 Text Notes 7130 5660 0    39   ~ 0
@@ -1350,5 +1222,146 @@ F 2 "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal" V 7910 3460 
 F 3 "~" H 7980 3460 50  0001 C CNN
 	1    7980 3460
 	1    0    0    1   
+$EndComp
+Text GLabel 5450 5220 0    39   Input ~ 0
+NEOPIXEL
+$Comp
+L power:GND #PWR015
+U 1 1 60329107
+P 5450 5120
+F 0 "#PWR015" H 5450 4870 50  0001 C CNN
+F 1 "GND" V 5455 4992 50  0000 R CNN
+F 2 "" H 5450 5120 50  0001 C CNN
+F 3 "" H 5450 5120 50  0001 C CNN
+	1    5450 5120
+	0    1    -1   0   
+$EndComp
+$Comp
+L power:VDD #PWR028
+U 1 1 6032910D
+P 5450 5320
+F 0 "#PWR028" H 5450 5170 50  0001 C CNN
+F 1 "VDD" V 5465 5448 50  0000 L CNN
+F 2 "" H 5450 5320 50  0001 C CNN
+F 3 "" H 5450 5320 50  0001 C CNN
+	1    5450 5320
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Connector:Conn_01x01_Male J11_data1
+U 1 1 6032D010
+P 5650 5220
+F 0 "J11_data1" H 5622 5198 50  0000 R CNN
+F 1 "Conn_01x01_Male" H 5622 5243 50  0001 R CNN
+F 2 "Connector_Wire:SolderWirePad_1x01_SMD_1x2mm" H 5650 5220 50  0001 C CNN
+F 3 "~" H 5650 5220 50  0001 C CNN
+	1    5650 5220
+	-1   0    0    1   
+$EndComp
+$Comp
+L Connector:Conn_01x01_Male J11_GND1
+U 1 1 60327A50
+P 5650 5120
+F 0 "J11_GND1" H 5622 5098 50  0000 R CNN
+F 1 "Conn_01x01_Male" H 5622 5143 50  0001 R CNN
+F 2 "Connector_Wire:SolderWirePad_1x01_SMD_1x2mm" H 5650 5120 50  0001 C CNN
+F 3 "~" H 5650 5120 50  0001 C CNN
+	1    5650 5120
+	-1   0    0    1   
+$EndComp
+$Comp
+L Connector:Conn_01x01_Male J11_VDD1
+U 1 1 603306CD
+P 5650 5320
+F 0 "J11_VDD1" H 5622 5298 50  0000 R CNN
+F 1 "Conn_01x01_Male" H 5622 5343 50  0001 R CNN
+F 2 "Connector_Wire:SolderWirePad_1x01_SMD_1x2mm" H 5650 5320 50  0001 C CNN
+F 3 "~" H 5650 5320 50  0001 C CNN
+	1    5650 5320
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	5270 3200 5270 3250
+Connection ~ 5270 3200
+Wire Wire Line
+	5290 3200 5270 3200
+Wire Wire Line
+	6030 3200 6030 3250
+Connection ~ 6030 3200
+Wire Wire Line
+	6050 3200 6030 3200
+Text GLabel 6050 3200 2    39   Input ~ 0
+ESP_AddOn_Pin1
+Text GLabel 5290 3200 2    39   Input ~ 0
+ESP_AddOn_Pin1
+$Comp
+L power:GND #PWR021
+U 1 1 6021ABB2
+P 5270 3550
+F 0 "#PWR021" H 5270 3300 50  0001 C CNN
+F 1 "GND" V 5275 3422 50  0000 R CNN
+F 2 "" H 5270 3550 50  0001 C CNN
+F 3 "" H 5270 3550 50  0001 C CNN
+	1    5270 3550
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	5270 3150 5270 3200
+$Comp
+L Device:R R_3
+U 1 1 6021ABA9
+P 5270 3000
+F 0 "R_3" H 5340 3046 50  0000 L CNN
+F 1 "10k" H 5340 2955 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 5200 3000 50  0001 C CNN
+F 3 "~" H 5270 3000 50  0001 C CNN
+	1    5270 3000
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R_4
+U 1 1 6021ABA3
+P 5270 3400
+F 0 "R_4" H 5340 3446 50  0000 L CNN
+F 1 "18k" H 5340 3355 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 5200 3400 50  0001 C CNN
+F 3 "~" H 5270 3400 50  0001 C CNN
+	1    5270 3400
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR022
+U 1 1 6021AB9D
+P 6030 3550
+F 0 "#PWR022" H 6030 3300 50  0001 C CNN
+F 1 "GND" V 6035 3422 50  0000 R CNN
+F 2 "" H 6030 3550 50  0001 C CNN
+F 3 "" H 6030 3550 50  0001 C CNN
+	1    6030 3550
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	6030 3150 6030 3200
+$Comp
+L Device:R R3
+U 1 1 6021AB94
+P 6030 3000
+F 0 "R3" H 6100 3046 50  0000 L CNN
+F 1 "10k" H 6100 2955 50  0000 L CNN
+F 2 "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal" V 5960 3000 50  0001 C CNN
+F 3 "~" H 6030 3000 50  0001 C CNN
+	1    6030 3000
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R4
+U 1 1 6021AB8E
+P 6030 3400
+F 0 "R4" H 6100 3446 50  0000 L CNN
+F 1 "18k" H 6100 3355 50  0000 L CNN
+F 2 "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal" V 5960 3400 50  0001 C CNN
+F 3 "~" H 6030 3400 50  0001 C CNN
+	1    6030 3400
+	1    0    0    -1  
 $EndComp
 $EndSCHEMATC
