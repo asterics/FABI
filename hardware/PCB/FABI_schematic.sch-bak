@@ -28,8 +28,6 @@ F 3 "" H 1710 2870 50  0001 C CNN
 	1    1710 2870
 	0    1    -1   0   
 $EndComp
-NoConn ~ 1100 7100
-NoConn ~ 1100 7200
 NoConn ~ 2350 4700
 NoConn ~ 2350 4800
 NoConn ~ 2350 5500
@@ -281,8 +279,6 @@ Wire Notes Line
 	610  1970 4860 1970
 Wire Notes Line
 	4860 1970 4860 3920
-Wire Notes Line
-	610  3920 4860 3920
 Text Notes 2310 1920 0    39   ~ 0
 Arduino Pro Micro
 Wire Notes Line
@@ -322,28 +318,6 @@ F 7 "CUI Inc." H 9265 4765 50  0001 L BNN "MANUFACTURER"
 	1    0    0    -1  
 $EndComp
 $Comp
-L Connector:Cliff_68125 J3
-U 1 1 601FBFE8
-P 900 6400
-F 0 "J3" H 882 6725 50  0000 C CNN
-F 1 "Cliff_68125" H 882 6634 50  0000 C CNN
-F 2 "SamacSys_Parts:FC68125" H 900 6400 50  0001 C CNN
-F 3 "~" H 900 6400 50  0001 C CNN
-	1    900  6400
-	1    0    0    -1  
-$EndComp
-$Comp
-L Connector:Cliff_68125 J4
-U 1 1 601FCE09
-P 900 7200
-F 0 "J4" H 882 7525 50  0000 C CNN
-F 1 "Cliff_68125" H 882 7434 50  0000 C CNN
-F 2 "SamacSys_Parts:FC68125" H 900 7200 50  0001 C CNN
-F 3 "~" H 900 7200 50  0001 C CNN
-	1    900  7200
-	1    0    0    -1  
-$EndComp
-$Comp
 L Connector:Cliff_68125 J5
 U 1 1 60206E96
 P 2150 4800
@@ -377,149 +351,19 @@ F 3 "~" H 2150 7200 50  0001 C CNN
 	1    2150 7200
 	1    0    0    -1  
 $EndComp
-NoConn ~ 1100 4700
-Text GLabel 1475 4800 2    39   Input ~ 0
-AUX_1
+NoConn ~ 1240 4700
 $Comp
 L power:GND #PWR01
 U 1 1 5F391609
-P 1450 5100
-F 0 "#PWR01" H 1450 4850 50  0001 C CNN
-F 1 "GND" V 1455 4972 50  0000 R CNN
-F 2 "" H 1450 5100 50  0001 C CNN
-F 3 "" H 1450 5100 50  0001 C CNN
-	1    1450 5100
+P 1460 5200
+F 0 "#PWR01" H 1460 4950 50  0001 C CNN
+F 1 "GND" V 1465 5072 50  0000 R CNN
+F 2 "" H 1460 5200 50  0001 C CNN
+F 3 "" H 1460 5200 50  0001 C CNN
+	1    1460 5200
 	0    -1   1    0   
 $EndComp
-NoConn ~ 1100 4800
-Wire Wire Line
-	1200 4800 1200 5000
-Wire Wire Line
-	1100 5000 1200 5000
-$Comp
-L Connector:Cliff_68125 J1
-U 1 1 601CBF3E
-P 900 4800
-F 0 "J1" H 882 5125 50  0000 C CNN
-F 1 "Cliff_68125" H 882 5034 50  0000 C CNN
-F 2 "SamacSys_Parts:FC68125" H 900 4800 50  0001 C CNN
-F 3 "~" H 900 4800 50  0001 C CNN
-	1    900  4800
-	1    0    0    -1  
-$EndComp
-Wire Notes Line
-	600  7650 600  4350
-NoConn ~ 1100 5500
-Text GLabel 1475 5600 2    39   Input ~ 0
-AUX_2
-$Comp
-L power:GND #PWR02
-U 1 1 601F0D16
-P 1450 5900
-F 0 "#PWR02" H 1450 5650 50  0001 C CNN
-F 1 "GND" V 1455 5772 50  0000 R CNN
-F 2 "" H 1450 5900 50  0001 C CNN
-F 3 "" H 1450 5900 50  0001 C CNN
-	1    1450 5900
-	0    -1   1    0   
-$EndComp
-NoConn ~ 1100 5600
-Wire Wire Line
-	1200 5600 1200 5800
-Wire Wire Line
-	1100 5800 1200 5800
-$Comp
-L Connector:Cliff_68125 J2
-U 1 1 601F0D2D
-P 900 5600
-F 0 "J2" H 882 5925 50  0000 C CNN
-F 1 "Cliff_68125" H 882 5834 50  0000 C CNN
-F 2 "SamacSys_Parts:FC68125" H 900 5600 50  0001 C CNN
-F 3 "~" H 900 5600 50  0001 C CNN
-	1    900  5600
-	1    0    0    -1  
-$EndComp
-Text GLabel 1475 6400 2    39   Input ~ 0
-AUX_3
-$Comp
-L power:GND #PWR03
-U 1 1 6019D28D
-P 1450 6700
-F 0 "#PWR03" H 1450 6450 50  0001 C CNN
-F 1 "GND" V 1455 6572 50  0000 R CNN
-F 2 "" H 1450 6700 50  0001 C CNN
-F 3 "" H 1450 6700 50  0001 C CNN
-	1    1450 6700
-	0    -1   1    0   
-$EndComp
-Wire Wire Line
-	1200 6400 1300 6400
-Connection ~ 1300 6400
-Wire Wire Line
-	1300 6400 1475 6400
-$Comp
-L Diode:1.5KExxA D3
-U 1 1 6019D298
-P 1300 6550
-F 0 "D3" V 1254 6630 50  0000 L CNN
-F 1 "P6KE6.8A" V 1345 6630 50  0000 L CNN
-F 2 "Diode_THT:D_DO-201AE_P12.70mm_Horizontal" H 1300 6350 50  0001 C CNN
-F 3 "https://www.vishay.com/docs/88301/15ke.pdf" H 1250 6550 50  0001 C CNN
-F 4 "1703028" V 1300 6550 50  0001 C CNN "Farnell"
-F 5 "171-9669" V 1300 6550 50  0001 C CNN "RS-components"
-	1    1300 6550
-	0    1    1    0   
-$EndComp
-Wire Wire Line
-	1200 6400 1200 6600
-Wire Wire Line
-	1300 6700 1450 6700
-Connection ~ 1300 6700
-Wire Wire Line
-	1100 6600 1200 6600
-Wire Wire Line
-	1100 6700 1300 6700
-NoConn ~ 1100 6400
-NoConn ~ 1100 6300
-Text GLabel 1475 7200 2    39   Input ~ 0
-AUX_4
-$Comp
-L power:GND #PWR04
-U 1 1 601A1BCE
-P 1450 7500
-F 0 "#PWR04" H 1450 7250 50  0001 C CNN
-F 1 "GND" V 1455 7372 50  0000 R CNN
-F 2 "" H 1450 7500 50  0001 C CNN
-F 3 "" H 1450 7500 50  0001 C CNN
-	1    1450 7500
-	0    -1   1    0   
-$EndComp
-Wire Wire Line
-	1200 7200 1300 7200
-Connection ~ 1300 7200
-Wire Wire Line
-	1300 7200 1475 7200
-$Comp
-L Diode:1.5KExxA D4
-U 1 1 601A1BD9
-P 1300 7350
-F 0 "D4" V 1254 7430 50  0000 L CNN
-F 1 "P6KE6.8A" V 1345 7430 50  0000 L CNN
-F 2 "Diode_THT:D_DO-201AE_P12.70mm_Horizontal" H 1300 7150 50  0001 C CNN
-F 3 "https://www.vishay.com/docs/88301/15ke.pdf" H 1250 7350 50  0001 C CNN
-F 4 "1703028" V 1300 7350 50  0001 C CNN "Farnell"
-F 5 "171-9669" V 1300 7350 50  0001 C CNN "RS-components"
-	1    1300 7350
-	0    1    1    0   
-$EndComp
-Wire Wire Line
-	1200 7200 1200 7400
-Wire Wire Line
-	1300 7500 1450 7500
-Wire Wire Line
-	1100 7400 1200 7400
-Wire Wire Line
-	1100 7500 1300 7500
+NoConn ~ 1240 4800
 Text GLabel 2725 4800 2    39   Input ~ 0
 AUX_5
 $Comp
@@ -673,7 +517,6 @@ F 3 "~" H 2150 6400 50  0001 C CNN
 $EndComp
 Text Notes 8945 4300 0    39   ~ 0
 Buzzer
-Connection ~ 1300 7500
 $Comp
 L Device:R R8
 U 1 1 601AB4BF
@@ -690,51 +533,20 @@ Wire Wire Line
 Wire Wire Line
 	9090 4965 9165 4965
 $Comp
-L Diode:1.5KExxA D2
-U 1 1 601F0D22
-P 1300 5750
-F 0 "D2" V 1254 5830 50  0000 L CNN
-F 1 "P6KE6.8A" V 1345 5830 50  0000 L CNN
-F 2 "Diode_THT:D_DO-201AE_P12.70mm_Horizontal" H 1300 5550 50  0001 C CNN
-F 3 "https://www.vishay.com/docs/88301/15ke.pdf" H 1250 5750 50  0001 C CNN
-F 4 "1703028" V 1300 5750 50  0001 C CNN "Farnell"
-F 5 "171-9669" V 1300 5750 50  0001 C CNN "RS-components"
-	1    1300 5750
-	0    1    1    0   
-$EndComp
-$Comp
 L Diode:1.5KExxA D1
 U 1 1 5F3D9B1D
-P 1300 4950
-F 0 "D1" V 1254 5030 50  0000 L CNN
-F 1 "P6KE6.8A" V 1345 5030 50  0000 L CNN
-F 2 "Diode_THT:D_DO-201AE_P12.70mm_Horizontal" H 1300 4750 50  0001 C CNN
-F 3 "https://www.vishay.com/docs/88301/15ke.pdf" H 1250 4950 50  0001 C CNN
-F 4 "1703028" V 1300 4950 50  0001 C CNN "Farnell"
-F 5 "171-9669" V 1300 4950 50  0001 C CNN "RS-components"
-	1    1300 4950
+P 1290 5050
+F 0 "D1" V 1244 5130 50  0000 L CNN
+F 1 "P6KE6.8A" V 1335 5130 50  0000 L CNN
+F 2 "Diode_THT:D_DO-201AE_P12.70mm_Horizontal" H 1290 4850 50  0001 C CNN
+F 3 "https://www.vishay.com/docs/88301/15ke.pdf" H 1240 5050 50  0001 C CNN
+F 4 "1703028" V 1290 5050 50  0001 C CNN "Farnell"
+F 5 "171-9669" V 1290 5050 50  0001 C CNN "RS-components"
+	1    1290 5050
 	0    1    1    0   
 $EndComp
 Wire Wire Line
-	1100 5100 1300 5100
-Wire Wire Line
-	1200 4800 1300 4800
-Connection ~ 1300 4800
-Wire Wire Line
-	1300 4800 1475 4800
-Connection ~ 1300 5100
-Wire Wire Line
-	1300 5100 1450 5100
-Wire Wire Line
-	1200 5600 1300 5600
-Wire Wire Line
-	1100 5900 1300 5900
-Connection ~ 1300 5600
-Wire Wire Line
-	1300 5600 1475 5600
-Connection ~ 1300 5900
-Wire Wire Line
-	1300 5900 1450 5900
+	1240 4900 1290 4900
 Wire Wire Line
 	2450 6400 2550 6400
 Wire Wire Line
@@ -835,79 +647,9 @@ Text GLabel 1860 3170 0    39   Input ~ 0
 SCL
 NoConn ~ 7590 4910
 NoConn ~ 7090 5010
-$Comp
-L Device:R R4
-U 1 1 6021AB8E
-P 6110 3340
-F 0 "R4" H 6180 3386 50  0000 L CNN
-F 1 "18k" H 6180 3295 50  0000 L CNN
-F 2 "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal" V 6040 3340 50  0001 C CNN
-F 3 "~" H 6110 3340 50  0001 C CNN
-	1    6110 3340
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:R R3
-U 1 1 6021AB94
-P 6110 2940
-F 0 "R3" H 6180 2986 50  0000 L CNN
-F 1 "10k" H 6180 2895 50  0000 L CNN
-F 2 "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal" V 6040 2940 50  0001 C CNN
-F 3 "~" H 6110 2940 50  0001 C CNN
-	1    6110 2940
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	6110 3090 6110 3140
-$Comp
-L power:GND #PWR022
-U 1 1 6021AB9D
-P 6110 3490
-F 0 "#PWR022" H 6110 3240 50  0001 C CNN
-F 1 "GND" V 6115 3362 50  0000 R CNN
-F 2 "" H 6110 3490 50  0001 C CNN
-F 3 "" H 6110 3490 50  0001 C CNN
-	1    6110 3490
-	-1   0    0    -1  
-$EndComp
-$Comp
-L Device:R R_4
-U 1 1 6021ABA3
-P 5350 3340
-F 0 "R_4" H 5420 3386 50  0000 L CNN
-F 1 "18k" H 5420 3295 50  0000 L CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 5280 3340 50  0001 C CNN
-F 3 "~" H 5350 3340 50  0001 C CNN
-	1    5350 3340
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:R R_3
-U 1 1 6021ABA9
-P 5350 2940
-F 0 "R_3" H 5420 2986 50  0000 L CNN
-F 1 "10k" H 5420 2895 50  0000 L CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 5280 2940 50  0001 C CNN
-F 3 "~" H 5350 2940 50  0001 C CNN
-	1    5350 2940
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	5350 3090 5350 3140
-$Comp
-L power:GND #PWR021
-U 1 1 6021ABB2
-P 5350 3490
-F 0 "#PWR021" H 5350 3240 50  0001 C CNN
-F 1 "GND" V 5355 3362 50  0000 R CNN
-F 2 "" H 5350 3490 50  0001 C CNN
-F 3 "" H 5350 3490 50  0001 C CNN
-	1    5350 3490
-	-1   0    0    -1  
-$EndComp
-Text Notes 6210 2620 0    39   ~ 0
+Text Notes 6130 2680 0    39   ~ 0
 THT
-Text Notes 5320 2620 0    39   ~ 0
+Text Notes 5240 2680 0    39   ~ 0
 SMD
 Wire Notes Line
 	5120 2420 6670 2420
@@ -920,27 +662,13 @@ Wire Notes Line
 Wire Notes Line
 	6670 2420 6670 3970
 Wire Wire Line
-	5380 2760 5350 2760
+	5300 2820 5270 2820
 Wire Wire Line
-	5350 2760 5350 2790
+	5270 2820 5270 2850
 Wire Wire Line
-	6140 2760 6110 2760
+	6060 2820 6030 2820
 Wire Wire Line
-	6110 2760 6110 2790
-Text GLabel 5370 3140 2    39   Input ~ 0
-ESP_AddOn_Pin1
-Text GLabel 6130 3140 2    39   Input ~ 0
-ESP_AddOn_Pin1
-Wire Wire Line
-	6130 3140 6110 3140
-Connection ~ 6110 3140
-Wire Wire Line
-	6110 3140 6110 3190
-Wire Wire Line
-	5370 3140 5350 3140
-Connection ~ 5350 3140
-Wire Wire Line
-	5350 3140 5350 3190
+	6030 2820 6030 2850
 Wire Wire Line
 	3610 2970 3840 2970
 Wire Wire Line
@@ -1110,9 +838,9 @@ F 3 "" H 5570 4900 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	8380 2960 8800 2960
-Text GLabel 6140 2760 2    39   Input ~ 0
+Text GLabel 6060 2820 2    39   Input ~ 0
 AddOn_Pin1
-Text GLabel 5380 2760 2    39   Input ~ 0
+Text GLabel 5300 2820 2    39   Input ~ 0
 AddOn_Pin1
 Text GLabel 3610 3570 2    39   Input ~ 0
 AddOn_Pin3
@@ -1236,6 +964,7 @@ F 6 "649-91601-304LF" H 10000 2510 50  0001 L CNN "Mouser Part Number"
 F 7 "https://www.mouser.com/Search/Refine.aspx?Keyword=649-91601-304LF" H 10000 2410 50  0001 L CNN "Mouser Price/Stock"
 F 8 "Amphenol" H 9000 2310 50  0001 L CNN "Manufacturer_Name"
 F 9 "91601-304LF" H 9000 2210 50  0001 L CNN "Manufacturer_Part_Number"
+F 10 "https://at.rs-online.com/web/p/leiterplatten-buchsen/6737405/" H 8800 2860 50  0001 C CNN "RS"
 	1    8800 2860
 	1    0    0    -1  
 $EndComp
@@ -1364,4 +1093,272 @@ F 3 "~" H 5650 5320 50  0001 C CNN
 	1    5650 5320
 	-1   0    0    1   
 $EndComp
+Wire Wire Line
+	5270 3200 5270 3250
+Connection ~ 5270 3200
+Wire Wire Line
+	5290 3200 5270 3200
+Wire Wire Line
+	6030 3200 6030 3250
+Connection ~ 6030 3200
+Wire Wire Line
+	6050 3200 6030 3200
+Text GLabel 6050 3200 2    39   Input ~ 0
+ESP_AddOn_Pin1
+Text GLabel 5290 3200 2    39   Input ~ 0
+ESP_AddOn_Pin1
+$Comp
+L power:GND #PWR021
+U 1 1 6021ABB2
+P 5270 3550
+F 0 "#PWR021" H 5270 3300 50  0001 C CNN
+F 1 "GND" V 5275 3422 50  0000 R CNN
+F 2 "" H 5270 3550 50  0001 C CNN
+F 3 "" H 5270 3550 50  0001 C CNN
+	1    5270 3550
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	5270 3150 5270 3200
+$Comp
+L Device:R R_3
+U 1 1 6021ABA9
+P 5270 3000
+F 0 "R_3" H 5340 3046 50  0000 L CNN
+F 1 "10k" H 5340 2955 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 5200 3000 50  0001 C CNN
+F 3 "~" H 5270 3000 50  0001 C CNN
+	1    5270 3000
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R_4
+U 1 1 6021ABA3
+P 5270 3400
+F 0 "R_4" H 5340 3446 50  0000 L CNN
+F 1 "18k" H 5340 3355 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 5200 3400 50  0001 C CNN
+F 3 "~" H 5270 3400 50  0001 C CNN
+	1    5270 3400
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR022
+U 1 1 6021AB9D
+P 6030 3550
+F 0 "#PWR022" H 6030 3300 50  0001 C CNN
+F 1 "GND" V 6035 3422 50  0000 R CNN
+F 2 "" H 6030 3550 50  0001 C CNN
+F 3 "" H 6030 3550 50  0001 C CNN
+	1    6030 3550
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	6030 3150 6030 3200
+$Comp
+L Device:R R3
+U 1 1 6021AB94
+P 6030 3000
+F 0 "R3" H 6100 3046 50  0000 L CNN
+F 1 "10k" H 6100 2955 50  0000 L CNN
+F 2 "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal" V 5960 3000 50  0001 C CNN
+F 3 "~" H 6030 3000 50  0001 C CNN
+	1    6030 3000
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R4
+U 1 1 6021AB8E
+P 6030 3400
+F 0 "R4" H 6100 3446 50  0000 L CNN
+F 1 "18k" H 6100 3355 50  0000 L CNN
+F 2 "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal" V 5960 3400 50  0001 C CNN
+F 3 "~" H 6030 3400 50  0001 C CNN
+	1    6030 3400
+	1    0    0    -1  
+$EndComp
+$Comp
+L FABI_customLib:AudioJack3_Ground J1
+U 1 1 603F5A97
+P 1040 4800
+F 0 "J1" H 1022 5033 50  0000 C CNN
+F 1 "AudioJack3_Ground" H 1022 5034 50  0001 C CNN
+F 2 "SamacSys_Parts:FC68125" H 1040 4800 50  0001 C CNN
+F 3 "https://docs.rs-online.com/db52/0900766b812d152e.pdf" H 1040 4800 50  0001 C CNN
+F 4 "https://at.rs-online.com/web/p/klinken-steckerbuchsen/8051655/" H 1040 4800 50  0001 C CNN "RS"
+	1    1040 4800
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1040 5100 1040 5200
+Wire Wire Line
+	1040 5200 1290 5200
+Connection ~ 1290 5200
+Wire Wire Line
+	1290 5200 1460 5200
+Text GLabel 1400 4900 2    39   Input ~ 0
+AUX_1
+Wire Wire Line
+	1400 4900 1290 4900
+Connection ~ 1290 4900
+Wire Notes Line
+	610  3920 4860 3920
+Wire Notes Line
+	600  7650 600  4350
+NoConn ~ 1240 5500
+$Comp
+L power:GND #PWR02
+U 1 1 6045DE5C
+P 1460 6000
+F 0 "#PWR02" H 1460 5750 50  0001 C CNN
+F 1 "GND" V 1465 5872 50  0000 R CNN
+F 2 "" H 1460 6000 50  0001 C CNN
+F 3 "" H 1460 6000 50  0001 C CNN
+	1    1460 6000
+	0    -1   1    0   
+$EndComp
+NoConn ~ 1240 5600
+$Comp
+L Diode:1.5KExxA D2
+U 1 1 6045DE65
+P 1290 5850
+F 0 "D2" V 1244 5930 50  0000 L CNN
+F 1 "P6KE6.8A" V 1335 5930 50  0000 L CNN
+F 2 "Diode_THT:D_DO-201AE_P12.70mm_Horizontal" H 1290 5650 50  0001 C CNN
+F 3 "https://www.vishay.com/docs/88301/15ke.pdf" H 1240 5850 50  0001 C CNN
+F 4 "1703028" V 1290 5850 50  0001 C CNN "Farnell"
+F 5 "171-9669" V 1290 5850 50  0001 C CNN "RS-components"
+	1    1290 5850
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	1240 5700 1290 5700
+$Comp
+L FABI_customLib:AudioJack3_Ground J2
+U 1 1 6045DE6D
+P 1040 5600
+F 0 "J2" H 1022 5833 50  0000 C CNN
+F 1 "AudioJack3_Ground" H 1022 5834 50  0001 C CNN
+F 2 "SamacSys_Parts:FC68125" H 1040 5600 50  0001 C CNN
+F 3 "https://docs.rs-online.com/db52/0900766b812d152e.pdf" H 1040 5600 50  0001 C CNN
+F 4 "https://at.rs-online.com/web/p/klinken-steckerbuchsen/8051655/" H 1040 5600 50  0001 C CNN "RS"
+	1    1040 5600
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1040 5900 1040 6000
+Wire Wire Line
+	1040 6000 1290 6000
+Connection ~ 1290 6000
+Wire Wire Line
+	1290 6000 1460 6000
+Text GLabel 1400 5700 2    39   Input ~ 0
+AUX_2
+Wire Wire Line
+	1400 5700 1290 5700
+Connection ~ 1290 5700
+NoConn ~ 1240 6300
+$Comp
+L power:GND #PWR03
+U 1 1 60469ABF
+P 1460 6800
+F 0 "#PWR03" H 1460 6550 50  0001 C CNN
+F 1 "GND" V 1465 6672 50  0000 R CNN
+F 2 "" H 1460 6800 50  0001 C CNN
+F 3 "" H 1460 6800 50  0001 C CNN
+	1    1460 6800
+	0    -1   1    0   
+$EndComp
+NoConn ~ 1240 6400
+$Comp
+L Diode:1.5KExxA D3
+U 1 1 60469AC8
+P 1290 6650
+F 0 "D3" V 1244 6730 50  0000 L CNN
+F 1 "P6KE6.8A" V 1335 6730 50  0000 L CNN
+F 2 "Diode_THT:D_DO-201AE_P12.70mm_Horizontal" H 1290 6450 50  0001 C CNN
+F 3 "https://www.vishay.com/docs/88301/15ke.pdf" H 1240 6650 50  0001 C CNN
+F 4 "1703028" V 1290 6650 50  0001 C CNN "Farnell"
+F 5 "171-9669" V 1290 6650 50  0001 C CNN "RS-components"
+	1    1290 6650
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	1240 6500 1290 6500
+$Comp
+L FABI_customLib:AudioJack3_Ground J3
+U 1 1 60469AD0
+P 1040 6400
+F 0 "J3" H 1022 6633 50  0000 C CNN
+F 1 "AudioJack3_Ground" H 1022 6634 50  0001 C CNN
+F 2 "SamacSys_Parts:FC68125" H 1040 6400 50  0001 C CNN
+F 3 "https://docs.rs-online.com/db52/0900766b812d152e.pdf" H 1040 6400 50  0001 C CNN
+F 4 "https://at.rs-online.com/web/p/klinken-steckerbuchsen/8051655/" H 1040 6400 50  0001 C CNN "RS"
+	1    1040 6400
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1040 6700 1040 6800
+Wire Wire Line
+	1040 6800 1290 6800
+Connection ~ 1290 6800
+Wire Wire Line
+	1290 6800 1460 6800
+Text GLabel 1400 6500 2    39   Input ~ 0
+AUX_3
+Wire Wire Line
+	1400 6500 1290 6500
+Connection ~ 1290 6500
+NoConn ~ 1240 7100
+$Comp
+L power:GND #PWR04
+U 1 1 6046D82A
+P 1460 7600
+F 0 "#PWR04" H 1460 7350 50  0001 C CNN
+F 1 "GND" V 1465 7472 50  0000 R CNN
+F 2 "" H 1460 7600 50  0001 C CNN
+F 3 "" H 1460 7600 50  0001 C CNN
+	1    1460 7600
+	0    -1   1    0   
+$EndComp
+NoConn ~ 1240 7200
+$Comp
+L Diode:1.5KExxA D4
+U 1 1 6046D833
+P 1290 7450
+F 0 "D4" V 1244 7530 50  0000 L CNN
+F 1 "P6KE6.8A" V 1335 7530 50  0000 L CNN
+F 2 "Diode_THT:D_DO-201AE_P12.70mm_Horizontal" H 1290 7250 50  0001 C CNN
+F 3 "https://www.vishay.com/docs/88301/15ke.pdf" H 1240 7450 50  0001 C CNN
+F 4 "1703028" V 1290 7450 50  0001 C CNN "Farnell"
+F 5 "171-9669" V 1290 7450 50  0001 C CNN "RS-components"
+	1    1290 7450
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	1240 7300 1290 7300
+$Comp
+L FABI_customLib:AudioJack3_Ground J4
+U 1 1 6046D83B
+P 1040 7200
+F 0 "J4" H 1022 7433 50  0000 C CNN
+F 1 "AudioJack3_Ground" H 1022 7434 50  0001 C CNN
+F 2 "SamacSys_Parts:FC68125" H 1040 7200 50  0001 C CNN
+F 3 "https://docs.rs-online.com/db52/0900766b812d152e.pdf" H 1040 7200 50  0001 C CNN
+F 4 "https://at.rs-online.com/web/p/klinken-steckerbuchsen/8051655/" H 1040 7200 50  0001 C CNN "RS"
+	1    1040 7200
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1040 7500 1040 7600
+Wire Wire Line
+	1040 7600 1290 7600
+Connection ~ 1290 7600
+Wire Wire Line
+	1290 7600 1460 7600
+Text GLabel 1400 7300 2    39   Input ~ 0
+AUX_4
+Wire Wire Line
+	1400 7300 1290 7300
+Connection ~ 1290 7300
 $EndSCHEMATC

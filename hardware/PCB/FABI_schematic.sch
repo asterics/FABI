@@ -28,16 +28,6 @@ F 3 "" H 1710 2870 50  0001 C CNN
 	1    1710 2870
 	0    1    -1   0   
 $EndComp
-NoConn ~ 1100 7100
-NoConn ~ 1100 7200
-NoConn ~ 2350 4700
-NoConn ~ 2350 4800
-NoConn ~ 2350 5500
-NoConn ~ 2350 5600
-NoConn ~ 2350 6400
-NoConn ~ 2350 6300
-NoConn ~ 2350 7100
-NoConn ~ 2350 7200
 $Comp
 L Device:R R2
 U 1 1 5F3C349E
@@ -281,8 +271,6 @@ Wire Notes Line
 	610  1970 4860 1970
 Wire Notes Line
 	4860 1970 4860 3920
-Wire Notes Line
-	610  3920 4860 3920
 Text Notes 2310 1920 0    39   ~ 0
 Arduino Pro Micro
 Wire Notes Line
@@ -321,359 +309,21 @@ F 7 "CUI Inc." H 9265 4765 50  0001 L BNN "MANUFACTURER"
 	1    9265 4765
 	1    0    0    -1  
 $EndComp
-$Comp
-L Connector:Cliff_68125 J3
-U 1 1 601FBFE8
-P 900 6400
-F 0 "J3" H 882 6725 50  0000 C CNN
-F 1 "Cliff_68125" H 882 6634 50  0000 C CNN
-F 2 "SamacSys_Parts:FC68125" H 900 6400 50  0001 C CNN
-F 3 "~" H 900 6400 50  0001 C CNN
-	1    900  6400
-	1    0    0    -1  
-$EndComp
-$Comp
-L Connector:Cliff_68125 J4
-U 1 1 601FCE09
-P 900 7200
-F 0 "J4" H 882 7525 50  0000 C CNN
-F 1 "Cliff_68125" H 882 7434 50  0000 C CNN
-F 2 "SamacSys_Parts:FC68125" H 900 7200 50  0001 C CNN
-F 3 "~" H 900 7200 50  0001 C CNN
-	1    900  7200
-	1    0    0    -1  
-$EndComp
-$Comp
-L Connector:Cliff_68125 J5
-U 1 1 60206E96
-P 2150 4800
-F 0 "J5" H 2132 5125 50  0000 C CNN
-F 1 "Cliff_68125" H 2132 5034 50  0000 C CNN
-F 2 "SamacSys_Parts:FC68125" H 2150 4800 50  0001 C CNN
-F 3 "~" H 2150 4800 50  0001 C CNN
-F 4 "" H 2150 4800 50  0001 C CNN "Field4"
-	1    2150 4800
-	1    0    0    -1  
-$EndComp
-$Comp
-L Connector:Cliff_68125 J6
-U 1 1 60207C3C
-P 2150 5600
-F 0 "J6" H 2132 5925 50  0000 C CNN
-F 1 "Cliff_68125" H 2132 5834 50  0000 C CNN
-F 2 "SamacSys_Parts:FC68125" H 2150 5600 50  0001 C CNN
-F 3 "~" H 2150 5600 50  0001 C CNN
-	1    2150 5600
-	1    0    0    -1  
-$EndComp
-$Comp
-L Connector:Cliff_68125 J8
-U 1 1 6020964B
-P 2150 7200
-F 0 "J8" H 2132 7525 50  0000 C CNN
-F 1 "Cliff_68125" H 2132 7434 50  0000 C CNN
-F 2 "SamacSys_Parts:FC68125" H 2150 7200 50  0001 C CNN
-F 3 "~" H 2150 7200 50  0001 C CNN
-	1    2150 7200
-	1    0    0    -1  
-$EndComp
-NoConn ~ 1100 4700
-Text GLabel 1475 4800 2    39   Input ~ 0
-AUX_1
+NoConn ~ 1240 4600
 $Comp
 L power:GND #PWR01
 U 1 1 5F391609
-P 1450 5100
-F 0 "#PWR01" H 1450 4850 50  0001 C CNN
-F 1 "GND" V 1455 4972 50  0000 R CNN
-F 2 "" H 1450 5100 50  0001 C CNN
-F 3 "" H 1450 5100 50  0001 C CNN
-	1    1450 5100
+P 1460 5100
+F 0 "#PWR01" H 1460 4850 50  0001 C CNN
+F 1 "GND" V 1465 4972 50  0000 R CNN
+F 2 "" H 1460 5100 50  0001 C CNN
+F 3 "" H 1460 5100 50  0001 C CNN
+	1    1460 5100
 	0    -1   1    0   
 $EndComp
-NoConn ~ 1100 4800
-Wire Wire Line
-	1200 4800 1200 5000
-Wire Wire Line
-	1100 5000 1200 5000
-$Comp
-L Connector:Cliff_68125 J1
-U 1 1 601CBF3E
-P 900 4800
-F 0 "J1" H 882 5125 50  0000 C CNN
-F 1 "Cliff_68125" H 882 5034 50  0000 C CNN
-F 2 "SamacSys_Parts:FC68125" H 900 4800 50  0001 C CNN
-F 3 "~" H 900 4800 50  0001 C CNN
-	1    900  4800
-	1    0    0    -1  
-$EndComp
-Wire Notes Line
-	600  7650 600  4350
-NoConn ~ 1100 5500
-Text GLabel 1475 5600 2    39   Input ~ 0
-AUX_2
-$Comp
-L power:GND #PWR02
-U 1 1 601F0D16
-P 1450 5900
-F 0 "#PWR02" H 1450 5650 50  0001 C CNN
-F 1 "GND" V 1455 5772 50  0000 R CNN
-F 2 "" H 1450 5900 50  0001 C CNN
-F 3 "" H 1450 5900 50  0001 C CNN
-	1    1450 5900
-	0    -1   1    0   
-$EndComp
-NoConn ~ 1100 5600
-Wire Wire Line
-	1200 5600 1200 5800
-Wire Wire Line
-	1100 5800 1200 5800
-$Comp
-L Connector:Cliff_68125 J2
-U 1 1 601F0D2D
-P 900 5600
-F 0 "J2" H 882 5925 50  0000 C CNN
-F 1 "Cliff_68125" H 882 5834 50  0000 C CNN
-F 2 "SamacSys_Parts:FC68125" H 900 5600 50  0001 C CNN
-F 3 "~" H 900 5600 50  0001 C CNN
-	1    900  5600
-	1    0    0    -1  
-$EndComp
-Text GLabel 1475 6400 2    39   Input ~ 0
-AUX_3
-$Comp
-L power:GND #PWR03
-U 1 1 6019D28D
-P 1450 6700
-F 0 "#PWR03" H 1450 6450 50  0001 C CNN
-F 1 "GND" V 1455 6572 50  0000 R CNN
-F 2 "" H 1450 6700 50  0001 C CNN
-F 3 "" H 1450 6700 50  0001 C CNN
-	1    1450 6700
-	0    -1   1    0   
-$EndComp
-Wire Wire Line
-	1200 6400 1300 6400
-Connection ~ 1300 6400
-Wire Wire Line
-	1300 6400 1475 6400
-$Comp
-L Diode:1.5KExxA D3
-U 1 1 6019D298
-P 1300 6550
-F 0 "D3" V 1254 6630 50  0000 L CNN
-F 1 "P6KE6.8A" V 1345 6630 50  0000 L CNN
-F 2 "Diode_THT:D_DO-201AE_P12.70mm_Horizontal" H 1300 6350 50  0001 C CNN
-F 3 "https://www.vishay.com/docs/88301/15ke.pdf" H 1250 6550 50  0001 C CNN
-F 4 "1703028" V 1300 6550 50  0001 C CNN "Farnell"
-F 5 "171-9669" V 1300 6550 50  0001 C CNN "RS-components"
-	1    1300 6550
-	0    1    1    0   
-$EndComp
-Wire Wire Line
-	1200 6400 1200 6600
-Wire Wire Line
-	1300 6700 1450 6700
-Connection ~ 1300 6700
-Wire Wire Line
-	1100 6600 1200 6600
-Wire Wire Line
-	1100 6700 1300 6700
-NoConn ~ 1100 6400
-NoConn ~ 1100 6300
-Text GLabel 1475 7200 2    39   Input ~ 0
-AUX_4
-$Comp
-L power:GND #PWR04
-U 1 1 601A1BCE
-P 1450 7500
-F 0 "#PWR04" H 1450 7250 50  0001 C CNN
-F 1 "GND" V 1455 7372 50  0000 R CNN
-F 2 "" H 1450 7500 50  0001 C CNN
-F 3 "" H 1450 7500 50  0001 C CNN
-	1    1450 7500
-	0    -1   1    0   
-$EndComp
-Wire Wire Line
-	1200 7200 1300 7200
-Connection ~ 1300 7200
-Wire Wire Line
-	1300 7200 1475 7200
-$Comp
-L Diode:1.5KExxA D4
-U 1 1 601A1BD9
-P 1300 7350
-F 0 "D4" V 1254 7430 50  0000 L CNN
-F 1 "P6KE6.8A" V 1345 7430 50  0000 L CNN
-F 2 "Diode_THT:D_DO-201AE_P12.70mm_Horizontal" H 1300 7150 50  0001 C CNN
-F 3 "https://www.vishay.com/docs/88301/15ke.pdf" H 1250 7350 50  0001 C CNN
-F 4 "1703028" V 1300 7350 50  0001 C CNN "Farnell"
-F 5 "171-9669" V 1300 7350 50  0001 C CNN "RS-components"
-	1    1300 7350
-	0    1    1    0   
-$EndComp
-Wire Wire Line
-	1200 7200 1200 7400
-Wire Wire Line
-	1300 7500 1450 7500
-Wire Wire Line
-	1100 7400 1200 7400
-Wire Wire Line
-	1100 7500 1300 7500
-Text GLabel 2725 4800 2    39   Input ~ 0
-AUX_5
-$Comp
-L power:GND #PWR05
-U 1 1 601A4B3D
-P 2700 5100
-F 0 "#PWR05" H 2700 4850 50  0001 C CNN
-F 1 "GND" V 2705 4972 50  0000 R CNN
-F 2 "" H 2700 5100 50  0001 C CNN
-F 3 "" H 2700 5100 50  0001 C CNN
-	1    2700 5100
-	0    -1   1    0   
-$EndComp
-Wire Wire Line
-	2450 4800 2550 4800
-Connection ~ 2550 4800
-Wire Wire Line
-	2550 4800 2725 4800
-$Comp
-L Diode:1.5KExxA D5
-U 1 1 601A4B48
-P 2550 4950
-F 0 "D5" V 2504 5030 50  0000 L CNN
-F 1 "P6KE6.8A" V 2595 5030 50  0000 L CNN
-F 2 "Diode_THT:D_DO-201AE_P12.70mm_Horizontal" H 2550 4750 50  0001 C CNN
-F 3 "https://www.vishay.com/docs/88301/15ke.pdf" H 2500 4950 50  0001 C CNN
-F 4 "1703028" V 2550 4950 50  0001 C CNN "Farnell"
-F 5 "171-9669" V 2550 4950 50  0001 C CNN "RS-components"
-	1    2550 4950
-	0    1    1    0   
-$EndComp
-Wire Wire Line
-	2450 4800 2450 5000
-Wire Wire Line
-	2550 5100 2700 5100
-Connection ~ 2550 5100
-Wire Wire Line
-	2350 5000 2450 5000
-Wire Wire Line
-	2350 5100 2550 5100
-Text GLabel 2725 5600 2    39   Input ~ 0
-AUX_6
-$Comp
-L power:GND #PWR06
-U 1 1 601ABB68
-P 2700 5900
-F 0 "#PWR06" H 2700 5650 50  0001 C CNN
-F 1 "GND" V 2705 5772 50  0000 R CNN
-F 2 "" H 2700 5900 50  0001 C CNN
-F 3 "" H 2700 5900 50  0001 C CNN
-	1    2700 5900
-	0    -1   1    0   
-$EndComp
-Wire Wire Line
-	2450 5600 2550 5600
-Connection ~ 2550 5600
-Wire Wire Line
-	2550 5600 2725 5600
-$Comp
-L Diode:1.5KExxA D6
-U 1 1 601ABB73
-P 2550 5750
-F 0 "D6" V 2504 5830 50  0000 L CNN
-F 1 "P6KE6.8A" V 2595 5830 50  0000 L CNN
-F 2 "Diode_THT:D_DO-201AE_P12.70mm_Horizontal" H 2550 5550 50  0001 C CNN
-F 3 "https://www.vishay.com/docs/88301/15ke.pdf" H 2500 5750 50  0001 C CNN
-F 4 "1703028" V 2550 5750 50  0001 C CNN "Farnell"
-F 5 "171-9669" V 2550 5750 50  0001 C CNN "RS-components"
-	1    2550 5750
-	0    1    1    0   
-$EndComp
-Wire Wire Line
-	2450 5600 2450 5800
-Wire Wire Line
-	2550 5900 2700 5900
-Connection ~ 2550 5900
-Wire Wire Line
-	2350 5800 2450 5800
-Wire Wire Line
-	2350 5900 2550 5900
-Text GLabel 2725 6400 2    39   Input ~ 0
-AUX_7
-$Comp
-L power:GND #PWR07
-U 1 1 601AD143
-P 2700 6700
-F 0 "#PWR07" H 2700 6450 50  0001 C CNN
-F 1 "GND" V 2705 6572 50  0000 R CNN
-F 2 "" H 2700 6700 50  0001 C CNN
-F 3 "" H 2700 6700 50  0001 C CNN
-	1    2700 6700
-	0    -1   1    0   
-$EndComp
-$Comp
-L Diode:1.5KExxA D7
-U 1 1 601AD14E
-P 2550 6550
-F 0 "D7" V 2504 6630 50  0000 L CNN
-F 1 "P6KE6.8A" V 2595 6630 50  0000 L CNN
-F 2 "Diode_THT:D_DO-201AE_P12.70mm_Horizontal" H 2550 6350 50  0001 C CNN
-F 3 "https://www.vishay.com/docs/88301/15ke.pdf" H 2500 6550 50  0001 C CNN
-F 4 "1703028" V 2550 6550 50  0001 C CNN "Farnell"
-F 5 "171-9669" V 2550 6550 50  0001 C CNN "RS-components"
-	1    2550 6550
-	0    1    1    0   
-$EndComp
-Wire Wire Line
-	2450 6400 2450 6600
-Wire Wire Line
-	2350 6600 2450 6600
-Text GLabel 2725 7200 2    39   Input ~ 0
-AUX_8
-$Comp
-L power:GND #PWR08
-U 1 1 601AE912
-P 2700 7500
-F 0 "#PWR08" H 2700 7250 50  0001 C CNN
-F 1 "GND" V 2705 7372 50  0000 R CNN
-F 2 "" H 2700 7500 50  0001 C CNN
-F 3 "" H 2700 7500 50  0001 C CNN
-	1    2700 7500
-	0    -1   1    0   
-$EndComp
-$Comp
-L Diode:1.5KExxA D8
-U 1 1 601AE91D
-P 2550 7350
-F 0 "D8" V 2504 7430 50  0000 L CNN
-F 1 "P6KE6.8A" V 2595 7430 50  0000 L CNN
-F 2 "Diode_THT:D_DO-201AE_P12.70mm_Horizontal" H 2550 7150 50  0001 C CNN
-F 3 "https://www.vishay.com/docs/88301/15ke.pdf" H 2500 7350 50  0001 C CNN
-F 4 "1703028" V 2550 7350 50  0001 C CNN "Farnell"
-F 5 "171-9669" V 2550 7350 50  0001 C CNN "RS-components"
-	1    2550 7350
-	0    1    1    0   
-$EndComp
-Wire Wire Line
-	2450 7200 2450 7400
-Wire Wire Line
-	2350 7400 2450 7400
-$Comp
-L Connector:Cliff_68125 J7
-U 1 1 6020893A
-P 2150 6400
-F 0 "J7" H 2132 6725 50  0000 C CNN
-F 1 "Cliff_68125" H 2132 6634 50  0000 C CNN
-F 2 "SamacSys_Parts:FC68125" H 2150 6400 50  0001 C CNN
-F 3 "~" H 2150 6400 50  0001 C CNN
-	1    2150 6400
-	1    0    0    -1  
-$EndComp
+NoConn ~ 1240 4700
 Text Notes 8945 4300 0    39   ~ 0
 Buzzer
-Connection ~ 1300 7500
 $Comp
 L Device:R R8
 U 1 1 601AB4BF
@@ -690,71 +340,20 @@ Wire Wire Line
 Wire Wire Line
 	9090 4965 9165 4965
 $Comp
-L Diode:1.5KExxA D2
-U 1 1 601F0D22
-P 1300 5750
-F 0 "D2" V 1254 5830 50  0000 L CNN
-F 1 "P6KE6.8A" V 1345 5830 50  0000 L CNN
-F 2 "Diode_THT:D_DO-201AE_P12.70mm_Horizontal" H 1300 5550 50  0001 C CNN
-F 3 "https://www.vishay.com/docs/88301/15ke.pdf" H 1250 5750 50  0001 C CNN
-F 4 "1703028" V 1300 5750 50  0001 C CNN "Farnell"
-F 5 "171-9669" V 1300 5750 50  0001 C CNN "RS-components"
-	1    1300 5750
-	0    1    1    0   
-$EndComp
-$Comp
 L Diode:1.5KExxA D1
 U 1 1 5F3D9B1D
-P 1300 4950
-F 0 "D1" V 1254 5030 50  0000 L CNN
-F 1 "P6KE6.8A" V 1345 5030 50  0000 L CNN
-F 2 "Diode_THT:D_DO-201AE_P12.70mm_Horizontal" H 1300 4750 50  0001 C CNN
-F 3 "https://www.vishay.com/docs/88301/15ke.pdf" H 1250 4950 50  0001 C CNN
-F 4 "1703028" V 1300 4950 50  0001 C CNN "Farnell"
-F 5 "171-9669" V 1300 4950 50  0001 C CNN "RS-components"
-	1    1300 4950
+P 1290 4950
+F 0 "D1" V 1244 5030 50  0000 L CNN
+F 1 "P6KE6.8A" V 1335 5030 50  0000 L CNN
+F 2 "Diode_THT:D_DO-201AE_P12.70mm_Horizontal" H 1290 4750 50  0001 C CNN
+F 3 "https://www.vishay.com/docs/88301/15ke.pdf" H 1240 4950 50  0001 C CNN
+F 4 "1703028" V 1290 4950 50  0001 C CNN "Farnell"
+F 5 "171-9669" V 1290 4950 50  0001 C CNN "RS-components"
+	1    1290 4950
 	0    1    1    0   
 $EndComp
 Wire Wire Line
-	1100 5100 1300 5100
-Wire Wire Line
-	1200 4800 1300 4800
-Connection ~ 1300 4800
-Wire Wire Line
-	1300 4800 1475 4800
-Connection ~ 1300 5100
-Wire Wire Line
-	1300 5100 1450 5100
-Wire Wire Line
-	1200 5600 1300 5600
-Wire Wire Line
-	1100 5900 1300 5900
-Connection ~ 1300 5600
-Wire Wire Line
-	1300 5600 1475 5600
-Connection ~ 1300 5900
-Wire Wire Line
-	1300 5900 1450 5900
-Wire Wire Line
-	2450 6400 2550 6400
-Wire Wire Line
-	2350 6700 2550 6700
-Connection ~ 2550 6400
-Wire Wire Line
-	2550 6400 2725 6400
-Connection ~ 2550 6700
-Wire Wire Line
-	2550 6700 2700 6700
-Wire Wire Line
-	2450 7200 2550 7200
-Wire Wire Line
-	2350 7500 2550 7500
-Connection ~ 2550 7200
-Wire Wire Line
-	2550 7200 2725 7200
-Connection ~ 2550 7500
-Wire Wire Line
-	2550 7500 2700 7500
+	1240 4800 1290 4800
 $Comp
 L Device:C C1
 U 1 1 601FACC9
@@ -1152,6 +751,7 @@ F 6 "649-91601-304LF" H 10000 2510 50  0001 L CNN "Mouser Part Number"
 F 7 "https://www.mouser.com/Search/Refine.aspx?Keyword=649-91601-304LF" H 10000 2410 50  0001 L CNN "Mouser Price/Stock"
 F 8 "Amphenol" H 9000 2310 50  0001 L CNN "Manufacturer_Name"
 F 9 "91601-304LF" H 9000 2210 50  0001 L CNN "Manufacturer_Part_Number"
+F 10 "https://at.rs-online.com/web/p/leiterplatten-buchsen/6737405/" H 8800 2860 50  0001 C CNN "RS"
 	1    8800 2860
 	1    0    0    -1  
 $EndComp
@@ -1364,4 +964,396 @@ F 3 "~" H 6030 3400 50  0001 C CNN
 	1    6030 3400
 	1    0    0    -1  
 $EndComp
+$Comp
+L FABI_customLib:AudioJack3_Ground J1
+U 1 1 603F5A97
+P 1040 4700
+F 0 "J1" H 1022 4933 50  0000 C CNN
+F 1 "AudioJack3_Ground" H 1022 4934 50  0001 C CNN
+F 2 "SamacSys_Parts:FC68125" H 1040 4700 50  0001 C CNN
+F 3 "https://docs.rs-online.com/db52/0900766b812d152e.pdf" H 1040 4700 50  0001 C CNN
+F 4 "https://at.rs-online.com/web/p/klinken-steckerbuchsen/8051655/" H 1040 4700 50  0001 C CNN "RS"
+	1    1040 4700
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1040 5000 1040 5100
+Wire Wire Line
+	1040 5100 1290 5100
+Connection ~ 1290 5100
+Wire Wire Line
+	1290 5100 1460 5100
+Text GLabel 1400 4800 2    39   Input ~ 0
+AUX_1
+Wire Wire Line
+	1400 4800 1290 4800
+Connection ~ 1290 4800
+Wire Notes Line
+	610  3920 4860 3920
+Wire Notes Line
+	600  7650 600  4350
+NoConn ~ 1240 5400
+$Comp
+L power:GND #PWR02
+U 1 1 6045DE5C
+P 1460 5900
+F 0 "#PWR02" H 1460 5650 50  0001 C CNN
+F 1 "GND" V 1465 5772 50  0000 R CNN
+F 2 "" H 1460 5900 50  0001 C CNN
+F 3 "" H 1460 5900 50  0001 C CNN
+	1    1460 5900
+	0    -1   1    0   
+$EndComp
+NoConn ~ 1240 5500
+$Comp
+L Diode:1.5KExxA D2
+U 1 1 6045DE65
+P 1290 5750
+F 0 "D2" V 1244 5830 50  0000 L CNN
+F 1 "P6KE6.8A" V 1335 5830 50  0000 L CNN
+F 2 "Diode_THT:D_DO-201AE_P12.70mm_Horizontal" H 1290 5550 50  0001 C CNN
+F 3 "https://www.vishay.com/docs/88301/15ke.pdf" H 1240 5750 50  0001 C CNN
+F 4 "1703028" V 1290 5750 50  0001 C CNN "Farnell"
+F 5 "171-9669" V 1290 5750 50  0001 C CNN "RS-components"
+	1    1290 5750
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	1240 5600 1290 5600
+$Comp
+L FABI_customLib:AudioJack3_Ground J2
+U 1 1 6045DE6D
+P 1040 5500
+F 0 "J2" H 1022 5733 50  0000 C CNN
+F 1 "AudioJack3_Ground" H 1022 5734 50  0001 C CNN
+F 2 "SamacSys_Parts:FC68125" H 1040 5500 50  0001 C CNN
+F 3 "https://docs.rs-online.com/db52/0900766b812d152e.pdf" H 1040 5500 50  0001 C CNN
+F 4 "https://at.rs-online.com/web/p/klinken-steckerbuchsen/8051655/" H 1040 5500 50  0001 C CNN "RS"
+	1    1040 5500
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1040 5800 1040 5900
+Wire Wire Line
+	1040 5900 1290 5900
+Connection ~ 1290 5900
+Wire Wire Line
+	1290 5900 1460 5900
+Text GLabel 1400 5600 2    39   Input ~ 0
+AUX_2
+Wire Wire Line
+	1400 5600 1290 5600
+Connection ~ 1290 5600
+NoConn ~ 1240 6200
+$Comp
+L power:GND #PWR03
+U 1 1 60469ABF
+P 1460 6700
+F 0 "#PWR03" H 1460 6450 50  0001 C CNN
+F 1 "GND" V 1465 6572 50  0000 R CNN
+F 2 "" H 1460 6700 50  0001 C CNN
+F 3 "" H 1460 6700 50  0001 C CNN
+	1    1460 6700
+	0    -1   1    0   
+$EndComp
+NoConn ~ 1240 6300
+$Comp
+L Diode:1.5KExxA D3
+U 1 1 60469AC8
+P 1290 6550
+F 0 "D3" V 1244 6630 50  0000 L CNN
+F 1 "P6KE6.8A" V 1335 6630 50  0000 L CNN
+F 2 "Diode_THT:D_DO-201AE_P12.70mm_Horizontal" H 1290 6350 50  0001 C CNN
+F 3 "https://www.vishay.com/docs/88301/15ke.pdf" H 1240 6550 50  0001 C CNN
+F 4 "1703028" V 1290 6550 50  0001 C CNN "Farnell"
+F 5 "171-9669" V 1290 6550 50  0001 C CNN "RS-components"
+	1    1290 6550
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	1240 6400 1290 6400
+$Comp
+L FABI_customLib:AudioJack3_Ground J3
+U 1 1 60469AD0
+P 1040 6300
+F 0 "J3" H 1022 6533 50  0000 C CNN
+F 1 "AudioJack3_Ground" H 1022 6534 50  0001 C CNN
+F 2 "SamacSys_Parts:FC68125" H 1040 6300 50  0001 C CNN
+F 3 "https://docs.rs-online.com/db52/0900766b812d152e.pdf" H 1040 6300 50  0001 C CNN
+F 4 "https://at.rs-online.com/web/p/klinken-steckerbuchsen/8051655/" H 1040 6300 50  0001 C CNN "RS"
+	1    1040 6300
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1040 6600 1040 6700
+Wire Wire Line
+	1040 6700 1290 6700
+Connection ~ 1290 6700
+Wire Wire Line
+	1290 6700 1460 6700
+Text GLabel 1400 6400 2    39   Input ~ 0
+AUX_3
+Wire Wire Line
+	1400 6400 1290 6400
+Connection ~ 1290 6400
+NoConn ~ 1240 7000
+$Comp
+L power:GND #PWR04
+U 1 1 6046D82A
+P 1460 7500
+F 0 "#PWR04" H 1460 7250 50  0001 C CNN
+F 1 "GND" V 1465 7372 50  0000 R CNN
+F 2 "" H 1460 7500 50  0001 C CNN
+F 3 "" H 1460 7500 50  0001 C CNN
+	1    1460 7500
+	0    -1   1    0   
+$EndComp
+NoConn ~ 1240 7100
+$Comp
+L Diode:1.5KExxA D4
+U 1 1 6046D833
+P 1290 7350
+F 0 "D4" V 1244 7430 50  0000 L CNN
+F 1 "P6KE6.8A" V 1335 7430 50  0000 L CNN
+F 2 "Diode_THT:D_DO-201AE_P12.70mm_Horizontal" H 1290 7150 50  0001 C CNN
+F 3 "https://www.vishay.com/docs/88301/15ke.pdf" H 1240 7350 50  0001 C CNN
+F 4 "1703028" V 1290 7350 50  0001 C CNN "Farnell"
+F 5 "171-9669" V 1290 7350 50  0001 C CNN "RS-components"
+	1    1290 7350
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	1240 7200 1290 7200
+$Comp
+L FABI_customLib:AudioJack3_Ground J4
+U 1 1 6046D83B
+P 1040 7100
+F 0 "J4" H 1022 7333 50  0000 C CNN
+F 1 "AudioJack3_Ground" H 1022 7334 50  0001 C CNN
+F 2 "SamacSys_Parts:FC68125" H 1040 7100 50  0001 C CNN
+F 3 "https://docs.rs-online.com/db52/0900766b812d152e.pdf" H 1040 7100 50  0001 C CNN
+F 4 "https://at.rs-online.com/web/p/klinken-steckerbuchsen/8051655/" H 1040 7100 50  0001 C CNN "RS"
+	1    1040 7100
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1040 7400 1040 7500
+Wire Wire Line
+	1040 7500 1290 7500
+Connection ~ 1290 7500
+Wire Wire Line
+	1290 7500 1460 7500
+Text GLabel 1400 7200 2    39   Input ~ 0
+AUX_4
+Wire Wire Line
+	1400 7200 1290 7200
+Connection ~ 1290 7200
+NoConn ~ 2440 4600
+$Comp
+L power:GND #PWR05
+U 1 1 604A6C4C
+P 2660 5100
+F 0 "#PWR05" H 2660 4850 50  0001 C CNN
+F 1 "GND" V 2665 4972 50  0000 R CNN
+F 2 "" H 2660 5100 50  0001 C CNN
+F 3 "" H 2660 5100 50  0001 C CNN
+	1    2660 5100
+	0    -1   1    0   
+$EndComp
+NoConn ~ 2440 4700
+$Comp
+L Diode:1.5KExxA D5
+U 1 1 604A6C55
+P 2490 4950
+F 0 "D5" V 2444 5030 50  0000 L CNN
+F 1 "P6KE6.8A" V 2535 5030 50  0000 L CNN
+F 2 "Diode_THT:D_DO-201AE_P12.70mm_Horizontal" H 2490 4750 50  0001 C CNN
+F 3 "https://www.vishay.com/docs/88301/15ke.pdf" H 2440 4950 50  0001 C CNN
+F 4 "1703028" V 2490 4950 50  0001 C CNN "Farnell"
+F 5 "171-9669" V 2490 4950 50  0001 C CNN "RS-components"
+	1    2490 4950
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	2440 4800 2490 4800
+$Comp
+L FABI_customLib:AudioJack3_Ground J5
+U 1 1 604A6C5D
+P 2240 4700
+F 0 "J5" H 2222 4933 50  0000 C CNN
+F 1 "AudioJack3_Ground" H 2222 4934 50  0001 C CNN
+F 2 "SamacSys_Parts:FC68125" H 2240 4700 50  0001 C CNN
+F 3 "https://docs.rs-online.com/db52/0900766b812d152e.pdf" H 2240 4700 50  0001 C CNN
+F 4 "https://at.rs-online.com/web/p/klinken-steckerbuchsen/8051655/" H 2240 4700 50  0001 C CNN "RS"
+	1    2240 4700
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2240 5000 2240 5100
+Wire Wire Line
+	2240 5100 2490 5100
+Connection ~ 2490 5100
+Wire Wire Line
+	2490 5100 2660 5100
+Text GLabel 2600 4800 2    39   Input ~ 0
+AUX_5
+Wire Wire Line
+	2600 4800 2490 4800
+Connection ~ 2490 4800
+NoConn ~ 2440 5400
+$Comp
+L power:GND #PWR06
+U 1 1 604A6C6B
+P 2660 5900
+F 0 "#PWR06" H 2660 5650 50  0001 C CNN
+F 1 "GND" V 2665 5772 50  0000 R CNN
+F 2 "" H 2660 5900 50  0001 C CNN
+F 3 "" H 2660 5900 50  0001 C CNN
+	1    2660 5900
+	0    -1   1    0   
+$EndComp
+NoConn ~ 2440 5500
+$Comp
+L Diode:1.5KExxA D6
+U 1 1 604A6C74
+P 2490 5750
+F 0 "D6" V 2444 5830 50  0000 L CNN
+F 1 "P6KE6.8A" V 2535 5830 50  0000 L CNN
+F 2 "Diode_THT:D_DO-201AE_P12.70mm_Horizontal" H 2490 5550 50  0001 C CNN
+F 3 "https://www.vishay.com/docs/88301/15ke.pdf" H 2440 5750 50  0001 C CNN
+F 4 "1703028" V 2490 5750 50  0001 C CNN "Farnell"
+F 5 "171-9669" V 2490 5750 50  0001 C CNN "RS-components"
+	1    2490 5750
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	2440 5600 2490 5600
+$Comp
+L FABI_customLib:AudioJack3_Ground J6
+U 1 1 604A6C7C
+P 2240 5500
+F 0 "J6" H 2222 5733 50  0000 C CNN
+F 1 "AudioJack3_Ground" H 2222 5734 50  0001 C CNN
+F 2 "SamacSys_Parts:FC68125" H 2240 5500 50  0001 C CNN
+F 3 "https://docs.rs-online.com/db52/0900766b812d152e.pdf" H 2240 5500 50  0001 C CNN
+F 4 "https://at.rs-online.com/web/p/klinken-steckerbuchsen/8051655/" H 2240 5500 50  0001 C CNN "RS"
+	1    2240 5500
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2240 5800 2240 5900
+Wire Wire Line
+	2240 5900 2490 5900
+Connection ~ 2490 5900
+Wire Wire Line
+	2490 5900 2660 5900
+Text GLabel 2600 5600 2    39   Input ~ 0
+AUX_6
+Wire Wire Line
+	2600 5600 2490 5600
+Connection ~ 2490 5600
+NoConn ~ 2440 6200
+$Comp
+L power:GND #PWR07
+U 1 1 604A6C8A
+P 2660 6700
+F 0 "#PWR07" H 2660 6450 50  0001 C CNN
+F 1 "GND" V 2665 6572 50  0000 R CNN
+F 2 "" H 2660 6700 50  0001 C CNN
+F 3 "" H 2660 6700 50  0001 C CNN
+	1    2660 6700
+	0    -1   1    0   
+$EndComp
+NoConn ~ 2440 6300
+$Comp
+L Diode:1.5KExxA D7
+U 1 1 604A6C93
+P 2490 6550
+F 0 "D7" V 2444 6630 50  0000 L CNN
+F 1 "P6KE6.8A" V 2535 6630 50  0000 L CNN
+F 2 "Diode_THT:D_DO-201AE_P12.70mm_Horizontal" H 2490 6350 50  0001 C CNN
+F 3 "https://www.vishay.com/docs/88301/15ke.pdf" H 2440 6550 50  0001 C CNN
+F 4 "1703028" V 2490 6550 50  0001 C CNN "Farnell"
+F 5 "171-9669" V 2490 6550 50  0001 C CNN "RS-components"
+	1    2490 6550
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	2440 6400 2490 6400
+$Comp
+L FABI_customLib:AudioJack3_Ground J7
+U 1 1 604A6C9B
+P 2240 6300
+F 0 "J7" H 2222 6533 50  0000 C CNN
+F 1 "AudioJack3_Ground" H 2222 6534 50  0001 C CNN
+F 2 "SamacSys_Parts:FC68125" H 2240 6300 50  0001 C CNN
+F 3 "https://docs.rs-online.com/db52/0900766b812d152e.pdf" H 2240 6300 50  0001 C CNN
+F 4 "https://at.rs-online.com/web/p/klinken-steckerbuchsen/8051655/" H 2240 6300 50  0001 C CNN "RS"
+	1    2240 6300
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2240 6600 2240 6700
+Wire Wire Line
+	2240 6700 2490 6700
+Connection ~ 2490 6700
+Wire Wire Line
+	2490 6700 2660 6700
+Text GLabel 2600 6400 2    39   Input ~ 0
+AUX_7
+Wire Wire Line
+	2600 6400 2490 6400
+Connection ~ 2490 6400
+NoConn ~ 2440 7000
+$Comp
+L power:GND #PWR08
+U 1 1 604A6CA9
+P 2660 7500
+F 0 "#PWR08" H 2660 7250 50  0001 C CNN
+F 1 "GND" V 2665 7372 50  0000 R CNN
+F 2 "" H 2660 7500 50  0001 C CNN
+F 3 "" H 2660 7500 50  0001 C CNN
+	1    2660 7500
+	0    -1   1    0   
+$EndComp
+NoConn ~ 2440 7100
+$Comp
+L Diode:1.5KExxA D8
+U 1 1 604A6CB2
+P 2490 7350
+F 0 "D8" V 2444 7430 50  0000 L CNN
+F 1 "P6KE6.8A" V 2535 7430 50  0000 L CNN
+F 2 "Diode_THT:D_DO-201AE_P12.70mm_Horizontal" H 2490 7150 50  0001 C CNN
+F 3 "https://www.vishay.com/docs/88301/15ke.pdf" H 2440 7350 50  0001 C CNN
+F 4 "1703028" V 2490 7350 50  0001 C CNN "Farnell"
+F 5 "171-9669" V 2490 7350 50  0001 C CNN "RS-components"
+	1    2490 7350
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	2440 7200 2490 7200
+$Comp
+L FABI_customLib:AudioJack3_Ground J8
+U 1 1 604A6CBA
+P 2240 7100
+F 0 "J8" H 2222 7333 50  0000 C CNN
+F 1 "AudioJack3_Ground" H 2222 7334 50  0001 C CNN
+F 2 "SamacSys_Parts:FC68125" H 2240 7100 50  0001 C CNN
+F 3 "https://docs.rs-online.com/db52/0900766b812d152e.pdf" H 2240 7100 50  0001 C CNN
+F 4 "https://at.rs-online.com/web/p/klinken-steckerbuchsen/8051655/" H 2240 7100 50  0001 C CNN "RS"
+	1    2240 7100
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2240 7400 2240 7500
+Wire Wire Line
+	2240 7500 2490 7500
+Connection ~ 2490 7500
+Wire Wire Line
+	2490 7500 2660 7500
+Text GLabel 2600 7200 2    39   Input ~ 0
+AUX_8
+Wire Wire Line
+	2600 7200 2490 7200
+Connection ~ 2490 7200
 $EndSCHEMATC
