@@ -1,4 +1,4 @@
-19048628722684883
+19058304323095658
 Battery
 BatteryHolder_Bulgin_BX0036_1xC
 Bulgin Battery Holder, BX0036, Battery Type C (https://www.bulgin.com/products/pub/media/bulgin/data/Battery_holders.pdf)
@@ -50750,6 +50750,13 @@ ESP32 Addon
 0
 0
 FABI_customLibs
+FABI_Logo_s
+
+
+0
+0
+0
+FABI_customLibs
 OLED_display_091
 
 
@@ -50763,6 +50770,13 @@ ProMicro
 0
 24
 24
+FABI_customLibs
+QR_FABI_ProjectPage
+
+
+0
+0
+0
 Ferrite_THT
 LairdTech_28C0236-0JW-10
 Ferrite, vertical, LairdTech 28C0236-0JW-10, https://assets.lairdtech.com/home/brandworld/files/28C0236-0JW-10.pdf, JW Miller core https://www.bourns.com/products/magnetic-products/j.w.-miller-through-hole-ferrite-beads-emi-filters
@@ -56258,6 +56272,34 @@ Yellow 5381 Series LED
 0
 2
 2
+Logos
+FHLOGO
+
+
+0
+0
+0
+Logos
+FHLOGO2
+
+
+0
+0
+0
+Logos
+MA23LOGO
+
+
+0
+0
+0
+Logos
+fabi_15x8
+
+
+0
+0
+0
 MPXV7007GP
 MPXV7007GP
 
