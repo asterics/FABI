@@ -238,7 +238,7 @@ F 0 "D1" V 1344 5030 50  0000 L CNN
 F 1 "P6KE6.8A" V 1435 5030 50  0000 L CNN
 F 2 "Diode_THT:D_DO-201AE_P12.70mm_Horizontal" H 1390 4750 50  0001 C CNN
 F 3 "https://www.vishay.com/docs/88301/15ke.pdf" H 1340 4950 50  0001 C CNN
-F 4 "1703028" V 1390 4950 50  0001 C CNN "Farnell"
+F 4 "1703028" V 1390 4950 50  0001 C CNN "Farnell-Nr"
 F 5 "171-9669" V 1390 4950 50  0001 C CNN "RS-components"
 F 6 "https://at.rs-online.com/web/p/suppressordioden-tvs/1719669/" V 1390 4950 50  0001 C CNN "RS"
 	1    1390 4950
@@ -740,9 +740,9 @@ F 0 "D2" V 1344 5830 50  0000 L CNN
 F 1 "P6KE6.8A" V 1435 5830 50  0000 L CNN
 F 2 "Diode_THT:D_DO-201AE_P12.70mm_Horizontal" H 1390 5550 50  0001 C CNN
 F 3 "https://www.vishay.com/docs/88301/15ke.pdf" H 1340 5750 50  0001 C CNN
-F 4 "1703028" V 1390 5750 50  0001 C CNN "Farnell"
+F 4 "1703028" V 1390 5750 50  0001 C CNN "Farnell-Nr"
 F 5 "171-9669" V 1390 5750 50  0001 C CNN "RS-components"
-F 6 "https://at.rs-online.com/web/p/klinken-steckerbuchsen/8051655/" V 1390 5750 50  0001 C CNN "RS"
+F 6 "https://at.rs-online.com/web/p/suppressordioden-tvs/1719669/" V 1390 5750 50  0001 C CNN "RS"
 	1    1390 5750
 	0    1    1    0   
 $EndComp
@@ -793,9 +793,9 @@ F 0 "D3" V 1344 6630 50  0000 L CNN
 F 1 "P6KE6.8A" V 1435 6630 50  0000 L CNN
 F 2 "Diode_THT:D_DO-201AE_P12.70mm_Horizontal" H 1390 6350 50  0001 C CNN
 F 3 "https://www.vishay.com/docs/88301/15ke.pdf" H 1340 6550 50  0001 C CNN
-F 4 "1703028" V 1390 6550 50  0001 C CNN "Farnell"
+F 4 "1703028" V 1390 6550 50  0001 C CNN "Farnell-Nr"
 F 5 "171-9669" V 1390 6550 50  0001 C CNN "RS-components"
-F 6 "https://at.rs-online.com/web/p/klinken-steckerbuchsen/8051655/" V 1390 6550 50  0001 C CNN "RS"
+F 6 "https://at.rs-online.com/web/p/suppressordioden-tvs/1719669/" V 1390 6550 50  0001 C CNN "RS"
 	1    1390 6550
 	0    1    1    0   
 $EndComp
@@ -846,9 +846,9 @@ F 0 "D4" V 1344 7430 50  0000 L CNN
 F 1 "P6KE6.8A" V 1435 7430 50  0000 L CNN
 F 2 "Diode_THT:D_DO-201AE_P12.70mm_Horizontal" H 1390 7150 50  0001 C CNN
 F 3 "https://www.vishay.com/docs/88301/15ke.pdf" H 1340 7350 50  0001 C CNN
-F 4 "1703028" V 1390 7350 50  0001 C CNN "Farnell"
+F 4 "1703028" V 1390 7350 50  0001 C CNN "Farnell-Nr"
 F 5 "171-9669" V 1390 7350 50  0001 C CNN "RS-components"
-F 6 "https://at.rs-online.com/web/p/klinken-steckerbuchsen/8051655/" V 1390 7350 50  0001 C CNN "RS"
+F 6 "https://at.rs-online.com/web/p/suppressordioden-tvs/1719669/" V 1390 7350 50  0001 C CNN "RS"
 	1    1390 7350
 	0    1    1    0   
 $EndComp
@@ -899,9 +899,9 @@ F 0 "D5" V 2544 5030 50  0000 L CNN
 F 1 "P6KE6.8A" V 2635 5030 50  0000 L CNN
 F 2 "Diode_THT:D_DO-201AE_P12.70mm_Horizontal" H 2590 4750 50  0001 C CNN
 F 3 "https://www.vishay.com/docs/88301/15ke.pdf" H 2540 4950 50  0001 C CNN
-F 4 "1703028" V 2590 4950 50  0001 C CNN "Farnell"
+F 4 "1703028" V 2590 4950 50  0001 C CNN "Farnell-Nr"
 F 5 "171-9669" V 2590 4950 50  0001 C CNN "RS-components"
-F 6 "https://at.rs-online.com/web/p/klinken-steckerbuchsen/8051655/" V 2590 4950 50  0001 C CNN "RS"
+F 6 "https://at.rs-online.com/web/p/suppressordioden-tvs/1719669/" V 2590 4950 50  0001 C CNN "RS"
 	1    2590 4950
 	0    1    1    0   
 $EndComp
@@ -952,9 +952,9 @@ F 0 "D6" V 2544 5830 50  0000 L CNN
 F 1 "P6KE6.8A" V 2635 5830 50  0000 L CNN
 F 2 "Diode_THT:D_DO-201AE_P12.70mm_Horizontal" H 2590 5550 50  0001 C CNN
 F 3 "https://www.vishay.com/docs/88301/15ke.pdf" H 2540 5750 50  0001 C CNN
-F 4 "1703028" V 2590 5750 50  0001 C CNN "Farnell"
+F 4 "1703028" V 2590 5750 50  0001 C CNN "Farnell-Nr"
 F 5 "171-9669" V 2590 5750 50  0001 C CNN "RS-components"
-F 6 "https://at.rs-online.com/web/p/klinken-steckerbuchsen/8051655/" V 2590 5750 50  0001 C CNN "RS"
+F 6 "https://at.rs-online.com/web/p/suppressordioden-tvs/1719669/" V 2590 5750 50  0001 C CNN "RS"
 	1    2590 5750
 	0    1    1    0   
 $EndComp
@@ -1005,9 +1005,9 @@ F 0 "D7" V 2544 6630 50  0000 L CNN
 F 1 "P6KE6.8A" V 2635 6630 50  0000 L CNN
 F 2 "Diode_THT:D_DO-201AE_P12.70mm_Horizontal" H 2590 6350 50  0001 C CNN
 F 3 "https://www.vishay.com/docs/88301/15ke.pdf" H 2540 6550 50  0001 C CNN
-F 4 "1703028" V 2590 6550 50  0001 C CNN "Farnell"
+F 4 "1703028" V 2590 6550 50  0001 C CNN "Farnell-Nr"
 F 5 "171-9669" V 2590 6550 50  0001 C CNN "RS-components"
-F 6 "https://at.rs-online.com/web/p/klinken-steckerbuchsen/8051655/" V 2590 6550 50  0001 C CNN "RS"
+F 6 "https://at.rs-online.com/web/p/suppressordioden-tvs/1719669/" V 2590 6550 50  0001 C CNN "RS"
 	1    2590 6550
 	0    1    1    0   
 $EndComp
@@ -1058,9 +1058,9 @@ F 0 "D8" V 2544 7430 50  0000 L CNN
 F 1 "P6KE6.8A" V 2635 7430 50  0000 L CNN
 F 2 "Diode_THT:D_DO-201AE_P12.70mm_Horizontal" H 2590 7150 50  0001 C CNN
 F 3 "https://www.vishay.com/docs/88301/15ke.pdf" H 2540 7350 50  0001 C CNN
-F 4 "1703028" V 2590 7350 50  0001 C CNN "Farnell"
+F 4 "1703028" V 2590 7350 50  0001 C CNN "Farnell-Nr"
 F 5 "171-9669" V 2590 7350 50  0001 C CNN "RS-components"
-F 6 "https://at.rs-online.com/web/p/klinken-steckerbuchsen/8051655/" V 2590 7350 50  0001 C CNN "RS"
+F 6 "https://at.rs-online.com/web/p/suppressordioden-tvs/1719669/" V 2590 7350 50  0001 C CNN "RS"
 	1    2590 7350
 	0    1    1    0   
 $EndComp
@@ -1251,7 +1251,7 @@ F 0 "C_1" H 5170 6586 50  0000 L CNN
 F 1 "100n" H 5170 6495 50  0000 L CNN
 F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder" H 5093 6390 50  0001 C CNN
 F 3 "~" H 5055 6540 50  0001 C CNN
-F 4 "1327731" H 5055 6540 50  0001 C CNN "Farnell"
+F 4 "1327731" H 5055 6540 50  0001 C CNN "Farnell-Nr"
 F 5 "https://at.rs-online.com/web/p/keramik-vielschichtkondensatoren/4646688/" H 5055 6540 50  0001 C CNN "RS"
 	1    5055 6540
 	1    0    0    -1  
