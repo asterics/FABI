@@ -1,4 +1,4 @@
-﻿namespace MouseApp2
+﻿namespace FabiGUI
 {
     partial class FabiGUI
     {
@@ -162,7 +162,7 @@
             this.saveToFileMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loadFromFileMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.fLipMouseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.fabiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.storeSlotSettingsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loadSlotSettingsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -1801,7 +1801,7 @@
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileMenu,
-            this.fLipMouseToolStripMenuItem,
+            this.fabiToolStripMenuItem,
             this.aboutToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
@@ -1841,14 +1841,14 @@
             this.exitMenuItem.Text = "Exit";
             this.exitMenuItem.Click += new System.EventHandler(this.exitMenuItem_Click);
             // 
-            // fLipMouseToolStripMenuItem
+            // fabiToolStripMenuItem
             // 
-            this.fLipMouseToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fabiToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.storeSlotSettingsMenuItem,
             this.loadSlotSettingsMenuItem});
-            this.fLipMouseToolStripMenuItem.Name = "fLipMouseToolStripMenuItem";
-            this.fLipMouseToolStripMenuItem.Size = new System.Drawing.Size(49, 24);
-            this.fLipMouseToolStripMenuItem.Text = "Fabi";
+            this.fabiToolStripMenuItem.Name = "fabiToolStripMenuItem";
+            this.fabiToolStripMenuItem.Size = new System.Drawing.Size(49, 24);
+            this.fabiToolStripMenuItem.Text = "Fabi";
             // 
             // storeSlotSettingsMenuItem
             // 
@@ -2005,7 +2005,7 @@
             this.Name = "FabiGUI";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Fabi Settings Manager";
-            this.Load += new System.EventHandler(this.LipmouseGUI_Load);
+            this.Load += new System.EventHandler(this.FabiGUI_Load);
             this.tabControl.ResumeLayout(false);
             this.Buttons1Tab.ResumeLayout(false);
             this.Buttons1Tab.PerformLayout();
@@ -2091,7 +2091,7 @@
         private System.Windows.Forms.Button newSlotButton;
         private System.Windows.Forms.Button deleteSlotButton;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
-        private System.Windows.Forms.ToolStripMenuItem fLipMouseToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem fabiToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem storeSlotSettingsMenuItem;
         private System.Windows.Forms.ToolStripMenuItem loadSlotSettingsMenuItem;
         private System.Windows.Forms.TabPage SipPuffLevelsTab;

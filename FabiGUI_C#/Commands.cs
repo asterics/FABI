@@ -92,7 +92,7 @@ using System.Windows.Forms;
 using System.Linq;
 
 
-namespace MouseApp2
+namespace FabiGUI
 {
     public partial class FabiGUI
     {

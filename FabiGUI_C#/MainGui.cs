@@ -2,7 +2,7 @@
 
 /* 
      FabiGUI - Graphical user Interface for the FABI box
-       built upon Assistive Button Interface (FABI) Version 2.3  - AsTeRICS Foundation - http://www.asterics-foundation.org
+     AsTeRICS Foundation - http://www.asterics-foundation.org
    
      for a list of supported AT commands, see commands.cs
    
@@ -25,11 +25,11 @@ using System.Text.RegularExpressions;
 
 
 
-namespace MouseApp2
+namespace FabiGUI
 {
     public partial class FabiGUI : Form
     {
-        const string VERSION_STRING = "2.3";
+        const string VERSION_STRING = "2.31";
 
         const int SPECIALMODE_CHANGE_STEP = 5;
         const int PRESSURE_CHANGE_STEP = 1;
@@ -219,7 +219,7 @@ namespace MouseApp2
             updateComPorts();
 
             addToLog("Fabi GUI ready!");
-            this.Load += LipmouseGUI_Load;
+            this.Load += FabiGUI_Load;
             this.FormClosed += MyWindow_Closing;
         }
 
@@ -283,7 +283,7 @@ namespace MouseApp2
         }
 
 
-        private void LipmouseGUI_Load(object sender, EventArgs e)
+        private void FabiGUI_Load(object sender, EventArgs e)
         {
             this.stringReceivedDelegate = new StringReceivedDelegate(stringReceived);
             BeginInvoke(this.stringReceivedDelegate, new Object[] { "VALUES:512,512,512,512,512" });

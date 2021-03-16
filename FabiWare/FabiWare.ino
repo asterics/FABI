@@ -1,6 +1,6 @@
   
 /* 
-     Flexible Assistive Button Interface (FABI)  Version 2.3  - AsTeRICS Foundation - http://www.asterics-foundation.org
+     Flexible Assistive Button Interface (FABI) - AsTeRICS Foundation - http://www.asterics-foundation.org
       allows control of HID functions via momentary switches and/or AT-commands  
    
 

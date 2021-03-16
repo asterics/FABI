@@ -52,7 +52,7 @@
     <ApplicationIcon>button_record.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>MouseApp2.Program</StartupObject>
+    <StartupObject>FabiGUI.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
