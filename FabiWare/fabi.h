@@ -25,7 +25,7 @@
 #include "commands.h"
 
 
-#define VERSION_STRING "FABI v2.31"
+#define VERSION_STRING "FABI v2.3.1"
 
 //#define TEENSY            //  if a Teensy2.0++ controller is used
 #define ARDUINO_PRO_MICRO   //  if Arduino Leonardo or Arduino (Pro) Micro is used 

@@ -29,7 +29,7 @@ namespace FabiGUI
 {
     public partial class FabiGUI : Form
     {
-        const string VERSION_STRING = "2.31";
+        const string VERSION_STRING = "2.3.1";
 
         const int SPECIALMODE_CHANGE_STEP = 5;
         const int PRESSURE_CHANGE_STEP = 1;
@@ -683,7 +683,7 @@ namespace FabiGUI
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Fabi V"+VERSION_STRING+" - AsTeRICS Foundation\nFor more information see: http://www.asterics-academy.net");
+            MessageBox.Show("Fabi V"+VERSION_STRING+" - AsTeRICS Foundation\nFor more information see: https://www.asterics-foundation.org");
         }
 
         private void timeThresholdBar_Scroll(object sender, EventArgs e)
