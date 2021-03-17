@@ -48,6 +48,7 @@ F 1 "SP0504BAHT" H 4420 4650 50  0000 L CNN
 F 2 "Package_TO_SOT_SMD:SOT-23-5" H 4670 4800 50  0001 L CNN
 F 3 "http://www.littelfuse.com/~/media/files/littelfuse/technical%20resources/documents/data%20sheets/sp05xxba.pdf" H 4495 4975 50  0001 C CNN
 F 4 "https://at.rs-online.com/web/p/suppressordioden-tvs/7931960/" H 4370 4850 50  0001 C CNN "RS"
+F 5 "793-1960" H 4370 4850 50  0001 C CNN "RS-Nr"
 	1    4370 4850
 	1    0    0    -1  
 $EndComp
@@ -60,6 +61,7 @@ F 1 "SP0504BAHT" H 3770 4650 50  0000 L CNN
 F 2 "Package_TO_SOT_SMD:SOT-23-5" H 4020 4800 50  0001 L CNN
 F 3 "http://www.littelfuse.com/~/media/files/littelfuse/technical%20resources/documents/data%20sheets/sp05xxba.pdf" H 3845 4975 50  0001 C CNN
 F 4 "https://at.rs-online.com/web/p/suppressordioden-tvs/7931960/" H 3720 4850 50  0001 C CNN "RS"
+F 5 "793-1960" H 3720 4850 50  0001 C CNN "RS-Nr"
 	1    3720 4850
 	1    0    0    -1  
 $EndComp
@@ -112,7 +114,7 @@ F 1 "Conn_02x05_Odd_Even" H 7460 5336 50  0000 C CNN
 F 2 "Connector_PinHeader_2.54mm:PinHeader_2x05_P2.54mm_Vertical" H 7410 5010 50  0001 C CNN
 F 3 "~" H 7410 5010 50  0001 C CNN
 F 4 "https://at.rs-online.com/web/p/leiterplatten-header/2518272/" H 7410 5010 50  0001 C CNN "RS"
-F 5 "251-8272" H 7410 5010 50  0001 C CNN "RS-components"
+F 5 "251-8272" H 7410 5010 50  0001 C CNN "RS-Nr"
 	1    7410 5010
 	1    0    0    -1  
 $EndComp
@@ -219,10 +221,11 @@ L Device:R R8
 U 1 1 601AB4BF
 P 9060 4965
 F 0 "R8" V 9267 4965 50  0000 C CNN
-F 1 "4.7k" V 9176 4965 50  0000 C CNN
+F 1 "100" V 9176 4965 50  0000 C CNN
 F 2 "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal" V 8990 4965 50  0001 C CNN
 F 3 "~" H 9060 4965 50  0001 C CNN
 F 4 "https://at.rs-online.com/web/p/widerstande-durchsteckmontage/1650319/" V 9060 4965 50  0001 C CNN "RS"
+F 5 "165-0319" V 9060 4965 50  0001 C CNN "RS-Nr"
 	1    9060 4965
 	0    -1   -1   0   
 $EndComp
@@ -238,9 +241,10 @@ F 0 "D1" V 1344 5030 50  0000 L CNN
 F 1 "P6KE6.8A" V 1435 5030 50  0000 L CNN
 F 2 "Diode_THT:D_DO-201AE_P12.70mm_Horizontal" H 1390 4750 50  0001 C CNN
 F 3 "https://www.vishay.com/docs/88301/15ke.pdf" H 1340 4950 50  0001 C CNN
-F 4 "1703028" V 1390 4950 50  0001 C CNN "Farnell-Nr"
-F 5 "171-9669" V 1390 4950 50  0001 C CNN "RS-components"
+F 4 "https://at.farnell.com/littelfuse/p6ke6-8a/tvs-diode/dp/1703028" V 1390 4950 50  0001 C CNN "Farnell"
+F 5 "1703028" V 1390 4950 50  0001 C CNN "Farnell-Nr"
 F 6 "https://at.rs-online.com/web/p/suppressordioden-tvs/1719669/" V 1390 4950 50  0001 C CNN "RS"
+F 7 "171-9669" V 1390 4950 50  0001 C CNN "RS-Nr"
 	1    1390 4950
 	0    1    1    0   
 $EndComp
@@ -266,10 +270,11 @@ L Device:R R_8
 U 1 1 6037812A
 P 9060 5115
 F 0 "R_8" V 8945 5115 50  0000 C CNN
-F 1 "4.7k" V 8854 5115 50  0000 C CNN
+F 1 "100" V 8854 5115 50  0000 C CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 8990 5115 50  0001 C CNN
 F 3 "~" H 9060 5115 50  0001 C CNN
 F 4 "https://at.rs-online.com/web/p/smd-widerstande/9059679/" V 9060 5115 50  0001 C CNN "RS"
+F 5 "905-9679" V 9060 5115 50  0001 C CNN "RS-Nr"
 	1    9060 5115
 	0    -1   -1   0   
 $EndComp
@@ -368,8 +373,8 @@ F 0 "J10" H 5998 4490 50  0000 C CNN
 F 1 "Conn_01x03_Male" H 5998 4590 50  0000 C CNN
 F 2 "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical" H 5890 4800 50  0001 C CNN
 F 3 "~" H 5890 4800 50  0001 C CNN
-F 4 "251-8092" H 5890 4800 50  0001 C CNN "RS-components"
-F 5 "https://at.rs-online.com/web/p/leiterplatten-header/2518092/" H 5890 4800 50  0001 C CNN "RS"
+F 4 "https://at.rs-online.com/web/p/leiterplatten-header/2518092/" H 5890 4800 50  0001 C CNN "RS"
+F 5 "251-8092" H 5890 4800 50  0001 C CNN "RS-Nr"
 	1    5890 4800
 	-1   0    0    1   
 $EndComp
@@ -428,69 +433,6 @@ Text GLabel 3610 3670 2    39   Input ~ 0
 AUX_7
 Text GLabel 3610 3770 2    39   Input ~ 0
 AUX_8
-Text Notes 7130 5660 0    39   ~ 0
-Pin 3 Pulldown (for PCB detection in SW)
-Wire Notes Line
-	7070 6430 7070 5700
-Wire Notes Line
-	7070 5700 8640 5700
-Wire Notes Line
-	8640 5700 8640 6430
-Wire Notes Line
-	7070 6430 8640 6430
-Connection ~ 7860 5830
-Wire Wire Line
-	7680 5830 7860 5830
-Wire Wire Line
-	7860 5830 8150 5830
-$Comp
-L Device:R R5
-U 1 1 603348A8
-P 8150 5980
-F 0 "R5" H 8220 6026 50  0000 L CNN
-F 1 "10k" H 8220 5935 50  0000 L CNN
-F 2 "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal" V 8080 5980 50  0001 C CNN
-F 3 "~" H 8150 5980 50  0001 C CNN
-F 4 "https://at.rs-online.com/web/p/widerstande-durchsteckmontage/1650369/" H 8150 5980 50  0001 C CNN "RS"
-	1    8150 5980
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR025
-U 1 1 603348A2
-P 8150 6130
-F 0 "#PWR025" H 8150 5880 50  0001 C CNN
-F 1 "GND" H 8155 5957 50  0000 C CNN
-F 2 "" H 8150 6130 50  0001 C CNN
-F 3 "" H 8150 6130 50  0001 C CNN
-	1    8150 6130
-	-1   0    0    -1  
-$EndComp
-$Comp
-L Device:R R_5
-U 1 1 6032A458
-P 7860 5980
-F 0 "R_5" H 7930 6026 50  0000 L CNN
-F 1 "10k" H 7930 5935 50  0000 L CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 7790 5980 50  0001 C CNN
-F 3 "~" H 7860 5980 50  0001 C CNN
-F 4 "https://at.rs-online.com/web/p/smd-widerstande/8123375/" H 7860 5980 50  0001 C CNN "RS"
-	1    7860 5980
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR024
-U 1 1 6031A014
-P 7860 6130
-F 0 "#PWR024" H 7860 5880 50  0001 C CNN
-F 1 "GND" H 7865 5957 50  0000 C CNN
-F 2 "" H 7860 6130 50  0001 C CNN
-F 3 "" H 7860 6130 50  0001 C CNN
-	1    7860 6130
-	-1   0    0    -1  
-$EndComp
-Text GLabel 7680 5830 0    39   Input ~ 0
-AddOn_Pin3
 Wire Notes Line
 	8490 5500 9840 5500
 Wire Notes Line
@@ -546,6 +488,7 @@ F 1 "4.7k" H 8300 3495 50  0000 R CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 8300 3540 50  0001 C CNN
 F 3 "~" H 8370 3540 50  0001 C CNN
 F 4 "https://at.rs-online.com/web/p/smd-widerstande/9059679/" H 8370 3540 50  0001 C CNN "RS"
+F 5 "905-9679" H 8370 3540 50  0001 C CNN "RS-Nr"
 	1    8370 3540
 	1    0    0    1   
 $EndComp
@@ -560,6 +503,7 @@ F 1 "4.7k" H 8200 3145 50  0000 R CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 8200 3190 50  0001 C CNN
 F 3 "~" H 8270 3190 50  0001 C CNN
 F 4 "https://at.rs-online.com/web/p/smd-widerstande/9059679/" H 8270 3190 50  0001 C CNN "RS"
+F 5 "905-9679" H 8270 3190 50  0001 C CNN "RS-Nr"
 	1    8270 3190
 	1    0    0    1   
 $EndComp
@@ -575,6 +519,7 @@ F 1 "4.7k" H 7800 3145 50  0000 R CNN
 F 2 "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal" V 7800 3190 50  0001 C CNN
 F 3 "~" H 7870 3190 50  0001 C CNN
 F 4 "https://at.rs-online.com/web/p/widerstande-durchsteckmontage/1650319/" H 7870 3190 50  0001 C CNN "RS"
+F 5 "165-0319" H 7870 3190 50  0001 C CNN "RS-Nr"
 	1    7870 3190
 	1    0    0    1   
 $EndComp
@@ -587,6 +532,7 @@ F 1 "4.7k" H 7900 3495 50  0000 R CNN
 F 2 "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal" V 7900 3540 50  0001 C CNN
 F 3 "~" H 7970 3540 50  0001 C CNN
 F 4 "https://at.rs-online.com/web/p/widerstande-durchsteckmontage/1650319/" H 7970 3540 50  0001 C CNN "RS"
+F 5 "165-0319" H 7970 3540 50  0001 C CNN "RS-Nr"
 	1    7970 3540
 	1    0    0    1   
 $EndComp
@@ -676,6 +622,7 @@ F 1 "10k" H 5360 2980 50  0000 L CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 5220 3025 50  0001 C CNN
 F 3 "~" H 5290 3025 50  0001 C CNN
 F 4 "https://at.rs-online.com/web/p/smd-widerstande/8123375/" H 5290 3025 50  0001 C CNN "RS"
+F 5 "812-3375" H 5290 3025 50  0001 C CNN "RS-Nr"
 	1    5290 3025
 	1    0    0    -1  
 $EndComp
@@ -688,6 +635,7 @@ F 1 "18k" H 5360 3380 50  0000 L CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 5220 3425 50  0001 C CNN
 F 3 "~" H 5290 3425 50  0001 C CNN
 F 4 "https://at.rs-online.com/web/p/smd-widerstande/9059694/" H 5290 3425 50  0001 C CNN "RS"
+F 5 "905-9694" H 5290 3425 50  0001 C CNN "RS-Nr"
 	1    5290 3425
 	1    0    0    -1  
 $EndComp
@@ -697,9 +645,10 @@ U 1 1 603F5A97
 P 1140 4700
 F 0 "J1" H 1122 4933 50  0000 C CNN
 F 1 "AudioJack3_Ground" H 1122 4934 50  0001 C CNN
-F 2 "SamacSys_Parts:FC68125" H 1140 4700 50  0001 C CNN
+F 2 "FABI_customLibs:FC68125" H 1140 4700 50  0001 C CNN
 F 3 "https://docs.rs-online.com/db52/0900766b812d152e.pdf" H 1140 4700 50  0001 C CNN
 F 4 "https://at.rs-online.com/web/p/klinken-steckerbuchsen/8051655/" H 1140 4700 50  0001 C CNN "RS"
+F 5 "805-1655" H 1140 4700 50  0001 C CNN "RS-Nr"
 	1    1140 4700
 	1    0    0    -1  
 $EndComp
@@ -740,9 +689,10 @@ F 0 "D2" V 1344 5830 50  0000 L CNN
 F 1 "P6KE6.8A" V 1435 5830 50  0000 L CNN
 F 2 "Diode_THT:D_DO-201AE_P12.70mm_Horizontal" H 1390 5550 50  0001 C CNN
 F 3 "https://www.vishay.com/docs/88301/15ke.pdf" H 1340 5750 50  0001 C CNN
-F 4 "1703028" V 1390 5750 50  0001 C CNN "Farnell-Nr"
-F 5 "171-9669" V 1390 5750 50  0001 C CNN "RS-components"
+F 4 "https://at.farnell.com/littelfuse/p6ke6-8a/tvs-diode/dp/1703028" V 1390 5750 50  0001 C CNN "Farnell"
+F 5 "1703028" V 1390 5750 50  0001 C CNN "Farnell-Nr"
 F 6 "https://at.rs-online.com/web/p/suppressordioden-tvs/1719669/" V 1390 5750 50  0001 C CNN "RS"
+F 7 "171-9669" V 1390 5750 50  0001 C CNN "RS-Nr"
 	1    1390 5750
 	0    1    1    0   
 $EndComp
@@ -754,9 +704,10 @@ U 1 1 6045DE6D
 P 1140 5500
 F 0 "J2" H 1122 5733 50  0000 C CNN
 F 1 "AudioJack3_Ground" H 1122 5734 50  0001 C CNN
-F 2 "SamacSys_Parts:FC68125" H 1140 5500 50  0001 C CNN
+F 2 "FABI_customLibs:FC68125" H 1140 5500 50  0001 C CNN
 F 3 "https://docs.rs-online.com/db52/0900766b812d152e.pdf" H 1140 5500 50  0001 C CNN
 F 4 "https://at.rs-online.com/web/p/klinken-steckerbuchsen/8051655/" H 1140 5500 50  0001 C CNN "RS"
+F 5 "805-1655" H 1140 5500 50  0001 C CNN "RS-Nr"
 	1    1140 5500
 	1    0    0    -1  
 $EndComp
@@ -793,9 +744,10 @@ F 0 "D3" V 1344 6630 50  0000 L CNN
 F 1 "P6KE6.8A" V 1435 6630 50  0000 L CNN
 F 2 "Diode_THT:D_DO-201AE_P12.70mm_Horizontal" H 1390 6350 50  0001 C CNN
 F 3 "https://www.vishay.com/docs/88301/15ke.pdf" H 1340 6550 50  0001 C CNN
-F 4 "1703028" V 1390 6550 50  0001 C CNN "Farnell-Nr"
-F 5 "171-9669" V 1390 6550 50  0001 C CNN "RS-components"
+F 4 "https://at.farnell.com/littelfuse/p6ke6-8a/tvs-diode/dp/1703028" V 1390 6550 50  0001 C CNN "Farnell"
+F 5 "1703028" V 1390 6550 50  0001 C CNN "Farnell-Nr"
 F 6 "https://at.rs-online.com/web/p/suppressordioden-tvs/1719669/" V 1390 6550 50  0001 C CNN "RS"
+F 7 "171-9669" V 1390 6550 50  0001 C CNN "RS-Nr"
 	1    1390 6550
 	0    1    1    0   
 $EndComp
@@ -807,9 +759,10 @@ U 1 1 60469AD0
 P 1140 6300
 F 0 "J3" H 1122 6533 50  0000 C CNN
 F 1 "AudioJack3_Ground" H 1122 6534 50  0001 C CNN
-F 2 "SamacSys_Parts:FC68125" H 1140 6300 50  0001 C CNN
+F 2 "FABI_customLibs:FC68125" H 1140 6300 50  0001 C CNN
 F 3 "https://docs.rs-online.com/db52/0900766b812d152e.pdf" H 1140 6300 50  0001 C CNN
 F 4 "https://at.rs-online.com/web/p/klinken-steckerbuchsen/8051655/" H 1140 6300 50  0001 C CNN "RS"
+F 5 "805-1655" H 1140 6300 50  0001 C CNN "RS-Nr"
 	1    1140 6300
 	1    0    0    -1  
 $EndComp
@@ -846,9 +799,10 @@ F 0 "D4" V 1344 7430 50  0000 L CNN
 F 1 "P6KE6.8A" V 1435 7430 50  0000 L CNN
 F 2 "Diode_THT:D_DO-201AE_P12.70mm_Horizontal" H 1390 7150 50  0001 C CNN
 F 3 "https://www.vishay.com/docs/88301/15ke.pdf" H 1340 7350 50  0001 C CNN
-F 4 "1703028" V 1390 7350 50  0001 C CNN "Farnell-Nr"
-F 5 "171-9669" V 1390 7350 50  0001 C CNN "RS-components"
+F 4 "https://at.farnell.com/littelfuse/p6ke6-8a/tvs-diode/dp/1703028" V 1390 7350 50  0001 C CNN "Farnell"
+F 5 "1703028" V 1390 7350 50  0001 C CNN "Farnell-Nr"
 F 6 "https://at.rs-online.com/web/p/suppressordioden-tvs/1719669/" V 1390 7350 50  0001 C CNN "RS"
+F 7 "171-9669" V 1390 7350 50  0001 C CNN "RS-Nr"
 	1    1390 7350
 	0    1    1    0   
 $EndComp
@@ -860,9 +814,10 @@ U 1 1 6046D83B
 P 1140 7100
 F 0 "J4" H 1122 7333 50  0000 C CNN
 F 1 "AudioJack3_Ground" H 1122 7334 50  0001 C CNN
-F 2 "SamacSys_Parts:FC68125" H 1140 7100 50  0001 C CNN
+F 2 "FABI_customLibs:FC68125" H 1140 7100 50  0001 C CNN
 F 3 "https://docs.rs-online.com/db52/0900766b812d152e.pdf" H 1140 7100 50  0001 C CNN
 F 4 "https://at.rs-online.com/web/p/klinken-steckerbuchsen/8051655/" H 1140 7100 50  0001 C CNN "RS"
+F 5 "805-1655" H 1140 7100 50  0001 C CNN "RS-Nr"
 	1    1140 7100
 	1    0    0    -1  
 $EndComp
@@ -899,9 +854,10 @@ F 0 "D5" V 2544 5030 50  0000 L CNN
 F 1 "P6KE6.8A" V 2635 5030 50  0000 L CNN
 F 2 "Diode_THT:D_DO-201AE_P12.70mm_Horizontal" H 2590 4750 50  0001 C CNN
 F 3 "https://www.vishay.com/docs/88301/15ke.pdf" H 2540 4950 50  0001 C CNN
-F 4 "1703028" V 2590 4950 50  0001 C CNN "Farnell-Nr"
-F 5 "171-9669" V 2590 4950 50  0001 C CNN "RS-components"
+F 4 "https://at.farnell.com/littelfuse/p6ke6-8a/tvs-diode/dp/1703028" V 2590 4950 50  0001 C CNN "Farnell"
+F 5 "1703028" V 2590 4950 50  0001 C CNN "Farnell-Nr"
 F 6 "https://at.rs-online.com/web/p/suppressordioden-tvs/1719669/" V 2590 4950 50  0001 C CNN "RS"
+F 7 "171-9669" V 2590 4950 50  0001 C CNN "RS-Nr"
 	1    2590 4950
 	0    1    1    0   
 $EndComp
@@ -913,9 +869,10 @@ U 1 1 604A6C5D
 P 2340 4700
 F 0 "J5" H 2322 4933 50  0000 C CNN
 F 1 "AudioJack3_Ground" H 2322 4934 50  0001 C CNN
-F 2 "SamacSys_Parts:FC68125" H 2340 4700 50  0001 C CNN
+F 2 "FABI_customLibs:FC68125" H 2340 4700 50  0001 C CNN
 F 3 "https://docs.rs-online.com/db52/0900766b812d152e.pdf" H 2340 4700 50  0001 C CNN
 F 4 "https://at.rs-online.com/web/p/klinken-steckerbuchsen/8051655/" H 2340 4700 50  0001 C CNN "RS"
+F 5 "805-1655" H 2340 4700 50  0001 C CNN "RS-Nr"
 	1    2340 4700
 	1    0    0    -1  
 $EndComp
@@ -952,9 +909,10 @@ F 0 "D6" V 2544 5830 50  0000 L CNN
 F 1 "P6KE6.8A" V 2635 5830 50  0000 L CNN
 F 2 "Diode_THT:D_DO-201AE_P12.70mm_Horizontal" H 2590 5550 50  0001 C CNN
 F 3 "https://www.vishay.com/docs/88301/15ke.pdf" H 2540 5750 50  0001 C CNN
-F 4 "1703028" V 2590 5750 50  0001 C CNN "Farnell-Nr"
-F 5 "171-9669" V 2590 5750 50  0001 C CNN "RS-components"
+F 4 "https://at.farnell.com/littelfuse/p6ke6-8a/tvs-diode/dp/1703028" V 2590 5750 50  0001 C CNN "Farnell"
+F 5 "1703028" V 2590 5750 50  0001 C CNN "Farnell-Nr"
 F 6 "https://at.rs-online.com/web/p/suppressordioden-tvs/1719669/" V 2590 5750 50  0001 C CNN "RS"
+F 7 "171-9669" V 2590 5750 50  0001 C CNN "RS-Nr"
 	1    2590 5750
 	0    1    1    0   
 $EndComp
@@ -966,9 +924,10 @@ U 1 1 604A6C7C
 P 2340 5500
 F 0 "J6" H 2322 5733 50  0000 C CNN
 F 1 "AudioJack3_Ground" H 2322 5734 50  0001 C CNN
-F 2 "SamacSys_Parts:FC68125" H 2340 5500 50  0001 C CNN
+F 2 "FABI_customLibs:FC68125" H 2340 5500 50  0001 C CNN
 F 3 "https://docs.rs-online.com/db52/0900766b812d152e.pdf" H 2340 5500 50  0001 C CNN
 F 4 "https://at.rs-online.com/web/p/klinken-steckerbuchsen/8051655/" H 2340 5500 50  0001 C CNN "RS"
+F 5 "805-1655" H 2340 5500 50  0001 C CNN "RS-Nr"
 	1    2340 5500
 	1    0    0    -1  
 $EndComp
@@ -1005,9 +964,10 @@ F 0 "D7" V 2544 6630 50  0000 L CNN
 F 1 "P6KE6.8A" V 2635 6630 50  0000 L CNN
 F 2 "Diode_THT:D_DO-201AE_P12.70mm_Horizontal" H 2590 6350 50  0001 C CNN
 F 3 "https://www.vishay.com/docs/88301/15ke.pdf" H 2540 6550 50  0001 C CNN
-F 4 "1703028" V 2590 6550 50  0001 C CNN "Farnell-Nr"
-F 5 "171-9669" V 2590 6550 50  0001 C CNN "RS-components"
+F 4 "https://at.farnell.com/littelfuse/p6ke6-8a/tvs-diode/dp/1703028" V 2590 6550 50  0001 C CNN "Farnell"
+F 5 "1703028" V 2590 6550 50  0001 C CNN "Farnell-Nr"
 F 6 "https://at.rs-online.com/web/p/suppressordioden-tvs/1719669/" V 2590 6550 50  0001 C CNN "RS"
+F 7 "171-9669" V 2590 6550 50  0001 C CNN "RS-Nr"
 	1    2590 6550
 	0    1    1    0   
 $EndComp
@@ -1019,9 +979,10 @@ U 1 1 604A6C9B
 P 2340 6300
 F 0 "J7" H 2322 6533 50  0000 C CNN
 F 1 "AudioJack3_Ground" H 2322 6534 50  0001 C CNN
-F 2 "SamacSys_Parts:FC68125" H 2340 6300 50  0001 C CNN
+F 2 "FABI_customLibs:FC68125" H 2340 6300 50  0001 C CNN
 F 3 "https://docs.rs-online.com/db52/0900766b812d152e.pdf" H 2340 6300 50  0001 C CNN
 F 4 "https://at.rs-online.com/web/p/klinken-steckerbuchsen/8051655/" H 2340 6300 50  0001 C CNN "RS"
+F 5 "805-1655" H 2340 6300 50  0001 C CNN "RS-Nr"
 	1    2340 6300
 	1    0    0    -1  
 $EndComp
@@ -1058,9 +1019,10 @@ F 0 "D8" V 2544 7430 50  0000 L CNN
 F 1 "P6KE6.8A" V 2635 7430 50  0000 L CNN
 F 2 "Diode_THT:D_DO-201AE_P12.70mm_Horizontal" H 2590 7150 50  0001 C CNN
 F 3 "https://www.vishay.com/docs/88301/15ke.pdf" H 2540 7350 50  0001 C CNN
-F 4 "1703028" V 2590 7350 50  0001 C CNN "Farnell-Nr"
-F 5 "171-9669" V 2590 7350 50  0001 C CNN "RS-components"
+F 4 "https://at.farnell.com/littelfuse/p6ke6-8a/tvs-diode/dp/1703028" V 2590 7350 50  0001 C CNN "Farnell"
+F 5 "1703028" V 2590 7350 50  0001 C CNN "Farnell-Nr"
 F 6 "https://at.rs-online.com/web/p/suppressordioden-tvs/1719669/" V 2590 7350 50  0001 C CNN "RS"
+F 7 "171-9669" V 2590 7350 50  0001 C CNN "RS-Nr"
 	1    2590 7350
 	0    1    1    0   
 $EndComp
@@ -1072,9 +1034,10 @@ U 1 1 604A6CBA
 P 2340 7100
 F 0 "J8" H 2322 7333 50  0000 C CNN
 F 1 "AudioJack3_Ground" H 2322 7334 50  0001 C CNN
-F 2 "SamacSys_Parts:FC68125" H 2340 7100 50  0001 C CNN
+F 2 "FABI_customLibs:FC68125" H 2340 7100 50  0001 C CNN
 F 3 "https://docs.rs-online.com/db52/0900766b812d152e.pdf" H 2340 7100 50  0001 C CNN
 F 4 "https://at.rs-online.com/web/p/klinken-steckerbuchsen/8051655/" H 2340 7100 50  0001 C CNN "RS"
+F 5 "805-1655" H 2340 7100 50  0001 C CNN "RS-Nr"
 	1    2340 7100
 	1    0    0    -1  
 $EndComp
@@ -1101,7 +1064,7 @@ F 1 "Buzzer" H 9537 4603 50  0000 L CNN
 F 2 "Buzzer_Beeper:Buzzer_12x9.5RM7.6" V 9360 4765 50  0001 C CNN
 F 3 "https://docs.rs-online.com/f4c8/0900766b811685fc.pdf" V 9360 4765 50  0001 C CNN
 F 4 "https://at.rs-online.com/web/p/elektro-magnetische-buzzer/7716957/" H 9385 4665 50  0001 C CNN "RS"
-F 5 "771-6957" H 9385 4665 50  0001 C CNN "RS-components"
+F 5 "771-6957" H 9385 4665 50  0001 C CNN "RS-Nr"
 	1    9385 4665
 	1    0    0    -1  
 $EndComp
@@ -1125,6 +1088,7 @@ F 7 "https://www.mouser.com/Search/Refine.aspx?Keyword=649-91601-304LF" H 9840 2
 F 8 "Amphenol" H 8840 2390 50  0001 L CNN "Manufacturer_Name"
 F 9 "91601-304LF" H 8840 2290 50  0001 L CNN "Manufacturer_Part_Number"
 F 10 "https://at.rs-online.com/web/p/leiterplatten-buchsen/6737405/" H 8640 2940 50  0001 C CNN "RS"
+F 11 "673-7405" H 8640 2940 50  0001 C CNN "RS-Nr"
 	1    8640 2940
 	1    0    0    -1  
 $EndComp
@@ -1141,8 +1105,6 @@ Wire Notes Line
 	9720 2420 9720 3970
 Wire Notes Line
 	9720 3970 7190 3970
-Wire Notes Line
-	7190 3970 7190 2420
 Text Notes 7280 2370 0    39   ~ 0
 Display connector incl. Pull-UP (SMD & THT)
 $Comp
@@ -1154,6 +1116,7 @@ F 1 "18k" H 6100 3380 50  0000 L CNN
 F 2 "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal" V 5960 3425 50  0001 C CNN
 F 3 "~" H 6030 3425 50  0001 C CNN
 F 4 "https://at.rs-online.com/web/p/widerstande-durchsteckmontage/1997554/" H 6030 3425 50  0001 C CNN "RS"
+F 5 "199-7554" H 6030 3425 50  0001 C CNN "RS-Nr"
 	1    6030 3425
 	1    0    0    -1  
 $EndComp
@@ -1166,6 +1129,7 @@ F 1 "10k" H 6100 2980 50  0000 L CNN
 F 2 "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal" V 5960 3025 50  0001 C CNN
 F 3 "~" H 6030 3025 50  0001 C CNN
 F 4 "https://at.rs-online.com/web/p/widerstande-durchsteckmontage/1650369/" H 6030 3025 50  0001 C CNN "RS"
+F 5 "165-0369" H 6030 3025 50  0001 C CNN "RS-Nr"
 	1    6030 3025
 	1    0    0    -1  
 $EndComp
@@ -1226,6 +1190,7 @@ F 1 "10k" H 4360 6295 50  0000 L CNN
 F 2 "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal" V 4220 6340 50  0001 C CNN
 F 3 "~" H 4290 6340 50  0001 C CNN
 F 4 "https://at.rs-online.com/web/p/widerstande-durchsteckmontage/1650369/" H 4290 6340 50  0001 C CNN "RS"
+F 5 "165-0369" H 4290 6340 50  0001 C CNN "RS-Nr"
 	1    4290 6340
 	1    0    0    -1  
 $EndComp
@@ -1251,8 +1216,8 @@ F 0 "C_1" H 5170 6586 50  0000 L CNN
 F 1 "100n" H 5170 6495 50  0000 L CNN
 F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder" H 5093 6390 50  0001 C CNN
 F 3 "~" H 5055 6540 50  0001 C CNN
-F 4 "1327731" H 5055 6540 50  0001 C CNN "Farnell-Nr"
-F 5 "https://at.rs-online.com/web/p/keramik-vielschichtkondensatoren/4646688/" H 5055 6540 50  0001 C CNN "RS"
+F 4 "https://at.rs-online.com/web/p/keramik-vielschichtkondensatoren/4646688/" H 5055 6540 50  0001 C CNN "RS"
+F 5 "464-6688" H 5055 6540 50  0001 C CNN "RS-Nr"
 	1    5055 6540
 	1    0    0    -1  
 $EndComp
@@ -1283,6 +1248,7 @@ F 1 "MPXV7007GP" H 6180 6140 50  0000 R CNN
 F 2 "MPXV7007GP:MPXV7007GP" H 5780 6190 50  0001 C CNN
 F 3 "http://www.nxp.com/files/sensors/doc/data_sheet/MPXA6115A.pdf" H 6280 7140 50  0001 C CNN
 F 4 "https://at.farnell.com/nxp/mpxv7007gp/drucksensor-7-7kpa-sop-8/dp/2776055" H 6280 6540 50  0001 C CNN "Farnell"
+F 5 "2776055" H 6280 6540 50  0001 C CNN "Farnell-Nr"
 	1    6280 6540
 	1    0    0    -1  
 $EndComp
@@ -1299,6 +1265,7 @@ F 1 "100n" H 5570 6495 50  0000 L CNN
 F 2 "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P5.00mm" H 5493 6390 50  0001 C CNN
 F 3 "~" H 5455 6540 50  0001 C CNN
 F 4 "https://at.rs-online.com/web/p/keramik-vielschichtkondensatoren/8523277/" H 5455 6540 50  0001 C CNN "RS"
+F 5 "852-3277" H 5455 6540 50  0001 C CNN "RS-Nr"
 	1    5455 6540
 	1    0    0    -1  
 $EndComp
@@ -1356,6 +1323,7 @@ F 1 "10k" H 3750 6295 50  0000 L CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 3610 6340 50  0001 C CNN
 F 3 "~" H 3680 6340 50  0001 C CNN
 F 4 "https://at.rs-online.com/web/p/smd-widerstande/8123375/" H 3680 6340 50  0001 C CNN "RS"
+F 5 "812-3375" H 3680 6340 50  0001 C CNN "RS-Nr"
 	1    3680 6340
 	1    0    0    -1  
 $EndComp
@@ -1368,6 +1336,7 @@ F 1 "18k" H 3750 6695 50  0000 L CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 3610 6740 50  0001 C CNN
 F 3 "~" H 3680 6740 50  0001 C CNN
 F 4 "https://at.rs-online.com/web/p/smd-widerstande/9059694/" H 3680 6740 50  0001 C CNN "RS"
+F 5 "905-9694" H 3680 6740 50  0001 C CNN "RS-Nr"
 	1    3680 6740
 	1    0    0    -1  
 $EndComp
@@ -1393,6 +1362,7 @@ F 1 "18k" H 4360 6695 50  0000 L CNN
 F 2 "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal" V 4220 6740 50  0001 C CNN
 F 3 "~" H 4290 6740 50  0001 C CNN
 F 4 "https://at.rs-online.com/web/p/widerstande-durchsteckmontage/1997554/" H 4290 6740 50  0001 C CNN "RS"
+F 5 "199-7554" H 4290 6740 50  0001 C CNN "RS-Nr"
 	1    4290 6740
 	1    0    0    -1  
 $EndComp
@@ -1400,4 +1370,71 @@ Wire Wire Line
 	3610 2970 3800 2970
 Wire Wire Line
 	3800 2970 3800 2900
+Wire Notes Line
+	7190 3970 7190 2420
+Text GLabel 7590 5850 0    39   Input ~ 0
+AddOn_Pin3
+$Comp
+L power:GND #PWR024
+U 1 1 6031A014
+P 7770 6150
+F 0 "#PWR024" H 7770 5900 50  0001 C CNN
+F 1 "GND" H 7775 5977 50  0000 C CNN
+F 2 "" H 7770 6150 50  0001 C CNN
+F 3 "" H 7770 6150 50  0001 C CNN
+	1    7770 6150
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Device:R R_5
+U 1 1 6032A458
+P 7770 6000
+F 0 "R_5" H 7840 6046 50  0000 L CNN
+F 1 "10k" H 7840 5955 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 7700 6000 50  0001 C CNN
+F 3 "~" H 7770 6000 50  0001 C CNN
+F 4 "https://at.rs-online.com/web/p/smd-widerstande/8123375/" H 7770 6000 50  0001 C CNN "RS"
+F 5 "812-3375" H 7770 6000 50  0001 C CNN "RS-Nr"
+	1    7770 6000
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR025
+U 1 1 603348A2
+P 8060 6150
+F 0 "#PWR025" H 8060 5900 50  0001 C CNN
+F 1 "GND" H 8065 5977 50  0000 C CNN
+F 2 "" H 8060 6150 50  0001 C CNN
+F 3 "" H 8060 6150 50  0001 C CNN
+	1    8060 6150
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Device:R R5
+U 1 1 603348A8
+P 8060 6000
+F 0 "R5" H 8130 6046 50  0000 L CNN
+F 1 "10k" H 8130 5955 50  0000 L CNN
+F 2 "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal" V 7990 6000 50  0001 C CNN
+F 3 "~" H 8060 6000 50  0001 C CNN
+F 4 "https://at.rs-online.com/web/p/widerstande-durchsteckmontage/1650369/" H 8060 6000 50  0001 C CNN "RS"
+F 5 "165-0369" H 8060 6000 50  0001 C CNN "RS-Nr"
+	1    8060 6000
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7770 5850 8060 5850
+Wire Wire Line
+	7590 5850 7770 5850
+Connection ~ 7770 5850
+Wire Notes Line
+	6980 6450 8550 6450
+Wire Notes Line
+	8550 5720 8550 6450
+Wire Notes Line
+	6980 5720 8550 5720
+Wire Notes Line
+	6980 6450 6980 5720
+Text Notes 7040 5680 0    39   ~ 0
+Pin 3 Pulldown (for PCB detection in SW)
 $EndSCHEMATC

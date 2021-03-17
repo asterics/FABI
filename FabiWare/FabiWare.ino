@@ -17,7 +17,7 @@
 
 // global variables
 
-uint8_t DebugOutput=0;  // Use 1 for chatty serial output (but it won't be compatible with GUI)
+uint8_t DebugOutput=1;  // Use 1 for chatty serial output (but it won't be compatible with GUI)
 
 #define SIP_BUTTON    9
 #define PUFF_BUTTON  10
@@ -92,7 +92,7 @@ void setup() {
     // while (!Serial) ;
    
    if (DebugOutput==1) {  
-     Serial.println(F("Flexible Assistive Button Interface started !"));
+     Serial.println("Flexible Assistive Button Interface started !");
    }
 
    #ifdef ARDUINO_PRO_MICRO   // only needed for Arduino, automatically done for Teensy(duino)
@@ -143,6 +143,7 @@ void setup() {
 
 
 void loop() {  
+ 
 
       pressure = analogRead(PRESSURE_SENSOR_PIN);
 

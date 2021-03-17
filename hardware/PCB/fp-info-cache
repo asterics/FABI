@@ -1,4 +1,4 @@
-19059920754024572
+19061536741613124
 Battery
 BatteryHolder_Bulgin_BX0036_1xC
 Bulgin Battery Holder, BX0036, Battery Type C (https://www.bulgin.com/products/pub/media/bulgin/data/Battery_holders.pdf)
@@ -50756,6 +50756,13 @@ FABI_Logo_s
 0
 0
 0
+FABI_customLibs
+FC68125
+FC68125 adapted: nob position adjusted
+Connector
+0
+5
+4
 FABI_customLibs
 FH_logo_m
 
