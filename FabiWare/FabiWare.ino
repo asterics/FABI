@@ -214,6 +214,7 @@ void loop() {
        
     UpdateLeds();
     
+  /*
     //we need a workaround for different clock settings on Arduino Pro Micro boards.
     //millis is not working correctly, the delay seems to be 8x higher if wrong clock
     //settings are active. If the "defect" Pro Micro is booted via double reset, it works.
@@ -221,7 +222,7 @@ void loop() {
     //for driving USB with 48MHz.
     
     //Good clock settings: CLKPR = 0 (no prescaler); PLLFRQ = 0x4A (96MHz PLL, divide by 2 for USB)
-    //"Bad" clock settings: CLKPR = 0x03 (prescaler 8); PLLFRQ = 0x04 (48MHz PLL, USB connected directly)
+    //"Bad" clock settings: CLKPR = 0x03 (prescaler 8); PLLFRQ = 0x04 (48MHz PLL, USB connected directly
     #ifdef ARDUINO_PRO_MICRO
 		//these register settings might be used with 8MHz too, and there is no problem if F_CPU is also 8MHz.
 		#if F_CPU == 16000000l
@@ -237,6 +238,10 @@ void loop() {
     #else
 		delay(waitTime);  // to limit movement speed. TBD: remove delay, use millis() !
 	#endif
+
+  */
+ 
+			delay(waitTime);
 }
 
 

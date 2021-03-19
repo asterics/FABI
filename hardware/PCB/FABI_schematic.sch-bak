@@ -645,7 +645,7 @@ U 1 1 603F5A97
 P 1140 4700
 F 0 "J1" H 1122 4933 50  0000 C CNN
 F 1 "AudioJack3_Ground" H 1122 4934 50  0001 C CNN
-F 2 "SamacSys_Parts:FC68125" H 1140 4700 50  0001 C CNN
+F 2 "FABI_customLibs:FC68125" H 1140 4700 50  0001 C CNN
 F 3 "https://docs.rs-online.com/db52/0900766b812d152e.pdf" H 1140 4700 50  0001 C CNN
 F 4 "https://at.rs-online.com/web/p/klinken-steckerbuchsen/8051655/" H 1140 4700 50  0001 C CNN "RS"
 F 5 "805-1655" H 1140 4700 50  0001 C CNN "RS-Nr"
@@ -704,7 +704,7 @@ U 1 1 6045DE6D
 P 1140 5500
 F 0 "J2" H 1122 5733 50  0000 C CNN
 F 1 "AudioJack3_Ground" H 1122 5734 50  0001 C CNN
-F 2 "SamacSys_Parts:FC68125" H 1140 5500 50  0001 C CNN
+F 2 "FABI_customLibs:FC68125" H 1140 5500 50  0001 C CNN
 F 3 "https://docs.rs-online.com/db52/0900766b812d152e.pdf" H 1140 5500 50  0001 C CNN
 F 4 "https://at.rs-online.com/web/p/klinken-steckerbuchsen/8051655/" H 1140 5500 50  0001 C CNN "RS"
 F 5 "805-1655" H 1140 5500 50  0001 C CNN "RS-Nr"
@@ -759,7 +759,7 @@ U 1 1 60469AD0
 P 1140 6300
 F 0 "J3" H 1122 6533 50  0000 C CNN
 F 1 "AudioJack3_Ground" H 1122 6534 50  0001 C CNN
-F 2 "SamacSys_Parts:FC68125" H 1140 6300 50  0001 C CNN
+F 2 "FABI_customLibs:FC68125" H 1140 6300 50  0001 C CNN
 F 3 "https://docs.rs-online.com/db52/0900766b812d152e.pdf" H 1140 6300 50  0001 C CNN
 F 4 "https://at.rs-online.com/web/p/klinken-steckerbuchsen/8051655/" H 1140 6300 50  0001 C CNN "RS"
 F 5 "805-1655" H 1140 6300 50  0001 C CNN "RS-Nr"
@@ -814,7 +814,7 @@ U 1 1 6046D83B
 P 1140 7100
 F 0 "J4" H 1122 7333 50  0000 C CNN
 F 1 "AudioJack3_Ground" H 1122 7334 50  0001 C CNN
-F 2 "SamacSys_Parts:FC68125" H 1140 7100 50  0001 C CNN
+F 2 "FABI_customLibs:FC68125" H 1140 7100 50  0001 C CNN
 F 3 "https://docs.rs-online.com/db52/0900766b812d152e.pdf" H 1140 7100 50  0001 C CNN
 F 4 "https://at.rs-online.com/web/p/klinken-steckerbuchsen/8051655/" H 1140 7100 50  0001 C CNN "RS"
 F 5 "805-1655" H 1140 7100 50  0001 C CNN "RS-Nr"
@@ -869,7 +869,7 @@ U 1 1 604A6C5D
 P 2340 4700
 F 0 "J5" H 2322 4933 50  0000 C CNN
 F 1 "AudioJack3_Ground" H 2322 4934 50  0001 C CNN
-F 2 "SamacSys_Parts:FC68125" H 2340 4700 50  0001 C CNN
+F 2 "FABI_customLibs:FC68125" H 2340 4700 50  0001 C CNN
 F 3 "https://docs.rs-online.com/db52/0900766b812d152e.pdf" H 2340 4700 50  0001 C CNN
 F 4 "https://at.rs-online.com/web/p/klinken-steckerbuchsen/8051655/" H 2340 4700 50  0001 C CNN "RS"
 F 5 "805-1655" H 2340 4700 50  0001 C CNN "RS-Nr"
@@ -924,7 +924,7 @@ U 1 1 604A6C7C
 P 2340 5500
 F 0 "J6" H 2322 5733 50  0000 C CNN
 F 1 "AudioJack3_Ground" H 2322 5734 50  0001 C CNN
-F 2 "SamacSys_Parts:FC68125" H 2340 5500 50  0001 C CNN
+F 2 "FABI_customLibs:FC68125" H 2340 5500 50  0001 C CNN
 F 3 "https://docs.rs-online.com/db52/0900766b812d152e.pdf" H 2340 5500 50  0001 C CNN
 F 4 "https://at.rs-online.com/web/p/klinken-steckerbuchsen/8051655/" H 2340 5500 50  0001 C CNN "RS"
 F 5 "805-1655" H 2340 5500 50  0001 C CNN "RS-Nr"
@@ -979,7 +979,7 @@ U 1 1 604A6C9B
 P 2340 6300
 F 0 "J7" H 2322 6533 50  0000 C CNN
 F 1 "AudioJack3_Ground" H 2322 6534 50  0001 C CNN
-F 2 "SamacSys_Parts:FC68125" H 2340 6300 50  0001 C CNN
+F 2 "FABI_customLibs:FC68125" H 2340 6300 50  0001 C CNN
 F 3 "https://docs.rs-online.com/db52/0900766b812d152e.pdf" H 2340 6300 50  0001 C CNN
 F 4 "https://at.rs-online.com/web/p/klinken-steckerbuchsen/8051655/" H 2340 6300 50  0001 C CNN "RS"
 F 5 "805-1655" H 2340 6300 50  0001 C CNN "RS-Nr"
@@ -1034,7 +1034,7 @@ U 1 1 604A6CBA
 P 2340 7100
 F 0 "J8" H 2322 7333 50  0000 C CNN
 F 1 "AudioJack3_Ground" H 2322 7334 50  0001 C CNN
-F 2 "SamacSys_Parts:FC68125" H 2340 7100 50  0001 C CNN
+F 2 "FABI_customLibs:FC68125" H 2340 7100 50  0001 C CNN
 F 3 "https://docs.rs-online.com/db52/0900766b812d152e.pdf" H 2340 7100 50  0001 C CNN
 F 4 "https://at.rs-online.com/web/p/klinken-steckerbuchsen/8051655/" H 2340 7100 50  0001 C CNN "RS"
 F 5 "805-1655" H 2340 7100 50  0001 C CNN "RS-Nr"

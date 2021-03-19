@@ -221,7 +221,7 @@ L Device:R R8
 U 1 1 601AB4BF
 P 9060 4965
 F 0 "R8" V 9267 4965 50  0000 C CNN
-F 1 "100" V 9176 4965 50  0000 C CNN
+F 1 "150" V 9176 4965 50  0000 C CNN
 F 2 "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal" V 8990 4965 50  0001 C CNN
 F 3 "~" H 9060 4965 50  0001 C CNN
 F 4 "https://at.rs-online.com/web/p/widerstande-durchsteckmontage/1650319/" V 9060 4965 50  0001 C CNN "RS"
@@ -270,7 +270,7 @@ L Device:R R_8
 U 1 1 6037812A
 P 9060 5115
 F 0 "R_8" V 8945 5115 50  0000 C CNN
-F 1 "100" V 8854 5115 50  0000 C CNN
+F 1 "150" V 8854 5115 50  0000 C CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 8990 5115 50  0001 C CNN
 F 3 "~" H 9060 5115 50  0001 C CNN
 F 4 "https://at.rs-online.com/web/p/smd-widerstande/9059679/" V 9060 5115 50  0001 C CNN "RS"
