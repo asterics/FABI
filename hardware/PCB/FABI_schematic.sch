@@ -484,7 +484,7 @@ L Device:R R_6
 U 1 1 602F9FD4
 P 8370 3540
 F 0 "R_6" H 8300 3586 50  0000 R CNN
-F 1 "4.7k" H 8300 3495 50  0000 R CNN
+F 1 "10k" H 8300 3495 50  0000 R CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 8300 3540 50  0001 C CNN
 F 3 "~" H 8370 3540 50  0001 C CNN
 F 4 "https://at.rs-online.com/web/p/smd-widerstande/9059679/" H 8370 3540 50  0001 C CNN "RS"
@@ -499,7 +499,7 @@ L Device:R R_7
 U 1 1 602F7E46
 P 8270 3190
 F 0 "R_7" H 8200 3236 50  0000 R CNN
-F 1 "4.7k" H 8200 3145 50  0000 R CNN
+F 1 "10k" H 8200 3145 50  0000 R CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 8200 3190 50  0001 C CNN
 F 3 "~" H 8270 3190 50  0001 C CNN
 F 4 "https://at.rs-online.com/web/p/smd-widerstande/9059679/" H 8270 3190 50  0001 C CNN "RS"
@@ -515,7 +515,7 @@ L Device:R R7
 U 1 1 6031DA63
 P 7870 3190
 F 0 "R7" H 7800 3236 50  0000 R CNN
-F 1 "4.7k" H 7800 3145 50  0000 R CNN
+F 1 "10k" H 7800 3145 50  0000 R CNN
 F 2 "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal" V 7800 3190 50  0001 C CNN
 F 3 "~" H 7870 3190 50  0001 C CNN
 F 4 "https://at.rs-online.com/web/p/widerstande-durchsteckmontage/1650319/" H 7870 3190 50  0001 C CNN "RS"
@@ -528,7 +528,7 @@ L Device:R R6
 U 1 1 6031DA69
 P 7970 3540
 F 0 "R6" H 7900 3586 50  0000 R CNN
-F 1 "4.7k" H 7900 3495 50  0000 R CNN
+F 1 "10k" H 7900 3495 50  0000 R CNN
 F 2 "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal" V 7900 3540 50  0001 C CNN
 F 3 "~" H 7970 3540 50  0001 C CNN
 F 4 "https://at.rs-online.com/web/p/widerstande-durchsteckmontage/1650319/" H 7970 3540 50  0001 C CNN "RS"
