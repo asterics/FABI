@@ -15,13 +15,41 @@
 #include "fabi.h"
 #include <EEPROM.h>
 
+
+#include <Arduino.h>
+#include <Wire.h>
+#include <SPI.h>
+#include "SSD1306Ascii.h"
+#include "SSD1306AsciiWire.h"
+// #include <U8g2lib.h>
+#include <Adafruit_NeoPixel.h>
+
 // global variables
 
-uint8_t DebugOutput=1;  // Use 1 for chatty serial output (but it won't be compatible with GUI)
+uint8_t DebugOutput=0;  // Use 1 for chatty serial output (but it won't be compatible with GUI)
 
 #define SIP_BUTTON    9
 #define PUFF_BUTTON  10
 #define PRESSURE_SENSOR_PIN A0
+
+//BUZZER
+#define BEEP_duration 25     // actual duration of beep = BEEP_duration * loop duration; e.g. 100 * 5ms = 500ms
+
+//NEOPixel
+#define PIXELS_NUMBER 1   // number of actual NeoPixels on the board
+#define PIXELS_PIN 15     // Input Pin for NeoPixels
+
+#define PCB_checkPin 14
+
+
+#define I2C_ADDRESS 0x3C
+
+SSD1306AsciiWire oled;
+
+
+//U8G2_SSD1306_128X32_UNIVISION_F_HW_I2C u8g2(U8G2_R0, /* reset=*/ U8X8_PIN_NONE);  // Adafruit ESP8266/32u4/ARM Boards + FeatherWing OLED
+
+Adafruit_NeoPixel pixels = Adafruit_NeoPixel(PIXELS_NUMBER, PIXELS_PIN, NEO_GRB + NEO_KHZ800);
 
 
 #ifdef TEENSY
@@ -32,6 +60,7 @@ uint8_t DebugOutput=1;  // Use 1 for chatty serial output (but it won't be compa
 
 #ifdef ARDUINO_PRO_MICRO
   int8_t  input_map[NUMBER_OF_PHYSICAL_BUTTONS]={2,3,4,5,6,7,8,9,10};
+  int8_t  input_map_PCB[NUMBER_OF_PHYSICAL_BUTTONS]={10,16,19,5,6,7,8,9};
   int8_t  led_map[NUMBER_OF_LEDS]={14,15,16};            
   uint8_t LED_PIN = 17;
 #endif
@@ -68,11 +97,26 @@ uint8_t rightClickRunning=0;
 uint8_t middleClickRunning=0;
 uint8_t doubleClickRunning=0;
 
+uint16_t beepTime = BEEP_duration*2;       // beepTime also includes the time without sound after beep 
+uint8_t beepCounter = 0;       // how often to beep
+uint8_t PCBversion = 0;
+
+uint8_t neoPix_Brightness = 50;
+int8_t dimmLEDcounter = neoPix_Brightness;
+uint8_t neoPix_r = 0;
+uint8_t neoPix_g = 0;
+uint8_t neoPix_b = 0;
+uint8_t neoPix_r_old = 0;
+uint8_t neoPix_g_old = 0;
+uint8_t neoPix_b_old = 0;
+
 int inByte=0;
 uint16_t pressure=0;
 uint8_t reportRawValues = 0;
 
 uint8_t cnt =0,cnt2=0;
+
+uint8_t buzzerPIN = 0;
 
 
 // function declarations 
@@ -82,14 +126,21 @@ void handleButton(int i, int l, uint8_t b);  // button debouncing
 void UpdateLeds();
 void initDebouncers();
 
+
 ////////////////////////////////////////
 // Setup: program execution starts here
 ////////////////////////////////////////
 
 void setup() {
-   Serial.begin(9600);
-    // delay(5000);
-    // while (!Serial) ;
+
+  delay(1000);
+  
+  Serial.begin(9600);
+  
+  delay(1000);
+  
+  //while (! Serial);
+    
    
    if (DebugOutput==1) {  
      Serial.println("Flexible Assistive Button Interface started !");
@@ -98,16 +149,98 @@ void setup() {
    #ifdef ARDUINO_PRO_MICRO   // only needed for Arduino, automatically done for Teensy(duino)
      Mouse.begin();
      Keyboard.begin();
-     TXLED1;
+     TXLED1;    //turn on TX_LED 
    #endif  
 
-   pinMode(LED_PIN,OUTPUT);
+   //check if PCB or old (floating wire) FABI is used (checkPin to ground = PCB):
+   pinMode(PCB_checkPin, INPUT_PULLUP);
+   if(!digitalRead(PCB_checkPin)){              //PCB Version detected
+     // Serial.println("FABi PCB Version");
+
+    //Serial.end();      // end USB Serial; causing problems if both active!
+     
+     /*Serial1.begin(9600);   //start HW UART on TX and RX Pins
+     while (! Serial1);
+*/
+      PCBversion = 1;
+      memcpy(input_map, input_map_PCB, NUMBER_OF_PHYSICAL_BUTTONS+1);
+
+      buzzerPIN = 4;
+      pinMode(buzzerPIN, OUTPUT);
+
+/*
+      u8g2.begin();
+      
+      u8g2.clearBuffer(); // clear the internal menory
+      u8g2.drawXBMP(36, 0, 55, 32, FABIlogo);
+      u8g2.sendBuffer(); // transfer internal memory to the display
+      */
+
+      //Display: Ascii
+      Wire.begin();
+      Wire.setClock(400000L);
+      oled.begin(&Adafruit128x32, I2C_ADDRESS);
+      oled.setFont(Arial_bold_14); // choose font
+      oled.setLetterSpacing(2);
+      oled.clear(); 
+
+
+      delay(1000);  
+
+      //setBeepCount(2);
+
+      write2Display("FABI\nButton Interface");
+
+      
+
+      //NeoPixel:
+      pixels.begin();
+      for(uint8_t i = 0; i < 50; i++){
+        pixels.setPixelColor(0, pixels.Color(i, 0, 0));  
+        pixels.show();
+        delay(10);
+      }
+      digitalWrite(buzzerPIN, HIGH);
+      for(uint8_t i = 50; i > 15; i--){
+        pixels.setPixelColor(0, pixels.Color(i, 0, 0));  
+        pixels.show();
+        delay(5);
+      }
+      digitalWrite(buzzerPIN, LOW);
+
+      
+
+     
+      //pixels.setPixelColor(1, pixels.Color(15, 0, 0));  
+      //pixels.show();
+
+
+      //Serial1.println("AT");
+
+      delay(100);  
+/*
+      Serial1.end();
+*/
+
+      Serial1.begin(9600);
+      //while(!Serial1);
+
+      
+
+     // Serial.write("AT SA newSlot\n");
+
+      
+   }
+   else{   
+    pinMode(LED_PIN,OUTPUT);
+    
+    for (int i=0; i<NUMBER_OF_LEDS; i++)   // initialize physical buttons and bouncers
+       pinMode (led_map[i], OUTPUT);   // configure the pins for input mode with pullup resistors
+   }
+
 
    for (int i=0; i<NUMBER_OF_PHYSICAL_BUTTONS; i++)   // initialize physical buttons and bouncers
-      pinMode (input_map[i], INPUT_PULLUP);   // configure the pins for input mode with pullup resistors
-
-   for (int i=0; i<NUMBER_OF_LEDS; i++)   // initialize physical buttons and bouncers
-      pinMode (led_map[i], OUTPUT);   // configure the pins for input mode with pullup resistors
+        pinMode (input_map[i], INPUT_PULLUP);   // configure the pins for input mode with pullup resistors
 
    for (int i=0; i<NUMBER_OF_BUTTONS; i++)   // initialize button array
    {
@@ -119,11 +252,13 @@ void setup() {
 
    initDebouncers(); 
 
-   readFromEEPROM(0);  // read button modes from first EEPROM slot if available !  
+   readFromEEPROM(0);  // read button modes from first EEPROM slot      if available !  
    BlinkLed();
    if (DebugOutput==1) {  
      Serial.print(F("Free RAM:"));  Serial.println(freeRam());
    }
+
+    //deleteSlots();
    
    /* Enable for debugging the clock registers in any case of problems.
    delay(1000);
@@ -143,23 +278,46 @@ void setup() {
 
 
 void loop() {  
- 
+/*
+      //Serial.println("hello world");
+ */
 
       pressure = analogRead(PRESSURE_SENSOR_PIN);
 
-      while (Serial.available() > 0) {
-        // get incoming byte:
-        inByte = Serial.read();
-        parseByte (inByte);      // implemented in parser.cpp
+      //Serial.println(pressure);
+
+      if(!PCBversion){
+        while (Serial.available() > 0) {
+          // get incoming byte:
+            inByte = Serial.read();
+            parseByte (inByte);      // implemented in parser.cpp
+        }
+      }
+      else if(PCBversion == 1){
+        while (Serial.available() > 0) {
+          // get incoming byte:
+            inByte = Serial.read();
+            parseByte (inByte);      // implemented in parser.cpp
+        }
+        /*
+        while (Serial1.available() > 0) {
+          // get incoming byte:
+            inByte = Serial1.read();
+            parseByte (inByte);      // implemented in parser.cpp
+        }
+
+        */
       }
     
       for (int i=0;i<NUMBER_OF_PHYSICAL_BUTTONS;i++)    // update button press / release events
           handleButton(i, i+6, digitalRead(input_map[i]) == LOW ? BUTTON_PRESSED : BUTTON_RELEASED);    
 
+
+
       if (settings.ts>0)    handleButton(SIP_BUTTON, -1, pressure < settings.ts ? BUTTON_PRESSED : BUTTON_RELEASED); 
       if (settings.tp<1023) handleButton(PUFF_BUTTON, -1, pressure > settings.tp ? BUTTON_PRESSED : BUTTON_RELEASED);
 
-        
+     
       if (moveX==0) moveXcnt=0; 
       if (moveY==0) moveYcnt=0; 
       if ((moveX!=0) || (moveY!=0))   // movement induced by button actions  
@@ -172,7 +330,7 @@ void loop() {
           Mouse.move(moveX * moveXcnt/MOUSE_ACCELDELAY, moveY * moveYcnt/MOUSE_ACCELDELAY);
         }
       }
-
+  
       // handle running clicks or double clicks
       if (leftClickRunning)
           if (--leftClickRunning==0)  leftMouseButton=0; 
@@ -182,7 +340,7 @@ void loop() {
    
       if (middleClickRunning)
           if (--middleClickRunning==0)  middleMouseButton=0; 
-  
+
       if (doubleClickRunning)
       {
           doubleClickRunning--;
@@ -190,31 +348,75 @@ void loop() {
           else if (doubleClickRunning==clickTime)    leftMouseButton=1; 
           else if (doubleClickRunning==0)    leftMouseButton=0; 
       }
+
+        
  
-      // if any changes were made, update the Mouse buttons
+      // if any changes were made, updataaae the Mouse buttons
       if(leftMouseButton!=old_leftMouseButton) {
          if (leftMouseButton) Mouse.press(MOUSE_LEFT); else Mouse.release(MOUSE_LEFT);
          old_leftMouseButton=leftMouseButton;
       }
       if  (middleMouseButton!=old_middleMouseButton) {
-         if (middleMouseButton) Mouse.press(MOUSE_MIDDLE); else Mouse.release(MOUSE_MIDDLE);
-         old_middleMouseButton=middleMouseButton;
-      }
+              if (middleMouseButton) Mouse.press(MOUSE_MIDDLE); else Mouse.release(MOUSE_MIDDLE);
+           old_middleMouseButton=middleMouseButton;
+       }
       if  (rightMouseButton!=old_rightMouseButton)  {
          if (rightMouseButton) Mouse.press(MOUSE_RIGHT); else Mouse.release(MOUSE_RIGHT);
          old_rightMouseButton=rightMouseButton;
     }
     
+    
+
+/*
     if (reportRawValues)   { 
        if (valueReportCount++ > 10) {      // report raw values !
            Serial.print("VALUES:");Serial.print(pressure);Serial.println(",");  
         valueReportCount=0; 
       }
+    }*/
+
+
+
+    if(PCBversion){
+      if(beepCounter > 0){                  //tone
+        if(beepTime > BEEP_duration){
+          digitalWrite(buzzerPIN, HIGH);
+          beepTime--; 
+        }
+        else if(beepTime > 0){                //no tone
+          digitalWrite(buzzerPIN, LOW);
+          beepTime--;
+        }
+        else{
+          beepTime = BEEP_duration*2;
+          beepCounter--;
+        }
+      }
+
+      if(dimmLEDcounter < neoPix_Brightness){
+        if(dimmLEDcounter < 0)
+        {
+          pixels.setPixelColor(0, pixels.Color(neoPix_r_old*((0-dimmLEDcounter)/10), neoPix_b_old*((0-dimmLEDcounter)/10), neoPix_g_old*((0-dimmLEDcounter)/10)));
+        }
+        else{
+          pixels.setPixelColor(0, pixels.Color(neoPix_r*(dimmLEDcounter/10), neoPix_b*(dimmLEDcounter/10), neoPix_g*(dimmLEDcounter/10)));
+        }
+        pixels.show();
+        dimmLEDcounter++;
+      }
+      
+
+
     }
-       
-    UpdateLeds();
     
-  /*
+
+  
+       
+   // UpdateLeds();
+    
+
+
+   /*
     //we need a workaround for different clock settings on Arduino Pro Micro boards.
     //millis is not working correctly, the delay seems to be 8x higher if wrong clock
     //settings are active. If the "defect" Pro Micro is booted via double reset, it works.
@@ -222,7 +424,7 @@ void loop() {
     //for driving USB with 48MHz.
     
     //Good clock settings: CLKPR = 0 (no prescaler); PLLFRQ = 0x4A (96MHz PLL, divide by 2 for USB)
-    //"Bad" clock settings: CLKPR = 0x03 (prescaler 8); PLLFRQ = 0x04 (48MHz PLL, USB connected directly
+    //"Bad" clock settings: CLKPR = 0x03 (prescaler 8); PLLFRQ = 0x04 (48MHz PLL, USB connected directly)
     #ifdef ARDUINO_PRO_MICRO
 		//these register settings might be used with 8MHz too, and there is no problem if F_CPU is also 8MHz.
 		#if F_CPU == 16000000l
@@ -238,10 +440,11 @@ void loop() {
     #else
 		delay(waitTime);  // to limit movement speed. TBD: remove delay, use millis() !
 	#endif
+*/
+  
 
-  */
- 
-			delay(waitTime);
+  delay(waitTime); 
+  
 }
 
 
@@ -260,6 +463,97 @@ void handleRelease (int buttonIndex)    // a button was released
      case CMD_MY: moveY=0; break;      
      case CMD_KP: releaseSingleKeys(getKeystring(buttonIndex)); break; 
    }
+}
+
+void setBeepCount(uint16_t count){
+  beepCounter = count;
+}
+
+void updateSlot(uint8_t newSlotNumber){
+
+
+//  newSlotNumber%2 = 1 0 1 0 1 0
+//  !(newSlotNumber%2) = 0 1 0 1 0 1
+
+  //pixels.setPixelColor(0, pixels.Color((newSlotNumber%2)*15, ((newSlotNumber-1)%2)*15, (newSlotNumber%3)*6));
+  
+  neoPix_r_old = neoPix_r;
+  neoPix_g_old = neoPix_g;
+  neoPix_b_old = neoPix_b;
+
+
+  neoPix_r = (newSlotNumber%2);
+  neoPix_g = ((newSlotNumber-1)%2);
+  neoPix_b = (newSlotNumber%3)*2;
+
+  //pixels.setPixelColor(0, pixels.Color(neoPix_r, neoPix_b, neoPix_g));
+
+
+  dimmLEDcounter = -neoPix_Brightness;
+
+
+  /*
+
+  switch(newSlotNumber){
+    case 1: 
+      pixels.setPixelColor(0, pixels.Color(15, 0, 0));  //r g b
+      break;
+    case 2:
+      pixels.setPixelColor(0, pixels.Color(0, 15, 0));  
+      break;
+    case 3:
+      pixels.setPixelColor(0, pixels.Color(0, 0, 15));  
+      break;
+    case 4:
+      pixels.setPixelColor(0, pixels.Color(15, 15, 0));  
+      break;
+    default:
+      pixels.setPixelColor(0, pixels.Color(15, 15, 15));  
+      break;
+  }
+  */
+
+  //pixels.show();
+}
+
+
+//beep 'numberOFbeeps' times to give some audio feedback 
+void beepXtimes(uint8_t numberOFbeeps){        
+  if(buzzerPIN){  
+    for(uint8_t i = 0; i < numberOFbeeps; i++){
+       digitalWrite(buzzerPIN, HIGH);
+       _delay_ms(125);
+       digitalWrite(buzzerPIN, LOW);
+       _delay_ms(125);
+    }
+  }
+} 
+
+//write given text to OLED display 
+void write2Display(const char* text){
+
+  oled.clear();
+  oled.println(text);
+ 
+ /*
+  u8g2.clearBuffer();
+  //u8g2.clearDisplay();
+  
+  u8g2.setFont(u8g2_font_t0_16b_tr);	// choose a suitable font
+  u8g2.drawStr(0,12, text);	// write something to the internal memory
+  u8g2.sendBuffer();					// transfer internal memory to the display
+  */
+}
+void write2Display(const char* text, uint8_t vPos, uint8_t noClear){
+  /*
+  if(!noClear){
+    u8g2.clearBuffer();
+  }
+  
+  //u8g2.setFont(u8g2_font_t0_18b_tr);	// choose a suitable font
+  u8g2.drawStr(0,vPos, text);	// write something to the internal memory
+  u8g2.sendBuffer();					// transfer internal memory to the display
+  */
 }
 
 void initDebouncers()
@@ -401,3 +695,4 @@ int freeRam ()
     int v;
     return (int) &v - (__brkval == 0 ? (int) &__heap_start : (int) __brkval);
 }
+

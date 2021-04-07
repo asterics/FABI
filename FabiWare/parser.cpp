@@ -77,7 +77,9 @@ void parseCommand (char * cmdstr)
     } 
        
     if (cmd>-1)  performCommand(cmd,num,actpos,0);        
-    else   Serial.println('?');              
+    else if (!PCBversion) {
+      Serial.println('?');    
+    }          
 }
 
 
@@ -95,7 +97,10 @@ void parseByte (int newByte)  // parse an incoming commandbyte from serial inter
             break;
         case 2: 
                 if ((newByte==13) || (newByte==10))  // AT reply: "OK" 
-                {  Serial.println(F("OK"));  readstate=0; }
+                {  
+                  if(!PCBversion)
+                    Serial.println(F("OK"));  readstate=0; 
+                }
                 else if (newByte==' ') { cmdlen=0; readstate++; } 
                 else goto err;
             break;
@@ -105,7 +110,7 @@ void parseByte (int newByte)  // parse an incoming commandbyte from serial inter
                   readstate=0; }
                 else if(cmdlen<MAX_CMDLEN-1) cmdstring[cmdlen++]=newByte; 
             break;   
-        default: err: Serial.println('?');readstate=0;
+        default: err: if(!PCBversion){ Serial.println('?');readstate=0; }
    }
 }
 

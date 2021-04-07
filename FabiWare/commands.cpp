@@ -1,6 +1,7 @@
 
 #include "fabi.h"
 
+char txtBuf[20] = "";
 
 const struct atCommandType atCommands[] PROGMEM = {
     {"ID"  , PARTYPE_NONE },  {"BM"  , PARTYPE_UINT }, {"CL"  , PARTYPE_NONE }, {"CR"  , PARTYPE_NONE },
@@ -181,13 +182,24 @@ void performCommand (uint8_t cmd, int16_t parNum, char * parString, int8_t perio
                if (DebugOutput==1) 
                {  Serial.print(F("mouse move x ")); Serial.println(parNum); }
                if (periodicMouseMovement) moveX=parNum;
-               else Mouse.move(parNum, 0);
+               else{
+                 Mouse.move(parNum, 0); 
+               } 
+               if(parNum > 0)
+                  Serial1.print('a');
+                else
+                  Serial1.print('d');
             break;
         case CMD_MY:
                if (DebugOutput==1)   
                {  Serial.print(F("mouse move y ")); Serial.println(parNum); }
                if (periodicMouseMovement) moveY=parNum;
                else Mouse.move(0, parNum);
+
+               if(parNum > 0)
+                  Serial1.print('s');
+                else
+                  Serial1.print('w');
             break;
         case CMD_KW:
                if (DebugOutput==1)   
@@ -243,14 +255,40 @@ void performCommand (uint8_t cmd, int16_t parNum, char * parString, int8_t perio
                
                release_all();
                listSlots();
-            break;
+            break; 
         case CMD_NE:
                if (DebugOutput==1) {
                  Serial.println(F("load next slot"));
                  reportSlotParameters=REPORT_ONE_SLOT;
-               }
+                 
+               }           
+               
+
                release_all();
                readFromEEPROM(0);
+               //beepXtimes(actSlot);     //audio feedback for the current slot 
+               
+               
+               updateSlot(actSlot);
+
+               setBeepCount(actSlot);  //set some beep count -> time (dependend on loop time)
+
+               
+              
+            
+              sprintf(txtBuf, "Slot %d:\n%s", actSlot, settings.slotname);
+
+              write2Display(txtBuf);
+
+              //write2Display(settings.slotname);
+/*
+                write2Display("Slot:");
+                write2Display(settings.slotname, 28, 1);
+
+*/
+
+              //  write2Display("no", 28, 0);
+
                reportSlotParameters=REPORT_NONE;
                break;
         case CMD_DE:

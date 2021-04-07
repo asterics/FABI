@@ -129,6 +129,7 @@ void readFromEEPROM(char * slotname)
         p = (uint8_t*) buttons;
         for (int i=0;i<NUMBER_OF_BUTTONS*sizeof(buttonType);i++) 
            *p++=EEPROM.read(address++);
+           
 
         p = (uint8_t*) keystringBuffer;
         stringCount=0;
