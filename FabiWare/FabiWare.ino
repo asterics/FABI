@@ -101,7 +101,7 @@ uint16_t beepTime = BEEP_duration*2;       // beepTime also includes the time wi
 uint8_t beepCounter = 0;       // how often to beep
 uint8_t PCBversion = 0;
 
-uint8_t neoPix_Brightness = 50;
+uint8_t neoPix_Brightness = 100;
 int8_t dimmLEDcounter = neoPix_Brightness;
 uint8_t neoPix_r = 0;
 uint8_t neoPix_g = 0;
@@ -185,12 +185,11 @@ void setup() {
       oled.clear(); 
 
 
+      write2Display("FABI\nButton Interface");
+
       delay(1000);  
 
       //setBeepCount(2);
-
-      write2Display("FABI\nButton Interface");
-
       
 
       //NeoPixel:
@@ -198,15 +197,17 @@ void setup() {
       for(uint8_t i = 0; i < 50; i++){
         pixels.setPixelColor(0, pixels.Color(i, 0, 0));  
         pixels.show();
+        if(i == 30)
+         digitalWrite(buzzerPIN, HIGH);
         delay(10);
       }
-      digitalWrite(buzzerPIN, HIGH);
-      for(uint8_t i = 50; i > 15; i--){
+      digitalWrite(buzzerPIN, LOW);
+      for(uint8_t i = 50; i > 50; i--){
         pixels.setPixelColor(0, pixels.Color(i, 0, 0));  
         pixels.show();
         delay(5);
       }
-      digitalWrite(buzzerPIN, LOW);
+      neoPix_r = 1;
 
       
 
@@ -256,6 +257,12 @@ void setup() {
    BlinkLed();
    if (DebugOutput==1) {  
      Serial.print(F("Free RAM:"));  Serial.println(freeRam());
+   }
+
+   if(PCBversion){
+     oled.clear();
+     oled.println("Slot 1:");
+     oled.print(settings.slotname);
    }
 
     //deleteSlots();
@@ -396,10 +403,10 @@ void loop() {
       if(dimmLEDcounter < neoPix_Brightness){
         if(dimmLEDcounter < 0)
         {
-          pixels.setPixelColor(0, pixels.Color(neoPix_r_old*((0-dimmLEDcounter)/10), neoPix_b_old*((0-dimmLEDcounter)/10), neoPix_g_old*((0-dimmLEDcounter)/10)));
+          pixels.setPixelColor(0, pixels.Color(neoPix_r_old*((0-dimmLEDcounter)/2), neoPix_b_old*((0-dimmLEDcounter)/2), neoPix_g_old*((0-dimmLEDcounter)/2)));
         }
         else{
-          pixels.setPixelColor(0, pixels.Color(neoPix_r*(dimmLEDcounter/10), neoPix_b*(dimmLEDcounter/10), neoPix_g*(dimmLEDcounter/10)));
+          pixels.setPixelColor(0, pixels.Color(neoPix_r*(dimmLEDcounter/2), neoPix_b*(dimmLEDcounter/2), neoPix_g*(dimmLEDcounter/2)));
         }
         pixels.show();
         dimmLEDcounter++;
@@ -481,37 +488,33 @@ void updateSlot(uint8_t newSlotNumber){
   neoPix_g_old = neoPix_g;
   neoPix_b_old = neoPix_b;
 
-
+/*
   neoPix_r = (newSlotNumber%2);
   neoPix_g = ((newSlotNumber-1)%2);
   neoPix_b = (newSlotNumber%3)*2;
+*/
 
+  switch(newSlotNumber){
+    case 1: 
+      neoPix_r = 1; neoPix_g = 0; neoPix_b = 0;
+      break;
+    case 2:
+      neoPix_r = 0; neoPix_g = 1; neoPix_b = 0;
+      break;
+    case 3:
+      neoPix_r = 0; neoPix_g = 0; neoPix_b = 1;
+      break;
+    case 4:
+      neoPix_r = 1; neoPix_g = 1; neoPix_b = 0;
+      break;
+    default:
+      neoPix_r = 1; neoPix_g = 0; neoPix_b = 1;
+      break;
+  }
   //pixels.setPixelColor(0, pixels.Color(neoPix_r, neoPix_b, neoPix_g));
 
 
   dimmLEDcounter = -neoPix_Brightness;
-
-
-  /*
-
-  switch(newSlotNumber){
-    case 1: 
-      pixels.setPixelColor(0, pixels.Color(15, 0, 0));  //r g b
-      break;
-    case 2:
-      pixels.setPixelColor(0, pixels.Color(0, 15, 0));  
-      break;
-    case 3:
-      pixels.setPixelColor(0, pixels.Color(0, 0, 15));  
-      break;
-    case 4:
-      pixels.setPixelColor(0, pixels.Color(15, 15, 0));  
-      break;
-    default:
-      pixels.setPixelColor(0, pixels.Color(15, 15, 15));  
-      break;
-  }
-  */
 
   //pixels.show();
 }
