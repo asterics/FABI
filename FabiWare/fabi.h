@@ -150,8 +150,8 @@ void parseByte (int newByte);
 
 void setBeepCount(uint16_t count);
 void beepXtimes(uint8_t numberOFbeeps);
-void write2Display(const char* text);
-void write2Display(const char* text, uint8_t vPos, uint8_t noClear);   //optional vertical Position of text on display, noClear = 1 if display should not be cleared
+void write2Display(const char* text, uint8_t newLine);
+void writeSlot2Display();
 void updateSlot(uint8_t newSlotNumber);
 
 int getKeycode(char*);
@@ -168,7 +168,14 @@ typedef uint_farptr_t uint_farptr_t_FM;
 
 
 // fabi logo for 128x32 OLED screen; height:32px widht: 55px
+/*
 const unsigned char FABIlogo [] PROGMEM = {
+  };
+  */
+
+
+
+  const uint8_t FABIlogo1 [] PROGMEM = {
   0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
   0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
   0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xE0, 0x78, 0x00, 0x00, 

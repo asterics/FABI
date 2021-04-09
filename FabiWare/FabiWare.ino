@@ -12,6 +12,7 @@
 
 */
 
+
 #include "fabi.h"
 #include <EEPROM.h>
 
@@ -19,10 +20,18 @@
 #include <Arduino.h>
 #include <Wire.h>
 #include <SPI.h>
-#include "SSD1306Ascii.h"
-#include "SSD1306AsciiWire.h"
-// #include <U8g2lib.h>
-#include <Adafruit_NeoPixel.h>
+//#include "SSD1306Ascii.h"
+//#include "SSD1306AsciiWire.h"
+//#include <U8g2lib.h>
+
+#include <WS2812.h>
+//#include <Adafruit_NeoPixel.h>
+
+#include "ssd1306.h"
+
+#include "nano_gfx.h"
+
+
 
 // global variables
 
@@ -44,12 +53,12 @@ uint8_t DebugOutput=0;  // Use 1 for chatty serial output (but it won't be compa
 
 #define I2C_ADDRESS 0x3C
 
-SSD1306AsciiWire oled;
+//SSD1306AsciiWire oled;
 
 
 //U8G2_SSD1306_128X32_UNIVISION_F_HW_I2C u8g2(U8G2_R0, /* reset=*/ U8X8_PIN_NONE);  // Adafruit ESP8266/32u4/ARM Boards + FeatherWing OLED
 
-Adafruit_NeoPixel pixels = Adafruit_NeoPixel(PIXELS_NUMBER, PIXELS_PIN, NEO_GRB + NEO_KHZ800);
+//Adafruit_NeoPixel pixels = Adafruit_NeoPixel(PIXELS_NUMBER, PIXELS_PIN, NEO_GRB + NEO_KHZ800);
 
 
 #ifdef TEENSY
@@ -118,6 +127,9 @@ uint8_t cnt =0,cnt2=0;
 
 uint8_t buzzerPIN = 0;
 
+WS2812 pixels(1); 
+cRGB pixColor;
+
 
 // function declarations 
 void handlePress (int buttonIndex);      // a button was pressed
@@ -177,15 +189,17 @@ void setup() {
       */
 
       //Display: Ascii
+     /*
       Wire.begin();
       Wire.setClock(400000L);
       oled.begin(&Adafruit128x32, I2C_ADDRESS);
       oled.setFont(Arial_bold_14); // choose font
       oled.setLetterSpacing(2);
       oled.clear(); 
+*/
 
+   
 
-      write2Display("FABI\nButton Interface");
 
       delay(1000);  
 
@@ -193,6 +207,62 @@ void setup() {
       
 
       //NeoPixel:
+      pixels.setOutput(PIXELS_PIN); 
+      pixels.setColorOrderGRB();
+     
+      pixColor.r = 0; pixColor.g = 0; pixColor.b = 0; // RGB Value
+      pixels.set_crgb_at(0, pixColor);
+      pixels.sync(); // Sends the value to the LED
+
+
+      //Pixel & buzzer startup sequenc:
+      for(uint8_t i = 0; i < 60; i++){
+        pixColor.r = i; 
+        pixels.set_crgb_at(0, pixColor);  
+        pixels.sync();
+        
+         
+        delay(10);
+      }
+
+      //Display:
+       /* Select the font to use with menu and all font functions */
+      //ssd1306_setFixedFont(ssd1306xled_font6x8);
+      ssd1306_setFixedFont(ssd1306xled_font8x16);
+      //ssd1306_setFreeFont(free_calibri11x12);
+      //ssd1306_print("FABI123");
+
+      ssd1306_128x32_i2c_init();
+
+      ssd1306_clearScreen();
+
+      //ssd1306_print("Normal text");
+      ssd1306_drawXBitmap(36, 0, 55, 32, FABIlogo1);
+
+      
+      digitalWrite(buzzerPIN, HIGH);
+
+
+      for(uint8_t i = 60; i > 50; i--){
+        pixColor.r = i; 
+        pixels.set_crgb_at(0, pixColor);  
+        pixels.sync();
+        delay(10);
+      }
+      digitalWrite(buzzerPIN, LOW);
+
+      neoPix_r = 1;
+
+     
+
+      
+/* 
+      ssd1306_clearScreen();
+      ssd1306_printFixed(0, 0, "FABI", STYLE_BOLD);
+      ssd1306_printFixed(0, 20, "Button Interface", STYLE_NORMAL);
+*/
+      
+      /*
       pixels.begin();
       for(uint8_t i = 0; i < 50; i++){
         pixels.setPixelColor(0, pixels.Color(i, 0, 0));  
@@ -207,8 +277,7 @@ void setup() {
         pixels.show();
         delay(5);
       }
-      neoPix_r = 1;
-
+*/
       
 
      
@@ -218,7 +287,7 @@ void setup() {
 
       //Serial1.println("AT");
 
-      delay(100);  
+      delay(1000);  
 /*
       Serial1.end();
 */
@@ -259,11 +328,16 @@ void setup() {
      Serial.print(F("Free RAM:"));  Serial.println(freeRam());
    }
 
+
    if(PCBversion){
+     writeSlot2Display();
+
+     /*
      oled.clear();
      oled.println("Slot 1:");
-     oled.print(settings.slotname);
+     oled.print(settings.slotname);*/
    }
+
 
     //deleteSlots();
    
@@ -403,12 +477,20 @@ void loop() {
       if(dimmLEDcounter < neoPix_Brightness){
         if(dimmLEDcounter < 0)
         {
-          pixels.setPixelColor(0, pixels.Color(neoPix_r_old*((0-dimmLEDcounter)/2), neoPix_b_old*((0-dimmLEDcounter)/2), neoPix_g_old*((0-dimmLEDcounter)/2)));
+          pixColor.r = neoPix_r_old*((0-dimmLEDcounter)/2);
+          pixColor.g = neoPix_b_old*((0-dimmLEDcounter)/2);
+          pixColor.b = neoPix_g_old*((0-dimmLEDcounter)/2);
+          //pixels.setPixelColor(0, pixels.Color(neoPix_r_old*((0-dimmLEDcounter)/2), neoPix_b_old*((0-dimmLEDcounter)/2), neoPix_g_old*((0-dimmLEDcounter)/2)));
         }
         else{
-          pixels.setPixelColor(0, pixels.Color(neoPix_r*(dimmLEDcounter/2), neoPix_b*(dimmLEDcounter/2), neoPix_g*(dimmLEDcounter/2)));
+          pixColor.r = neoPix_r*(dimmLEDcounter/2);
+          pixColor.g = neoPix_b*(dimmLEDcounter/2);
+          pixColor.b = neoPix_g*(dimmLEDcounter/2);
+          //pixels.setPixelColor(0, pixels.Color(neoPix_r*(dimmLEDcounter/2), neoPix_b*(dimmLEDcounter/2), neoPix_g*(dimmLEDcounter/2)));
         }
-        pixels.show();
+        pixels.set_crgb_at(0, pixColor);
+        pixels.sync();
+        //pixels.show();
         dimmLEDcounter++;
       }
       
@@ -451,7 +533,7 @@ void loop() {
   
 
   delay(waitTime); 
-  
+   
 }
 
 
@@ -478,12 +560,6 @@ void setBeepCount(uint16_t count){
 
 void updateSlot(uint8_t newSlotNumber){
 
-
-//  newSlotNumber%2 = 1 0 1 0 1 0
-//  !(newSlotNumber%2) = 0 1 0 1 0 1
-
-  //pixels.setPixelColor(0, pixels.Color((newSlotNumber%2)*15, ((newSlotNumber-1)%2)*15, (newSlotNumber%3)*6));
-  
   neoPix_r_old = neoPix_r;
   neoPix_g_old = neoPix_g;
   neoPix_b_old = neoPix_b;
@@ -511,12 +587,8 @@ void updateSlot(uint8_t newSlotNumber){
       neoPix_r = 1; neoPix_g = 0; neoPix_b = 1;
       break;
   }
-  //pixels.setPixelColor(0, pixels.Color(neoPix_r, neoPix_b, neoPix_g));
-
 
   dimmLEDcounter = -neoPix_Brightness;
-
-  //pixels.show();
 }
 
 
@@ -533,30 +605,30 @@ void beepXtimes(uint8_t numberOFbeeps){
 } 
 
 //write given text to OLED display 
-void write2Display(const char* text){
-
+void write2Display(const char* text, uint8_t newLine){
+/*
   oled.clear();
-  oled.println(text);
- 
- /*
-  u8g2.clearBuffer();
-  //u8g2.clearDisplay();
+  if(newLine)
+    oled.println(text);
+  else
+    oled.print(text);
+*/
   
-  u8g2.setFont(u8g2_font_t0_16b_tr);	// choose a suitable font
-  u8g2.drawStr(0,12, text);	// write something to the internal memory
-  u8g2.sendBuffer();					// transfer internal memory to the display
-  */
 }
-void write2Display(const char* text, uint8_t vPos, uint8_t noClear){
+
+void writeSlot2Display(){ 
+  ssd1306_clearScreen();
+
+  ssd1306_printFixed(0, 0, "Slot:", STYLE_NORMAL);
+  ssd1306_printFixed(0, 20, settings.slotname, STYLE_BOLD);
+
   /*
-  if(!noClear){
-    u8g2.clearBuffer();
-  }
-  
-  //u8g2.setFont(u8g2_font_t0_18b_tr);	// choose a suitable font
-  u8g2.drawStr(0,vPos, text);	// write something to the internal memory
-  u8g2.sendBuffer();					// transfer internal memory to the display
-  */
+   oled.clear();
+   oled.print("Slot ");
+   oled.print(actSlot);
+   oled.println(":");
+   oled.print(settings.slotname);
+*/
 }
 
 void initDebouncers()

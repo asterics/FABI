@@ -1,7 +1,6 @@
 
 #include "fabi.h"
 
-char txtBuf[20] = "";
 
 const struct atCommandType atCommands[] PROGMEM = {
     {"ID"  , PARTYPE_NONE },  {"BM"  , PARTYPE_UINT }, {"CL"  , PARTYPE_NONE }, {"CR"  , PARTYPE_NONE },
@@ -268,17 +267,14 @@ void performCommand (uint8_t cmd, int16_t parNum, char * parString, int8_t perio
                readFromEEPROM(0);
                //beepXtimes(actSlot);     //audio feedback for the current slot 
                
-               
-               updateSlot(actSlot);
+              if(PCBversion){
+                updateSlot(actSlot);    // update the Slot color of the LED 
 
-               setBeepCount(actSlot);  //set some beep count -> time (dependend on loop time)
+                setBeepCount(actSlot);  // set some beep count -> time (dependend on loop time)
 
-               
+                writeSlot2Display();  	//update the info on the Display 
+              }
               
-            
-              sprintf(txtBuf, "Slot %d:\n%s", actSlot, settings.slotname);
-
-              write2Display(txtBuf);
 
               //write2Display(settings.slotname);
 /*
