@@ -29,9 +29,6 @@
 
 #include "ssd1306.h"
 
-#include "nano_gfx.h"
-
-
 
 // global variables
 
