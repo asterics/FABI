@@ -221,11 +221,11 @@ L Device:R R8
 U 1 1 601AB4BF
 P 9060 4965
 F 0 "R8" V 9267 4965 50  0000 C CNN
-F 1 "150" V 9176 4965 50  0000 C CNN
+F 1 "200" V 9176 4965 50  0000 C CNN
 F 2 "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal" V 8990 4965 50  0001 C CNN
 F 3 "~" H 9060 4965 50  0001 C CNN
-F 4 "https://at.rs-online.com/web/p/widerstande-durchsteckmontage/1650319/" V 9060 4965 50  0001 C CNN "RS"
-F 5 "165-0319" V 9060 4965 50  0001 C CNN "RS-Nr"
+F 4 "https://at.rs-online.com/web/p/widerstande-durchsteckmontage/6833281/" V 9060 4965 50  0001 C CNN "RS"
+F 5 "683-3281" V 9060 4965 50  0001 C CNN "RS-Nr"
 	1    9060 4965
 	0    -1   -1   0   
 $EndComp
@@ -270,11 +270,11 @@ L Device:R R_8
 U 1 1 6037812A
 P 9060 5115
 F 0 "R_8" V 8945 5115 50  0000 C CNN
-F 1 "150" V 8854 5115 50  0000 C CNN
+F 1 "200" V 8854 5115 50  0000 C CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 8990 5115 50  0001 C CNN
 F 3 "~" H 9060 5115 50  0001 C CNN
-F 4 "https://at.rs-online.com/web/p/smd-widerstande/9059679/" V 9060 5115 50  0001 C CNN "RS"
-F 5 "905-9679" V 9060 5115 50  0001 C CNN "RS-Nr"
+F 4 "https://at.rs-online.com/web/p/smd-widerstande/8101741/" V 9060 5115 50  0001 C CNN "RS"
+F 5 "810-1741" V 9060 5115 50  0001 C CNN "RS-Nr"
 	1    9060 5115
 	0    -1   -1   0   
 $EndComp
@@ -450,25 +450,15 @@ F 3 "" H 7620 3040 50  0001 C CNN
 	1    7620 3040
 	0    -1   1    0   
 $EndComp
-Connection ~ 8270 3040
 Connection ~ 7870 3040
-Wire Wire Line
-	8270 3040 8370 3040
-Wire Wire Line
-	7970 3040 8270 3040
 Wire Wire Line
 	7870 3040 7970 3040
 Wire Wire Line
 	7620 3040 7870 3040
 Wire Wire Line
-	8270 3340 8500 3340
-Wire Wire Line
 	8640 3690 8640 3240
 Wire Wire Line
 	8500 3340 8500 3140
-Connection ~ 8270 3340
-Wire Wire Line
-	7870 3340 8270 3340
 Connection ~ 7870 3340
 Wire Wire Line
 	7590 3340 7870 3340
@@ -476,66 +466,9 @@ Wire Wire Line
 	8370 3390 8370 3040
 Wire Wire Line
 	7970 3390 7970 3040
-Connection ~ 8370 3690
-Wire Wire Line
-	8370 3690 8640 3690
-$Comp
-L Device:R R_6
-U 1 1 602F9FD4
-P 8370 3540
-F 0 "R_6" H 8300 3586 50  0000 R CNN
-F 1 "10k" H 8300 3495 50  0000 R CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 8300 3540 50  0001 C CNN
-F 3 "~" H 8370 3540 50  0001 C CNN
-F 4 "https://at.rs-online.com/web/p/smd-widerstande/9059679/" H 8370 3540 50  0001 C CNN "RS"
-F 5 "905-9679" H 8370 3540 50  0001 C CNN "RS-Nr"
-	1    8370 3540
-	1    0    0    1   
-$EndComp
-Wire Wire Line
-	8370 3690 7970 3690
-$Comp
-L Device:R R_7
-U 1 1 602F7E46
-P 8270 3190
-F 0 "R_7" H 8200 3236 50  0000 R CNN
-F 1 "10k" H 8200 3145 50  0000 R CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 8200 3190 50  0001 C CNN
-F 3 "~" H 8270 3190 50  0001 C CNN
-F 4 "https://at.rs-online.com/web/p/smd-widerstande/9059679/" H 8270 3190 50  0001 C CNN "RS"
-F 5 "905-9679" H 8270 3190 50  0001 C CNN "RS-Nr"
-	1    8270 3190
-	1    0    0    1   
-$EndComp
 Wire Wire Line
 	7970 3690 7595 3690
 Connection ~ 7970 3690
-$Comp
-L Device:R R7
-U 1 1 6031DA63
-P 7870 3190
-F 0 "R7" H 7800 3236 50  0000 R CNN
-F 1 "10k" H 7800 3145 50  0000 R CNN
-F 2 "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal" V 7800 3190 50  0001 C CNN
-F 3 "~" H 7870 3190 50  0001 C CNN
-F 4 "https://at.rs-online.com/web/p/widerstande-durchsteckmontage/1650319/" H 7870 3190 50  0001 C CNN "RS"
-F 5 "165-0319" H 7870 3190 50  0001 C CNN "RS-Nr"
-	1    7870 3190
-	1    0    0    1   
-$EndComp
-$Comp
-L Device:R R6
-U 1 1 6031DA69
-P 7970 3540
-F 0 "R6" H 7900 3586 50  0000 R CNN
-F 1 "10k" H 7900 3495 50  0000 R CNN
-F 2 "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal" V 7900 3540 50  0001 C CNN
-F 3 "~" H 7970 3540 50  0001 C CNN
-F 4 "https://at.rs-online.com/web/p/widerstande-durchsteckmontage/1650319/" H 7970 3540 50  0001 C CNN "RS"
-F 5 "165-0319" H 7970 3540 50  0001 C CNN "RS-Nr"
-	1    7970 3540
-	1    0    0    1   
-$EndComp
 Text GLabel 5570 5320 0    39   Input ~ 0
 NEOPIXEL
 $Comp
@@ -1437,4 +1370,71 @@ Wire Notes Line
 	6980 6450 6980 5720
 Text Notes 7040 5680 0    39   ~ 0
 Pin 3 Pulldown (for PCB detection in SW)
+$Comp
+L Device:R R_7
+U 1 1 6074582F
+P 8220 3190
+F 0 "R_7" H 8150 3236 50  0000 R CNN
+F 1 "10k" H 8150 3145 50  0000 R CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 8150 3190 50  0001 C CNN
+F 3 "~" H 8220 3190 50  0001 C CNN
+F 4 "https://at.rs-online.com/web/p/smd-widerstande/8123375/" H 8220 3190 50  0001 C CNN "RS"
+F 5 "812-3375" H 8220 3190 50  0001 C CNN "RS-Nr"
+	1    8220 3190
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7870 3340 8220 3340
+Wire Wire Line
+	7970 3040 8220 3040
+Connection ~ 8220 3040
+Wire Wire Line
+	8220 3040 8370 3040
+Connection ~ 8220 3340
+Wire Wire Line
+	8220 3340 8500 3340
+$Comp
+L Device:R R_6
+U 1 1 6074FD21
+P 8370 3540
+F 0 "R_6" H 8440 3586 50  0000 L CNN
+F 1 "10k" H 8440 3495 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 8300 3540 50  0001 C CNN
+F 3 "~" H 8370 3540 50  0001 C CNN
+F 4 "https://at.rs-online.com/web/p/smd-widerstande/8123375/" H 8370 3540 50  0001 C CNN "RS"
+F 5 "812-3375" H 8370 3540 50  0001 C CNN "RS-Nr"
+	1    8370 3540
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7970 3690 8370 3690
+Connection ~ 8370 3690
+Wire Wire Line
+	8370 3690 8640 3690
+$Comp
+L Device:R R7
+U 1 1 6076ABE6
+P 7870 3190
+F 0 "R7" H 7800 3236 50  0000 R CNN
+F 1 "10k" H 7800 3145 50  0000 R CNN
+F 2 "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal" V 7800 3190 50  0001 C CNN
+F 3 "~" H 7870 3190 50  0001 C CNN
+F 4 "https://at.rs-online.com/web/p/widerstande-durchsteckmontage/1650369/" H 7870 3190 50  0001 C CNN "RS"
+F 5 "165-0369" H 7870 3190 50  0001 C CNN "RS-Nr"
+	1    7870 3190
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R6
+U 1 1 6076FBC9
+P 7970 3540
+F 0 "R6" H 8040 3586 50  0000 L CNN
+F 1 "10k" H 8040 3495 50  0000 L CNN
+F 2 "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal" V 7900 3540 50  0001 C CNN
+F 3 "~" H 7970 3540 50  0001 C CNN
+F 4 "https://at.rs-online.com/web/p/widerstande-durchsteckmontage/1650369/" H 7970 3540 50  0001 C CNN "RS"
+F 5 "165-0369" H 7970 3540 50  0001 C CNN "RS-Nr"
+	1    7970 3540
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
