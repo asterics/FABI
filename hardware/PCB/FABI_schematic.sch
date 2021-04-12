@@ -113,8 +113,8 @@ F 0 "J9" H 7460 5427 50  0000 C CNN
 F 1 "Conn_02x05_Odd_Even" H 7460 5336 50  0000 C CNN
 F 2 "Connector_PinHeader_2.54mm:PinHeader_2x05_P2.54mm_Vertical" H 7410 5010 50  0001 C CNN
 F 3 "~" H 7410 5010 50  0001 C CNN
-F 4 "https://at.rs-online.com/web/p/leiterplatten-header/7457040/" H 7410 5010 50  0001 C CNN "RS"
-F 5 "745-7040" H 7410 5010 50  0001 C CNN "RS-Nr"
+F 4 "https://at.rs-online.com/web/p/leiterplatten-header/7457059/" H 7410 5010 50  0001 C CNN "RS"
+F 5 "745-7059" H 7410 5010 50  0001 C CNN "RS-Nr"
 	1    7410 5010
 	1    0    0    -1  
 $EndComp

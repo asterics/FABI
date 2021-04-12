@@ -1,7 +1,7 @@
 (export (version D)
   (design
     (source E:\daten_2012_11_16\eigene_dokumente\FH\FH\Internship\Git\hardware\PCB\FABI_schematic.sch)
-    (date "12/04/2021 11:30:53")
+    (date "12/04/2021 16:41:40")
     (tool "Eeschema (5.1.8)-1")
     (sheet (number 1) (name /) (tstamps /)
       (title_block
@@ -40,8 +40,8 @@
       (footprint Connector_PinHeader_2.54mm:PinHeader_2x05_P2.54mm_Vertical)
       (datasheet ~)
       (fields
-        (field (name RS) https://at.rs-online.com/web/p/leiterplatten-header/7457040/)
-        (field (name RS-Nr) 745-7040))
+        (field (name RS) https://at.rs-online.com/web/p/leiterplatten-header/7457059/)
+        (field (name RS-Nr) 745-7059))
       (libsource (lib Connector_Generic) (part Conn_02x05_Odd_Even) (description "Generic connector, double row, 02x05, odd/even pin numbering scheme (row 1 odd numbers, row 2 even numbers), script generated (kicad-library-utils/schlib/autogen/connector/)"))
       (sheetpath (names /) (tstamps /))
       (tstamp 5F49020A))
