@@ -10,7 +10,7 @@ const struct atCommandType atCommands[] PROGMEM = {
     {"MY"  , PARTYPE_INT  },  {"KW"  , PARTYPE_STRING},{"KP"  , PARTYPE_STRING},{"KR"  , PARTYPE_STRING},
     {"RA"  , PARTYPE_NONE },  {"SA"  , PARTYPE_STRING},{"LO"  , PARTYPE_STRING},{"LA"  , PARTYPE_NONE },
     {"LI"  , PARTYPE_NONE },  {"NE"  , PARTYPE_NONE }, {"DE"  , PARTYPE_NONE }, {"NC"  , PARTYPE_NONE }, 
-    {"E1"  , PARTYPE_NONE },  {"E0"  , PARTYPE_NONE }, {"SR"  , PARTYPE_NONE }, {"ER"  , PARTYPE_NONE },
+    {"SR"  , PARTYPE_NONE },  {"ER"  , PARTYPE_NONE },
     {"TS"  , PARTYPE_UINT },  {"TP"  , PARTYPE_UINT }, {"MA"  , PARTYPE_STRING},{"WA"  , PARTYPE_UINT  },
     {"TT"  , PARTYPE_UINT },  {"AP"  , PARTYPE_UINT }, {"AR"  , PARTYPE_UINT},  {"AI"  , PARTYPE_UINT  },
     {"FR"  , PARTYPE_NONE }
@@ -58,18 +58,24 @@ void performCommand (uint8_t cmd, int16_t parNum, char * parString, int8_t perio
 
     if (actButton != 0)  // if last command was BM (set buttonmode): store current command for this button !!
     {
-        if (DebugOutput==1) {
+        #ifdef DEBUG_OUTPUT
           Serial.print(F("got new mode for button ")); Serial.print(actButton);Serial.print(':');
           Serial.print(cmd);Serial.print(',');Serial.print(parNum);Serial.print(',');Serial.println(parString);
-        }
+        #endif
         buttons[actButton-1].mode=cmd;
         buttons[actButton-1].value=parNum;
         if (parString==0) setKeystring(actButton-1,"");
         else setKeystring(actButton-1,parString);
         actButton=0;
-        if (DebugOutput==1) {
-           printKeystrings();
-        }
+        #ifdef DEBUG_OUTPUT
+          Serial.print("Used RAM for Keystrings:");Serial.print(keystringMemUsage(0));
+          Serial.print(" (free: ");Serial.print(KEYSTRING_BUFFER_LEN-keystringMemUsage(0));
+          Serial.println(")");
+        
+          for (int i=0;i<NUMBER_OF_BUTTONS;i++) {
+            Serial.print("Keystring ");Serial.print(i);Serial.print(":");Serial.println(getKeystring(i));
+          }
+        #endif
         return;  // do not actually execute the command (just store it)
     }
     
@@ -79,78 +85,79 @@ void performCommand (uint8_t cmd, int16_t parNum, char * parString, int8_t perio
             break;
         case CMD_BM:
                release_all();
-               if (DebugOutput==1)
-               {   Serial.print(F("set mode for button ")); Serial.println(parNum); }
-               
+               #ifdef DEBUG_OUTPUT
+                  Serial.print(F("set mode for button ")); 
+                  Serial.println(parNum);
+               #endif
                if ((parNum>0) && (parNum<=NUMBER_OF_BUTTONS))
                    actButton=parNum;
                else  Serial.println('?');
             break;
         
         case CMD_CL:
-               if (DebugOutput==1)
+               #ifdef DEBUG_OUTPUT
                  Serial.println(F("click left"));
-               
+               #endif
                leftMouseButton=1;  leftClickRunning=DEFAULT_CLICK_TIME;
                break;
         case CMD_CR:
-               if (DebugOutput==1)
+               #ifdef DEBUG_OUTPUT
                  Serial.println(F("click right"));
-               
+               #endif
                rightMouseButton=1; rightClickRunning=DEFAULT_CLICK_TIME;
                break;
         case CMD_CD:
-               if (DebugOutput==1)
+               #ifdef DEBUG_OUTPUT
                  Serial.println(F("click double"));
-               
+               #endif
                leftMouseButton=1;  doubleClickRunning=DEFAULT_CLICK_TIME*DOUBLECLICK_MULTIPLIER;
                break;
         case CMD_CM:
-               if (DebugOutput==1)
+               #ifdef DEBUG_OUTPUT
                  Serial.println(F("click middle"));
-               
+               #endif
                middleMouseButton=1; middleClickRunning=DEFAULT_CLICK_TIME;
               break;
         case CMD_PL:
-               if (DebugOutput==1)
+               #ifdef DEBUG_OUTPUT
                  Serial.println(F("press left"));
-              
+              #endif
                leftMouseButton=1; 
                break;
         case CMD_PR:
-               if (DebugOutput==1)
+               #ifdef DEBUG_OUTPUT
                  Serial.println(F("press right"));
-               
+               #endif
                rightMouseButton=1; 
                break;
         case CMD_PM:
-               if (DebugOutput==1)
+               #ifdef DEBUG_OUTPUT
                  Serial.println(F("press middle"));
-               
+               #endif
                middleMouseButton=1; 
                break;
         case CMD_RL:
-               if (DebugOutput==1)
+               #ifdef DEBUG_OUTPUT
                  Serial.println(F("release left"));
-              
+              #endif
                leftMouseButton=0;
                break; 
         case CMD_RR:
-               if (DebugOutput==1)
+               #ifdef DEBUG_OUTPUT
                  Serial.println(F("release right"));
-               
+               #endif
                rightMouseButton=0;
                break; 
         case CMD_RM:
-               if (DebugOutput==1)
+               #ifdef DEBUG_OUTPUT
                  Serial.println(F("release middle"));
-               
+               #endif
                middleMouseButton=0;
                break; 
         case CMD_WU:
-               if (DebugOutput==1)
+               #ifdef DEBUG_OUTPUT
                  Serial.println(F("wheel up"));
-               
+               #endif
                #ifdef ARDUINO_PRO_MICRO
 				  if(settings.ws != 0) Mouse.move(0,0,-settings.ws); 
 				  else Mouse.move(0,0,-DEFAULT_WHEEL_STEPSIZE); 
@@ -160,9 +167,9 @@ void performCommand (uint8_t cmd, int16_t parNum, char * parString, int8_t perio
                #endif
             break;
         case CMD_WD:
-               if (DebugOutput==1)
+               #ifdef DEBUG_OUTPUT
                  Serial.println(F("wheel down"));
-              
+              #endif
                #ifdef ARDUINO_PRO_MICRO
 				  if(settings.ws != 0) Mouse.move(0,0,settings.ws); 
 				  else Mouse.move(0,0,DEFAULT_WHEEL_STEPSIZE); 
@@ -172,14 +179,16 @@ void performCommand (uint8_t cmd, int16_t parNum, char * parString, int8_t perio
                #endif
             break;
         case CMD_WS:
-               if (DebugOutput==1)
+               #ifdef DEBUG_OUTPUT
                  Serial.println(F("wheel step"));
-               
+               #endif
                settings.ws=parNum;
             break;
         case CMD_MX:
-               if (DebugOutput==1) 
-               {  Serial.print(F("mouse move x ")); Serial.println(parNum); }
+               #ifdef DEBUG_OUTPUT 
+                 Serial.print(F("mouse move x "));
+                 Serial.println(parNum);
+               #endif
                if (periodicMouseMovement) moveX=parNum;
                else{
                  Mouse.move(parNum, 0); 
@@ -190,8 +199,10 @@ void performCommand (uint8_t cmd, int16_t parNum, char * parString, int8_t perio
                   Serial1.print('d');
             break;
         case CMD_MY:
-               if (DebugOutput==1)   
-               {  Serial.print(F("mouse move y ")); Serial.println(parNum); }
+               #ifdef DEBUG_OUTPUT   
+                 Serial.print(F("mouse move y ")); 
+                 Serial.println(parNum);
+               #endif
                if (periodicMouseMovement) moveY=parNum;
                else Mouse.move(0, parNum);
 
@@ -201,36 +212,46 @@ void performCommand (uint8_t cmd, int16_t parNum, char * parString, int8_t perio
                   Serial1.print('w');
             break;
         case CMD_KW:
-               if (DebugOutput==1)   
-               { Serial.print(F("keyboard write: ")); Serial.println(parString); } 
+               #ifdef DEBUG_OUTPUT   
+                Serial.print(F("keyboard write: "));
+                Serial.println(parString); 
+               #endif 
                sendToKeyboard(parString);
                break;
         case CMD_KP:
-               if (DebugOutput==1)   
-               {  Serial.print(F("key press: ")); Serial.println(parString); }
+               #ifdef DEBUG_OUTPUT   
+                 Serial.print(F("key press: "));
+                 Serial.println(parString);
+               #endif
                pressSingleKeys(parString);
                break;
         case CMD_KR:
-               if (DebugOutput==1)   
-               {  Serial.print(F("key release: "));  Serial.println(parString); }
+               #ifdef DEBUG_OUTPUT   
+                 Serial.print(F("key release: "));
+                 Serial.println(parString);
+               #endif
                releaseSingleKeys(parString);             
                break;
         case CMD_RA:
-               if (DebugOutput==1) 
+               #ifdef DEBUG_OUTPUT 
                  Serial.print(F("release all"));
-               
+               #endif
                release_all();             
                break;
               
         case CMD_SA:
-               if (DebugOutput==1) 
-               {  Serial.print(F("save slot "));  Serial.println(parString); }
+               #ifdef DEBUG_OUTPUT 
+                 Serial.print(F("save slot "));
+                 Serial.println(parString);
+               #endif
                release_all();
                saveToEEPROM(parString); 
             break;
         case CMD_LO:
-               if (DebugOutput==1) 
-               {  Serial.print(F("load slot: ")); Serial.println(parString); }
+               #ifdef DEBUG_OUTPUT 
+                 Serial.print(F("load slot: "));
+                 Serial.println(parString);
+               #endif
                if (parString) {
                  release_all();
                  reportSlotParameters=REPORT_ONE_SLOT;
@@ -239,9 +260,9 @@ void performCommand (uint8_t cmd, int16_t parNum, char * parString, int8_t perio
                }
             break;
         case CMD_LA:
-               if (DebugOutput==1) 
+               #ifdef DEBUG_OUTPUT 
                  Serial.println(F("load all slots"));
-               
+               #endif
                release_all();
                reportSlotParameters=REPORT_ALL_SLOTS;
                readFromEEPROM(parString);
@@ -249,19 +270,17 @@ void performCommand (uint8_t cmd, int16_t parNum, char * parString, int8_t perio
                readFromEEPROM(0);
             break;
         case CMD_LI:
-               if (DebugOutput==1) 
+               #ifdef DEBUG_OUTPUT 
                  Serial.println(F("list slots: "));
-               
+               #endif
                release_all();
                listSlots();
             break; 
         case CMD_NE:
-               if (DebugOutput==1) {
+               #ifdef DEBUG_OUTPUT
                  Serial.println(F("load next slot"));
                  reportSlotParameters=REPORT_ONE_SLOT;
-                 
-               }           
-               
+               #endif  
 
                release_all();
                readFromEEPROM(0);
@@ -288,22 +307,16 @@ void performCommand (uint8_t cmd, int16_t parNum, char * parString, int8_t perio
                reportSlotParameters=REPORT_NONE;
                break;
         case CMD_DE:
-               if (DebugOutput==1)   
+               #ifdef DEBUG_OUTPUT   
                  Serial.println(F("delete slots")); 
-               
+               #endif
                release_all();
                deleteSlots(); 
             break;
         case CMD_NC:
-               if (DebugOutput==1) 
-                 Serial.println(F("no command")); 
-            break;
-        case CMD_E1:
-               DebugOutput=1; 
-               Serial.println(F("echo on")); 
-            break;
-        case CMD_E0:
-               DebugOutput=0; 
+               #ifdef DEBUG_OUTPUT 
+                 Serial.println(F("no command"));
+               #endif 
             break;
         case CMD_SR:
               reportRawValues=1;
@@ -312,33 +325,39 @@ void performCommand (uint8_t cmd, int16_t parNum, char * parString, int8_t perio
               reportRawValues=0;
             break;
         case CMD_TS:
-               if (DebugOutput==1)  
+               #ifdef DEBUG_OUTPUT  
                  Serial.println(F("set threshold sip"));
+               #endif
                settings.ts=parNum;
             break;
         case CMD_TP:
-               if (DebugOutput==1)  
+               #ifdef DEBUG_OUTPUT  
                  Serial.println(F("set threshold puff"));
+               #endif
                settings.tp=parNum;
             break;
         case CMD_TT:
-               if (DebugOutput==1)  
+               #ifdef DEBUG_OUTPUT  
                  Serial.println(F("set threshold time"));
+               #endif
                settings.tt=parNum;
             break;
         case CMD_AP:
-               if (DebugOutput==1)  
+               #ifdef DEBUG_OUTPUT  
                  Serial.println(F("set antitremor press"));
+               #endif
                settings.ap=parNum;
             break;
         case CMD_AR:
-               if (DebugOutput==1)  
+               #ifdef DEBUG_OUTPUT  
                  Serial.println(F("set antitremor release"));
+               #endif
                settings.ar=parNum;
             break;
         case CMD_AI:
-               if (DebugOutput==1)  
+               #ifdef DEBUG_OUTPUT  
                  Serial.println(F("set antitremor idle"));
+               #endif
                settings.ai=parNum;
             break;
         case CMD_MA:

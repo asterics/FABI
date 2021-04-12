@@ -27,6 +27,7 @@
 
 #define VERSION_STRING "FABI v2.3"
 
+//#define DEBUG_OUTPUT      //  if debug output is desired
 //#define TEENSY            //  if a Teensy2.0++ controller is used
 #define ARDUINO_PRO_MICRO   //  if Arduino Leonardo or Arduino (Pro) Micro is used 
 
@@ -106,7 +107,6 @@ struct buttonDebouncerType {       // holds working data for button debouncing a
 
 extern uint8_t PCBversion;
 
-extern uint8_t DebugOutput;
 extern uint8_t actSlot;
 extern uint8_t reportSlotParameters;
 extern uint8_t reportRawValues;

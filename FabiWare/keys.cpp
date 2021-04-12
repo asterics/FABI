@@ -1,5 +1,6 @@
 
 #include "fabi.h"
+#include <avr/pgmspace.h>
 
  #define KBD_DE 1
  #define KBD_US 2
@@ -65,96 +66,118 @@
       #define KEY_F22 0xF9
       #define KEY_F23 0xFA
       #define KEY_F24 0xFB
-
 #endif
 
+struct keymap_struct {
+  char *token;
+  int key;
+};
+
+
+const keymap_struct keymap[] PROGMEM  = {   
+  {"SHIFT", KEY_LEFT_SHIFT},
+  {"CTRL", KEY_LEFT_CTRL},
+  {"ALT", KEY_LEFT_ALT},
+  {"RIGHT_ALT", KEY_RIGHT_ALT},
+  {"GUI", KEY_LEFT_GUI},
+  {"RIGHT_GUI", KEY_RIGHT_GUI},
+  {"UP", KEY_UP},
+  {"DOWN", KEY_DOWN},
+  {"LEFT", KEY_LEFT},
+  {"RIGHT", KEY_RIGHT},
+  {"ENTER", KEY_ENTER},
+  {"SPACE", KEY_SPACE},
+  {"ESC", KEY_ESC},
+  {"BACKSPACE", KEY_BACKSPACE},
+  {"TAB", KEY_TAB},
+  {"CAPS_LOCK", KEY_CAPS_LOCK},
+  {"F1", KEY_F1},
+  {"F2", KEY_F2},
+  {"F3", KEY_F3},
+  {"F4", KEY_F4},
+  {"F5", KEY_F5},
+  {"F6", KEY_F6},
+  {"F7", KEY_F7},
+  {"F8", KEY_F8},
+  {"F9", KEY_F9},
+  {"F10", KEY_F10},
+  {"F11", KEY_F11},
+  {"F12", KEY_F12},
+  {"F13", KEY_F13},
+  {"F14", KEY_F14},
+  {"F15", KEY_F15},
+  {"F16", KEY_F16},
+  {"F17", KEY_F17},
+  {"F18", KEY_F18},
+  {"F19", KEY_F19},
+  {"F20", KEY_F20},
+  {"F21", KEY_F21},
+  {"F22", KEY_F22},
+  {"F23", KEY_F23},
+  {"F24", KEY_F24},
+  {"INSERT", KEY_INSERT},
+  {"HOME", KEY_HOME},
+  {"PAGE_UP", KEY_PAGE_UP},
+  {"DELETE", KEY_DELETE},
+  {"END", KEY_END},
+  {"PAGE_DOWN", KEY_PAGE_DOWN},
+  {"A", KEY_A},
+  {"B", KEY_B},
+  {"C", KEY_C},
+  {"D", KEY_D},
+  {"E", KEY_E},
+  {"F", KEY_F},
+  {"G", KEY_G},
+  {"H", KEY_H},
+  {"I", KEY_I},
+  {"J", KEY_J},
+  {"K", KEY_K},
+  {"L", KEY_L},
+  {"M", KEY_M},
+  {"N", KEY_N},
+  {"O", KEY_O},
+  {"P", KEY_P},
+  {"Q", KEY_Q},
+  {"R", KEY_R},
+  {"S", KEY_S},
+  {"T", KEY_T},
+  {"U", KEY_U},
+  {"V", KEY_V},
+  {"W", KEY_W},
+  {"X", KEY_X},
+  {"Y", KEY_Y},
+  {"Z", KEY_Z},
+  {"1", KEY_1},
+  {"2", KEY_2},
+  {"3", KEY_3},
+  {"4", KEY_4},
+  {"5", KEY_5},
+  {"6", KEY_6},
+  {"7", KEY_7},
+  {"8", KEY_8},
+  {"9", KEY_9},
+  {"0", KEY_0}
+};
+
+#define KEYMAP_ELEMENTS (sizeof keymap / sizeof keymap[0])
 
 int getKeycode(char* acttoken)
 {
-    if (!strcmp_FM(acttoken,(uint_farptr_t_FM)F("KEY_SHIFT")))  return(KEY_LEFT_SHIFT);
-    if (!strcmp_FM(acttoken,(uint_farptr_t_FM)F("KEY_CTRL")))  return(KEY_LEFT_CTRL);
-    if (!strcmp_FM(acttoken,(uint_farptr_t_FM)F("KEY_ALT")))  return(KEY_LEFT_ALT);
-    if (!strcmp_FM(acttoken,(uint_farptr_t_FM)F("KEY_RIGHT_ALT")))  return(KEY_RIGHT_ALT);
-    if (!strcmp_FM(acttoken,(uint_farptr_t_FM)F("KEY_GUI")))  return(KEY_LEFT_GUI);
-    if (!strcmp_FM(acttoken,(uint_farptr_t_FM)F("KEY_RIGHT_GUI")))  return(KEY_RIGHT_GUI);
-    if (!strcmp_FM(acttoken,(uint_farptr_t_FM)F("KEY_UP"))) return(KEY_UP);
-    if (!strcmp_FM(acttoken,(uint_farptr_t_FM)F("KEY_DOWN"))) return(KEY_DOWN);
-    if (!strcmp_FM(acttoken,(uint_farptr_t_FM)F("KEY_LEFT"))) return(KEY_LEFT);
-    if (!strcmp_FM(acttoken,(uint_farptr_t_FM)F("KEY_RIGHT"))) return(KEY_RIGHT);
-    if (!strcmp_FM(acttoken,(uint_farptr_t_FM)F("KEY_ENTER"))) return(KEY_ENTER);
-    if (!strcmp_FM(acttoken,(uint_farptr_t_FM)F("KEY_SPACE"))) return(KEY_SPACE);
-    if (!strcmp_FM(acttoken,(uint_farptr_t_FM)F("KEY_ESC"))) return(KEY_ESC);
-    if (!strcmp_FM(acttoken,(uint_farptr_t_FM)F("KEY_BACKSPACE"))) return(KEY_BACKSPACE);
-    if (!strcmp_FM(acttoken,(uint_farptr_t_FM)F("KEY_TAB"))) return(KEY_TAB);
-    if (!strcmp_FM(acttoken,(uint_farptr_t_FM)F("KEY_CAPS_LOCK"))) return(KEY_CAPS_LOCK);
-    if (!strcmp_FM(acttoken,(uint_farptr_t_FM)F("KEY_F1"))) return(KEY_F1);
-    if (!strcmp_FM(acttoken,(uint_farptr_t_FM)F("KEY_F2"))) return(KEY_F2);
-    if (!strcmp_FM(acttoken,(uint_farptr_t_FM)F("KEY_F3"))) return(KEY_F3);
-    if (!strcmp_FM(acttoken,(uint_farptr_t_FM)F("KEY_F4"))) return(KEY_F4);
-    if (!strcmp_FM(acttoken,(uint_farptr_t_FM)F("KEY_F5"))) return(KEY_F5);
-    if (!strcmp_FM(acttoken,(uint_farptr_t_FM)F("KEY_F6"))) return(KEY_F6);
-    if (!strcmp_FM(acttoken,(uint_farptr_t_FM)F("KEY_F7"))) return(KEY_F7);
-    if (!strcmp_FM(acttoken,(uint_farptr_t_FM)F("KEY_F8"))) return(KEY_F8);
-    if (!strcmp_FM(acttoken,(uint_farptr_t_FM)F("KEY_F9"))) return(KEY_F9);
-    if (!strcmp_FM(acttoken,(uint_farptr_t_FM)F("KEY_F10"))) return(KEY_F10);
-    if (!strcmp_FM(acttoken,(uint_farptr_t_FM)F("KEY_F11"))) return(KEY_F11);
-    if (!strcmp_FM(acttoken,(uint_farptr_t_FM)F("KEY_F12"))) return(KEY_F12);
-    if (!strcmp_FM(acttoken,(uint_farptr_t_FM)F("KEY_F13"))) return(KEY_F13);
-    if (!strcmp_FM(acttoken,(uint_farptr_t_FM)F("KEY_F14"))) return(KEY_F14);
-    if (!strcmp_FM(acttoken,(uint_farptr_t_FM)F("KEY_F15"))) return(KEY_F15);
-    if (!strcmp_FM(acttoken,(uint_farptr_t_FM)F("KEY_F16"))) return(KEY_F16);
-    if (!strcmp_FM(acttoken,(uint_farptr_t_FM)F("KEY_F17"))) return(KEY_F17);
-    if (!strcmp_FM(acttoken,(uint_farptr_t_FM)F("KEY_F18"))) return(KEY_F18);
-    if (!strcmp_FM(acttoken,(uint_farptr_t_FM)F("KEY_F19"))) return(KEY_F19);
-    if (!strcmp_FM(acttoken,(uint_farptr_t_FM)F("KEY_F20"))) return(KEY_F20);
-    if (!strcmp_FM(acttoken,(uint_farptr_t_FM)F("KEY_F21"))) return(KEY_F21);
-    if (!strcmp_FM(acttoken,(uint_farptr_t_FM)F("KEY_F22"))) return(KEY_F22);
-    if (!strcmp_FM(acttoken,(uint_farptr_t_FM)F("KEY_F23"))) return(KEY_F23);
-    if (!strcmp_FM(acttoken,(uint_farptr_t_FM)F("KEY_F24"))) return(KEY_F24);
-    if (!strcmp_FM(acttoken,(uint_farptr_t_FM)F("KEY_INSERT"))) return(KEY_INSERT);
-    if (!strcmp_FM(acttoken,(uint_farptr_t_FM)F("KEY_HOME"))) return(KEY_HOME);
-    if (!strcmp_FM(acttoken,(uint_farptr_t_FM)F("KEY_PAGE_UP"))) return(KEY_PAGE_UP);
-    if (!strcmp_FM(acttoken,(uint_farptr_t_FM)F("KEY_DELETE"))) return(KEY_DELETE);
-    if (!strcmp_FM(acttoken,(uint_farptr_t_FM)F("KEY_END"))) return(KEY_END);
-    if (!strcmp_FM(acttoken,(uint_farptr_t_FM)F("KEY_PAGE_DOWN"))) return(KEY_PAGE_DOWN);
+    keymap_struct keyRAM;    
+    if (!strncmp(acttoken, "KEY_", 4)) {
+      acttoken += 4;
+      for (int i = 0; i < KEYMAP_ELEMENTS; i++) {
+        // Serial.print("scanning for ");  Serial.println(keymap[i].token);
+        // if (!strcmp_FM(acttoken,(uint_farptr_t_FM)keymap[i].token)) {
 
-    if (!strcmp_FM(acttoken,(uint_farptr_t_FM)F("KEY_A"))) return(KEY_A);
-    if (!strcmp_FM(acttoken,(uint_farptr_t_FM)F("KEY_B"))) return(KEY_B);
-    if (!strcmp_FM(acttoken,(uint_farptr_t_FM)F("KEY_C"))) return(KEY_C);
-    if (!strcmp_FM(acttoken,(uint_farptr_t_FM)F("KEY_D"))) return(KEY_D);
-    if (!strcmp_FM(acttoken,(uint_farptr_t_FM)F("KEY_E"))) return(KEY_E);
-    if (!strcmp_FM(acttoken,(uint_farptr_t_FM)F("KEY_F"))) return(KEY_F);
-    if (!strcmp_FM(acttoken,(uint_farptr_t_FM)F("KEY_G"))) return(KEY_G);
-    if (!strcmp_FM(acttoken,(uint_farptr_t_FM)F("KEY_H"))) return(KEY_H);
-    if (!strcmp_FM(acttoken,(uint_farptr_t_FM)F("KEY_I"))) return(KEY_I);
-    if (!strcmp_FM(acttoken,(uint_farptr_t_FM)F("KEY_J"))) return(KEY_J);
-    if (!strcmp_FM(acttoken,(uint_farptr_t_FM)F("KEY_K"))) return(KEY_K);
-    if (!strcmp_FM(acttoken,(uint_farptr_t_FM)F("KEY_L"))) return(KEY_L);
-    if (!strcmp_FM(acttoken,(uint_farptr_t_FM)F("KEY_M"))) return(KEY_M);
-    if (!strcmp_FM(acttoken,(uint_farptr_t_FM)F("KEY_N"))) return(KEY_N);
-    if (!strcmp_FM(acttoken,(uint_farptr_t_FM)F("KEY_O"))) return(KEY_O);
-    if (!strcmp_FM(acttoken,(uint_farptr_t_FM)F("KEY_P"))) return(KEY_P);
-    if (!strcmp_FM(acttoken,(uint_farptr_t_FM)F("KEY_Q"))) return(KEY_Q);
-    if (!strcmp_FM(acttoken,(uint_farptr_t_FM)F("KEY_R"))) return(KEY_R);
-    if (!strcmp_FM(acttoken,(uint_farptr_t_FM)F("KEY_S"))) return(KEY_S);
-    if (!strcmp_FM(acttoken,(uint_farptr_t_FM)F("KEY_T"))) return(KEY_T);
-    if (!strcmp_FM(acttoken,(uint_farptr_t_FM)F("KEY_U"))) return(KEY_U);
-    if (!strcmp_FM(acttoken,(uint_farptr_t_FM)F("KEY_V"))) return(KEY_V);
-    if (!strcmp_FM(acttoken,(uint_farptr_t_FM)F("KEY_W"))) return(KEY_W);
-    if (!strcmp_FM(acttoken,(uint_farptr_t_FM)F("KEY_X"))) return(KEY_X);
-    if (!strcmp_FM(acttoken,(uint_farptr_t_FM)F("KEY_Y"))) return(KEY_Y);
-    if (!strcmp_FM(acttoken,(uint_farptr_t_FM)F("KEY_Z"))) return(KEY_Z);
-    if (!strcmp_FM(acttoken,(uint_farptr_t_FM)F("KEY_1"))) return(KEY_1);
-    if (!strcmp_FM(acttoken,(uint_farptr_t_FM)F("KEY_2"))) return(KEY_2);
-    if (!strcmp_FM(acttoken,(uint_farptr_t_FM)F("KEY_3"))) return(KEY_3);
-    if (!strcmp_FM(acttoken,(uint_farptr_t_FM)F("KEY_4"))) return(KEY_4);
-    if (!strcmp_FM(acttoken,(uint_farptr_t_FM)F("KEY_5"))) return(KEY_5);
-    if (!strcmp_FM(acttoken,(uint_farptr_t_FM)F("KEY_6"))) return(KEY_6);
-    if (!strcmp_FM(acttoken,(uint_farptr_t_FM)F("KEY_7"))) return(KEY_7);
-    if (!strcmp_FM(acttoken,(uint_farptr_t_FM)F("KEY_8"))) return(KEY_8);
-    if (!strcmp_FM(acttoken,(uint_farptr_t_FM)F("KEY_9"))) return(KEY_9);
-    if (!strcmp_FM(acttoken,(uint_farptr_t_FM)F("KEY_0"))) return(KEY_0);
-    
+        memcpy_P( &keyRAM, &keymap[i], sizeof(keymap[0]));
+        if (!strcmp(acttoken, keyRAM.token)) {
+          // Serial.print ("found "); Serial.println (keyRAM.key);
+          return(keyRAM.key);
+        }
+      }
+    }
+        
     #ifdef TEENSY     // for Teensy2.0++
       if (!strcmp(acttoken,"KEY_SCROLL_LOCK")) return(KEY_SCROLL_LOCK);
       if (!strcmp(acttoken,"KEY_PAUSE")) return(KEY_PAUSE);
@@ -185,7 +208,10 @@ void pressSingleKeys(char* keyNames)
   while (len=getNextKeyName(keyNames,singleKeyName))
   {
     int kc=getKeycode(singleKeyName);
-    if (kc) Keyboard.press(kc);
+    if (kc) {
+     Keyboard.press(kc);
+     // Serial.print ("press key ");  Serial.println (kc);
+    }
     keyNames+=len;
   }
 }
@@ -295,5 +321,3 @@ const int usToDE[] PROGMEM =
     0,  0,  0,  0,  0,  0,  ';',  0,  0,  0,  0,  0,  '[',  0,  0,  0,
 
 };
-
-
