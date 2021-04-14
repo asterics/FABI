@@ -62,13 +62,10 @@
           AT NE           next slot will be loaded (wrap around after last slot)
           AT DE           delete EEPROM content (delete all stored slots)
           AT NC           no command (idle operation)
-          AT E0           turn echo off (no debug output on serial console, default and GUI compatible)
-          AT E1           turn echo on (debug output on serial console)
           AT SR           start periodic reporting analog values (A0) over serial (starting with "VALUES:") 
           AT ER           end reporting analog values
           AT FR           report free EEPROM bytes in % (starting with "FREE:") 
 
-          
 
    supported key identifiers for key press command (AT KP):
  
@@ -94,7 +91,7 @@
 enum atCommands {
   CMD_ID, CMD_BM, CMD_CL, CMD_CR, CMD_CM, CMD_CD, CMD_PL, CMD_PR, CMD_PM, CMD_RL, CMD_RR, CMD_RM,
   CMD_WU, CMD_WD, CMD_WS, CMD_MX, CMD_MY, CMD_KW, CMD_KP, CMD_KR, CMD_RA, CMD_SA, CMD_LO, CMD_LA,
-  CMD_LI, CMD_NE, CMD_DE, CMD_NC, CMD_E1, CMD_E0, CMD_SR, CMD_ER, CMD_TS, CMD_TP, CMD_MA, CMD_WA,
+  CMD_LI, CMD_NE, CMD_DE, CMD_NC, CMD_SR, CMD_ER, CMD_TS, CMD_TP, CMD_MA, CMD_WA,
   CMD_TT, CMD_AP, CMD_AR, CMD_AI, CMD_FR, NUM_COMMANDS
 };
 

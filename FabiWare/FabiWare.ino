@@ -26,13 +26,10 @@
 
 #include <WS2812.h>
 //#include <Adafruit_NeoPixel.h>
-
+ 
 #include "ssd1306.h"
 
-
 // global variables
-
-uint8_t DebugOutput=0;  // Use 1 for chatty serial output (but it won't be compatible with GUI)
 
 #define SIP_BUTTON    9
 #define PUFF_BUTTON  10
@@ -151,9 +148,9 @@ void setup() {
   //while (! Serial);
     
    
-   if (DebugOutput==1) {  
+   #ifdef DEBUG_OUTPUT  
      Serial.println("Flexible Assistive Button Interface started !");
-   }
+   #endif
 
    #ifdef ARDUINO_PRO_MICRO   // only needed for Arduino, automatically done for Teensy(duino)
      Mouse.begin();
@@ -321,9 +318,9 @@ void setup() {
 
    readFromEEPROM(0);  // read button modes from first EEPROM slot      if available !  
    BlinkLed();
-   if (DebugOutput==1) {  
+   #ifdef DEBUG_OUTPUT  
      Serial.print(F("Free RAM:"));  Serial.println(freeRam());
-   }
+   #endif
 
 
    if(PCBversion){
@@ -732,17 +729,6 @@ void setKeystring (uint8_t button, char * text)
   strcpy(getKeystring(button),text);
 }
 
-void printKeystrings ()
-{
-  Serial.print("Used RAM for Keystrings:");Serial.print(keystringMemUsage(0));
-  Serial.print(" (free: ");Serial.print(KEYSTRING_BUFFER_LEN-keystringMemUsage(0));
-  Serial.println(")");
-
-  for (int i=0;i<NUMBER_OF_BUTTONS;i++) {
-    Serial.print("Keystring ");Serial.print(i);Serial.print(":");Serial.println(getKeystring(i));
-  }
-}
-
 void BlinkLed()
 {
     for (uint8_t i=0; i < 5;i++)
@@ -767,4 +753,3 @@ int freeRam ()
     int v;
     return (int) &v - (__brkval == 0 ? (int) &__heap_start : (int) __brkval);
 }
-
