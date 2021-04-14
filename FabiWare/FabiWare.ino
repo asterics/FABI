@@ -29,10 +29,6 @@
  
 #include "ssd1306.h"
 
-// #include "nano_gfx.h"
-
-
-
 // global variables
 
 #define SIP_BUTTON    9
