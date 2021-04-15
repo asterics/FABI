@@ -20,39 +20,20 @@
 #include <Arduino.h>
 #include <Wire.h>
 #include <SPI.h>
-//#include "SSD1306Ascii.h"
-//#include "SSD1306AsciiWire.h"
-//#include <U8g2lib.h>
+#include <WS2812.h>     //  WS2812 ("NeoPixel") Lib
 
-#include <WS2812.h>
-//#include <Adafruit_NeoPixel.h>
- 
-#include "ssd1306.h"
-
+#include "display.h"
 // global variables
 
 #define SIP_BUTTON    9
 #define PUFF_BUTTON  10
 #define PRESSURE_SENSOR_PIN A0
 
-//BUZZER
+#define PCB_checkPin 14   // Input Pin to be checked: Grounded == PCB Version
+
 #define BEEP_duration 25     // actual duration of beep = BEEP_duration * loop duration; e.g. 100 * 5ms = 500ms
 
-//NEOPixel
-#define PIXELS_NUMBER 1   // number of actual NeoPixels on the board
-#define PIXELS_PIN 15     // Input Pin for NeoPixels
-
-#define PCB_checkPin 14
-
-
-#define I2C_ADDRESS 0x3C
-
-//SSD1306AsciiWire oled;
-
-
-//U8G2_SSD1306_128X32_UNIVISION_F_HW_I2C u8g2(U8G2_R0, /* reset=*/ U8X8_PIN_NONE);  // Adafruit ESP8266/32u4/ARM Boards + FeatherWing OLED
-
-//Adafruit_NeoPixel pixels = Adafruit_NeoPixel(PIXELS_NUMBER, PIXELS_PIN, NEO_GRB + NEO_KHZ800);
+#define PIXELS_PIN 15     // Input Pin for WS2812 ("NeoPixels")
 
 
 #ifdef TEENSY
@@ -100,9 +81,10 @@ uint8_t rightClickRunning=0;
 uint8_t middleClickRunning=0;
 uint8_t doubleClickRunning=0;
 
-uint16_t beepTime = BEEP_duration*2;       // beepTime also includes the time without sound after beep 
-uint8_t beepCounter = 0;       // how often to beep
-uint8_t PCBversion = 0;
+uint8_t PCBversion = 0;       // 1 == PCB version
+
+uint16_t beepTime = BEEP_duration*2;       // duration of beep and following same times without sound 
+uint8_t beepCounter = 0;       // number of beeps 
 
 uint8_t neoPix_Brightness = 100;
 int8_t dimmLEDcounter = neoPix_Brightness;
@@ -144,7 +126,6 @@ void setup() {
   Serial.begin(9600);
   
   delay(1000);
-  
   //while (! Serial);
     
    
@@ -160,8 +141,11 @@ void setup() {
 
    //check if PCB or old (floating wire) FABI is used (checkPin to ground = PCB):
    pinMode(PCB_checkPin, INPUT_PULLUP);
+
    if(!digitalRead(PCB_checkPin)){              //PCB Version detected
-     // Serial.println("FABi PCB Version");
+    #ifdef DEBUG_OUTPUT
+      Serial.println("FABi PCB Version");
+    #endif
 
     //Serial.end();      // end USB Serial; causing problems if both active!
      
@@ -171,33 +155,12 @@ void setup() {
       PCBversion = 1;
       memcpy(input_map, input_map_PCB, NUMBER_OF_PHYSICAL_BUTTONS+1);
 
-      buzzerPIN = 4;
+      buzzerPIN = 4;                      //set buzzer Pin, define output and sound check buzzer:
       pinMode(buzzerPIN, OUTPUT);
-
-/*
-      u8g2.begin();
-      
-      u8g2.clearBuffer(); // clear the internal menory
-      u8g2.drawXBMP(36, 0, 55, 32, FABIlogo);
-      u8g2.sendBuffer(); // transfer internal memory to the display
-      */
-
-      //Display: Ascii
-     /*
-      Wire.begin();
-      Wire.setClock(400000L);
-      oled.begin(&Adafruit128x32, I2C_ADDRESS);
-      oled.setFont(Arial_bold_14); // choose font
-      oled.setLetterSpacing(2);
-      oled.clear(); 
-*/
-
-   
-
-
-      delay(1000);  
-
-      //setBeepCount(2);
+      digitalWrite(buzzerPIN, HIGH);
+      _delay_ms(150);
+      digitalWrite(buzzerPIN, LOW);
+      delay(150);        
       
 
       //NeoPixel:
@@ -205,7 +168,7 @@ void setup() {
       pixels.setColorOrderGRB();
      
       pixColor.r = 0; pixColor.g = 0; pixColor.b = 0; // RGB Value
-      pixels.set_crgb_at(0, pixColor);
+      pixels.set_crgb_at(0, pixColor);    // set defined color
       pixels.sync(); // Sends the value to the LED
 
 
@@ -215,27 +178,13 @@ void setup() {
         pixels.set_crgb_at(0, pixColor);  
         pixels.sync();
         
-         
         delay(10);
       }
 
       //Display:
-       /* Select the font to use with menu and all font functions */
-      //ssd1306_setFixedFont(ssd1306xled_font6x8);
-      ssd1306_setFixedFont(ssd1306xled_font8x16);
-      //ssd1306_setFreeFont(free_calibri11x12);
-      //ssd1306_print("FABI123");
-
-      ssd1306_128x32_i2c_init();
-
-      ssd1306_clearScreen();
-
-      //ssd1306_print("Normal text");
-      ssd1306_drawXBitmap(36, 0, 55, 32, FABIlogo1);
-
+      initDisplay();
       
       digitalWrite(buzzerPIN, HIGH);
-
 
       for(uint8_t i = 60; i > 50; i--){
         pixColor.r = i; 
@@ -247,59 +196,18 @@ void setup() {
 
       neoPix_r = 1;
 
-     
-
-      
-/* 
-      ssd1306_clearScreen();
-      ssd1306_printFixed(0, 0, "FABI", STYLE_BOLD);
-      ssd1306_printFixed(0, 20, "Button Interface", STYLE_NORMAL);
-*/
-      
-      /*
-      pixels.begin();
-      for(uint8_t i = 0; i < 50; i++){
-        pixels.setPixelColor(0, pixels.Color(i, 0, 0));  
-        pixels.show();
-        if(i == 30)
-         digitalWrite(buzzerPIN, HIGH);
-        delay(10);
-      }
-      digitalWrite(buzzerPIN, LOW);
-      for(uint8_t i = 50; i > 50; i--){
-        pixels.setPixelColor(0, pixels.Color(i, 0, 0));  
-        pixels.show();
-        delay(5);
-      }
-*/
-      
-
-     
-      //pixels.setPixelColor(1, pixels.Color(15, 0, 0));  
-      //pixels.show();
-
-
-      //Serial1.println("AT");
-
-      delay(1000);  
-/*
-      Serial1.end();
-*/
-
-      Serial1.begin(9600);
+    
+      Serial1.begin(9600);      // start HW-Pin-Serial (used for communication with Addon)
       //while(!Serial1);
 
-      
-
-     // Serial.write("AT SA newSlot\n");
-
-      
    }
    else{   
-    pinMode(LED_PIN,OUTPUT);
-    
-    for (int i=0; i<NUMBER_OF_LEDS; i++)   // initialize physical buttons and bouncers
-       pinMode (led_map[i], OUTPUT);   // configure the pins for input mode with pullup resistors
+     // no PCB Version: 
+     pinMode(LED_PIN,OUTPUT);
+     
+     for (int i=0; i<NUMBER_OF_LEDS; i++)   // initialize physical buttons and bouncers
+      pinMode (led_map[i], OUTPUT);   // configure the pins for input mode with pullup resistors
+
    }
 
 
@@ -308,7 +216,7 @@ void setup() {
 
    for (int i=0; i<NUMBER_OF_BUTTONS; i++)   // initialize button array
    {
-      buttons[i].mode=CMD_PL;              // default command for every button is left mouse click
+      buttons[i].mode=CMD_PL;              // set default command for every button (left mouse click)
       buttons[i].value=0;
       keystringBuffer[i]=0;
    }
@@ -317,7 +225,9 @@ void setup() {
    initDebouncers(); 
 
    readFromEEPROM(0);  // read button modes from first EEPROM slot      if available !  
-   BlinkLed();
+   if(!PCBversion) 
+    BlinkLed();
+
    #ifdef DEBUG_OUTPUT  
      Serial.print(F("Free RAM:"));  Serial.println(freeRam());
    #endif
@@ -325,11 +235,6 @@ void setup() {
 
    if(PCBversion){
      writeSlot2Display();
-
-     /*
-     oled.clear();
-     oled.println("Slot 1:");
-     oled.print(settings.slotname);*/
    }
 
 
@@ -491,12 +396,11 @@ void loop() {
 
 
     }
+    else{
+      UpdateLeds();
+    }
     
 
-  
-       
-   // UpdateLeds();
-    
 
 
    /*
@@ -585,45 +489,6 @@ void updateSlot(uint8_t newSlotNumber){
   dimmLEDcounter = -neoPix_Brightness;
 }
 
-
-//beep 'numberOFbeeps' times to give some audio feedback 
-void beepXtimes(uint8_t numberOFbeeps){        
-  if(buzzerPIN){  
-    for(uint8_t i = 0; i < numberOFbeeps; i++){
-       digitalWrite(buzzerPIN, HIGH);
-       _delay_ms(125);
-       digitalWrite(buzzerPIN, LOW);
-       _delay_ms(125);
-    }
-  }
-} 
-
-//write given text to OLED display 
-void write2Display(const char* text, uint8_t newLine){
-/*
-  oled.clear();
-  if(newLine)
-    oled.println(text);
-  else
-    oled.print(text);
-*/
-  
-}
-
-void writeSlot2Display(){ 
-  ssd1306_clearScreen();
-
-  ssd1306_printFixed(0, 0, "Slot:", STYLE_NORMAL);
-  ssd1306_printFixed(0, 20, settings.slotname, STYLE_BOLD);
-
-  /*
-   oled.clear();
-   oled.print("Slot ");
-   oled.print(actSlot);
-   oled.println(":");
-   oled.print(settings.slotname);
-*/
-}
 
 void initDebouncers()
 {
@@ -741,9 +606,11 @@ void BlinkLed()
 
 void UpdateLeds()
 {  
+  if(!PCBversion){
    if (actSlot == 1) digitalWrite (led_map[0],LOW); else digitalWrite (led_map[0],HIGH); 
    if (actSlot == 2) digitalWrite (led_map[1],LOW); else digitalWrite (led_map[1],HIGH); 
    if (actSlot == 3) digitalWrite (led_map[2],LOW); else digitalWrite (led_map[2],HIGH); 
+  }
 }
 
 
