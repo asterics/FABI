@@ -156,12 +156,12 @@ namespace MouseApp2
 
         public void gotID(String newLine)
         {
-            addToLog("Fabi detected:");
+            addToLog("Fabi detected:" + newLine);
             fabiOnline = 1;
             slotNames.Items.Clear();
             sendStartReportingCommand();   // start reporting raw values !
 
-            DialogResult dialogResult = MessageBox.Show("Do you want to load the slots and settings which are stored in the Fabi device ?", "Load Settings ?", MessageBoxButtons.YesNo);
+            DialogResult dialogResult = MessageBox.Show("Detected "+newLine+"\nDo you want to load the slots and settings which are stored in the Fabi device ?", "Load Settings ?", MessageBoxButtons.YesNo);
             if (dialogResult == DialogResult.Yes)
             {
                 loadSettingsFromFabi();

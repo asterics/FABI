@@ -52,7 +52,7 @@
 struct settingsType settings = {      // type definition see fabi.h
     "slot1", DEFAULT_WHEEL_STEPSIZE, DEFAULT_TRESHOLD_TIME, 
     DEFAULT_SIP_THRESHOLD, DEFAULT_PUFF_THRESHOLD,
-    DEFAULT_ANTITREMOR_PRESS, DEFAULT_ANTITREMOR_RELEASE, DEFAULT_ANTITREMOR_IDLE
+    DEFAULT_ANTITREMOR_PRESS, DEFAULT_ANTITREMOR_RELEASE, DEFAULT_ANTITREMOR_IDLE, DEFAULT_BT_MODE
 }; 
 
 
@@ -307,7 +307,7 @@ void loop() {
           if (moveX!=0) if (moveXcnt<MOUSE_ACCELDELAY) moveXcnt++;
           if (moveY!=0) if (moveYcnt<MOUSE_ACCELDELAY) moveYcnt++;
 
-          Mouse.move(moveX * moveXcnt/MOUSE_ACCELDELAY, moveY * moveYcnt/MOUSE_ACCELDELAY);
+          mouseMove(moveX * moveXcnt/MOUSE_ACCELDELAY, moveY * moveYcnt/MOUSE_ACCELDELAY);
         }
       }
   
@@ -331,17 +331,17 @@ void loop() {
 
         
  
-      // if any changes were made, updataaae the Mouse buttons
+      // if any changes were made, update the Mouse buttons
       if(leftMouseButton!=old_leftMouseButton) {
-         if (leftMouseButton) Mouse.press(MOUSE_LEFT); else Mouse.release(MOUSE_LEFT);
+         if (leftMouseButton) mousePress(MOUSE_LEFT); else mouseRelease(MOUSE_LEFT);
          old_leftMouseButton=leftMouseButton;
       }
       if  (middleMouseButton!=old_middleMouseButton) {
-              if (middleMouseButton) Mouse.press(MOUSE_MIDDLE); else Mouse.release(MOUSE_MIDDLE);
+              if (middleMouseButton) mousePress(MOUSE_MIDDLE); else mouseRelease(MOUSE_MIDDLE);
            old_middleMouseButton=middleMouseButton;
        }
       if  (rightMouseButton!=old_rightMouseButton)  {
-         if (rightMouseButton) Mouse.press(MOUSE_RIGHT); else Mouse.release(MOUSE_RIGHT);
+         if (rightMouseButton) mousePress(MOUSE_RIGHT); else mouseRelease(MOUSE_RIGHT);
          old_rightMouseButton=rightMouseButton;
     }
     
@@ -504,12 +504,13 @@ void initDebouncers()
 void release_all()  // releases all previously pressed keys
 {
     // Serial.println("release all!");
-    Keyboard.releaseAll();
+    keyboardReleaseAll();  //Keyboard.releaseAll(); 
     leftMouseButton=0;
     rightMouseButton=0;
     middleMouseButton=0;
     moveX=0;
     moveY=0;
+    initDebouncers();
 }
 
 
@@ -538,7 +539,7 @@ void handleButton(int i, int l, uint8_t actState)
            buttonDebouncers[i].pressState=BUTTONSTATE_SHORT_PRESSED;           
        }
        if ((buttonDebouncers[i].pressCount==settings.tt>>2) && (settings.tt<5000) && (l>=0) && (l<NUMBER_OF_BUTTONS)) {
-           handleRelease(i);           
+           handleRelease(i); 
            handlePress(l);
            buttonDebouncers[i].pressState=BUTTONSTATE_LONG_PRESSED;           
        }

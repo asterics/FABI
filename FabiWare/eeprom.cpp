@@ -1,7 +1,7 @@
 #include "fabi.h"
 #include <EEPROM.h>
 
-#define SLOT_VALID 0x23
+#define SLOT_VALID 0x42
 
 int nextSlotAddress=0;
 int EmptySlotAddress = 0;

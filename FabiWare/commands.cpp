@@ -13,7 +13,7 @@ const struct atCommandType atCommands[] PROGMEM = {
     {"SR"  , PARTYPE_NONE },  {"ER"  , PARTYPE_NONE },
     {"TS"  , PARTYPE_UINT },  {"TP"  , PARTYPE_UINT }, {"MA"  , PARTYPE_STRING},{"WA"  , PARTYPE_UINT  },
     {"TT"  , PARTYPE_UINT },  {"AP"  , PARTYPE_UINT }, {"AR"  , PARTYPE_UINT},  {"AI"  , PARTYPE_UINT  },
-    {"FR"  , PARTYPE_NONE }
+    {"FR"  , PARTYPE_NONE },  {"BT"  , PARTYPE_UINT }
 };
 
 void printCurrentSlot()
@@ -26,6 +26,7 @@ void printCurrentSlot()
         Serial.print(F("AT AP ")); Serial.println(settings.ap);
         Serial.print(F("AT AR ")); Serial.println(settings.ar);
         Serial.print(F("AT AI ")); Serial.println(settings.ai);
+        Serial.print(F("AT BT ")); Serial.println(settings.bt);
         for (int i=0;i<NUMBER_OF_BUTTONS;i++) 
         {
            Serial.print(F("AT BM ")); 
@@ -158,25 +159,15 @@ void performCommand (uint8_t cmd, int16_t parNum, char * parString, int8_t perio
                #ifdef DEBUG_OUTPUT
                  Serial.println(F("wheel up"));
                #endif
-               #ifdef ARDUINO_PRO_MICRO
-				  if(settings.ws != 0) Mouse.move(0,0,-settings.ws); 
-				  else Mouse.move(0,0,-DEFAULT_WHEEL_STEPSIZE); 
-               #else
-				  if(settings.ws != 0) Mouse.scroll(-settings.ws); 
-				  else Mouse.scroll(-DEFAULT_WHEEL_STEPSIZE); 
-               #endif
+    				   if(settings.ws != 0) mouseScroll(-settings.ws); 
+    				   else mouseScroll(-DEFAULT_WHEEL_STEPSIZE); 
             break;
         case CMD_WD:
                #ifdef DEBUG_OUTPUT
                  Serial.println(F("wheel down"));
               #endif
-               #ifdef ARDUINO_PRO_MICRO
-				  if(settings.ws != 0) Mouse.move(0,0,settings.ws); 
-				  else Mouse.move(0,0,DEFAULT_WHEEL_STEPSIZE); 
-               #else
-				  if(settings.ws != 0) Mouse.scroll(settings.ws); 
-				  else Mouse.scroll(DEFAULT_WHEEL_STEPSIZE); 
-               #endif
+    				  if(settings.ws != 0) mouseScroll(settings.ws); 
+    				  else mouseScroll(DEFAULT_WHEEL_STEPSIZE); 
             break;
         case CMD_WS:
                #ifdef DEBUG_OUTPUT
@@ -190,13 +181,7 @@ void performCommand (uint8_t cmd, int16_t parNum, char * parString, int8_t perio
                  Serial.println(parNum);
                #endif
                if (periodicMouseMovement) moveX=parNum;
-               else{
-                 Mouse.move(parNum, 0); 
-               } 
-               if(parNum > 0)
-                  Serial1.print('a');
-                else
-                  Serial1.print('d');
+               else mouseMove(parNum, 0); 
             break;
         case CMD_MY:
                #ifdef DEBUG_OUTPUT   
@@ -204,12 +189,8 @@ void performCommand (uint8_t cmd, int16_t parNum, char * parString, int8_t perio
                  Serial.println(parNum);
                #endif
                if (periodicMouseMovement) moveY=parNum;
-               else Mouse.move(0, parNum);
+               else mouseMove(0, parNum);
 
-               if(parNum > 0)
-                  Serial1.print('s');
-                else
-                  Serial1.print('w');
             break;
         case CMD_KW:
                #ifdef DEBUG_OUTPUT   
@@ -288,21 +269,9 @@ void performCommand (uint8_t cmd, int16_t parNum, char * parString, int8_t perio
                
               if(PCBversion){
                 updateSlot(actSlot);    // update the Slot color of the LED 
-
                 setBeepCount(actSlot);  // set some beep count -> time (dependend on loop time)
-
                 writeSlot2Display();  	//update the info on the Display 
               }
-              
-
-              //write2Display(settings.slotname);
-/*
-                write2Display("Slot:");
-                write2Display(settings.slotname, 28, 1);
-
-*/
-
-              //  write2Display("no", 28, 0);
 
                reportSlotParameters=REPORT_NONE;
                break;
@@ -390,6 +359,8 @@ void performCommand (uint8_t cmd, int16_t parNum, char * parString, int8_t perio
                Serial.print(F("FREE EEPROM (%):"));
                Serial.println((int)((uint32_t) freeEEPROMbytes * 100 / EEPROM_SIZE));
                break;
-    
+        case CMD_BT:
+              settings.bt = parNum;
+              break;    
     }
 }
