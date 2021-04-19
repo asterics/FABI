@@ -1,19 +1,16 @@
 /*
-	FABI - AsTeRICS Foundation
-	Copyright (c) Benjamin Aigner
-	For more info please visit: http://www.asterics-academy.net
+     Flexible Assistive Button Interface (FABI) - AsTeRICS Foundation - http://www.asterics-foundation.org
+     for controlling HID functions via momentary switches and/or serial AT-commands  
+     More Information: https://github.com/asterics/FABI
 
-	Module: bluetooth.h - using external Bluetooth addon for mouse/keyboard control
+     Module: bluetooth.h - using external Bluetooth addon for mouse/keyboard control
+     Copyright (c) Benjamin Aigner
 
-	This program is free software; you can redistribute it and/or modify
-	it under the terms of the GNU General Public License as published by
-	the Free Software Foundation.
-
-	This program is distributed in the hope that it will be useful,
-	but WITHOUT ANY WARRANTY; See the GNU General Public License:
-	http://www.gnu.org/licenses/gpl-3.0.en.html
+     This program is free software; you can redistribute it and/or modify
+     it under the terms of the GNU General Public License, see:
+     http://www.gnu.org/licenses/gpl-3.0.en.html
+ 
 */
-
 
 #ifndef _BLUETOOTH_H_
 #define _BLUETOOTH_H_

@@ -1,27 +1,24 @@
-  
-/* 
-     Flexible Assistive Button Interface (FABI)  Version 2.3  - AsTeRICS Foundation - http://www.asterics-foundation.org
-      allows control of HID functions via momentary switches and/or AT-commands  
-   
 
-   requirements:  USB HID capable Arduino (Leonardo / Micro / Pro Micro) - see #define in fabi.h !
-                  or Teensy 2.0++ with Teensyduino AddOn setup as USB composite device (Mouse + Keyboard + Serial)
-       optional:  Momentary switches connected to GPIO pins / force sensors connected to ADC pins
-       
-   for a list of supported AT commands, see commands.h / commands.cpp    
+/* 
+     Flexible Assistive Button Interface (FABI) - AsTeRICS Foundation - http://www.asterics-foundation.org
+     for controlling HID functions via momentary switches and/or serial AT-commands  
+     More Information: https://github.com/asterics/FABI
+
+     Module: FabiWare.ino - initialisation and main loop
+     (for a list of supported AT-commands see commands.h)
+        
+     This program is free software; you can redistribute it and/or modify
+     it under the terms of the GNU General Public License, see:
+     http://www.gnu.org/licenses/gpl-3.0.en.html
 
 */
 
-
 #include "fabi.h"
 #include <EEPROM.h>
-
-
 #include <Arduino.h>
 #include <Wire.h>
 #include <SPI.h>
 #include <WS2812.h>     //  WS2812 ("NeoPixel") Lib
-
 #include "display.h"
 // global variables
 
@@ -401,7 +398,7 @@ void loop() {
     }
     
 
-
+   // TBD !!
 
    /*
     //we need a workaround for different clock settings on Arduino Pro Micro boards.
@@ -429,7 +426,6 @@ void loop() {
 	#endif
 */
   
-
   delay(waitTime); 
    
 }
