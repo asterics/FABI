@@ -26,7 +26,7 @@ const struct atCommandType atCommands[] PROGMEM = {
     {"SR"  , PARTYPE_NONE },  {"ER"  , PARTYPE_NONE },
     {"TS"  , PARTYPE_UINT },  {"TP"  , PARTYPE_UINT }, {"MA"  , PARTYPE_STRING},{"WA"  , PARTYPE_UINT  },
     {"TT"  , PARTYPE_UINT },  {"AP"  , PARTYPE_UINT }, {"AR"  , PARTYPE_UINT},  {"AI"  , PARTYPE_UINT  },
-    {"FR"  , PARTYPE_NONE },  {"BT"  , PARTYPE_UINT }
+    {"FR"  , PARTYPE_NONE },  {"BT"  , PARTYPE_UINT }, {"BC"  , PARTYPE_STRING}
 };
 
 void printCurrentSlot()
@@ -375,5 +375,9 @@ void performCommand (uint8_t cmd, int16_t parNum, char * parString, int8_t perio
         case CMD_BT:
               settings.bt = parNum;
               break;    
+        case CMD_BC:
+              Serial1.write(parString);
+              Serial1.write('\n'); //terminate command
+              break;              
     }
 }
