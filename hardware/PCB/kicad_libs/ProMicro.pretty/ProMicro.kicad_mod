@@ -1,4 +1,4 @@
-(module kicad-ProMicro:ProMicro (layer F.Cu) (tedit 5C60EC3D)
+(module ProMicro (layer F.Cu) (tedit 601EA489)
   (fp_text reference REF** (at -0.35 11.81) (layer F.SilkS)
     (effects (font (size 1 1) (thickness 0.15)))
   )
@@ -36,4 +36,9 @@
   (pad 5 thru_hole circle (at -2.47 7.62) (size 1.27 1.27) (drill 0.762) (layers *.Cu *.Mask))
   (pad 7 thru_hole circle (at 2.61 7.62) (size 1.27 1.27) (drill 0.762) (layers *.Cu *.Mask))
   (pad 3 thru_hole circle (at -7.55 7.62) (size 1.27 1.27) (drill 0.762) (layers *.Cu *.Mask))
+  (model E:/daten_2012_11_16/eigene_dokumente/FH/FH/Internship/Git/hardware/3D_models/ProMicro.step
+    (offset (xyz -17.5 -9 3))
+    (scale (xyz 1 1 1))
+    (rotate (xyz 0 0 0))
+  )
 )

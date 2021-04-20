@@ -1,20 +1,28 @@
 
- /* 
- 
-   Supported AT-commands:  
-   (sent via serial interface, 115200 baud, using spaces between parameters.  Enter (<cr>, ASCII-code 0x0d) finishes a command)
+/* 
+     Flexible Assistive Button Interface (FABI) - AsTeRICS Foundation - http://www.asterics-foundation.org
+     for controlling HID functions via momentary switches and/or serial AT-commands  
+     More Information: https://github.com/asterics/FABI
+
+     Module: commands.h - AT command processing
+        
+     This program is free software; you can redistribute it and/or modify
+     it under the terms of the GNU General Public License, see:
+     http://www.gnu.org/licenses/gpl-3.0.en.html
+
+
+     Supported AT-commands:  
+     (sent via serial interface, 115200 baud, using spaces between parameters.  Enter (<cr>, ASCII-code 0x0d) finishes a command)
    
           AT                returns "OK"
           AT ID             returns identification string (e.g. "Fabi V2.3")
           AT BM <uint>      puts button into programming mode (e.g. "AT BM 2" -> next AT-command defines the new function for button 2)
-                            for the FABI, there are 11 buttons available (9 physical buttons, 2 virtual functions - sip / puff) 
-
+                            for the FABI, there are 11 buttons available (9 physical buttons, 2 virtual functions - sip / puff)
           AT MA <string>  execute a command macro containing multiple commands (separated by semicolon) 
                           example: "AT MA MX 100;MY 100;CL;"  use backslash to mask semicolon: "AT MA KW \;;CL;" writes a semicolon and then clicks left 
           AT WA <uint>    wait (given in milliseconds, useful for macro commands)
 
-    Commands for changing settings:
-    
+      Commands for changing settings:
           AT WS <uint>    set mouse wheel stepsize (e.g. "AT WS 3" sets the wheel stepsize to 3 rows)
           AT TS <uint>    threshold for sip action  (0-512)
           AT TP <uint>    threshold for puff action (512-1023)
@@ -23,8 +31,7 @@
           AT AR <uint>    antitremor release time (1-500)
           AT AI <uint>    antitremor idle time (1-500)
 
-    USB HID commands:
-      
+      USB HID commands: 
           AT CL             click left mouse button  
           AT CR             click right mouse button  
           AT CM             click middle mouse button  
@@ -53,7 +60,6 @@
           AT RA             release all: releases all currently pressed keys and buttons    
           
     Housekeeping commands:
-
           AT SA <string>  save settings and current button modes to slot under given name 
                           a new slot will be appended (e.g. AT SA mouse1)
           AT LO <string>  load button modes from eeprom slot (e.g. AT LO mouse1 -> loads profile named "mouse1")
@@ -62,28 +68,31 @@
           AT NE           next slot will be loaded (wrap around after last slot)
           AT DE           delete EEPROM content (delete all stored slots)
           AT NC           no command (idle operation)
-          AT E0           turn echo off (no debug output on serial console, default and GUI compatible)
-          AT E1           turn echo on (debug output on serial console)
           AT SR           start periodic reporting analog values (A0) over serial (starting with "VALUES:") 
           AT ER           end reporting analog values
           AT FR           report free EEPROM bytes in % (starting with "FREE:") 
-
-          
+          AT BT <uint>    set bluetooth mode, 1=USB only, 2=BT only, 3=both(default)
+                          (e.g. AT BT 2 -> send HID commands only via BT if BT-daughter board is available)
+          AT BC <string>  sends parameter to external UART (mostly ESP32 Bluetooth Addon)
 
    supported key identifiers for key press command (AT KP):
  
     KEY_A   KEY_B   KEY_C   KEY_D    KEY_E   KEY_F   KEY_G   KEY_H   KEY_I   KEY_J    KEY_K    KEY_L
     KEY_M   KEY_N   KEY_O   KEY_P    KEY_Q   KEY_R   KEY_S   KEY_T   KEY_U   KEY_V    KEY_W    KEY_X 
     KEY_Y   KEY_Z   KEY_1   KEY_2    KEY_3   KEY_4   KEY_5   KEY_6   KEY_7   KEY_8    KEY_9    KEY_0
-    KEY_F1  KEY_F2  KEY_F3  KEY_F4   KEY_F5  KEY_F6  KEY_F7  KEY_F8  KEY_F9  KEY_F10  KEY_F11  KEY_F12	
+    KEY_F1  KEY_F2  KEY_F3  KEY_F4   KEY_F5  KEY_F6  KEY_F7  KEY_F8  KEY_F9  KEY_F10  KEY_F11  KEY_F12  
     KEY_F13 KEY_F14 KEY_F15 KEY_F16  KEY_F17 KEY_F18 KEY_F19 KEY_F20 KEY_F21 KEY_F22  KEY_F23  KEY_F24  
     
-    KEY_RIGHT   KEY_LEFT       KEY_DOWN        KEY_UP      KEY_ENTER    KEY_ESC   KEY_BACKSPACE   KEY_TAB	
-    KEY_HOME    KEY_PAGE_UP    KEY_PAGE_DOWN   KEY_DELETE  KEY_INSERT   KEY_END	  KEY_NUM_LOCK    KEY_SCROLL_LOCK
+    KEY_RIGHT   KEY_LEFT       KEY_DOWN        KEY_UP      KEY_ENTER    KEY_ESC   KEY_BACKSPACE   KEY_TAB 
+    KEY_HOME    KEY_PAGE_UP    KEY_PAGE_DOWN   KEY_DELETE  KEY_INSERT   KEY_END   KEY_NUM_LOCK    KEY_SCROLL_LOCK
     KEY_SPACE   KEY_CAPS_LOCK  KEY_PAUSE       KEY_SHIFT   KEY_CTRL     KEY_ALT   KEY_RIGHT_ALT   KEY_GUI 
     KEY_RIGHT_GUI
-    
+
 */
+
+
+
+
 
 #ifndef _COMMANDS_H_
 #define _COMMANDS_H_
@@ -94,8 +103,8 @@
 enum atCommands {
   CMD_ID, CMD_BM, CMD_CL, CMD_CR, CMD_CM, CMD_CD, CMD_PL, CMD_PR, CMD_PM, CMD_RL, CMD_RR, CMD_RM,
   CMD_WU, CMD_WD, CMD_WS, CMD_MX, CMD_MY, CMD_KW, CMD_KP, CMD_KR, CMD_RA, CMD_SA, CMD_LO, CMD_LA,
-  CMD_LI, CMD_NE, CMD_DE, CMD_NC, CMD_E1, CMD_E0, CMD_SR, CMD_ER, CMD_TS, CMD_TP, CMD_MA, CMD_WA,
-  CMD_TT, CMD_AP, CMD_AR, CMD_AI, CMD_FR, NUM_COMMANDS
+  CMD_LI, CMD_NE, CMD_DE, CMD_NC, CMD_SR, CMD_ER, CMD_TS, CMD_TP, CMD_MA, CMD_WA,
+  CMD_TT, CMD_AP, CMD_AR, CMD_AI, CMD_FR, CMD_BT, CMD_BC, NUM_COMMANDS
 };
 
 #endif

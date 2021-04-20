@@ -1,19 +1,16 @@
 
 /* 
-     Assistive Button Interface (FABI) - AsTeRICS Foundation - http://www.asterics-foundation.org
-      allows control of HID functions via switches and/or AT-commands  
-   
+     Flexible Assistive Button Interface (FABI) - AsTeRICS Foundation - http://www.asterics-foundation.org
+     for controlling HID functions via momentary switches and/or serial AT-commands  
+     More Information: https://github.com/asterics/FABI
+     
+     Module: eeprom.cpp - load/store settings to/from eeprom
+        
+     This program is free software; you can redistribute it and/or modify
+     it under the terms of the GNU General Public License, see:
+     http://www.gnu.org/licenses/gpl-3.0.en.html
 
-   requirements:  Arduino (Pro) Micro or Teensy2.0++ with Teensyduino AddOn for Arduino IDE 
-                  (Teensy USB type set to USB composite device: Serial + Keyboard + Mouse + Joystick)
-        sensors:  up to 9 momentary switches connected to GPIO pins
-                  optional pressure sensor connected to ADC pin A0 for sip/puff actions
-       
-   
-   for a list of supported AT commands, see commands.h / commands.cpp
-   
- */
-
+*/
 
 #ifndef _FABI_H_
 #define _FABI_H_
@@ -23,10 +20,12 @@
 #include <stdint.h>
 #include <avr/pgmspace.h>
 #include "commands.h"
+#include "bluetooth.h"
+#include "hid_hal.h"
 
+#define VERSION_STRING "FABI v2.5"
 
-#define VERSION_STRING "FABI v2.3.1"
-
+//#define DEBUG_OUTPUT      //  if debug output is desired
 //#define TEENSY            //  if a Teensy2.0++ controller is used
 #define ARDUINO_PRO_MICRO   //  if Arduino Leonardo or Arduino (Pro) Micro is used 
 
@@ -67,6 +66,8 @@
 #define DEFAULT_ANTITREMOR_PRESS     5   // debouncing interval for button-press
 #define DEFAULT_ANTITREMOR_RELEASE   2   // debouncing interval for button-release
 #define DEFAULT_ANTITREMOR_IDLE      1   // debouncing interval for button idle time
+#define DEFAULT_BT_MODE              1   // USB HID only
+
 #define DEFAULT_TRESHOLD_TIME     5000   // treshold time for short / long press (5000: disable long press)
 #define BUTTON_PRESSED  1
 #define BUTTON_RELEASED 0
@@ -84,6 +85,8 @@ struct settingsType {
   uint16_t ap;     // antitremor press time 
   uint16_t ar;     // antitremor release time 
   uint16_t ai;     // antitremor idle time 
+  uint8_t  bt;     // bt-mode (0,1,2)
+  
 };
 
 struct atCommandType {              // holds settings for a button function 
@@ -103,7 +106,9 @@ struct buttonDebouncerType {       // holds working data for button debouncing a
   uint8_t  pressState;
 } ; 
 
-extern uint8_t DebugOutput;
+
+extern uint8_t PCBversion;
+
 extern uint8_t actSlot;
 extern uint8_t reportSlotParameters;
 extern uint8_t reportRawValues;
@@ -145,6 +150,12 @@ void BlinkLed();
 int freeRam ();
 void parseByte (int newByte);
 
+void setBeepCount(uint16_t count);
+void beepXtimes(uint8_t numberOFbeeps);
+void write2Display(const char* text, uint8_t newLine);
+void writeSlot2Display();
+void updateSlot(uint8_t newSlotNumber);
+
 int getKeycode(char*);
 void sendToKeyboard( char * );
 void pressSingleKeys(char* text); // presses individual keys
@@ -155,4 +166,36 @@ void release_all();            // releases all previously pressed keys and butto
 #define strcmp_FM   strcmp_PF
 typedef uint_farptr_t uint_farptr_t_FM;
 
-#endif
+
+
+// fabi logo for 128x32 OLED screen; height:32px widht: 55px
+/*
+const unsigned char FABIlogo [] PROGMEM = {
+  };
+  */
+
+
+
+  const uint8_t FABIlogo1 [] PROGMEM = {
+  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
+  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
+  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xE0, 0x78, 0x00, 0x00, 
+  0x00, 0x00, 0x00, 0x18, 0x80, 0x01, 0x00, 0x00, 0x00, 0x00, 0x84, 0x3F, 
+  0x02, 0x00, 0x00, 0x00, 0x00, 0x62, 0x60, 0x04, 0x00, 0x00, 0x00, 0x00, 
+  0x11, 0x80, 0x09, 0x00, 0x00, 0x00, 0x00, 0x09, 0x00, 0x0B, 0x00, 0x00, 
+  0x00, 0x80, 0x04, 0x0E, 0x12, 0x00, 0x00, 0x00, 0x80, 0x04, 0x1E, 0x14, 
+  0x00, 0x00, 0x00, 0x80, 0xC2, 0x0E, 0x04, 0x00, 0x00, 0x00, 0x00, 0xE2, 
+  0x07, 0x24, 0x00, 0x00, 0x00, 0x40, 0xE2, 0x7F, 0x24, 0x00, 0x00, 0x00, 
+  0x40, 0xC0, 0xFE, 0x24, 0x00, 0x00, 0x00, 0x00, 0x00, 0x76, 0x24, 0x00, 
+  0x00, 0x00, 0x80, 0x80, 0x07, 0x14, 0x00, 0x80, 0x00, 0xF0, 0x80, 0x07, 
+  0x14, 0xFE, 0xC3, 0x01, 0xFF, 0x71, 0x07, 0x12, 0x1E, 0xC0, 0x81, 0x87, 
+  0x31, 0x00, 0x0B, 0x06, 0xE0, 0x01, 0x83, 0x31, 0x80, 0x09, 0x06, 0x60, 
+  0x03, 0xC3, 0x30, 0xE0, 0x04, 0x06, 0x30, 0x03, 0x73, 0x30, 0x3E, 0x02, 
+  0xFE, 0x31, 0x03, 0xFB, 0x30, 0x80, 0x01, 0xFE, 0x18, 0x07, 0xCB, 0xF1, 
+  0x70, 0x00, 0x06, 0xFC, 0x07, 0x83, 0x19, 0x0F, 0x00, 0x03, 0x3C, 0x8E, 
+  0x81, 0x19, 0x00, 0x00, 0x03, 0x0E, 0x8C, 0xC1, 0x18, 0x00, 0x00, 0x03, 
+  0x06, 0x9C, 0x71, 0x38, 0x00, 0x00, 0x03, 0x02, 0x98, 0x3D, 0x10, 0x00, 
+  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
+
+
+  #endif

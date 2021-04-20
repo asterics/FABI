@@ -61,11 +61,12 @@
           AT NE           next slot will be loaded (wrap around after last slot)
           AT DE           delete EEPROM content (delete all stored slots)
           AT NC           no command (idle operation)
-          AT E0           turn echo off (no debug output on serial console, default and GUI compatible)
-          AT E1           turn echo on (debug output on serial console)
           AT SR           start periodic reporting analog values (A0) over serial (starting with "VALUES:") 
           AT ER           end reporting analog values
           AT FR           report free EEPROM bytes in % (starting with "FREE:") 
+
+          AT BT <uint>    set bluetooth mode, 1=USB only, 2=BT only, 3=both(default) 
+                          (e.g. AT BT 2 -> send HID commands only via BT if BT-daughter board is available)
 
           
 
@@ -111,6 +112,8 @@ namespace FabiGUI
         const int GUITYPE_SLIDER    = 4;
         const int GUITYPE_BOOLEAN   = 5;
         const int GUITYPE_GENERIC   = 6;
+        const int GUITYPE_COMBO_ONLY = 7;
+        const int GUITYPE_COMBO_INDEX = 8;
 
         const string PREFIX_FABI_VERSION = "FABI ";
         const string PREFIX_REPORT_VALUES = "VALUES:";
@@ -161,6 +164,8 @@ namespace FabiGUI
             allCommands.add(new Command("AT AP", PARTYPE_UINT, "Antitremor Press time", COMBOENTRY_NO, GUITYPE_SLIDER));
             allCommands.add(new Command("AT AR", PARTYPE_UINT, "Antitremor Release time", COMBOENTRY_NO, GUITYPE_SLIDER));
             allCommands.add(new Command("AT AI", PARTYPE_UINT, "Antitremor Idle time", COMBOENTRY_NO, GUITYPE_SLIDER));
+            allCommands.add(new Command("AT BT", PARTYPE_UINT, "HID / Bluetooth mode", COMBOENTRY_NO, GUITYPE_COMBO_INDEX));
+
         }
 
 
@@ -184,7 +189,8 @@ namespace FabiGUI
             commandGuiLinks.Add(new CommandGuiLink("AT BM 08", Button8FunctionBox, Button8ParameterText, Button8NumericParameter, "AT PL"));
             commandGuiLinks.Add(new CommandGuiLink("AT BM 09", Button9FunctionBox, Button9ParameterText, Button9NumericParameter, "AT PR"));
             commandGuiLinks.Add(new CommandGuiLink("AT BM 10", SipFunctionMenu, SipParameterText, SipNumericParameter, "AT WU"));
-            commandGuiLinks.Add(new CommandGuiLink("AT BM 11", PuffFunctionMenu, PuffParameterText, PuffNumericParameter, "AT WD"));            
+            commandGuiLinks.Add(new CommandGuiLink("AT BM 11", PuffFunctionMenu, PuffParameterText, PuffNumericParameter, "AT WD"));
+            commandGuiLinks.Add(new CommandGuiLink("AT BT", HIDComboBox, 1));
         }
 
         String[] keyOptions = {    "Clear Keycodes!", "KEY_A","KEY_B","KEY_C","KEY_D","KEY_E","KEY_F","KEY_G","KEY_H","KEY_I","KEY_J","KEY_K","KEY_L",
@@ -261,6 +267,8 @@ namespace FabiGUI
                             settingStrings.Add(cgl.cmd); settingStrings.Add(cgl.def);
                             break;
                         case GUITYPE_BOOLEAN:
+                        case GUITYPE_COMBO_ONLY:
+                        case GUITYPE_COMBO_INDEX:
                         case GUITYPE_SLIDER:
                             settingStrings.Add(cgl.cmd + " " + cgl.def);
                             break;
@@ -292,6 +300,12 @@ namespace FabiGUI
                     case GUITYPE_GENERIC:
                         sendCmd(cgl.cmd);
                         sendCmd(buildCommandString(cgl.cb.Text, cgl.tb.Text, (int)cgl.nud.Value));
+                        break;
+                    case GUITYPE_COMBO_ONLY:
+                        sendCmd(cgl.cmd + " " + cgl.cb.Text);
+                        break;
+                    case GUITYPE_COMBO_INDEX:
+                        sendCmd(cgl.cmd + " " + cgl.cb.SelectedIndex);
                         break;
                     case GUITYPE_SLIDER:
                         sendCmd(cgl.cmd + " " + cgl.tl.Text);
@@ -352,8 +366,13 @@ namespace FabiGUI
             }
             public int getGuiTypeFromCommand(String command)
             {
+         //       Console.Write("get "+command);
                 foreach (Command c in commandList)
-                    if (c.cmd.Equals(command)) return (c.guiType);
+                    if (c.cmd.Equals(command))
+                    {
+           //             Console.WriteLine("got " + c.guiType);
+                        return (c.guiType);
+                    }
                 return (-1);
             }
             public String getCommand(String commandDescription)
@@ -445,6 +464,14 @@ namespace FabiGUI
                 this.rb1 = rb1;
                 this.rb2 = rb2;
                 this.def = def;
+            }
+
+            public CommandGuiLink(String cmd, ComboBox cb, int def)
+            {
+                this.type = GUITYPE_COMBO_INDEX;
+                this.cmd = cmd;
+                this.cb = cb;
+                this.def = def.ToString();
             }
         };
 

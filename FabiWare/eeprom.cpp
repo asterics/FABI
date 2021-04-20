@@ -1,7 +1,21 @@
+
+/* 
+     Flexible Assistive Button Interface (FABI) - AsTeRICS Foundation - http://www.asterics-foundation.org
+     for controlling HID functions via momentary switches and/or serial AT-commands  
+     More Information: https://github.com/asterics/FABI
+
+     Module: eeprom.cpp - load/store settings to/from eeprom
+
+     This program is free software; you can redistribute it and/or modify
+     it under the terms of the GNU General Public License, see:
+     http://www.gnu.org/licenses/gpl-3.0.en.html
+
+*/
+
 #include "fabi.h"
 #include <EEPROM.h>
 
-#define SLOT_VALID 0x23
+#define SLOT_VALID 0x42
 
 int nextSlotAddress=0;
 int EmptySlotAddress = 0;
@@ -39,7 +53,7 @@ void saveToEEPROM(char * slotname)
    }
    */
    
-   if (DebugOutput==1) {  
+   #ifdef DEBUG_OUTPUT   
      Serial.print(F("Writing slot ")); if (slotname) Serial.print(slotname);
      Serial.print(F(" starting from EEPROM address ")); Serial.println(address);
      Serial.print(F("We need ")); Serial.print(sizeof(settingsType)+NUMBER_OF_BUTTONS*sizeof(buttonType)+1);
@@ -54,7 +68,7 @@ void saveToEEPROM(char * slotname)
           >= (EmptyKeystringAddress-address))
      { Serial.print(F(" EEPROM too small, aborting! ")); return; }
      
-   }
+   #endif
    
    // start with new slot 
    EEPROM.write(address,SLOT_VALID);     
@@ -109,9 +123,9 @@ void readFromEEPROM(char * slotname)
       uint8_t i=0;
       while ((act_slotname[i++]=EEPROM.read(address++)) != 0) ; 
       
-      if (DebugOutput==1) {  
+      #ifdef DEBUG_OUTPUT   
          Serial.print(F("processing slot ")); Serial.println(act_slotname);
-      }
+      #endif
      
       if (slotname)  {
         if (!strcmp(act_slotname, slotname)) found=1;  
@@ -119,9 +133,9 @@ void readFromEEPROM(char * slotname)
       
       address=tmpStartAddress;
       if ((found) || (reportSlotParameters==REPORT_ALL_SLOTS))  {       
-        if (DebugOutput==1) {  
+        #ifdef DEBUG_OUTPUT  
            Serial.print(F("LOADING slot ")); Serial.println(act_slotname);
-        }
+        #endif
         p = (uint8_t*) &settings;
         for (int t=0;t<sizeof(settingsType);t++)
             *p++=EEPROM.read(address++);
@@ -129,6 +143,7 @@ void readFromEEPROM(char * slotname)
         p = (uint8_t*) buttons;
         for (int i=0;i<NUMBER_OF_BUTTONS*sizeof(buttonType);i++) 
            *p++=EEPROM.read(address++);
+           
 
         p = (uint8_t*) keystringBuffer;
         stringCount=0;
@@ -160,13 +175,13 @@ void readFromEEPROM(char * slotname)
 
    freeEEPROMbytes=tmpKeystringAddress-address;
    
-   if (DebugOutput==1) {  
+   #ifdef DEBUG_OUTPUT   
        Serial.print(numSlots); Serial.print(F(" slots were found in EEPROM, occupying "));
        Serial.print(address+ EEPROM_SIZE-1-tmpKeystringAddress); Serial.print(F(" bytes ("));
        Serial.print(F("config: ")); Serial.print(address); Serial.print(F(", keystrings: "));
        Serial.print(EEPROM_SIZE-1-tmpKeystringAddress); Serial.println(F(")"));
        Serial.print(freeEEPROMbytes); Serial.println(F(" bytes are free.")); 
-   }
+   #endif
    
    if (reportSlotParameters) 
      Serial.println(F("END"));   // important: end marker for slot parameter list (command "load all" - AT LA)
@@ -201,4 +216,3 @@ void listSlots()
      address=tmpStartAddress+sizeof(settingsType)+NUMBER_OF_BUTTONS*sizeof(buttonType);         
    }
 }
-
