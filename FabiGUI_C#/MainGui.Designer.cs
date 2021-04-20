@@ -175,6 +175,10 @@
             this.StoreButton = new System.Windows.Forms.Button();
             this.freeMemPanel = new System.Windows.Forms.Panel();
             this.freeMemLabel = new System.Windows.Forms.Label();
+            this.general = new System.Windows.Forms.TabPage();
+            this.label50 = new System.Windows.Forms.Label();
+            this.label43 = new System.Windows.Forms.Label();
+            this.HIDComboBox = new System.Windows.Forms.ComboBox();
             this.tabControl.SuspendLayout();
             this.Buttons1Tab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Button4NumericParameter)).BeginInit();
@@ -199,6 +203,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.timeThresholdBar)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
+            this.general.SuspendLayout();
             this.SuspendLayout();
             // 
             // serialPort1
@@ -207,29 +212,29 @@
             // 
             // portComboBox
             // 
-            this.portComboBox.Location = new System.Drawing.Point(126, 54);
+            this.portComboBox.Location = new System.Drawing.Point(142, 68);
             this.portComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.portComboBox.Name = "portComboBox";
-            this.portComboBox.Size = new System.Drawing.Size(116, 24);
+            this.portComboBox.Size = new System.Drawing.Size(130, 28);
             this.portComboBox.TabIndex = 60;
             this.portComboBox.Click += new System.EventHandler(this.portComboBox_Click);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(51, 57);
+            this.label3.Location = new System.Drawing.Point(57, 71);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(71, 17);
+            this.label3.Size = new System.Drawing.Size(83, 20);
             this.label3.TabIndex = 7;
             this.label3.Text = "FABI Port:";
             // 
             // connectComButton
             // 
-            this.connectComButton.Location = new System.Drawing.Point(349, 53);
-            this.connectComButton.Margin = new System.Windows.Forms.Padding(4);
+            this.connectComButton.Location = new System.Drawing.Point(393, 66);
+            this.connectComButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.connectComButton.Name = "connectComButton";
-            this.connectComButton.Size = new System.Drawing.Size(83, 28);
+            this.connectComButton.Size = new System.Drawing.Size(93, 35);
             this.connectComButton.TabIndex = 8;
             this.connectComButton.Text = "Connect";
             this.connectComButton.UseVisualStyleBackColor = true;
@@ -239,10 +244,10 @@
             // 
             this.disconnectComButton.Enabled = false;
             this.disconnectComButton.ForeColor = System.Drawing.Color.Black;
-            this.disconnectComButton.Location = new System.Drawing.Point(438, 53);
-            this.disconnectComButton.Margin = new System.Windows.Forms.Padding(4);
+            this.disconnectComButton.Location = new System.Drawing.Point(493, 66);
+            this.disconnectComButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.disconnectComButton.Name = "disconnectComButton";
-            this.disconnectComButton.Size = new System.Drawing.Size(93, 28);
+            this.disconnectComButton.Size = new System.Drawing.Size(105, 35);
             this.disconnectComButton.TabIndex = 10;
             this.disconnectComButton.Text = "Disconnect";
             this.disconnectComButton.UseVisualStyleBackColor = true;
@@ -252,10 +257,10 @@
             // 
             this.portStatus.AutoSize = true;
             this.portStatus.ForeColor = System.Drawing.Color.SlateGray;
-            this.portStatus.Location = new System.Drawing.Point(245, 58);
+            this.portStatus.Location = new System.Drawing.Point(276, 72);
             this.portStatus.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.portStatus.Name = "portStatus";
-            this.portStatus.Size = new System.Drawing.Size(94, 17);
+            this.portStatus.Size = new System.Drawing.Size(107, 20);
             this.portStatus.TabIndex = 12;
             this.portStatus.Text = "Disconnected";
             // 
@@ -265,11 +270,12 @@
             this.tabControl.Controls.Add(this.Button2Tab);
             this.tabControl.Controls.Add(this.SipPuffLevelsTab);
             this.tabControl.Controls.Add(this.SettingsTab);
-            this.tabControl.Location = new System.Drawing.Point(50, 99);
-            this.tabControl.Margin = new System.Windows.Forms.Padding(4);
+            this.tabControl.Controls.Add(this.general);
+            this.tabControl.Location = new System.Drawing.Point(56, 124);
+            this.tabControl.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(788, 395);
+            this.tabControl.Size = new System.Drawing.Size(886, 494);
             this.tabControl.TabIndex = 61;
             this.tabControl.SelectedIndexChanged += new System.EventHandler(this.tabControl_SelectedIndexChanged);
             // 
@@ -309,21 +315,21 @@
             this.Buttons1Tab.Controls.Add(this.Button2FunctionBox);
             this.Buttons1Tab.Controls.Add(this.label6);
             this.Buttons1Tab.Controls.Add(this.Button1FunctionBox);
-            this.Buttons1Tab.Location = new System.Drawing.Point(4, 25);
-            this.Buttons1Tab.Margin = new System.Windows.Forms.Padding(4);
+            this.Buttons1Tab.Location = new System.Drawing.Point(4, 29);
+            this.Buttons1Tab.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Buttons1Tab.Name = "Buttons1Tab";
-            this.Buttons1Tab.Padding = new System.Windows.Forms.Padding(4);
-            this.Buttons1Tab.Size = new System.Drawing.Size(780, 366);
+            this.Buttons1Tab.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.Buttons1Tab.Size = new System.Drawing.Size(878, 461);
             this.Buttons1Tab.TabIndex = 1;
             this.Buttons1Tab.Text = "Buttons 1-4 Actions";
             // 
             // Button4Label
             // 
             this.Button4Label.AutoSize = true;
-            this.Button4Label.Location = new System.Drawing.Point(99, 298);
+            this.Button4Label.Location = new System.Drawing.Point(111, 372);
             this.Button4Label.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.Button4Label.Name = "Button4Label";
-            this.Button4Label.Size = new System.Drawing.Size(78, 17);
+            this.Button4Label.Size = new System.Drawing.Size(87, 20);
             this.Button4Label.TabIndex = 169;
             this.Button4Label.Text = "Parameter:";
             this.Button4Label.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -331,10 +337,10 @@
             // Button3Label
             // 
             this.Button3Label.AutoSize = true;
-            this.Button3Label.Location = new System.Drawing.Point(103, 224);
+            this.Button3Label.Location = new System.Drawing.Point(116, 280);
             this.Button3Label.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.Button3Label.Name = "Button3Label";
-            this.Button3Label.Size = new System.Drawing.Size(78, 17);
+            this.Button3Label.Size = new System.Drawing.Size(87, 20);
             this.Button3Label.TabIndex = 168;
             this.Button3Label.Text = "Parameter:";
             this.Button3Label.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -342,10 +348,10 @@
             // Button2Label
             // 
             this.Button2Label.AutoSize = true;
-            this.Button2Label.Location = new System.Drawing.Point(106, 154);
+            this.Button2Label.Location = new System.Drawing.Point(119, 192);
             this.Button2Label.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.Button2Label.Name = "Button2Label";
-            this.Button2Label.Size = new System.Drawing.Size(78, 17);
+            this.Button2Label.Size = new System.Drawing.Size(87, 20);
             this.Button2Label.TabIndex = 167;
             this.Button2Label.Text = "Parameter:";
             this.Button2Label.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -353,10 +359,10 @@
             // Button1Label
             // 
             this.Button1Label.AutoSize = true;
-            this.Button1Label.Location = new System.Drawing.Point(110, 83);
+            this.Button1Label.Location = new System.Drawing.Point(124, 104);
             this.Button1Label.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.Button1Label.Name = "Button1Label";
-            this.Button1Label.Size = new System.Drawing.Size(78, 17);
+            this.Button1Label.Size = new System.Drawing.Size(87, 20);
             this.Button1Label.TabIndex = 166;
             this.Button1Label.Text = "Parameter:";
             this.Button1Label.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -364,40 +370,40 @@
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(75, 268);
+            this.label17.Location = new System.Drawing.Point(84, 335);
             this.label17.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(104, 17);
+            this.label17.Size = new System.Drawing.Size(119, 20);
             this.label17.TabIndex = 156;
             this.label17.Text = "Button4 Action:";
             // 
             // label24
             // 
             this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(79, 195);
+            this.label24.Location = new System.Drawing.Point(89, 244);
             this.label24.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(104, 17);
+            this.label24.Size = new System.Drawing.Size(119, 20);
             this.label24.TabIndex = 152;
             this.label24.Text = "Button3 Action:";
             // 
             // label25
             // 
             this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(82, 123);
+            this.label25.Location = new System.Drawing.Point(92, 154);
             this.label25.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(104, 17);
+            this.label25.Size = new System.Drawing.Size(119, 20);
             this.label25.TabIndex = 151;
             this.label25.Text = "Button2 Action:";
             // 
             // label26
             // 
             this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(84, 51);
+            this.label26.Location = new System.Drawing.Point(94, 64);
             this.label26.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(104, 17);
+            this.label26.Size = new System.Drawing.Size(119, 20);
             this.label26.TabIndex = 150;
             this.label26.Text = "Button1 Action:";
             // 
@@ -405,10 +411,10 @@
             // 
             this.clearButton4.Enabled = false;
             this.clearButton4.ForeColor = System.Drawing.Color.Black;
-            this.clearButton4.Location = new System.Drawing.Point(542, 292);
-            this.clearButton4.Margin = new System.Windows.Forms.Padding(4);
+            this.clearButton4.Location = new System.Drawing.Point(610, 365);
+            this.clearButton4.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.clearButton4.Name = "clearButton4";
-            this.clearButton4.Size = new System.Drawing.Size(36, 28);
+            this.clearButton4.Size = new System.Drawing.Size(40, 35);
             this.clearButton4.TabIndex = 149;
             this.clearButton4.Text = "x";
             this.clearButton4.UseVisualStyleBackColor = true;
@@ -418,25 +424,25 @@
             // Button4ComboBox
             // 
             this.Button4ComboBox.FormattingEnabled = true;
-            this.Button4ComboBox.Location = new System.Drawing.Point(542, 265);
-            this.Button4ComboBox.Margin = new System.Windows.Forms.Padding(4);
+            this.Button4ComboBox.Location = new System.Drawing.Point(610, 331);
+            this.Button4ComboBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Button4ComboBox.Name = "Button4ComboBox";
-            this.Button4ComboBox.Size = new System.Drawing.Size(143, 24);
+            this.Button4ComboBox.Size = new System.Drawing.Size(160, 28);
             this.Button4ComboBox.TabIndex = 148;
             this.Button4ComboBox.Visible = false;
             this.Button4ComboBox.SelectedIndexChanged += new System.EventHandler(this.Button4ComboBox_SelectedIndexChanged);
             // 
             // Button4NumericParameter
             // 
-            this.Button4NumericParameter.Location = new System.Drawing.Point(206, 296);
-            this.Button4NumericParameter.Margin = new System.Windows.Forms.Padding(4);
+            this.Button4NumericParameter.Location = new System.Drawing.Point(232, 370);
+            this.Button4NumericParameter.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Button4NumericParameter.Minimum = new decimal(new int[] {
             100,
             0,
             0,
             -2147483648});
             this.Button4NumericParameter.Name = "Button4NumericParameter";
-            this.Button4NumericParameter.Size = new System.Drawing.Size(60, 22);
+            this.Button4NumericParameter.Size = new System.Drawing.Size(68, 26);
             this.Button4NumericParameter.TabIndex = 147;
             this.Button4NumericParameter.Value = new decimal(new int[] {
             1,
@@ -447,29 +453,29 @@
             // 
             // Button4ParameterText
             // 
-            this.Button4ParameterText.Location = new System.Drawing.Point(206, 295);
+            this.Button4ParameterText.Location = new System.Drawing.Point(232, 369);
             this.Button4ParameterText.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Button4ParameterText.Name = "Button4ParameterText";
             this.Button4ParameterText.ReadOnly = true;
-            this.Button4ParameterText.Size = new System.Drawing.Size(329, 22);
+            this.Button4ParameterText.Size = new System.Drawing.Size(370, 26);
             this.Button4ParameterText.TabIndex = 145;
             // 
             // label35
             // 
             this.label35.AutoSize = true;
-            this.label35.Location = new System.Drawing.Point(111, 268);
+            this.label35.Location = new System.Drawing.Point(125, 335);
             this.label35.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label35.Name = "label35";
-            this.label35.Size = new System.Drawing.Size(0, 17);
+            this.label35.Size = new System.Drawing.Size(0, 20);
             this.label35.TabIndex = 144;
             // 
             // Button4FunctionBox
             // 
             this.Button4FunctionBox.FormattingEnabled = true;
-            this.Button4FunctionBox.Location = new System.Drawing.Point(206, 265);
-            this.Button4FunctionBox.Margin = new System.Windows.Forms.Padding(4);
+            this.Button4FunctionBox.Location = new System.Drawing.Point(232, 331);
+            this.Button4FunctionBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Button4FunctionBox.Name = "Button4FunctionBox";
-            this.Button4FunctionBox.Size = new System.Drawing.Size(329, 24);
+            this.Button4FunctionBox.Size = new System.Drawing.Size(370, 28);
             this.Button4FunctionBox.TabIndex = 143;
             this.Button4FunctionBox.SelectedIndexChanged += new System.EventHandler(this.Button4FunctionBox_SelectedIndexChanged);
             // 
@@ -477,10 +483,10 @@
             // 
             this.clearButton3.Enabled = false;
             this.clearButton3.ForeColor = System.Drawing.Color.Black;
-            this.clearButton3.Location = new System.Drawing.Point(542, 221);
-            this.clearButton3.Margin = new System.Windows.Forms.Padding(4);
+            this.clearButton3.Location = new System.Drawing.Point(610, 276);
+            this.clearButton3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.clearButton3.Name = "clearButton3";
-            this.clearButton3.Size = new System.Drawing.Size(36, 28);
+            this.clearButton3.Size = new System.Drawing.Size(40, 35);
             this.clearButton3.TabIndex = 142;
             this.clearButton3.Text = "x";
             this.clearButton3.UseVisualStyleBackColor = true;
@@ -491,10 +497,10 @@
             // 
             this.clearButton2.Enabled = false;
             this.clearButton2.ForeColor = System.Drawing.Color.Black;
-            this.clearButton2.Location = new System.Drawing.Point(542, 149);
-            this.clearButton2.Margin = new System.Windows.Forms.Padding(4);
+            this.clearButton2.Location = new System.Drawing.Point(610, 186);
+            this.clearButton2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.clearButton2.Name = "clearButton2";
-            this.clearButton2.Size = new System.Drawing.Size(36, 28);
+            this.clearButton2.Size = new System.Drawing.Size(40, 35);
             this.clearButton2.TabIndex = 141;
             this.clearButton2.Text = "x";
             this.clearButton2.UseVisualStyleBackColor = true;
@@ -505,10 +511,10 @@
             // 
             this.clearButton1.Enabled = false;
             this.clearButton1.ForeColor = System.Drawing.Color.Black;
-            this.clearButton1.Location = new System.Drawing.Point(542, 77);
-            this.clearButton1.Margin = new System.Windows.Forms.Padding(4);
+            this.clearButton1.Location = new System.Drawing.Point(610, 96);
+            this.clearButton1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.clearButton1.Name = "clearButton1";
-            this.clearButton1.Size = new System.Drawing.Size(36, 28);
+            this.clearButton1.Size = new System.Drawing.Size(40, 35);
             this.clearButton1.TabIndex = 78;
             this.clearButton1.Text = "x";
             this.clearButton1.UseVisualStyleBackColor = true;
@@ -518,19 +524,19 @@
             // label21
             // 
             this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(203, 27);
+            this.label21.Location = new System.Drawing.Point(228, 34);
             this.label21.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(0, 17);
+            this.label21.Size = new System.Drawing.Size(0, 20);
             this.label21.TabIndex = 140;
             // 
             // Button3ComboBox
             // 
             this.Button3ComboBox.FormattingEnabled = true;
-            this.Button3ComboBox.Location = new System.Drawing.Point(542, 194);
-            this.Button3ComboBox.Margin = new System.Windows.Forms.Padding(4);
+            this.Button3ComboBox.Location = new System.Drawing.Point(610, 242);
+            this.Button3ComboBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Button3ComboBox.Name = "Button3ComboBox";
-            this.Button3ComboBox.Size = new System.Drawing.Size(143, 24);
+            this.Button3ComboBox.Size = new System.Drawing.Size(160, 28);
             this.Button3ComboBox.TabIndex = 114;
             this.Button3ComboBox.Visible = false;
             this.Button3ComboBox.SelectedIndexChanged += new System.EventHandler(this.Button3ComboBox_SelectedIndexChanged);
@@ -538,10 +544,10 @@
             // Button2ComboBox
             // 
             this.Button2ComboBox.FormattingEnabled = true;
-            this.Button2ComboBox.Location = new System.Drawing.Point(542, 121);
-            this.Button2ComboBox.Margin = new System.Windows.Forms.Padding(4);
+            this.Button2ComboBox.Location = new System.Drawing.Point(610, 151);
+            this.Button2ComboBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Button2ComboBox.Name = "Button2ComboBox";
-            this.Button2ComboBox.Size = new System.Drawing.Size(143, 24);
+            this.Button2ComboBox.Size = new System.Drawing.Size(160, 28);
             this.Button2ComboBox.TabIndex = 113;
             this.Button2ComboBox.Visible = false;
             this.Button2ComboBox.SelectedIndexChanged += new System.EventHandler(this.Button2ComboBox_SelectedIndexChanged);
@@ -549,25 +555,25 @@
             // Button1ComboBox
             // 
             this.Button1ComboBox.FormattingEnabled = true;
-            this.Button1ComboBox.Location = new System.Drawing.Point(542, 49);
-            this.Button1ComboBox.Margin = new System.Windows.Forms.Padding(4);
+            this.Button1ComboBox.Location = new System.Drawing.Point(610, 61);
+            this.Button1ComboBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Button1ComboBox.Name = "Button1ComboBox";
-            this.Button1ComboBox.Size = new System.Drawing.Size(143, 24);
+            this.Button1ComboBox.Size = new System.Drawing.Size(160, 28);
             this.Button1ComboBox.TabIndex = 112;
             this.Button1ComboBox.Visible = false;
             this.Button1ComboBox.SelectedIndexChanged += new System.EventHandler(this.Button1ComboBox_SelectedIndexChanged);
             // 
             // Button3NumericParameter
             // 
-            this.Button3NumericParameter.Location = new System.Drawing.Point(206, 225);
-            this.Button3NumericParameter.Margin = new System.Windows.Forms.Padding(4);
+            this.Button3NumericParameter.Location = new System.Drawing.Point(232, 281);
+            this.Button3NumericParameter.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Button3NumericParameter.Minimum = new decimal(new int[] {
             100,
             0,
             0,
             -2147483648});
             this.Button3NumericParameter.Name = "Button3NumericParameter";
-            this.Button3NumericParameter.Size = new System.Drawing.Size(60, 22);
+            this.Button3NumericParameter.Size = new System.Drawing.Size(68, 26);
             this.Button3NumericParameter.TabIndex = 109;
             this.Button3NumericParameter.Value = new decimal(new int[] {
             1,
@@ -578,15 +584,15 @@
             // 
             // Button2NumericParameter
             // 
-            this.Button2NumericParameter.Location = new System.Drawing.Point(206, 152);
-            this.Button2NumericParameter.Margin = new System.Windows.Forms.Padding(4);
+            this.Button2NumericParameter.Location = new System.Drawing.Point(232, 190);
+            this.Button2NumericParameter.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Button2NumericParameter.Minimum = new decimal(new int[] {
             100,
             0,
             0,
             -2147483648});
             this.Button2NumericParameter.Name = "Button2NumericParameter";
-            this.Button2NumericParameter.Size = new System.Drawing.Size(60, 22);
+            this.Button2NumericParameter.Size = new System.Drawing.Size(68, 26);
             this.Button2NumericParameter.TabIndex = 108;
             this.Button2NumericParameter.Value = new decimal(new int[] {
             1,
@@ -597,15 +603,15 @@
             // 
             // Button1NumericParameter
             // 
-            this.Button1NumericParameter.Location = new System.Drawing.Point(206, 81);
-            this.Button1NumericParameter.Margin = new System.Windows.Forms.Padding(4);
+            this.Button1NumericParameter.Location = new System.Drawing.Point(232, 101);
+            this.Button1NumericParameter.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Button1NumericParameter.Minimum = new decimal(new int[] {
             100,
             0,
             0,
             -2147483648});
             this.Button1NumericParameter.Name = "Button1NumericParameter";
-            this.Button1NumericParameter.Size = new System.Drawing.Size(60, 22);
+            this.Button1NumericParameter.Size = new System.Drawing.Size(68, 26);
             this.Button1NumericParameter.TabIndex = 107;
             this.Button1NumericParameter.Value = new decimal(new int[] {
             1,
@@ -616,85 +622,85 @@
             // 
             // Button3ParameterText
             // 
-            this.Button3ParameterText.Location = new System.Drawing.Point(206, 224);
+            this.Button3ParameterText.Location = new System.Drawing.Point(232, 280);
             this.Button3ParameterText.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Button3ParameterText.Name = "Button3ParameterText";
             this.Button3ParameterText.ReadOnly = true;
-            this.Button3ParameterText.Size = new System.Drawing.Size(329, 22);
+            this.Button3ParameterText.Size = new System.Drawing.Size(370, 26);
             this.Button3ParameterText.TabIndex = 101;
             // 
             // Button2ParameterText
             // 
-            this.Button2ParameterText.Location = new System.Drawing.Point(206, 152);
+            this.Button2ParameterText.Location = new System.Drawing.Point(232, 190);
             this.Button2ParameterText.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Button2ParameterText.Name = "Button2ParameterText";
             this.Button2ParameterText.ReadOnly = true;
-            this.Button2ParameterText.Size = new System.Drawing.Size(329, 22);
+            this.Button2ParameterText.Size = new System.Drawing.Size(370, 26);
             this.Button2ParameterText.TabIndex = 99;
             // 
             // Button1ParameterText
             // 
-            this.Button1ParameterText.Location = new System.Drawing.Point(206, 81);
+            this.Button1ParameterText.Location = new System.Drawing.Point(232, 101);
             this.Button1ParameterText.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Button1ParameterText.Name = "Button1ParameterText";
             this.Button1ParameterText.ReadOnly = true;
-            this.Button1ParameterText.Size = new System.Drawing.Size(329, 22);
+            this.Button1ParameterText.Size = new System.Drawing.Size(370, 26);
             this.Button1ParameterText.TabIndex = 97;
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(50, 195);
+            this.label8.Location = new System.Drawing.Point(56, 244);
             this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(0, 17);
+            this.label8.Size = new System.Drawing.Size(0, 20);
             this.label8.TabIndex = 92;
             // 
             // Button3FunctionBox
             // 
             this.Button3FunctionBox.FormattingEnabled = true;
-            this.Button3FunctionBox.Location = new System.Drawing.Point(206, 194);
-            this.Button3FunctionBox.Margin = new System.Windows.Forms.Padding(4);
+            this.Button3FunctionBox.Location = new System.Drawing.Point(232, 242);
+            this.Button3FunctionBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Button3FunctionBox.Name = "Button3FunctionBox";
-            this.Button3FunctionBox.Size = new System.Drawing.Size(329, 24);
+            this.Button3FunctionBox.Size = new System.Drawing.Size(370, 28);
             this.Button3FunctionBox.TabIndex = 91;
             this.Button3FunctionBox.SelectedIndexChanged += new System.EventHandler(this.Button3FunctionBox_SelectedIndexChanged_1);
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(59, 125);
+            this.label7.Location = new System.Drawing.Point(66, 156);
             this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(0, 17);
+            this.label7.Size = new System.Drawing.Size(0, 20);
             this.label7.TabIndex = 90;
             // 
             // Button2FunctionBox
             // 
             this.Button2FunctionBox.FormattingEnabled = true;
-            this.Button2FunctionBox.Location = new System.Drawing.Point(206, 121);
-            this.Button2FunctionBox.Margin = new System.Windows.Forms.Padding(4);
+            this.Button2FunctionBox.Location = new System.Drawing.Point(232, 151);
+            this.Button2FunctionBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Button2FunctionBox.Name = "Button2FunctionBox";
-            this.Button2FunctionBox.Size = new System.Drawing.Size(329, 24);
+            this.Button2FunctionBox.Size = new System.Drawing.Size(370, 28);
             this.Button2FunctionBox.TabIndex = 89;
             this.Button2FunctionBox.SelectedIndexChanged += new System.EventHandler(this.Button2FunctionBox_SelectedIndexChanged_1);
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(63, 53);
+            this.label6.Location = new System.Drawing.Point(71, 66);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(0, 17);
+            this.label6.Size = new System.Drawing.Size(0, 20);
             this.label6.TabIndex = 88;
             // 
             // Button1FunctionBox
             // 
             this.Button1FunctionBox.FormattingEnabled = true;
-            this.Button1FunctionBox.Location = new System.Drawing.Point(206, 49);
-            this.Button1FunctionBox.Margin = new System.Windows.Forms.Padding(4);
+            this.Button1FunctionBox.Location = new System.Drawing.Point(232, 61);
+            this.Button1FunctionBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Button1FunctionBox.Name = "Button1FunctionBox";
-            this.Button1FunctionBox.Size = new System.Drawing.Size(329, 24);
+            this.Button1FunctionBox.Size = new System.Drawing.Size(370, 28);
             this.Button1FunctionBox.TabIndex = 87;
             this.Button1FunctionBox.SelectedIndexChanged += new System.EventHandler(this.Button1FunctionBox_SelectedIndexChanged_1);
             // 
@@ -738,20 +744,20 @@
             this.Button2Tab.Controls.Add(this.Button7FunctionBox);
             this.Button2Tab.Controls.Add(this.label13);
             this.Button2Tab.Controls.Add(this.Button6FunctionBox);
-            this.Button2Tab.Location = new System.Drawing.Point(4, 25);
+            this.Button2Tab.Location = new System.Drawing.Point(4, 29);
             this.Button2Tab.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Button2Tab.Name = "Button2Tab";
-            this.Button2Tab.Size = new System.Drawing.Size(780, 366);
+            this.Button2Tab.Size = new System.Drawing.Size(878, 461);
             this.Button2Tab.TabIndex = 3;
             this.Button2Tab.Text = "Buttons 5-9 Actions";
             // 
             // Button5Label
             // 
             this.Button5Label.AutoSize = true;
-            this.Button5Label.Location = new System.Drawing.Point(149, 55);
+            this.Button5Label.Location = new System.Drawing.Point(168, 69);
             this.Button5Label.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.Button5Label.Name = "Button5Label";
-            this.Button5Label.Size = new System.Drawing.Size(78, 17);
+            this.Button5Label.Size = new System.Drawing.Size(87, 20);
             this.Button5Label.TabIndex = 179;
             this.Button5Label.Text = "Parameter:";
             this.Button5Label.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -759,10 +765,10 @@
             // label27
             // 
             this.label27.AutoSize = true;
-            this.label27.Location = new System.Drawing.Point(123, 24);
+            this.label27.Location = new System.Drawing.Point(138, 30);
             this.label27.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(104, 17);
+            this.label27.Size = new System.Drawing.Size(119, 20);
             this.label27.TabIndex = 178;
             this.label27.Text = "Button5 Action:";
             // 
@@ -770,10 +776,10 @@
             // 
             this.clearButton5.Enabled = false;
             this.clearButton5.ForeColor = System.Drawing.Color.Black;
-            this.clearButton5.Location = new System.Drawing.Point(556, 51);
-            this.clearButton5.Margin = new System.Windows.Forms.Padding(4);
+            this.clearButton5.Location = new System.Drawing.Point(626, 64);
+            this.clearButton5.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.clearButton5.Name = "clearButton5";
-            this.clearButton5.Size = new System.Drawing.Size(36, 28);
+            this.clearButton5.Size = new System.Drawing.Size(40, 35);
             this.clearButton5.TabIndex = 177;
             this.clearButton5.Text = "x";
             this.clearButton5.UseVisualStyleBackColor = true;
@@ -783,25 +789,25 @@
             // Button5ComboBox
             // 
             this.Button5ComboBox.FormattingEnabled = true;
-            this.Button5ComboBox.Location = new System.Drawing.Point(555, 24);
-            this.Button5ComboBox.Margin = new System.Windows.Forms.Padding(4);
+            this.Button5ComboBox.Location = new System.Drawing.Point(624, 30);
+            this.Button5ComboBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Button5ComboBox.Name = "Button5ComboBox";
-            this.Button5ComboBox.Size = new System.Drawing.Size(161, 24);
+            this.Button5ComboBox.Size = new System.Drawing.Size(181, 28);
             this.Button5ComboBox.TabIndex = 176;
             this.Button5ComboBox.Visible = false;
             this.Button5ComboBox.SelectedIndexChanged += new System.EventHandler(this.Button5ComboBox_SelectedIndexChanged);
             // 
             // Button5NumericParameter
             // 
-            this.Button5NumericParameter.Location = new System.Drawing.Point(238, 55);
-            this.Button5NumericParameter.Margin = new System.Windows.Forms.Padding(4);
+            this.Button5NumericParameter.Location = new System.Drawing.Point(268, 69);
+            this.Button5NumericParameter.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Button5NumericParameter.Minimum = new decimal(new int[] {
             100,
             0,
             0,
             -2147483648});
             this.Button5NumericParameter.Name = "Button5NumericParameter";
-            this.Button5NumericParameter.Size = new System.Drawing.Size(60, 22);
+            this.Button5NumericParameter.Size = new System.Drawing.Size(68, 26);
             this.Button5NumericParameter.TabIndex = 175;
             this.Button5NumericParameter.Value = new decimal(new int[] {
             1,
@@ -813,37 +819,37 @@
             // label28
             // 
             this.label28.AutoSize = true;
-            this.label28.Location = new System.Drawing.Point(175, 56);
+            this.label28.Location = new System.Drawing.Point(197, 70);
             this.label28.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(0, 17);
+            this.label28.Size = new System.Drawing.Size(0, 20);
             this.label28.TabIndex = 174;
             // 
             // Button5ParameterText
             // 
-            this.Button5ParameterText.Location = new System.Drawing.Point(238, 54);
+            this.Button5ParameterText.Location = new System.Drawing.Point(268, 68);
             this.Button5ParameterText.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Button5ParameterText.Name = "Button5ParameterText";
             this.Button5ParameterText.ReadOnly = true;
-            this.Button5ParameterText.Size = new System.Drawing.Size(311, 22);
+            this.Button5ParameterText.Size = new System.Drawing.Size(349, 26);
             this.Button5ParameterText.TabIndex = 173;
             // 
             // label31
             // 
             this.label31.AutoSize = true;
-            this.label31.Location = new System.Drawing.Point(143, 27);
+            this.label31.Location = new System.Drawing.Point(161, 34);
             this.label31.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(0, 17);
+            this.label31.Size = new System.Drawing.Size(0, 20);
             this.label31.TabIndex = 172;
             // 
             // Button5FunctionBox
             // 
             this.Button5FunctionBox.FormattingEnabled = true;
-            this.Button5FunctionBox.Location = new System.Drawing.Point(238, 24);
-            this.Button5FunctionBox.Margin = new System.Windows.Forms.Padding(4);
+            this.Button5FunctionBox.Location = new System.Drawing.Point(268, 30);
+            this.Button5FunctionBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Button5FunctionBox.Name = "Button5FunctionBox";
-            this.Button5FunctionBox.Size = new System.Drawing.Size(311, 24);
+            this.Button5FunctionBox.Size = new System.Drawing.Size(349, 28);
             this.Button5FunctionBox.TabIndex = 171;
             this.Button5FunctionBox.SelectedIndexChanged += new System.EventHandler(this.Button5FunctionBox_SelectedIndexChanged);
             // 
@@ -851,10 +857,10 @@
             // 
             this.clearButton9.Enabled = false;
             this.clearButton9.ForeColor = System.Drawing.Color.Black;
-            this.clearButton9.Location = new System.Drawing.Point(555, 323);
-            this.clearButton9.Margin = new System.Windows.Forms.Padding(4);
+            this.clearButton9.Location = new System.Drawing.Point(624, 404);
+            this.clearButton9.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.clearButton9.Name = "clearButton9";
-            this.clearButton9.Size = new System.Drawing.Size(36, 28);
+            this.clearButton9.Size = new System.Drawing.Size(40, 35);
             this.clearButton9.TabIndex = 143;
             this.clearButton9.Text = "x";
             this.clearButton9.UseVisualStyleBackColor = true;
@@ -865,10 +871,10 @@
             // 
             this.clearButton8.Enabled = false;
             this.clearButton8.ForeColor = System.Drawing.Color.Black;
-            this.clearButton8.Location = new System.Drawing.Point(555, 256);
-            this.clearButton8.Margin = new System.Windows.Forms.Padding(4);
+            this.clearButton8.Location = new System.Drawing.Point(624, 320);
+            this.clearButton8.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.clearButton8.Name = "clearButton8";
-            this.clearButton8.Size = new System.Drawing.Size(36, 28);
+            this.clearButton8.Size = new System.Drawing.Size(40, 35);
             this.clearButton8.TabIndex = 142;
             this.clearButton8.Text = "x";
             this.clearButton8.UseVisualStyleBackColor = true;
@@ -879,10 +885,10 @@
             // 
             this.clearButton7.Enabled = false;
             this.clearButton7.ForeColor = System.Drawing.Color.Black;
-            this.clearButton7.Location = new System.Drawing.Point(555, 187);
-            this.clearButton7.Margin = new System.Windows.Forms.Padding(4);
+            this.clearButton7.Location = new System.Drawing.Point(624, 234);
+            this.clearButton7.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.clearButton7.Name = "clearButton7";
-            this.clearButton7.Size = new System.Drawing.Size(36, 28);
+            this.clearButton7.Size = new System.Drawing.Size(40, 35);
             this.clearButton7.TabIndex = 141;
             this.clearButton7.Text = "x";
             this.clearButton7.UseVisualStyleBackColor = true;
@@ -893,10 +899,10 @@
             // 
             this.clearButton6.Enabled = false;
             this.clearButton6.ForeColor = System.Drawing.Color.Black;
-            this.clearButton6.Location = new System.Drawing.Point(555, 119);
-            this.clearButton6.Margin = new System.Windows.Forms.Padding(4);
+            this.clearButton6.Location = new System.Drawing.Point(624, 149);
+            this.clearButton6.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.clearButton6.Name = "clearButton6";
-            this.clearButton6.Size = new System.Drawing.Size(36, 28);
+            this.clearButton6.Size = new System.Drawing.Size(40, 35);
             this.clearButton6.TabIndex = 140;
             this.clearButton6.Text = "x";
             this.clearButton6.UseVisualStyleBackColor = true;
@@ -906,25 +912,25 @@
             // Button9ComboBox
             // 
             this.Button9ComboBox.FormattingEnabled = true;
-            this.Button9ComboBox.Location = new System.Drawing.Point(555, 295);
-            this.Button9ComboBox.Margin = new System.Windows.Forms.Padding(4);
+            this.Button9ComboBox.Location = new System.Drawing.Point(624, 369);
+            this.Button9ComboBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Button9ComboBox.Name = "Button9ComboBox";
-            this.Button9ComboBox.Size = new System.Drawing.Size(161, 24);
+            this.Button9ComboBox.Size = new System.Drawing.Size(181, 28);
             this.Button9ComboBox.TabIndex = 138;
             this.Button9ComboBox.Visible = false;
             this.Button9ComboBox.SelectedIndexChanged += new System.EventHandler(this.Button9ComboBox_SelectedIndexChanged);
             // 
             // Button9NumericParameter
             // 
-            this.Button9NumericParameter.Location = new System.Drawing.Point(238, 325);
-            this.Button9NumericParameter.Margin = new System.Windows.Forms.Padding(4);
+            this.Button9NumericParameter.Location = new System.Drawing.Point(268, 406);
+            this.Button9NumericParameter.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Button9NumericParameter.Minimum = new decimal(new int[] {
             100,
             0,
             0,
             -2147483648});
             this.Button9NumericParameter.Name = "Button9NumericParameter";
-            this.Button9NumericParameter.Size = new System.Drawing.Size(60, 22);
+            this.Button9NumericParameter.Size = new System.Drawing.Size(68, 26);
             this.Button9NumericParameter.TabIndex = 137;
             this.Button9NumericParameter.Value = new decimal(new int[] {
             1,
@@ -936,49 +942,49 @@
             // Button9Label
             // 
             this.Button9Label.AutoSize = true;
-            this.Button9Label.Location = new System.Drawing.Point(145, 327);
+            this.Button9Label.Location = new System.Drawing.Point(163, 409);
             this.Button9Label.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.Button9Label.Name = "Button9Label";
-            this.Button9Label.Size = new System.Drawing.Size(78, 17);
+            this.Button9Label.Size = new System.Drawing.Size(87, 20);
             this.Button9Label.TabIndex = 136;
             this.Button9Label.Text = "Parameter:";
             // 
             // Button9ParameterText
             // 
-            this.Button9ParameterText.Location = new System.Drawing.Point(238, 325);
+            this.Button9ParameterText.Location = new System.Drawing.Point(268, 406);
             this.Button9ParameterText.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Button9ParameterText.Name = "Button9ParameterText";
             this.Button9ParameterText.ReadOnly = true;
-            this.Button9ParameterText.Size = new System.Drawing.Size(311, 22);
+            this.Button9ParameterText.Size = new System.Drawing.Size(349, 26);
             this.Button9ParameterText.TabIndex = 135;
             // 
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(32, 299);
+            this.label15.Location = new System.Drawing.Point(36, 374);
             this.label15.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(192, 17);
+            this.label15.Size = new System.Drawing.Size(216, 20);
             this.label15.TabIndex = 134;
             this.label15.Text = "Button9 / LongPress3 Action:";
             // 
             // Button9FunctionBox
             // 
             this.Button9FunctionBox.FormattingEnabled = true;
-            this.Button9FunctionBox.Location = new System.Drawing.Point(238, 295);
-            this.Button9FunctionBox.Margin = new System.Windows.Forms.Padding(4);
+            this.Button9FunctionBox.Location = new System.Drawing.Point(268, 369);
+            this.Button9FunctionBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Button9FunctionBox.Name = "Button9FunctionBox";
-            this.Button9FunctionBox.Size = new System.Drawing.Size(311, 24);
+            this.Button9FunctionBox.Size = new System.Drawing.Size(349, 28);
             this.Button9FunctionBox.TabIndex = 133;
             this.Button9FunctionBox.SelectedIndexChanged += new System.EventHandler(this.Button9FunctionMenu_SelectedIndexChanged);
             // 
             // Button8ComboBox
             // 
             this.Button8ComboBox.FormattingEnabled = true;
-            this.Button8ComboBox.Location = new System.Drawing.Point(555, 229);
-            this.Button8ComboBox.Margin = new System.Windows.Forms.Padding(4);
+            this.Button8ComboBox.Location = new System.Drawing.Point(624, 286);
+            this.Button8ComboBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Button8ComboBox.Name = "Button8ComboBox";
-            this.Button8ComboBox.Size = new System.Drawing.Size(161, 24);
+            this.Button8ComboBox.Size = new System.Drawing.Size(181, 28);
             this.Button8ComboBox.TabIndex = 132;
             this.Button8ComboBox.Visible = false;
             this.Button8ComboBox.SelectedIndexChanged += new System.EventHandler(this.Button8ComboBox_SelectedIndexChanged);
@@ -986,10 +992,10 @@
             // Button7ComboBox
             // 
             this.Button7ComboBox.FormattingEnabled = true;
-            this.Button7ComboBox.Location = new System.Drawing.Point(555, 159);
-            this.Button7ComboBox.Margin = new System.Windows.Forms.Padding(4);
+            this.Button7ComboBox.Location = new System.Drawing.Point(624, 199);
+            this.Button7ComboBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Button7ComboBox.Name = "Button7ComboBox";
-            this.Button7ComboBox.Size = new System.Drawing.Size(161, 24);
+            this.Button7ComboBox.Size = new System.Drawing.Size(181, 28);
             this.Button7ComboBox.TabIndex = 131;
             this.Button7ComboBox.Visible = false;
             this.Button7ComboBox.SelectedIndexChanged += new System.EventHandler(this.Button7ComboBox_SelectedIndexChanged);
@@ -997,25 +1003,25 @@
             // Button6ComboBox
             // 
             this.Button6ComboBox.FormattingEnabled = true;
-            this.Button6ComboBox.Location = new System.Drawing.Point(555, 91);
-            this.Button6ComboBox.Margin = new System.Windows.Forms.Padding(4);
+            this.Button6ComboBox.Location = new System.Drawing.Point(624, 114);
+            this.Button6ComboBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Button6ComboBox.Name = "Button6ComboBox";
-            this.Button6ComboBox.Size = new System.Drawing.Size(161, 24);
+            this.Button6ComboBox.Size = new System.Drawing.Size(181, 28);
             this.Button6ComboBox.TabIndex = 130;
             this.Button6ComboBox.Visible = false;
             this.Button6ComboBox.SelectedIndexChanged += new System.EventHandler(this.Button6ComboBox_SelectedIndexChanged);
             // 
             // Button8NumericParameter
             // 
-            this.Button8NumericParameter.Location = new System.Drawing.Point(238, 259);
-            this.Button8NumericParameter.Margin = new System.Windows.Forms.Padding(4);
+            this.Button8NumericParameter.Location = new System.Drawing.Point(268, 324);
+            this.Button8NumericParameter.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Button8NumericParameter.Minimum = new decimal(new int[] {
             100,
             0,
             0,
             -2147483648});
             this.Button8NumericParameter.Name = "Button8NumericParameter";
-            this.Button8NumericParameter.Size = new System.Drawing.Size(60, 22);
+            this.Button8NumericParameter.Size = new System.Drawing.Size(68, 26);
             this.Button8NumericParameter.TabIndex = 129;
             this.Button8NumericParameter.Value = new decimal(new int[] {
             1,
@@ -1026,15 +1032,15 @@
             // 
             // Button7NumericParameter
             // 
-            this.Button7NumericParameter.Location = new System.Drawing.Point(238, 189);
-            this.Button7NumericParameter.Margin = new System.Windows.Forms.Padding(4);
+            this.Button7NumericParameter.Location = new System.Drawing.Point(268, 236);
+            this.Button7NumericParameter.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Button7NumericParameter.Minimum = new decimal(new int[] {
             100,
             0,
             0,
             -2147483648});
             this.Button7NumericParameter.Name = "Button7NumericParameter";
-            this.Button7NumericParameter.Size = new System.Drawing.Size(60, 22);
+            this.Button7NumericParameter.Size = new System.Drawing.Size(68, 26);
             this.Button7NumericParameter.TabIndex = 128;
             this.Button7NumericParameter.Value = new decimal(new int[] {
             1,
@@ -1045,15 +1051,15 @@
             // 
             // Button6NumericParameter
             // 
-            this.Button6NumericParameter.Location = new System.Drawing.Point(238, 119);
-            this.Button6NumericParameter.Margin = new System.Windows.Forms.Padding(4);
+            this.Button6NumericParameter.Location = new System.Drawing.Point(268, 149);
+            this.Button6NumericParameter.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Button6NumericParameter.Minimum = new decimal(new int[] {
             100,
             0,
             0,
             -2147483648});
             this.Button6NumericParameter.Name = "Button6NumericParameter";
-            this.Button6NumericParameter.Size = new System.Drawing.Size(60, 22);
+            this.Button6NumericParameter.Size = new System.Drawing.Size(68, 26);
             this.Button6NumericParameter.TabIndex = 127;
             this.Button6NumericParameter.Value = new decimal(new int[] {
             1,
@@ -1065,118 +1071,118 @@
             // Button8Label
             // 
             this.Button8Label.AutoSize = true;
-            this.Button8Label.Location = new System.Drawing.Point(146, 260);
+            this.Button8Label.Location = new System.Drawing.Point(164, 325);
             this.Button8Label.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.Button8Label.Name = "Button8Label";
-            this.Button8Label.Size = new System.Drawing.Size(78, 17);
+            this.Button8Label.Size = new System.Drawing.Size(87, 20);
             this.Button8Label.TabIndex = 126;
             this.Button8Label.Text = "Parameter:";
             // 
             // Button8ParameterText
             // 
-            this.Button8ParameterText.Location = new System.Drawing.Point(238, 259);
+            this.Button8ParameterText.Location = new System.Drawing.Point(268, 324);
             this.Button8ParameterText.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Button8ParameterText.Name = "Button8ParameterText";
             this.Button8ParameterText.ReadOnly = true;
-            this.Button8ParameterText.Size = new System.Drawing.Size(311, 22);
+            this.Button8ParameterText.Size = new System.Drawing.Size(349, 26);
             this.Button8ParameterText.TabIndex = 125;
             // 
             // Button7Label
             // 
             this.Button7Label.AutoSize = true;
-            this.Button7Label.Location = new System.Drawing.Point(145, 192);
+            this.Button7Label.Location = new System.Drawing.Point(163, 240);
             this.Button7Label.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.Button7Label.Name = "Button7Label";
-            this.Button7Label.Size = new System.Drawing.Size(78, 17);
+            this.Button7Label.Size = new System.Drawing.Size(87, 20);
             this.Button7Label.TabIndex = 124;
             this.Button7Label.Text = "Parameter:";
             // 
             // Button7ParameterText
             // 
-            this.Button7ParameterText.Location = new System.Drawing.Point(238, 189);
+            this.Button7ParameterText.Location = new System.Drawing.Point(268, 236);
             this.Button7ParameterText.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Button7ParameterText.Name = "Button7ParameterText";
             this.Button7ParameterText.ReadOnly = true;
-            this.Button7ParameterText.Size = new System.Drawing.Size(311, 22);
+            this.Button7ParameterText.Size = new System.Drawing.Size(349, 26);
             this.Button7ParameterText.TabIndex = 123;
             // 
             // Button6Label
             // 
             this.Button6Label.AutoSize = true;
-            this.Button6Label.Location = new System.Drawing.Point(148, 123);
+            this.Button6Label.Location = new System.Drawing.Point(166, 154);
             this.Button6Label.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.Button6Label.Name = "Button6Label";
-            this.Button6Label.Size = new System.Drawing.Size(78, 17);
+            this.Button6Label.Size = new System.Drawing.Size(87, 20);
             this.Button6Label.TabIndex = 122;
             this.Button6Label.Text = "Parameter:";
             this.Button6Label.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // Button6ParameterText
             // 
-            this.Button6ParameterText.Location = new System.Drawing.Point(238, 119);
+            this.Button6ParameterText.Location = new System.Drawing.Point(268, 149);
             this.Button6ParameterText.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Button6ParameterText.Name = "Button6ParameterText";
             this.Button6ParameterText.ReadOnly = true;
-            this.Button6ParameterText.Size = new System.Drawing.Size(311, 22);
+            this.Button6ParameterText.Size = new System.Drawing.Size(349, 26);
             this.Button6ParameterText.TabIndex = 121;
             // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(33, 231);
+            this.label11.Location = new System.Drawing.Point(37, 289);
             this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(192, 17);
+            this.label11.Size = new System.Drawing.Size(216, 20);
             this.label11.TabIndex = 120;
             this.label11.Text = "Button8 / LongPress2 Action:";
             // 
             // Button8FunctionBox
             // 
             this.Button8FunctionBox.FormattingEnabled = true;
-            this.Button8FunctionBox.Location = new System.Drawing.Point(238, 229);
-            this.Button8FunctionBox.Margin = new System.Windows.Forms.Padding(4);
+            this.Button8FunctionBox.Location = new System.Drawing.Point(268, 286);
+            this.Button8FunctionBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Button8FunctionBox.Name = "Button8FunctionBox";
-            this.Button8FunctionBox.Size = new System.Drawing.Size(311, 24);
+            this.Button8FunctionBox.Size = new System.Drawing.Size(349, 28);
             this.Button8FunctionBox.TabIndex = 119;
             this.Button8FunctionBox.SelectedIndexChanged += new System.EventHandler(this.Button8FunctionMenu_SelectedIndexChanged);
             // 
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(35, 164);
+            this.label12.Location = new System.Drawing.Point(39, 205);
             this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(192, 17);
+            this.label12.Size = new System.Drawing.Size(216, 20);
             this.label12.TabIndex = 118;
             this.label12.Text = "Button7 / LongPress1 Action:";
             // 
             // Button7FunctionBox
             // 
             this.Button7FunctionBox.FormattingEnabled = true;
-            this.Button7FunctionBox.Location = new System.Drawing.Point(238, 159);
-            this.Button7FunctionBox.Margin = new System.Windows.Forms.Padding(4);
+            this.Button7FunctionBox.Location = new System.Drawing.Point(268, 199);
+            this.Button7FunctionBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Button7FunctionBox.Name = "Button7FunctionBox";
-            this.Button7FunctionBox.Size = new System.Drawing.Size(311, 24);
+            this.Button7FunctionBox.Size = new System.Drawing.Size(349, 28);
             this.Button7FunctionBox.TabIndex = 117;
             this.Button7FunctionBox.SelectedIndexChanged += new System.EventHandler(this.Button7FunctionMenu_SelectedIndexChanged);
             // 
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(124, 94);
+            this.label13.Location = new System.Drawing.Point(140, 118);
             this.label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(104, 17);
+            this.label13.Size = new System.Drawing.Size(119, 20);
             this.label13.TabIndex = 116;
             this.label13.Text = "Button6 Action:";
             // 
             // Button6FunctionBox
             // 
             this.Button6FunctionBox.FormattingEnabled = true;
-            this.Button6FunctionBox.Location = new System.Drawing.Point(238, 91);
-            this.Button6FunctionBox.Margin = new System.Windows.Forms.Padding(4);
+            this.Button6FunctionBox.Location = new System.Drawing.Point(268, 114);
+            this.Button6FunctionBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Button6FunctionBox.Name = "Button6FunctionBox";
-            this.Button6FunctionBox.Size = new System.Drawing.Size(311, 24);
+            this.Button6FunctionBox.Size = new System.Drawing.Size(349, 28);
             this.Button6FunctionBox.TabIndex = 115;
             this.Button6FunctionBox.SelectedIndexChanged += new System.EventHandler(this.Button6FunctionMenu_SelectedIndexChanged);
             // 
@@ -1212,11 +1218,11 @@
             this.SipPuffLevelsTab.Controls.Add(this.sipThresholdLabel);
             this.SipPuffLevelsTab.Controls.Add(this.sipThresholdBar);
             this.SipPuffLevelsTab.Controls.Add(this.thresholdLabelForSip);
-            this.SipPuffLevelsTab.Location = new System.Drawing.Point(4, 25);
+            this.SipPuffLevelsTab.Location = new System.Drawing.Point(4, 29);
             this.SipPuffLevelsTab.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.SipPuffLevelsTab.Name = "SipPuffLevelsTab";
             this.SipPuffLevelsTab.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.SipPuffLevelsTab.Size = new System.Drawing.Size(780, 366);
+            this.SipPuffLevelsTab.Size = new System.Drawing.Size(878, 461);
             this.SipPuffLevelsTab.TabIndex = 5;
             this.SipPuffLevelsTab.Text = "Sip/Puff Levels";
             // 
@@ -1224,10 +1230,10 @@
             // 
             this.clearButtonPuff.Enabled = false;
             this.clearButtonPuff.ForeColor = System.Drawing.Color.Black;
-            this.clearButtonPuff.Location = new System.Drawing.Point(368, 164);
-            this.clearButtonPuff.Margin = new System.Windows.Forms.Padding(4);
+            this.clearButtonPuff.Location = new System.Drawing.Point(414, 205);
+            this.clearButtonPuff.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.clearButtonPuff.Name = "clearButtonPuff";
-            this.clearButtonPuff.Size = new System.Drawing.Size(36, 28);
+            this.clearButtonPuff.Size = new System.Drawing.Size(40, 35);
             this.clearButtonPuff.TabIndex = 155;
             this.clearButtonPuff.Text = "x";
             this.clearButtonPuff.UseVisualStyleBackColor = true;
@@ -1237,10 +1243,10 @@
             // PuffComboBox
             // 
             this.PuffComboBox.FormattingEnabled = true;
-            this.PuffComboBox.Location = new System.Drawing.Point(368, 132);
-            this.PuffComboBox.Margin = new System.Windows.Forms.Padding(4);
+            this.PuffComboBox.Location = new System.Drawing.Point(414, 165);
+            this.PuffComboBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.PuffComboBox.Name = "PuffComboBox";
-            this.PuffComboBox.Size = new System.Drawing.Size(76, 24);
+            this.PuffComboBox.Size = new System.Drawing.Size(85, 28);
             this.PuffComboBox.TabIndex = 154;
             this.PuffComboBox.Visible = false;
             this.PuffComboBox.SelectedIndexChanged += new System.EventHandler(this.PuffComboBox_SelectedIndexChanged);
@@ -1248,54 +1254,54 @@
             // PuffParameterLabel
             // 
             this.PuffParameterLabel.AutoSize = true;
-            this.PuffParameterLabel.Location = new System.Drawing.Point(43, 167);
+            this.PuffParameterLabel.Location = new System.Drawing.Point(48, 209);
             this.PuffParameterLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.PuffParameterLabel.Name = "PuffParameterLabel";
-            this.PuffParameterLabel.Size = new System.Drawing.Size(74, 17);
+            this.PuffParameterLabel.Size = new System.Drawing.Size(83, 20);
             this.PuffParameterLabel.TabIndex = 152;
             this.PuffParameterLabel.Text = "Parameter";
             // 
             // PuffNumericParameter
             // 
-            this.PuffNumericParameter.Location = new System.Drawing.Point(134, 164);
-            this.PuffNumericParameter.Margin = new System.Windows.Forms.Padding(4);
+            this.PuffNumericParameter.Location = new System.Drawing.Point(151, 205);
+            this.PuffNumericParameter.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.PuffNumericParameter.Minimum = new decimal(new int[] {
             100,
             0,
             0,
             -2147483648});
             this.PuffNumericParameter.Name = "PuffNumericParameter";
-            this.PuffNumericParameter.Size = new System.Drawing.Size(57, 22);
+            this.PuffNumericParameter.Size = new System.Drawing.Size(64, 26);
             this.PuffNumericParameter.TabIndex = 151;
             this.PuffNumericParameter.Visible = false;
             // 
             // label20
             // 
             this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(22, 138);
+            this.label20.Location = new System.Drawing.Point(25, 172);
             this.label20.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(91, 17);
+            this.label20.Size = new System.Drawing.Size(104, 20);
             this.label20.TabIndex = 150;
             this.label20.Text = "Puff Function";
             // 
             // PuffFunctionMenu
             // 
             this.PuffFunctionMenu.FormattingEnabled = true;
-            this.PuffFunctionMenu.Location = new System.Drawing.Point(132, 132);
-            this.PuffFunctionMenu.Margin = new System.Windows.Forms.Padding(4);
+            this.PuffFunctionMenu.Location = new System.Drawing.Point(148, 165);
+            this.PuffFunctionMenu.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.PuffFunctionMenu.Name = "PuffFunctionMenu";
-            this.PuffFunctionMenu.Size = new System.Drawing.Size(228, 24);
+            this.PuffFunctionMenu.Size = new System.Drawing.Size(256, 28);
             this.PuffFunctionMenu.TabIndex = 149;
             this.PuffFunctionMenu.SelectedIndexChanged += new System.EventHandler(this.PuffFunctionMenu_SelectedIndexChanged);
             // 
             // PuffParameterText
             // 
-            this.PuffParameterText.Location = new System.Drawing.Point(132, 164);
-            this.PuffParameterText.Margin = new System.Windows.Forms.Padding(4);
+            this.PuffParameterText.Location = new System.Drawing.Point(148, 205);
+            this.PuffParameterText.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.PuffParameterText.Name = "PuffParameterText";
             this.PuffParameterText.ReadOnly = true;
-            this.PuffParameterText.Size = new System.Drawing.Size(228, 22);
+            this.PuffParameterText.Size = new System.Drawing.Size(256, 26);
             this.PuffParameterText.TabIndex = 153;
             this.PuffParameterText.Visible = false;
             // 
@@ -1303,10 +1309,10 @@
             // 
             this.clearButtonSip.Enabled = false;
             this.clearButtonSip.ForeColor = System.Drawing.Color.Black;
-            this.clearButtonSip.Location = new System.Drawing.Point(368, 78);
-            this.clearButtonSip.Margin = new System.Windows.Forms.Padding(4);
+            this.clearButtonSip.Location = new System.Drawing.Point(414, 98);
+            this.clearButtonSip.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.clearButtonSip.Name = "clearButtonSip";
-            this.clearButtonSip.Size = new System.Drawing.Size(36, 28);
+            this.clearButtonSip.Size = new System.Drawing.Size(40, 35);
             this.clearButtonSip.TabIndex = 148;
             this.clearButtonSip.Text = "x";
             this.clearButtonSip.UseVisualStyleBackColor = true;
@@ -1316,10 +1322,10 @@
             // SipComboBox
             // 
             this.SipComboBox.FormattingEnabled = true;
-            this.SipComboBox.Location = new System.Drawing.Point(368, 48);
-            this.SipComboBox.Margin = new System.Windows.Forms.Padding(4);
+            this.SipComboBox.Location = new System.Drawing.Point(414, 60);
+            this.SipComboBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.SipComboBox.Name = "SipComboBox";
-            this.SipComboBox.Size = new System.Drawing.Size(76, 24);
+            this.SipComboBox.Size = new System.Drawing.Size(85, 28);
             this.SipComboBox.TabIndex = 147;
             this.SipComboBox.Visible = false;
             this.SipComboBox.SelectedIndexChanged += new System.EventHandler(this.SipComboBox_SelectedIndexChanged);
@@ -1327,54 +1333,54 @@
             // SipParameterLabel
             // 
             this.SipParameterLabel.AutoSize = true;
-            this.SipParameterLabel.Location = new System.Drawing.Point(45, 83);
+            this.SipParameterLabel.Location = new System.Drawing.Point(51, 104);
             this.SipParameterLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.SipParameterLabel.Name = "SipParameterLabel";
-            this.SipParameterLabel.Size = new System.Drawing.Size(74, 17);
+            this.SipParameterLabel.Size = new System.Drawing.Size(83, 20);
             this.SipParameterLabel.TabIndex = 145;
             this.SipParameterLabel.Text = "Parameter";
             // 
             // SipNumericParameter
             // 
-            this.SipNumericParameter.Location = new System.Drawing.Point(138, 80);
-            this.SipNumericParameter.Margin = new System.Windows.Forms.Padding(4);
+            this.SipNumericParameter.Location = new System.Drawing.Point(155, 100);
+            this.SipNumericParameter.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.SipNumericParameter.Minimum = new decimal(new int[] {
             100,
             0,
             0,
             -2147483648});
             this.SipNumericParameter.Name = "SipNumericParameter";
-            this.SipNumericParameter.Size = new System.Drawing.Size(57, 22);
+            this.SipNumericParameter.Size = new System.Drawing.Size(64, 26);
             this.SipNumericParameter.TabIndex = 144;
             this.SipNumericParameter.Visible = false;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(33, 50);
+            this.label5.Location = new System.Drawing.Point(37, 62);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(86, 17);
+            this.label5.Size = new System.Drawing.Size(98, 20);
             this.label5.TabIndex = 143;
             this.label5.Text = "Sip Function";
             // 
             // SipFunctionMenu
             // 
             this.SipFunctionMenu.FormattingEnabled = true;
-            this.SipFunctionMenu.Location = new System.Drawing.Point(134, 48);
-            this.SipFunctionMenu.Margin = new System.Windows.Forms.Padding(4);
+            this.SipFunctionMenu.Location = new System.Drawing.Point(151, 60);
+            this.SipFunctionMenu.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.SipFunctionMenu.Name = "SipFunctionMenu";
-            this.SipFunctionMenu.Size = new System.Drawing.Size(226, 24);
+            this.SipFunctionMenu.Size = new System.Drawing.Size(254, 28);
             this.SipFunctionMenu.TabIndex = 142;
             this.SipFunctionMenu.SelectedIndexChanged += new System.EventHandler(this.SipFunctionMenu_SelectedIndexChanged);
             // 
             // SipParameterText
             // 
-            this.SipParameterText.Location = new System.Drawing.Point(136, 80);
-            this.SipParameterText.Margin = new System.Windows.Forms.Padding(4);
+            this.SipParameterText.Location = new System.Drawing.Point(153, 100);
+            this.SipParameterText.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.SipParameterText.Name = "SipParameterText";
             this.SipParameterText.ReadOnly = true;
-            this.SipParameterText.Size = new System.Drawing.Size(224, 22);
+            this.SipParameterText.Size = new System.Drawing.Size(252, 26);
             this.SipParameterText.TabIndex = 146;
             this.SipParameterText.Visible = false;
             // 
@@ -1382,30 +1388,30 @@
             // 
             this.sipLevelIndicatorPanel.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.sipLevelIndicatorPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.sipLevelIndicatorPanel.Location = new System.Drawing.Point(466, 214);
+            this.sipLevelIndicatorPanel.Location = new System.Drawing.Point(524, 268);
             this.sipLevelIndicatorPanel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.sipLevelIndicatorPanel.Name = "sipLevelIndicatorPanel";
-            this.sipLevelIndicatorPanel.Size = new System.Drawing.Size(34, 24);
+            this.sipLevelIndicatorPanel.Size = new System.Drawing.Size(38, 30);
             this.sipLevelIndicatorPanel.TabIndex = 122;
             // 
             // puffLevelIndicatorPanel
             // 
             this.puffLevelIndicatorPanel.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.puffLevelIndicatorPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.puffLevelIndicatorPanel.Location = new System.Drawing.Point(722, 87);
+            this.puffLevelIndicatorPanel.Location = new System.Drawing.Point(812, 109);
             this.puffLevelIndicatorPanel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.puffLevelIndicatorPanel.Name = "puffLevelIndicatorPanel";
-            this.puffLevelIndicatorPanel.Size = new System.Drawing.Size(34, 24);
+            this.puffLevelIndicatorPanel.Size = new System.Drawing.Size(38, 30);
             this.puffLevelIndicatorPanel.TabIndex = 121;
             // 
             // incSipThreshold
             // 
             this.incSipThreshold.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.incSipThreshold.ForeColor = System.Drawing.Color.Black;
-            this.incSipThreshold.Location = new System.Drawing.Point(463, 248);
-            this.incSipThreshold.Margin = new System.Windows.Forms.Padding(4);
+            this.incSipThreshold.Location = new System.Drawing.Point(521, 310);
+            this.incSipThreshold.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.incSipThreshold.Name = "incSipThreshold";
-            this.incSipThreshold.Size = new System.Drawing.Size(41, 37);
+            this.incSipThreshold.Size = new System.Drawing.Size(46, 46);
             this.incSipThreshold.TabIndex = 128;
             this.incSipThreshold.Text = "+";
             this.incSipThreshold.UseVisualStyleBackColor = true;
@@ -1418,10 +1424,10 @@
             this.decSipThreshold.Cursor = System.Windows.Forms.Cursors.Hand;
             this.decSipThreshold.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.decSipThreshold.ForeColor = System.Drawing.Color.Black;
-            this.decSipThreshold.Location = new System.Drawing.Point(463, 293);
-            this.decSipThreshold.Margin = new System.Windows.Forms.Padding(4);
+            this.decSipThreshold.Location = new System.Drawing.Point(521, 366);
+            this.decSipThreshold.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.decSipThreshold.Name = "decSipThreshold";
-            this.decSipThreshold.Size = new System.Drawing.Size(41, 37);
+            this.decSipThreshold.Size = new System.Drawing.Size(46, 46);
             this.decSipThreshold.TabIndex = 127;
             this.decSipThreshold.Text = "-";
             this.decSipThreshold.UseVisualStyleBackColor = true;
@@ -1433,10 +1439,10 @@
             // 
             this.incPuffThreshold.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.incPuffThreshold.ForeColor = System.Drawing.Color.Black;
-            this.incPuffThreshold.Location = new System.Drawing.Point(718, 120);
-            this.incPuffThreshold.Margin = new System.Windows.Forms.Padding(4);
+            this.incPuffThreshold.Location = new System.Drawing.Point(808, 150);
+            this.incPuffThreshold.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.incPuffThreshold.Name = "incPuffThreshold";
-            this.incPuffThreshold.Size = new System.Drawing.Size(41, 37);
+            this.incPuffThreshold.Size = new System.Drawing.Size(46, 46);
             this.incPuffThreshold.TabIndex = 126;
             this.incPuffThreshold.Text = "+";
             this.incPuffThreshold.UseVisualStyleBackColor = true;
@@ -1448,10 +1454,10 @@
             // 
             this.decPuffThreshold.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.decPuffThreshold.ForeColor = System.Drawing.Color.Black;
-            this.decPuffThreshold.Location = new System.Drawing.Point(718, 166);
-            this.decPuffThreshold.Margin = new System.Windows.Forms.Padding(4);
+            this.decPuffThreshold.Location = new System.Drawing.Point(808, 208);
+            this.decPuffThreshold.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.decPuffThreshold.Name = "decPuffThreshold";
-            this.decPuffThreshold.Size = new System.Drawing.Size(41, 37);
+            this.decPuffThreshold.Size = new System.Drawing.Size(46, 46);
             this.decPuffThreshold.TabIndex = 125;
             this.decPuffThreshold.Text = "-";
             this.decPuffThreshold.UseVisualStyleBackColor = true;
@@ -1462,10 +1468,10 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(569, 40);
+            this.label4.Location = new System.Drawing.Point(640, 50);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(65, 17);
+            this.label4.Size = new System.Drawing.Size(72, 20);
             this.label4.TabIndex = 124;
             this.label4.Text = "Pressure";
             // 
@@ -1473,19 +1479,19 @@
             // 
             this.pressureDrawPanel.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.pressureDrawPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pressureDrawPanel.Location = new System.Drawing.Point(580, 78);
+            this.pressureDrawPanel.Location = new System.Drawing.Point(652, 98);
             this.pressureDrawPanel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pressureDrawPanel.Name = "pressureDrawPanel";
-            this.pressureDrawPanel.Size = new System.Drawing.Size(62, 250);
+            this.pressureDrawPanel.Size = new System.Drawing.Size(70, 312);
             this.pressureDrawPanel.TabIndex = 120;
             // 
             // pressureLabel
             // 
             this.pressureLabel.AutoSize = true;
-            this.pressureLabel.Location = new System.Drawing.Point(580, 57);
+            this.pressureLabel.Location = new System.Drawing.Point(652, 71);
             this.pressureLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.pressureLabel.Name = "pressureLabel";
-            this.pressureLabel.Size = new System.Drawing.Size(16, 17);
+            this.pressureLabel.Size = new System.Drawing.Size(18, 20);
             this.pressureLabel.TabIndex = 119;
             this.pressureLabel.Text = "0";
             this.pressureLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1493,10 +1499,10 @@
             // puffThresholdLabel
             // 
             this.puffThresholdLabel.AutoSize = true;
-            this.puffThresholdLabel.Location = new System.Drawing.Point(699, 247);
+            this.puffThresholdLabel.Location = new System.Drawing.Point(786, 309);
             this.puffThresholdLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.puffThresholdLabel.Name = "puffThresholdLabel";
-            this.puffThresholdLabel.Size = new System.Drawing.Size(32, 17);
+            this.puffThresholdLabel.Size = new System.Drawing.Size(36, 20);
             this.puffThresholdLabel.TabIndex = 118;
             this.puffThresholdLabel.Text = "525";
             // 
@@ -1504,15 +1510,15 @@
             // 
             this.puffThresholdBar.AllowDrop = true;
             this.puffThresholdBar.LargeChange = 20;
-            this.puffThresholdBar.Location = new System.Drawing.Point(641, 67);
-            this.puffThresholdBar.Margin = new System.Windows.Forms.Padding(4);
+            this.puffThresholdBar.Location = new System.Drawing.Point(721, 84);
+            this.puffThresholdBar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.puffThresholdBar.Maximum = 1023;
             this.puffThresholdBar.Minimum = 512;
             this.puffThresholdBar.Name = "puffThresholdBar";
             this.puffThresholdBar.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.puffThresholdBar.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.puffThresholdBar.RightToLeftLayout = true;
-            this.puffThresholdBar.Size = new System.Drawing.Size(56, 151);
+            this.puffThresholdBar.Size = new System.Drawing.Size(69, 189);
             this.puffThresholdBar.TabIndex = 117;
             this.puffThresholdBar.TickFrequency = 40;
             this.puffThresholdBar.Value = 525;
@@ -1522,10 +1528,10 @@
             // 
             this.thresholdLabelForPuff.AutoSize = true;
             this.thresholdLabelForPuff.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.thresholdLabelForPuff.Location = new System.Drawing.Point(686, 226);
+            this.thresholdLabelForPuff.Location = new System.Drawing.Point(772, 282);
             this.thresholdLabelForPuff.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.thresholdLabelForPuff.Name = "thresholdLabelForPuff";
-            this.thresholdLabelForPuff.Size = new System.Drawing.Size(71, 17);
+            this.thresholdLabelForPuff.Size = new System.Drawing.Size(79, 20);
             this.thresholdLabelForPuff.TabIndex = 116;
             this.thresholdLabelForPuff.Text = "Puff Level";
             this.thresholdLabelForPuff.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1533,23 +1539,23 @@
             // sipThresholdLabel
             // 
             this.sipThresholdLabel.AutoSize = true;
-            this.sipThresholdLabel.Location = new System.Drawing.Point(506, 170);
+            this.sipThresholdLabel.Location = new System.Drawing.Point(569, 212);
             this.sipThresholdLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.sipThresholdLabel.Name = "sipThresholdLabel";
-            this.sipThresholdLabel.Size = new System.Drawing.Size(32, 17);
+            this.sipThresholdLabel.Size = new System.Drawing.Size(36, 20);
             this.sipThresholdLabel.TabIndex = 115;
             this.sipThresholdLabel.Text = "500";
             // 
             // sipThresholdBar
             // 
             this.sipThresholdBar.LargeChange = 20;
-            this.sipThresholdBar.Location = new System.Drawing.Point(520, 191);
-            this.sipThresholdBar.Margin = new System.Windows.Forms.Padding(4);
+            this.sipThresholdBar.Location = new System.Drawing.Point(585, 239);
+            this.sipThresholdBar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.sipThresholdBar.Maximum = 512;
             this.sipThresholdBar.Name = "sipThresholdBar";
             this.sipThresholdBar.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.sipThresholdBar.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.sipThresholdBar.Size = new System.Drawing.Size(56, 151);
+            this.sipThresholdBar.Size = new System.Drawing.Size(69, 189);
             this.sipThresholdBar.TabIndex = 114;
             this.sipThresholdBar.TickFrequency = 40;
             this.sipThresholdBar.Value = 500;
@@ -1558,10 +1564,10 @@
             // thresholdLabelForSip
             // 
             this.thresholdLabelForSip.AutoSize = true;
-            this.thresholdLabelForSip.Location = new System.Drawing.Point(493, 151);
+            this.thresholdLabelForSip.Location = new System.Drawing.Point(555, 189);
             this.thresholdLabelForSip.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.thresholdLabelForSip.Name = "thresholdLabelForSip";
-            this.thresholdLabelForSip.Size = new System.Drawing.Size(66, 17);
+            this.thresholdLabelForSip.Size = new System.Drawing.Size(73, 20);
             this.thresholdLabelForSip.TabIndex = 113;
             this.thresholdLabelForSip.Text = "Sip Level";
             // 
@@ -1582,56 +1588,57 @@
             this.SettingsTab.Controls.Add(this.timeThresholdLabel);
             this.SettingsTab.Controls.Add(this.timeThresholdBar);
             this.SettingsTab.Controls.Add(this.label2);
-            this.SettingsTab.Location = new System.Drawing.Point(4, 25);
+            this.SettingsTab.Location = new System.Drawing.Point(4, 29);
+            this.SettingsTab.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.SettingsTab.Name = "SettingsTab";
-            this.SettingsTab.Size = new System.Drawing.Size(780, 366);
+            this.SettingsTab.Size = new System.Drawing.Size(878, 461);
             this.SettingsTab.TabIndex = 6;
             this.SettingsTab.Text = "Settings";
             // 
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(95, 99);
+            this.label16.Location = new System.Drawing.Point(107, 124);
             this.label16.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label16.Name = "label16";
             this.label16.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.label16.Size = new System.Drawing.Size(566, 17);
+            this.label16.Size = new System.Drawing.Size(641, 20);
             this.label16.TabIndex = 129;
             this.label16.Text = "(Long Press Action for Button1=Button 7, for Button2=Button8  and for Button3=But" +
-                "ton9)";
+    "ton9)";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(639, 56);
+            this.label1.Location = new System.Drawing.Point(719, 70);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.label1.Size = new System.Drawing.Size(107, 17);
+            this.label1.Size = new System.Drawing.Size(118, 20);
             this.label1.TabIndex = 128;
             this.label1.Text = "(5000=disable) ";
             // 
             // antiTremorIdleLabel
             // 
             this.antiTremorIdleLabel.AutoSize = true;
-            this.antiTremorIdleLabel.Location = new System.Drawing.Point(615, 280);
+            this.antiTremorIdleLabel.Location = new System.Drawing.Point(692, 350);
             this.antiTremorIdleLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.antiTremorIdleLabel.Name = "antiTremorIdleLabel";
             this.antiTremorIdleLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.antiTremorIdleLabel.Size = new System.Drawing.Size(16, 17);
+            this.antiTremorIdleLabel.Size = new System.Drawing.Size(18, 20);
             this.antiTremorIdleLabel.TabIndex = 127;
             this.antiTremorIdleLabel.Text = "1";
             // 
             // antiTremorIdleBar
             // 
             this.antiTremorIdleBar.LargeChange = 20;
-            this.antiTremorIdleBar.Location = new System.Drawing.Point(283, 277);
-            this.antiTremorIdleBar.Margin = new System.Windows.Forms.Padding(4);
+            this.antiTremorIdleBar.Location = new System.Drawing.Point(318, 346);
+            this.antiTremorIdleBar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.antiTremorIdleBar.Maximum = 500;
             this.antiTremorIdleBar.Minimum = 1;
             this.antiTremorIdleBar.Name = "antiTremorIdleBar";
             this.antiTremorIdleBar.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.antiTremorIdleBar.Size = new System.Drawing.Size(330, 56);
+            this.antiTremorIdleBar.Size = new System.Drawing.Size(371, 69);
             this.antiTremorIdleBar.SmallChange = 10;
             this.antiTremorIdleBar.TabIndex = 126;
             this.antiTremorIdleBar.TickFrequency = 10;
@@ -1641,35 +1648,35 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(144, 280);
+            this.label14.Location = new System.Drawing.Point(162, 350);
             this.label14.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label14.Name = "label14";
             this.label14.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.label14.Size = new System.Drawing.Size(134, 17);
+            this.label14.Size = new System.Drawing.Size(151, 20);
             this.label14.TabIndex = 125;
             this.label14.Text = "Antitremor Idle Time";
             // 
             // antiTremorReleaseLabel
             // 
             this.antiTremorReleaseLabel.AutoSize = true;
-            this.antiTremorReleaseLabel.Location = new System.Drawing.Point(617, 223);
+            this.antiTremorReleaseLabel.Location = new System.Drawing.Point(694, 279);
             this.antiTremorReleaseLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.antiTremorReleaseLabel.Name = "antiTremorReleaseLabel";
             this.antiTremorReleaseLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.antiTremorReleaseLabel.Size = new System.Drawing.Size(16, 17);
+            this.antiTremorReleaseLabel.Size = new System.Drawing.Size(18, 20);
             this.antiTremorReleaseLabel.TabIndex = 124;
             this.antiTremorReleaseLabel.Text = "2";
             // 
             // antiTremorReleaseBar
             // 
             this.antiTremorReleaseBar.LargeChange = 20;
-            this.antiTremorReleaseBar.Location = new System.Drawing.Point(285, 220);
-            this.antiTremorReleaseBar.Margin = new System.Windows.Forms.Padding(4);
+            this.antiTremorReleaseBar.Location = new System.Drawing.Point(321, 275);
+            this.antiTremorReleaseBar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.antiTremorReleaseBar.Maximum = 500;
             this.antiTremorReleaseBar.Minimum = 1;
             this.antiTremorReleaseBar.Name = "antiTremorReleaseBar";
             this.antiTremorReleaseBar.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.antiTremorReleaseBar.Size = new System.Drawing.Size(330, 56);
+            this.antiTremorReleaseBar.Size = new System.Drawing.Size(371, 69);
             this.antiTremorReleaseBar.TabIndex = 123;
             this.antiTremorReleaseBar.TickFrequency = 10;
             this.antiTremorReleaseBar.Value = 2;
@@ -1678,35 +1685,35 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(94, 223);
+            this.label10.Location = new System.Drawing.Point(106, 279);
             this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label10.Name = "label10";
             this.label10.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.label10.Size = new System.Drawing.Size(186, 17);
+            this.label10.Size = new System.Drawing.Size(208, 20);
             this.label10.TabIndex = 122;
             this.label10.Text = "Antitremor-Time for Release";
             // 
             // antiTremorPressLabel
             // 
             this.antiTremorPressLabel.AutoSize = true;
-            this.antiTremorPressLabel.Location = new System.Drawing.Point(616, 170);
+            this.antiTremorPressLabel.Location = new System.Drawing.Point(693, 212);
             this.antiTremorPressLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.antiTremorPressLabel.Name = "antiTremorPressLabel";
             this.antiTremorPressLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.antiTremorPressLabel.Size = new System.Drawing.Size(16, 17);
+            this.antiTremorPressLabel.Size = new System.Drawing.Size(18, 20);
             this.antiTremorPressLabel.TabIndex = 121;
             this.antiTremorPressLabel.Text = "5";
             // 
             // antiTremorPressBar
             // 
             this.antiTremorPressBar.LargeChange = 20;
-            this.antiTremorPressBar.Location = new System.Drawing.Point(283, 167);
-            this.antiTremorPressBar.Margin = new System.Windows.Forms.Padding(4);
+            this.antiTremorPressBar.Location = new System.Drawing.Point(318, 209);
+            this.antiTremorPressBar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.antiTremorPressBar.Maximum = 500;
             this.antiTremorPressBar.Minimum = 1;
             this.antiTremorPressBar.Name = "antiTremorPressBar";
             this.antiTremorPressBar.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.antiTremorPressBar.Size = new System.Drawing.Size(330, 56);
+            this.antiTremorPressBar.Size = new System.Drawing.Size(371, 69);
             this.antiTremorPressBar.TabIndex = 120;
             this.antiTremorPressBar.TickFrequency = 10;
             this.antiTremorPressBar.Value = 5;
@@ -1715,34 +1722,34 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(110, 170);
+            this.label9.Location = new System.Drawing.Point(124, 212);
             this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label9.Name = "label9";
             this.label9.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.label9.Size = new System.Drawing.Size(170, 17);
+            this.label9.Size = new System.Drawing.Size(189, 20);
             this.label9.TabIndex = 119;
             this.label9.Text = "Antitremor-Time for Press";
             // 
             // timeThresholdLabel
             // 
             this.timeThresholdLabel.AutoSize = true;
-            this.timeThresholdLabel.Location = new System.Drawing.Point(598, 56);
+            this.timeThresholdLabel.Location = new System.Drawing.Point(673, 70);
             this.timeThresholdLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.timeThresholdLabel.Name = "timeThresholdLabel";
             this.timeThresholdLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.timeThresholdLabel.Size = new System.Drawing.Size(40, 17);
+            this.timeThresholdLabel.Size = new System.Drawing.Size(45, 20);
             this.timeThresholdLabel.TabIndex = 118;
             this.timeThresholdLabel.Text = "5000";
             // 
             // timeThresholdBar
             // 
             this.timeThresholdBar.LargeChange = 1000;
-            this.timeThresholdBar.Location = new System.Drawing.Point(269, 56);
-            this.timeThresholdBar.Margin = new System.Windows.Forms.Padding(4);
+            this.timeThresholdBar.Location = new System.Drawing.Point(303, 70);
+            this.timeThresholdBar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.timeThresholdBar.Maximum = 5000;
             this.timeThresholdBar.Name = "timeThresholdBar";
             this.timeThresholdBar.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.timeThresholdBar.Size = new System.Drawing.Size(330, 56);
+            this.timeThresholdBar.Size = new System.Drawing.Size(371, 69);
             this.timeThresholdBar.SmallChange = 200;
             this.timeThresholdBar.TabIndex = 117;
             this.timeThresholdBar.TickFrequency = 500;
@@ -1752,22 +1759,22 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(48, 56);
+            this.label2.Location = new System.Drawing.Point(54, 70);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.label2.Size = new System.Drawing.Size(221, 17);
+            this.label2.Size = new System.Drawing.Size(244, 20);
             this.label2.TabIndex = 116;
             this.label2.Text = "Threshold Time Short/Long Press";
             // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.activityLogTextbox);
-            this.groupBox1.Location = new System.Drawing.Point(53, 563);
+            this.groupBox1.Location = new System.Drawing.Point(60, 704);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox1.Size = new System.Drawing.Size(785, 103);
+            this.groupBox1.Size = new System.Drawing.Size(883, 129);
             this.groupBox1.TabIndex = 74;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Activity-Log";
@@ -1776,11 +1783,11 @@
             // 
             this.activityLogTextbox.ForeColor = System.Drawing.SystemColors.MenuText;
             this.activityLogTextbox.HideSelection = false;
-            this.activityLogTextbox.Location = new System.Drawing.Point(28, 25);
-            this.activityLogTextbox.Margin = new System.Windows.Forms.Padding(4);
+            this.activityLogTextbox.Location = new System.Drawing.Point(32, 31);
+            this.activityLogTextbox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.activityLogTextbox.Name = "activityLogTextbox";
             this.activityLogTextbox.ReadOnly = true;
-            this.activityLogTextbox.Size = new System.Drawing.Size(736, 60);
+            this.activityLogTextbox.Size = new System.Drawing.Size(828, 74);
             this.activityLogTextbox.TabIndex = 63;
             this.activityLogTextbox.Text = "";
             // 
@@ -1789,24 +1796,26 @@
             this.slotNames.CausesValidation = false;
             this.slotNames.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.slotNames.ForeColor = System.Drawing.SystemColors.MenuHighlight;
-            this.slotNames.Location = new System.Drawing.Point(339, 510);
+            this.slotNames.Location = new System.Drawing.Point(381, 638);
             this.slotNames.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.slotNames.Name = "slotNames";
-            this.slotNames.Size = new System.Drawing.Size(206, 28);
+            this.slotNames.Size = new System.Drawing.Size(231, 33);
             this.slotNames.TabIndex = 76;
             this.slotNames.Text = "<choose>";
             this.slotNames.SelectedIndexChanged += new System.EventHandler(this.slotNames_SelectedIndexChanged);
             // 
             // menuStrip1
             // 
+            this.menuStrip1.GripMargin = new System.Windows.Forms.Padding(2, 2, 0, 2);
+            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileMenu,
             this.fLipMouseToolStripMenuItem,
             this.aboutToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
-            this.menuStrip1.Size = new System.Drawing.Size(885, 28);
+            this.menuStrip1.Padding = new System.Windows.Forms.Padding(6, 2, 0, 2);
+            this.menuStrip1.Size = new System.Drawing.Size(996, 33);
             this.menuStrip1.TabIndex = 77;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -1817,27 +1826,27 @@
             this.loadFromFileMenuItem,
             this.exitMenuItem});
             this.fileMenu.Name = "fileMenu";
-            this.fileMenu.Size = new System.Drawing.Size(44, 24);
+            this.fileMenu.Size = new System.Drawing.Size(54, 29);
             this.fileMenu.Text = "File";
             // 
             // saveToFileMenuItem
             // 
             this.saveToFileMenuItem.Name = "saveToFileMenuItem";
-            this.saveToFileMenuItem.Size = new System.Drawing.Size(168, 24);
+            this.saveToFileMenuItem.Size = new System.Drawing.Size(222, 34);
             this.saveToFileMenuItem.Text = "Save Settings";
             this.saveToFileMenuItem.Click += new System.EventHandler(this.saveToFileMenuItem_Click);
             // 
             // loadFromFileMenuItem
             // 
             this.loadFromFileMenuItem.Name = "loadFromFileMenuItem";
-            this.loadFromFileMenuItem.Size = new System.Drawing.Size(168, 24);
+            this.loadFromFileMenuItem.Size = new System.Drawing.Size(222, 34);
             this.loadFromFileMenuItem.Text = "Load Settings";
             this.loadFromFileMenuItem.Click += new System.EventHandler(this.loadFromFileMenuItem_Click);
             // 
             // exitMenuItem
             // 
             this.exitMenuItem.Name = "exitMenuItem";
-            this.exitMenuItem.Size = new System.Drawing.Size(168, 24);
+            this.exitMenuItem.Size = new System.Drawing.Size(222, 34);
             this.exitMenuItem.Text = "Exit";
             this.exitMenuItem.Click += new System.EventHandler(this.exitMenuItem_Click);
             // 
@@ -1847,14 +1856,14 @@
             this.storeSlotSettingsMenuItem,
             this.loadSlotSettingsMenuItem});
             this.fLipMouseToolStripMenuItem.Name = "fLipMouseToolStripMenuItem";
-            this.fLipMouseToolStripMenuItem.Size = new System.Drawing.Size(49, 24);
+            this.fLipMouseToolStripMenuItem.Size = new System.Drawing.Size(60, 29);
             this.fLipMouseToolStripMenuItem.Text = "Fabi";
             // 
             // storeSlotSettingsMenuItem
             // 
             this.storeSlotSettingsMenuItem.Enabled = false;
             this.storeSlotSettingsMenuItem.Name = "storeSlotSettingsMenuItem";
-            this.storeSlotSettingsMenuItem.Size = new System.Drawing.Size(281, 24);
+            this.storeSlotSettingsMenuItem.Size = new System.Drawing.Size(355, 34);
             this.storeSlotSettingsMenuItem.Text = "Store Settings to FabiDevice";
             this.storeSlotSettingsMenuItem.Click += new System.EventHandler(this.storeSlotSettingsMenuItem_Click);
             // 
@@ -1862,23 +1871,23 @@
             // 
             this.loadSlotSettingsMenuItem.Enabled = false;
             this.loadSlotSettingsMenuItem.Name = "loadSlotSettingsMenuItem";
-            this.loadSlotSettingsMenuItem.Size = new System.Drawing.Size(281, 24);
+            this.loadSlotSettingsMenuItem.Size = new System.Drawing.Size(355, 34);
             this.loadSlotSettingsMenuItem.Text = "Load Settings from FabiDevice";
             this.loadSlotSettingsMenuItem.Click += new System.EventHandler(this.loadSlotSettingsMenuItem_Click);
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(62, 24);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(78, 29);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // prevSlotButton
             // 
-            this.prevSlotButton.Location = new System.Drawing.Point(186, 503);
-            this.prevSlotButton.Margin = new System.Windows.Forms.Padding(4);
+            this.prevSlotButton.Location = new System.Drawing.Point(209, 629);
+            this.prevSlotButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.prevSlotButton.Name = "prevSlotButton";
-            this.prevSlotButton.Size = new System.Drawing.Size(143, 40);
+            this.prevSlotButton.Size = new System.Drawing.Size(161, 50);
             this.prevSlotButton.TabIndex = 79;
             this.prevSlotButton.Text = " < Previous Slot  ";
             this.prevSlotButton.UseVisualStyleBackColor = true;
@@ -1887,10 +1896,10 @@
             // nextSlotButton
             // 
             this.nextSlotButton.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.nextSlotButton.Location = new System.Drawing.Point(553, 503);
-            this.nextSlotButton.Margin = new System.Windows.Forms.Padding(4);
+            this.nextSlotButton.Location = new System.Drawing.Point(622, 629);
+            this.nextSlotButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.nextSlotButton.Name = "nextSlotButton";
-            this.nextSlotButton.Size = new System.Drawing.Size(145, 40);
+            this.nextSlotButton.Size = new System.Drawing.Size(163, 50);
             this.nextSlotButton.TabIndex = 80;
             this.nextSlotButton.Text = "Next  Slot >";
             this.nextSlotButton.UseVisualStyleBackColor = true;
@@ -1900,10 +1909,10 @@
             // 
             this.ApplyButton.Enabled = false;
             this.ApplyButton.ForeColor = System.Drawing.Color.Black;
-            this.ApplyButton.Location = new System.Drawing.Point(592, 53);
-            this.ApplyButton.Margin = new System.Windows.Forms.Padding(4);
+            this.ApplyButton.Location = new System.Drawing.Point(666, 66);
+            this.ApplyButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.ApplyButton.Name = "ApplyButton";
-            this.ApplyButton.Size = new System.Drawing.Size(118, 28);
+            this.ApplyButton.Size = new System.Drawing.Size(133, 35);
             this.ApplyButton.TabIndex = 36;
             this.ApplyButton.Text = "Test settings";
             this.ApplyButton.UseVisualStyleBackColor = true;
@@ -1912,10 +1921,10 @@
             // newSlotButton
             // 
             this.newSlotButton.ForeColor = System.Drawing.Color.Black;
-            this.newSlotButton.Location = new System.Drawing.Point(51, 503);
-            this.newSlotButton.Margin = new System.Windows.Forms.Padding(4);
+            this.newSlotButton.Location = new System.Drawing.Point(57, 629);
+            this.newSlotButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.newSlotButton.Name = "newSlotButton";
-            this.newSlotButton.Size = new System.Drawing.Size(126, 40);
+            this.newSlotButton.Size = new System.Drawing.Size(142, 50);
             this.newSlotButton.TabIndex = 81;
             this.newSlotButton.Text = "New Slot";
             this.newSlotButton.UseVisualStyleBackColor = true;
@@ -1925,10 +1934,10 @@
             // 
             this.deleteSlotButton.ForeColor = System.Drawing.Color.Black;
             this.deleteSlotButton.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.deleteSlotButton.Location = new System.Drawing.Point(708, 503);
-            this.deleteSlotButton.Margin = new System.Windows.Forms.Padding(4);
+            this.deleteSlotButton.Location = new System.Drawing.Point(796, 629);
+            this.deleteSlotButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.deleteSlotButton.Name = "deleteSlotButton";
-            this.deleteSlotButton.Size = new System.Drawing.Size(131, 40);
+            this.deleteSlotButton.Size = new System.Drawing.Size(147, 50);
             this.deleteSlotButton.TabIndex = 82;
             this.deleteSlotButton.Text = "Delete Slot";
             this.deleteSlotButton.UseVisualStyleBackColor = true;
@@ -1938,10 +1947,10 @@
             // 
             this.StoreButton.Enabled = false;
             this.StoreButton.ForeColor = System.Drawing.Color.Black;
-            this.StoreButton.Location = new System.Drawing.Point(715, 53);
-            this.StoreButton.Margin = new System.Windows.Forms.Padding(4);
+            this.StoreButton.Location = new System.Drawing.Point(804, 66);
+            this.StoreButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.StoreButton.Name = "StoreButton";
-            this.StoreButton.Size = new System.Drawing.Size(118, 28);
+            this.StoreButton.Size = new System.Drawing.Size(133, 35);
             this.StoreButton.TabIndex = 83;
             this.StoreButton.Text = "Store settings";
             this.StoreButton.UseVisualStyleBackColor = true;
@@ -1952,10 +1961,10 @@
             this.freeMemPanel.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.freeMemPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.freeMemPanel.Enabled = false;
-            this.freeMemPanel.Location = new System.Drawing.Point(715, 89);
+            this.freeMemPanel.Location = new System.Drawing.Point(804, 111);
             this.freeMemPanel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.freeMemPanel.Name = "freeMemPanel";
-            this.freeMemPanel.Size = new System.Drawing.Size(118, 26);
+            this.freeMemPanel.Size = new System.Drawing.Size(132, 32);
             this.freeMemPanel.TabIndex = 121;
             // 
             // freeMemLabel
@@ -1964,24 +1973,66 @@
             this.freeMemLabel.BackColor = System.Drawing.Color.Transparent;
             this.freeMemLabel.Enabled = false;
             this.freeMemLabel.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.freeMemLabel.Location = new System.Drawing.Point(592, 93);
+            this.freeMemLabel.Location = new System.Drawing.Point(666, 116);
             this.freeMemLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.freeMemLabel.Name = "freeMemLabel";
             this.freeMemLabel.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.freeMemLabel.Size = new System.Drawing.Size(109, 17);
+            this.freeMemLabel.Size = new System.Drawing.Size(123, 20);
             this.freeMemLabel.TabIndex = 158;
             this.freeMemLabel.Text = "mem usage: 0%";
             this.freeMemLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // general
+            // 
+            this.general.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.general.Controls.Add(this.label50);
+            this.general.Controls.Add(this.label43);
+            this.general.Controls.Add(this.HIDComboBox);
+            this.general.Location = new System.Drawing.Point(4, 29);
+            this.general.Name = "general";
+            this.general.Size = new System.Drawing.Size(878, 461);
+            this.general.TabIndex = 7;
+            this.general.Text = "General";
+            // 
+            // label50
+            // 
+            this.label50.AutoSize = true;
+            this.label50.Location = new System.Drawing.Point(128, 139);
+            this.label50.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label50.Name = "label50";
+            this.label50.Size = new System.Drawing.Size(621, 20);
+            this.label50.TabIndex = 157;
+            this.label50.Text = "This setting defines if the mouse/keyboard activities are sent to USB, bluetooth " +
+    "or both ";
+            // 
+            // label43
+            // 
+            this.label43.AutoSize = true;
+            this.label43.Location = new System.Drawing.Point(128, 95);
+            this.label43.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label43.Name = "label43";
+            this.label43.Size = new System.Drawing.Size(172, 20);
+            this.label43.TabIndex = 156;
+            this.label43.Text = "USB / Bluetooth Mode:";
+            // 
+            // HIDComboBox
+            // 
+            this.HIDComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.HIDComboBox.Location = new System.Drawing.Point(321, 92);
+            this.HIDComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.HIDComboBox.Name = "HIDComboBox";
+            this.HIDComboBox.Size = new System.Drawing.Size(288, 28);
+            this.HIDComboBox.TabIndex = 155;
             // 
             // FabiGUI
             // 
             this.AccessibleDescription = "FabiGUI";
             this.AccessibleName = "FabiGUI";
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(885, 681);
+            this.ClientSize = new System.Drawing.Size(996, 851);
             this.Controls.Add(this.freeMemLabel);
             this.Controls.Add(this.StoreButton);
             this.Controls.Add(this.deleteSlotButton);
@@ -2001,7 +2052,7 @@
             this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
-            this.Margin = new System.Windows.Forms.Padding(4);
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "FabiGUI";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Fabi Settings Manager";
@@ -2035,6 +2086,8 @@
             this.groupBox1.ResumeLayout(false);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.general.ResumeLayout(false);
+            this.general.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2187,6 +2240,10 @@
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Panel freeMemPanel;
         private System.Windows.Forms.Label freeMemLabel;
+        private System.Windows.Forms.TabPage general;
+        private System.Windows.Forms.Label label50;
+        private System.Windows.Forms.Label label43;
+        private System.Windows.Forms.ComboBox HIDComboBox;
     }
 }
 

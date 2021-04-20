@@ -1,27 +1,24 @@
-  
-/* 
-     Flexible Assistive Button Interface (FABI)  Version 2.3  - AsTeRICS Foundation - http://www.asterics-foundation.org
-      allows control of HID functions via momentary switches and/or AT-commands  
-   
 
-   requirements:  USB HID capable Arduino (Leonardo / Micro / Pro Micro) - see #define in fabi.h !
-                  or Teensy 2.0++ with Teensyduino AddOn setup as USB composite device (Mouse + Keyboard + Serial)
-       optional:  Momentary switches connected to GPIO pins / force sensors connected to ADC pins
-       
-   for a list of supported AT commands, see commands.h / commands.cpp    
+/* 
+     Flexible Assistive Button Interface (FABI) - AsTeRICS Foundation - http://www.asterics-foundation.org
+     for controlling HID functions via momentary switches and/or serial AT-commands  
+     More Information: https://github.com/asterics/FABI
+
+     Module: FabiWare.ino - initialisation and main loop
+     (for a list of supported AT-commands see commands.h)
+        
+     This program is free software; you can redistribute it and/or modify
+     it under the terms of the GNU General Public License, see:
+     http://www.gnu.org/licenses/gpl-3.0.en.html
 
 */
 
-
 #include "fabi.h"
 #include <EEPROM.h>
-
-
 #include <Arduino.h>
 #include <Wire.h>
 #include <SPI.h>
 #include <WS2812.h>     //  WS2812 ("NeoPixel") Lib
-
 #include "display.h"
 // global variables
 
@@ -52,7 +49,7 @@
 struct settingsType settings = {      // type definition see fabi.h
     "slot1", DEFAULT_WHEEL_STEPSIZE, DEFAULT_TRESHOLD_TIME, 
     DEFAULT_SIP_THRESHOLD, DEFAULT_PUFF_THRESHOLD,
-    DEFAULT_ANTITREMOR_PRESS, DEFAULT_ANTITREMOR_RELEASE, DEFAULT_ANTITREMOR_IDLE
+    DEFAULT_ANTITREMOR_PRESS, DEFAULT_ANTITREMOR_RELEASE, DEFAULT_ANTITREMOR_IDLE, DEFAULT_BT_MODE
 }; 
 
 
@@ -143,15 +140,10 @@ void setup() {
    pinMode(PCB_checkPin, INPUT_PULLUP);
 
    if(!digitalRead(PCB_checkPin)){              //PCB Version detected
-    #ifdef DEBUG_OUTPUT
-      Serial.println("FABi PCB Version");
-    #endif
+      #ifdef DEBUG_OUTPUT
+        Serial.println("FABi PCB Version");
+      #endif
 
-    //Serial.end();      // end USB Serial; causing problems if both active!
-     
-     /*Serial1.begin(9600);   //start HW UART on TX and RX Pins
-     while (! Serial1);
-*/
       PCBversion = 1;
       memcpy(input_map, input_map_PCB, NUMBER_OF_PHYSICAL_BUTTONS+1);
 
@@ -161,7 +153,6 @@ void setup() {
       _delay_ms(150);
       digitalWrite(buzzerPIN, LOW);
       delay(150);        
-      
 
       //NeoPixel:
       pixels.setOutput(PIXELS_PIN); 
@@ -176,8 +167,7 @@ void setup() {
       for(uint8_t i = 0; i < 60; i++){
         pixColor.r = i; 
         pixels.set_crgb_at(0, pixColor);  
-        pixels.sync();
-        
+        pixels.sync();        
         delay(10);
       }
 
@@ -185,7 +175,6 @@ void setup() {
       initDisplay();
       
       digitalWrite(buzzerPIN, HIGH);
-
       for(uint8_t i = 60; i > 50; i--){
         pixColor.r = i; 
         pixels.set_crgb_at(0, pixColor);  
@@ -195,7 +184,6 @@ void setup() {
       digitalWrite(buzzerPIN, LOW);
 
       neoPix_r = 1;
-
     
       Serial1.begin(9600);      // start HW-Pin-Serial (used for communication with Addon)
       //while(!Serial1);
@@ -205,11 +193,10 @@ void setup() {
      // no PCB Version: 
      pinMode(LED_PIN,OUTPUT);
      
-     for (int i=0; i<NUMBER_OF_LEDS; i++)   // initialize physical buttons and bouncers
-      pinMode (led_map[i], OUTPUT);   // configure the pins for input mode with pullup resistors
+     for (int i=0; i<NUMBER_OF_LEDS; i++)  
+       pinMode (led_map[i], OUTPUT);   // configure the pins for input mode with pullup resistors
 
    }
-
 
    for (int i=0; i<NUMBER_OF_PHYSICAL_BUTTONS; i++)   // initialize physical buttons and bouncers
         pinMode (input_map[i], INPUT_PULLUP);   // configure the pins for input mode with pullup resistors
@@ -221,7 +208,6 @@ void setup() {
       keystringBuffer[i]=0;
    }
 
-
    initDebouncers(); 
 
    readFromEEPROM(0);  // read button modes from first EEPROM slot      if available !  
@@ -231,7 +217,6 @@ void setup() {
    #ifdef DEBUG_OUTPUT  
      Serial.print(F("Free RAM:"));  Serial.println(freeRam());
    #endif
-
 
    if(PCBversion){
      writeSlot2Display();
@@ -258,45 +243,25 @@ void setup() {
 
 
 void loop() {  
-/*
-      //Serial.println("hello world");
- */
 
       pressure = analogRead(PRESSURE_SENSOR_PIN);
-
       //Serial.println(pressure);
 
-      if(!PCBversion){
-        while (Serial.available() > 0) {
-          // get incoming byte:
-            inByte = Serial.read();
-            parseByte (inByte);      // implemented in parser.cpp
-        }
+      while (Serial.available() > 0) {
+        // get incoming byte:
+          inByte = Serial.read();
+          parseByte (inByte);      // implemented in parser.cpp
       }
-      else if(PCBversion == 1){
-        while (Serial.available() > 0) {
-          // get incoming byte:
-            inByte = Serial.read();
-            parseByte (inByte);      // implemented in parser.cpp
-        }
-        /*
-        while (Serial1.available() > 0) {
-          // get incoming byte:
-            inByte = Serial1.read();
-            parseByte (inByte);      // implemented in parser.cpp
-        }
 
-        */
-      }
+      //if incoming serial data on the addon board is available,
+      //just forward it to the host serial interface.
+      while (Serial1.available() > 0) { Serial.write(Serial1.read()); }       
     
       for (int i=0;i<NUMBER_OF_PHYSICAL_BUTTONS;i++)    // update button press / release events
           handleButton(i, i+6, digitalRead(input_map[i]) == LOW ? BUTTON_PRESSED : BUTTON_RELEASED);    
 
-
-
       if (settings.ts>0)    handleButton(SIP_BUTTON, -1, pressure < settings.ts ? BUTTON_PRESSED : BUTTON_RELEASED); 
       if (settings.tp<1023) handleButton(PUFF_BUTTON, -1, pressure > settings.tp ? BUTTON_PRESSED : BUTTON_RELEASED);
-
      
       if (moveX==0) moveXcnt=0; 
       if (moveY==0) moveYcnt=0; 
@@ -307,7 +272,7 @@ void loop() {
           if (moveX!=0) if (moveXcnt<MOUSE_ACCELDELAY) moveXcnt++;
           if (moveY!=0) if (moveYcnt<MOUSE_ACCELDELAY) moveYcnt++;
 
-          Mouse.move(moveX * moveXcnt/MOUSE_ACCELDELAY, moveY * moveYcnt/MOUSE_ACCELDELAY);
+          mouseMove(moveX * moveXcnt/MOUSE_ACCELDELAY, moveY * moveYcnt/MOUSE_ACCELDELAY);
         }
       }
   
@@ -328,26 +293,22 @@ void loop() {
           else if (doubleClickRunning==clickTime)    leftMouseButton=1; 
           else if (doubleClickRunning==0)    leftMouseButton=0; 
       }
-
         
- 
-      // if any changes were made, updataaae the Mouse buttons
+      // if any changes were made, update the Mouse buttons
       if(leftMouseButton!=old_leftMouseButton) {
-         if (leftMouseButton) Mouse.press(MOUSE_LEFT); else Mouse.release(MOUSE_LEFT);
+         if (leftMouseButton) mousePress(MOUSE_LEFT); else mouseRelease(MOUSE_LEFT);
          old_leftMouseButton=leftMouseButton;
       }
       if  (middleMouseButton!=old_middleMouseButton) {
-              if (middleMouseButton) Mouse.press(MOUSE_MIDDLE); else Mouse.release(MOUSE_MIDDLE);
+              if (middleMouseButton) mousePress(MOUSE_MIDDLE); else mouseRelease(MOUSE_MIDDLE);
            old_middleMouseButton=middleMouseButton;
        }
       if  (rightMouseButton!=old_rightMouseButton)  {
-         if (rightMouseButton) Mouse.press(MOUSE_RIGHT); else Mouse.release(MOUSE_RIGHT);
+         if (rightMouseButton) mousePress(MOUSE_RIGHT); else mouseRelease(MOUSE_RIGHT);
          old_rightMouseButton=rightMouseButton;
     }
-    
-    
-
-/*
+       
+    /*   // TBD: why was this removed ?
     if (reportRawValues)   { 
        if (valueReportCount++ > 10) {      // report raw values !
            Serial.print("VALUES:");Serial.print(pressure);Serial.println(",");  
@@ -355,15 +316,17 @@ void loop() {
       }
     }*/
 
-
-
     if(PCBversion){
-      if(beepCounter > 0){                  //tone
+
+      // TBD: isn't the resulting tone frequency much too low ? (note the delay at the end of the main loop ...)  
+      // TBD: extra .cpp file for neopixels / buzzer ?
+      
+      if(beepCounter > 0){                  // tone
         if(beepTime > BEEP_duration){
           digitalWrite(buzzerPIN, HIGH);
           beepTime--; 
         }
-        else if(beepTime > 0){                //no tone
+        else if(beepTime > 0){              // no tone
           digitalWrite(buzzerPIN, LOW);
           beepTime--;
         }
@@ -392,16 +355,12 @@ void loop() {
         //pixels.show();
         dimmLEDcounter++;
       }
-      
-
-
     }
     else{
       UpdateLeds();
     }
-    
 
-
+   // TBD !!
 
    /*
     //we need a workaround for different clock settings on Arduino Pro Micro boards.
@@ -429,7 +388,6 @@ void loop() {
 	#endif
 */
   
-
   delay(waitTime); 
    
 }
@@ -504,12 +462,13 @@ void initDebouncers()
 void release_all()  // releases all previously pressed keys
 {
     // Serial.println("release all!");
-    Keyboard.releaseAll();
+    keyboardReleaseAll();  //Keyboard.releaseAll(); 
     leftMouseButton=0;
     rightMouseButton=0;
     middleMouseButton=0;
     moveX=0;
     moveY=0;
+    initDebouncers();
 }
 
 
@@ -538,7 +497,7 @@ void handleButton(int i, int l, uint8_t actState)
            buttonDebouncers[i].pressState=BUTTONSTATE_SHORT_PRESSED;           
        }
        if ((buttonDebouncers[i].pressCount==settings.tt>>2) && (settings.tt<5000) && (l>=0) && (l<NUMBER_OF_BUTTONS)) {
-           handleRelease(i);           
+           handleRelease(i); 
            handlePress(l);
            buttonDebouncers[i].pressState=BUTTONSTATE_LONG_PRESSED;           
        }
@@ -612,7 +571,6 @@ void UpdateLeds()
    if (actSlot == 3) digitalWrite (led_map[2],LOW); else digitalWrite (led_map[2],HIGH); 
   }
 }
-
 
 int freeRam ()
 {

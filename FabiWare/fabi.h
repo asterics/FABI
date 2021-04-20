@@ -1,19 +1,16 @@
 
 /* 
-     Assistive Button Interface (FABI) - AsTeRICS Foundation - http://www.asterics-foundation.org
-      allows control of HID functions via switches and/or AT-commands  
-   
+     Flexible Assistive Button Interface (FABI) - AsTeRICS Foundation - http://www.asterics-foundation.org
+     for controlling HID functions via momentary switches and/or serial AT-commands  
+     More Information: https://github.com/asterics/FABI
+     
+     Module: eeprom.cpp - load/store settings to/from eeprom
+        
+     This program is free software; you can redistribute it and/or modify
+     it under the terms of the GNU General Public License, see:
+     http://www.gnu.org/licenses/gpl-3.0.en.html
 
-   requirements:  Arduino (Pro) Micro or Teensy2.0++ with Teensyduino AddOn for Arduino IDE 
-                  (Teensy USB type set to USB composite device: Serial + Keyboard + Mouse + Joystick)
-        sensors:  up to 9 momentary switches connected to GPIO pins
-                  optional pressure sensor connected to ADC pin A0 for sip/puff actions
-       
-   
-   for a list of supported AT commands, see commands.h / commands.cpp
-   
- */
-
+*/
 
 #ifndef _FABI_H_
 #define _FABI_H_
@@ -23,9 +20,10 @@
 #include <stdint.h>
 #include <avr/pgmspace.h>
 #include "commands.h"
+#include "bluetooth.h"
+#include "hid_hal.h"
 
-
-#define VERSION_STRING "FABI v2.3"
+#define VERSION_STRING "FABI v2.5"
 
 //#define DEBUG_OUTPUT      //  if debug output is desired
 //#define TEENSY            //  if a Teensy2.0++ controller is used
@@ -68,6 +66,8 @@
 #define DEFAULT_ANTITREMOR_PRESS     5   // debouncing interval for button-press
 #define DEFAULT_ANTITREMOR_RELEASE   2   // debouncing interval for button-release
 #define DEFAULT_ANTITREMOR_IDLE      1   // debouncing interval for button idle time
+#define DEFAULT_BT_MODE              1   // USB HID only
+
 #define DEFAULT_TRESHOLD_TIME     5000   // treshold time for short / long press (5000: disable long press)
 #define BUTTON_PRESSED  1
 #define BUTTON_RELEASED 0
@@ -85,6 +85,8 @@ struct settingsType {
   uint16_t ap;     // antitremor press time 
   uint16_t ar;     // antitremor release time 
   uint16_t ai;     // antitremor idle time 
+  uint8_t  bt;     // bt-mode (0,1,2)
+  
 };
 
 struct atCommandType {              // holds settings for a button function 
@@ -164,7 +166,6 @@ void release_all();            // releases all previously pressed keys and butto
 #define strcmp_FM   strcmp_PF
 typedef uint_farptr_t uint_farptr_t_FM;
 
-#endif
 
 
 // fabi logo for 128x32 OLED screen; height:32px widht: 55px
@@ -195,3 +196,6 @@ const unsigned char FABIlogo [] PROGMEM = {
   0x81, 0x19, 0x00, 0x00, 0x03, 0x0E, 0x8C, 0xC1, 0x18, 0x00, 0x00, 0x03, 
   0x06, 0x9C, 0x71, 0x38, 0x00, 0x00, 0x03, 0x02, 0x98, 0x3D, 0x10, 0x00, 
   0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
+
+
+  #endif

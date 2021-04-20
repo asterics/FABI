@@ -1,3 +1,16 @@
+/*
+     Flexible Assistive Button Interface (FABI) - AsTeRICS Foundation - http://www.asterics-foundation.org
+     for controlling HID functions via momentary switches and/or serial AT-commands  
+     More Information: https://github.com/asterics/FABI
+
+     Module: parser.cpp - serial command processing
+
+     This program is free software; you can redistribute it and/or modify
+     it under the terms of the GNU General Public License, see:
+     http://www.gnu.org/licenses/gpl-3.0.en.html
+ 
+*/
+
 #include "fabi.h"
 
 uint8_t get_uint(char * str, int16_t * result)
@@ -78,7 +91,7 @@ void parseCommand (char * cmdstr)
        
     if (cmd>-1)  performCommand(cmd,num,actpos,0);        
     else if (!PCBversion) {
-      Serial.println('?');    
+      Serial.println('?');    // TBD: why was this removed in PCB Version?
     }          
 }
 
@@ -110,9 +123,6 @@ void parseByte (int newByte)  // parse an incoming commandbyte from serial inter
                   readstate=0; }
                 else if(cmdlen<MAX_CMDLEN-1) cmdstring[cmdlen++]=newByte; 
             break;   
-        default: err: if(!PCBversion){ Serial.println('?');readstate=0; }
+        default: err: if(!PCBversion){ Serial.println('?');readstate=0; }  // TBD: why was this removed in PCB Version?
    }
 }
-
-
-

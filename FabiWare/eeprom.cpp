@@ -1,7 +1,21 @@
+
+/* 
+     Flexible Assistive Button Interface (FABI) - AsTeRICS Foundation - http://www.asterics-foundation.org
+     for controlling HID functions via momentary switches and/or serial AT-commands  
+     More Information: https://github.com/asterics/FABI
+
+     Module: eeprom.cpp - load/store settings to/from eeprom
+
+     This program is free software; you can redistribute it and/or modify
+     it under the terms of the GNU General Public License, see:
+     http://www.gnu.org/licenses/gpl-3.0.en.html
+
+*/
+
 #include "fabi.h"
 #include <EEPROM.h>
 
-#define SLOT_VALID 0x23
+#define SLOT_VALID 0x42
 
 int nextSlotAddress=0;
 int EmptySlotAddress = 0;
