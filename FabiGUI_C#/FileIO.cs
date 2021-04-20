@@ -3,7 +3,7 @@ using System.Windows.Forms;
 using System.IO;
 
 
-namespace MouseApp2
+namespace FabiGUI
 {
     public partial class FabiGUI
     {

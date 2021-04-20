@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("FabiGUI")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("AsTeRICS Academy")]
+[assembly: AssemblyCompany("AsTeRICS Foundation")]
 [assembly: AssemblyProduct("FabiGUI")]
-[assembly: AssemblyCopyright("Copyright © AsTeRICS Academy 2015")]
+[assembly: AssemblyCopyright("Copyright © AsTeRICS Foundation 2021")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

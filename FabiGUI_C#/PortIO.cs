@@ -7,7 +7,7 @@ using System.IO.Ports;
 using System.IO;
 
 
-namespace MouseApp2
+namespace FabiGUI
 {
     public partial class FabiGUI
     {
@@ -112,7 +112,7 @@ namespace MouseApp2
 
         public void stringReceived(String newLine)
         {
-            if (newLine.ToUpper().Contains(PREFIX_FABI_VERSION))  // read flipmouse ID 
+            if (newLine.ToUpper().Contains(PREFIX_FABI_VERSION))  // read FABI Version ID 
             {
                 gotID(newLine);
             } 

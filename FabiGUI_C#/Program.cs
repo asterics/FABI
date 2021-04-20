@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 
 
-namespace MouseApp2
+namespace FabiGUI
 {
     static class Program
     {
