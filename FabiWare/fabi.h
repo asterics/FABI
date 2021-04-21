@@ -4,7 +4,7 @@
      for controlling HID functions via momentary switches and/or serial AT-commands  
      More Information: https://github.com/asterics/FABI
      
-     Module: eeprom.cpp - load/store settings to/from eeprom
+     Module: fabi.h - general defines & declarations
         
      This program is free software; you can redistribute it and/or modify
      it under the terms of the GNU General Public License, see:

@@ -10,6 +10,10 @@
      This program is free software; you can redistribute it and/or modify
      it under the terms of the GNU General Public License, see:
      http://www.gnu.org/licenses/gpl-3.0.en.html
+      
+     Necessary libraries:
+     * https://github.com/cpldcpu/light_ws2812
+     * https://github.com/lexus2k/ssd1306
 
 */
 
