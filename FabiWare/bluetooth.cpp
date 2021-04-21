@@ -337,6 +337,8 @@ void initBluetooth()
   ///@todo send identifier to BT module & check response. With BT addon this is much faster and reliable
   bt_esp32addon = EZKEY;
   Serial_AUX.println("$ID");
+  //set BT name to FABI
+  Serial_AUX.println("$NAME FABI");
 }
 
 /**
