@@ -90,9 +90,7 @@ void parseCommand (char * cmdstr)
     } 
        
     if (cmd>-1)  performCommand(cmd,num,actpos,0);        
-    else if (!PCBversion) {
-      Serial.println('?');    // TBD: why was this removed in PCB Version?
-    }          
+    else Serial.println('?');
 }
 
 
@@ -123,6 +121,7 @@ void parseByte (int newByte)  // parse an incoming commandbyte from serial inter
                   readstate=0; }
                 else if(cmdlen<MAX_CMDLEN-1) cmdstring[cmdlen++]=newByte; 
             break;   
-        default: err: if(!PCBversion){ Serial.println('?');readstate=0; }  // TBD: why was this removed in PCB Version?
+        default: 
+            err: Serial.println('?');readstate=0;
    }
 }
