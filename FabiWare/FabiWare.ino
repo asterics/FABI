@@ -128,6 +128,9 @@ void setup() {
   
   delay(1000);
   //while (! Serial);
+  
+  //initialise BT module, if available
+  initBluetooth();
     
    
    #ifdef DEBUG_OUTPUT  
