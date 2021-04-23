@@ -17,6 +17,10 @@
 
 #include "fabi.h"
 
+//declarations used from Arduinos Keyboard library
+#include <Keyboard.h>
+extern const uint8_t _asciimap[128] PROGMEM;
+
 
 //RX/TX3 are used to communicate with an addon board (mounted on AUX header)
 #define Serial_AUX Serial3

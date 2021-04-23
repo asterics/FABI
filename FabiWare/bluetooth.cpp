@@ -28,6 +28,8 @@ long btsendTimestamp = millis();
 
 #define Serial_AUX Serial1
 
+//#define DEBUG_OUTPUT_FULL
+
 /**
 
    name: mouseBT
@@ -175,29 +177,48 @@ void sendBTKeyboardReport()
 /**
 
    name: keyboardBTPress
-   @param int key	Keycode which should be pressed. Keycodes are in Teensy format
+   @param int key	Keycode which should be pressed. Keycodes are in Arduino format
    @return none
 
     Press a defined key code.
-    keycodes and modifier codes are extracted and sent to EZ-Key module via UART
-    for keylayouts see: https://github.com/PaulStoffregen/cores/blob/master/teensy/keylayouts.h
+    keycodes and modifier codes are extracted and sent to addon.
 */
 void keyboardBTPress(int key)
 {
-  uint8_t currentIndex = 0;
-  uint8_t keyCode = (uint8_t)(key & 0xff);
-
-  if ((key >> 8) ==  0xE0)  // supported modifier key ?
-  {
-    // set bit in modifier key mask
-    activeModifierKeys |= keyCode;
-  } else if ((key >> 8) ==  0xF0) { // supported key ?
-    // check the active key codes for a free slot or overwrite the last one
-    while ((activeKeyCodes[currentIndex] != 0) && (activeKeyCodes[currentIndex] != keyCode) && (currentIndex < 6))
-      currentIndex++;
-    //set the key code to the array
-    activeKeyCodes[currentIndex] = keyCode;
-  }
+  //this code is used from Keyboard.cpp from Arduino.
+	uint8_t i;
+	if (key >= 136) {			// it's a non-printing keyey (not a modifier)
+		key = key - 136;
+	} else if (key >= 128) {	// it's a modifier keyey
+		activeModifierKeys |= (1<<(key-128));
+		key = 0;
+		//Serial.print("mod:");
+		//Serial.println(activeModifierKeys,HEX);
+	} else {				// it's a printing keyey
+		key = pgm_read_byte(_asciimap + key);
+		if (!key) {
+			
+			return 0;
+		}
+		//Serial.print("key:");
+		//Serial.println(key,HEX);
+		if (key & 0x80) {						// it's a capital letter or other character reached with shift
+			activeModifierKeys |= 0x02;	// the left shift modifier
+			key &= 0x7F;
+		}
+	}
+	
+	if (activeKeyCodes[0] != key && activeKeyCodes[1] != key && 
+	activeKeyCodes[2] != key && activeKeyCodes[3] != key &&
+	activeKeyCodes[4] != key && activeKeyCodes[5] != key) {
+	
+		for (i=0; i<6; i++) {
+			if (activeKeyCodes[i] == 0x00) {
+				activeKeyCodes[i] = key;
+				break;
+			}
+		}
+	}
 
   //send the new keyboard report
   sendBTKeyboardReport();
@@ -206,28 +227,38 @@ void keyboardBTPress(int key)
 /**
 
    name: keyboardBTRelease
-   @param int key	Keycode which should be released. Keycodes are in Teensy format (16bit, divided into consumer keys, systemkeys & keyboard keys)
+   @param int key	Keycode which should be released. Keycodes are in Arduino Format
    @return none
 
    Release a defined key code.
 */
 void keyboardBTRelease(int key)
-{
-  uint8_t currentIndex = 0;
-  uint8_t keyCode = (uint8_t)(key & 0xff);
-
-  if ((key >> 8) ==  0xE0)  // supported modifier key (see Teensy keylayouts.h)
-  {
-    // clear bit in modifier key mask
-    activeModifierKeys &= ~keyCode;
-  } else {
-    //if not, check the active key codes for the pressed key
-    while ((activeKeyCodes[currentIndex] != keyCode) && (currentIndex < 6)) currentIndex++;
-    //delete the key code from the array
-    for (int i = currentIndex; i < 5; i++)
-      activeKeyCodes[i] = activeKeyCodes[i + 1];
-    activeKeyCodes[5] = 0;
-  }
+{ 
+  //this code is used from Keyboard.cpp from Arduino.
+	uint8_t i;
+	if (key >= 136) {			// it's a non-printing key (not a modifier)
+		key = key - 136;
+	} else if (key >= 128) {	// it's a modifier key
+		activeModifierKeys &= ~(1<<(key-128));
+		key = 0;
+	} else {				// it's a printing key
+		key = pgm_read_byte(_asciimap + key);
+		if (!key) {
+			return 0;
+		}
+		if (key & 0x80) {							// it's a capital letter or other character reached with shift
+			activeModifierKeys &= ~(0x02);	// the left shift modifier
+			key &= 0x7F;
+		}
+	}
+	
+	// Test the key report to see if k is present.  Clear it if it exists.
+	// Check all positions in case the key is present more than once (which it shouldn't be)
+	for (i=0; i<6; i++) {
+		if (0 != key && activeKeyCodes[i] == key) {
+			activeKeyCodes[i] = 0x00;
+		}
+	}
 
   //send the new keyboard report
   sendBTKeyboardReport();
@@ -249,66 +280,6 @@ void keyboardBTReleaseAll()
   activeModifierKeys = 0;
   //send a keyboard report (now empty)
   sendBTKeyboardReport();
-}
-
-
-/**
-
-   name: keyboardBTPrint
-   @param char* writeString	string to typed by the Bluetooth HID keyboard
-   @return none
-
-   This method prints out an ASCII string (no modifiers available!!!) via the
-   Bluetooth module
-
-   @todo We should use the keyboard maps from ESP32, can store all of them. But how to handle any multibyte strings?
-*/
-void keyboardBTPrint(char * writeString)
-{
-  uint16_t i = 0;
-
-  // print each char of the string
-  while (writeString[i])
-  {
-    // Serial_AUX.write(writeString[i++]);
-
-    // improved for localization / keycodes (but: slower ...)
-
-    int keycode = 0, modifier = 0;
-
-    // Serial.print("key ="); Serial.print(writeString[i]);
-    if (writeString[i] < 128) {     // ASCII
-      // Serial.print(" ASCII ="); Serial.println((int)writeString[i]);
-
-      //keycode = pgm_read_byte(keycodes_ascii + (writeString[i] - 0x20));
-      keycode = writeString[i];  // TBD!!
-    }
-    else  {  // ISO_8859
-#ifdef ISO_8859_1_A0
-      // Serial.print(" ISO_8859 ="); Serial.println((int)writeString[i]);
-      // keycode = pgm_read_byte(keycodes_iso_8859_1 + (writeString[i] - 0xA0));
-      keycode = writeString[i];  // TBD!!
-#endif
-    }
-
-    if (keycode & 0x40) {  // SHIFT
-      // Serial.print("SHIFT+");
-      keycode &= ~0x40;
-      modifier = 0xe002;
-    } else if (keycode & 0x80) {  // ALTGR
-      // Serial.print("ALTGR+");
-      keycode &= ~0x80;
-      modifier = 0xe040;
-    }
-    // Serial.print("HID =");
-    // Serial.println(keycode);
-
-    if (modifier) keyboardBTPress(modifier);
-    keyboardBTPress(keycode | 0xf000);
-    keyboardBTRelease(keycode | 0xf000);
-    if (modifier) keyboardBTRelease(modifier);
-    i++;
-  }
 }
 
 /**

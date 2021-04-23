@@ -97,20 +97,6 @@ void mouseMove(int x, int y)
     mouseBT(x, y, 0);
 }
 
-void keyboardPrint(char * keystring)
-{
-  if (settings.bt & 1) {
-    //Keyboard.print(keystring);  // improved for ISO 8859 compatibility (but: slower ..)
-    for (int i = 0; i < strlen(keystring); i++)
-    {
-      Keyboard.press(keystring[i]);
-      Keyboard.release(keystring[i]);
-    }
-  }
-
-  if ((settings.bt & 2) && (isBluetoothAvailable()))
-    keyboardBTPrint(keystring);  // TODO: check ISO8859-compatibility
-}
 
 void keyboardPress(int key)
 {
