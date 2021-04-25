@@ -196,7 +196,7 @@ void setup() {
 
   for (int i = 0; i < NUMBER_OF_BUTTONS; i++) // initialize button array
   {
-    buttons[i].mode = CMD_PL;            // set default command for every button (left mouse click)
+    buttons[i].mode = CMD_HL;            // set default command for every button (left mouse click)
     buttons[i].value = 0;
     keystringBuffer[i] = 0;
   }
@@ -350,12 +350,12 @@ void handlePress (int buttonIndex)   // a button was pressed
 void handleRelease (int buttonIndex)    // a button was released
 {
   switch (buttons[buttonIndex].mode) {
-    case CMD_PL: leftMouseButton = 0; break;
-    case CMD_PR: rightMouseButton = 0; break;
-    case CMD_PM: middleMouseButton = 0; break;
+    case CMD_HL: leftMouseButton = 0; break;
+    case CMD_HR: rightMouseButton = 0; break;
+    case CMD_HM: middleMouseButton = 0; break;
     case CMD_MX: moveX = 0; break;
     case CMD_MY: moveY = 0; break;
-    case CMD_KP: releaseSingleKeys(getKeystring(buttonIndex)); break;
+    case CMD_KH: releaseSingleKeys(getKeystring(buttonIndex)); break;
   }
 }
 

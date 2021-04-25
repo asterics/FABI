@@ -16,17 +16,21 @@
 
 void mouseRelease(uint8_t button)
 {
-  if (settings.bt & 1)
+  if (settings.bt & 1) {
     Mouse.release(button);
-
+    Serial.print("* release "); Serial.println(button);
+  }
+  
   if ((settings.bt & 2) && (isBluetoothAvailable()))
     mouseBTRelease(button);
 }
 
 void mousePress(uint8_t button)
 {
-  if (settings.bt & 1)
+  if (settings.bt & 1) {
     Mouse.press(button);
+    Serial.print("* press "); Serial.println(button);
+  }
 
   if ((settings.bt & 2) && (isBluetoothAvailable()))
     mouseBTPress(button);

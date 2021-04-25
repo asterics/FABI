@@ -85,6 +85,7 @@ struct keymap_struct {
   int key;
 };
 
+int storedKeys[6]={0};
 
 const keymap_struct keymap[] PROGMEM  = {   
   {"SHIFT", KEY_LEFT_SHIFT},
@@ -211,6 +212,26 @@ uint16_t getNextKeyName(char* keyNames, char* singleKeyName)
   return(i);
 }
 
+void storeKey(int k) {
+  for (int i=0;i<6;i++) {
+    if (storedKeys[i]==k) return;  // already stored
+    if (storedKeys[i]==0) {storedKeys[i]=k; return;} // store new key    
+  }
+}
+
+void removeKey(int k) {
+  for (int i=0;i<6;i++) {
+    if (storedKeys[i]==k) {storedKeys[i]=0; return;} // remove key    
+  }
+}
+
+int keyStored(int k) {
+  for (int i=0;i<6;i++) {
+    if (storedKeys[i]==k) return (1);  // found
+  }
+  return(0);
+}
+
 // press sequence of supported single keys 
 // text is a string which contains the key identifiers eg. "KEY_CTRL KEY_C" for Ctrl-C
 void pressSingleKeys(char* keyNames)
@@ -222,6 +243,7 @@ void pressSingleKeys(char* keyNames)
     int kc=getKeycode(singleKeyName);
     if (kc) {
      keyboardPress(kc);
+     storeKey(kc);
      // Serial.print ("press key ");  Serial.println (kc);
     }
     keyNames+=len;
@@ -237,10 +259,33 @@ void releaseSingleKeys (char * keyNames)
   while (len=getNextKeyName(keyNames,singleKeyName))
   {
     int kc=getKeycode(singleKeyName);
-    if (kc) keyboardRelease(kc);
+    if (kc) {
+      keyboardRelease(kc);
+      removeKey(kc);
+    }
     keyNames+=len;
   }
 }
+
+// toggle sequence of supported single keys 
+// text is a string which contains the key identifiers eg. "KEY_CTRL KEY_C" for Ctrl-C
+void toggleSingleKeys(char* keyNames)
+{
+  int len;
+  char singleKeyName[20];   // e.g. KEY_A
+  while (len=getNextKeyName(keyNames,singleKeyName))
+  {
+    int kc=getKeycode(singleKeyName);
+    if (kc) {
+      if (keyStored(kc)) { keyboardRelease(kc); removeKey(kc); }
+      else { keyboardPress(kc); storeKey(kc);}
+      // Serial.print ("toggle key ");  Serial.println (kc);
+    }
+    keyNames+=len;
+  }
+}
+
+
 
 // write a sequence of characters, translated to locale using modifier keys
 void writeTranslatedKeys(char * str, int len)

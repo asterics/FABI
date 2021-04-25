@@ -17,13 +17,14 @@
 
 const struct atCommandType atCommands[] PROGMEM = {
     {"ID"  , PARTYPE_NONE },  {"BM"  , PARTYPE_UINT }, {"CL"  , PARTYPE_NONE }, {"CR"  , PARTYPE_NONE },
-    {"CM"  , PARTYPE_NONE },  {"CD"  , PARTYPE_NONE }, {"PL"  , PARTYPE_NONE }, {"PR"  , PARTYPE_NONE },
-    {"PM"  , PARTYPE_NONE },  {"RL"  , PARTYPE_NONE }, {"RR"  , PARTYPE_NONE }, {"RM"  , PARTYPE_NONE },
+    {"CM"  , PARTYPE_NONE },  {"CD"  , PARTYPE_NONE }, {"HL"  , PARTYPE_NONE }, {"HR"  , PARTYPE_NONE },
+    {"HM"  , PARTYPE_NONE },  {"RL"  , PARTYPE_NONE }, {"RR"  , PARTYPE_NONE }, {"RM"  , PARTYPE_NONE },
+    {"TL"  , PARTYPE_NONE },  {"TR"  , PARTYPE_NONE }, {"TM"  , PARTYPE_NONE },
     {"WU"  , PARTYPE_NONE },  {"WD"  , PARTYPE_NONE }, {"WS"  , PARTYPE_UINT }, {"MX"  , PARTYPE_INT  },
-    {"MY"  , PARTYPE_INT  },  {"KW"  , PARTYPE_STRING},{"KP"  , PARTYPE_STRING},{"KR"  , PARTYPE_STRING},
-    {"RA"  , PARTYPE_NONE },  {"SA"  , PARTYPE_STRING},{"LO"  , PARTYPE_STRING},{"LA"  , PARTYPE_NONE },
-    {"LI"  , PARTYPE_NONE },  {"NE"  , PARTYPE_NONE }, {"DE"  , PARTYPE_NONE }, {"NC"  , PARTYPE_NONE }, 
-    {"SR"  , PARTYPE_NONE },  {"ER"  , PARTYPE_NONE },
+    {"MY"  , PARTYPE_INT  },  {"KW"  , PARTYPE_STRING},{"KP"  , PARTYPE_STRING},{"KH"  , PARTYPE_STRING},
+    {"KT"  , PARTYPE_STRING}, {"KR"  , PARTYPE_STRING},{"RA"  , PARTYPE_NONE }, {"SA"  , PARTYPE_STRING},
+    {"LO"  , PARTYPE_STRING}, {"LA"  , PARTYPE_NONE }, {"LI"  , PARTYPE_NONE }, {"NE"  , PARTYPE_NONE }, 
+    {"DE"  , PARTYPE_NONE },  {"NC"  , PARTYPE_NONE }, {"SR"  , PARTYPE_NONE }, {"ER"  , PARTYPE_NONE },
     {"TS"  , PARTYPE_UINT },  {"TP"  , PARTYPE_UINT }, {"MA"  , PARTYPE_STRING},{"WA"  , PARTYPE_UINT  },
     {"TT"  , PARTYPE_UINT },  {"AP"  , PARTYPE_UINT }, {"AR"  , PARTYPE_UINT},  {"AI"  , PARTYPE_UINT  },
     {"FR"  , PARTYPE_NONE },  {"BT"  , PARTYPE_UINT }, {"BC"  , PARTYPE_STRING}
@@ -132,21 +133,21 @@ void performCommand (uint8_t cmd, int16_t parNum, char * parString, int8_t perio
                #endif
                middleMouseButton=1; middleClickRunning=DEFAULT_CLICK_TIME;
               break;
-        case CMD_PL:
+        case CMD_HL:
                #ifdef DEBUG_OUTPUT
-                 Serial.println(F("press left"));
+                 Serial.println(F("hold left"));
               #endif
                leftMouseButton=1; 
                break;
-        case CMD_PR:
+        case CMD_HR:
                #ifdef DEBUG_OUTPUT
-                 Serial.println(F("press right"));
+                 Serial.println(F("hold right"));
                #endif
                rightMouseButton=1; 
                break;
-        case CMD_PM:
+        case CMD_HM:
                #ifdef DEBUG_OUTPUT
-                 Serial.println(F("press middle"));
+                 Serial.println(F("hold middle"));
                #endif
                middleMouseButton=1; 
                break;
@@ -168,6 +169,24 @@ void performCommand (uint8_t cmd, int16_t parNum, char * parString, int8_t perio
                #endif
                middleMouseButton=0;
                break; 
+        case CMD_TL:
+               #ifdef DEBUG_OUTPUT
+                 Serial.println(F("toggle left"));
+              #endif
+               leftMouseButton^=1; 
+               break;
+        case CMD_TR:
+               #ifdef DEBUG_OUTPUT
+                 Serial.println(F("toggle right"));
+               #endif
+               rightMouseButton^=1; 
+               break;
+        case CMD_TM:
+               #ifdef DEBUG_OUTPUT
+                 Serial.println(F("toggle middle"));
+               #endif
+               middleMouseButton^=1; 
+               break;
         case CMD_WU:
                #ifdef DEBUG_OUTPUT
                  Serial.println(F("wheel up"));
@@ -218,6 +237,21 @@ void performCommand (uint8_t cmd, int16_t parNum, char * parString, int8_t perio
                  Serial.println(parString);
                #endif
                pressSingleKeys(parString);
+               releaseSingleKeys(parString);             
+               break;
+        case CMD_KH:
+               #ifdef DEBUG_OUTPUT   
+                 Serial.print(F("key hold: "));
+                 Serial.println(parString);
+               #endif
+               pressSingleKeys(parString);
+               break;
+        case CMD_KT:
+               #ifdef DEBUG_OUTPUT   
+                 Serial.print(F("key toggle: "));
+                 Serial.println(parString);
+               #endif
+               toggleSingleKeys(parString);
                break;
         case CMD_KR:
                #ifdef DEBUG_OUTPUT   

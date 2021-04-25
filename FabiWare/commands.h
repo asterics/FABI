@@ -37,14 +37,18 @@
           AT CM             click middle mouse button  
           AT CD             click double with left mouse button
 
-          AT PL             press/hold the left mouse button  
-          AT PR             press/hold the right mouse button
-          AT PM             press/hold the middle mouse button 
+          AT HL             hold the left mouse button  
+          AT HR             hold the right mouse button
+          AT HM             hold the middle mouse button 
   
           AT RL             release the left mouse button  
           AT RR             release the right mouse button
           AT RM             release the middle mouse button 
-          
+
+          AT TL             toggle the left mouse button  
+          AT TR             toggle the right mouse button
+          AT TM             toggle the middle mouse button 
+
           AT WU             move mouse wheel up  
           AT WD             move mouse wheel down  
    
@@ -52,8 +56,13 @@
           AT MY <int>       move mouse in y direction (e.g. "AT MY -10" moves cursor 10 pixels up)  
 
           AT KW <string>    keyboard write string (e.g." AT KW Hello!" writes "Hello!")    
-          AT KP <string>    key press: press/hold keys identifier 
+          AT KP <string>    key press: press keys once (automatic release after all keys were pressed)
                             (e.g. "AT KP KEY_UP" presses the "Cursor-Up" key, "AT KP KEY_CTRL KEY_ALT KEY_DELETE" presses all three keys)
+          AT KH <string>    key hold: hold keys (automatic release when user button is released)
+                            (e.g. "AT KH KEY_A" presses the "A" key until  "AT KR KEY_A" is sent)
+          AT KT <string>    key toggle: "sticky" hold keys (key will be pressed until "AT KT" command is sent again or a "AT KR" command is sent)
+                            in contrast to "AT KH" a finished user action does not release the keys
+                            (e.g. "AT KT KEY_A" presses the "A" key until  "AT KT KEY_A" is sent again.)
                             for a list of supported key idientifier strings see below ! 
                             
           AT KR <string>    key release: releases all keys identified in the string    
@@ -101,10 +110,10 @@
 // command identifiers
 
 enum atCommands {
-  CMD_ID, CMD_BM, CMD_CL, CMD_CR, CMD_CM, CMD_CD, CMD_PL, CMD_PR, CMD_PM, CMD_RL, CMD_RR, CMD_RM,
-  CMD_WU, CMD_WD, CMD_WS, CMD_MX, CMD_MY, CMD_KW, CMD_KP, CMD_KR, CMD_RA, CMD_SA, CMD_LO, CMD_LA,
-  CMD_LI, CMD_NE, CMD_DE, CMD_NC, CMD_SR, CMD_ER, CMD_TS, CMD_TP, CMD_MA, CMD_WA,
-  CMD_TT, CMD_AP, CMD_AR, CMD_AI, CMD_FR, CMD_BT, CMD_BC, NUM_COMMANDS
+  CMD_ID, CMD_BM, CMD_CL, CMD_CR, CMD_CM, CMD_CD, CMD_HL, CMD_HR, CMD_HM, CMD_RL, CMD_RR, CMD_RM,
+  CMD_TL, CMD_TR, CMD_TM, CMD_WU, CMD_WD, CMD_WS, CMD_MX, CMD_MY, CMD_KW, CMD_KP, CMD_KH, CMD_KT, 
+  CMD_KR, CMD_RA, CMD_SA, CMD_LO, CMD_LA, CMD_LI, CMD_NE, CMD_DE, CMD_NC, CMD_SR, CMD_ER, CMD_TS, 
+  CMD_TP, CMD_MA, CMD_WA, CMD_TT, CMD_AP, CMD_AR, CMD_AI, CMD_FR, CMD_BT, CMD_BC, NUM_COMMANDS
 };
 
 #endif
