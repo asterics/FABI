@@ -25,7 +25,7 @@
 
 #define VERSION_STRING "FABI v2.5"
 
-#define DEBUG_OUTPUT      //  if debug output is desired
+//#define DEBUG_OUTPUT      //  if debug output is desired
 //#define TEENSY            //  if a Teensy2.0++ controller is used
 #define ARDUINO_PRO_MICRO   //  if Arduino Leonardo or Arduino (Pro) Micro is used 
 
@@ -45,7 +45,7 @@
 #define MOUSE_ACCELDELAY   50         // steps to reach mouse move speed
 
 #define MAX_SLOTNAME_LEN      10      // maximum lenght for a slotname
-#define KEYSTRING_BUFFER_LEN 200      // maximum lenght for all string parameters of a slot 
+#define KEYSTRING_BUFFER_LEN 500      // maximum lenght for all string parameters of a slot 
 #define MAX_CMDLEN           200      // maximum lenght of a single AT command
 
 #define PARTYPE_NONE   0
