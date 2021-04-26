@@ -27,7 +27,8 @@ const struct atCommandType atCommands[] PROGMEM = {
     {"DE"  , PARTYPE_NONE },  {"NC"  , PARTYPE_NONE }, {"SR"  , PARTYPE_NONE }, {"ER"  , PARTYPE_NONE },
     {"TS"  , PARTYPE_UINT },  {"TP"  , PARTYPE_UINT }, {"MA"  , PARTYPE_STRING},{"WA"  , PARTYPE_UINT  },
     {"TT"  , PARTYPE_UINT },  {"AP"  , PARTYPE_UINT }, {"AR"  , PARTYPE_UINT},  {"AI"  , PARTYPE_UINT  },
-    {"FR"  , PARTYPE_NONE },  {"BT"  , PARTYPE_UINT }, {"BC"  , PARTYPE_STRING}
+    {"FR"  , PARTYPE_NONE },  {"BT"  , PARTYPE_UINT }, {"BC"  , PARTYPE_STRING},{"DP" , PARTYPE_UINT  },
+    {"AD"  , PARTYPE_UINT  } 
 };
 
 void printCurrentSlot()
@@ -41,6 +42,8 @@ void printCurrentSlot()
         Serial.print(F("AT AR ")); Serial.println(settings.ar);
         Serial.print(F("AT AI ")); Serial.println(settings.ai);
         Serial.print(F("AT BT ")); Serial.println(settings.bt);
+        Serial.print(F("AT DP ")); Serial.println(settings.dp);
+        Serial.print(F("AT AD ")); Serial.println(settings.ad);
         for (int i=0;i<NUMBER_OF_BUTTONS;i++) 
         {
            Serial.print(F("AT BM ")); 
@@ -401,6 +404,20 @@ void performCommand (uint8_t cmd, int16_t parNum, char * parString, int8_t perio
                break;
         case CMD_WA:
                 delay(parNum);
+               break;
+        case CMD_DP:
+                #ifdef DEBUG_OUTPUT  
+                  Serial.print(F("Next Slot on Double Press = "));
+                  Serial.println(parNum);
+                #endif
+                settings.dp=parNum;
+               break;
+        case CMD_AD:
+//                #ifdef DEBUG_OUTPUT  
+                  Serial.print(F("Automatic Dwell Time = "));
+                  Serial.println(parNum);
+//                #endif
+                settings.ad=parNum;
                break;
         case CMD_FR:
                Serial.print(F("FREE EEPROM (%):"));

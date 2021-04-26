@@ -47,7 +47,8 @@ int8_t  led_map[NUMBER_OF_LEDS] = {14, 15, 16};
 struct settingsType settings = {      // type definition see fabi.h
   "slot1", DEFAULT_WHEEL_STEPSIZE, DEFAULT_TRESHOLD_TIME,
   DEFAULT_SIP_THRESHOLD, DEFAULT_PUFF_THRESHOLD,
-  DEFAULT_ANTITREMOR_PRESS, DEFAULT_ANTITREMOR_RELEASE, DEFAULT_ANTITREMOR_IDLE, DEFAULT_BT_MODE
+  DEFAULT_ANTITREMOR_PRESS, DEFAULT_ANTITREMOR_RELEASE, DEFAULT_ANTITREMOR_IDLE, 
+  DEFAULT_BT_MODE, DEFAULT_DOUBLEPRESS_TIME, DEFAULT_AUTODWELL_TIME
 };
 
 
@@ -56,10 +57,12 @@ struct buttonDebouncerType buttonDebouncers [NUMBER_OF_BUTTONS];   // array for 
 char   cmdstring[MAX_CMDLEN];                 // buffer for incoming AT commands
 char   keystringBuffer[KEYSTRING_BUFFER_LEN]; // buffer for all string parameters for the buttons of a slot
 uint16_t freeEEPROMbytes = 0;
+uint16_t nextSlotOnDoublePress=0;
 
 int clickTime = DEFAULT_CLICK_TIME;
 int waitTime = DEFAULT_WAIT_TIME;
 uint32_t updateTimestamp=0;
+uint32_t mouseMoveTimestamp=0;
 
 uint8_t reportSlotParameters = 0;
 uint8_t valueReportCount = 0;
@@ -238,7 +241,13 @@ void loop() {
   if (millis() - updateTimestamp >= waitTime) {
 
     updateTimestamp = millis();
-
+    if (settings.ad && mouseMoveTimestamp) {
+      if (millis()-mouseMoveTimestamp >= settings.ad) {
+        Serial.println("Autodwell Click");
+        leftMouseButton=1;  leftClickRunning=DEFAULT_CLICK_TIME;
+        mouseMoveTimestamp=0;
+      }
+    }
     for (int i = 0; i < NUMBER_OF_PHYSICAL_BUTTONS; i++) // update button press / release events
       handleButton(i, i + 6, digitalRead(input_map[i]) == LOW ? BUTTON_PRESSED : BUTTON_RELEASED);
 
@@ -344,11 +353,27 @@ void loop() {
 
 void handlePress (int buttonIndex)   // a button was pressed
 {
+  static uint32_t doublePressTimestamp =0;
+  #ifdef DEBUG_OUTPUT
+    Serial.print("press button "); Serial.print(buttonIndex);
+  #endif
+
+  if (settings.dp > 0) {     // check if double press condition met
+      if ((millis() - doublePressTimestamp) < settings.dp) {
+        // Serial.println("skip to next Slot!");
+        performCommand(CMD_NE,0,0,0);  // activate next slot if yes!
+    }
+  }
+  doublePressTimestamp=millis();
   performCommand(buttons[buttonIndex].mode, buttons[buttonIndex].value, getKeystring(buttonIndex), 1);
 }
 
+
 void handleRelease (int buttonIndex)    // a button was released
 {
+  #ifdef DEBUG_OUTPUT
+    Serial.print("release button "); Serial.print(buttonIndex);
+  #endif
   switch (buttons[buttonIndex].mode) {
     case CMD_HL: leftMouseButton = 0; break;
     case CMD_HR: rightMouseButton = 0; break;
@@ -438,13 +463,13 @@ void handleButton(int i, int l, uint8_t actState)
   if ((actState == BUTTON_PRESSED)) // && (buttonDebouncers[i].pressState == BUTTONSTATE_NOT_PRESSED))
   {
     buttonDebouncers[i].releaseCount = 0;
-    if (buttonDebouncers[i].pressCount <= settings.tt >> 2)
+    if ((buttonDebouncers[i].pressCount <= settings.tt >> 2) || (settings.tt ==0))
       buttonDebouncers[i].pressCount++;
     if (buttonDebouncers[i].pressCount == settings.ap) {
       handlePress(i);
       buttonDebouncers[i].pressState = BUTTONSTATE_SHORT_PRESSED;
     }
-    if ((buttonDebouncers[i].pressCount == settings.tt >> 2) && (settings.tt < 5000) && (l >= 0) && (l < NUMBER_OF_BUTTONS)) {
+    if ((buttonDebouncers[i].pressCount == settings.tt >> 2) && (settings.tt != 0) && (l >= 0) && (l < NUMBER_OF_BUTTONS)) {
       handleRelease(i);
       handlePress(l);
       initDebouncers();

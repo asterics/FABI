@@ -45,8 +45,8 @@
 #define MOUSE_ACCELDELAY   50         // steps to reach mouse move speed
 
 #define MAX_SLOTNAME_LEN      10      // maximum lenght for a slotname
-#define KEYSTRING_BUFFER_LEN 500      // maximum lenght for all string parameters of a slot 
-#define MAX_CMDLEN           200      // maximum lenght of a single AT command
+#define KEYSTRING_BUFFER_LEN 400      // maximum lenght for all string parameters of a slot 
+#define MAX_CMDLEN           120      // maximum lenght of a single AT command
 
 #define PARTYPE_NONE   0
 #define PARTYPE_UINT   1
@@ -67,8 +67,10 @@
 #define DEFAULT_ANTITREMOR_RELEASE   2   // debouncing interval for button-release
 #define DEFAULT_ANTITREMOR_IDLE      1   // debouncing interval for button idle time
 #define DEFAULT_BT_MODE              1   // USB HID only
+#define DEFAULT_TRESHOLD_TIME        0   // treshold time for long press (0: disable long press)
+#define DEFAULT_DOUBLEPRESS_TIME     0   // treshold time for double press (0: disable double press)
+#define DEFAULT_AUTODWELL_TIME       0   // treshold time for automatic dwelling after mouse movement (0: disable autodwell)
 
-#define DEFAULT_TRESHOLD_TIME     5000   // treshold time for short / long press (5000: disable long press)
 #define BUTTON_PRESSED  1
 #define BUTTON_RELEASED 0
 #define BUTTONSTATE_NOT_PRESSED   0
@@ -86,7 +88,8 @@ struct settingsType {
   uint16_t ar;     // antitremor release time 
   uint16_t ai;     // antitremor idle time 
   uint8_t  bt;     // bt-mode (0,1,2)
-  
+  uint16_t dp;     // double press time  
+  uint16_t ad;     // automatic dwelling time  
 };
 
 struct atCommandType {              // holds settings for a button function 
@@ -129,6 +132,7 @@ extern uint8_t leftClickRunning;
 extern uint8_t rightClickRunning;
 extern uint8_t middleClickRunning;
 extern uint8_t doubleClickRunning;
+extern uint32_t mouseMoveTimestamp;
 extern char * writeKeystring;
 extern int8_t moveX;       
 extern int8_t moveY;

@@ -17,7 +17,9 @@
           AT WS <uint>    set mouse wheel stepsize (e.g. "AT WS 3" sets the wheel stepsize to 3 rows)
           AT TS <uint>    threshold for sip action  (0-512)
           AT TP <uint>    threshold for puff action (512-1023)
-          AT TT <uint>    threshold time between short and long press action (5000=disable)
+          AT TT <uint>    threshold time for long press action (0=disable)
+          AT DP <uint>    threshold time for double press to skip slot  (0=disable)
+          AT AD <uint>    threshold time for automatic dwelling after mouse movement (0=disable)
           AT AP <uint>    antitremor press time (1-500)
           AT AR <uint>    antitremor release time (1-500)
           AT AI <uint>    antitremor idle time (1-500)
@@ -178,6 +180,8 @@ namespace FabiGUI
             allCommands.add(new Command("AT AP", PARTYPE_UINT, "Antitremor Press time", COMBOENTRY_NO, GUITYPE_SLIDER));
             allCommands.add(new Command("AT AR", PARTYPE_UINT, "Antitremor Release time", COMBOENTRY_NO, GUITYPE_SLIDER));
             allCommands.add(new Command("AT AI", PARTYPE_UINT, "Antitremor Idle time", COMBOENTRY_NO, GUITYPE_SLIDER));
+            allCommands.add(new Command("AT DP", PARTYPE_UINT, "Double Press time", COMBOENTRY_NO, GUITYPE_SLIDER));
+            allCommands.add(new Command("AT AD", PARTYPE_UINT, "Autodwell  time", COMBOENTRY_NO, GUITYPE_SLIDER));
             allCommands.add(new Command("AT BT", PARTYPE_UINT, "HID / Bluetooth mode", COMBOENTRY_NO, GUITYPE_COMBO_INDEX));
 
         }
@@ -187,21 +191,23 @@ namespace FabiGUI
 
         public void initCommandGuiLinks()
         {
-            commandGuiLinks.Add(new CommandGuiLink("AT TT", timeThresholdBar, timeThresholdLabel, "5000"));
+            commandGuiLinks.Add(new CommandGuiLink("AT TT", timeThresholdBar, timeThresholdLabel, "0"));
             commandGuiLinks.Add(new CommandGuiLink("AT AP", antiTremorPressBar, antiTremorPressLabel, "5"));
             commandGuiLinks.Add(new CommandGuiLink("AT AR", antiTremorReleaseBar, antiTremorReleaseLabel, "2"));
             commandGuiLinks.Add(new CommandGuiLink("AT AI", antiTremorIdleBar, antiTremorIdleLabel, "1"));
+            commandGuiLinks.Add(new CommandGuiLink("AT DP", doublePressTimeBar, doublePressTimeLabel, "0"));
+            commandGuiLinks.Add(new CommandGuiLink("AT AD", autoDwellTimeBar, autoDwellTimeLabel, "0"));
             commandGuiLinks.Add(new CommandGuiLink("AT TS", sipThresholdBar, sipThresholdLabel, "0"));
             commandGuiLinks.Add(new CommandGuiLink("AT TP", puffThresholdBar, puffThresholdLabel, "1023"));
-            commandGuiLinks.Add(new CommandGuiLink("AT BM 01", Button1FunctionBox, Button1ParameterText, Button1NumericParameter, "AT KP KEY_UP "));
-            commandGuiLinks.Add(new CommandGuiLink("AT BM 02", Button2FunctionBox, Button2ParameterText, Button2NumericParameter, "AT KP KEY_DOWN "));
-            commandGuiLinks.Add(new CommandGuiLink("AT BM 03", Button3FunctionBox, Button3ParameterText, Button3NumericParameter, "AT KP KEY_LEFT "));
-            commandGuiLinks.Add(new CommandGuiLink("AT BM 04", Button4FunctionBox, Button4ParameterText, Button4NumericParameter, "AT KP KEY_RIGHT "));
-            commandGuiLinks.Add(new CommandGuiLink("AT BM 05", Button5FunctionBox, Button5ParameterText, Button5NumericParameter, "AT KP KEY_SPACE "));
-            commandGuiLinks.Add(new CommandGuiLink("AT BM 06", Button6FunctionBox, Button6ParameterText, Button6NumericParameter, "AT KP KEY_ENTER "));
+            commandGuiLinks.Add(new CommandGuiLink("AT BM 01", Button1FunctionBox, Button1ParameterText, Button1NumericParameter, "AT KH KEY_UP "));
+            commandGuiLinks.Add(new CommandGuiLink("AT BM 02", Button2FunctionBox, Button2ParameterText, Button2NumericParameter, "AT KH KEY_DOWN "));
+            commandGuiLinks.Add(new CommandGuiLink("AT BM 03", Button3FunctionBox, Button3ParameterText, Button3NumericParameter, "AT KH KEY_LEFT "));
+            commandGuiLinks.Add(new CommandGuiLink("AT BM 04", Button4FunctionBox, Button4ParameterText, Button4NumericParameter, "AT KH KEY_RIGHT "));
+            commandGuiLinks.Add(new CommandGuiLink("AT BM 05", Button5FunctionBox, Button5ParameterText, Button5NumericParameter, "AT KH KEY_SPACE "));
+            commandGuiLinks.Add(new CommandGuiLink("AT BM 06", Button6FunctionBox, Button6ParameterText, Button6NumericParameter, "AT KH KEY_ENTER "));
             commandGuiLinks.Add(new CommandGuiLink("AT BM 07", Button7FunctionBox, Button7ParameterText, Button7NumericParameter, "AT NE"));
-            commandGuiLinks.Add(new CommandGuiLink("AT BM 08", Button8FunctionBox, Button8ParameterText, Button8NumericParameter, "AT PL"));
-            commandGuiLinks.Add(new CommandGuiLink("AT BM 09", Button9FunctionBox, Button9ParameterText, Button9NumericParameter, "AT PR"));
+            commandGuiLinks.Add(new CommandGuiLink("AT BM 08", Button8FunctionBox, Button8ParameterText, Button8NumericParameter, "AT HL"));
+            commandGuiLinks.Add(new CommandGuiLink("AT BM 09", Button9FunctionBox, Button9ParameterText, Button9NumericParameter, "AT HR"));
             commandGuiLinks.Add(new CommandGuiLink("AT BM 10", SipFunctionMenu, SipParameterText, SipNumericParameter, "AT WU"));
             commandGuiLinks.Add(new CommandGuiLink("AT BM 11", PuffFunctionMenu, PuffParameterText, PuffNumericParameter, "AT WD"));
             commandGuiLinks.Add(new CommandGuiLink("AT BT", HIDComboBox, 1));

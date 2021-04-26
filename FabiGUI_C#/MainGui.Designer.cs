@@ -139,21 +139,10 @@
             this.sipThresholdLabel = new System.Windows.Forms.Label();
             this.sipThresholdBar = new System.Windows.Forms.TrackBar();
             this.thresholdLabelForSip = new System.Windows.Forms.Label();
-            this.SettingsTab = new System.Windows.Forms.TabPage();
-            this.label16 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.antiTremorIdleLabel = new System.Windows.Forms.Label();
-            this.antiTremorIdleBar = new System.Windows.Forms.TrackBar();
-            this.label14 = new System.Windows.Forms.Label();
-            this.antiTremorReleaseLabel = new System.Windows.Forms.Label();
-            this.antiTremorReleaseBar = new System.Windows.Forms.TrackBar();
-            this.label10 = new System.Windows.Forms.Label();
-            this.antiTremorPressLabel = new System.Windows.Forms.Label();
-            this.antiTremorPressBar = new System.Windows.Forms.TrackBar();
-            this.label9 = new System.Windows.Forms.Label();
-            this.timeThresholdLabel = new System.Windows.Forms.Label();
-            this.timeThresholdBar = new System.Windows.Forms.TrackBar();
-            this.label2 = new System.Windows.Forms.Label();
+            this.general = new System.Windows.Forms.TabPage();
+            this.label50 = new System.Windows.Forms.Label();
+            this.label43 = new System.Windows.Forms.Label();
+            this.HIDComboBox = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.activityLogTextbox = new System.Windows.Forms.RichTextBox();
             this.slotNames = new System.Windows.Forms.ComboBox();
@@ -175,10 +164,31 @@
             this.StoreButton = new System.Windows.Forms.Button();
             this.freeMemPanel = new System.Windows.Forms.Panel();
             this.freeMemLabel = new System.Windows.Forms.Label();
-            this.general = new System.Windows.Forms.TabPage();
-            this.label50 = new System.Windows.Forms.Label();
-            this.label43 = new System.Windows.Forms.Label();
-            this.HIDComboBox = new System.Windows.Forms.ComboBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.antiTremorPressBar = new System.Windows.Forms.TrackBar();
+            this.antiTremorPressLabel = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.antiTremorReleaseBar = new System.Windows.Forms.TrackBar();
+            this.antiTremorReleaseLabel = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.antiTremorIdleBar = new System.Windows.Forms.TrackBar();
+            this.antiTremorIdleLabel = new System.Windows.Forms.Label();
+            this.SettingsTab = new System.Windows.Forms.TabPage();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
+            this.doublePressTimeBar = new System.Windows.Forms.TrackBar();
+            this.label22 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.timeThresholdLabel = new System.Windows.Forms.Label();
+            this.timeThresholdBar = new System.Windows.Forms.TrackBar();
+            this.label2 = new System.Windows.Forms.Label();
+            this.doublePressTimeLabel = new System.Windows.Forms.Label();
+            this.autoDwellTimeLabel = new System.Windows.Forms.Label();
+            this.label29 = new System.Windows.Forms.Label();
+            this.label30 = new System.Windows.Forms.Label();
+            this.autoDwellTimeBar = new System.Windows.Forms.TrackBar();
+            this.label32 = new System.Windows.Forms.Label();
             this.tabControl.SuspendLayout();
             this.Buttons1Tab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Button4NumericParameter)).BeginInit();
@@ -196,14 +206,16 @@
             ((System.ComponentModel.ISupportInitialize)(this.SipNumericParameter)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.puffThresholdBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.sipThresholdBar)).BeginInit();
-            this.SettingsTab.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.antiTremorIdleBar)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.antiTremorReleaseBar)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.antiTremorPressBar)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.timeThresholdBar)).BeginInit();
+            this.general.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
-            this.general.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.antiTremorPressBar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.antiTremorReleaseBar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.antiTremorIdleBar)).BeginInit();
+            this.SettingsTab.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.doublePressTimeBar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.timeThresholdBar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.autoDwellTimeBar)).BeginInit();
             this.SuspendLayout();
             // 
             // serialPort1
@@ -1571,201 +1583,52 @@
             this.thresholdLabelForSip.TabIndex = 113;
             this.thresholdLabelForSip.Text = "Sip Level";
             // 
-            // SettingsTab
+            // general
             // 
-            this.SettingsTab.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.SettingsTab.Controls.Add(this.label16);
-            this.SettingsTab.Controls.Add(this.label1);
-            this.SettingsTab.Controls.Add(this.antiTremorIdleLabel);
-            this.SettingsTab.Controls.Add(this.antiTremorIdleBar);
-            this.SettingsTab.Controls.Add(this.label14);
-            this.SettingsTab.Controls.Add(this.antiTremorReleaseLabel);
-            this.SettingsTab.Controls.Add(this.antiTremorReleaseBar);
-            this.SettingsTab.Controls.Add(this.label10);
-            this.SettingsTab.Controls.Add(this.antiTremorPressLabel);
-            this.SettingsTab.Controls.Add(this.antiTremorPressBar);
-            this.SettingsTab.Controls.Add(this.label9);
-            this.SettingsTab.Controls.Add(this.timeThresholdLabel);
-            this.SettingsTab.Controls.Add(this.timeThresholdBar);
-            this.SettingsTab.Controls.Add(this.label2);
-            this.SettingsTab.Location = new System.Drawing.Point(4, 29);
-            this.SettingsTab.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.SettingsTab.Name = "SettingsTab";
-            this.SettingsTab.Size = new System.Drawing.Size(878, 461);
-            this.SettingsTab.TabIndex = 6;
-            this.SettingsTab.Text = "Settings";
+            this.general.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.general.Controls.Add(this.autoDwellTimeLabel);
+            this.general.Controls.Add(this.label29);
+            this.general.Controls.Add(this.label30);
+            this.general.Controls.Add(this.autoDwellTimeBar);
+            this.general.Controls.Add(this.label32);
+            this.general.Controls.Add(this.label50);
+            this.general.Controls.Add(this.label43);
+            this.general.Controls.Add(this.HIDComboBox);
+            this.general.Location = new System.Drawing.Point(4, 29);
+            this.general.Name = "general";
+            this.general.Size = new System.Drawing.Size(878, 461);
+            this.general.TabIndex = 7;
+            this.general.Text = "General";
             // 
-            // label16
+            // label50
             // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(107, 124);
-            this.label16.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label16.Name = "label16";
-            this.label16.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.label16.Size = new System.Drawing.Size(641, 20);
-            this.label16.TabIndex = 129;
-            this.label16.Text = "(Long Press Action for Button1=Button 7, for Button2=Button8  and for Button3=But" +
-    "ton9)";
+            this.label50.AutoSize = true;
+            this.label50.Location = new System.Drawing.Point(127, 137);
+            this.label50.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label50.Name = "label50";
+            this.label50.Size = new System.Drawing.Size(584, 20);
+            this.label50.TabIndex = 157;
+            this.label50.Text = "(Note: defines if the mouse/keyboard activities are sent to USB, bluetooth or bot" +
+    "h)";
             // 
-            // label1
+            // label43
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(719, 70);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label1.Name = "label1";
-            this.label1.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.label1.Size = new System.Drawing.Size(118, 20);
-            this.label1.TabIndex = 128;
-            this.label1.Text = "(5000=disable) ";
+            this.label43.AutoSize = true;
+            this.label43.Location = new System.Drawing.Point(128, 95);
+            this.label43.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label43.Name = "label43";
+            this.label43.Size = new System.Drawing.Size(172, 20);
+            this.label43.TabIndex = 156;
+            this.label43.Text = "USB / Bluetooth Mode:";
             // 
-            // antiTremorIdleLabel
+            // HIDComboBox
             // 
-            this.antiTremorIdleLabel.AutoSize = true;
-            this.antiTremorIdleLabel.Location = new System.Drawing.Point(692, 350);
-            this.antiTremorIdleLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.antiTremorIdleLabel.Name = "antiTremorIdleLabel";
-            this.antiTremorIdleLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.antiTremorIdleLabel.Size = new System.Drawing.Size(18, 20);
-            this.antiTremorIdleLabel.TabIndex = 127;
-            this.antiTremorIdleLabel.Text = "1";
-            // 
-            // antiTremorIdleBar
-            // 
-            this.antiTremorIdleBar.LargeChange = 20;
-            this.antiTremorIdleBar.Location = new System.Drawing.Point(318, 346);
-            this.antiTremorIdleBar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.antiTremorIdleBar.Maximum = 500;
-            this.antiTremorIdleBar.Minimum = 1;
-            this.antiTremorIdleBar.Name = "antiTremorIdleBar";
-            this.antiTremorIdleBar.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.antiTremorIdleBar.Size = new System.Drawing.Size(371, 69);
-            this.antiTremorIdleBar.SmallChange = 10;
-            this.antiTremorIdleBar.TabIndex = 126;
-            this.antiTremorIdleBar.TickFrequency = 10;
-            this.antiTremorIdleBar.Value = 1;
-            this.antiTremorIdleBar.Scroll += new System.EventHandler(this.antiTremorIdleBar_Scroll);
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(162, 350);
-            this.label14.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label14.Name = "label14";
-            this.label14.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.label14.Size = new System.Drawing.Size(151, 20);
-            this.label14.TabIndex = 125;
-            this.label14.Text = "Antitremor Idle Time";
-            // 
-            // antiTremorReleaseLabel
-            // 
-            this.antiTremorReleaseLabel.AutoSize = true;
-            this.antiTremorReleaseLabel.Location = new System.Drawing.Point(694, 279);
-            this.antiTremorReleaseLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.antiTremorReleaseLabel.Name = "antiTremorReleaseLabel";
-            this.antiTremorReleaseLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.antiTremorReleaseLabel.Size = new System.Drawing.Size(18, 20);
-            this.antiTremorReleaseLabel.TabIndex = 124;
-            this.antiTremorReleaseLabel.Text = "2";
-            // 
-            // antiTremorReleaseBar
-            // 
-            this.antiTremorReleaseBar.LargeChange = 20;
-            this.antiTremorReleaseBar.Location = new System.Drawing.Point(321, 275);
-            this.antiTremorReleaseBar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.antiTremorReleaseBar.Maximum = 500;
-            this.antiTremorReleaseBar.Minimum = 1;
-            this.antiTremorReleaseBar.Name = "antiTremorReleaseBar";
-            this.antiTremorReleaseBar.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.antiTremorReleaseBar.Size = new System.Drawing.Size(371, 69);
-            this.antiTremorReleaseBar.TabIndex = 123;
-            this.antiTremorReleaseBar.TickFrequency = 10;
-            this.antiTremorReleaseBar.Value = 2;
-            this.antiTremorReleaseBar.Scroll += new System.EventHandler(this.antiTremorReleaseBar_Scroll);
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(106, 279);
-            this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label10.Name = "label10";
-            this.label10.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.label10.Size = new System.Drawing.Size(208, 20);
-            this.label10.TabIndex = 122;
-            this.label10.Text = "Antitremor-Time for Release";
-            // 
-            // antiTremorPressLabel
-            // 
-            this.antiTremorPressLabel.AutoSize = true;
-            this.antiTremorPressLabel.Location = new System.Drawing.Point(693, 212);
-            this.antiTremorPressLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.antiTremorPressLabel.Name = "antiTremorPressLabel";
-            this.antiTremorPressLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.antiTremorPressLabel.Size = new System.Drawing.Size(18, 20);
-            this.antiTremorPressLabel.TabIndex = 121;
-            this.antiTremorPressLabel.Text = "5";
-            // 
-            // antiTremorPressBar
-            // 
-            this.antiTremorPressBar.LargeChange = 20;
-            this.antiTremorPressBar.Location = new System.Drawing.Point(318, 209);
-            this.antiTremorPressBar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.antiTremorPressBar.Maximum = 500;
-            this.antiTremorPressBar.Minimum = 1;
-            this.antiTremorPressBar.Name = "antiTremorPressBar";
-            this.antiTremorPressBar.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.antiTremorPressBar.Size = new System.Drawing.Size(371, 69);
-            this.antiTremorPressBar.TabIndex = 120;
-            this.antiTremorPressBar.TickFrequency = 10;
-            this.antiTremorPressBar.Value = 5;
-            this.antiTremorPressBar.Scroll += new System.EventHandler(this.antiTremorPressBar_Scroll);
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(124, 212);
-            this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label9.Name = "label9";
-            this.label9.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.label9.Size = new System.Drawing.Size(189, 20);
-            this.label9.TabIndex = 119;
-            this.label9.Text = "Antitremor-Time for Press";
-            // 
-            // timeThresholdLabel
-            // 
-            this.timeThresholdLabel.AutoSize = true;
-            this.timeThresholdLabel.Location = new System.Drawing.Point(673, 70);
-            this.timeThresholdLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.timeThresholdLabel.Name = "timeThresholdLabel";
-            this.timeThresholdLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.timeThresholdLabel.Size = new System.Drawing.Size(45, 20);
-            this.timeThresholdLabel.TabIndex = 118;
-            this.timeThresholdLabel.Text = "5000";
-            // 
-            // timeThresholdBar
-            // 
-            this.timeThresholdBar.LargeChange = 1000;
-            this.timeThresholdBar.Location = new System.Drawing.Point(303, 70);
-            this.timeThresholdBar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.timeThresholdBar.Maximum = 5000;
-            this.timeThresholdBar.Name = "timeThresholdBar";
-            this.timeThresholdBar.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.timeThresholdBar.Size = new System.Drawing.Size(371, 69);
-            this.timeThresholdBar.SmallChange = 200;
-            this.timeThresholdBar.TabIndex = 117;
-            this.timeThresholdBar.TickFrequency = 500;
-            this.timeThresholdBar.Value = 5000;
-            this.timeThresholdBar.Scroll += new System.EventHandler(this.timeThresholdBar_Scroll);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(54, 70);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label2.Name = "label2";
-            this.label2.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.label2.Size = new System.Drawing.Size(244, 20);
-            this.label2.TabIndex = 116;
-            this.label2.Text = "Threshold Time Short/Long Press";
+            this.HIDComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.HIDComboBox.Location = new System.Drawing.Point(321, 92);
+            this.HIDComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.HIDComboBox.Name = "HIDComboBox";
+            this.HIDComboBox.Size = new System.Drawing.Size(288, 28);
+            this.HIDComboBox.TabIndex = 155;
             // 
             // groupBox1
             // 
@@ -1814,7 +1677,6 @@
             this.aboutToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Padding = new System.Windows.Forms.Padding(6, 2, 0, 2);
             this.menuStrip1.Size = new System.Drawing.Size(996, 33);
             this.menuStrip1.TabIndex = 77;
             this.menuStrip1.Text = "menuStrip1";
@@ -1856,7 +1718,7 @@
             this.storeSlotSettingsMenuItem,
             this.loadSlotSettingsMenuItem});
             this.fabiToolStripMenuItem.Name = "fabiToolStripMenuItem";
-            this.fabiToolStripMenuItem.Size = new System.Drawing.Size(49, 24);
+            this.fabiToolStripMenuItem.Size = new System.Drawing.Size(60, 29);
             this.fabiToolStripMenuItem.Text = "Fabi";
             // 
             // storeSlotSettingsMenuItem
@@ -1982,47 +1844,321 @@
             this.freeMemLabel.Text = "mem usage: 0%";
             this.freeMemLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // general
+            // label9
             // 
-            this.general.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.general.Controls.Add(this.label50);
-            this.general.Controls.Add(this.label43);
-            this.general.Controls.Add(this.HIDComboBox);
-            this.general.Location = new System.Drawing.Point(4, 29);
-            this.general.Name = "general";
-            this.general.Size = new System.Drawing.Size(878, 461);
-            this.general.TabIndex = 7;
-            this.general.Text = "General";
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(114, 44);
+            this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label9.Name = "label9";
+            this.label9.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.label9.Size = new System.Drawing.Size(189, 20);
+            this.label9.TabIndex = 119;
+            this.label9.Text = "Antitremor-Time for Press";
             // 
-            // label50
+            // antiTremorPressBar
             // 
-            this.label50.AutoSize = true;
-            this.label50.Location = new System.Drawing.Point(128, 139);
-            this.label50.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label50.Name = "label50";
-            this.label50.Size = new System.Drawing.Size(621, 20);
-            this.label50.TabIndex = 157;
-            this.label50.Text = "This setting defines if the mouse/keyboard activities are sent to USB, bluetooth " +
-    "or both ";
+            this.antiTremorPressBar.LargeChange = 20;
+            this.antiTremorPressBar.Location = new System.Drawing.Point(308, 41);
+            this.antiTremorPressBar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.antiTremorPressBar.Maximum = 500;
+            this.antiTremorPressBar.Minimum = 1;
+            this.antiTremorPressBar.Name = "antiTremorPressBar";
+            this.antiTremorPressBar.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.antiTremorPressBar.Size = new System.Drawing.Size(371, 69);
+            this.antiTremorPressBar.TabIndex = 120;
+            this.antiTremorPressBar.TickFrequency = 10;
+            this.antiTremorPressBar.Value = 5;
+            this.antiTremorPressBar.Scroll += new System.EventHandler(this.antiTremorPressBar_Scroll);
             // 
-            // label43
+            // antiTremorPressLabel
             // 
-            this.label43.AutoSize = true;
-            this.label43.Location = new System.Drawing.Point(128, 95);
-            this.label43.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label43.Name = "label43";
-            this.label43.Size = new System.Drawing.Size(172, 20);
-            this.label43.TabIndex = 156;
-            this.label43.Text = "USB / Bluetooth Mode:";
+            this.antiTremorPressLabel.AutoSize = true;
+            this.antiTremorPressLabel.Location = new System.Drawing.Point(683, 44);
+            this.antiTremorPressLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.antiTremorPressLabel.Name = "antiTremorPressLabel";
+            this.antiTremorPressLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.antiTremorPressLabel.Size = new System.Drawing.Size(18, 20);
+            this.antiTremorPressLabel.TabIndex = 121;
+            this.antiTremorPressLabel.Text = "5";
             // 
-            // HIDComboBox
+            // label10
             // 
-            this.HIDComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.HIDComboBox.Location = new System.Drawing.Point(321, 92);
-            this.HIDComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.HIDComboBox.Name = "HIDComboBox";
-            this.HIDComboBox.Size = new System.Drawing.Size(288, 28);
-            this.HIDComboBox.TabIndex = 155;
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(96, 111);
+            this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label10.Name = "label10";
+            this.label10.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.label10.Size = new System.Drawing.Size(208, 20);
+            this.label10.TabIndex = 122;
+            this.label10.Text = "Antitremor-Time for Release";
+            // 
+            // antiTremorReleaseBar
+            // 
+            this.antiTremorReleaseBar.LargeChange = 20;
+            this.antiTremorReleaseBar.Location = new System.Drawing.Point(309, 107);
+            this.antiTremorReleaseBar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.antiTremorReleaseBar.Maximum = 500;
+            this.antiTremorReleaseBar.Minimum = 1;
+            this.antiTremorReleaseBar.Name = "antiTremorReleaseBar";
+            this.antiTremorReleaseBar.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.antiTremorReleaseBar.Size = new System.Drawing.Size(371, 69);
+            this.antiTremorReleaseBar.TabIndex = 123;
+            this.antiTremorReleaseBar.TickFrequency = 10;
+            this.antiTremorReleaseBar.Value = 2;
+            this.antiTremorReleaseBar.Scroll += new System.EventHandler(this.antiTremorReleaseBar_Scroll);
+            // 
+            // antiTremorReleaseLabel
+            // 
+            this.antiTremorReleaseLabel.AutoSize = true;
+            this.antiTremorReleaseLabel.Location = new System.Drawing.Point(684, 111);
+            this.antiTremorReleaseLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.antiTremorReleaseLabel.Name = "antiTremorReleaseLabel";
+            this.antiTremorReleaseLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.antiTremorReleaseLabel.Size = new System.Drawing.Size(18, 20);
+            this.antiTremorReleaseLabel.TabIndex = 124;
+            this.antiTremorReleaseLabel.Text = "2";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(152, 182);
+            this.label14.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label14.Name = "label14";
+            this.label14.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.label14.Size = new System.Drawing.Size(151, 20);
+            this.label14.TabIndex = 125;
+            this.label14.Text = "Antitremor Idle Time";
+            // 
+            // antiTremorIdleBar
+            // 
+            this.antiTremorIdleBar.LargeChange = 20;
+            this.antiTremorIdleBar.Location = new System.Drawing.Point(310, 178);
+            this.antiTremorIdleBar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.antiTremorIdleBar.Maximum = 500;
+            this.antiTremorIdleBar.Minimum = 1;
+            this.antiTremorIdleBar.Name = "antiTremorIdleBar";
+            this.antiTremorIdleBar.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.antiTremorIdleBar.Size = new System.Drawing.Size(371, 69);
+            this.antiTremorIdleBar.SmallChange = 10;
+            this.antiTremorIdleBar.TabIndex = 126;
+            this.antiTremorIdleBar.TickFrequency = 10;
+            this.antiTremorIdleBar.Value = 1;
+            this.antiTremorIdleBar.Scroll += new System.EventHandler(this.antiTremorIdleBar_Scroll);
+            // 
+            // antiTremorIdleLabel
+            // 
+            this.antiTremorIdleLabel.AutoSize = true;
+            this.antiTremorIdleLabel.Location = new System.Drawing.Point(682, 182);
+            this.antiTremorIdleLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.antiTremorIdleLabel.Name = "antiTremorIdleLabel";
+            this.antiTremorIdleLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.antiTremorIdleLabel.Size = new System.Drawing.Size(18, 20);
+            this.antiTremorIdleLabel.TabIndex = 127;
+            this.antiTremorIdleLabel.Text = "1";
+            // 
+            // SettingsTab
+            // 
+            this.SettingsTab.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.SettingsTab.Controls.Add(this.doublePressTimeLabel);
+            this.SettingsTab.Controls.Add(this.label18);
+            this.SettingsTab.Controls.Add(this.label19);
+            this.SettingsTab.Controls.Add(this.doublePressTimeBar);
+            this.SettingsTab.Controls.Add(this.label22);
+            this.SettingsTab.Controls.Add(this.label16);
+            this.SettingsTab.Controls.Add(this.label1);
+            this.SettingsTab.Controls.Add(this.timeThresholdLabel);
+            this.SettingsTab.Controls.Add(this.timeThresholdBar);
+            this.SettingsTab.Controls.Add(this.label2);
+            this.SettingsTab.Controls.Add(this.antiTremorIdleLabel);
+            this.SettingsTab.Controls.Add(this.antiTremorIdleBar);
+            this.SettingsTab.Controls.Add(this.label14);
+            this.SettingsTab.Controls.Add(this.antiTremorReleaseLabel);
+            this.SettingsTab.Controls.Add(this.antiTremorReleaseBar);
+            this.SettingsTab.Controls.Add(this.label10);
+            this.SettingsTab.Controls.Add(this.antiTremorPressLabel);
+            this.SettingsTab.Controls.Add(this.antiTremorPressBar);
+            this.SettingsTab.Controls.Add(this.label9);
+            this.SettingsTab.Location = new System.Drawing.Point(4, 29);
+            this.SettingsTab.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.SettingsTab.Name = "SettingsTab";
+            this.SettingsTab.Size = new System.Drawing.Size(878, 461);
+            this.SettingsTab.TabIndex = 6;
+            this.SettingsTab.Text = "Settings";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(76, 410);
+            this.label18.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label18.Name = "label18";
+            this.label18.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.label18.Size = new System.Drawing.Size(542, 20);
+            this.label18.TabIndex = 142;
+            this.label18.Text = "(Note: double-press a single switch fast enough in oder to load the next slot)";
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(727, 367);
+            this.label19.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label19.Name = "label19";
+            this.label19.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.label19.Size = new System.Drawing.Size(91, 20);
+            this.label19.TabIndex = 141;
+            this.label19.Text = "(0=disable) ";
+            // 
+            // doublePressTimeBar
+            // 
+            this.doublePressTimeBar.LargeChange = 100;
+            this.doublePressTimeBar.Location = new System.Drawing.Point(313, 361);
+            this.doublePressTimeBar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.doublePressTimeBar.Maximum = 2000;
+            this.doublePressTimeBar.Name = "doublePressTimeBar";
+            this.doublePressTimeBar.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.doublePressTimeBar.Size = new System.Drawing.Size(371, 69);
+            this.doublePressTimeBar.SmallChange = 200;
+            this.doublePressTimeBar.TabIndex = 140;
+            this.doublePressTimeBar.TickFrequency = 50;
+            this.doublePressTimeBar.Scroll += new System.EventHandler(this.doublePressTimeBar_Scroll);
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(72, 366);
+            this.label22.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label22.Name = "label22";
+            this.label22.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.label22.Size = new System.Drawing.Size(243, 20);
+            this.label22.TabIndex = 139;
+            this.label22.Text = " Time Threshold for Double Press";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(72, 308);
+            this.label16.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label16.Name = "label16";
+            this.label16.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.label16.Size = new System.Drawing.Size(630, 20);
+            this.label16.TabIndex = 138;
+            this.label16.Text = "(Note: long press action for Button1 is Button 7, for Button2=Button8, Button3=Bu" +
+    "tton9)";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(723, 265);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Name = "label1";
+            this.label1.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.label1.Size = new System.Drawing.Size(91, 20);
+            this.label1.TabIndex = 137;
+            this.label1.Text = "(0=disable) ";
+            // 
+            // timeThresholdLabel
+            // 
+            this.timeThresholdLabel.AutoSize = true;
+            this.timeThresholdLabel.Location = new System.Drawing.Point(682, 264);
+            this.timeThresholdLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.timeThresholdLabel.Name = "timeThresholdLabel";
+            this.timeThresholdLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.timeThresholdLabel.Size = new System.Drawing.Size(18, 20);
+            this.timeThresholdLabel.TabIndex = 136;
+            this.timeThresholdLabel.Text = "0";
+            // 
+            // timeThresholdBar
+            // 
+            this.timeThresholdBar.LargeChange = 1000;
+            this.timeThresholdBar.Location = new System.Drawing.Point(309, 259);
+            this.timeThresholdBar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.timeThresholdBar.Maximum = 9999;
+            this.timeThresholdBar.Name = "timeThresholdBar";
+            this.timeThresholdBar.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.timeThresholdBar.Size = new System.Drawing.Size(371, 69);
+            this.timeThresholdBar.SmallChange = 200;
+            this.timeThresholdBar.TabIndex = 135;
+            this.timeThresholdBar.TickFrequency = 500;
+            this.timeThresholdBar.Scroll += new System.EventHandler(this.timeThresholdBar_Scroll_1);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(68, 262);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Name = "label2";
+            this.label2.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.label2.Size = new System.Drawing.Size(228, 20);
+            this.label2.TabIndex = 134;
+            this.label2.Text = " Time Threshold for Long Press";
+            // 
+            // doublePressTimeLabel
+            // 
+            this.doublePressTimeLabel.AutoSize = true;
+            this.doublePressTimeLabel.Location = new System.Drawing.Point(684, 366);
+            this.doublePressTimeLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.doublePressTimeLabel.Name = "doublePressTimeLabel";
+            this.doublePressTimeLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.doublePressTimeLabel.Size = new System.Drawing.Size(18, 20);
+            this.doublePressTimeLabel.TabIndex = 143;
+            this.doublePressTimeLabel.Text = "0";
+            // 
+            // autoDwellTimeLabel
+            // 
+            this.autoDwellTimeLabel.AutoSize = true;
+            this.autoDwellTimeLabel.Location = new System.Drawing.Point(621, 237);
+            this.autoDwellTimeLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.autoDwellTimeLabel.Name = "autoDwellTimeLabel";
+            this.autoDwellTimeLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.autoDwellTimeLabel.Size = new System.Drawing.Size(18, 20);
+            this.autoDwellTimeLabel.TabIndex = 162;
+            this.autoDwellTimeLabel.Text = "0";
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Location = new System.Drawing.Point(163, 281);
+            this.label29.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label29.Name = "label29";
+            this.label29.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.label29.Size = new System.Drawing.Size(476, 20);
+            this.label29.TabIndex = 161;
+            this.label29.Text = "(Note: automatically creates a mouse click after mouse movement)";
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Location = new System.Drawing.Point(664, 238);
+            this.label30.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label30.Name = "label30";
+            this.label30.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.label30.Size = new System.Drawing.Size(91, 20);
+            this.label30.TabIndex = 160;
+            this.label30.Text = "(0=disable) ";
+            // 
+            // autoDwellTimeBar
+            // 
+            this.autoDwellTimeBar.LargeChange = 500;
+            this.autoDwellTimeBar.Location = new System.Drawing.Point(313, 232);
+            this.autoDwellTimeBar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.autoDwellTimeBar.Maximum = 5000;
+            this.autoDwellTimeBar.Name = "autoDwellTimeBar";
+            this.autoDwellTimeBar.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.autoDwellTimeBar.Size = new System.Drawing.Size(305, 69);
+            this.autoDwellTimeBar.SmallChange = 200;
+            this.autoDwellTimeBar.TabIndex = 159;
+            this.autoDwellTimeBar.TickFrequency = 200;
+            this.autoDwellTimeBar.Scroll += new System.EventHandler(this.autoDwellTimeBar_Scroll);
+            // 
+            // label32
+            // 
+            this.label32.AutoSize = true;
+            this.label32.Location = new System.Drawing.Point(163, 236);
+            this.label32.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label32.Name = "label32";
+            this.label32.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.label32.Size = new System.Drawing.Size(128, 20);
+            this.label32.TabIndex = 158;
+            this.label32.Text = "Auto-Dwell Time:";
             // 
             // FabiGUI
             // 
@@ -2077,17 +2213,19 @@
             ((System.ComponentModel.ISupportInitialize)(this.SipNumericParameter)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.puffThresholdBar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.sipThresholdBar)).EndInit();
-            this.SettingsTab.ResumeLayout(false);
-            this.SettingsTab.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.antiTremorIdleBar)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.antiTremorReleaseBar)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.antiTremorPressBar)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.timeThresholdBar)).EndInit();
+            this.general.ResumeLayout(false);
+            this.general.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            this.general.ResumeLayout(false);
-            this.general.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.antiTremorPressBar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.antiTremorReleaseBar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.antiTremorIdleBar)).EndInit();
+            this.SettingsTab.ResumeLayout(false);
+            this.SettingsTab.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.doublePressTimeBar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.timeThresholdBar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.autoDwellTimeBar)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2223,27 +2361,37 @@
         private System.Windows.Forms.ComboBox SipFunctionMenu;
         private System.Windows.Forms.TextBox SipParameterText;
         private System.Windows.Forms.Button StoreButton;
-        private System.Windows.Forms.TabPage SettingsTab;
-        private System.Windows.Forms.Label timeThresholdLabel;
-        private System.Windows.Forms.TrackBar timeThresholdBar;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label antiTremorPressLabel;
-        private System.Windows.Forms.TrackBar antiTremorPressBar;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label antiTremorIdleLabel;
-        private System.Windows.Forms.TrackBar antiTremorIdleBar;
-        private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.Label antiTremorReleaseLabel;
-        private System.Windows.Forms.TrackBar antiTremorReleaseBar;
-        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Panel freeMemPanel;
         private System.Windows.Forms.Label freeMemLabel;
         private System.Windows.Forms.TabPage general;
         private System.Windows.Forms.Label label50;
         private System.Windows.Forms.Label label43;
         private System.Windows.Forms.ComboBox HIDComboBox;
+        private System.Windows.Forms.TabPage SettingsTab;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.TrackBar doublePressTimeBar;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label timeThresholdLabel;
+        private System.Windows.Forms.TrackBar timeThresholdBar;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label antiTremorIdleLabel;
+        private System.Windows.Forms.TrackBar antiTremorIdleBar;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label antiTremorReleaseLabel;
+        private System.Windows.Forms.TrackBar antiTremorReleaseBar;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label antiTremorPressLabel;
+        private System.Windows.Forms.TrackBar antiTremorPressBar;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label doublePressTimeLabel;
+        private System.Windows.Forms.Label autoDwellTimeLabel;
+        private System.Windows.Forms.Label label29;
+        private System.Windows.Forms.Label label30;
+        private System.Windows.Forms.TrackBar autoDwellTimeBar;
+        private System.Windows.Forms.Label label32;
     }
 }
 

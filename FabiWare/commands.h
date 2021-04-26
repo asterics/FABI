@@ -26,7 +26,9 @@
           AT WS <uint>    set mouse wheel stepsize (e.g. "AT WS 3" sets the wheel stepsize to 3 rows)
           AT TS <uint>    threshold for sip action  (0-512)
           AT TP <uint>    threshold for puff action (512-1023)
-          AT TT <uint>    threshold time between short and long press action (5000=disable)
+          AT TT <uint>    threshold time for long press action (0=disable)
+          AT DP <uint>    threshold time for double press to skip slot  (0=disable)
+          AT AD <uint>    threshold time for automatic dwelling after mouse movement (0=disable)
           AT AP <uint>    antitremor press time (1-500)
           AT AR <uint>    antitremor release time (1-500)
           AT AI <uint>    antitremor idle time (1-500)
@@ -113,7 +115,8 @@ enum atCommands {
   CMD_ID, CMD_BM, CMD_CL, CMD_CR, CMD_CM, CMD_CD, CMD_HL, CMD_HR, CMD_HM, CMD_RL, CMD_RR, CMD_RM,
   CMD_TL, CMD_TR, CMD_TM, CMD_WU, CMD_WD, CMD_WS, CMD_MX, CMD_MY, CMD_KW, CMD_KP, CMD_KH, CMD_KT, 
   CMD_KR, CMD_RA, CMD_SA, CMD_LO, CMD_LA, CMD_LI, CMD_NE, CMD_DE, CMD_NC, CMD_SR, CMD_ER, CMD_TS, 
-  CMD_TP, CMD_MA, CMD_WA, CMD_TT, CMD_AP, CMD_AR, CMD_AI, CMD_FR, CMD_BT, CMD_BC, NUM_COMMANDS
+  CMD_TP, CMD_MA, CMD_WA, CMD_TT, CMD_AP, CMD_AR, CMD_AI, CMD_FR, CMD_BT, CMD_BC, CMD_DP, CMD_AD,
+  NUM_COMMANDS
 };
 
 #endif

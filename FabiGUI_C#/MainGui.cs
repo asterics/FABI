@@ -101,7 +101,9 @@ namespace FabiGUI
             slotNames.Text = slots[slotNumber].slotName;
             foreach (String settingString in slots[slotNumber].settingStrings)
             {
-                if (settingString == null) { Console.WriteLine("null value detected **** SlotNr."+slotNumber); break; }
+                if (settingString == null) { 
+                    Console.WriteLine("null value detected **** SlotNr."+slotNumber); break; 
+                }
                 if (actButtonLink != null)
                 {
                     String cmd = settingString.Substring(0, 5);
@@ -727,7 +729,21 @@ namespace FabiGUI
         {
             antiTremorIdleLabel.Text = antiTremorIdleBar.Value.ToString();
 
-        }  
+        }
 
+        private void timeThresholdBar_Scroll_1(object sender, EventArgs e)
+        {
+            timeThresholdLabel.Text = timeThresholdBar.Value.ToString();
+        }
+
+        private void doublePressTimeBar_Scroll(object sender, EventArgs e)
+        {
+            doublePressTimeLabel.Text = doublePressTimeBar.Value.ToString();
+        }
+
+        private void autoDwellTimeBar_Scroll(object sender, EventArgs e)
+        {
+            autoDwellTimeLabel.Text = autoDwellTimeBar.Value.ToString();
+        }
     }
 }
