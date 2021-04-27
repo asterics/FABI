@@ -94,6 +94,9 @@ uint8_t neoPix_b_old = 0;
 int inByte = 0;
 uint16_t pressure = 0;
 uint8_t reportRawValues = 0;
+/** current button states for reporting raw values (AT SR)
+ * @note If NUMBER_OF_BUTTONS is more than 16, change type to uint32_t! */
+uint16_t buttonStates = 0;
 
 uint8_t cnt = 0, cnt2 = 0;
 uint8_t buzzerPIN = 0;
@@ -292,7 +295,13 @@ void loop() {
 
     if (reportRawValues)   {
       if (valueReportCount++ > 10) {      // report raw values !
-        Serial.print("VALUES:"); Serial.print(pressure); Serial.println(",");
+        Serial.print("VALUES:"); Serial.print(pressure); Serial.print(",");
+        for(uint8_t i = 0; i<NUMBER_OF_BUTTONS; i++)
+        {
+		  if(buttonStates & (1<<i)) Serial.print("1");
+		  else Serial.print("0");
+	    }
+        Serial.println("");
         valueReportCount = 0;
       }
     }
@@ -344,11 +353,13 @@ void loop() {
 
 void handlePress (int buttonIndex)   // a button was pressed
 {
+  buttonStates |= (1<<buttonIndex); //save for reporting
   performCommand(buttons[buttonIndex].mode, buttons[buttonIndex].value, getKeystring(buttonIndex), 1);
 }
 
 void handleRelease (int buttonIndex)    // a button was released
 {
+  buttonStates &= ~(1<<buttonIndex); //save for reporting
   switch (buttons[buttonIndex].mode) {
     case CMD_PL: leftMouseButton = 0; break;
     case CMD_PR: rightMouseButton = 0; break;

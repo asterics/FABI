@@ -37,7 +37,7 @@
   #define EEPROM_SIZE        4096     // maximum size of EEPROM storage for Teensy2.0++
 #endif
 
-#define NUMBER_OF_BUTTONS  11         // number of connected or virtual switches
+#define NUMBER_OF_BUTTONS  11         // number of connected or virtual switches, note: if more than 16, change buttonState type to uint32_t!
 #define NUMBER_OF_PHYSICAL_BUTTONS 9  // number of connected switches
 #define NUMBER_OF_LEDS     3          // number of connected leds
 
