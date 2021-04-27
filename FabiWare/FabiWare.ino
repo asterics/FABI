@@ -133,9 +133,6 @@ void setup() {
   #ifdef ARDUINO_PRO_MICRO   // only needed for Arduino, automatically done for Teensy(duino)
     Mouse.begin();
     Keyboard.begin();
-    // TXLED1;    //turn on TX_LED
-    pinMode(LED_BUILTIN_RX,INPUT);
-    pinMode(LED_BUILTIN_TX,INPUT);
   #endif
 
   //check if PCB or old (floating wire) FABI is used (checkPin to ground = PCB):
@@ -145,6 +142,10 @@ void setup() {
     #ifdef DEBUG_OUTPUT
         Serial.println("FABi PCB Version");
     #endif
+
+    // turn off built-in LEDs
+    pinMode(LED_BUILTIN_RX,INPUT);
+    pinMode(LED_BUILTIN_TX,INPUT);
 
     PCBversion = 1;
     memcpy(input_map, input_map_PCB, NUMBER_OF_PHYSICAL_BUTTONS + 1);
@@ -193,6 +194,8 @@ void setup() {
   }
   else {
     // no PCB Version:
+    TXLED1;    //turn on TX_LED
+    
     for (int i = 0; i < NUMBER_OF_LEDS; i++)
       pinMode (led_map[i], OUTPUT);   // configure the pins for input mode with pullup resistors
   }
