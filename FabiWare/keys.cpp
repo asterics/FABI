@@ -18,6 +18,7 @@
  #define KBD_US 2
  
  #define KEYBOARD_LAYOUT KBD_DE 
+ #define HID_REPORT_KEY_COUNT 6
  
  #define MOD_ALTGR 256
  #define MOD_SHIFT 512
@@ -85,7 +86,7 @@ struct keymap_struct {
   int key;
 };
 
-int storedKeys[6]={0};
+int storedKeys[HID_REPORT_KEY_COUNT]={0};
 
 const keymap_struct keymap[] PROGMEM  = {   
   {"SHIFT", KEY_LEFT_SHIFT},
@@ -213,20 +214,20 @@ uint16_t getNextKeyName(char* keyNames, char* singleKeyName)
 }
 
 void storeKey(int k) {
-  for (int i=0;i<6;i++) {
+  for (int i=0;i<HID_REPORT_KEY_COUNT;i++) {
     if (storedKeys[i]==k) return;  // already stored
     if (storedKeys[i]==0) {storedKeys[i]=k; return;} // store new key    
   }
 }
 
 void removeKey(int k) {
-  for (int i=0;i<6;i++) {
+  for (int i=0;i<HID_REPORT_KEY_COUNT;i++) {
     if (storedKeys[i]==k) {storedKeys[i]=0; return;} // remove key    
   }
 }
 
 int keyStored(int k) {
-  for (int i=0;i<6;i++) {
+  for (int i=0;i<HID_REPORT_KEY_COUNT;i++) {
     if (storedKeys[i]==k) return (1);  // found
   }
   return(0);
