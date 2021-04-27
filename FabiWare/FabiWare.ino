@@ -246,7 +246,9 @@ void loop() {
     updateTimestamp = millis();
     if (settings.ad && mouseMoveTimestamp) {
       if (millis()-mouseMoveTimestamp >= settings.ad) {
-        Serial.println("Autodwell Click");
+        #ifdef DEBUG_OUTPUT
+          Serial.println("Autodwell Click");
+        #endif
         leftMouseButton=1;  leftClickRunning=DEFAULT_CLICK_TIME;
         mouseMoveTimestamp=0;
       }
