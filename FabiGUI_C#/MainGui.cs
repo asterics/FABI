@@ -101,7 +101,9 @@ namespace FabiGUI
             slotNames.Text = slots[slotNumber].slotName;
             foreach (String settingString in slots[slotNumber].settingStrings)
             {
-                if (settingString == null) { Console.WriteLine("null value detected **** SlotNr."+slotNumber); break; }
+                if (settingString == null) { 
+                    Console.WriteLine("null value detected **** SlotNr."+slotNumber); break; 
+                }
                 if (actButtonLink != null)
                 {
                     String cmd = settingString.Substring(0, 5);
@@ -307,13 +309,13 @@ namespace FabiGUI
         private void FabiGUI_Load(object sender, EventArgs e)
         {
             this.stringReceivedDelegate = new StringReceivedDelegate(stringReceived);
-            BeginInvoke(this.stringReceivedDelegate, new Object[] { "VALUES:512,512,512,512,512" });
+            BeginInvoke(this.stringReceivedDelegate, new Object[] { "VALUES:512,00000000000,1" });
         }
 
         // update paint areas if tabs are changed
         private void tabControl_SelectedIndexChanged(object sender, EventArgs e)
         {
-            BeginInvoke(this.stringReceivedDelegate, new Object[] { "VALUES:512,512,512,512,512" });
+            BeginInvoke(this.stringReceivedDelegate, new Object[] { "VALUES:512,00000000000,1" });
         }
 
 
@@ -727,7 +729,21 @@ namespace FabiGUI
         {
             antiTremorIdleLabel.Text = antiTremorIdleBar.Value.ToString();
 
-        }  
+        }
 
+        private void timeThresholdBar_Scroll_1(object sender, EventArgs e)
+        {
+            timeThresholdLabel.Text = timeThresholdBar.Value.ToString();
+        }
+
+        private void doublePressTimeBar_Scroll(object sender, EventArgs e)
+        {
+            doublePressTimeLabel.Text = doublePressTimeBar.Value.ToString();
+        }
+
+        private void autoDwellTimeBar_Scroll(object sender, EventArgs e)
+        {
+            autoDwellTimeLabel.Text = autoDwellTimeBar.Value.ToString();
+        }
     }
 }

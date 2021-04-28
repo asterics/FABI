@@ -17,7 +17,9 @@
           AT WS <uint>    set mouse wheel stepsize (e.g. "AT WS 3" sets the wheel stepsize to 3 rows)
           AT TS <uint>    threshold for sip action  (0-512)
           AT TP <uint>    threshold for puff action (512-1023)
-          AT TT <uint>    threshold time between short and long press action (5000=disable)
+          AT TT <uint>    threshold time for long press action (0=disable)
+          AT DP <uint>    threshold time for double press to skip slot  (0=disable)
+          AT AD <uint>    threshold time for automatic dwelling after mouse movement (0=disable)
           AT AP <uint>    antitremor press time (1-500)
           AT AR <uint>    antitremor release time (1-500)
           AT AI <uint>    antitremor idle time (1-500)
@@ -29,13 +31,17 @@
           AT CM             click middle mouse button  
           AT CD             click double with left mouse button
 
-          AT PL             press/hold the left mouse button  
-          AT PR             press/hold the right mouse button
-          AT PM             press/hold the middle mouse button 
+          AT HL             hold the left mouse button  
+          AT HR             hold the right mouse button
+          AT HM             hold the middle mouse button 
   
           AT RL             release the left mouse button  
           AT RR             release the right mouse button
           AT RM             release the middle mouse button 
+
+          AT TL             toggle the left mouse button  
+          AT TR             toggle the right mouse button
+          AT TM             toggle the middle mouse button 
           
           AT WU             move mouse wheel up  
           AT WD             move mouse wheel down  
@@ -44,8 +50,13 @@
           AT MY <int>       move mouse in y direction (e.g. "AT MY -10" moves cursor 10 pixels up)  
 
           AT KW <string>    keyboard write string (e.g." AT KW Hello!" writes "Hello!")    
-          AT KP <string>    key press: press/hold keys identifier 
+          AT KP <string>    key press: press keys once (automatic release after all keys were pressed)
                             (e.g. "AT KP KEY_UP" presses the "Cursor-Up" key, "AT KP KEY_CTRL KEY_ALT KEY_DELETE" presses all three keys)
+          AT KH <string>    key hold: hold keys (automatic release when user button is released)
+                            (e.g. "AT KH KEY_A" presses the "A" key until  "AT KR KEY_A" is sent)
+          AT KT <string>    key toggle: "sticky" hold keys (key will be pressed until "AT KT" command is sent again or a "AT KR" command is sent)
+                            in contrast to "AT KH" a finished user action does not release the keys
+                            (e.g. "AT KT KEY_A" presses the "A" key until  "AT KT KEY_A" is sent again.)
                             for a list of supported key idientifier strings see below ! 
                             
           AT KR <string>    key release: releases all keys identified in the string    
@@ -132,12 +143,15 @@ namespace FabiGUI
             allCommands.add(new Command("AT CR", PARTYPE_NONE, "Click Right Mouse Button", COMBOENTRY_YES, GUITYPE_STANDARD));
             allCommands.add(new Command("AT CM", PARTYPE_NONE, "Click Middle Mouse Button", COMBOENTRY_YES, GUITYPE_STANDARD));
             allCommands.add(new Command("AT CD", PARTYPE_NONE, "Double Click Left Mouse Button", COMBOENTRY_YES, GUITYPE_STANDARD));
-            allCommands.add(new Command("AT PL", PARTYPE_NONE, "Hold Left Mouse Button", COMBOENTRY_YES, GUITYPE_STANDARD));
-            allCommands.add(new Command("AT PR", PARTYPE_NONE, "Hold Right Mouse Button", COMBOENTRY_YES, GUITYPE_STANDARD));
-            allCommands.add(new Command("AT PM", PARTYPE_NONE, "Hold Middle Mouse Button", COMBOENTRY_YES, GUITYPE_STANDARD));
+            allCommands.add(new Command("AT HL", PARTYPE_NONE, "Hold Left Mouse Button", COMBOENTRY_YES, GUITYPE_STANDARD));
+            allCommands.add(new Command("AT HR", PARTYPE_NONE, "Hold Right Mouse Button", COMBOENTRY_YES, GUITYPE_STANDARD));
+            allCommands.add(new Command("AT HM", PARTYPE_NONE, "Hold Middle Mouse Button", COMBOENTRY_YES, GUITYPE_STANDARD));
             allCommands.add(new Command("AT RL", PARTYPE_NONE, "Release Left Mouse Button", COMBOENTRY_NO, GUITYPE_STANDARD));
             allCommands.add(new Command("AT RR", PARTYPE_NONE, "Release Right Mouse Button", COMBOENTRY_NO, GUITYPE_STANDARD));
             allCommands.add(new Command("AT RM", PARTYPE_NONE, "Release Middle Mouse Button", COMBOENTRY_NO, GUITYPE_STANDARD));
+            allCommands.add(new Command("AT TL", PARTYPE_NONE, "Toggle Left Mouse Button", COMBOENTRY_YES, GUITYPE_STANDARD));
+            allCommands.add(new Command("AT TR", PARTYPE_NONE, "Toggle Right Mouse Button", COMBOENTRY_YES, GUITYPE_STANDARD));
+            allCommands.add(new Command("AT TM", PARTYPE_NONE, "Toggle Middle Mouse Button", COMBOENTRY_YES, GUITYPE_STANDARD));
             allCommands.add(new Command("AT WU", PARTYPE_NONE, "Wheel Up", COMBOENTRY_YES, GUITYPE_STANDARD));
             allCommands.add(new Command("AT WD", PARTYPE_NONE, "Wheel Down", COMBOENTRY_YES, GUITYPE_STANDARD));
             allCommands.add(new Command("AT WS", PARTYPE_UINT, "Mouse Wheel Step Size", COMBOENTRY_NO, GUITYPE_STANDARD));
@@ -145,6 +159,8 @@ namespace FabiGUI
             allCommands.add(new Command("AT MY", PARTYPE_INT, "Move Mouse Y", COMBOENTRY_YES, GUITYPE_INTFIELD));
             allCommands.add(new Command("AT KW", PARTYPE_STRING, "Write Text", COMBOENTRY_YES, GUITYPE_TEXTFIELD));
             allCommands.add(new Command("AT KP", PARTYPE_STRING, "Press Keys", COMBOENTRY_YES, GUITYPE_KEYSELECT));
+            allCommands.add(new Command("AT KH", PARTYPE_STRING, "Hold Keys", COMBOENTRY_YES, GUITYPE_KEYSELECT));
+            allCommands.add(new Command("AT KT", PARTYPE_STRING, "Toggle Keys", COMBOENTRY_YES, GUITYPE_KEYSELECT));
             allCommands.add(new Command("AT KR", PARTYPE_STRING, "Release Keys", COMBOENTRY_NO, GUITYPE_STANDARD));
             allCommands.add(new Command("AT RA", PARTYPE_NONE, "Release All", COMBOENTRY_NO, GUITYPE_STANDARD));
             allCommands.add(new Command("AT SA", PARTYPE_STRING, "Save Slot", COMBOENTRY_NO, GUITYPE_STANDARD));
@@ -164,6 +180,8 @@ namespace FabiGUI
             allCommands.add(new Command("AT AP", PARTYPE_UINT, "Antitremor Press time", COMBOENTRY_NO, GUITYPE_SLIDER));
             allCommands.add(new Command("AT AR", PARTYPE_UINT, "Antitremor Release time", COMBOENTRY_NO, GUITYPE_SLIDER));
             allCommands.add(new Command("AT AI", PARTYPE_UINT, "Antitremor Idle time", COMBOENTRY_NO, GUITYPE_SLIDER));
+            allCommands.add(new Command("AT DP", PARTYPE_UINT, "Double Press time", COMBOENTRY_NO, GUITYPE_SLIDER));
+            allCommands.add(new Command("AT AD", PARTYPE_UINT, "Autodwell  time", COMBOENTRY_NO, GUITYPE_SLIDER));
             allCommands.add(new Command("AT BT", PARTYPE_UINT, "HID / Bluetooth mode", COMBOENTRY_NO, GUITYPE_COMBO_INDEX));
 
         }
@@ -173,21 +191,23 @@ namespace FabiGUI
 
         public void initCommandGuiLinks()
         {
-            commandGuiLinks.Add(new CommandGuiLink("AT TT", timeThresholdBar, timeThresholdLabel, "5000"));
+            commandGuiLinks.Add(new CommandGuiLink("AT TT", timeThresholdBar, timeThresholdLabel, "0"));
             commandGuiLinks.Add(new CommandGuiLink("AT AP", antiTremorPressBar, antiTremorPressLabel, "5"));
             commandGuiLinks.Add(new CommandGuiLink("AT AR", antiTremorReleaseBar, antiTremorReleaseLabel, "2"));
             commandGuiLinks.Add(new CommandGuiLink("AT AI", antiTremorIdleBar, antiTremorIdleLabel, "1"));
+            commandGuiLinks.Add(new CommandGuiLink("AT DP", doublePressTimeBar, doublePressTimeLabel, "0"));
+            commandGuiLinks.Add(new CommandGuiLink("AT AD", autoDwellTimeBar, autoDwellTimeLabel, "0"));
             commandGuiLinks.Add(new CommandGuiLink("AT TS", sipThresholdBar, sipThresholdLabel, "0"));
             commandGuiLinks.Add(new CommandGuiLink("AT TP", puffThresholdBar, puffThresholdLabel, "1023"));
-            commandGuiLinks.Add(new CommandGuiLink("AT BM 01", Button1FunctionBox, Button1ParameterText, Button1NumericParameter, "AT KP KEY_UP "));
-            commandGuiLinks.Add(new CommandGuiLink("AT BM 02", Button2FunctionBox, Button2ParameterText, Button2NumericParameter, "AT KP KEY_DOWN "));
-            commandGuiLinks.Add(new CommandGuiLink("AT BM 03", Button3FunctionBox, Button3ParameterText, Button3NumericParameter, "AT KP KEY_LEFT "));
-            commandGuiLinks.Add(new CommandGuiLink("AT BM 04", Button4FunctionBox, Button4ParameterText, Button4NumericParameter, "AT KP KEY_RIGHT "));
-            commandGuiLinks.Add(new CommandGuiLink("AT BM 05", Button5FunctionBox, Button5ParameterText, Button5NumericParameter, "AT KP KEY_SPACE "));
-            commandGuiLinks.Add(new CommandGuiLink("AT BM 06", Button6FunctionBox, Button6ParameterText, Button6NumericParameter, "AT KP KEY_ENTER "));
+            commandGuiLinks.Add(new CommandGuiLink("AT BM 01", Button1FunctionBox, Button1ParameterText, Button1NumericParameter, "AT KH KEY_UP "));
+            commandGuiLinks.Add(new CommandGuiLink("AT BM 02", Button2FunctionBox, Button2ParameterText, Button2NumericParameter, "AT KH KEY_DOWN "));
+            commandGuiLinks.Add(new CommandGuiLink("AT BM 03", Button3FunctionBox, Button3ParameterText, Button3NumericParameter, "AT KH KEY_LEFT "));
+            commandGuiLinks.Add(new CommandGuiLink("AT BM 04", Button4FunctionBox, Button4ParameterText, Button4NumericParameter, "AT KH KEY_RIGHT "));
+            commandGuiLinks.Add(new CommandGuiLink("AT BM 05", Button5FunctionBox, Button5ParameterText, Button5NumericParameter, "AT KH KEY_SPACE "));
+            commandGuiLinks.Add(new CommandGuiLink("AT BM 06", Button6FunctionBox, Button6ParameterText, Button6NumericParameter, "AT KH KEY_ENTER "));
             commandGuiLinks.Add(new CommandGuiLink("AT BM 07", Button7FunctionBox, Button7ParameterText, Button7NumericParameter, "AT NE"));
-            commandGuiLinks.Add(new CommandGuiLink("AT BM 08", Button8FunctionBox, Button8ParameterText, Button8NumericParameter, "AT PL"));
-            commandGuiLinks.Add(new CommandGuiLink("AT BM 09", Button9FunctionBox, Button9ParameterText, Button9NumericParameter, "AT PR"));
+            commandGuiLinks.Add(new CommandGuiLink("AT BM 08", Button8FunctionBox, Button8ParameterText, Button8NumericParameter, "AT HL"));
+            commandGuiLinks.Add(new CommandGuiLink("AT BM 09", Button9FunctionBox, Button9ParameterText, Button9NumericParameter, "AT HR"));
             commandGuiLinks.Add(new CommandGuiLink("AT BM 10", SipFunctionMenu, SipParameterText, SipNumericParameter, "AT WU"));
             commandGuiLinks.Add(new CommandGuiLink("AT BM 11", PuffFunctionMenu, PuffParameterText, PuffNumericParameter, "AT WD"));
             commandGuiLinks.Add(new CommandGuiLink("AT BT", HIDComboBox, 1));

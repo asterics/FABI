@@ -140,8 +140,16 @@
             this.sipThresholdBar = new System.Windows.Forms.TrackBar();
             this.thresholdLabelForSip = new System.Windows.Forms.Label();
             this.SettingsTab = new System.Windows.Forms.TabPage();
+            this.doublePressTimeLabel = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
+            this.doublePressTimeBar = new System.Windows.Forms.TrackBar();
+            this.label22 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.timeThresholdLabel = new System.Windows.Forms.Label();
+            this.timeThresholdBar = new System.Windows.Forms.TrackBar();
+            this.label2 = new System.Windows.Forms.Label();
             this.antiTremorIdleLabel = new System.Windows.Forms.Label();
             this.antiTremorIdleBar = new System.Windows.Forms.TrackBar();
             this.label14 = new System.Windows.Forms.Label();
@@ -151,9 +159,15 @@
             this.antiTremorPressLabel = new System.Windows.Forms.Label();
             this.antiTremorPressBar = new System.Windows.Forms.TrackBar();
             this.label9 = new System.Windows.Forms.Label();
-            this.timeThresholdLabel = new System.Windows.Forms.Label();
-            this.timeThresholdBar = new System.Windows.Forms.TrackBar();
-            this.label2 = new System.Windows.Forms.Label();
+            this.general = new System.Windows.Forms.TabPage();
+            this.autoDwellTimeLabel = new System.Windows.Forms.Label();
+            this.label29 = new System.Windows.Forms.Label();
+            this.label30 = new System.Windows.Forms.Label();
+            this.autoDwellTimeBar = new System.Windows.Forms.TrackBar();
+            this.label32 = new System.Windows.Forms.Label();
+            this.label50 = new System.Windows.Forms.Label();
+            this.label43 = new System.Windows.Forms.Label();
+            this.HIDComboBox = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.activityLogTextbox = new System.Windows.Forms.RichTextBox();
             this.slotNames = new System.Windows.Forms.ComboBox();
@@ -175,10 +189,25 @@
             this.StoreButton = new System.Windows.Forms.Button();
             this.freeMemPanel = new System.Windows.Forms.Panel();
             this.freeMemLabel = new System.Windows.Forms.Label();
-            this.general = new System.Windows.Forms.TabPage();
-            this.label50 = new System.Windows.Forms.Label();
-            this.label43 = new System.Windows.Forms.Label();
-            this.HIDComboBox = new System.Windows.Forms.ComboBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.button1IndicatorPanel = new System.Windows.Forms.Panel();
+            this.button2IndicatorPanel = new System.Windows.Forms.Panel();
+            this.button3IndicatorPanel = new System.Windows.Forms.Panel();
+            this.button4IndicatorPanel = new System.Windows.Forms.Panel();
+            this.button5IndicatorPanel = new System.Windows.Forms.Panel();
+            this.button6IndicatorPanel = new System.Windows.Forms.Panel();
+            this.button7IndicatorPanel = new System.Windows.Forms.Panel();
+            this.button8IndicatorPanel = new System.Windows.Forms.Panel();
+            this.button9IndicatorPanel = new System.Windows.Forms.Panel();
+            this.label23 = new System.Windows.Forms.Label();
+            this.label33 = new System.Windows.Forms.Label();
+            this.label34 = new System.Windows.Forms.Label();
+            this.label36 = new System.Windows.Forms.Label();
+            this.label37 = new System.Windows.Forms.Label();
+            this.label38 = new System.Windows.Forms.Label();
+            this.label39 = new System.Windows.Forms.Label();
+            this.label40 = new System.Windows.Forms.Label();
+            this.label41 = new System.Windows.Forms.Label();
             this.tabControl.SuspendLayout();
             this.Buttons1Tab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Button4NumericParameter)).BeginInit();
@@ -197,13 +226,16 @@
             ((System.ComponentModel.ISupportInitialize)(this.puffThresholdBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.sipThresholdBar)).BeginInit();
             this.SettingsTab.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.doublePressTimeBar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.timeThresholdBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.antiTremorIdleBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.antiTremorReleaseBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.antiTremorPressBar)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.timeThresholdBar)).BeginInit();
+            this.general.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.autoDwellTimeBar)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
-            this.general.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // serialPort1
@@ -1574,8 +1606,16 @@
             // SettingsTab
             // 
             this.SettingsTab.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.SettingsTab.Controls.Add(this.doublePressTimeLabel);
+            this.SettingsTab.Controls.Add(this.label18);
+            this.SettingsTab.Controls.Add(this.label19);
+            this.SettingsTab.Controls.Add(this.doublePressTimeBar);
+            this.SettingsTab.Controls.Add(this.label22);
             this.SettingsTab.Controls.Add(this.label16);
             this.SettingsTab.Controls.Add(this.label1);
+            this.SettingsTab.Controls.Add(this.timeThresholdLabel);
+            this.SettingsTab.Controls.Add(this.timeThresholdBar);
+            this.SettingsTab.Controls.Add(this.label2);
             this.SettingsTab.Controls.Add(this.antiTremorIdleLabel);
             this.SettingsTab.Controls.Add(this.antiTremorIdleBar);
             this.SettingsTab.Controls.Add(this.label14);
@@ -1585,9 +1625,6 @@
             this.SettingsTab.Controls.Add(this.antiTremorPressLabel);
             this.SettingsTab.Controls.Add(this.antiTremorPressBar);
             this.SettingsTab.Controls.Add(this.label9);
-            this.SettingsTab.Controls.Add(this.timeThresholdLabel);
-            this.SettingsTab.Controls.Add(this.timeThresholdBar);
-            this.SettingsTab.Controls.Add(this.label2);
             this.SettingsTab.Location = new System.Drawing.Point(4, 29);
             this.SettingsTab.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.SettingsTab.Name = "SettingsTab";
@@ -1595,33 +1632,127 @@
             this.SettingsTab.TabIndex = 6;
             this.SettingsTab.Text = "Settings";
             // 
+            // doublePressTimeLabel
+            // 
+            this.doublePressTimeLabel.AutoSize = true;
+            this.doublePressTimeLabel.Location = new System.Drawing.Point(684, 366);
+            this.doublePressTimeLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.doublePressTimeLabel.Name = "doublePressTimeLabel";
+            this.doublePressTimeLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.doublePressTimeLabel.Size = new System.Drawing.Size(18, 20);
+            this.doublePressTimeLabel.TabIndex = 143;
+            this.doublePressTimeLabel.Text = "0";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(76, 410);
+            this.label18.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label18.Name = "label18";
+            this.label18.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.label18.Size = new System.Drawing.Size(542, 20);
+            this.label18.TabIndex = 142;
+            this.label18.Text = "(Note: double-press a single switch fast enough in oder to load the next slot)";
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(727, 367);
+            this.label19.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label19.Name = "label19";
+            this.label19.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.label19.Size = new System.Drawing.Size(91, 20);
+            this.label19.TabIndex = 141;
+            this.label19.Text = "(0=disable) ";
+            // 
+            // doublePressTimeBar
+            // 
+            this.doublePressTimeBar.LargeChange = 100;
+            this.doublePressTimeBar.Location = new System.Drawing.Point(313, 361);
+            this.doublePressTimeBar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.doublePressTimeBar.Maximum = 2000;
+            this.doublePressTimeBar.Name = "doublePressTimeBar";
+            this.doublePressTimeBar.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.doublePressTimeBar.Size = new System.Drawing.Size(371, 69);
+            this.doublePressTimeBar.SmallChange = 200;
+            this.doublePressTimeBar.TabIndex = 140;
+            this.doublePressTimeBar.TickFrequency = 50;
+            this.doublePressTimeBar.Scroll += new System.EventHandler(this.doublePressTimeBar_Scroll);
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(72, 366);
+            this.label22.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label22.Name = "label22";
+            this.label22.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.label22.Size = new System.Drawing.Size(243, 20);
+            this.label22.TabIndex = 139;
+            this.label22.Text = " Time Threshold for Double Press";
+            // 
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(107, 124);
+            this.label16.Location = new System.Drawing.Point(72, 308);
             this.label16.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label16.Name = "label16";
             this.label16.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.label16.Size = new System.Drawing.Size(641, 20);
-            this.label16.TabIndex = 129;
-            this.label16.Text = "(Long Press Action for Button1=Button 7, for Button2=Button8  and for Button3=But" +
-    "ton9)";
+            this.label16.Size = new System.Drawing.Size(630, 20);
+            this.label16.TabIndex = 138;
+            this.label16.Text = "(Note: long press action for Button1 is Button 7, for Button2=Button8, Button3=Bu" +
+    "tton9)";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(719, 70);
+            this.label1.Location = new System.Drawing.Point(723, 265);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.label1.Size = new System.Drawing.Size(118, 20);
-            this.label1.TabIndex = 128;
-            this.label1.Text = "(5000=disable) ";
+            this.label1.Size = new System.Drawing.Size(91, 20);
+            this.label1.TabIndex = 137;
+            this.label1.Text = "(0=disable) ";
+            // 
+            // timeThresholdLabel
+            // 
+            this.timeThresholdLabel.AutoSize = true;
+            this.timeThresholdLabel.Location = new System.Drawing.Point(682, 264);
+            this.timeThresholdLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.timeThresholdLabel.Name = "timeThresholdLabel";
+            this.timeThresholdLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.timeThresholdLabel.Size = new System.Drawing.Size(18, 20);
+            this.timeThresholdLabel.TabIndex = 136;
+            this.timeThresholdLabel.Text = "0";
+            // 
+            // timeThresholdBar
+            // 
+            this.timeThresholdBar.LargeChange = 1000;
+            this.timeThresholdBar.Location = new System.Drawing.Point(309, 259);
+            this.timeThresholdBar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.timeThresholdBar.Maximum = 9999;
+            this.timeThresholdBar.Name = "timeThresholdBar";
+            this.timeThresholdBar.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.timeThresholdBar.Size = new System.Drawing.Size(371, 69);
+            this.timeThresholdBar.SmallChange = 200;
+            this.timeThresholdBar.TabIndex = 135;
+            this.timeThresholdBar.TickFrequency = 500;
+            this.timeThresholdBar.Scroll += new System.EventHandler(this.timeThresholdBar_Scroll_1);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(68, 262);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Name = "label2";
+            this.label2.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.label2.Size = new System.Drawing.Size(228, 20);
+            this.label2.TabIndex = 134;
+            this.label2.Text = " Time Threshold for Long Press";
             // 
             // antiTremorIdleLabel
             // 
             this.antiTremorIdleLabel.AutoSize = true;
-            this.antiTremorIdleLabel.Location = new System.Drawing.Point(692, 350);
+            this.antiTremorIdleLabel.Location = new System.Drawing.Point(682, 182);
             this.antiTremorIdleLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.antiTremorIdleLabel.Name = "antiTremorIdleLabel";
             this.antiTremorIdleLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
@@ -1632,7 +1763,7 @@
             // antiTremorIdleBar
             // 
             this.antiTremorIdleBar.LargeChange = 20;
-            this.antiTremorIdleBar.Location = new System.Drawing.Point(318, 346);
+            this.antiTremorIdleBar.Location = new System.Drawing.Point(310, 178);
             this.antiTremorIdleBar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.antiTremorIdleBar.Maximum = 500;
             this.antiTremorIdleBar.Minimum = 1;
@@ -1648,7 +1779,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(162, 350);
+            this.label14.Location = new System.Drawing.Point(152, 182);
             this.label14.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label14.Name = "label14";
             this.label14.RightToLeft = System.Windows.Forms.RightToLeft.No;
@@ -1659,7 +1790,7 @@
             // antiTremorReleaseLabel
             // 
             this.antiTremorReleaseLabel.AutoSize = true;
-            this.antiTremorReleaseLabel.Location = new System.Drawing.Point(694, 279);
+            this.antiTremorReleaseLabel.Location = new System.Drawing.Point(684, 111);
             this.antiTremorReleaseLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.antiTremorReleaseLabel.Name = "antiTremorReleaseLabel";
             this.antiTremorReleaseLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
@@ -1670,7 +1801,7 @@
             // antiTremorReleaseBar
             // 
             this.antiTremorReleaseBar.LargeChange = 20;
-            this.antiTremorReleaseBar.Location = new System.Drawing.Point(321, 275);
+            this.antiTremorReleaseBar.Location = new System.Drawing.Point(309, 107);
             this.antiTremorReleaseBar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.antiTremorReleaseBar.Maximum = 500;
             this.antiTremorReleaseBar.Minimum = 1;
@@ -1685,7 +1816,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(106, 279);
+            this.label10.Location = new System.Drawing.Point(96, 111);
             this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label10.Name = "label10";
             this.label10.RightToLeft = System.Windows.Forms.RightToLeft.No;
@@ -1696,7 +1827,7 @@
             // antiTremorPressLabel
             // 
             this.antiTremorPressLabel.AutoSize = true;
-            this.antiTremorPressLabel.Location = new System.Drawing.Point(693, 212);
+            this.antiTremorPressLabel.Location = new System.Drawing.Point(683, 44);
             this.antiTremorPressLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.antiTremorPressLabel.Name = "antiTremorPressLabel";
             this.antiTremorPressLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
@@ -1707,7 +1838,7 @@
             // antiTremorPressBar
             // 
             this.antiTremorPressBar.LargeChange = 20;
-            this.antiTremorPressBar.Location = new System.Drawing.Point(318, 209);
+            this.antiTremorPressBar.Location = new System.Drawing.Point(308, 41);
             this.antiTremorPressBar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.antiTremorPressBar.Maximum = 500;
             this.antiTremorPressBar.Minimum = 1;
@@ -1722,7 +1853,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(124, 212);
+            this.label9.Location = new System.Drawing.Point(114, 44);
             this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label9.Name = "label9";
             this.label9.RightToLeft = System.Windows.Forms.RightToLeft.No;
@@ -1730,42 +1861,110 @@
             this.label9.TabIndex = 119;
             this.label9.Text = "Antitremor-Time for Press";
             // 
-            // timeThresholdLabel
+            // general
             // 
-            this.timeThresholdLabel.AutoSize = true;
-            this.timeThresholdLabel.Location = new System.Drawing.Point(673, 70);
-            this.timeThresholdLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.timeThresholdLabel.Name = "timeThresholdLabel";
-            this.timeThresholdLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.timeThresholdLabel.Size = new System.Drawing.Size(45, 20);
-            this.timeThresholdLabel.TabIndex = 118;
-            this.timeThresholdLabel.Text = "5000";
+            this.general.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.general.Controls.Add(this.autoDwellTimeLabel);
+            this.general.Controls.Add(this.label29);
+            this.general.Controls.Add(this.label30);
+            this.general.Controls.Add(this.autoDwellTimeBar);
+            this.general.Controls.Add(this.label32);
+            this.general.Controls.Add(this.label50);
+            this.general.Controls.Add(this.label43);
+            this.general.Controls.Add(this.HIDComboBox);
+            this.general.Location = new System.Drawing.Point(4, 29);
+            this.general.Name = "general";
+            this.general.Size = new System.Drawing.Size(878, 461);
+            this.general.TabIndex = 7;
+            this.general.Text = "General";
             // 
-            // timeThresholdBar
+            // autoDwellTimeLabel
             // 
-            this.timeThresholdBar.LargeChange = 1000;
-            this.timeThresholdBar.Location = new System.Drawing.Point(303, 70);
-            this.timeThresholdBar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.timeThresholdBar.Maximum = 5000;
-            this.timeThresholdBar.Name = "timeThresholdBar";
-            this.timeThresholdBar.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.timeThresholdBar.Size = new System.Drawing.Size(371, 69);
-            this.timeThresholdBar.SmallChange = 200;
-            this.timeThresholdBar.TabIndex = 117;
-            this.timeThresholdBar.TickFrequency = 500;
-            this.timeThresholdBar.Value = 5000;
-            this.timeThresholdBar.Scroll += new System.EventHandler(this.timeThresholdBar_Scroll);
+            this.autoDwellTimeLabel.AutoSize = true;
+            this.autoDwellTimeLabel.Location = new System.Drawing.Point(621, 237);
+            this.autoDwellTimeLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.autoDwellTimeLabel.Name = "autoDwellTimeLabel";
+            this.autoDwellTimeLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.autoDwellTimeLabel.Size = new System.Drawing.Size(18, 20);
+            this.autoDwellTimeLabel.TabIndex = 162;
+            this.autoDwellTimeLabel.Text = "0";
             // 
-            // label2
+            // label29
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(54, 70);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label2.Name = "label2";
-            this.label2.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.label2.Size = new System.Drawing.Size(244, 20);
-            this.label2.TabIndex = 116;
-            this.label2.Text = "Threshold Time Short/Long Press";
+            this.label29.AutoSize = true;
+            this.label29.Location = new System.Drawing.Point(163, 281);
+            this.label29.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label29.Name = "label29";
+            this.label29.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.label29.Size = new System.Drawing.Size(476, 20);
+            this.label29.TabIndex = 161;
+            this.label29.Text = "(Note: automatically creates a mouse click after mouse movement)";
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Location = new System.Drawing.Point(664, 238);
+            this.label30.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label30.Name = "label30";
+            this.label30.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.label30.Size = new System.Drawing.Size(91, 20);
+            this.label30.TabIndex = 160;
+            this.label30.Text = "(0=disable) ";
+            // 
+            // autoDwellTimeBar
+            // 
+            this.autoDwellTimeBar.LargeChange = 500;
+            this.autoDwellTimeBar.Location = new System.Drawing.Point(313, 232);
+            this.autoDwellTimeBar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.autoDwellTimeBar.Maximum = 5000;
+            this.autoDwellTimeBar.Name = "autoDwellTimeBar";
+            this.autoDwellTimeBar.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.autoDwellTimeBar.Size = new System.Drawing.Size(305, 69);
+            this.autoDwellTimeBar.SmallChange = 200;
+            this.autoDwellTimeBar.TabIndex = 159;
+            this.autoDwellTimeBar.TickFrequency = 200;
+            this.autoDwellTimeBar.Scroll += new System.EventHandler(this.autoDwellTimeBar_Scroll);
+            // 
+            // label32
+            // 
+            this.label32.AutoSize = true;
+            this.label32.Location = new System.Drawing.Point(163, 236);
+            this.label32.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label32.Name = "label32";
+            this.label32.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.label32.Size = new System.Drawing.Size(128, 20);
+            this.label32.TabIndex = 158;
+            this.label32.Text = "Auto-Dwell Time:";
+            // 
+            // label50
+            // 
+            this.label50.AutoSize = true;
+            this.label50.Location = new System.Drawing.Point(127, 137);
+            this.label50.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label50.Name = "label50";
+            this.label50.Size = new System.Drawing.Size(584, 20);
+            this.label50.TabIndex = 157;
+            this.label50.Text = "(Note: defines if the mouse/keyboard activities are sent to USB, bluetooth or bot" +
+    "h)";
+            // 
+            // label43
+            // 
+            this.label43.AutoSize = true;
+            this.label43.Location = new System.Drawing.Point(128, 95);
+            this.label43.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label43.Name = "label43";
+            this.label43.Size = new System.Drawing.Size(172, 20);
+            this.label43.TabIndex = 156;
+            this.label43.Text = "USB / Bluetooth Mode:";
+            // 
+            // HIDComboBox
+            // 
+            this.HIDComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.HIDComboBox.Location = new System.Drawing.Point(321, 92);
+            this.HIDComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.HIDComboBox.Name = "HIDComboBox";
+            this.HIDComboBox.Size = new System.Drawing.Size(288, 28);
+            this.HIDComboBox.TabIndex = 155;
             // 
             // groupBox1
             // 
@@ -1774,7 +1973,7 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox1.Size = new System.Drawing.Size(883, 129);
+            this.groupBox1.Size = new System.Drawing.Size(457, 129);
             this.groupBox1.TabIndex = 74;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Activity-Log";
@@ -1783,11 +1982,11 @@
             // 
             this.activityLogTextbox.ForeColor = System.Drawing.SystemColors.MenuText;
             this.activityLogTextbox.HideSelection = false;
-            this.activityLogTextbox.Location = new System.Drawing.Point(32, 31);
+            this.activityLogTextbox.Location = new System.Drawing.Point(23, 31);
             this.activityLogTextbox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.activityLogTextbox.Name = "activityLogTextbox";
             this.activityLogTextbox.ReadOnly = true;
-            this.activityLogTextbox.Size = new System.Drawing.Size(828, 74);
+            this.activityLogTextbox.Size = new System.Drawing.Size(412, 74);
             this.activityLogTextbox.TabIndex = 63;
             this.activityLogTextbox.Text = "";
             // 
@@ -1814,7 +2013,6 @@
             this.aboutToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Padding = new System.Windows.Forms.Padding(6, 2, 0, 2);
             this.menuStrip1.Size = new System.Drawing.Size(996, 33);
             this.menuStrip1.TabIndex = 77;
             this.menuStrip1.Text = "menuStrip1";
@@ -1856,7 +2054,7 @@
             this.storeSlotSettingsMenuItem,
             this.loadSlotSettingsMenuItem});
             this.fabiToolStripMenuItem.Name = "fabiToolStripMenuItem";
-            this.fabiToolStripMenuItem.Size = new System.Drawing.Size(49, 24);
+            this.fabiToolStripMenuItem.Size = new System.Drawing.Size(60, 29);
             this.fabiToolStripMenuItem.Text = "Fabi";
             // 
             // storeSlotSettingsMenuItem
@@ -1982,47 +2180,214 @@
             this.freeMemLabel.Text = "mem usage: 0%";
             this.freeMemLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // general
+            // groupBox2
             // 
-            this.general.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.general.Controls.Add(this.label50);
-            this.general.Controls.Add(this.label43);
-            this.general.Controls.Add(this.HIDComboBox);
-            this.general.Location = new System.Drawing.Point(4, 29);
-            this.general.Name = "general";
-            this.general.Size = new System.Drawing.Size(878, 461);
-            this.general.TabIndex = 7;
-            this.general.Text = "General";
+            this.groupBox2.Controls.Add(this.label41);
+            this.groupBox2.Controls.Add(this.label40);
+            this.groupBox2.Controls.Add(this.label39);
+            this.groupBox2.Controls.Add(this.label38);
+            this.groupBox2.Controls.Add(this.label37);
+            this.groupBox2.Controls.Add(this.label36);
+            this.groupBox2.Controls.Add(this.label34);
+            this.groupBox2.Controls.Add(this.label33);
+            this.groupBox2.Controls.Add(this.label23);
+            this.groupBox2.Controls.Add(this.button9IndicatorPanel);
+            this.groupBox2.Controls.Add(this.button8IndicatorPanel);
+            this.groupBox2.Controls.Add(this.button7IndicatorPanel);
+            this.groupBox2.Controls.Add(this.button6IndicatorPanel);
+            this.groupBox2.Controls.Add(this.button5IndicatorPanel);
+            this.groupBox2.Controls.Add(this.button4IndicatorPanel);
+            this.groupBox2.Controls.Add(this.button3IndicatorPanel);
+            this.groupBox2.Controls.Add(this.button2IndicatorPanel);
+            this.groupBox2.Controls.Add(this.button1IndicatorPanel);
+            this.groupBox2.Location = new System.Drawing.Point(525, 704);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.groupBox2.Size = new System.Drawing.Size(418, 129);
+            this.groupBox2.TabIndex = 75;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Button States";
             // 
-            // label50
+            // button1IndicatorPanel
             // 
-            this.label50.AutoSize = true;
-            this.label50.Location = new System.Drawing.Point(128, 139);
-            this.label50.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label50.Name = "label50";
-            this.label50.Size = new System.Drawing.Size(621, 20);
-            this.label50.TabIndex = 157;
-            this.label50.Text = "This setting defines if the mouse/keyboard activities are sent to USB, bluetooth " +
-    "or both ";
+            this.button1IndicatorPanel.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.button1IndicatorPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.button1IndicatorPanel.Location = new System.Drawing.Point(20, 67);
+            this.button1IndicatorPanel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button1IndicatorPanel.Name = "button1IndicatorPanel";
+            this.button1IndicatorPanel.Size = new System.Drawing.Size(35, 32);
+            this.button1IndicatorPanel.TabIndex = 122;
             // 
-            // label43
+            // button2IndicatorPanel
             // 
-            this.label43.AutoSize = true;
-            this.label43.Location = new System.Drawing.Point(128, 95);
-            this.label43.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label43.Name = "label43";
-            this.label43.Size = new System.Drawing.Size(172, 20);
-            this.label43.TabIndex = 156;
-            this.label43.Text = "USB / Bluetooth Mode:";
+            this.button2IndicatorPanel.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.button2IndicatorPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.button2IndicatorPanel.Location = new System.Drawing.Point(64, 67);
+            this.button2IndicatorPanel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button2IndicatorPanel.Name = "button2IndicatorPanel";
+            this.button2IndicatorPanel.Size = new System.Drawing.Size(35, 32);
+            this.button2IndicatorPanel.TabIndex = 123;
             // 
-            // HIDComboBox
+            // button3IndicatorPanel
             // 
-            this.HIDComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.HIDComboBox.Location = new System.Drawing.Point(321, 92);
-            this.HIDComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.HIDComboBox.Name = "HIDComboBox";
-            this.HIDComboBox.Size = new System.Drawing.Size(288, 28);
-            this.HIDComboBox.TabIndex = 155;
+            this.button3IndicatorPanel.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.button3IndicatorPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.button3IndicatorPanel.Location = new System.Drawing.Point(108, 67);
+            this.button3IndicatorPanel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button3IndicatorPanel.Name = "button3IndicatorPanel";
+            this.button3IndicatorPanel.Size = new System.Drawing.Size(35, 32);
+            this.button3IndicatorPanel.TabIndex = 124;
+            // 
+            // button4IndicatorPanel
+            // 
+            this.button4IndicatorPanel.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.button4IndicatorPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.button4IndicatorPanel.Location = new System.Drawing.Point(151, 67);
+            this.button4IndicatorPanel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button4IndicatorPanel.Name = "button4IndicatorPanel";
+            this.button4IndicatorPanel.Size = new System.Drawing.Size(35, 32);
+            this.button4IndicatorPanel.TabIndex = 125;
+            // 
+            // button5IndicatorPanel
+            // 
+            this.button5IndicatorPanel.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.button5IndicatorPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.button5IndicatorPanel.Location = new System.Drawing.Point(194, 67);
+            this.button5IndicatorPanel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button5IndicatorPanel.Name = "button5IndicatorPanel";
+            this.button5IndicatorPanel.Size = new System.Drawing.Size(35, 32);
+            this.button5IndicatorPanel.TabIndex = 126;
+            // 
+            // button6IndicatorPanel
+            // 
+            this.button6IndicatorPanel.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.button6IndicatorPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.button6IndicatorPanel.Location = new System.Drawing.Point(236, 67);
+            this.button6IndicatorPanel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button6IndicatorPanel.Name = "button6IndicatorPanel";
+            this.button6IndicatorPanel.Size = new System.Drawing.Size(35, 32);
+            this.button6IndicatorPanel.TabIndex = 127;
+            // 
+            // button7IndicatorPanel
+            // 
+            this.button7IndicatorPanel.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.button7IndicatorPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.button7IndicatorPanel.Location = new System.Drawing.Point(277, 67);
+            this.button7IndicatorPanel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button7IndicatorPanel.Name = "button7IndicatorPanel";
+            this.button7IndicatorPanel.Size = new System.Drawing.Size(35, 32);
+            this.button7IndicatorPanel.TabIndex = 128;
+            // 
+            // button8IndicatorPanel
+            // 
+            this.button8IndicatorPanel.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.button8IndicatorPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.button8IndicatorPanel.Location = new System.Drawing.Point(319, 67);
+            this.button8IndicatorPanel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button8IndicatorPanel.Name = "button8IndicatorPanel";
+            this.button8IndicatorPanel.Size = new System.Drawing.Size(35, 32);
+            this.button8IndicatorPanel.TabIndex = 129;
+            // 
+            // button9IndicatorPanel
+            // 
+            this.button9IndicatorPanel.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.button9IndicatorPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.button9IndicatorPanel.Location = new System.Drawing.Point(360, 67);
+            this.button9IndicatorPanel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button9IndicatorPanel.Name = "button9IndicatorPanel";
+            this.button9IndicatorPanel.Size = new System.Drawing.Size(35, 32);
+            this.button9IndicatorPanel.TabIndex = 130;
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(22, 43);
+            this.label23.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(29, 20);
+            this.label23.TabIndex = 153;
+            this.label23.Text = "B1";
+            // 
+            // label33
+            // 
+            this.label33.AutoSize = true;
+            this.label33.Location = new System.Drawing.Point(67, 43);
+            this.label33.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(29, 20);
+            this.label33.TabIndex = 154;
+            this.label33.Text = "B2";
+            // 
+            // label34
+            // 
+            this.label34.AutoSize = true;
+            this.label34.Location = new System.Drawing.Point(111, 43);
+            this.label34.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(29, 20);
+            this.label34.TabIndex = 155;
+            this.label34.Text = "B3";
+            // 
+            // label36
+            // 
+            this.label36.AutoSize = true;
+            this.label36.Location = new System.Drawing.Point(155, 43);
+            this.label36.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label36.Name = "label36";
+            this.label36.Size = new System.Drawing.Size(29, 20);
+            this.label36.TabIndex = 156;
+            this.label36.Text = "B4";
+            // 
+            // label37
+            // 
+            this.label37.AutoSize = true;
+            this.label37.Location = new System.Drawing.Point(198, 43);
+            this.label37.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label37.Name = "label37";
+            this.label37.Size = new System.Drawing.Size(29, 20);
+            this.label37.TabIndex = 157;
+            this.label37.Text = "B5";
+            // 
+            // label38
+            // 
+            this.label38.AutoSize = true;
+            this.label38.Location = new System.Drawing.Point(239, 43);
+            this.label38.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label38.Name = "label38";
+            this.label38.Size = new System.Drawing.Size(29, 20);
+            this.label38.TabIndex = 158;
+            this.label38.Text = "B6";
+            // 
+            // label39
+            // 
+            this.label39.AutoSize = true;
+            this.label39.Location = new System.Drawing.Point(280, 43);
+            this.label39.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label39.Name = "label39";
+            this.label39.Size = new System.Drawing.Size(29, 20);
+            this.label39.TabIndex = 159;
+            this.label39.Text = "B7";
+            // 
+            // label40
+            // 
+            this.label40.AutoSize = true;
+            this.label40.Location = new System.Drawing.Point(321, 43);
+            this.label40.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label40.Name = "label40";
+            this.label40.Size = new System.Drawing.Size(29, 20);
+            this.label40.TabIndex = 160;
+            this.label40.Text = "B8";
+            // 
+            // label41
+            // 
+            this.label41.AutoSize = true;
+            this.label41.Location = new System.Drawing.Point(364, 43);
+            this.label41.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label41.Name = "label41";
+            this.label41.Size = new System.Drawing.Size(29, 20);
+            this.label41.TabIndex = 161;
+            this.label41.Text = "B9";
             // 
             // FabiGUI
             // 
@@ -2033,6 +2398,7 @@
             this.AutoScroll = true;
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(996, 851);
+            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.freeMemLabel);
             this.Controls.Add(this.StoreButton);
             this.Controls.Add(this.deleteSlotButton);
@@ -2079,15 +2445,19 @@
             ((System.ComponentModel.ISupportInitialize)(this.sipThresholdBar)).EndInit();
             this.SettingsTab.ResumeLayout(false);
             this.SettingsTab.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.doublePressTimeBar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.timeThresholdBar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.antiTremorIdleBar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.antiTremorReleaseBar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.antiTremorPressBar)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.timeThresholdBar)).EndInit();
+            this.general.ResumeLayout(false);
+            this.general.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.autoDwellTimeBar)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            this.general.ResumeLayout(false);
-            this.general.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2223,27 +2593,56 @@
         private System.Windows.Forms.ComboBox SipFunctionMenu;
         private System.Windows.Forms.TextBox SipParameterText;
         private System.Windows.Forms.Button StoreButton;
-        private System.Windows.Forms.TabPage SettingsTab;
-        private System.Windows.Forms.Label timeThresholdLabel;
-        private System.Windows.Forms.TrackBar timeThresholdBar;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label antiTremorPressLabel;
-        private System.Windows.Forms.TrackBar antiTremorPressBar;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label antiTremorIdleLabel;
-        private System.Windows.Forms.TrackBar antiTremorIdleBar;
-        private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.Label antiTremorReleaseLabel;
-        private System.Windows.Forms.TrackBar antiTremorReleaseBar;
-        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Panel freeMemPanel;
         private System.Windows.Forms.Label freeMemLabel;
         private System.Windows.Forms.TabPage general;
         private System.Windows.Forms.Label label50;
         private System.Windows.Forms.Label label43;
         private System.Windows.Forms.ComboBox HIDComboBox;
+        private System.Windows.Forms.TabPage SettingsTab;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.TrackBar doublePressTimeBar;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label timeThresholdLabel;
+        private System.Windows.Forms.TrackBar timeThresholdBar;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label antiTremorIdleLabel;
+        private System.Windows.Forms.TrackBar antiTremorIdleBar;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label antiTremorReleaseLabel;
+        private System.Windows.Forms.TrackBar antiTremorReleaseBar;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label antiTremorPressLabel;
+        private System.Windows.Forms.TrackBar antiTremorPressBar;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label doublePressTimeLabel;
+        private System.Windows.Forms.Label autoDwellTimeLabel;
+        private System.Windows.Forms.Label label29;
+        private System.Windows.Forms.Label label30;
+        private System.Windows.Forms.TrackBar autoDwellTimeBar;
+        private System.Windows.Forms.Label label32;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Label label41;
+        private System.Windows.Forms.Label label40;
+        private System.Windows.Forms.Label label39;
+        private System.Windows.Forms.Label label38;
+        private System.Windows.Forms.Label label37;
+        private System.Windows.Forms.Label label36;
+        private System.Windows.Forms.Label label34;
+        private System.Windows.Forms.Label label33;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.Panel button9IndicatorPanel;
+        private System.Windows.Forms.Panel button8IndicatorPanel;
+        private System.Windows.Forms.Panel button7IndicatorPanel;
+        private System.Windows.Forms.Panel button6IndicatorPanel;
+        private System.Windows.Forms.Panel button5IndicatorPanel;
+        private System.Windows.Forms.Panel button4IndicatorPanel;
+        private System.Windows.Forms.Panel button3IndicatorPanel;
+        private System.Windows.Forms.Panel button2IndicatorPanel;
+        private System.Windows.Forms.Panel button1IndicatorPanel;
     }
 }
 

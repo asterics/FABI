@@ -47,7 +47,8 @@ int8_t  led_map[NUMBER_OF_LEDS] = {14, 15, 16};
 struct settingsType settings = {      // type definition see fabi.h
   "slot1", DEFAULT_WHEEL_STEPSIZE, DEFAULT_TRESHOLD_TIME,
   DEFAULT_SIP_THRESHOLD, DEFAULT_PUFF_THRESHOLD,
-  DEFAULT_ANTITREMOR_PRESS, DEFAULT_ANTITREMOR_RELEASE, DEFAULT_ANTITREMOR_IDLE, DEFAULT_BT_MODE
+  DEFAULT_ANTITREMOR_PRESS, DEFAULT_ANTITREMOR_RELEASE, DEFAULT_ANTITREMOR_IDLE,
+  DEFAULT_BT_MODE, DEFAULT_DOUBLEPRESS_TIME, DEFAULT_AUTODWELL_TIME
 };
 
 
@@ -56,10 +57,12 @@ struct buttonDebouncerType buttonDebouncers [NUMBER_OF_BUTTONS];   // array for 
 char   cmdstring[MAX_CMDLEN];                 // buffer for incoming AT commands
 char   keystringBuffer[KEYSTRING_BUFFER_LEN]; // buffer for all string parameters for the buttons of a slot
 uint16_t freeEEPROMbytes = 0;
+uint16_t nextSlotOnDoublePress = 0;
 
 int clickTime = DEFAULT_CLICK_TIME;
 int waitTime = DEFAULT_WAIT_TIME;
-uint32_t updateTimestamp=0;
+uint32_t updateTimestamp = 0;
+uint32_t mouseMoveTimestamp = 0;
 
 uint8_t reportSlotParameters = 0;
 uint8_t valueReportCount = 0;
@@ -94,6 +97,9 @@ uint8_t neoPix_b_old = 0;
 int inByte = 0;
 uint16_t pressure = 0;
 uint8_t reportRawValues = 0;
+/** current button states for reporting raw values (AT SR)
+   @note If NUMBER_OF_BUTTONS is more than 16, change type to uint32_t! */
+uint16_t buttonStates = 0;
 
 uint8_t cnt = 0, cnt2 = 0;
 uint8_t buzzerPIN = 0;
@@ -120,25 +126,26 @@ void setup() {
   delay(1000);
   //while (! Serial);
 
-  #ifdef DEBUG_OUTPUT
-    Serial.println("Flexible Assistive Button Interface started !");
-  #endif
+#ifdef DEBUG_OUTPUT
+  Serial.println("Flexible Assistive Button Interface started !");
+#endif
 
-  #ifdef ARDUINO_PRO_MICRO   // only needed for Arduino, automatically done for Teensy(duino)
-    Mouse.begin();
-    Keyboard.begin();
-    // TXLED1;    //turn on TX_LED
-    pinMode(LED_BUILTIN_RX,INPUT);
-    pinMode(LED_BUILTIN_TX,INPUT);
-  #endif
+#ifdef ARDUINO_PRO_MICRO   // only needed for Arduino, automatically done for Teensy(duino)
+  Mouse.begin();
+  Keyboard.begin();
+#endif
 
   //check if PCB or old (floating wire) FABI is used (checkPin to ground = PCB):
   pinMode(PCB_checkPin, INPUT_PULLUP);
 
   if (!digitalRead(PCB_checkPin)) {            //PCB Version detected
-    #ifdef DEBUG_OUTPUT
-        Serial.println("FABi PCB Version");
-    #endif
+#ifdef DEBUG_OUTPUT
+    Serial.println("FABi PCB Version");
+#endif
+
+    // turn off built-in LEDs
+    pinMode(LED_BUILTIN_RX, INPUT);
+    pinMode(LED_BUILTIN_TX, INPUT);
 
     PCBversion = 1;
     memcpy(input_map, input_map_PCB, NUMBER_OF_PHYSICAL_BUTTONS + 1);
@@ -187,6 +194,8 @@ void setup() {
   }
   else {
     // no PCB Version:
+    TXLED1;    //turn on TX_LED
+
     for (int i = 0; i < NUMBER_OF_LEDS; i++)
       pinMode (led_map[i], OUTPUT);   // configure the pins for input mode with pullup resistors
   }
@@ -196,7 +205,7 @@ void setup() {
 
   for (int i = 0; i < NUMBER_OF_BUTTONS; i++) // initialize button array
   {
-    buttons[i].mode = CMD_PL;            // set default command for every button (left mouse click)
+    buttons[i].mode = CMD_HL;            // set default command for every button (left mouse click)
     buttons[i].value = 0;
     keystringBuffer[i] = 0;
   }
@@ -209,9 +218,9 @@ void setup() {
     writeSlot2Display();
   }
 
-  #ifdef DEBUG_OUTPUT
-    Serial.print(F("Free RAM:"));  Serial.println(freeRam());
-  #endif
+#ifdef DEBUG_OUTPUT
+  Serial.print(F("Free RAM:"));  Serial.println(freeRam());
+#endif
 }
 
 ///////////////////////////////
@@ -238,7 +247,15 @@ void loop() {
   if (millis() - updateTimestamp >= waitTime) {
 
     updateTimestamp = millis();
-
+    if (settings.ad && mouseMoveTimestamp) {
+      if (millis() - mouseMoveTimestamp >= settings.ad) {
+#ifdef DEBUG_OUTPUT
+        Serial.println("Autodwell Click");
+#endif
+        leftMouseButton = 1;  leftClickRunning = DEFAULT_CLICK_TIME;
+        mouseMoveTimestamp = 0;
+      }
+    }
     for (int i = 0; i < NUMBER_OF_PHYSICAL_BUTTONS; i++) // update button press / release events
       handleButton(i, i + 6, digitalRead(input_map[i]) == LOW ? BUTTON_PRESSED : BUTTON_RELEASED);
 
@@ -292,7 +309,15 @@ void loop() {
 
     if (reportRawValues)   {
       if (valueReportCount++ > 10) {      // report raw values !
-        Serial.print("VALUES:"); Serial.print(pressure); Serial.println(",");
+        Serial.print("VALUES:"); Serial.print(pressure); Serial.print(",");
+        for (uint8_t i = 0; i < NUMBER_OF_BUTTONS; i++)
+        {
+          if (buttonStates & (1 << i)) Serial.print("1");
+          else Serial.print("0");
+        }
+        Serial.print(",");
+        Serial.print(actSlot);
+        Serial.println("");
         valueReportCount = 0;
       }
     }
@@ -344,18 +369,36 @@ void loop() {
 
 void handlePress (int buttonIndex)   // a button was pressed
 {
+  static uint32_t doublePressTimestamp = 0;
+#ifdef DEBUG_OUTPUT
+  Serial.print("press button "); Serial.print(buttonIndex);
+#endif
+
+  if (settings.dp > 0) {     // check if double press condition met
+    if ((millis() - doublePressTimestamp) < settings.dp) {
+      // Serial.println("skip to next Slot!");
+      performCommand(CMD_NE, 0, 0, 0); // activate next slot if yes!
+    }
+  }
+  buttonStates |= (1 << buttonIndex); //save for reporting
+  doublePressTimestamp = millis();
   performCommand(buttons[buttonIndex].mode, buttons[buttonIndex].value, getKeystring(buttonIndex), 1);
 }
 
+
 void handleRelease (int buttonIndex)    // a button was released
 {
+#ifdef DEBUG_OUTPUT
+  Serial.print("release button "); Serial.print(buttonIndex);
+#endif
+  buttonStates &= ~(1 << buttonIndex); //save for reporting
   switch (buttons[buttonIndex].mode) {
-    case CMD_PL: leftMouseButton = 0; break;
-    case CMD_PR: rightMouseButton = 0; break;
-    case CMD_PM: middleMouseButton = 0; break;
+    case CMD_HL: leftMouseButton = 0; break;
+    case CMD_HR: rightMouseButton = 0; break;
+    case CMD_HM: middleMouseButton = 0; break;
     case CMD_MX: moveX = 0; break;
     case CMD_MY: moveY = 0; break;
-    case CMD_KP: releaseSingleKeys(getKeystring(buttonIndex)); break;
+    case CMD_KH: releaseSingleKeys(getKeystring(buttonIndex)); break;
   }
 }
 
@@ -438,13 +481,13 @@ void handleButton(int i, int l, uint8_t actState)
   if ((actState == BUTTON_PRESSED)) // && (buttonDebouncers[i].pressState == BUTTONSTATE_NOT_PRESSED))
   {
     buttonDebouncers[i].releaseCount = 0;
-    if (buttonDebouncers[i].pressCount <= settings.tt >> 2)
+    if ((buttonDebouncers[i].pressCount <= settings.tt >> 2) || (settings.tt == 0))
       buttonDebouncers[i].pressCount++;
     if (buttonDebouncers[i].pressCount == settings.ap) {
       handlePress(i);
       buttonDebouncers[i].pressState = BUTTONSTATE_SHORT_PRESSED;
     }
-    if ((buttonDebouncers[i].pressCount == settings.tt >> 2) && (settings.tt < 5000) && (l >= 0) && (l < NUMBER_OF_BUTTONS)) {
+    if ((buttonDebouncers[i].pressCount == settings.tt >> 2) && (settings.tt != 0) && (l >= 0) && (l < NUMBER_OF_BUTTONS)) {
       handleRelease(i);
       handlePress(l);
       initDebouncers();
