@@ -85,14 +85,11 @@ uint8_t PCBversion = 0;       // 1 == PCB version
 uint16_t beepTime = BEEP_duration * 2;     // duration of beep and following same times without sound
 uint8_t beepCounter = 0;       // number of beeps
 
-uint8_t neoPix_Brightness = 100;
-int8_t dimmLEDcounter = neoPix_Brightness;
 uint8_t neoPix_r = 0;
 uint8_t neoPix_g = 0;
 uint8_t neoPix_b = 0;
-uint8_t neoPix_r_old = 0;
-uint8_t neoPix_g_old = 0;
-uint8_t neoPix_b_old = 0;
+uint8_t LEDDimm_factor = 3; //reduces the brightnes of the LED: 1 = full, 2 = half brightness CAUTION: this can lead to changes in color!
+uint8_t DimmState = 0;       //State 0: idle; State 1: dimm down; State 2: dimm up new color 
 
 int inByte = 0;
 uint16_t pressure = 0;
@@ -157,6 +154,9 @@ void setup() {
     digitalWrite(buzzerPIN, LOW);
     delay(150);
 
+
+    delay(2000);
+
     //NeoPixel:
     pixels.setOutput(PIXELS_PIN);
     pixels.setColorOrderGRB();
@@ -164,6 +164,22 @@ void setup() {
     pixColor.r = 0; pixColor.g = 0; pixColor.b = 0; // RGB Value
     pixels.set_crgb_at(0, pixColor);    // set defined color
     pixels.sync(); // Sends the value to the LED
+
+    uint32_t NeoPixelHEX = 0x000000;   // rrggbb
+/*
+    Serial.println((int)((NeoPixelHEX >> 16) & 0xFF));
+    Serial.println((int)((NeoPixelHEX >> 8) & 0xFF));
+    Serial.println((int)(NeoPixelHEX & 0xFF));
+*/
+
+    pixColor.r = (int)((NeoPixelHEX >> 16) & 0xFF);
+    pixColor.g = (int)((NeoPixelHEX >> 8) & 0xFF);
+    pixColor.b = (int)(NeoPixelHEX & 0xFF);
+    
+    pixels.set_crgb_at(0, pixColor);
+
+    pixels.sync();
+
 
 
     //Pixel & buzzer startup sequenc:
@@ -178,7 +194,7 @@ void setup() {
     initDisplay();
 
     digitalWrite(buzzerPIN, HIGH);
-    for (uint8_t i = 60; i > 50; i--) {
+    for (uint8_t i = 60; i > (255/LEDDimm_factor); i--) {
       pixColor.r = i;
       pixels.set_crgb_at(0, pixColor);
       pixels.sync();
@@ -186,7 +202,7 @@ void setup() {
     }
     digitalWrite(buzzerPIN, LOW);
 
-    neoPix_r = 1;
+    //neoPix_r = 1;
 
     Serial1.begin(9600);      // start HW-Pin-Serial (used for communication with Addon)
     //while(!Serial1);
@@ -204,7 +220,7 @@ void setup() {
     pinMode (input_map[i], INPUT_PULLUP);   // configure the pins for input mode with pullup resistors
 
   for (int i = 0; i < NUMBER_OF_BUTTONS; i++) // initialize button array
-  {
+  { 
     buttons[i].mode = CMD_HL;            // set default command for every button (left mouse click)
     buttons[i].value = 0;
     keystringBuffer[i] = 0;
@@ -217,6 +233,7 @@ void setup() {
     initBluetooth();
     writeSlot2Display();
   }
+  
 
 #ifdef DEBUG_OUTPUT
   Serial.print(F("Free RAM:"));  Serial.println(freeRam());
@@ -340,25 +357,32 @@ void loop() {
         }
       }
 
-      if (dimmLEDcounter < neoPix_Brightness) {
-        if (dimmLEDcounter < 0)
-        {
-          pixColor.r = neoPix_r_old * ((0 - dimmLEDcounter) / 2);
-          pixColor.g = neoPix_b_old * ((0 - dimmLEDcounter) / 2);
-          pixColor.b = neoPix_g_old * ((0 - dimmLEDcounter) / 2);
-          //pixels.setPixelColor(0, pixels.Color(neoPix_r_old*((0-dimmLEDcounter)/2), neoPix_b_old*((0-dimmLEDcounter)/2), neoPix_g_old*((0-dimmLEDcounter)/2)));
-        }
-        else {
-          pixColor.r = neoPix_r * (dimmLEDcounter / 2);
-          pixColor.g = neoPix_b * (dimmLEDcounter / 2);
-          pixColor.b = neoPix_g * (dimmLEDcounter / 2);
-          //pixels.setPixelColor(0, pixels.Color(neoPix_r*(dimmLEDcounter/2), neoPix_b*(dimmLEDcounter/2), neoPix_g*(dimmLEDcounter/2)));
-        }
+
+
+      //NeoPixel:
+      
+      if (DimmState == 1){
+
+        if(pixColor.r > 1)   pixColor.r -= 2;
+        if(pixColor.g > 1)   pixColor.g -= 2;
+        if(pixColor.b > 1)   pixColor.b -= 2;
+
         pixels.set_crgb_at(0, pixColor);
         pixels.sync();
-        //pixels.show();
-        dimmLEDcounter++;
+
+        if((pixColor.r + pixColor.g + pixColor.b) <= 10)
+          DimmState = 2;
       }
+      else if (DimmState == 2){
+
+        if(pixColor.r < (neoPix_r/LEDDimm_factor))   pixColor.r++;
+        if(pixColor.g < (neoPix_g/LEDDimm_factor))   pixColor.g++;
+        if(pixColor.b < (neoPix_b/LEDDimm_factor))   pixColor.b++;
+
+        pixels.set_crgb_at(0, pixColor);
+        pixels.sync();
+      }
+
     }
     else {
       UpdateLeds();
@@ -407,36 +431,27 @@ void setBeepCount(uint16_t count) {
 }
 
 void updateSlot(uint8_t newSlotNumber) {
-
-  neoPix_r_old = neoPix_r;
-  neoPix_g_old = neoPix_g;
-  neoPix_b_old = neoPix_b;
-
-  /*
-    neoPix_r = (newSlotNumber%2);
-    neoPix_g = ((newSlotNumber-1)%2);
-    neoPix_b = (newSlotNumber%3)*2;
-  */
+  DimmState = 1;
+  pixels.set_crgb_at(0, pixColor);
+  pixels.sync();
 
   switch (newSlotNumber) {
     case 1:
-      neoPix_r = 1; neoPix_g = 0; neoPix_b = 0;
+      neoPix_r = 255; neoPix_g = 0; neoPix_b = 0;
       break;
     case 2:
-      neoPix_r = 0; neoPix_g = 1; neoPix_b = 0;
+      neoPix_r = 0; neoPix_g = 255; neoPix_b = 0;
       break;
     case 3:
-      neoPix_r = 0; neoPix_g = 0; neoPix_b = 1;
+      neoPix_r = 0; neoPix_g = 0; neoPix_b = 255;
       break;
     case 4:
-      neoPix_r = 1; neoPix_g = 1; neoPix_b = 0;
+      neoPix_r = 255; neoPix_g = 255; neoPix_b = 0;
       break;
     default:
-      neoPix_r = 1; neoPix_g = 0; neoPix_b = 1;
+      neoPix_r = 255; neoPix_g = 0; neoPix_b = 255;
       break;
   }
-
-  dimmLEDcounter = -neoPix_Brightness;
 }
 
 
