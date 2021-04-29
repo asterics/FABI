@@ -22,8 +22,8 @@
 #include <Arduino.h>
 #include <Wire.h>
 #include <SPI.h>
-#include <WS2812.h>     //  light_ws2812 library
 #include "display.h"
+#include "NeoPixel.h"
 
 // global variables
 #define SIP_BUTTON    9
@@ -31,7 +31,6 @@
 #define PRESSURE_SENSOR_PIN A0
 #define PCB_checkPin 14     // Input Pin to be checked: Grounded == PCB Version
 #define BEEP_duration 25    // actual duration of beep = BEEP_duration * loop duration; e.g. 100 * 5ms = 500ms
-#define PIXELS_PIN 15       // Input Pin for WS2812 ("NeoPixels")
 
 #ifdef TEENSY
 int8_t  input_map[NUMBER_OF_PHYSICAL_BUTTONS] = {16, 17, 18, 19, 20, 21, 22, 23, 24}; //  map physical button pins to button index 0,1,2
@@ -85,11 +84,6 @@ uint8_t PCBversion = 0;       // 1 == PCB version
 uint16_t beepTime = BEEP_duration * 2;     // duration of beep and following same times without sound
 uint8_t beepCounter = 0;       // number of beeps
 
-uint8_t neoPix_r = 0;
-uint8_t neoPix_g = 0;
-uint8_t neoPix_b = 0;
-uint8_t LEDDimm_factor = 3; //reduces the brightnes of the LED: 1 = full, 2 = half brightness CAUTION: this can lead to changes in color!
-uint8_t DimmState = 0;       //State 0: idle; State 1: dimm down; State 2: dimm up new color 
 
 int inByte = 0;
 uint16_t pressure = 0;
@@ -100,9 +94,6 @@ uint16_t buttonStates = 0;
 
 uint8_t cnt = 0, cnt2 = 0;
 uint8_t buzzerPIN = 0;
-
-WS2812 pixels(1);
-cRGB pixColor;
 
 
 // function declarations
@@ -158,48 +149,16 @@ void setup() {
     delay(2000);
 
     //NeoPixel:
-    pixels.setOutput(PIXELS_PIN);
-    pixels.setColorOrderGRB();
 
-    pixColor.r = 0; pixColor.g = 0; pixColor.b = 0; // RGB Value
-    pixels.set_crgb_at(0, pixColor);    // set defined color
-    pixels.sync(); // Sends the value to the LED
+    initNeoPixel();
 
-    uint32_t NeoPixelHEX = 0x000000;   // rrggbb
-/*
-    Serial.println((int)((NeoPixelHEX >> 16) & 0xFF));
-    Serial.println((int)((NeoPixelHEX >> 8) & 0xFF));
-    Serial.println((int)(NeoPixelHEX & 0xFF));
-*/
-
-    pixColor.r = (int)((NeoPixelHEX >> 16) & 0xFF);
-    pixColor.g = (int)((NeoPixelHEX >> 8) & 0xFF);
-    pixColor.b = (int)(NeoPixelHEX & 0xFF);
-    
-    pixels.set_crgb_at(0, pixColor);
-
-    pixels.sync();
-
-
-
-    //Pixel & buzzer startup sequenc:
-    for (uint8_t i = 0; i < 60; i++) {
-      pixColor.r = i;
-      pixels.set_crgb_at(0, pixColor);
-      pixels.sync();
-      delay(10);
-    }
 
     //Display:
     initDisplay();
 
     digitalWrite(buzzerPIN, HIGH);
-    for (uint8_t i = 60; i > (255/LEDDimm_factor); i--) {
-      pixColor.r = i;
-      pixels.set_crgb_at(0, pixColor);
-      pixels.sync();
-      delay(10);
-    }
+
+
     digitalWrite(buzzerPIN, LOW);
 
     //neoPix_r = 1;
@@ -357,31 +316,7 @@ void loop() {
         }
       }
 
-
-
-      //NeoPixel:
-      
-      if (DimmState == 1){
-
-        if(pixColor.r > 1)   pixColor.r -= 2;
-        if(pixColor.g > 1)   pixColor.g -= 2;
-        if(pixColor.b > 1)   pixColor.b -= 2;
-
-        pixels.set_crgb_at(0, pixColor);
-        pixels.sync();
-
-        if((pixColor.r + pixColor.g + pixColor.b) <= 10)
-          DimmState = 2;
-      }
-      else if (DimmState == 2){
-
-        if(pixColor.r < (neoPix_r/LEDDimm_factor))   pixColor.r++;
-        if(pixColor.g < (neoPix_g/LEDDimm_factor))   pixColor.g++;
-        if(pixColor.b < (neoPix_b/LEDDimm_factor))   pixColor.b++;
-
-        pixels.set_crgb_at(0, pixColor);
-        pixels.sync();
-      }
+      UpdateNeoPixel();
 
     }
     else {
@@ -431,27 +366,10 @@ void setBeepCount(uint16_t count) {
 }
 
 void updateSlot(uint8_t newSlotNumber) {
-  DimmState = 1;
-  pixels.set_crgb_at(0, pixColor);
-  pixels.sync();
 
-  switch (newSlotNumber) {
-    case 1:
-      neoPix_r = 255; neoPix_g = 0; neoPix_b = 0;
-      break;
-    case 2:
-      neoPix_r = 0; neoPix_g = 255; neoPix_b = 0;
-      break;
-    case 3:
-      neoPix_r = 0; neoPix_g = 0; neoPix_b = 255;
-      break;
-    case 4:
-      neoPix_r = 255; neoPix_g = 255; neoPix_b = 0;
-      break;
-    default:
-      neoPix_r = 255; neoPix_g = 0; neoPix_b = 255;
-      break;
-  }
+
+  updateNeoPixelColor(newSlotNumber);   
+ 
 }
 
 

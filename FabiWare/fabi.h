@@ -22,6 +22,7 @@
 #include "commands.h"
 #include "bluetooth.h"
 #include "hid_hal.h"
+#include "NeoPixel.h"
 
 #define VERSION_STRING "FABI v2.5"
 
@@ -111,6 +112,7 @@ struct buttonDebouncerType {       // holds working data for button debouncing a
 
 
 extern uint8_t PCBversion;
+
 
 extern uint8_t actSlot;
 extern uint8_t reportSlotParameters;
