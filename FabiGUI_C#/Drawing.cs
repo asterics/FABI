@@ -99,8 +99,8 @@ namespace FabiGUI
                 int goToSlot = Convert.ToInt32(values[2])-1;
                 if ((slots.Count > goToSlot) && (goToSlot>=0))
                 {
-                   actSlot = goToSlot;
-                   displaySlot(actSlot);
+                  // actSlot = goToSlot;
+                  // displaySlot(actSlot);
                 }
 
             }
