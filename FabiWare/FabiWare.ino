@@ -139,29 +139,19 @@ void setup() {
     memcpy(input_map, input_map_PCB, NUMBER_OF_PHYSICAL_BUTTONS + 1);
 
     buzzerPIN = 4;                      //set buzzer Pin, define output and sound check buzzer:
+
+    initDisplay();
+    delay(100);
+    initNeoPixel();
+    
     pinMode(buzzerPIN, OUTPUT);
     digitalWrite(buzzerPIN, HIGH);
-    _delay_ms(150);
+    _delay_ms(100);
     digitalWrite(buzzerPIN, LOW);
-    delay(150);
+    //delay(1000);
 
+    
 
-    delay(2000);
-
-    //NeoPixel:
-
-    initNeoPixel();
-
-
-    //Display:
-    initDisplay();
-
-    digitalWrite(buzzerPIN, HIGH);
-
-
-    digitalWrite(buzzerPIN, LOW);
-
-    //neoPix_r = 1;
 
     Serial1.begin(9600);      // start HW-Pin-Serial (used for communication with Addon)
     //while(!Serial1);
@@ -316,7 +306,7 @@ void loop() {
         }
       }
 
-      UpdateNeoPixel();
+      UpdateNeoPixel();     // update the brightness of the NeoPixel if slotchange occured
 
     }
     else {
@@ -367,9 +357,7 @@ void setBeepCount(uint16_t count) {
 
 void updateSlot(uint8_t newSlotNumber) {
 
-
   updateNeoPixelColor(newSlotNumber);   
- 
 }
 
 
