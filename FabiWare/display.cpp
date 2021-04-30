@@ -1,4 +1,3 @@
-
 /* 
      Flexible Assistive Button Interface (FABI) - AsTeRICS Foundation - http://www.asterics-foundation.org
      for controlling HID functions via momentary switches and/or serial AT-commands  
@@ -25,12 +24,12 @@ void initDisplay(){
       ssd1306_clearScreen();
 
       //ssd1306_print("Normal text");
-      ssd1306_drawXBitmap(36, 0, 55, 32, FABIlogo1);
+      ssd1306_drawXBitmap(36, 0, 55, 32, FABIlogo);
 }
 
 void writeSlot2Display(){ 
   ssd1306_clearScreen();
 
   ssd1306_printFixed(0, 0, "Slot:", STYLE_NORMAL);
-  ssd1306_printFixed(0, 20, settings.slotname, STYLE_BOLD);
+  ssd1306_printFixed(0, 20, settings.slotname, STYLE_NORMAL);
 }

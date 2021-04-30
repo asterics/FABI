@@ -185,6 +185,13 @@ namespace FabiGUI
             newATCommand = newATCommand.Replace("\n", "");
             Console.WriteLine("adding:" + newATCommand);
             slots[actSlot].settingStrings.Add(newATCommand);
+            if (newATCommand.StartsWith("AT SC"))
+            {
+                slots[actSlot].slotColor = newATCommand.Substring(6);
+                actSlotColor = slots[actSlot].slotColor;
+                Console.WriteLine("Color found: " + actSlotColor);
+//                drawSlotColor(actSlotColor);
+            }
         }
 
 

@@ -23,6 +23,8 @@
           AT AP <uint>    antitremor press time (1-500)
           AT AR <uint>    antitremor release time (1-500)
           AT AI <uint>    antitremor idle time (1-500)
+          AT SC <string>  change slot color: given string 0xRRGGBB 
+
 
     USB HID commands:
       
@@ -267,15 +269,19 @@ namespace FabiGUI
         public class Slot
         {
             public String slotName;
+            public String slotColor;
+
             public List<String> settingStrings = new List<String>();
             public Slot()
             {
                 this.slotName = "cursorkeys";
+                this.slotColor = "0x00a0c0";
                 init();
             }
             public Slot(String slotName)
             {
                 this.slotName = slotName;
+                this.slotColor = "0xf05000";
                 init();
             }
             void init() {
@@ -312,7 +318,7 @@ namespace FabiGUI
 
         public void sendApplyCommands()
         {
-
+            sendCmd("AT SC " + actSlotColor);
             foreach (CommandGuiLink cgl in commandGuiLinks)
             {
                 switch (cgl.type)
@@ -458,6 +464,7 @@ namespace FabiGUI
             public Label tl;
             public RadioButton rb1;
             public RadioButton rb2;
+            public Panel colorpanel;
 
             public CommandGuiLink(String cmd, ComboBox cb, TextBox tb, NumericUpDown nud, String def)
             {
@@ -492,6 +499,13 @@ namespace FabiGUI
                 this.cmd = cmd;
                 this.cb = cb;
                 this.def = def.ToString();
+            }
+            public CommandGuiLink(String cmd, Panel colorPanel, String def)
+            {
+                this.type = GUITYPE_COMBO_INDEX;
+                this.cmd = cmd;
+                this.colorpanel = colorPanel;
+                this.def = def;
             }
         };
 

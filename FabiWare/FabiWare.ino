@@ -22,8 +22,8 @@
 #include <Arduino.h>
 #include <Wire.h>
 #include <SPI.h>
-#include <WS2812.h>     //  light_ws2812 library
 #include "display.h"
+#include "NeoPixel.h"
 
 // global variables
 #define SIP_BUTTON    9
@@ -31,7 +31,6 @@
 #define PRESSURE_SENSOR_PIN A0
 #define PCB_checkPin 14     // Input Pin to be checked: Grounded == PCB Version
 #define BEEP_duration 25    // actual duration of beep = BEEP_duration * loop duration; e.g. 100 * 5ms = 500ms
-#define PIXELS_PIN 15       // Input Pin for WS2812 ("NeoPixels")
 
 #ifdef TEENSY
 int8_t  input_map[NUMBER_OF_PHYSICAL_BUTTONS] = {16, 17, 18, 19, 20, 21, 22, 23, 24}; //  map physical button pins to button index 0,1,2
@@ -48,7 +47,7 @@ struct settingsType settings = {      // type definition see fabi.h
   "slot1", DEFAULT_WHEEL_STEPSIZE, DEFAULT_TRESHOLD_TIME,
   DEFAULT_SIP_THRESHOLD, DEFAULT_PUFF_THRESHOLD,
   DEFAULT_ANTITREMOR_PRESS, DEFAULT_ANTITREMOR_RELEASE, DEFAULT_ANTITREMOR_IDLE,
-  DEFAULT_BT_MODE, DEFAULT_DOUBLEPRESS_TIME, DEFAULT_AUTODWELL_TIME
+  DEFAULT_BT_MODE, DEFAULT_DOUBLEPRESS_TIME, DEFAULT_AUTODWELL_TIME, 0xFFFFFF
 };
 
 
@@ -85,14 +84,6 @@ uint8_t PCBversion = 0;       // 1 == PCB version
 uint16_t beepTime = BEEP_duration * 2;     // duration of beep and following same times without sound
 uint8_t beepCounter = 0;       // number of beeps
 
-uint8_t neoPix_Brightness = 100;
-int8_t dimmLEDcounter = neoPix_Brightness;
-uint8_t neoPix_r = 0;
-uint8_t neoPix_g = 0;
-uint8_t neoPix_b = 0;
-uint8_t neoPix_r_old = 0;
-uint8_t neoPix_g_old = 0;
-uint8_t neoPix_b_old = 0;
 
 int inByte = 0;
 uint16_t pressure = 0;
@@ -103,9 +94,6 @@ uint16_t buttonStates = 0;
 
 uint8_t cnt = 0, cnt2 = 0;
 uint8_t buzzerPIN = 0;
-
-WS2812 pixels(1);
-cRGB pixColor;
 
 
 // function declarations
@@ -151,42 +139,19 @@ void setup() {
     memcpy(input_map, input_map_PCB, NUMBER_OF_PHYSICAL_BUTTONS + 1);
 
     buzzerPIN = 4;                      //set buzzer Pin, define output and sound check buzzer:
+
+    initDisplay();
+    delay(100);
+    initNeoPixel();
+    
     pinMode(buzzerPIN, OUTPUT);
     digitalWrite(buzzerPIN, HIGH);
-    _delay_ms(150);
+    _delay_ms(100);
     digitalWrite(buzzerPIN, LOW);
-    delay(150);
+    //delay(1000);
 
-    //NeoPixel:
-    pixels.setOutput(PIXELS_PIN);
-    pixels.setColorOrderGRB();
+    
 
-    pixColor.r = 0; pixColor.g = 0; pixColor.b = 0; // RGB Value
-    pixels.set_crgb_at(0, pixColor);    // set defined color
-    pixels.sync(); // Sends the value to the LED
-
-
-    //Pixel & buzzer startup sequenc:
-    for (uint8_t i = 0; i < 60; i++) {
-      pixColor.r = i;
-      pixels.set_crgb_at(0, pixColor);
-      pixels.sync();
-      delay(10);
-    }
-
-    //Display:
-    initDisplay();
-
-    digitalWrite(buzzerPIN, HIGH);
-    for (uint8_t i = 60; i > 50; i--) {
-      pixColor.r = i;
-      pixels.set_crgb_at(0, pixColor);
-      pixels.sync();
-      delay(10);
-    }
-    digitalWrite(buzzerPIN, LOW);
-
-    neoPix_r = 1;
 
     Serial1.begin(9600);      // start HW-Pin-Serial (used for communication with Addon)
     //while(!Serial1);
@@ -204,7 +169,7 @@ void setup() {
     pinMode (input_map[i], INPUT_PULLUP);   // configure the pins for input mode with pullup resistors
 
   for (int i = 0; i < NUMBER_OF_BUTTONS; i++) // initialize button array
-  {
+  { 
     buttons[i].mode = CMD_HL;            // set default command for every button (left mouse click)
     buttons[i].value = 0;
     keystringBuffer[i] = 0;
@@ -217,6 +182,9 @@ void setup() {
     initBluetooth();
     writeSlot2Display();
   }
+
+  //deleteSlots();
+  
 
 #ifdef DEBUG_OUTPUT
   Serial.print(F("Free RAM:"));  Serial.println(freeRam());
@@ -340,25 +308,8 @@ void loop() {
         }
       }
 
-      if (dimmLEDcounter < neoPix_Brightness) {
-        if (dimmLEDcounter < 0)
-        {
-          pixColor.r = neoPix_r_old * ((0 - dimmLEDcounter) / 2);
-          pixColor.g = neoPix_b_old * ((0 - dimmLEDcounter) / 2);
-          pixColor.b = neoPix_g_old * ((0 - dimmLEDcounter) / 2);
-          //pixels.setPixelColor(0, pixels.Color(neoPix_r_old*((0-dimmLEDcounter)/2), neoPix_b_old*((0-dimmLEDcounter)/2), neoPix_g_old*((0-dimmLEDcounter)/2)));
-        }
-        else {
-          pixColor.r = neoPix_r * (dimmLEDcounter / 2);
-          pixColor.g = neoPix_b * (dimmLEDcounter / 2);
-          pixColor.b = neoPix_g * (dimmLEDcounter / 2);
-          //pixels.setPixelColor(0, pixels.Color(neoPix_r*(dimmLEDcounter/2), neoPix_b*(dimmLEDcounter/2), neoPix_g*(dimmLEDcounter/2)));
-        }
-        pixels.set_crgb_at(0, pixColor);
-        pixels.sync();
-        //pixels.show();
-        dimmLEDcounter++;
-      }
+      UpdateNeoPixel();     // update the brightness of the NeoPixel if slotchange occured
+
     }
     else {
       UpdateLeds();
@@ -408,35 +359,7 @@ void setBeepCount(uint16_t count) {
 
 void updateSlot(uint8_t newSlotNumber) {
 
-  neoPix_r_old = neoPix_r;
-  neoPix_g_old = neoPix_g;
-  neoPix_b_old = neoPix_b;
-
-  /*
-    neoPix_r = (newSlotNumber%2);
-    neoPix_g = ((newSlotNumber-1)%2);
-    neoPix_b = (newSlotNumber%3)*2;
-  */
-
-  switch (newSlotNumber) {
-    case 1:
-      neoPix_r = 1; neoPix_g = 0; neoPix_b = 0;
-      break;
-    case 2:
-      neoPix_r = 0; neoPix_g = 1; neoPix_b = 0;
-      break;
-    case 3:
-      neoPix_r = 0; neoPix_g = 0; neoPix_b = 1;
-      break;
-    case 4:
-      neoPix_r = 1; neoPix_g = 1; neoPix_b = 0;
-      break;
-    default:
-      neoPix_r = 1; neoPix_g = 0; neoPix_b = 1;
-      break;
-  }
-
-  dimmLEDcounter = -neoPix_Brightness;
+  updateNeoPixelColor(newSlotNumber);   
 }
 
 
