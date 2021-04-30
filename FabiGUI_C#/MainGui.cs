@@ -36,6 +36,7 @@ namespace FabiGUI
         Boolean readDone = false;
         static int slotCounter = 0;
         static int actSlot = 0;
+        static String actSlotColor = "0x00ff00";  // default slot color
 
 
         public delegate void StringReceivedDelegate(string newLine);
@@ -99,6 +100,9 @@ namespace FabiGUI
             String strValue="";
 
             slotNames.Text = slots[slotNumber].slotName;
+            actSlotColor = slots[slotNumber].slotColor;
+            drawSlotColor(actSlotColor);
+
             foreach (String settingString in slots[slotNumber].settingStrings)
             {
                 if (settingString == null) { 
@@ -316,6 +320,7 @@ namespace FabiGUI
         private void tabControl_SelectedIndexChanged(object sender, EventArgs e)
         {
             BeginInvoke(this.stringReceivedDelegate, new Object[] { "VALUES:512,00000000000,1" });
+            drawSlotColor(actSlotColor);
         }
 
 
@@ -744,6 +749,21 @@ namespace FabiGUI
         private void autoDwellTimeBar_Scroll(object sender, EventArgs e)
         {
             autoDwellTimeLabel.Text = autoDwellTimeBar.Value.ToString();
+        }
+
+        private void chooseColorPanel_MouseClick(object sender, MouseEventArgs e)
+        {
+            ColorDialog colorDlg = new ColorDialog();
+            colorDlg.AllowFullOpen = true;
+            colorDlg.Color = ColorTranslator.FromHtml(actSlotColor);
+            colorDlg.FullOpen = true;
+            if (colorDlg.ShowDialog() == DialogResult.OK)
+            {
+                actSlotColor = "0x" + colorDlg.Color.R.ToString("X2") + colorDlg.Color.G.ToString("X2") + colorDlg.Color.B.ToString("X2");
+                Console.WriteLine("Chosen color = " + actSlotColor);
+                drawSlotColor(actSlotColor);
+                slots[actSlot].slotColor = actSlotColor;
+            }
         }
     }
 }

@@ -107,6 +107,13 @@ namespace FabiGUI
             else Console.WriteLine("got unknown VALUES:" + newValues);
         }
 
+        public void drawSlotColor(String colorString)
+        {
+            Graphics g = chooseColorPanel.CreateGraphics();
+            Brush brush = new SolidBrush(ColorTranslator.FromHtml(colorString));
+            g.FillRectangle(brush, 0, 0, chooseColorPanel.Width - 1, chooseColorPanel.Height - 1);
+        }
+
         public void drawFreeMem(int percent)
         {    
                 Graphics g = freeMemPanel.CreateGraphics();
