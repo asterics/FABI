@@ -28,13 +28,14 @@ const struct atCommandType atCommands[] PROGMEM = {
     {"TS"  , PARTYPE_UINT },  {"TP"  , PARTYPE_UINT }, {"MA"  , PARTYPE_STRING},{"WA"  , PARTYPE_UINT  },
     {"TT"  , PARTYPE_UINT },  {"AP"  , PARTYPE_UINT }, {"AR"  , PARTYPE_UINT},  {"AI"  , PARTYPE_UINT  },
     {"FR"  , PARTYPE_NONE },  {"BT"  , PARTYPE_UINT }, {"BC"  , PARTYPE_STRING},{"DP" , PARTYPE_UINT  },
-    {"AD"  , PARTYPE_UINT  } 
+    {"AD"  , PARTYPE_UINT },  {"SC"  , PARTYPE_STRING }
 };
 
 void printCurrentSlot()
 {
         Serial.print(F("Slot:"));  Serial.println(settings.slotname);
         Serial.print(F("AT WS ")); Serial.println(settings.ws);
+        Serial.print(F("AT SC ")); Serial.println(settings.sc);
         Serial.print(F("AT TS ")); Serial.println(settings.ts);
         Serial.print(F("AT TP ")); Serial.println(settings.tp);
         Serial.print(F("AT TT ")); Serial.println(settings.tt);
@@ -171,6 +172,13 @@ void performCommand (uint8_t cmd, int16_t parNum, char * parString, int8_t perio
                  Serial.println(F("release middle"));
                #endif
                middleMouseButton=0;
+               break; 
+        case CMD_SC:
+               #ifdef DEBUG_OUTPUT
+                 Serial.println(F("slot color"));
+                 Serial.println((uint32_t)strtol(parString, NULL, 0));
+               #endif
+               settings.sc = (uint32_t)strtol(parString, NULL, 0);
                break; 
         case CMD_TL:
                #ifdef DEBUG_OUTPUT

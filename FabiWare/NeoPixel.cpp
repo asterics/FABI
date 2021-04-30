@@ -108,6 +108,13 @@ void updateNeoPixelColor(uint8_t newSlotNumber){
     pixels.set_crgb_at(0, pixColor);
     pixels.sync();
 
+    
+    neoPix_r = (int)((settings.sc >> 16) & 0xFF);
+    neoPix_g = (int)((settings.sc >> 8) & 0xFF);
+    neoPix_b = (int)(settings.sc & 0xFF);
+
+
+/*
     switch (newSlotNumber) {
         case 1:
         neoPix_r = 255; neoPix_g = 0; neoPix_b = 0;
@@ -125,4 +132,5 @@ void updateNeoPixelColor(uint8_t newSlotNumber){
         neoPix_r = 255; neoPix_g = 0; neoPix_b = 255;
         break;
     }
+    */
 }

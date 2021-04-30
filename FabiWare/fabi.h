@@ -26,7 +26,7 @@
 
 #define VERSION_STRING "FABI v2.5"
 
-//#define DEBUG_OUTPUT      //  if debug output is desired
+#define DEBUG_OUTPUT      //  if debug output is desired
 //#define TEENSY            //  if a Teensy2.0++ controller is used
 #define ARDUINO_PRO_MICRO   //  if Arduino Leonardo or Arduino (Pro) Micro is used 
 
@@ -91,6 +91,7 @@ struct settingsType {
   uint8_t  bt;     // bt-mode (0,1,2)
   uint16_t dp;     // double press time  
   uint16_t ad;     // automatic dwelling time  
+  uint32_t sc;     // slotcolor (0x: rrggbb)
 };
 
 struct atCommandType {              // holds settings for a button function 
