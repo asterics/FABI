@@ -31,11 +31,22 @@ const struct atCommandType atCommands[] PROGMEM = {
     {"AD"  , PARTYPE_UINT },  {"SC"  , PARTYPE_STRING }
 };
 
+void makehex(uint32_t val, char* str) {
+  for (int i=7;i>=2;i--) {
+    int digit=val %16;
+    if (digit>9) str[i] = 'a'+digit-10;
+    else str[i]='0'+digit;
+    val>>=4;
+  }
+  str[8]=0;
+}
+
 void printCurrentSlot()
 {
+  char tmp[10]="0x000000";
         Serial.print(F("Slot:"));  Serial.println(settings.slotname);
         Serial.print(F("AT WS ")); Serial.println(settings.ws);
-        Serial.print(F("AT SC ")); Serial.println(settings.sc);
+        Serial.print(F("AT SC ")); makehex(settings.sc,tmp);Serial.println(tmp);
         Serial.print(F("AT TS ")); Serial.println(settings.ts);
         Serial.print(F("AT TP ")); Serial.println(settings.tp);
         Serial.print(F("AT TT ")); Serial.println(settings.tt);
@@ -421,10 +432,10 @@ void performCommand (uint8_t cmd, int16_t parNum, char * parString, int8_t perio
                 settings.dp=parNum;
                break;
         case CMD_AD:
-//                #ifdef DEBUG_OUTPUT  
+                #ifdef DEBUG_OUTPUT  
                   Serial.print(F("Automatic Dwell Time = "));
                   Serial.println(parNum);
-//                #endif
+                #endif
                 settings.ad=parNum;
                break;
         case CMD_FR:
