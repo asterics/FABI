@@ -26,7 +26,7 @@
 
 #define VERSION_STRING "FABI v2.5"
 
-#define DEBUG_OUTPUT      //  if debug output is desired
+//#define DEBUG_OUTPUT      //  if debug output is desired
 //#define TEENSY            //  if a Teensy2.0++ controller is used
 #define ARDUINO_PRO_MICRO   //  if Arduino Leonardo or Arduino (Pro) Micro is used 
 

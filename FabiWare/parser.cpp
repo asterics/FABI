@@ -108,10 +108,7 @@ void parseByte (int newByte)  // parse an incoming commandbyte from serial inter
             break;
         case 2: 
                 if ((newByte==13) || (newByte==10))  // AT reply: "OK" 
-                {  
-                  //if(!PCBversion)
-                    Serial.println(F("OK"));  readstate=0; 
-                }
+                {  Serial.println(F("OK"));  readstate=0;       }
                 else if (newByte==' ') { cmdlen=0; readstate++; } 
                 else goto err;
             break;
