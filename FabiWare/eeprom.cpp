@@ -71,7 +71,7 @@ void saveToEEPROM(char * slotname)
    #endif
    
    // start with new slot 
-   EEPROM.write(address,SLOT_VALID);     
+   EEPROM.update(address,SLOT_VALID);     
    address++;
 
    // update slotname
@@ -81,20 +81,20 @@ void saveToEEPROM(char * slotname)
    // write general settings 
    p = (uint8_t*) &settings;
    for (int t=0;t<sizeof(settingsType);t++)
-      EEPROM.write(address++,*p++);
+      EEPROM.update(address++,*p++);
 
    // write all buttons
    p = (uint8_t*) buttons;
    for (int i=0;i<NUMBER_OF_BUTTONS*sizeof(buttonType);i++)
-        EEPROM.write(address++,*p++);
+        EEPROM.update(address++,*p++);
 
    if (EmptySlotAddress<=address) {
-     EEPROM.write(address,0);
+     EEPROM.update(address,0);
      EmptySlotAddress=address;
    }
    
    for (int i=0;i<keystringMemUsage(0);i++)
-        EEPROM.write(EmptyKeystringAddress--,keystringBuffer[i]);
+        EEPROM.update(EmptyKeystringAddress--,keystringBuffer[i]);
       
    freeEEPROMbytes=EmptyKeystringAddress-address;
 }
@@ -194,7 +194,7 @@ void deleteSlots()
    EmptyKeystringAddress=EEPROM_SIZE-1;
    freeEEPROMbytes=EEPROM_SIZE-1;
    nextSlotAddress=0;
-   EEPROM.write(0,0);
+   EEPROM.update(0,0);
 }
 
 void listSlots()
