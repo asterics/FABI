@@ -181,6 +181,7 @@ void setup() {
     //initialise BT module, if available
     initBluetooth();
     writeSlot2Display();
+    updateNeoPixelColor(1); 
   }
 
   //deleteSlots();
