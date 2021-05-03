@@ -16,13 +16,21 @@
 
 #define PIXELS_PIN 15       // Input Pin for WS2812 ("NeoPixels")
 
-
 uint8_t neoPix_r = 0;
 uint8_t neoPix_g = 0;
 uint8_t neoPix_b = 0;
-uint8_t LEDDimm_factor = 4; //reduces the brightnes of the LED: 1 = full, 2 = half brightness CAUTION: this can lead to changes in color!
-uint8_t DimmState = 0;       //State 0: idle; State 1: dimm down; State 2: dimm up new color 
 
+uint16_t neoPix_r_16 = 0;
+uint16_t neoPix_g_16 = 0;
+uint16_t neoPix_b_16 = 0;
+
+uint16_t dimmStep_r = 0;
+uint16_t dimmStep_g = 0;
+uint16_t dimmStep_b = 0;
+
+
+uint8_t LEDDimm_factor = 4; //reduces the brightnes of the LED: 1 = full, 2 = half brightness CAUTION: this can lead to changes in color!
+uint8_t DimmState = 0;       
 
 WS2812 pixels(1);
 cRGB pixColor;
@@ -38,22 +46,6 @@ void initNeoPixel(){
     pixels.set_crgb_at(0, pixColor);    // set defined color
     pixels.sync(); // Sends the value to the LED
 
-    uint32_t NeoPixelHEX = 0x000000;   // rrggbb
-/*
-    Serial.println((int)((NeoPixelHEX >> 16) & 0xFF));
-    Serial.println((int)((NeoPixelHEX >> 8) & 0xFF));
-    Serial.println((int)(NeoPixelHEX & 0xFF));
-*/
-
-    pixColor.r = (int)((NeoPixelHEX >> 16) & 0xFF);
-    pixColor.g = (int)((NeoPixelHEX >> 8) & 0xFF);
-    pixColor.b = (int)(NeoPixelHEX & 0xFF);
-    
-    pixels.set_crgb_at(0, pixColor);
-
-    pixels.sync();
-
-
 
     //Pixel startup sequenc:
     for (uint8_t i = 0; i < 255; i++) {
@@ -63,15 +55,14 @@ void initNeoPixel(){
       delay(4);
     }
 
-    
+    /*
     for (uint8_t i = 255; i > (255/LEDDimm_factor); i--) {
       pixColor.r = i;
       pixels.set_crgb_at(0, pixColor);
       pixels.sync();
       delay(2);
-    }
-
-
+    }*/
+    
 }
 
 
@@ -79,58 +70,65 @@ void initNeoPixel(){
 void UpdateNeoPixel(){
   
   
-  if (DimmState == 1){    // dimm color down
+  if (DimmState < 100){   //  DIMM DOWN the current color, until the DimmState counter var reaches 100
+    if (DimmState == 0){    // calculate the dimmStep(size) for the 100 steps
+      dimmStep_g = neoPix_g_16 / 100;
+      dimmStep_r = neoPix_r_16 / 100;   
+      dimmStep_b = neoPix_b_16 / 100;
+    }
+    //reduce the _16 variable by the dimmStep(size)
+    neoPix_r_16 -= dimmStep_r;    
+    neoPix_g_16 -= dimmStep_g;
+    neoPix_b_16 -= dimmStep_b;
 
-      if(pixColor.r > 1)   pixColor.r -= 2;
-      if(pixColor.g > 1)   pixColor.g -= 2;
-      if(pixColor.b > 1)   pixColor.b -= 2;
+    //apply the color var to the pixColor (with division of 10, since the counter variables are 10* higher than the color to ensure smooth dimming with reduced brightness)
+    pixColor.r = neoPix_r_16/10;
+    pixColor.g = neoPix_g_16/10;
+    pixColor.b = neoPix_b_16/10;
 
-      pixels.set_crgb_at(0, pixColor); pixels.sync(); // set & apply color
+    pixels.set_crgb_at(0, pixColor); pixels.sync(); // set & apply color
+    
+    DimmState++; 
+  }
+  else if (DimmState < 200){    //  DIMM UP the new color, in 100 steps
+    if (DimmState == 100){      // in first case calculate the dimmStep(size) 
+      dimmStep_r = neoPix_r / LEDDimm_factor / 10;
+      dimmStep_g = neoPix_g / LEDDimm_factor / 10;
+      dimmStep_b = neoPix_b / LEDDimm_factor / 10;
       
-
-      if((pixColor.r + pixColor.g + pixColor.b) <= 10)    // if overall color < 10 -> end dimm down and continue with dimm up of new color in next call
-        DimmState = 2;
+      neoPix_r_16 = neoPix_g_16 = neoPix_b_16 = 0;    // reset color to 0
     }
-    else if (DimmState == 2){   // dimm color up
 
-      if(pixColor.r < (neoPix_r/LEDDimm_factor))   pixColor.r++;
-      if(pixColor.g < (neoPix_g/LEDDimm_factor))   pixColor.g++;
-      if(pixColor.b < (neoPix_b/LEDDimm_factor))   pixColor.b++;
+    //add the dimmStep(size) to the counter var
+    neoPix_r_16 += dimmStep_r;
+    neoPix_g_16 += dimmStep_g;
+    neoPix_b_16 += dimmStep_b;
 
-      pixels.set_crgb_at(0, pixColor); pixels.sync(); // set & apply color
-    }
+    //apply the color var to the pixColor (with division of 10)
+    pixColor.r = neoPix_r_16/10;
+    pixColor.g = neoPix_g_16/10;
+    pixColor.b = neoPix_b_16/10;
+
+    pixels.set_crgb_at(0, pixColor); pixels.sync(); // set & apply color
+
+    DimmState++; 
+  }
+
+
 }
 
 
 /* update the slotcolor, called in case of slotchange; set DimmState to start dimming */
 void updateNeoPixelColor(uint8_t newSlotNumber){
-    DimmState = 1;
-    pixels.set_crgb_at(0, pixColor);
-    pixels.sync();
+    DimmState = 0;
 
+    //set the current color to the _16 to dimm down the current color:
+    neoPix_r_16 = pixColor.r * 10;     // color values are time tens higher due to smaller possible step size (prevent using floats, cause of storage size)
+    neoPix_g_16 = pixColor.g * 10;
+    neoPix_b_16 = pixColor.b * 10; 
     
+    //set new color from slot settings
     neoPix_r = (int)((settings.sc >> 16) & 0xFF);
     neoPix_g = (int)((settings.sc >> 8) & 0xFF);
     neoPix_b = (int)(settings.sc & 0xFF);
-
-
-/*
-    switch (newSlotNumber) {
-        case 1:
-        neoPix_r = 255; neoPix_g = 0; neoPix_b = 0;
-        break;
-        case 2:
-        neoPix_r = 0; neoPix_g = 255; neoPix_b = 0;
-        break;
-        case 3:
-        neoPix_r = 0; neoPix_g = 0; neoPix_b = 255;
-        break;
-        case 4:
-        neoPix_r = 255; neoPix_g = 255; neoPix_b = 0;
-        break;
-        default:
-        neoPix_r = 255; neoPix_g = 0; neoPix_b = 255;
-        break;
-    }
-    */
 }
