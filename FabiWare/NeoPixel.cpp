@@ -29,7 +29,7 @@ uint16_t dimmStep_g = 0;
 uint16_t dimmStep_b = 0;
 
 
-uint8_t LEDDimm_factor = 4; //reduces the brightnes of the LED: 1 = full, 2 = half brightness CAUTION: this can lead to changes in color!
+uint8_t LEDDimm_factor = 1; //reduces the brightnes of the LED: 1 = full, 2 = half brightness CAUTION: this can lead to changes in color!
 uint8_t DimmState = 0;       
 
 WS2812 pixels(1);
