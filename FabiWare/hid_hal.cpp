@@ -61,6 +61,9 @@ void mouseScroll(int8_t steps)
 
 void mouseMove(int x, int y)
 {
+  Serial.print("x: ");
+  Serial.print(x);
+
   mouseMoveTimestamp=millis();
   while (x < -128) {
     if (settings.bt & 1)
