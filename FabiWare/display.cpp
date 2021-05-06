@@ -30,6 +30,12 @@ void initDisplay(){
 void writeSlot2Display(){ 
   ssd1306_clearScreen();
 
-  ssd1306_printFixed(0, 0, "Slot:", STYLE_NORMAL);
+  for(uint8_t i; i < actSlot; i++)
+    ssd1306_printFixed(i*10, 0, "*", STYLE_NORMAL);
+  switch(settings.bt){
+    case 3:  ssd1306_printFixed(80, 0, "(both)", STYLE_NORMAL);  break;
+    case 1:  ssd1306_printFixed(85, 0, "(USB)", STYLE_NORMAL);  break;
+    case 2:  ssd1306_printFixed(90, 0, "(BT)", STYLE_NORMAL);  break;
+  }
   ssd1306_printFixed(0, 20, settings.slotname, STYLE_NORMAL);
 }
