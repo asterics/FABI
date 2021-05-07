@@ -32,16 +32,9 @@
 #define PCB_checkPin 14     // Input Pin to be checked: Grounded == PCB Version
 #define BEEP_duration 25    // actual duration of beep = BEEP_duration * loop duration; e.g. 100 * 5ms = 500ms
 
-#ifdef TEENSY
-int8_t  input_map[NUMBER_OF_PHYSICAL_BUTTONS] = {16, 17, 18, 19, 20, 21, 22, 23, 24}; //  map physical button pins to button index 0,1,2
-int8_t  led_map[NUMBER_OF_LEDS] = {1, 2, 3};            //  maps leds pins
-#endif
-
-#ifdef ARDUINO_PRO_MICRO
 int8_t  input_map[NUMBER_OF_PHYSICAL_BUTTONS] = {2, 3, 4, 5, 6, 7, 8, 9, 10};
 int8_t  input_map_PCB[NUMBER_OF_PHYSICAL_BUTTONS] = {10, 16, 19, 5, 6, 7, 8, 9};
 int8_t  led_map[NUMBER_OF_LEDS] = {14, 15, 16};
-#endif
 
 struct settingsType settings = {      // type definition see fabi.h
   "slot1", DEFAULT_WHEEL_STEPSIZE, DEFAULT_TRESHOLD_TIME,
@@ -118,10 +111,8 @@ void setup() {
   Serial.println("Flexible Assistive Button Interface started !");
 #endif
 
-#ifdef ARDUINO_PRO_MICRO   // only needed for Arduino, automatically done for Teensy(duino)
   Mouse.begin();
   Keyboard.begin();
-#endif
 
   //check if PCB or old (floating wire) FABI is used (checkPin to ground = PCB):
   pinMode(PCB_checkPin, INPUT_PULLUP);

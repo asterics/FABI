@@ -27,16 +27,10 @@
 #define VERSION_STRING "FABI v2.5"
 
 //#define DEBUG_OUTPUT      //  if debug output is desired
-//#define TEENSY            //  if a Teensy2.0++ controller is used
-#define ARDUINO_PRO_MICRO   //  if Arduino Leonardo or Arduino (Pro) Micro is used 
 
-#ifdef  ARDUINO_PRO_MICRO
-  #include <Mouse.h>
-  #include <Keyboard.h>
-  #define EEPROM_SIZE        1023     // maximum size of EEPROM storage for Arduino (Pro) Micro
-#else
-  #define EEPROM_SIZE        4096     // maximum size of EEPROM storage for Teensy2.0++
-#endif
+#include <Mouse.h>
+#include <Keyboard.h>
+#define EEPROM_SIZE        1023     // maximum size of EEPROM storage for Arduino (Pro) Micro
 
 #define NUMBER_OF_BUTTONS  11         // number of connected or virtual switches, note: if more than 16, change buttonState type to uint32_t!
 #define NUMBER_OF_PHYSICAL_BUTTONS 9  // number of connected switches
