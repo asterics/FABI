@@ -49,11 +49,7 @@ void mouseToggle(uint8_t button)
 void mouseScroll(int8_t steps)
 {
   if (settings.bt & 1)
-    #ifdef ARDUINO_PRO_MICRO
-      Mouse.move(0,0,steps); 
-    #else
-      Mouse.scroll(steps); 
-    #endif
+    Mouse.move(0,0,steps); 
 
   if ((settings.bt & 2) && (isBluetoothAvailable()))
     mouseBT(0, 0, steps);

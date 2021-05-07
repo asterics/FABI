@@ -13,6 +13,21 @@
 
 #include "fabi.h"
 
+char   cmdstring[MAX_CMDLEN];                 // buffer for incoming AT commands
+
+/**
+   @name get_uint
+   @param char * str
+   @param int16_t * result   
+   @return uint8_t
+   
+   translates a (part of) an ASCII string to an integer variable
+   only numeric values are allowed (-> only unsigned values)
+   the result is stored into * result 
+   the return value is true (1) if all characters were valid and the result was stored,
+   else false(0) is returned.
+
+*/
 uint8_t get_uint(char * str, int16_t * result)
 {
     int num=0;
@@ -28,6 +43,19 @@ uint8_t get_uint(char * str, int16_t * result)
     return(1);    
 }
 
+/**
+   @name get_int
+   @param char * str
+   @param int16_t * result   
+   @return uint8_t
+   
+   translates a (part of) an ASCII string to an integer variable
+   only numeric values or a leading '-' are allowed (-> signed values possible)
+   the result is stored into * result 
+   the return value is true (1) if all characters were valid and the result was stored,
+   else false(0) is returned.
+
+*/
 uint8_t get_int(char * str, int16_t * result)
 {
     int16_t num,fact;
@@ -38,14 +66,27 @@ uint8_t get_int(char * str, int16_t * result)
     return(1);    
 }
 
-// convert character to uppercase
+
+/**
+   @name charUp
+   @param char c
+   @return char
+   
+   converts a character to uppercase
+*/
 char charUp (char c) {
   if ((c >= 'a') && (c<='z'))  
     c=c-'a'+'A';
   return(c);
 }
 
-// convert string to uppercase
+/**
+   @name strup
+   @param char * str
+   @return none
+   
+   converts a string to uppercase
+*/
 void strup (char * str)   // convert to upper case letters
 {
   if (!str) return;
@@ -56,6 +97,17 @@ void strup (char * str)   // convert to upper case letters
   }
 }
 
+
+/**
+   @name parseCommand
+   @param char * cmdstr
+   @return none
+   
+   parse AT commands
+   this function checks if a command string matches a valid AT-commands (command identifier with arguments of correct type, eg. "AT MX 10")
+   if the AT command is valid, the function performCommand is called (executing the AT command)
+   if not, '?' is printed to the Serial interface
+*/
 void parseCommand (char * cmdstr)
 {
     int8_t cmd=-1;
@@ -93,7 +145,18 @@ void parseCommand (char * cmdstr)
     else Serial.println('?');
 }
 
-
+/**
+   @name parseByte
+   @param int newByte
+   @return none
+   
+   parse a single byte 
+   this function receives single bytes in order to assemble AT command strings
+   an AT command must start with the sequence "AT " and additional characters for the AT command identifier and arguments, followed by '\n' or '\r'
+   if an AT command was found, it is forwarded to the AT command parser (parseCommand)
+   if just "AT\r" is received, "OK" is printed to the Serial interface,
+   else,  '?' is printed to the Serial interface
+*/
 void parseByte (int newByte)  // parse an incoming commandbyte from serial interface, perform command if valid
 {
    static uint8_t readstate=0;

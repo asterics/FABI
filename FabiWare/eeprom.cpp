@@ -13,14 +13,37 @@
 */
 
 #include "fabi.h"
-#include <EEPROM.h>
+#include "eeprom.h"
 
-#define SLOT_VALID 0x22
+#define SLOT_VALID 0x25  // "magic byte" for valid EEPROM content
 
 int nextSlotAddress=0;
 int EmptySlotAddress = 0;
 int EmptyKeystringAddress=EEPROM_SIZE-1;
+uint16_t freeEEPROMbytes = 0;
 
+
+/**
+   @name getfreeEEPROM
+   @param none
+   @return none
+
+   returns free EEPROM memory in percent
+*/
+uint16_t getfreeEEPROM() {
+  return ((uint32_t) freeEEPROMbytes * 100 / EEPROM_SIZE);
+}
+
+
+
+/**
+   @name saveToEEPROM
+   @param char * slotname
+   @return none
+
+   saves the configuration slot (identified by slotname) to the EEPROM
+   cancels if not enough EEPROm memory free
+*/
 void saveToEEPROM(char * slotname)
 {
    char act_slotname[MAX_SLOTNAME_LEN];
@@ -30,28 +53,6 @@ void saveToEEPROM(char * slotname)
    uint8_t * p;
 
    address=EmptySlotAddress;
-
-   /*
-   if (!slotname) address=EmptySlotAddress;
-   else
-   {
-     if (strlen(slotname) >= MAX_SLOTNAME_LEN) slotname[MAX_SLOTNAME_LEN-1]=0;
-         
-     while ((EEPROM.read(address)==SLOT_VALID) && (!found) && ((address+1) < EmptySlotAddress))  // indicates valid eeprom content !
-     {
-       tmpStartAddress=address;
-       address++;
-
-       uint8_t i=0;
-       while ((act_slotname[i++]=EEPROM.read(address++)) != 0) ;      
-
-       // Serial.print("peeking slot "); Serial.print(act_slotname); Serial.print(" @ "); Serial.println(tmpStartAddress);
-       address=tmpStartAddress;
-       if (!strcmp(act_slotname, slotname)) found=1; 
-       else  address+= (sizeof(settingsType)+NUMBER_OF_BUTTONS*sizeof(buttonType)+1);      
-     }
-   }
-   */
    
    #ifdef DEBUG_OUTPUT   
      Serial.print(F("Writing slot ")); if (slotname) Serial.print(slotname);
@@ -62,14 +63,14 @@ void saveToEEPROM(char * slotname)
 
      Serial.print(EmptyKeystringAddress-address);
      Serial.println(F(" bytes are free.")); 
-
-
-     if ( sizeof(settingsType)+NUMBER_OF_BUTTONS*sizeof(buttonType)+1 + keystringMemUsage(0)
-          >= (EmptyKeystringAddress-address))
-     { Serial.print(F(" EEPROM too small, aborting! ")); return; }
-     
    #endif
-   
+  
+   if ( sizeof(settingsType)+NUMBER_OF_BUTTONS*sizeof(buttonType)+1 + keystringMemUsage(0)
+        >= (EmptyKeystringAddress-address)) {
+     Serial.print(F(" EEPROM too small, aborting! ")); 
+     return;
+   }
+ 
    // start with new slot 
    EEPROM.update(address,SLOT_VALID);     
    address++;
@@ -92,14 +93,27 @@ void saveToEEPROM(char * slotname)
      EEPROM.update(address,0);
      EmptySlotAddress=address;
    }
-   
+
+   // write keystrings
+   // Note that the keystrings are stored "top down", starting at the highest EEPROM adress
    for (int i=0;i<keystringMemUsage(0);i++)
         EEPROM.update(EmptyKeystringAddress--,keystringBuffer[i]);
-      
+
+   // update free bytes
    freeEEPROMbytes=EmptyKeystringAddress-address;
 }
 
+/**
+   @name readFromEEPROM
+   @param char * slotname
+   @return none
 
+   loads the configuration slot (identified by slotname) from the EEPROM
+
+   in case reportSlotParameters==REPORT_ONE_SLOT, the slot configuration is printed (if slotname is found)
+   in case reportSlotParameters==REPORT_ALL_SLOTS, all slot configurations are printed
+   
+*/
 void readFromEEPROM(char * slotname)
 {
    char act_slotname[MAX_SLOTNAME_LEN];
@@ -112,6 +126,7 @@ void readFromEEPROM(char * slotname)
    uint8_t stringCount=0;
    uint8_t* p;
 
+   // iterate over all valid slots in EEPROM
    while (EEPROM.read(address)==SLOT_VALID)  // indicates valid eeprom content !
    {
       uint8_t found=0;
@@ -126,7 +141,8 @@ void readFromEEPROM(char * slotname)
       #ifdef DEBUG_OUTPUT   
          Serial.print(F("processing slot ")); Serial.println(act_slotname);
       #endif
-     
+
+      // if slotname matches the slot stored in EEPROM
       if (slotname)  {
         if (!strcmp(act_slotname, slotname)) found=1;  
       }
@@ -136,15 +152,19 @@ void readFromEEPROM(char * slotname)
         #ifdef DEBUG_OUTPUT  
            Serial.print(F("LOADING slot ")); Serial.println(act_slotname);
         #endif
+
+        // load settings structure
         p = (uint8_t*) &settings;
         for (int t=0;t<sizeof(settingsType);t++)
             *p++=EEPROM.read(address++);
         
+        // load button array
         p = (uint8_t*) buttons;
         for (int i=0;i<NUMBER_OF_BUTTONS*sizeof(buttonType);i++) 
            *p++=EEPROM.read(address++);
            
-
+        // load keystrings
+        // Note that the keystrings are stored "top down", starting at the highest EEPROM adress
         p = (uint8_t*) keystringBuffer;
         stringCount=0;
         do {
@@ -168,7 +188,8 @@ void readFromEEPROM(char * slotname)
       }
       numSlots++;
    }
-   
+
+   // update top address (for storing a new slot) and free bytes
    EmptySlotAddress=address;
    if (tmpSlotAddress) nextSlotAddress=tmpSlotAddress;
    if (nextSlotAddress==EmptySlotAddress) nextSlotAddress=0;
@@ -188,6 +209,14 @@ void readFromEEPROM(char * slotname)
 
 }
 
+/**
+   @name deleteSlots
+   @param none
+   @return none
+
+   deletes all slots and keystrings from EEPROM
+   setting the first valid indicators to 0
+*/
 void deleteSlots()
 {
    EmptySlotAddress=0;
@@ -197,6 +226,13 @@ void deleteSlots()
    EEPROM.update(0,0);
 }
 
+/**
+   @name listSlots
+   @param none
+   @return none
+
+   lists all stored slotnames  from EEPROM
+*/
 void listSlots()
 {
    int address=0,tmpStartAddress=0;
