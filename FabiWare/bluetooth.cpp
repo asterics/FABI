@@ -60,9 +60,6 @@ void mouseBT(int x, int y, uint8_t scroll)
   Serial.println(scroll, DEC);
 #endif
 
-  Serial.print("accuX: ");
-  Serial.println(accuX);
-
   accuX += x;
   accuY += y;
 
