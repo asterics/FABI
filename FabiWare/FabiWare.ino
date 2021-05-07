@@ -237,7 +237,7 @@ void loop() {
     {
 
       if (cnt2++ % 4 == 0)
-      {
+
 
         if (moveX != 0) if (moveXcnt < MOUSE_ACCELDELAY) moveXcnt++;
         if (moveY != 0) if (moveYcnt < MOUSE_ACCELDELAY) moveYcnt++;
