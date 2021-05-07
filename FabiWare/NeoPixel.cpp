@@ -14,7 +14,7 @@
 
 #include "NeoPixel.h"
 
-#define PIXELS_PIN 15       // Input Pin for WS2812 ("NeoPixels")
+#define PIXELS_PIN 15       // output Pin for WS2812 ("NeoPixels") data signal
 
 uint8_t neoPix_r = 0;
 uint8_t neoPix_g = 0;
@@ -36,7 +36,17 @@ WS2812 pixels(1);
 cRGB pixColor;
 
 
-/* initialize "NeoPixel" WS2812 on the given PIXELS_PIN, 1 Pixel use! startup sequenc of this LED; use of delay!! --> just use before loop! */
+
+/**
+   @name initNeoPixel
+   @param none
+   @return none
+
+   initialize "NeoPixel" WS2812 on the given PIXELS_PIN, 1 Pixel in use! 
+   creates a startup sequence with this Neopixel LED.
+   Note: uses delay!! --> just use before loop! 
+
+*/
 void initNeoPixel(){
         
     pixels.setOutput(PIXELS_PIN);
@@ -65,8 +75,16 @@ void initNeoPixel(){
     
 }
 
+/**
+   @name initNeoPixel
+   @param none
+   @return none
 
-/*  dimm the NeoPixel up or down according to DimmState (set to 1 in case of slotchange); dimm down the current color and subsequently dimm up the new color; each call = one dimmStep */
+   dimm the NeoPixel up or down according to DimmState (set to 1 in case of slotchange)
+   dimm down the current color and subsequently dimm up the new color
+   each call = one dimmStep
+
+*/
 void UpdateNeoPixel(){
   
   
@@ -113,12 +131,16 @@ void UpdateNeoPixel(){
 
     DimmState++; 
   }
-
-
 }
 
+/**
+   @name updateNeoPixelColor
+   @param uint8_t newSlotNumber
+   @return none
 
-/* update the slotcolor, called in case of slotchange; set DimmState to start dimming */
+   update the slotcolor, called in case of slotchange
+   sets DimmState to "start dimming"
+*/
 void updateNeoPixelColor(uint8_t newSlotNumber){
     DimmState = 0;
 

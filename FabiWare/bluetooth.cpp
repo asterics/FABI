@@ -33,9 +33,9 @@ long btsendTimestamp = millis();
 /**
 
    name: mouseBT
-   @þaram x relative movement x axis
-   @þaram y relative movement y axis
-   @þaram scroll relative scroll actions
+   @param x relative movement x axis
+   @param y relative movement y axis
+   @param scroll relative scroll actions
    @return
 
    this method sends a mouse command via the Bluetooth module.

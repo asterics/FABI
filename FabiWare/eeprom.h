@@ -1,9 +1,10 @@
+
 /* 
      Flexible Assistive Button Interface (FABI) - AsTeRICS Foundation - http://www.asterics-foundation.org
      for controlling HID functions via momentary switches and/or serial AT-commands  
      More Information: https://github.com/asterics/FABI
 
-     Module: NeoPixel.h - WS2812 ("NeoPixel") control
+     Module: eeprom.h - eeprom memory management
         
      This program is free software; you can redistribute it and/or modify
      it under the terms of the GNU General Public License, see:
@@ -12,15 +13,23 @@
 */
 
 
-#ifndef _NEOPIXEL_H_
-#define _NEOPIXEL_H_
+#ifndef _EEPROM_H_
+#define _EEPROM_H_
 
-#include "fabi.h"
-#include <WS2812.h>     //  light_ws2812 library
+#include <EEPROM.h>
 
 
-void initNeoPixel();
-void UpdateNeoPixel();
-void updateNeoPixelColor(uint8_t newSlotNumber);
+#define EEPROM_SIZE        1023     // maximum size of EEPROM storage for Arduino Pro Micro
+
+#define REPORT_NONE  0  
+#define REPORT_ONE_SLOT  1
+#define REPORT_ALL_SLOTS 2
+
+uint16_t getfreeEEPROM();
+void saveToEEPROM(char * slotname);
+void readFromEEPROM(char * slotname);
+void listSlots();
+void deleteSlots();
+void printCurrentSlot();
 
 #endif

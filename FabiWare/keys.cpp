@@ -12,80 +12,17 @@
 */
 
 #include "fabi.h"
+#include "keys.h"
 #include <avr/pgmspace.h>
 
- #define KBD_DE 1
- #define KBD_US 2
- 
- #define KEYBOARD_LAYOUT KBD_DE 
- #define HID_REPORT_KEY_COUNT 6
- 
- #define MOD_ALTGR 256
- #define MOD_SHIFT 512
- 
-#define KEY_UP    KEY_UP_ARROW
-#define KEY_DOWN  KEY_DOWN_ARROW
-#define KEY_LEFT  KEY_LEFT_ARROW
-#define KEY_RIGHT KEY_RIGHT_ARROW
-#define KEY_ENTER KEY_RETURN  
-#define KEY_SPACE ' '
-#define KEY_A 'a'
-#define KEY_B 'b'
-#define KEY_C 'c'
-#define KEY_D 'd'
-#define KEY_E 'e' 
-#define KEY_F 'f'
-#define KEY_G 'g'
-#define KEY_H 'h'
-#define KEY_I 'i'
-#define KEY_J 'j'
-#define KEY_K 'k'
-#define KEY_L 'l'
-#define KEY_M 'm'
-#define KEY_N 'n'
-#define KEY_O 'o'
-#define KEY_P 'p'
-#define KEY_Q 'q'
-#define KEY_R 'r'
-#define KEY_S 's'
-#define KEY_T 't'
-#define KEY_U 'u'
-#define KEY_V 'v'
-#define KEY_W 'w'
-#define KEY_X 'x'
-#define KEY_Y 'y'
-#define KEY_Z 'z'
-#define KEY_0 '0'
-#define KEY_1 '1'
-#define KEY_2 '2'
-#define KEY_3 '3'
-#define KEY_4 '4'
-#define KEY_5 '5'
-#define KEY_6 '6'
-#define KEY_7 '7'
-#define KEY_8 '8'
-#define KEY_9 '9'
 
-#define KEY_F13 0xF0 
-#define KEY_F14 0xF1
-#define KEY_F15 0xF2
-#define KEY_F16 0xF3
-#define KEY_F17 0xF4
-#define KEY_F18 0xF5
-#define KEY_F19 0xF6
-#define KEY_F20 0xF7
-#define KEY_F21 0xF8
-#define KEY_F22 0xF9
-#define KEY_F23 0xFA
-#define KEY_F24 0xFB
 
-struct keymap_struct {
-  char *token;
-  int key;
-};
+int storedKeys[HID_REPORT_KEY_COUNT]={0};  // arrays for keycodes of currently pressed keys
+extern const int usToDE[];                 // translation map for keycodes, see below
 
-int storedKeys[HID_REPORT_KEY_COUNT]={0};
 
+// this keymap associates keycode-strings to the actual key codes
+//
 const keymap_struct keymap[] PROGMEM  = {   
   {"SHIFT", KEY_LEFT_SHIFT},
   {"CTRL", KEY_LEFT_CTRL},
@@ -173,6 +110,13 @@ const keymap_struct keymap[] PROGMEM  = {
 
 #define KEYMAP_ELEMENTS (sizeof keymap / sizeof keymap[0])
 
+/**
+   @name getKeycode
+   @param char* acttoken
+   @return int
+
+   returns a keycode for a given keycode-string (acttoken)
+*/
 int getKeycode(char* acttoken)
 {
     keymap_struct keyRAM;    
@@ -192,6 +136,17 @@ int getKeycode(char* acttoken)
     return(0);
 }
 
+/**
+   @name getNextKeyName
+   @param char* keyNames
+   @param char* singleKeyName
+   @return uint16_t
+
+   stores the first keycode-string into "singleKeyName" and returns its lenght
+   Note: this function is called multiple times in order to 
+   tokenizes a string which contains multiple keycode-stings (eg. "KEY_A KEY_B")
+ 
+*/
 uint16_t getNextKeyName(char* keyNames, char* singleKeyName)
 {
   int i=0,j=0;
@@ -203,6 +158,14 @@ uint16_t getNextKeyName(char* keyNames, char* singleKeyName)
   return(i);
 }
 
+/**
+   @name storeKey
+   @param int k
+   @return none
+
+   adds a keycode to an array, in order to keep track of currently pressed keys
+ 
+*/
 void storeKey(int k) {
   for (int i=0;i<HID_REPORT_KEY_COUNT;i++) {
     if (storedKeys[i]==k) return;  // already stored
@@ -210,12 +173,27 @@ void storeKey(int k) {
   }
 }
 
+/**
+   @name removeKey
+   @param int k
+   @return none
+
+   removes a keycode to an array, in order to keep track of currently pressed keys
+ 
+*/
 void removeKey(int k) {
   for (int i=0;i<HID_REPORT_KEY_COUNT;i++) {
     if (storedKeys[i]==k) {storedKeys[i]=0; return;} // remove key    
   }
 }
 
+/**
+   @name keyStored
+   @param int k
+   @return int
+
+   returns if a given key (keycode) is pressed (0: no / 1:yes)
+*/
 int keyStored(int k) {
   for (int i=0;i<HID_REPORT_KEY_COUNT;i++) {
     if (storedKeys[i]==k) return (1);  // found
@@ -223,8 +201,15 @@ int keyStored(int k) {
   return(0);
 }
 
-// press sequence of supported single keys 
-// text is a string which contains the key identifiers eg. "KEY_CTRL KEY_C" for Ctrl-C
+
+/**
+   @name pressSingleKeys
+   @param char* keyNames
+   @return none
+
+   press sequence of supported single keys 
+   keyNames is a string which contains the key identifiers eg. "KEY_CTRL KEY_C" for Ctrl-C
+*/
 void pressSingleKeys(char* keyNames)
 {
   int len;
@@ -241,8 +226,14 @@ void pressSingleKeys(char* keyNames)
   }
 }
 
-// release sequence of supported single keys 
-// text is a string which contains the key identifiers eg. "KEY_CTRL KEY_C" for Ctrl-C
+/**
+   @name releaseSingleKeys
+   @param char* keyNames
+   @return none
+
+   release sequence of supported single keys 
+   keyNames is a string which contains the key identifiers eg. "KEY_CTRL KEY_C" for Ctrl-C
+*/
 void releaseSingleKeys (char * keyNames)
 {
   int len;
@@ -258,8 +249,15 @@ void releaseSingleKeys (char * keyNames)
   }
 }
 
-// toggle sequence of supported single keys 
-// text is a string which contains the key identifiers eg. "KEY_CTRL KEY_C" for Ctrl-C
+
+/**
+   @name toggleSingleKeys
+   @param char* keyNames
+   @return none
+
+   toggle sequence of supported single keys 
+   keyNames is a string which contains the key identifiers eg. "KEY_CTRL KEY_C" for Ctrl-C
+*/
 void toggleSingleKeys(char* keyNames)
 {
   int len;
@@ -278,7 +276,14 @@ void toggleSingleKeys(char* keyNames)
 
 
 
-// write a sequence of characters, translated to locale using modifier keys
+/**
+   @name writeTranslatedKeys
+   @param char * str
+   @param int len
+   @return none
+   
+   write a sequence of characters, translated to locale using modifier keys
+*/
 void writeTranslatedKeys(char * str, int len)
 {
    int k;
@@ -300,7 +305,14 @@ void writeTranslatedKeys(char * str, int len)
    }
 }
 
-// write a string to the keyboard, replacing special keys (identified by "KEY_NAME") with their keycodes
+
+/**
+   @name sendToKeyboard
+   @param char * writeKeystring
+   @return none
+   
+   write a string to the keyboard, replacing special keys (identified by "KEY_NAME") with their keycodes
+*/ 
 void sendToKeyboard(char * writeKeystring)
 {
     char singleKeyName[20];
@@ -326,9 +338,28 @@ void sendToKeyboard(char * writeKeystring)
 }
 
 
+/**
+   @name release_all
+   @param none
+   @return none
+   
+   releases all previously pressed keys and mouse buttons
+   stop mouse movement
+*/
+void release_all() 
+{
+  // Serial.println("release all!");
+  keyboardReleaseAll();  //Keyboard.releaseAll();
+  leftMouseButton = 0;
+  rightMouseButton = 0;
+  middleMouseButton = 0;
+  moveX = 0;
+  moveY = 0;
+}
+
+
 
 // here comes a character translation table - this works only for DE by now ...
-
 const int usToDE[] PROGMEM = 
 {
 //  0,  0,  0,  0,  0,  0,  0,  0, BS, TB, CR,  0,  0,  0,  0,  0,

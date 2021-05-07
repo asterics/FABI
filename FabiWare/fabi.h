@@ -23,6 +23,11 @@
 #include "bluetooth.h"
 #include "hid_hal.h"
 #include "NeoPixel.h"
+#include "buzzer.h"
+
+//#include <Wire.h>
+//#include <SPI.h>
+
 
 #define VERSION_STRING "FABI v2.5"
 
@@ -30,27 +35,14 @@
 
 #include <Mouse.h>
 #include <Keyboard.h>
-#define EEPROM_SIZE        1023     // maximum size of EEPROM storage for Arduino (Pro) Micro
 
 #define NUMBER_OF_BUTTONS  11         // number of connected or virtual switches, note: if more than 16, change buttonState type to uint32_t!
 #define NUMBER_OF_PHYSICAL_BUTTONS 9  // number of connected switches
 #define NUMBER_OF_LEDS     3          // number of connected leds
 
-
-#define MOUSE_ACCELDELAY   50         // steps to reach mouse move speed
-
 #define MAX_SLOTNAME_LEN      10      // maximum lenght for a slotname
 #define KEYSTRING_BUFFER_LEN 400      // maximum lenght for all string parameters of a slot 
 #define MAX_CMDLEN           120      // maximum lenght of a single AT command
-
-#define PARTYPE_NONE   0
-#define PARTYPE_UINT   1
-#define PARTYPE_INT    2
-#define PARTYPE_STRING 3
-
-#define REPORT_NONE  0  
-#define REPORT_ONE_SLOT  1
-#define REPORT_ALL_SLOTS 2
 
 #define DEFAULT_WAIT_TIME            5   // wait time for one loop interation in milliseconds
 #define DEFAULT_CLICK_TIME           8   // time for mouse click (loop iterations from press to release)
@@ -66,12 +58,6 @@
 #define DEFAULT_DOUBLEPRESS_TIME     0   // treshold time for double press (0: disable double press)
 #define DEFAULT_AUTODWELL_TIME       0   // treshold time for automatic dwelling after mouse movement (0: disable autodwell)
 
-#define BUTTON_PRESSED  1
-#define BUTTON_RELEASED 0
-#define BUTTONSTATE_NOT_PRESSED   0
-#define BUTTONSTATE_SHORT_PRESSED 1
-#define BUTTONSTATE_LONG_PRESSED  2
-#define BUTTONSTATE_IDLE          3
 
 struct settingsType {
   char slotname[MAX_SLOTNAME_LEN];     // EEPROM slotname maximum length
@@ -105,10 +91,7 @@ struct buttonDebouncerType {       // holds working data for button debouncing a
   uint8_t  pressState;
 } ; 
 
-
 extern uint8_t PCBversion;
-
-
 extern uint8_t actSlot;
 extern uint8_t reportSlotParameters;
 extern uint8_t reportRawValues;
@@ -119,8 +102,7 @@ extern struct buttonDebouncerType buttonDebouncers[NUMBER_OF_BUTTONS];
 extern const struct atCommandType atCommands[];
 extern char cmdstring[MAX_CMDLEN];                 // buffer for incoming AT commands
 extern char keystringBuffer[KEYSTRING_BUFFER_LEN]; // buffer for all string parameters for the buttons of a slot
-extern uint16_t freeEEPROMbytes;
-extern const int usToDE[];
+
 
 extern uint8_t leftMouseButton;
 extern uint8_t middleMouseButton;
@@ -139,34 +121,11 @@ void setKeystring (uint8_t button, char * text);
 void printKeystrings ();
 uint16_t  keystringMemUsage(uint8_t button);
 void parseCommand (char * cmdstr);
-void performCommand (uint8_t cmd, int16_t par1, char * keystring, int8_t periodicMouseMovement);
-void saveToEEPROM(char * slotname);
-void readFromEEPROM(char * slotname);
-void deleteSlots();
-void listSlots();
-void printCurrentSlot();
-
-
-void BlinkLed();
-int freeRam ();
 void parseByte (int newByte);
-
-void setBeepCount(uint16_t count);
-void beepXtimes(uint8_t numberOFbeeps);
-void write2Display(const char* text, uint8_t newLine);
-void writeSlot2Display();
-void updateSlot(uint8_t newSlotNumber);
-
-int getKeycode(char*);
-void sendToKeyboard( char * );
-void pressSingleKeys(char* text); // presses individual keys
-void releaseSingleKeys(char* text);  // releases individual keys
-void toggleSingleKeys(char* text); // toggles individual keys
-void release_all();            // releases all previously pressed keys and buttons
 
 #define strcpy_FM   strcpy_PF
 #define strcmp_FM   strcmp_PF
 typedef uint_farptr_t uint_farptr_t_FM;
 
 
-  #endif
+#endif

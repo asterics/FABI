@@ -109,9 +109,7 @@
 #ifndef _COMMANDS_H_
 #define _COMMANDS_H_
 
-
 // command identifiers
-
 enum atCommands {
   CMD_ID, CMD_BM, CMD_CL, CMD_CR, CMD_CM, CMD_CD, CMD_HL, CMD_HR, CMD_HM, CMD_RL, CMD_RR, CMD_RM,
   CMD_TL, CMD_TR, CMD_TM, CMD_WU, CMD_WD, CMD_WS, CMD_MX, CMD_MY, CMD_KW, CMD_KP, CMD_KH, CMD_KT, 
@@ -119,5 +117,13 @@ enum atCommands {
   CMD_TP, CMD_MA, CMD_WA, CMD_TT, CMD_AP, CMD_AR, CMD_AI, CMD_FR, CMD_BT, CMD_BC, CMD_DP, CMD_AD, CMD_SC, 
   NUM_COMMANDS
 };
+
+#define PARTYPE_NONE   0
+#define PARTYPE_UINT   1
+#define PARTYPE_INT    2
+#define PARTYPE_STRING 3
+
+void performCommand (uint8_t cmd, int16_t par1, char * keystring, int8_t periodicMouseMovement);
+
 
 #endif

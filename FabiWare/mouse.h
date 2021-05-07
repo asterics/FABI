@@ -1,9 +1,10 @@
+
 /* 
      Flexible Assistive Button Interface (FABI) - AsTeRICS Foundation - http://www.asterics-foundation.org
      for controlling HID functions via momentary switches and/or serial AT-commands  
      More Information: https://github.com/asterics/FABI
 
-     Module: NeoPixel.h - WS2812 ("NeoPixel") control
+     Module: mouse.h - mouse movement and click handling
         
      This program is free software; you can redistribute it and/or modify
      it under the terms of the GNU General Public License, see:
@@ -11,16 +12,12 @@
 
 */
 
+#ifndef _MOUSE_H_
+#define _MOUSE_H_
 
-#ifndef _NEOPIXEL_H_
-#define _NEOPIXEL_H_
+#define MOUSE_MOVEMENT_PRESCALER 4
+#define MOUSE_ACCELDELAY   50         // steps to reach mouse move speed
 
-#include "fabi.h"
-#include <WS2812.h>     //  light_ws2812 library
-
-
-void initNeoPixel();
-void UpdateNeoPixel();
-void updateNeoPixelColor(uint8_t newSlotNumber);
+void updateMouse();
 
 #endif

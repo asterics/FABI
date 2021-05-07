@@ -1,9 +1,10 @@
+
 /* 
      Flexible Assistive Button Interface (FABI) - AsTeRICS Foundation - http://www.asterics-foundation.org
      for controlling HID functions via momentary switches and/or serial AT-commands  
      More Information: https://github.com/asterics/FABI
 
-     Module: NeoPixel.h - WS2812 ("NeoPixel") control
+     Module: Buzzer.h - tone generation / buzzer control
         
      This program is free software; you can redistribute it and/or modify
      it under the terms of the GNU General Public License, see:
@@ -12,15 +13,14 @@
 */
 
 
-#ifndef _NEOPIXEL_H_
-#define _NEOPIXEL_H_
+#ifndef _BUZZER_H_
+#define _BUZZER_H_
 
-#include "fabi.h"
-#include <WS2812.h>     //  light_ws2812 library
+#define BEEP_duration 25    // actual duration of beep = BEEP_duration * loop duration; e.g. 100 * 5ms = 500ms
+#define BUZZER_PIN 4
 
-
-void initNeoPixel();
-void UpdateNeoPixel();
-void updateNeoPixelColor(uint8_t newSlotNumber);
+void initBuzzer();
+void setBeepCount(uint16_t count);
+void UpdateBuzzer();
 
 #endif
