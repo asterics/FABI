@@ -109,9 +109,9 @@ void initDebouncers();
 ////////////////////////////////////////
 
 void setup() {
-  delay(1000);
+  //delay(1000);
   Serial.begin(9600);
-  delay(1000);
+  //delay(1000);
   //while (! Serial);
 
 #ifdef DEBUG_OUTPUT
@@ -135,10 +135,12 @@ void setup() {
     pinMode(LED_BUILTIN_RX, INPUT);
     pinMode(LED_BUILTIN_TX, INPUT);
 
+
     PCBversion = 1;
+    buzzerPIN = 4;                      //set buzzer Pin, define output and sound check buzzer:
     memcpy(input_map, input_map_PCB, NUMBER_OF_PHYSICAL_BUTTONS + 1);
 
-    buzzerPIN = 4;                      //set buzzer Pin, define output and sound check buzzer:
+    Serial1.begin(9600);      // start HW-Pin-Serial (used for communication with Addon)
 
     initDisplay();
     delay(100);
@@ -152,8 +154,6 @@ void setup() {
 
     
 
-
-    Serial1.begin(9600);      // start HW-Pin-Serial (used for communication with Addon)
     //while(!Serial1);
 
   }
@@ -235,12 +235,22 @@ void loop() {
     if (moveY == 0) moveYcnt = 0;
     if ((moveX != 0) || (moveY != 0)) // movement induced by button actions
     {
+
       if (cnt2++ % 4 == 0)
-      {
+      {/*
+        Serial.print("x: ");
+        Serial.print(moveX);
+        Serial.print("  ");
+        Serial.print(moveXcnt);
+
+        Serial.print("  ");*/
+
         if (moveX != 0) if (moveXcnt < MOUSE_ACCELDELAY) moveXcnt++;
         if (moveY != 0) if (moveYcnt < MOUSE_ACCELDELAY) moveYcnt++;
 
+        //Serial.println(moveX * moveXcnt / MOUSE_ACCELDELAY);
         mouseMove(moveX * moveXcnt / MOUSE_ACCELDELAY, moveY * moveYcnt / MOUSE_ACCELDELAY);
+        //Serial.print(moveY * moveYcnt / MOUSE_ACCELDELAY);
       }
     }
 

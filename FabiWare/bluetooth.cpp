@@ -62,7 +62,7 @@ void mouseBT(int x, int y, uint8_t scroll)
 
   Serial.print("accuX: ");
   Serial.println(accuX);
-  
+
   accuX += x;
   accuY += y;
 
@@ -96,7 +96,7 @@ void mouseBT(int x, int y, uint8_t scroll)
     Serial_AUX.write((uint8_t)y);
 
     //maybe the wheel? Not official by Adafruit... -> not working
-    Serial_AUX.write((uint8_t)0x00);
+    Serial_AUX.write((uint8_t)scroll);
     //some additional bytes...
     Serial_AUX.write((uint8_t)0x00);
     Serial_AUX.write((uint8_t)0x00);
