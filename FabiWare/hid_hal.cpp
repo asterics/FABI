@@ -57,6 +57,7 @@ void mouseScroll(int8_t steps)
 
 void mouseMove(int x, int y)
 {
+
   mouseMoveTimestamp=millis();
   while (x < -128) {
     if (settings.bt & 1)

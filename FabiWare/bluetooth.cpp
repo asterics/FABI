@@ -14,7 +14,7 @@
 
 #include "bluetooth.h"
 
-#define BT_MINIMUM_SENDINTERVAL 20     // reduce mouse reports in BT mode (in milliseconds) !
+#define BT_MINIMUM_SENDINTERVAL 60     // reduce mouse reports in BT mode (in milliseconds) !
 
 typedef enum {NONE, EZKEY, MINIBT01, MINIBT02} addontype_t;
 
@@ -63,10 +63,13 @@ void mouseBT(int x, int y, uint8_t scroll)
   accuX += x;
   accuY += y;
 
+
   if ((activeMouseButtons != oldMouseButtons) ||
       (btsendTimestamp + BT_MINIMUM_SENDINTERVAL <= millis()))
   {
     btsendTimestamp = millis();
+
+  
 
     ///@todo refactor this code here, send more efficient mouse report data.
     //starting RAW HID mouse report
@@ -86,11 +89,11 @@ void mouseBT(int x, int y, uint8_t scroll)
     Serial_AUX.write(activeMouseButtons);
 
     //send x/y relative movement
-    Serial_AUX.write((uint8_t)accuX);
-    Serial_AUX.write((uint8_t)accuY);
+    Serial_AUX.write((uint8_t)x);
+    Serial_AUX.write((uint8_t)y);
 
     //maybe the wheel? Not official by Adafruit... -> not working
-    Serial_AUX.write((uint8_t)0x00);
+    Serial_AUX.write((uint8_t)scroll);
     //some additional bytes...
     Serial_AUX.write((uint8_t)0x00);
     Serial_AUX.write((uint8_t)0x00);
