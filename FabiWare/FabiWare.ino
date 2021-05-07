@@ -340,6 +340,8 @@ void handlePress (int buttonIndex)   // a button was pressed
     if ((millis() - doublePressTimestamp) < settings.dp) {
       // Serial.println("skip to next Slot!");
       performCommand(CMD_NE, 0, 0, 0); // activate next slot if yes!
+      while (digitalRead(input_map[buttonIndex]) ==LOW) ;  // wait until released
+      return;
     }
   }
   buttonStates |= (1 << buttonIndex); //save for reporting
@@ -424,8 +426,8 @@ void handleButton(int i, int l, uint8_t actState)
     if ((buttonDebouncers[i].pressCount == settings.tt >> 2) && (settings.tt != 0) && (l >= 0) && (l < NUMBER_OF_BUTTONS)) {
       handleRelease(i);
       handlePress(l);
-      initDebouncers();
-
+      buttonDebouncers[i].pressCount = settings.tt >> 2;
+      // initDebouncers();
       buttonDebouncers[i].pressState = BUTTONSTATE_LONG_PRESSED;
     }
   }
