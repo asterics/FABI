@@ -1,9 +1,9 @@
 # Welcome to FABI
 
-The FABI (Flexible Assistive Button Interface) allows control of a computer’s mouse cursor and
-typing desired keyboard keys by using buttons and special/individual input methods. It can be
-helpful for people who cannot use standard computer input devices – enabling them to play
-games, surf the internet, write emails and much more.
+The FABI (Flexible Assistive Button Interface) allows control of a computer’s mouse cursor or
+keyboard by just using momentary switches. This can be helpful for people who want to create 
+user interactions with the press of a button - and it allows people who can't use standard computer input devices
+to play games, surf the internet, communicate and much more.
 
 ![A FABI box with attached 3d-printed switch](https://github.com/asterics/FABI/blob/master/img/FABI4.png "FABI box with attached switch")
 
@@ -46,8 +46,8 @@ We are currently working on a **cross-platform GUI which runs in the browser** a
 ## Configuration and User manual
 
 The FABI system does not ony offer a single mapping of button to function - it allow to store multiple configuration settings and change between them "on-the-fly".
-You can find information how to configure the individual button functions and system options in the user manual:\
-* [English version of user manual](https://github.com/asterics/FABI/blob/master/Documentation/UserManual/FABI_GUI/en/FABI_AnwendungsAnleitung.pdf) 
+You can find information how to configure the individual button functions and system options in the user manual:
+* [English version of user manual](https://github.com/asterics/FABI/blob/master/Documentation/UserManual/FABI_GUI/en/FABI_UserManual.pdf) 
 * [German version of user manual](https://github.com/asterics/FABI/blob/master/Documentation/UserManual/FABI_GUI/de/FABI_AnwendungsAnleitung.pdf)
 
 
