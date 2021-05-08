@@ -12,7 +12,7 @@
 */
 
 #include "fabi.h"
-#include "mouse_c.h"
+#include "mouseControl.h"
 
 
 int clickTime = DEFAULT_CLICK_TIME;

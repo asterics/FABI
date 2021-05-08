@@ -14,7 +14,7 @@
 */
 
 #include "fabi.h"
-#include "eeprom_c.h"
+#include "eepromStorage.h"
 #include "keys.h"
 #include "commands.h"
 #include "display.h"

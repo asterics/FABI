@@ -19,10 +19,10 @@
 
 
 #include "fabi.h"
-#include "eeprom_c.h"
+#include "eepromStorage.h"
+#include "mouseControl.h"
 #include "keys.h"
 #include "buttons.h"
-#include "mouse_c.h"
 #include "display.h"
 #include "NeoPixel.h"
 
