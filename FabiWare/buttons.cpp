@@ -40,7 +40,7 @@ void initButtons() {
 
   // update pin mapping for PCB version 
   if (PCBversion)
-    memcpy(input_map, input_map_PCB, NUMBER_OF_PHYSICAL_BUTTONS + 1);
+    memcpy(input_map, input_map_PCB, NUMBER_OF_PHYSICAL_BUTTONS - 1);
 
   for (int i = 0; i < NUMBER_OF_PHYSICAL_BUTTONS; i++) // initialize physical buttons and bouncers
     pinMode (input_map[i], INPUT_PULLUP);   // configure the pins for input mode with pullup resistors
