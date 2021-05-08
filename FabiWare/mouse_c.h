@@ -12,8 +12,8 @@
 
 */
 
-#ifndef _MOUSE_H_
-#define _MOUSE_H_
+#ifndef _MOUSE_C_H_
+#define _MOUSE_C_H_
 
 #define MOUSE_MOVEMENT_PRESCALER 4
 #define MOUSE_ACCELDELAY   50         // steps to reach mouse move speed

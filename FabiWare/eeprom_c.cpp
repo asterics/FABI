@@ -13,7 +13,7 @@
 */
 
 #include "fabi.h"
-#include "eeprom.h"
+#include "eeprom_c.h"
 
 #define SLOT_VALID 0x25  // "magic byte" for valid EEPROM content
 

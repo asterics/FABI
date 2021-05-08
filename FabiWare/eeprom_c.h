@@ -13,8 +13,8 @@
 */
 
 
-#ifndef _EEPROM_H_
-#define _EEPROM_H_
+#ifndef _EEPROM_C_H_
+#define _EEPROM_C_H_
 
 #include <EEPROM.h>
 
