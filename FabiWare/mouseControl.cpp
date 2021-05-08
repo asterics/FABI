@@ -40,9 +40,7 @@ uint8_t movementCounter = 0;
 
 */
 void updateMouse() {
-  
-    Serial.println("mouse");
-    
+      
     if (settings.ad && mouseMoveTimestamp) {
       if (millis() - mouseMoveTimestamp >= settings.ad) {
         #ifdef DEBUG_OUTPUT
