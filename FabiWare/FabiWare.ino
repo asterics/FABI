@@ -61,7 +61,9 @@ int freeRam();
    Initialisation of HW and peripherals.
 */
 void setup() {
+  delay(1000);
   Serial.begin(9600);
+  delay(1000);
   Mouse.begin();
   Keyboard.begin();
   initDebouncers();
