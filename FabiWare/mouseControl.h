@@ -4,7 +4,7 @@
      for controlling HID functions via momentary switches and/or serial AT-commands  
      More Information: https://github.com/asterics/FABI
 
-     Module: eeprom.h - eeprom memory management
+     Module: mouse.h - mouse movement and click handling
         
      This program is free software; you can redistribute it and/or modify
      it under the terms of the GNU General Public License, see:
@@ -12,24 +12,12 @@
 
 */
 
+#ifndef _MOUSECONTROL_H_
+#define _MOUSECONTROL_H_
 
-#ifndef _EEPROM_H_
-#define _EEPROM_H_
+#define MOUSE_MOVEMENT_PRESCALER 4
+#define MOUSE_ACCELDELAY   50         // steps to reach mouse move speed
 
-#include <EEPROM.h>
-
-
-#define EEPROM_SIZE        1023     // maximum size of EEPROM storage for Arduino Pro Micro
-
-#define REPORT_NONE  0  
-#define REPORT_ONE_SLOT  1
-#define REPORT_ALL_SLOTS 2
-
-uint16_t getfreeEEPROM();
-void saveToEEPROM(char * slotname);
-void readFromEEPROM(char * slotname);
-void listSlots();
-void deleteSlots();
-void printCurrentSlot();
+void updateMouse();
 
 #endif

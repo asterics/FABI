@@ -17,13 +17,18 @@
 
 */
 
+
 #include "fabi.h"
-#include "eeprom.h"
+#include "eepromStorage.h"
+#include "mouseControl.h"
 #include "keys.h"
 #include "buttons.h"
-#include "mouse.h"
 #include "display.h"
 #include "NeoPixel.h"
+
+#include <Wire.h>
+#include <SPI.h>
+
 
 
 #define PCB_checkPin 14     // Input Pin to be checked: Grounded == FABI PCB Version (with LCD / Buzzer / Neopixel)

@@ -12,7 +12,7 @@
 */
 
 #include "fabi.h"
-#include "mouse.h"
+#include "mouseControl.h"
 
 
 int clickTime = DEFAULT_CLICK_TIME;
@@ -40,6 +40,8 @@ uint8_t movementCounter = 0;
 
 */
 void updateMouse() {
+  
+    Serial.println("mouse");
     
     if (settings.ad && mouseMoveTimestamp) {
       if (millis() - mouseMoveTimestamp >= settings.ad) {
