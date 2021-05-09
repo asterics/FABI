@@ -82,7 +82,7 @@ namespace FabiGUI
                         receivedString = serialPort1.ReadLine();
 //                        byte[] my_bytes = System.Text.Encoding.Default.GetBytes(command);
 
-                        if (!receivedString.Contains("VALUES"))
+                         if (!receivedString.Contains("VALUES"))
                            Console.Write("received:" + receivedString);
 
                            BeginInvoke(this.stringReceivedDelegate, new Object[] { receivedString });
@@ -184,6 +184,7 @@ namespace FabiGUI
             newATCommand = newATCommand.Replace("\r", ""); 
             newATCommand = newATCommand.Replace("\n", "");
             Console.WriteLine("adding:" + newATCommand);
+            if (actSlot < 0) return;
             slots[actSlot].settingStrings.Add(newATCommand);
             if (newATCommand.StartsWith("AT SC"))
             {
