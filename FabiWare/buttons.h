@@ -16,6 +16,10 @@
 #ifndef _BUTTONS_H_
 #define _BUTTONS_H_
 
+#define NUMBER_OF_PHYSICAL_BUTTONS_NOPCB 9  // number of connectable switches for no-PCB version
+#define NUMBER_OF_PHYSICAL_BUTTONS_PCB   8  // number of connectable switches for PCB version
+#define NUMBER_OF_LEDS     3                // number of connectable leds (no-PCB verion)
+
 #define SIP_BUTTON    9
 #define PUFF_BUTTON  10
 #define PRESSURE_SENSOR_PIN A0

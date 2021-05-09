@@ -16,13 +16,14 @@
 #include "keys.h"
 #include "buttons.h"
 
-int8_t  input_map[NUMBER_OF_PHYSICAL_BUTTONS] = {2, 3, 4, 5, 6, 7, 8, 9, 10};
-int8_t  input_map_PCB[NUMBER_OF_PHYSICAL_BUTTONS] = {10, 16, 19, 5, 6, 7, 8, 9};
+int8_t  input_map[NUMBER_OF_PHYSICAL_BUTTONS_NOPCB] = {2, 3, 4, 5, 6, 7, 8, 9, 10};
+int8_t  input_map_PCB[NUMBER_OF_PHYSICAL_BUTTONS_PCB] = {10, 16, 19, 5, 6, 7, 8, 9};
 
 struct buttonType buttons [NUMBER_OF_BUTTONS];                     // array for all buttons - type definition see fabi.h
 struct buttonDebouncerType buttonDebouncers [NUMBER_OF_BUTTONS];   // array for all buttonsDebouncers - type definition see fabi.h
 char   keystringBuffer[KEYSTRING_BUFFER_LEN]; // buffer for all string parameters for the buttons of a slot
 
+uint8_t NUMBER_OF_PHYSICAL_BUTTONS;
 uint16_t buttonStates = 0;
 uint16_t pressure = 0;
 uint8_t reportRawValues = 0;
@@ -37,10 +38,13 @@ uint8_t valueReportCount = 0;
    initialise button pins and default modes
 */
 void initButtons() {
-
+  
   // update pin mapping for PCB version 
-  if (PCBversion)
-    memcpy(input_map, input_map_PCB, NUMBER_OF_PHYSICAL_BUTTONS - 1);
+  if (PCBversion)  {
+    NUMBER_OF_PHYSICAL_BUTTONS = NUMBER_OF_PHYSICAL_BUTTONS_PCB;
+    memcpy(input_map, input_map_PCB, NUMBER_OF_PHYSICAL_BUTTONS);
+  }
+  else NUMBER_OF_PHYSICAL_BUTTONS = NUMBER_OF_PHYSICAL_BUTTONS_NOPCB;
 
   for (int i = 0; i < NUMBER_OF_PHYSICAL_BUTTONS; i++) // initialize physical buttons and bouncers
     pinMode (input_map[i], INPUT_PULLUP);   // configure the pins for input mode with pullup resistors

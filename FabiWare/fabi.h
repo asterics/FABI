@@ -36,9 +36,7 @@
 #include <Mouse.h>
 #include <Keyboard.h>
 
-#define NUMBER_OF_BUTTONS  11         // number of connected or virtual switches, note: if more than 16, change buttonState type to uint32_t!
-#define NUMBER_OF_PHYSICAL_BUTTONS 9  // number of connected switches
-#define NUMBER_OF_LEDS     3          // number of connected leds
+#define NUMBER_OF_BUTTONS  11         // number of pyhsical plus virtual switches, note: if more than 16, change buttonState type to uint32_t!
 
 #define MAX_SLOTNAME_LEN      10      // maximum lenght for a slotname
 #define KEYSTRING_BUFFER_LEN 400      // maximum lenght for all string parameters of a slot 
