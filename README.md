@@ -17,19 +17,28 @@ as a computer mouse and/or keyboard) and a graphical software application for co
 the desired functions. The FABI system can be attached to computers, tablets or smart phones via USB.
 Additionally, a bluetooth-module is available for devices that do not have a USB port (some Android or iOS phones).
 
+## Folder structure of this repository
+Essential information can be found in the following folders
+* _Case Designs:_ different 3d-printable / lasercut designs for enclosures
+* _Documentation:_ all user and construction manuals
+* _FabiGUI_C#:_ the graphical user interface (for Windows) is located
+* _FabiWare:_ the microcontroller firmware
+* _hardware:_ the KiCad design files and models for schematics and PCB layout
+* _Settings:_ demo configurations which can be loaded into the FABI device via the GUI
+
 
 ## Building the hardware
 
 There are various options for building FABI-compatible switch interfaces: you can order parts and build our construction kit, or make a completely self-driven version.
 The most affordable version consists of just a microcontroller and attached momentary switches (material cost: a few bucks ...). The construction kit offers a PCB, LC-Display, 
-Neopixel color led for indication of active configruation and optional modules (pressure sensor for sip/puff use, Bluetooth module for wireless access to phones/tablets etc.)
+Neopixel color led for indication of active configuration and optional modules (pressure sensor for sip/puff use, Bluetooth module for wireless access to phones/tablets etc.)
 Following documentation is available for these different approaches:
 * **Construction kit / PCB Version**: for building the FABI PCB Version from the construction kit.\
 See [Construction kit building guide](https://github.com/asterics/FABI/blob/master/Documentation/ConstructionManual/PCB-Version/FABIManual.pdf)
-* **DIY Building Guide - "intermediate"**: guide for creating a FABI device with a bare microcontroller and the provided 3d-printed enclosures
+* **DIY Building Guide - "intermediate"**: guide for creating a FABI device with a bare microcontroller and the provided 3d-printed enclosures.\
 See [English version of construction manual](https://github.com/asterics/FABI/blob/master/Documentation/ConstructionManual/3D-printedBox/en/FABI_ConstructionManual.pdf) 
 or [German version of construction manual](https://github.com/asterics/FABI/blob/master/Documentation/ConstructionManual/3D-printedBox/de/FABI_Bauanleitung.pdf)
-* **DIY Building Guide - "all-selfmade"**: guide for creating a FABI device with a bare microcontroller and without the provided 3d-printed enclosures
+* **DIY Building Guide - "all-selfmade"**: guide for creating a FABI device with a bare microcontroller and without the provided 3d-printed enclosures.\
 See [DIY Building Guide](https://github.com/asterics/FABI/blob/master/Documentation/ConstructionManual/SelfmadeBox/FABI_Construction_SelfmadeBox.pdf)
 
 ## Installing the Software
@@ -56,18 +65,9 @@ You can find information how to configure the individual button functions and sy
 ## Bluetooth AddOn
 
 FABI supports the connection of an optional [Bluetooth Module](https://github.com/asterics/esp32_mouse_keyboard). The easiest way to use this module is to build the construction kit, 
-because the PCB offers a dedicated 10-pin connector which fits the module. Pairing process and firmware update for this modules will be described in the user manual soon!
+because the PCB offers a dedicated 10-pin connector which fits the module. Pairing process and firmware update for the BT-module will be described in the user manual soon!
 
 ![FABI PCB version, equipped with Bluetooth Module](https://github.com/asterics/FABI/blob/master/img/pcb_open.JPG "FABI PCB version with equipped bluetooth module")
-
-## Folder structure
-Essential information can be found in the following folders
-* _Case Designs_ different 3d-printable / lasercut designs for enclosures
-* _Documentation_ all user and construction manuals
-* _FabiGUI_C#_ the graphical user interface (for Windows) is located
-* _FabiWare_ the microcontroller firmware
-* _Settings_ demo configurations which can be loaded into the FABI device via the GUI
-* _hardware_ the KiCad design files and models for schematics and PCB layout
 
 
 ## Example setups and applications
