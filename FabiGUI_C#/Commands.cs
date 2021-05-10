@@ -128,7 +128,7 @@ namespace FabiGUI
         const int GUITYPE_COMBO_ONLY = 7;
         const int GUITYPE_COMBO_INDEX = 8;
 
-        const string PREFIX_FABI_VERSION = "FABI ";
+        const string PREFIX_FABI_VERSION = "FABI V";
         const string PREFIX_REPORT_VALUES = "VALUES:";
         const string PREFIX_SLOT_NAME = "SLOT:";
         const string PREFIX_AT_COMMAND = "AT ";
