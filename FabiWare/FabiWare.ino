@@ -46,6 +46,8 @@ uint8_t PCBversion = 0;        // 1 == PCB version
 uint32_t updateTimestamp = 0;
 uint8_t actSlot = 0;           // the index of the currently active configuration slot
                                // note: this is changes in eeprom.cpp when a new slot is loaded
+uint8_t addonUpgrade = 0;      //is != 0, if we are upgrading the addon module.
+uint8_t readstate_f=0;         //needed to track the return value status during addon upgrade mode
 int waitTime = DEFAULT_WAIT_TIME;
 
 void UpdateLeds();
@@ -70,6 +72,7 @@ void setup() {
   
   //check if PCB or old (floating wire) FABI is used (checkPin to ground = PCB):
   pinMode(PCB_checkPin, INPUT_PULLUP);
+  pinMode(0,INPUT_PULLUP);
 
   if (!digitalRead(PCB_checkPin)) {            //PCB Version detected
     PCBversion = 1;
@@ -126,6 +129,57 @@ void setup() {
    main program loop, processes serial commands and button actions. 
 */
 void loop() {
+  //check if we should go into addon upgrade mode
+	if(addonUpgrade != 0)
+	{
+		//update start
+		if(addonUpgrade == 2)
+		{
+			Serial1.end();
+			pinMode(0,INPUT);
+			Serial1.begin(500000); //switch to higher speed...
+			Serial.flush();
+			Serial1.flush();
+      //remove everything from buffers...
+			while(Serial.available()) Serial.read();
+			while(Serial1.available()) Serial1.read();
+			addonUpgrade = 1;
+			return;
+		}
+
+		if(addonUpgrade == 1)
+		{
+			while(Serial.available()) Serial1.write(Serial.read());
+			while(Serial1.available()) {
+				int inByte = Serial1.read();
+				Serial.write(inByte);
+				switch (readstate_f) {
+				  case 0:
+						  if (inByte=='$') readstate_f++;
+					   break;
+				  case 1:
+						  if (inByte=='F') readstate_f++; else readstate_f=0;
+					  break;
+				  case 2:
+						  if (inByte=='I') readstate_f++; else readstate_f=0;
+					  break;
+				  case 3:
+						  if (inByte=='N') {
+							addonUpgrade = 0;
+							readstate_f=0;
+							delay(50);
+							Serial1.begin(9600); //switch to lower speed...
+							Serial.flush();
+							Serial1.flush();
+						  } else readstate_f=0;
+					  break;
+				  default: 
+					readstate_f=0;
+				}
+			}
+		return;
+		}
+	}
 
   while (Serial.available() > 0) {
     // get incoming bytes for Serial

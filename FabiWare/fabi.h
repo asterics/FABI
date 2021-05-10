@@ -91,6 +91,7 @@ struct buttonDebouncerType {       // holds working data for button debouncing a
 
 extern uint8_t PCBversion;
 extern uint8_t actSlot;
+extern uint8_t addonUpgrade;
 extern uint8_t reportSlotParameters;
 extern uint8_t reportRawValues;
 extern struct settingsType settings;

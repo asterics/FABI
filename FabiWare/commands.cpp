@@ -37,7 +37,7 @@ const struct atCommandType atCommands[] PROGMEM = {
     {"TS"  , PARTYPE_UINT },  {"TP"  , PARTYPE_UINT }, {"MA"  , PARTYPE_STRING},{"WA"  , PARTYPE_UINT  },
     {"TT"  , PARTYPE_UINT },  {"AP"  , PARTYPE_UINT }, {"AR"  , PARTYPE_UINT},  {"AI"  , PARTYPE_UINT  },
     {"FR"  , PARTYPE_NONE },  {"BT"  , PARTYPE_UINT }, {"BC"  , PARTYPE_STRING},{"DP" , PARTYPE_UINT  },
-    {"AD"  , PARTYPE_UINT },  {"SC"  , PARTYPE_STRING }
+    {"AD"  , PARTYPE_UINT },  {"SC"  , PARTYPE_STRING }, {"UG", PARTYPE_NONE }
 };
 
 /**
@@ -495,6 +495,15 @@ void performCommand (uint8_t cmd, int16_t parNum, char * parString, int8_t perio
       case CMD_BC:
             Serial1.write(parString);
             Serial1.write('\n'); //terminate command
-            break;              
+            break;
+      case CMD_UG:
+            //we set this flag here, flushing & disabling serial port is done in loop()
+            addonUpgrade = 2;
+            Serial.println("Starting upgrade for BT addon!");
+            // Command for upgrade sent to ESP - triggering reset into factory reset mode
+            Serial1.println("$UG");
+            // delaying to ensure that UART command is sent and received
+            delay(500);
+            break;          
   }
 }

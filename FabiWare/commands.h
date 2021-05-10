@@ -86,6 +86,7 @@
           AT BT <uint>    set bluetooth mode, 1=USB only, 2=BT only, 3=both(default)
                           (e.g. AT BT 2 -> send HID commands only via BT if BT-daughter board is available)
           AT BC <string>  sends parameter to external UART (mostly ESP32 Bluetooth Addon)
+          AT UG           start addon upgrade, Serial ports are transparent until ("$FIN") is received.
 
    supported key identifiers for key press command (AT KP):
  
@@ -114,8 +115,8 @@ enum atCommands {
   CMD_ID, CMD_BM, CMD_CL, CMD_CR, CMD_CM, CMD_CD, CMD_HL, CMD_HR, CMD_HM, CMD_RL, CMD_RR, CMD_RM,
   CMD_TL, CMD_TR, CMD_TM, CMD_WU, CMD_WD, CMD_WS, CMD_MX, CMD_MY, CMD_KW, CMD_KP, CMD_KH, CMD_KT, 
   CMD_KR, CMD_RA, CMD_SA, CMD_LO, CMD_LA, CMD_LI, CMD_NE, CMD_DE, CMD_NC, CMD_SR, CMD_ER, CMD_TS, 
-  CMD_TP, CMD_MA, CMD_WA, CMD_TT, CMD_AP, CMD_AR, CMD_AI, CMD_FR, CMD_BT, CMD_BC, CMD_DP, CMD_AD, CMD_SC, 
-  NUM_COMMANDS
+  CMD_TP, CMD_MA, CMD_WA, CMD_TT, CMD_AP, CMD_AR, CMD_AI, CMD_FR, CMD_BT, CMD_BC, CMD_DP, CMD_AD, CMD_SC,
+  CMD_UG, NUM_COMMANDS
 };
 
 #define PARTYPE_NONE   0
