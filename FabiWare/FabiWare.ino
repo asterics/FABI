@@ -62,9 +62,10 @@ int freeRam();
    Initialisation of HW and peripherals.
 */
 void setup() {
-  delay(1000);
-  Serial.begin(9600);
-  delay(1000);
+  Serial.begin(9600);    // open serial port for AT commands / GUI communication
+  Serial1.begin(9600);   // open the serial port for BT-Module 
+  delay(1000);           // allow some time for the BT-Module to start ...
+  
   Mouse.begin();
   Keyboard.begin();
   initDebouncers();
@@ -78,14 +79,9 @@ void setup() {
         Serial.println("FABI PCB Version");
     #endif
 
-    pinMode(0,INPUT_PULLUP);    // activate pullup for serial1 RX
-
     // turn off built-in LEDs
     pinMode(LED_BUILTIN_RX, INPUT);
     pinMode(LED_BUILTIN_TX, INPUT);
-
-    // start HW-Serial (used for communication with BT-AddOn)
-    Serial1.begin(9600);
 
     // init peripherals 
     initDisplay();
@@ -107,9 +103,16 @@ void setup() {
   // read button modes from first EEPROM slot (if available)
   readFromEEPROM(0);
 
+  //initialise BT module, if available
+  initBluetooth();
+  if (!isBluetoothAvailable()) {
+    // in case no BT-Module: prevent floating RX pin of serial1 !
+    pinMode(0,INPUT_PULLUP);
+    Serial1.flush();
+  }
+
   // initialise peripheral HW for PCB version
   if (PCBversion) {
-    initBluetooth();      //initialise BT module, if available
     writeSlot2Display();
     updateNeoPixelColor(1); 
   }
@@ -146,7 +149,7 @@ void loop() {
   while (Serial1.available() > 0) {
     Serial.write(Serial1.read());
   }
-
+  
   // update button states and perform periodic mouse updates
   if (millis() - updateTimestamp >= waitTime) {
     
