@@ -14,16 +14,13 @@
 
 #include "bluetooth.h"
 
-#define BT_MINIMUM_SENDINTERVAL 60     // reduce mouse reports in BT mode (in milliseconds) !
-
-typedef enum {NONE, EZKEY, MINIBT01, MINIBT02} addontype_t;
+#define BT_MINIMUM_SENDINTERVAL 60  // reduce mouse reports in BT mode (in milliseconds) !
 
 uint8_t bt_available = 0;
-addontype_t bt_esp32addon = NONE;
 uint8_t activeKeyCodes[6];
 uint8_t activeModifierKeys = 0;
 uint8_t activeMouseButtons = 0;
-
+uint8_t readstate_f=0;              // needed to track the return value status during addon upgrade mode
 long btsendTimestamp = millis();
 
 #define Serial_AUX Serial1
@@ -300,19 +297,34 @@ void keyboardBTReleaseAll()
 */
 void initBluetooth()
 {
+  uint32_t timestamp;
+  char id[20]={0};
+  char c,count=0;
+
 #ifdef DEBUG_OUTPUT_FULL
   Serial.println("init Bluetooth");
 #endif
 
-  //start the AUX serial port 9600 8N1
-  Serial_AUX.begin(9600);
-  bt_available = 1;
+  Serial_AUX.println("$ID");
+  timestamp=millis();
+  do{
+    if (Serial_AUX.available()) {
+      c=Serial_AUX.read();
+      id[count++]=c; 
+    }
+  } while ((millis()-timestamp < 1000) && (count<sizeof(id)-1) && (c!='\n'));
+  
+#ifdef DEBUG_OUTPUT_FULL
+  Serial.print ("BT answer = ");
+  Serial.println (id);
+#endif
 
-  ///@todo send identifier to BT module & check response. With BT addon this is much faster and reliable
-  bt_esp32addon = EZKEY;
-  //Serial_AUX.println("$ID");
-  //set BT name to FABI
-  Serial_AUX.println("$NAME FABI");
+  if (!strncmp(id,"ESP32miniBT",11)) {
+    bt_available = 1;
+    //set BT name to FABI
+    Serial_AUX.println("$NAME FABI");
+  }
+  else bt_available=0;
 }
 
 /**
@@ -342,4 +354,64 @@ bool startBTPairing()
   //we will send a command to the BT addon board here.
   ///@todo which command & implement on BT addon
   return true;
+}
+
+
+/**
+
+   name: performAddonUpgrade
+   @param none
+   @return none
+
+   handle states and data transfer for BT-Addon firmware update
+*/
+void performAddonUpgrade() 
+{
+  //update start
+  if(addonUpgrade == 2)
+  {
+    Serial1.end();
+    pinMode(0,INPUT);
+    Serial1.begin(500000); //switch to higher speed...
+    Serial.flush();
+    Serial1.flush();
+    //remove everything from buffers...
+    while(Serial.available()) Serial.read();
+    while(Serial1.available()) Serial1.read();
+    addonUpgrade = 1;
+    return;
+  }
+
+  if(addonUpgrade == 1)
+  {
+    while(Serial.available()) Serial1.write(Serial.read());
+    while(Serial1.available()) {
+      int inByte = Serial1.read();
+      Serial.write(inByte);
+      switch (readstate_f) {
+        case 0:
+            if (inByte=='$') readstate_f++;
+           break;
+        case 1:
+            if (inByte=='F') readstate_f++; else readstate_f=0;
+          break;
+        case 2:
+            if (inByte=='I') readstate_f++; else readstate_f=0;
+          break;
+        case 3:
+            if (inByte=='N') {
+            addonUpgrade = 0;
+            readstate_f=0;
+            delay(50);
+            Serial1.begin(9600); //switch to lower speed...
+            Serial.flush();
+            Serial1.flush();
+            } else readstate_f=0;
+          break;
+        default: 
+        readstate_f=0;
+      }
+    }
+    return;
+  }
 }

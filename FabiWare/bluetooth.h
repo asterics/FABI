@@ -144,4 +144,14 @@ bool isBluetoothAvailable();
 bool startBTPairing();
 
 
+/**
+
+   name: performAddonUpgrade
+   @param none
+   @return none
+
+   handle states and data transfer for BT-Addon firmware update
+*/
+void performAddonUpgrade();
+
 #endif

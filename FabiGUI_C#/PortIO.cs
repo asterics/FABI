@@ -11,7 +11,7 @@ namespace FabiGUI
 {
     public partial class FabiGUI
     {
-        int fabiOnline=0;
+        int fabiOnline = 0;
 
 
         // serial port / communication handling
@@ -20,7 +20,7 @@ namespace FabiGUI
             if (!serialPort1.IsOpen)
             {
                 serialPort1.PortName = portName;
-                serialPort1.BaudRate = 9600;
+                serialPort1.BaudRate = 115200;
                 serialPort1.DataBits = 8;
                 serialPort1.Parity = Parity.None;
                 serialPort1.Handshake = Handshake.None;
@@ -28,7 +28,7 @@ namespace FabiGUI
                 serialPort1.ReadTimeout = 10000;
                 serialPort1.WriteTimeout = 10000;
                 serialPort1.NewLine = "\n";
-                serialPort1.Encoding=System.Text.Encoding.Default;
+                serialPort1.Encoding = System.Text.Encoding.Default;
 
                 try
                 {
@@ -56,7 +56,7 @@ namespace FabiGUI
                 Console.WriteLine("Send:" + command);
                 try
                 {
-                   serialPort1.Write(command + "\r");
+                    serialPort1.Write(command + "\r");
                 }
                 catch (Exception ex)
                 {
@@ -72,7 +72,7 @@ namespace FabiGUI
 
             Console.WriteLine("sending ID request ..");
             sendIDCommand();   // start (after connect): request ID String from Lipmouse; receive ID before timeout ! (else close port)
-            
+
             try
             {
                 while (serialPort1.IsOpen && !readDone)
@@ -80,28 +80,29 @@ namespace FabiGUI
                     try
                     {
                         receivedString = serialPort1.ReadLine();
-//                        byte[] my_bytes = System.Text.Encoding.Default.GetBytes(command);
+                        //  byte[] my_bytes = System.Text.Encoding.Default.GetBytes(command);
 
-                         if (!receivedString.Contains("VALUES"))
-                           Console.Write("received:" + receivedString);
+                        if (!receivedString.Contains("VALUES"))
+                            Console.Write("received:" + receivedString);
 
-                           BeginInvoke(this.stringReceivedDelegate, new Object[] { receivedString });
+                        BeginInvoke(this.stringReceivedDelegate, new Object[] { receivedString });
                     }
                     catch (Exception ex)
                     {
-                        Console.WriteLine("Could not read from COM port: "+ex.ToString());
+                        Console.WriteLine("Could not read from COM port: " + ex.ToString());
                     }
                 }
             }
             catch (Exception ex)
-            { }
+            {
+            }
         }
 
 
         void IdTimer_Tick(object sender, EventArgs e)
         {
             IdTimer.Stop();
-            
+
             if (fabiOnline == 0)
             {
                 addToLog("ID-Timeout ! No Fabi module found !");
@@ -115,7 +116,7 @@ namespace FabiGUI
             if (newLine.ToUpper().Contains(PREFIX_FABI_VERSION))  // read FABI Version ID 
             {
                 gotID(newLine);
-            } 
+            }
             else if (newLine.ToUpper().StartsWith(PREFIX_REPORT_VALUES))  // read raw report (ADC values)
             {
                 drawRawValues(newLine.Substring(PREFIX_REPORT_VALUES.Length));
@@ -134,24 +135,27 @@ namespace FabiGUI
             }
             else if (newLine.ToUpper().StartsWith(PREFIX_FREE_EEPROM))
             {
-                int freePercent = Int32.Parse(newLine.Substring(newLine.IndexOf(":")+1));
-                freeMemLabel.Text = "mem usage:"+(100-freePercent).ToString() +"%";
-                drawFreeMem(100-freePercent);
+                int freePercent = Int32.Parse(newLine.Substring(newLine.IndexOf(":") + 1));
+                freeMemLabel.Text = "mem usage:" + (100 - freePercent).ToString() + "%";
+                drawFreeMem(100 - freePercent);
             }
-
+            else if (newLine.ToUpper().Contains(PREFIX_START_UPGRADE))  // upgrate BT module firmware
+            {
+                gotUpgradeReady();
+            }
         }
 
         public void gotEnd()
         {
             if (slots.Count < 1)
-              slots.Add(new Slot());
+                slots.Add(new Slot());
 
-              actSlot = 0;
-              displaySlot(actSlot);
-              sendFreeMemCommand();          
+            actSlot = 0;
+            displaySlot(actSlot);
+            sendFreeMemCommand();
 
-              addToLog("The settings were loaded from Fabi device!");
-              sendStartReportingCommand();          
+            addToLog("The settings were loaded from Fabi device!");
+            sendStartReportingCommand();
         }
 
         public void gotID(String newLine)
@@ -161,12 +165,67 @@ namespace FabiGUI
             slotNames.Items.Clear();
             sendStartReportingCommand();   // start reporting raw values !
 
-            DialogResult dialogResult = MessageBox.Show("Detected "+newLine+"\nDo you want to load the slots and settings which are stored in the Fabi device ?", "Load Settings ?", MessageBoxButtons.YesNo);
+            COMAliveTimer.Enabled = true;
+            COMAliveTimer.Start();
+
+            DialogResult dialogResult = MessageBox.Show("Detected " + newLine + "\nDo you want to load the slots and settings which are stored in the Fabi device ?", "Load Settings ?", MessageBoxButtons.YesNo);
             if (dialogResult == DialogResult.Yes)
             {
                 loadSettingsFromFabi();
             }
         }
+
+        public void gotUpgradeReady()
+        {
+            addToLog("Upgrade Process running ...");
+            Console.WriteLine("Upgrade Process running ...");
+
+            // Set Minimum to 1 to represent the first file being copied.
+            pBar1.Minimum = 1;
+            // Set Maximum to the total number of files to copy.
+            try
+            {
+                if (updateFirmwareStream != null)
+                {
+                    byte[] buf;
+                    int count = 0;
+                    System.IO.BinaryReader file = new System.IO.BinaryReader(updateFirmwareStream);
+
+                    pBar1.Maximum = (int)updateFirmwareStream.Length;
+                    // Set the initial value of the ProgressBar.
+                    pBar1.Value = 1;
+                    // Set the Step property to a value of 1 to represent each file being copied.
+                    pBar1.Step = 1;
+
+                    buf = file.ReadBytes(128);
+                    while (buf.Length != 0)
+                    {
+                        serialPort1.Write(buf, 0, buf.Length);
+                        count += buf.Length;
+                        pBar1.Value = count;
+                        pBar1.Invalidate();
+                        pBar1.Update();
+                        pBar1.Refresh();
+                        Application.DoEvents();
+                        // Console.WriteLine(count);
+                        Thread.Sleep(15);
+                        buf = file.ReadBytes(128);
+                    }
+                    file.Close();
+                    addToLog("Done.");
+                    Console.WriteLine("Done.");
+                    File.Delete(downloadPath);
+                }
+            }
+            catch (Exception ex)
+            {
+                addToLog("Error: Could not read file from disk. Original error: " + ex.Message);
+            }
+            pBar1.Visible = false;
+        }
+
+
+
 
         public void gotSlotNames(String newSlotName)
         {
@@ -198,6 +257,7 @@ namespace FabiGUI
 
         private void disconnect()
         {
+            COMAliveTimer.Stop();
             readDone = true;
             if (serialPort1.IsOpen)
             {

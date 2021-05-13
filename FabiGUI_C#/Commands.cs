@@ -133,6 +133,7 @@ namespace FabiGUI
         const string PREFIX_SLOT_NAME = "SLOT:";
         const string PREFIX_AT_COMMAND = "AT ";
         const string PREFIX_END_OF_SLOTS = "END";
+        const string PREFIX_START_UPGRADE = "OTA:READY";
         const string PREFIX_FREE_EEPROM = "FREE EEPROM";
 
 

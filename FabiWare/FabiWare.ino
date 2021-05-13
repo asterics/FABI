@@ -47,7 +47,6 @@ uint32_t updateTimestamp = 0;
 uint8_t actSlot = 0;           // the index of the currently active configuration slot
                                // note: this is changes in eeprom.cpp when a new slot is loaded
 uint8_t addonUpgrade = 0;      //is != 0, if we are upgrading the addon module.
-uint8_t readstate_f=0;         //needed to track the return value status during addon upgrade mode
 int waitTime = DEFAULT_WAIT_TIME;
 
 void UpdateLeds();
@@ -63,17 +62,17 @@ int freeRam();
    Initialisation of HW and peripherals.
 */
 void setup() {
-  delay(1000);
-  Serial.begin(9600);
-  delay(1000);
+  Serial.begin(9600);    // open serial port for AT commands / GUI communication
+  Serial1.begin(9600);   // open the serial port for BT-Module 
+  delay(1000);           // allow some time for the BT-Module to start ...
+  
   Mouse.begin();
   Keyboard.begin();
   initDebouncers();
   
   //check if PCB or old (floating wire) FABI is used (checkPin to ground = PCB):
   pinMode(PCB_checkPin, INPUT_PULLUP);
-  pinMode(0,INPUT_PULLUP);
-
+ 
   if (!digitalRead(PCB_checkPin)) {            //PCB Version detected
     PCBversion = 1;
     #ifdef DEBUG_OUTPUT
@@ -83,9 +82,6 @@ void setup() {
     // turn off built-in LEDs
     pinMode(LED_BUILTIN_RX, INPUT);
     pinMode(LED_BUILTIN_TX, INPUT);
-
-    // start HW-Serial (used for communication with BT-AddOn)
-    Serial1.begin(9600);
 
     // init peripherals 
     initDisplay();
@@ -107,9 +103,16 @@ void setup() {
   // read button modes from first EEPROM slot (if available)
   readFromEEPROM(0);
 
+  //initialise BT module, if available
+  initBluetooth();
+  if (!isBluetoothAvailable()) {
+    // in case no BT-Module: prevent floating RX pin of serial1 !
+    pinMode(0,INPUT_PULLUP);
+    Serial1.flush();
+  }
+
   // initialise peripheral HW for PCB version
   if (PCBversion) {
-    initBluetooth();      //initialise BT module, if available
     writeSlot2Display();
     updateNeoPixelColor(1); 
   }
@@ -129,60 +132,15 @@ void setup() {
    main program loop, processes serial commands and button actions. 
 */
 void loop() {
-  //check if we should go into addon upgrade mode
-	if(addonUpgrade != 0)
-	{
-		//update start
-		if(addonUpgrade == 2)
-		{
-			Serial1.end();
-			pinMode(0,INPUT);
-			Serial1.begin(500000); //switch to higher speed...
-			Serial.flush();
-			Serial1.flush();
-      //remove everything from buffers...
-			while(Serial.available()) Serial.read();
-			while(Serial1.available()) Serial1.read();
-			addonUpgrade = 1;
-			return;
-		}
 
-		if(addonUpgrade == 1)
-		{
-			while(Serial.available()) Serial1.write(Serial.read());
-			while(Serial1.available()) {
-				int inByte = Serial1.read();
-				Serial.write(inByte);
-				switch (readstate_f) {
-				  case 0:
-						  if (inByte=='$') readstate_f++;
-					   break;
-				  case 1:
-						  if (inByte=='F') readstate_f++; else readstate_f=0;
-					  break;
-				  case 2:
-						  if (inByte=='I') readstate_f++; else readstate_f=0;
-					  break;
-				  case 3:
-						  if (inByte=='N') {
-							addonUpgrade = 0;
-							readstate_f=0;
-							delay(50);
-							Serial1.begin(9600); //switch to lower speed...
-							Serial.flush();
-							Serial1.flush();
-						  } else readstate_f=0;
-					  break;
-				  default: 
-					readstate_f=0;
-				}
-			}
-		return;
-		}
+  //check if we should go into addon upgrade mode
+	if(addonUpgrade != 0) {
+    performAddonUpgrade();
+    return;
 	}
 
+  // get and parse incoming bytes for Serial
   while (Serial.available() > 0) {
-    // get incoming bytes for Serial
     int inByte = Serial.read();
     parseByte (inByte);      // implemented in parser.cpp
   }
@@ -191,7 +149,7 @@ void loop() {
   while (Serial1.available() > 0) {
     Serial.write(Serial1.read());
   }
-
+  
   // update button states and perform periodic mouse updates
   if (millis() - updateTimestamp >= waitTime) {
     
