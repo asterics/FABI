@@ -22,6 +22,8 @@ using System.Threading;
 using System.Windows.Forms;
 using System.IO;
 using System.Text.RegularExpressions;
+using System.Net;
+using System.Runtime.InteropServices;
 
 
 
@@ -47,7 +49,10 @@ namespace FabiGUI
 
         System.Windows.Forms.Timer clickTimer = new System.Windows.Forms.Timer();
         System.Windows.Forms.Timer IdTimer = new System.Windows.Forms.Timer();
+        System.Windows.Forms.Timer COMAliveTimer = new System.Windows.Forms.Timer();
 
+        Stream updateFirmwareStream = null;
+        string downloadPath;
 
         const int MAX_SLOTS = 10;
         public List<Slot> slots = new List<Slot>();
@@ -196,6 +201,10 @@ namespace FabiGUI
             clickTimer.Interval = 500; // specify interval time as you want
             clickTimer.Tick += new EventHandler(timer_Tick);
 
+            COMAliveTimer.Interval = 1000;
+            COMAliveTimer.Tick += new EventHandler(comAlive_Tick);
+
+
             IdTimer.Tick += new EventHandler(IdTimer_Tick);
 
             Text += " "+ VERSION_STRING;
@@ -278,7 +287,7 @@ namespace FabiGUI
                         storeSlotSettingsMenuItem.Enabled = true;
                         freeMemLabel.Enabled = true;
                         freeMemPanel.Enabled = true;
-                        ApplyButton.Enabled = true;
+                        TestButton.Enabled = true;
                         StoreButton.Enabled = true;
                         connectComButton.Enabled = false;
 
@@ -302,7 +311,7 @@ namespace FabiGUI
             disconnectComButton.Enabled = false;
             loadSlotSettingsMenuItem.Enabled = false;
             storeSlotSettingsMenuItem.Enabled = false;
-            ApplyButton.Enabled = false;
+            TestButton.Enabled = false;
             StoreButton.Enabled = false;
             connectComButton.Enabled = true;
             freeMemLabel.Enabled = false;
@@ -355,8 +364,10 @@ namespace FabiGUI
         // update activity log
         private void addToLog(String text)
         {
-            activityLogTextbox.SelectedText = DateTime.Now.ToString() + ": ";
-            activityLogTextbox.AppendText(text); 
+            DateTime dt = DateTime.Parse(DateTime.Now.ToString());
+            activityLogTextbox.SelectedText = dt.ToString("HH:mm:ss");
+
+            activityLogTextbox.AppendText("  "+text); 
             activityLogTextbox.AppendText("\n");
         }
 
@@ -422,7 +433,7 @@ namespace FabiGUI
 
 
         // send all current settings for active slot
-        private void ApplyButton_Click(object sender, EventArgs e)
+        private void TestButton_Click(object sender, EventArgs e)
         {
             storeSlot(actSlot);            
             if (serialPort1.IsOpen)
@@ -697,6 +708,15 @@ namespace FabiGUI
              functionPointer(this, null);
         }
 
+        void comAlive_Tick(object sender, EventArgs e)
+        {
+            if (!serialPort1.IsOpen)
+            {
+                disconnnectComButton_Click(null, null);
+                COMAliveTimer.Stop();
+            }
+        }
+
         private void stop_ClickTimer(object sender, EventArgs e)
         {
             clickTimer.Stop();
@@ -764,6 +784,107 @@ namespace FabiGUI
                 drawSlotColor(actSlotColor);
                 slots[actSlot].slotColor = actSlotColor;
             }
+        }
+
+
+        [DllImport("Shell32.dll")]
+        private static extern int SHGetKnownFolderPath(
+            [MarshalAs(UnmanagedType.LPStruct)] Guid rfid, uint dwFlags, IntPtr hToken,
+            out IntPtr ppszPath);
+
+        private void updateAddOnButton_Click(object sender, EventArgs e)
+        {
+            if (!serialPort1.IsOpen)
+            {
+                MessageBox.Show("Please Connect a FABI Device","Information");
+                return;
+            }
+
+
+
+            pBar1.Minimum = 0;
+            pBar1.Maximum = 100;
+            pBar1.Visible = true;
+
+            // Find private downloads folder
+            int result = SHGetKnownFolderPath(new Guid("{374DE290-123F-4565-9164-39C4925E467B}"), (uint) 0x00004000, new IntPtr(0), out IntPtr outPath);
+          
+            if (result < 0)
+            {
+                MessageBox.Show("Could not access Download folder", "Error", MessageBoxButtons.OK);
+                return;
+            }
+
+            downloadPath = Marshal.PtrToStringUni(outPath) + "\\esp32_mouse_keyboard.bin";
+            Marshal.FreeCoTaskMem(outPath);
+
+            // Download latest firmware binary
+            WebClient wc = new WebClient();
+            wc.DownloadProgressChanged += wc_DownloadProgressChanged;
+            wc.DownloadFileCompleted += wc_DownloadFileCompleted;
+
+            try
+            {
+                ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
+                wc.DownloadFileAsync(
+                    // Param1 = Link of file
+                    new System.Uri("https://github.com/asterics/esp32_mouse_keyboard/releases/latest/download/esp32_mouse_keyboard.bin"),
+                    // Param2 = Path to save
+                    downloadPath
+                );
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Download Error: " + ex.Message);
+                addToLog("Could not download the binary firmware image file, aborting!");
+                return;
+            }
+            // Event to track the progress
+            addToLog("Downloading binary firmware image file...");
+        }
+        void wc_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
+        {
+            pBar1.Value = e.ProgressPercentage;
+        }
+
+        void wc_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
+        {
+            bool fileValid = false;
+
+            if (File.Exists(downloadPath))
+            {
+                long len = new FileInfo(downloadPath).Length;
+                if ((len > 500000)  && (len < 5000000)) fileValid = true;
+            }
+
+            if (!fileValid)
+            {
+                MessageBox.Show("BT module firmware file could not be downloaded ... Aborting...", "Upgrade Firmware Failed", MessageBoxButtons.OK);
+                return;
+            }
+
+            DialogResult dialogResult = MessageBox.Show("Are you sure to upgrade the BT module firmware ? \nused binary: " + downloadPath, "Upgrade Firmware ?", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                try
+                {
+                    updateFirmwareStream = File.Open(downloadPath, FileMode.Open);
+                    sendCmd("AT UG");
+                    pBar1.Value = 0;                     // reset the ProgressBar control.
+                    addToLog("Starting Upgrade Process ...");
+                    Console.WriteLine("Starting Upgrade Process ...");
+                }
+                catch (Exception ex)
+                {
+                    addToLog("Could not open Firmware .bin file!");
+                    MessageBox.Show("Could not open Firmware .bin file ...\nPlease put the file here:\n" + downloadPath, "File Error", MessageBoxButtons.OK);
+                }
+            }
+        }
+
+        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+        {
+
         }
     }
 }
