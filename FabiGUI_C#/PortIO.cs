@@ -177,6 +177,7 @@ namespace FabiGUI
 
         public void gotUpgradeReady()
         {
+            firmwareUpdate_running = true;
             addToLog("Upgrade Process running ...");
             Console.WriteLine("Upgrade Process running ...");
 
@@ -212,6 +213,7 @@ namespace FabiGUI
                         buf = file.ReadBytes(128);
                     }
                     file.Close();
+                    updateFirmwareStream.Close();
                     addToLog("Done.");
                     Console.WriteLine("Done.");
                     File.Delete(downloadPath);
@@ -222,6 +224,8 @@ namespace FabiGUI
                 addToLog("Error: Could not read file from disk. Original error: " + ex.Message);
             }
             pBar1.Visible = false;
+            updateAddOnButton.Enabled = true;
+
         }
 
 

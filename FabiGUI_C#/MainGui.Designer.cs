@@ -160,6 +160,7 @@
             this.antiTremorPressBar = new System.Windows.Forms.TrackBar();
             this.label9 = new System.Windows.Forms.Label();
             this.general = new System.Windows.Forms.TabPage();
+            this.label44 = new System.Windows.Forms.Label();
             this.pBar1 = new System.Windows.Forms.ProgressBar();
             this.updateAddOnButton = new System.Windows.Forms.Button();
             this.label42 = new System.Windows.Forms.Label();
@@ -211,7 +212,6 @@
             this.button2IndicatorPanel = new System.Windows.Forms.Panel();
             this.button1IndicatorPanel = new System.Windows.Forms.Panel();
             this.TestButton = new System.Windows.Forms.Button();
-            this.label44 = new System.Windows.Forms.Label();
             this.tabControl.SuspendLayout();
             this.Buttons1Tab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Button4NumericParameter)).BeginInit();
@@ -1634,7 +1634,7 @@
             this.SettingsTab.Name = "SettingsTab";
             this.SettingsTab.Size = new System.Drawing.Size(878, 461);
             this.SettingsTab.TabIndex = 6;
-            this.SettingsTab.Text = "Settings";
+            this.SettingsTab.Text = "Timings";
             // 
             // doublePressTimeLabel
             // 
@@ -1886,6 +1886,16 @@
             this.general.TabIndex = 7;
             this.general.Text = "General";
             // 
+            // label44
+            // 
+            this.label44.AutoSize = true;
+            this.label44.Location = new System.Drawing.Point(112, 374);
+            this.label44.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label44.Name = "label44";
+            this.label44.Size = new System.Drawing.Size(192, 20);
+            this.label44.TabIndex = 167;
+            this.label44.Text = "Bluetooth Module update:";
+            // 
             // pBar1
             // 
             this.pBar1.Location = new System.Drawing.Point(329, 413);
@@ -1941,13 +1951,13 @@
             // label29
             // 
             this.label29.AutoSize = true;
-            this.label29.Location = new System.Drawing.Point(171, 190);
+            this.label29.Location = new System.Drawing.Point(151, 188);
             this.label29.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label29.Name = "label29";
             this.label29.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.label29.Size = new System.Drawing.Size(560, 20);
+            this.label29.Size = new System.Drawing.Size(527, 20);
             this.label29.TabIndex = 161;
-            this.label29.Text = "(Note: automatically creates a mouse click after mouse movement, 0 = disable)";
+            this.label29.Text = "(Note: creates a mouse click after mouse movement inactivity, 0 = disable)";
             // 
             // autoDwellTimeBar
             // 
@@ -1966,13 +1976,13 @@
             // label32
             // 
             this.label32.AutoSize = true;
-            this.label32.Location = new System.Drawing.Point(175, 144);
+            this.label32.Location = new System.Drawing.Point(152, 147);
             this.label32.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label32.Name = "label32";
             this.label32.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.label32.Size = new System.Drawing.Size(128, 20);
+            this.label32.Size = new System.Drawing.Size(154, 20);
             this.label32.TabIndex = 158;
-            this.label32.Text = "Auto-Dwell Time:";
+            this.label32.Text = "Automatic Left Click:";
             // 
             // label50
             // 
@@ -2020,11 +2030,11 @@
             // 
             this.activityLogTextbox.ForeColor = System.Drawing.SystemColors.MenuText;
             this.activityLogTextbox.HideSelection = false;
-            this.activityLogTextbox.Location = new System.Drawing.Point(22, 31);
+            this.activityLogTextbox.Location = new System.Drawing.Point(14, 31);
             this.activityLogTextbox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.activityLogTextbox.Name = "activityLogTextbox";
             this.activityLogTextbox.ReadOnly = true;
-            this.activityLogTextbox.Size = new System.Drawing.Size(412, 73);
+            this.activityLogTextbox.Size = new System.Drawing.Size(432, 85);
             this.activityLogTextbox.TabIndex = 63;
             this.activityLogTextbox.Text = "";
             // 
@@ -2430,16 +2440,6 @@
             this.TestButton.UseVisualStyleBackColor = true;
             this.TestButton.Visible = false;
             this.TestButton.Click += new System.EventHandler(this.TestButton_Click);
-            // 
-            // label44
-            // 
-            this.label44.AutoSize = true;
-            this.label44.Location = new System.Drawing.Point(112, 374);
-            this.label44.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label44.Name = "label44";
-            this.label44.Size = new System.Drawing.Size(192, 20);
-            this.label44.TabIndex = 167;
-            this.label44.Text = "Bluetooth Module update:";
             // 
             // FabiGUI
             // 

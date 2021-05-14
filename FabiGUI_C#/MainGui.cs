@@ -36,9 +36,11 @@ namespace FabiGUI
         const int PRESSURE_CHANGE_STEP = 1;
 
         Boolean readDone = false;
+        Boolean firmwareUpdate_running = false;
         static int slotCounter = 0;
         static int actSlot = 0;
         static String actSlotColor = "0x00ff00";  // default slot color
+
 
 
         public delegate void StringReceivedDelegate(string newLine);
@@ -50,6 +52,7 @@ namespace FabiGUI
         System.Windows.Forms.Timer clickTimer = new System.Windows.Forms.Timer();
         System.Windows.Forms.Timer IdTimer = new System.Windows.Forms.Timer();
         System.Windows.Forms.Timer COMAliveTimer = new System.Windows.Forms.Timer();
+        System.Windows.Forms.Timer FirmwareUpdateTimer = new System.Windows.Forms.Timer();
 
         Stream updateFirmwareStream = null;
         string downloadPath;
@@ -203,6 +206,9 @@ namespace FabiGUI
 
             COMAliveTimer.Interval = 1000;
             COMAliveTimer.Tick += new EventHandler(comAlive_Tick);
+
+            FirmwareUpdateTimer.Interval = 20000;
+            FirmwareUpdateTimer.Tick += new EventHandler(firmwareUpdate_Tick);
 
 
             IdTimer.Tick += new EventHandler(IdTimer_Tick);
@@ -716,6 +722,20 @@ namespace FabiGUI
                 COMAliveTimer.Stop();
             }
         }
+        
+
+        void firmwareUpdate_Tick(object sender, EventArgs e)
+        {
+            FirmwareUpdateTimer.Stop();
+            if (!firmwareUpdate_running)
+            {
+                updateFirmwareStream.Close();
+                MessageBox.Show("Could not connect to Bluetooth Module ...\nPlease ensure that a BT-Module is connected.", "Information",MessageBoxButtons.OK);
+                addToLog("Could not connect to Bluetooth Module ...");
+                updateAddOnButton.Enabled = true;
+                pBar1.Visible = false;
+            }
+        }
 
         private void stop_ClickTimer(object sender, EventArgs e)
         {
@@ -800,12 +820,6 @@ namespace FabiGUI
                 return;
             }
 
-
-
-            pBar1.Minimum = 0;
-            pBar1.Maximum = 100;
-            pBar1.Visible = true;
-
             // Find private downloads folder
             int result = SHGetKnownFolderPath(new Guid("{374DE290-123F-4565-9164-39C4925E467B}"), (uint) 0x00004000, new IntPtr(0), out IntPtr outPath);
           
@@ -817,6 +831,10 @@ namespace FabiGUI
 
             downloadPath = Marshal.PtrToStringUni(outPath) + "\\esp32_mouse_keyboard.bin";
             Marshal.FreeCoTaskMem(outPath);
+
+            pBar1.Minimum = 0;
+            pBar1.Maximum = 100;
+            pBar1.Visible = true;
 
             // Download latest firmware binary
             WebClient wc = new WebClient();
@@ -866,18 +884,29 @@ namespace FabiGUI
             DialogResult dialogResult = MessageBox.Show("Are you sure to upgrade the BT module firmware ? \nused binary: " + downloadPath, "Upgrade Firmware ?", MessageBoxButtons.YesNo);
             if (dialogResult == DialogResult.Yes)
             {
+                updateAddOnButton.Enabled = false;
+
                 try
                 {
+                    Console.WriteLine("Try to open firmware file ...");
                     updateFirmwareStream = File.Open(downloadPath, FileMode.Open);
+
                     sendCmd("AT UG");
                     pBar1.Value = 0;                     // reset the ProgressBar control.
-                    addToLog("Starting Upgrade Process ...");
-                    Console.WriteLine("Starting Upgrade Process ...");
+                    addToLog("Starting Upgrade Process, please wait ...");
+
+                    Console.WriteLine("waiting for BT-module response ...");
+                    firmwareUpdate_running = false;
+                    FirmwareUpdateTimer.Enabled = true;
+                    FirmwareUpdateTimer.Start();
                 }
                 catch (Exception ex)
                 {
                     addToLog("Could not open Firmware .bin file!");
                     MessageBox.Show("Could not open Firmware .bin file ...\nPlease put the file here:\n" + downloadPath, "File Error", MessageBoxButtons.OK);
+                    updateAddOnButton.Enabled = true;
+                    pBar1.Visible = false;
+
                 }
             }
         }
