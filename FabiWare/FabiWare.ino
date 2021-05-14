@@ -46,7 +46,7 @@ uint8_t PCBversion = 0;        // 1 == PCB version
 uint32_t updateTimestamp = 0;
 uint8_t actSlot = 0;           // the index of the currently active configuration slot
                                // note: this is changes in eeprom.cpp when a new slot is loaded
-uint8_t addonUpgrade = 0;      //is != 0, if we are upgrading the addon module.
+uint8_t addonUpgrade = BTMODULE_UPGRADE_IDLE;    // if not "idle": we are upgrading the addon module
 int waitTime = DEFAULT_WAIT_TIME;
 
 void UpdateLeds();
@@ -134,7 +134,7 @@ void setup() {
 void loop() {
 
   //check if we should go into addon upgrade mode
-	if(addonUpgrade != 0) {
+	if(addonUpgrade != BTMODULE_UPGRADE_IDLE) {
     performAddonUpgrade();
     return;
 	}

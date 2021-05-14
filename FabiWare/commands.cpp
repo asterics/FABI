@@ -493,12 +493,14 @@ void performCommand (uint8_t cmd, int16_t parNum, char * parString, int8_t perio
             settings.bt = parNum;
             break;    
       case CMD_BC:
-            Serial1.write(parString);
-            Serial1.write('\n'); //terminate command
+            if (isBluetoothAvailable()) {
+              Serial1.write(parString);
+              Serial1.write('\n'); //terminate command
+            }
             break;
       case CMD_UG:
             //we set this flag here, flushing & disabling serial port is done in loop()
-            addonUpgrade = 2;
+            addonUpgrade = BTMODULE_UPGRADE_START;
             Serial.println("Starting upgrade for BT addon!");
             // Command for upgrade sent to ESP - triggering reset into factory reset mode
             Serial1.println("$UG");

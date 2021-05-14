@@ -21,6 +21,10 @@
 #include <Keyboard.h>
 extern const uint8_t _asciimap[128] PROGMEM;
 
+#define BTMODULE_UPGRADE_IDLE 0
+#define BTMODULE_UPGRADE_START 1
+#define BTMODULE_UPGRADE_RUNNING 2
+
 
 //RX/TX3 are used to communicate with an addon board (mounted on AUX header)
 #define Serial_AUX Serial3

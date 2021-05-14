@@ -21,7 +21,8 @@ uint8_t activeKeyCodes[6];
 uint8_t activeModifierKeys = 0;
 uint8_t activeMouseButtons = 0;
 uint8_t readstate_f=0;              // needed to track the return value status during addon upgrade mode
-long btsendTimestamp = millis();
+long btsendTimestamp = millis();    // to limit BT bandwidth
+long upgradeTimestamp = 0;          // eventually come back to AT mode from an unsuccessful BT module upgrade !
 
 #define Serial_AUX Serial1
 
@@ -368,7 +369,7 @@ bool startBTPairing()
 void performAddonUpgrade() 
 {
   //update start
-  if(addonUpgrade == 2)
+  if(addonUpgrade == BTMODULE_UPGRADE_START)
   {
     Serial1.end();
     pinMode(0,INPUT);
@@ -378,12 +379,25 @@ void performAddonUpgrade()
     //remove everything from buffers...
     while(Serial.available()) Serial.read();
     while(Serial1.available()) Serial1.read();
-    addonUpgrade = 1;
+    addonUpgrade = BTMODULE_UPGRADE_RUNNING;
+    upgradeTimestamp=millis();
     return;
   }
 
-  if(addonUpgrade == 1)
+  if(addonUpgrade == BTMODULE_UPGRADE_RUNNING)
   {
+    if(Serial.available()) upgradeTimestamp=millis();   // incoming data: assume working upgrade!
+    else {
+      // 20 seconds no data -> return to AT mode !
+      if (millis()-upgradeTimestamp > 20000) {
+        addonUpgrade = BTMODULE_UPGRADE_IDLE;
+        Serial1.begin(9600); //switch to lower speed...
+        Serial.flush();
+        Serial1.flush();
+        return;
+      }
+    }
+        
     while(Serial.available()) Serial1.write(Serial.read());
     while(Serial1.available()) {
       int inByte = Serial1.read();
@@ -400,7 +414,8 @@ void performAddonUpgrade()
           break;
         case 3:
             if (inByte=='N') {
-            addonUpgrade = 0;
+            addonUpgrade = BTMODULE_UPGRADE_IDLE;
+            bt_available = 1;
             readstate_f=0;
             delay(50);
             Serial1.begin(9600); //switch to lower speed...
