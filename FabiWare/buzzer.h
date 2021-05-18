@@ -16,7 +16,8 @@
 #ifndef _BUZZER_H_
 #define _BUZZER_H_
 
-#define BEEP_duration 25    // actual duration of beep = BEEP_duration * loop duration; e.g. 100 * 5ms = 500ms
+#define BEEP_duration 12
+// actual duration of beep = BEEP_duration * loop duration; e.g. 100 * 5ms = 500ms
 #define BUZZER_PIN 4
 
 void initBuzzer();
