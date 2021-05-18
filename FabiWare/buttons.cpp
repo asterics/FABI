@@ -211,7 +211,9 @@ void handleButton(int i, int l, uint8_t actState)
     }
 
     // check for long press action 
-    if ((buttonDebouncers[i].pressCount == settings.tt >> 2) && (settings.tt != 0) && (l >= 0) && (l < NUMBER_OF_BUTTONS)) {
+    if ((buttonDebouncers[i].pressCount == settings.tt >> 2) && (settings.tt != 0)  
+         && (l >= 0) && (l < NUMBER_OF_BUTTONS) && (buttons[l].mode != CMD_NC)) {
+
       // in case pressed duration reaches threshold  settings.tt/4:
       // release short press and issue long press function!
       handleRelease(i);
