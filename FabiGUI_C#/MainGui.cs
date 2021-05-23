@@ -26,7 +26,6 @@ using System.Net;
 using System.Runtime.InteropServices;
 
 
-
 namespace FabiGUI
 {
     public partial class FabiGUI : Form
@@ -806,6 +805,14 @@ namespace FabiGUI
             }
         }
 
+        public static bool IsLinux
+        {
+            get
+            {
+                int p = (int)Environment.OSVersion.Platform;
+                return (p == 4) || (p == 6) || (p == 128);
+            }
+        }
 
         [DllImport("Shell32.dll")]
         private static extern int SHGetKnownFolderPath(
@@ -820,17 +827,22 @@ namespace FabiGUI
                 return;
             }
 
-            // Find private downloads folder
-            int result = SHGetKnownFolderPath(new Guid("{374DE290-123F-4565-9164-39C4925E467B}"), (uint) 0x00004000, new IntPtr(0), out IntPtr outPath);
-          
-            if (result < 0)
-            {
-                MessageBox.Show("Could not access Download folder", "Error", MessageBoxButtons.OK);
-                return;
-            }
 
-            downloadPath = Marshal.PtrToStringUni(outPath) + "\\esp32_mouse_keyboard.bin";
-            Marshal.FreeCoTaskMem(outPath);
+            if (!IsLinux) { 
+                // Find private downloads folder
+                IntPtr outPath;
+                int result = SHGetKnownFolderPath(new Guid("{374DE290-123F-4565-9164-39C4925E467B}"), (uint) 0x00004000, new IntPtr(0), out outPath);
+          
+                if (result < 0)
+                {
+                    MessageBox.Show("Could not access Download folder", "Error", MessageBoxButtons.OK);
+                    return;
+                }
+
+                downloadPath = Marshal.PtrToStringUni(outPath) + "\\esp32_mouse_keyboard.bin";
+                Marshal.FreeCoTaskMem(outPath);
+            }
+            else downloadPath = "~/esp32_mouse_keyboard.bin";
 
             pBar1.Minimum = 0;
             pBar1.Maximum = 100;

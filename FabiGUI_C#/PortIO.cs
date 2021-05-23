@@ -209,7 +209,7 @@ namespace FabiGUI
                         pBar1.Refresh();
                         Application.DoEvents();
                         // Console.WriteLine(count);
-                        Thread.Sleep(15);
+                        Thread.Sleep(10);
                         buf = file.ReadBytes(128);
                     }
                     file.Close();
