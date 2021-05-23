@@ -15,6 +15,8 @@
 #include "bluetooth.h"
 
 #define BT_MINIMUM_SENDINTERVAL 60  // reduce mouse reports in BT mode (in milliseconds) !
+#define BT_IDRESPONSE_TIMEOUT 2000  // timeout for BT ID response (in milliseconds)
+
 
 uint8_t bt_available = 0;
 uint8_t activeKeyCodes[6];
@@ -306,14 +308,21 @@ void initBluetooth()
   Serial.println("init Bluetooth");
 #endif
 
+  // empty serial1 buffer
+  while(Serial_AUX.available()) Serial_AUX.read();
+  Serial_AUX.flush();
+
+  // request ID from BT-Addon
   Serial_AUX.println("$ID");
+
+  // await response
   timestamp=millis();
   do{
     if (Serial_AUX.available()) {
       c=Serial_AUX.read();
       id[count++]=c; 
     }
-  } while ((millis()-timestamp < 1000) && (count<sizeof(id)-1) && (c!='\n'));
+  } while ((millis()-timestamp < BT_IDRESPONSE_TIMEOUT) && (count<sizeof(id)-1) && (c!='\n'));
   
 #ifdef DEBUG_OUTPUT_FULL
   Serial.print ("BT answer = ");
