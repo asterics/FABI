@@ -112,7 +112,9 @@ void parseCommand (char * cmdstr)
 {
     int8_t cmd=-1;
     int16_t num=0;
+
     
+    cmdstr[strlen(cmdstr)+1]=0;  // to prevent exceeing the actual commandstring (when emptry string parameters are passed!)
     // Serial.print("parseCommand:"); Serial.println(cmdstr); 
     //char * actpos = strtok(cmdstr," ");   // see a nice explaination of strtok here:  http://www.reddit.com/r/arduino/comments/2h9l1l/using_the_strtok_function/
 
@@ -134,7 +136,7 @@ void parseCommand (char * cmdstr)
                                 if (get_uint(actpos, &num)) cmd=i ; actpos=0; break;
              case PARTYPE_INT:  actpos+=2; while(*actpos==' ') actpos++;  
                                 if (get_int(actpos, &num)) cmd=i ; actpos=0; break;
-             case PARTYPE_STRING: actpos+=3; if (*actpos)  cmd=i ;  break;
+             case PARTYPE_STRING: actpos+=3; cmd=i ;  break;
              default: cmd=i; actpos=0; break;
           }
         }
@@ -179,7 +181,7 @@ void parseByte (int newByte)  // parse an incoming commandbyte from serial inter
                 if ((newByte==13) || (newByte==10))
                 {  cmdstring[cmdlen]=0;  parseCommand(cmdstring); 
                   readstate=0; }
-                else if(cmdlen<MAX_CMDLEN-1) cmdstring[cmdlen++]=newByte; 
+                else if(cmdlen<MAX_CMDLEN-2) cmdstring[cmdlen++]=newByte; 
             break;   
         default: 
             err: Serial.println('?');readstate=0;

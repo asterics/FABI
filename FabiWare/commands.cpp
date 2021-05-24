@@ -356,14 +356,15 @@ void performCommand (uint8_t cmd, int16_t parNum, char * parString, int8_t perio
                Serial.println(parString);
              #endif
              if (parString) {
-               release_all();
-               reportSlotParameters=REPORT_ONE_SLOT;
-               readFromEEPROM(parString);
-               reportSlotParameters=REPORT_NONE;
-               if(PCBversion){
-                 updateNeoPixelColor(actSlot);    // update the Slot color of the LED 
-                 setBeepCount(actSlot);           // set some beep count -> time (dependend on loop time)
-                 writeSlot2Display();             // update the info on the Display 
+               if (strlen (parString) > 0) {
+                 release_all();
+                 readFromEEPROM(parString);
+                 if(PCBversion){
+                   updateNeoPixelColor(actSlot);    // update the Slot color of the LED 
+                   setBeepCount(actSlot);           // set some beep count -> time (dependend on loop time)
+                   writeSlot2Display();             // update the info on the Display 
+                 }
+                 Serial.println("OK");
                }
              }
           break;
