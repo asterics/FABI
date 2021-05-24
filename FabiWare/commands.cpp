@@ -338,8 +338,17 @@ void performCommand (uint8_t cmd, int16_t parNum, char * parString, int8_t perio
                Serial.print(F("save slot "));
                Serial.println(parString);
              #endif
-             release_all();
-             saveToEEPROM(parString); 
+
+             if (strlen(parString) > 0) {
+               // crop exceeding characters!
+               if (strlen(parString) >= MAX_SLOTNAME_LEN-1)
+                 parString[MAX_SLOTNAME_LEN-1]=0;
+                 
+               release_all();
+               saveToEEPROM(parString); 
+             }
+             Serial.println("OK");          
+          
           break;
       case CMD_LO:
              #ifdef DEBUG_OUTPUT 
@@ -374,6 +383,7 @@ void performCommand (uint8_t cmd, int16_t parNum, char * parString, int8_t perio
              #endif
              release_all();
              listSlots();
+             Serial.println("OK");
           break; 
       case CMD_NE:
              #ifdef DEBUG_OUTPUT
@@ -395,7 +405,8 @@ void performCommand (uint8_t cmd, int16_t parNum, char * parString, int8_t perio
                Serial.println(F("delete slots")); 
              #endif
              release_all();
-             deleteSlots(); 
+             deleteSlots();
+             Serial.println("OK"); 
           break;
       case CMD_NC:
              #ifdef DEBUG_OUTPUT 

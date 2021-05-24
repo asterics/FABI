@@ -14,10 +14,10 @@
      Supported AT-commands:  
      (sent via serial interface, 115200 baud, using spaces between parameters.  Enter (<cr>, ASCII-code 0x0d) finishes a command)
    
-          AT                returns "OK"
-          AT ID             returns identification string (e.g. "Fabi V2.3")
-          AT BM <uint>      puts button into programming mode (e.g. "AT BM 2" -> next AT-command defines the new function for button 2)
-                            for the FABI, there are 11 buttons available (9 physical buttons, 2 virtual functions - sip / puff)
+          AT              returns "OK"
+          AT ID           returns identification string (e.g. "Fabi V2.3")
+          AT BM <uint>    puts button into programming mode (e.g. "AT BM 2" -> next AT-command defines the new function for button 2)
+                          for the FABI, there are 11 buttons available (9 physical buttons, 2 virtual functions - sip / puff)
           AT MA <string>  execute a command macro containing multiple commands (separated by semicolon) 
                           example: "AT MA MX 100;MY 100;CL;"  use backslash to mask semicolon: "AT MA KW \;;CL;" writes a semicolon and then clicks left 
           AT WA <uint>    wait (given in milliseconds, useful for macro commands)

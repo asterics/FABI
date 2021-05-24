@@ -38,7 +38,7 @@
 
 #define NUMBER_OF_BUTTONS  11         // number of pyhsical plus virtual switches, note: if more than 16, change buttonState type to uint32_t!
 
-#define MAX_SLOTNAME_LEN      10      // maximum lenght for a slotname
+#define MAX_SLOTNAME_LEN      12      // maximum lenght for a slotname
 #define KEYSTRING_BUFFER_LEN 400      // maximum lenght for all string parameters of a slot 
 #define MAX_CMDLEN           120      // maximum lenght of a single AT command
 

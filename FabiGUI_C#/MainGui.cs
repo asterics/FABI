@@ -33,6 +33,7 @@ namespace FabiGUI
         const string VERSION_STRING = "2.5";
         const int SPECIALMODE_CHANGE_STEP = 5;
         const int PRESSURE_CHANGE_STEP = 1;
+        const int MAX_SLOTNAME_LENGTH = 12;
 
         Boolean readDone = false;
         Boolean firmwareUpdate_running = false;
@@ -927,5 +928,6 @@ namespace FabiGUI
         {
 
         }
+
     }
 }

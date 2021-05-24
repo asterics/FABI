@@ -15,7 +15,7 @@
 #include "fabi.h"
 #include "eepromStorage.h"
 
-#define SLOT_VALID 0x25  // "magic byte" for valid EEPROM content
+#define SLOT_VALID 0x26  // "magic byte" for valid EEPROM content
 
 int nextSlotAddress=0;
 int EmptySlotAddress = 0;
