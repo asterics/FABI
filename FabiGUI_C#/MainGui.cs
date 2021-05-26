@@ -829,11 +829,12 @@ namespace FabiGUI
             }
 
 
-            if (!IsLinux) { 
+            if (!IsLinux)
+            {
                 // Find private downloads folder
                 IntPtr outPath;
-                int result = SHGetKnownFolderPath(new Guid("{374DE290-123F-4565-9164-39C4925E467B}"), (uint) 0x00004000, new IntPtr(0), out outPath);
-          
+                int result = SHGetKnownFolderPath(new Guid("{374DE290-123F-4565-9164-39C4925E467B}"), (uint)0x00004000, new IntPtr(0), out outPath);
+
                 if (result < 0)
                 {
                     MessageBox.Show("Could not access Download folder", "Error", MessageBoxButtons.OK);
@@ -843,7 +844,11 @@ namespace FabiGUI
                 downloadPath = Marshal.PtrToStringUni(outPath) + "\\esp32_mouse_keyboard.bin";
                 Marshal.FreeCoTaskMem(outPath);
             }
-            else downloadPath = "~/esp32_mouse_keyboard.bin";
+            else
+            {
+                downloadPath = "~\\esp32_mouse_keyboard.bin";
+                Console.WriteLine("Using Linux Folder: " + downloadPath);
+            }
 
             pBar1.Minimum = 0;
             pBar1.Maximum = 100;
