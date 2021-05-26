@@ -16,6 +16,9 @@
 #include "eepromStorage.h"
 
 #define SLOT_VALID 0x26  // "magic byte" for valid EEPROM content
+#define SLOTSIZE (sizeof(settingsType)+NUMBER_OF_BUTTONS*sizeof(buttonType))
+
+
 
 int nextSlotAddress=0;
 int EmptySlotAddress = 0;
@@ -35,6 +38,83 @@ uint16_t getfreeEEPROM() {
 }
 
 
+/**
+   move multiple bytes in EEPROM 
+   targetAdr: start address for writing bytes 
+   sourceAdr: start address for reading bytes 
+   count: number of bytes to move
+   moving overlapping regions is possible
+ * */
+void moveEEPROM(uint16_t targetAdr, uint16_t sourceAdr, int count) {
+  if (sourceAdr > targetAdr) {  // forward copy
+    Serial.println("fwd");
+    sourceAdr++;targetAdr++;
+    
+    while (count-- > 0) {
+      uint8_t c=EEPROM.read(sourceAdr++);
+      //if (!c)  Serial.println("*");
+      //else  Serial.print((char)c);
+      EEPROM.update(targetAdr++,c);
+    }
+  }
+  else {  // backward copy
+    sourceAdr+=count;
+    targetAdr+=count;
+    while (count--)
+      EEPROM.update(targetAdr--,EEPROM.read(sourceAdr--));
+  }
+}
+
+
+
+/**
+   @name getSlotInfos
+   @param char * slotname
+   @param uint16_t * slotaddress
+   @param uint16_t * keystringaddress
+   @param uint16_t * keystringlength
+   @return uint8_t
+
+   get information about a slot from the EEPROM
+
+   returns 1 if slotname was found, and 0 if not.
+   if the slow was found, the start address of the slot 
+   and top address/length of the keysting data in EEPROM are returned  
+*/
+uint8_t getSlotInfos(char * slotname, uint16_t * s_address, uint16_t * k_address, uint16_t * k_len)
+{
+   uint16_t address=0;
+   uint16_t keystringAddress=EEPROM_SIZE-1;
+
+
+   while (EEPROM.read(address)==SLOT_VALID)  // indicates valid eeprom content !
+   {
+      address++;
+      uint8_t c,i=0,match=0;
+      while (c=EEPROM.read(address+i)) {
+        if (slotname[i] == c) i++;
+        else break;
+      }
+      if (!slotname[i] && !c) {
+          match=1; 
+          *s_address = address;
+          *k_address = keystringAddress;
+          *k_len=0;
+      }
+      
+      uint8_t stringCount=0; 
+      while (stringCount < NUMBER_OF_BUTTONS) {
+         if (!EEPROM.read(keystringAddress--)) stringCount++;
+         if (match) *k_len = *k_len + 1;  // increase keystring length info 
+      }
+      if (match) return(1);
+
+      // skip to next slot address
+      address+=SLOTSIZE;
+   }
+   return(0);
+}
+
 
 /**
    @name saveToEEPROM
@@ -44,37 +124,69 @@ uint16_t getfreeEEPROM() {
    saves the configuration slot (identified by slotname) to the EEPROM
    cancels if not enough EEPROm memory free
 */
-void saveToEEPROM(char * slotname)
+int saveToEEPROM(char * slotname)
 {
    char act_slotname[MAX_SLOTNAME_LEN];
-   int address = 0;
-   int tmpStartAddress=0;
-   uint8_t found=0;
+   int delta=0;
+   uint16_t address=0;
+   uint16_t keystring_address;
+   uint16_t old_keystring_len, keystring_len;
+   uint8_t append=0;
    uint8_t * p;
 
-   address=EmptySlotAddress;
+   keystring_len=keystringMemUsage(0);  // lenght of current keystrings
+
+   if (getSlotInfos(slotname, &address, &keystring_address, &old_keystring_len)) {
+     #ifdef DEBUG_OUTPUT   
+       Serial.println("Slot already exists !!");
+       Serial.print(F(" starting from EEPROM address ")); Serial.println(address);
+       Serial.print(F(" keystring address ")); Serial.println(keystring_address);
+       Serial.print(F(" old keystring length ")); Serial.print(old_keystring_len);
+       Serial.print(F(", act len: ")); Serial.println(keystring_len);
+     #endif
+
+     delta = old_keystring_len - keystring_len;
+     if (delta) {  
+
+       //  move slot data?
+       #ifdef DEBUG_OUTPUT   
+         Serial.print(F(" move from address ")); Serial.print(EmptyKeystringAddress);
+         Serial.print(F(" to address ")); Serial.println(EmptyKeystringAddress+delta);
+         Serial.print(F(" bytes: ")); Serial.println(keystring_address - old_keystring_len - EmptyKeystringAddress);
+       #endif
+       
+       if (-delta > (int)freeEEPROMbytes) 
+         return 0;
+         
+       moveEEPROM (EmptyKeystringAddress+delta, EmptyKeystringAddress, keystring_address - old_keystring_len - EmptyKeystringAddress);
+       EmptyKeystringAddress+=delta;
+     }
+   }
+   else {
+    // start with new slot
+    if ( SLOTSIZE +1 + keystring_len >= freeEEPROMbytes) 
+       return 0;
+
+    address=EmptySlotAddress;
+    keystring_address=EmptyKeystringAddress;
+    EEPROM.update(address,SLOT_VALID);     
+    address++;
+    append=1;
+  }
+
    
-   #ifdef DEBUG_OUTPUT   
+  #ifdef DEBUG_OUTPUT   
      Serial.print(F("Writing slot ")); if (slotname) Serial.print(slotname);
      Serial.print(F(" starting from EEPROM address ")); Serial.println(address);
-     Serial.print(F("We need ")); Serial.print(sizeof(settingsType)+NUMBER_OF_BUTTONS*sizeof(buttonType)+1);
-     Serial.print(F(" bytes for the config and ")); Serial.print(keystringMemUsage(0));
+     Serial.print(F("We need ")); Serial.print(SLOTSIZE+1);
+     Serial.print(F(" bytes for the config and ")); Serial.print(keystring_len);
      Serial.println(F(" bytes for keystrings."));
 
-     Serial.print(EmptyKeystringAddress-address);
+     Serial.print(freeEEPROMbytes);
      Serial.println(F(" bytes are free.")); 
-   #endif
-  
-   if ( sizeof(settingsType)+NUMBER_OF_BUTTONS*sizeof(buttonType)+1 + keystringMemUsage(0)
-        >= (EmptyKeystringAddress-address)) {
-     Serial.print(F(" EEPROM too small, aborting! ")); 
-     return;
-   }
- 
-   // start with new slot 
-   EEPROM.update(address,SLOT_VALID);     
-   address++;
+  #endif
 
+ 
    // update slotname
    if (!slotname) settings.slotname[0]=0;
    else strcpy(settings.slotname,slotname);
@@ -88,20 +200,23 @@ void saveToEEPROM(char * slotname)
    p = (uint8_t*) buttons;
    for (int i=0;i<NUMBER_OF_BUTTONS*sizeof(buttonType);i++)
         EEPROM.update(address++,*p++);
-
-   if (EmptySlotAddress<=address) {
-     EEPROM.update(address,0);
-     EmptySlotAddress=address;
-   }
-
+   
    // write keystrings
    // Note that the keystrings are stored "top down", starting at the highest EEPROM adress
-   for (int i=0;i<keystringMemUsage(0);i++)
-        EEPROM.update(EmptyKeystringAddress--,keystringBuffer[i]);
+   for (int i=0;i<keystring_len;i++)
+        EEPROM.update(keystring_address--,keystringBuffer[i]);
 
    // update free bytes
-   freeEEPROMbytes=EmptyKeystringAddress-address;
+   if (append) {
+     EEPROM.update(address,0);
+     EmptySlotAddress=address;
+     EmptyKeystringAddress-=keystring_len;
+   }
+   
+   freeEEPROMbytes=EmptyKeystringAddress-EmptySlotAddress;
+   return(1);
 }
+
 
 /**
    @name readFromEEPROM
@@ -180,7 +295,7 @@ void readFromEEPROM(char * slotname)
         tmpSlotAddress=address;
       } 
       else {
-        address += (sizeof(settingsType) + NUMBER_OF_BUTTONS * sizeof(buttonType));   // skip this slot  
+        address += SLOTSIZE;   // skip this slot  
         stringCount=0;
         do {
            if (!EEPROM.read(tmpKeystringAddress--)) stringCount++;
@@ -193,8 +308,9 @@ void readFromEEPROM(char * slotname)
    EmptySlotAddress=address;
    if (tmpSlotAddress) nextSlotAddress=tmpSlotAddress;
    if (nextSlotAddress==EmptySlotAddress) nextSlotAddress=0;
+   EmptyKeystringAddress=tmpKeystringAddress;
 
-   freeEEPROMbytes=tmpKeystringAddress-address;
+   freeEEPROMbytes=EmptyKeystringAddress-EmptySlotAddress;
    
    #ifdef DEBUG_OUTPUT   
        Serial.print(numSlots); Serial.print(F(" slots were found in EEPROM, occupying "));
@@ -211,19 +327,40 @@ void readFromEEPROM(char * slotname)
 
 /**
    @name deleteSlots
-   @param none
+   @param slotname
    @return none
 
-   deletes all slots and keystrings from EEPROM
+   deletes one slot and it's keystinrg from the EEPROM
+   if slotname is empty: deletes all slots and keystrings from EEPROM
    setting the first valid indicators to 0
 */
-void deleteSlots()
+void deleteSlots(char * slotname)
 {
-   EmptySlotAddress=0;
-   EmptyKeystringAddress=EEPROM_SIZE-1;
-   freeEEPROMbytes=EEPROM_SIZE-1;
-   nextSlotAddress=0;
-   EEPROM.update(0,0);
+   if (!strlen(slotname)) {
+    Serial.println("deleting all slots!");
+    EmptySlotAddress=0;
+    EmptyKeystringAddress=EEPROM_SIZE-1;
+    freeEEPROMbytes=EEPROM_SIZE-1;
+    nextSlotAddress=0;
+    EEPROM.update(0,0);
+    return;
+   }
+   
+   uint16_t address=0, old_keystring_len, keystring_address, keystring_len;
+
+   if (getSlotInfos(slotname, &address, &keystring_address, &old_keystring_len)) {
+     Serial.print("deleting one slot @address "); Serial.println(address);    
+     Serial.print(" keystring length = "); Serial.println(old_keystring_len);    
+
+     moveEEPROM (address-1, address+SLOTSIZE, EmptySlotAddress-address+1);
+     moveEEPROM (keystring_address, keystring_address-old_keystring_len, keystring_address - old_keystring_len - EmptyKeystringAddress);
+
+     EmptySlotAddress-=SLOTSIZE;
+     EmptyKeystringAddress+=old_keystring_len;
+     Serial.print("EmptySlotAddress "); Serial.println(EmptySlotAddress);    
+     Serial.print("EmptyKeystringAddress "); Serial.println(EmptyKeystringAddress);    
+   }
+  
 }
 
 /**
@@ -249,6 +386,6 @@ void listSlots()
          Serial.write(b);
      Serial.println();
      
-     address=tmpStartAddress+sizeof(settingsType)+NUMBER_OF_BUTTONS*sizeof(buttonType);         
+     address=tmpStartAddress+SLOTSIZE;         
    }
 }

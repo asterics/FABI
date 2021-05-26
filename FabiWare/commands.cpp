@@ -33,7 +33,7 @@ const struct atCommandType atCommands[] PROGMEM = {
     {"MY"  , PARTYPE_INT  },  {"KW"  , PARTYPE_STRING},{"KP"  , PARTYPE_STRING},{"KH"  , PARTYPE_STRING},
     {"KT"  , PARTYPE_STRING}, {"KR"  , PARTYPE_STRING},{"RA"  , PARTYPE_NONE }, {"SA"  , PARTYPE_STRING},
     {"LO"  , PARTYPE_STRING}, {"LA"  , PARTYPE_NONE }, {"LI"  , PARTYPE_NONE }, {"NE"  , PARTYPE_NONE }, 
-    {"DE"  , PARTYPE_NONE },  {"NC"  , PARTYPE_NONE }, {"SR"  , PARTYPE_NONE }, {"ER"  , PARTYPE_NONE },
+    {"DE"  , PARTYPE_STRING}, {"NC"  , PARTYPE_NONE }, {"SR"  , PARTYPE_NONE }, {"ER"  , PARTYPE_NONE },
     {"TS"  , PARTYPE_UINT },  {"TP"  , PARTYPE_UINT }, {"MA"  , PARTYPE_STRING},{"WA"  , PARTYPE_UINT  },
     {"TT"  , PARTYPE_UINT },  {"AP"  , PARTYPE_UINT }, {"AR"  , PARTYPE_UINT},  {"AI"  , PARTYPE_UINT  },
     {"FR"  , PARTYPE_NONE },  {"BT"  , PARTYPE_UINT }, {"BC"  , PARTYPE_STRING},{"DP" , PARTYPE_UINT  },
@@ -345,10 +345,10 @@ void performCommand (uint8_t cmd, int16_t parNum, char * parString, int8_t perio
                  parString[MAX_SLOTNAME_LEN-1]=0;
                  
                release_all();
-               saveToEEPROM(parString); 
+               if (!saveToEEPROM(parString))
+                 Serial.println(F("E: EEPROM full"));
+               else Serial.println("OK"); 
              }
-             Serial.println("OK");          
-          
           break;
       case CMD_LO:
              #ifdef DEBUG_OUTPUT 
@@ -406,7 +406,7 @@ void performCommand (uint8_t cmd, int16_t parNum, char * parString, int8_t perio
                Serial.println(F("delete slots")); 
              #endif
              release_all();
-             deleteSlots();
+             deleteSlots(parString);
              Serial.println("OK"); 
           break;
       case CMD_NC:

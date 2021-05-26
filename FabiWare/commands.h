@@ -72,13 +72,12 @@
           AT RA             release all: releases all currently pressed keys and buttons    
           
     Housekeeping commands:
-          AT SA <string>  save settings and current button modes to slot under given name 
-                          a new slot will be appended (e.g. AT SA mouse1)
+          AT SA <string>  save settings and current button modes to next free eeprom slot under given name (e.g. "AT SA keys1")                          a new slot will be appended (e.g. AT SA mouse1)
           AT LO <string>  load button modes from eeprom slot (e.g. AT LO mouse1 -> loads profile named "mouse1")
           AT LA           load all slots (displays names and settings of all stored slots) 
           AT LI           list all saved slot names 
           AT NE           next slot will be loaded (wrap around after last slot)
-          AT DE           delete EEPROM content (delete all stored slots)
+          AT DE <string>  delete slot of given name (deletes all stored slots if no string parameter is given)
           AT NC           no command (idle operation)
           AT SR           start periodic reporting analog values (A0) over serial (starting with "VALUES:") 
           AT ER           end reporting analog values
