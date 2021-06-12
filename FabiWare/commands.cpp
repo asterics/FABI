@@ -20,6 +20,7 @@
 #include "display.h"
 #include "buzzer.h"
 
+const char ERRORMESSAGE_NOT_FOUND[] = "E: not found";
 
 // AT Command list - defines all valid commands and their paramter types
 // Note that the order of this list must match with the command index enum (see commands.h)
@@ -358,13 +359,15 @@ void performCommand (uint8_t cmd, int16_t parNum, char * parString, int8_t perio
              if (parString) {
                if (strlen (parString) > 0) {
                  release_all();
-                 readFromEEPROM(parString);
-                 if(PCBversion){
-                   updateNeoPixelColor(actSlot);    // update the Slot color of the LED 
-                   setBeepCount(actSlot);           // set some beep count -> time (dependend on loop time)
-                   writeSlot2Display();             // update the info on the Display 
-                 }
-                 Serial.println("OK");
+                 if (readFromEEPROM(parString)) {
+                   if(PCBversion){
+                     updateNeoPixelColor(actSlot);    // update the Slot color of the LED 
+                     setBeepCount(actSlot);           // set some beep count -> time (dependend on loop time)
+                     writeSlot2Display();             // update the info on the Display 
+                   }
+                   Serial.println("OK");
+                 } 
+                 else Serial.println(ERRORMESSAGE_NOT_FOUND);
                }
              }
           break;
@@ -406,8 +409,9 @@ void performCommand (uint8_t cmd, int16_t parNum, char * parString, int8_t perio
                Serial.println(F("delete slots")); 
              #endif
              release_all();
-             deleteSlots(parString);
-             Serial.println("OK"); 
+             if (deleteSlots(parString))
+                Serial.println("OK"); 
+             else Serial.println(ERRORMESSAGE_NOT_FOUND);
           break;
       case CMD_NC:
              #ifdef DEBUG_OUTPUT 

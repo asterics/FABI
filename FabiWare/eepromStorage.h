@@ -26,12 +26,12 @@
 #define REPORT_ALL_SLOTS 2
 
 uint16_t getfreeEEPROM();
-int saveToEEPROM(char * slotname);
+uint8_t saveToEEPROM(char * slotname);
 void bootstrapEEPROM();
-void readFromEEPROM(char * slotname);
+uint8_t readFromEEPROM(char * slotname);
 uint8_t getSlotInfos(char * slotname, uint16_t * s_address, uint16_t * k_address, uint16_t * k_len);
 void listSlots();
-void deleteSlots(char * slotname);
+uint8_t deleteSlots(char * slotname);
 void printCurrentSlot();
 
 #endif

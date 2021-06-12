@@ -114,12 +114,14 @@ uint8_t getSlotInfos(char * slotname, uint16_t * s_address, uint16_t * k_address
 /**
    @name saveToEEPROM
    @param char * slotname
-   @return none
+   @return 1:success/0:fail
 
    saves the configuration slot (identified by slotname) to the EEPROM
-   cancels if not enough EEPROm memory free
+   cancels if not enough EEPROM memory free
+   returns 0 if EEPROM memory is full / 1 if save was successful
+   
 */
-int saveToEEPROM(char * slotname)
+uint8_t saveToEEPROM(char * slotname)
 {
    char act_slotname[MAX_SLOTNAME_LEN];
    int delta=0;
@@ -215,22 +217,24 @@ int saveToEEPROM(char * slotname)
 /**
    @name readFromEEPROM
    @param char * slotname
-   @return none
+   @return 1:success/0:fail
 
    loads the configuration slot (identified by slotname) from the EEPROM
 
    in case reportSlotParameters==REPORT_ONE_SLOT, the slot configuration is printed (if slotname is found)
    in case reportSlotParameters==REPORT_ALL_SLOTS, all slot configurations are printed
+
+   returns 1 if slot data was loaded and/or printed, 0 if slotname was not found
    
 */
-void readFromEEPROM(char * slotname)
+uint8_t readFromEEPROM(char * slotname)
 {
    char act_slotname[MAX_SLOTNAME_LEN];
    int address=0;
    int tmpSlotAddress=0;
    int tmpStartAddress=0;
    int tmpKeystringAddress=EEPROM_TOP_ADDRESS-1;
-   uint8_t done;
+   uint8_t done=0;
    uint8_t numSlots=0;
    uint8_t stringCount=0;
    uint8_t* p;
@@ -252,7 +256,7 @@ void readFromEEPROM(char * slotname)
 
       // if slotname matches the slot stored in EEPROM
       if (slotname)  {
-        if (!strcmp(act_slotname, slotname)) found=1;  
+        if (!strcmp(act_slotname, slotname)) { found=1; done=1; }
       }
       
       address=tmpStartAddress;
@@ -313,21 +317,25 @@ void readFromEEPROM(char * slotname)
        Serial.print(freeEEPROMbytes); Serial.println(F(" bytes are free.")); 
    #endif
    
-   if (reportSlotParameters) 
+   if (reportSlotParameters) {
      Serial.println(F("END"));   // important: end marker for slot parameter list (command "load all" - AT LA)
+     return(1);
+   }
 
+   return(done);
 }
 
 /**
    @name deleteSlots
    @param slotname
-   @return none
+   @return 1:success / 0:fail
 
-   deletes one slot and it's keystinrg from the EEPROM
+   deletes one slot and it's keystring from the EEPROM
    if slotname is empty: deletes all slots and keystrings from EEPROM
    setting the first valid indicators to 0
+   returns 0 if slotname was not found, 1 if slot(s) were deleted successfully
 */
-void deleteSlots(char * slotname)
+uint8_t deleteSlots(char * slotname)
 {
    if (!strlen(slotname)) {
     Serial.println("deleting all slots!");
@@ -336,7 +344,7 @@ void deleteSlots(char * slotname)
     freeEEPROMbytes=EEPROM_TOP_ADDRESS-1;
     nextSlotAddress=0;
     EEPROM.update(0,0);
-    return;
+    return 1;
    }
    
    uint16_t address=0, old_keystring_len, keystring_address, keystring_len;
@@ -357,7 +365,9 @@ void deleteSlots(char * slotname)
        Serial.print("EmptySlotAddress "); Serial.println(EmptySlotAddress);    
        Serial.print("EmptyKeystringAddress "); Serial.println(EmptyKeystringAddress);    
      #endif
+     return(1);
    }  
+   return(0);
 }
 
 void bootstrapEEPROM()
