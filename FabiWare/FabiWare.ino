@@ -101,6 +101,7 @@ void setup() {
   initButtons();
 
   // read button modes from first EEPROM slot (if available)
+  bootstrapEEPROM();
   readFromEEPROM(0);
 
   //initialise BT module, if available
