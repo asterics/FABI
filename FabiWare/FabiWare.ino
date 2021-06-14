@@ -35,12 +35,13 @@
 
 int8_t  led_map[NUMBER_OF_LEDS] = {14, 15, 16};
 
-struct settingsType settings = {      // type definition see fabi.h
+const struct settingsType defaultSettings = {      // type definition see fabi.h
   "slot1", DEFAULT_WHEEL_STEPSIZE, DEFAULT_TRESHOLD_TIME,
   DEFAULT_SIP_THRESHOLD, DEFAULT_PUFF_THRESHOLD,
   DEFAULT_ANTITREMOR_PRESS, DEFAULT_ANTITREMOR_RELEASE, DEFAULT_ANTITREMOR_IDLE,
   DEFAULT_BT_MODE, DEFAULT_DOUBLEPRESS_TIME, DEFAULT_AUTODWELL_TIME, 0xFFFFFF
 };
+struct settingsType settings;
 
 uint8_t PCBversion = 0;        // 1 == PCB version
 uint32_t updateTimestamp = 0;
@@ -62,6 +63,8 @@ int freeRam();
    Initialisation of HW and peripherals.
 */
 void setup() {
+  //load settings
+  memcpy(&settings,&defaultSettings,sizeof(struct settingsType));
   Serial.begin(9600);    // open serial port for AT commands / GUI communication
   Serial1.begin(9600);   // open the serial port for BT-Module 
   delay(1000);           // allow some time for the BT-Module to start ...

@@ -24,6 +24,7 @@
 #include "hid_hal.h"
 #include "NeoPixel.h"
 #include "buzzer.h"
+#include "buttons.h"
 
 //#include <Wire.h>
 //#include <SPI.h>
@@ -95,6 +96,7 @@ extern uint8_t addonUpgrade;
 extern uint8_t reportSlotParameters;
 extern uint8_t reportRawValues;
 extern struct settingsType settings;
+extern const struct settingsType defaultSettings;
 extern int EmptySlotAddress;
 extern struct buttonType buttons[NUMBER_OF_BUTTONS];
 extern struct buttonDebouncerType buttonDebouncers[NUMBER_OF_BUTTONS];
