@@ -78,6 +78,7 @@
           AT LI           list all saved slot names 
           AT NE           next slot will be loaded (wrap around after last slot)
           AT DE <string>  delete slot of given name (deletes all stored slots if no string parameter is given)
+          AT RS           resets FABI and restores default configuration (deletes EEPROM content and restores default Slot "slot1")
           AT NC           no command (idle operation)
           AT SR           start periodic reporting analog values (A0) over serial (starting with "VALUES:") 
           AT ER           end reporting analog values
