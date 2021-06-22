@@ -31,7 +31,7 @@
 
 #define VERSION_STRING "FABI v2.5"
 
-//#define DEBUG_OUTPUT      //  if debug output is desired
+#define DEBUG_OUTPUT 0      //  if debug output is desired
 
 #include <Mouse.h>
 #include <Keyboard.h>

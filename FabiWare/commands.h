@@ -22,6 +22,9 @@
                           example: "AT MA MX 100;MY 100;CL;"  use backslash to mask semicolon: "AT MA KW \;;CL;" writes a semicolon and then clicks left 
           AT WA <uint>    wait (given in milliseconds, useful for macro commands)
 
+      Commands for switching output actions
+          AT SO <uint>    Sets the predefined switching output port to the given value (1=HIGH, 0=LOW)
+
       Commands for changing settings:
           AT WS <uint>    set mouse wheel stepsize (e.g. "AT WS 3" sets the wheel stepsize to 3 rows)
           AT TS <uint>    threshold for sip action  (0-512)
@@ -116,7 +119,7 @@ enum atCommands {
   CMD_TL, CMD_TR, CMD_TM, CMD_WU, CMD_WD, CMD_WS, CMD_MX, CMD_MY, CMD_KW, CMD_KP, CMD_KH, CMD_KT, 
   CMD_KR, CMD_RA, CMD_SA, CMD_LO, CMD_LA, CMD_LI, CMD_NE, CMD_DE, CMD_NC, CMD_SR, CMD_ER, CMD_TS, 
   CMD_TP, CMD_MA, CMD_WA, CMD_TT, CMD_AP, CMD_AR, CMD_AI, CMD_FR, CMD_BT, CMD_BC, CMD_DP, CMD_AD,
-  CMD_SC, CMD_UG, NUM_COMMANDS
+  CMD_SC, CMD_UG, CMD_SO, NUM_COMMANDS
 };
 
 #define PARTYPE_NONE   0

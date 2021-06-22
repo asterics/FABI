@@ -29,7 +29,9 @@
 #include <Wire.h>
 #include <SPI.h>
 
-
+//Optional use of port D10 as switching output port with a MOSFET
+#define SWITCHING_OUTPUT_PORT 0
+#define SWITCHING_OUTPUT_PORT_PIN 10
 
 #define PCB_checkPin 14     // Input Pin to be checked: Grounded == FABI PCB Version (with LCD / Buzzer / Neopixel)
 
@@ -116,6 +118,11 @@ void setup() {
     writeSlot2Display();
     updateNeoPixelColor(1); 
   }
+
+  //Init switching output port
+  #ifdef SWITCHING_OUTPUT_PORT
+    pinMode(SWITCHING_OUTPUT_PORT_PIN,OUTPUT);
+  #endif
 
   #ifdef DEBUG_OUTPUT
     Serial.println("Flexible Assistive Button Interface started !");

@@ -37,7 +37,7 @@ const struct atCommandType atCommands[] PROGMEM = {
     {"TS"  , PARTYPE_UINT },  {"TP"  , PARTYPE_UINT }, {"MA"  , PARTYPE_STRING},{"WA"  , PARTYPE_UINT  },
     {"TT"  , PARTYPE_UINT },  {"AP"  , PARTYPE_UINT }, {"AR"  , PARTYPE_UINT},  {"AI"  , PARTYPE_UINT  },
     {"FR"  , PARTYPE_NONE },  {"BT"  , PARTYPE_UINT }, {"BC"  , PARTYPE_STRING},{"DP" , PARTYPE_UINT  },
-    {"AD"  , PARTYPE_UINT },  {"SC"  , PARTYPE_STRING }, {"UG", PARTYPE_NONE }
+    {"AD"  , PARTYPE_UINT },  {"SC"  , PARTYPE_STRING }, {"UG", PARTYPE_NONE }, {"SO", PARTYPE_UINT}
 };
 
 /**
@@ -518,6 +518,14 @@ void performCommand (uint8_t cmd, int16_t parNum, char * parString, int8_t perio
             Serial1.println("$UG");
             // delaying to ensure that UART command is sent and received
             delay(500);
-            break;          
+            break;
+      case CMD_SO:
+           #ifdef SWITCHING_OUTPUT_PORT
+              Serial.print("Switching output port: Pin ");Serial.print(SWITCHING_OUTPUT_PORT_PIN);Serial.print(" = ");Serial.println(parNum);
+              digitalWrite(SWITCHING_OUTPUT_PORT_PIN,parNum);      
+           #else
+              Serial.print("Command AT SO not enabled. Set #define SWITCHING_OUTPUT_PORT 1 and ensure proper wiring.");
+           #endif
+           break;
   }
 }
