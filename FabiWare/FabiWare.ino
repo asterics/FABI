@@ -29,10 +29,6 @@
 #include <Wire.h>
 #include <SPI.h>
 
-//Optional use of port D10 as switching output port with a MOSFET
-#define SWITCHING_OUTPUT_PORT 0
-#define SWITCHING_OUTPUT_PORT_PIN 10
-
 #define PCB_checkPin 14     // Input Pin to be checked: Grounded == FABI PCB Version (with LCD / Buzzer / Neopixel)
 
 int8_t  led_map[NUMBER_OF_LEDS] = {14, 15, 16};
