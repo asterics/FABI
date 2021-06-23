@@ -32,7 +32,6 @@
 #define VERSION_STRING "FABI v2.5"
 
 //Optional use of port D10 as switching output port with a MOSFET
-#define SWITCHING_OUTPUT_PORT 1
 #define SWITCHING_OUTPUT_PORT_PIN 10
 
 #define DEBUG_OUTPUT 0      //  if debug output is desired

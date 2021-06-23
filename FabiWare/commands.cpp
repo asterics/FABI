@@ -520,12 +520,8 @@ void performCommand (uint8_t cmd, int16_t parNum, char * parString, int8_t perio
             delay(500);
             break;
       case CMD_SO:
-           #ifdef SWITCHING_OUTPUT_PORT
               Serial.print("Switching output port: Pin ");Serial.print(SWITCHING_OUTPUT_PORT_PIN);Serial.print(" = ");Serial.println(parNum);
               digitalWrite(SWITCHING_OUTPUT_PORT_PIN,parNum);      
-           #else
-              Serial.print("Command AT SO not enabled. Set #define SWITCHING_OUTPUT_PORT 1 and ensure proper wiring.");
-           #endif
-           break;
+              break;
   }
 }

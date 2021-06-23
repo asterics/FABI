@@ -116,9 +116,7 @@ void setup() {
   }
 
   //Init switching output port
-  #ifdef SWITCHING_OUTPUT_PORT
-    pinMode(SWITCHING_OUTPUT_PORT_PIN,OUTPUT);
-  #endif
+  pinMode(SWITCHING_OUTPUT_PORT_PIN,OUTPUT);
 
   #ifdef DEBUG_OUTPUT
     Serial.println("Flexible Assistive Button Interface started !");
