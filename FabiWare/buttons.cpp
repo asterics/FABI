@@ -87,7 +87,7 @@ void updateButtons() {
         else Serial.print("0");
       }
       Serial.print(",");
-      Serial.print(actSlot);
+      Serial.print(actSlot-1);
       Serial.println("");
       valueReportCount = 0;
     }
