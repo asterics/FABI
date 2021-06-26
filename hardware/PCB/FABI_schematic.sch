@@ -5,29 +5,14 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 1
 Title "FABI PCB for 8 jack plugs (ESP32 addon board conn)"
-Date "2021-02-11"
-Rev ""
+Date "2021-06-26"
+Rev "v1.1"
 Comp "AsTeRICS Foundation"
 Comment1 "www.asterics-foundation.org"
-Comment2 ""
+Comment2 "Fußthaler, Aigner, Veigl"
 Comment3 ""
 Comment4 ""
 $EndDescr
-NoConn ~ 3610 2870
-NoConn ~ 3610 2770
-Wire Wire Line
-	1710 2870 1860 2870
-$Comp
-L power:GND #PWR0102
-U 1 1 5D913F91
-P 1710 2870
-F 0 "#PWR0102" H 1710 2620 50  0001 C CNN
-F 1 "GND" V 1715 2742 50  0000 R CNN
-F 2 "" H 1710 2870 50  0001 C CNN
-F 3 "" H 1710 2870 50  0001 C CNN
-	1    1710 2870
-	0    1    -1   0   
-$EndComp
 $Comp
 L power:VCC #PWR013
 U 1 1 5F3C6FB2
@@ -108,36 +93,36 @@ ESD protection (SMD variant)
 $Comp
 L Connector_Generic:Conn_02x05_Odd_Even J9
 U 1 1 5F49020A
-P 7410 5010
-F 0 "J9" H 7460 5427 50  0000 C CNN
-F 1 "Conn_02x05_Odd_Even" H 7460 5336 50  0000 C CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_2x05_P2.54mm_Vertical" H 7410 5010 50  0001 C CNN
-F 3 "~" H 7410 5010 50  0001 C CNN
-F 4 "https://at.rs-online.com/web/p/leiterplatten-header/7457059/" H 7410 5010 50  0001 C CNN "RS"
-F 5 "745-7059" H 7410 5010 50  0001 C CNN "RS-Nr"
-	1    7410 5010
+P 7400 5000
+F 0 "J9" H 7450 5417 50  0000 C CNN
+F 1 "Conn_02x05_Odd_Even" H 7450 5326 50  0000 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_2x05_P2.54mm_Vertical" H 7400 5000 50  0001 C CNN
+F 3 "~" H 7400 5000 50  0001 C CNN
+F 4 "https://at.rs-online.com/web/p/leiterplatten-header/7457059/" H 7400 5000 50  0001 C CNN "RS"
+F 5 "745-7059" H 7400 5000 50  0001 C CNN "RS-Nr"
+	1    7400 5000
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:GND #PWR010
 U 1 1 5F4935A1
-P 7710 5010
-F 0 "#PWR010" H 7710 4760 50  0001 C CNN
-F 1 "GND" V 7715 4882 50  0000 R CNN
-F 2 "" H 7710 5010 50  0001 C CNN
-F 3 "" H 7710 5010 50  0001 C CNN
-	1    7710 5010
+P 7700 5000
+F 0 "#PWR010" H 7700 4750 50  0001 C CNN
+F 1 "GND" V 7705 4872 50  0000 R CNN
+F 2 "" H 7700 5000 50  0001 C CNN
+F 3 "" H 7700 5000 50  0001 C CNN
+	1    7700 5000
 	0    -1   1    0   
 $EndComp
 $Comp
 L power:GND #PWR012
 U 1 1 5F493918
-P 7710 5210
-F 0 "#PWR012" H 7710 4960 50  0001 C CNN
-F 1 "GND" V 7715 5082 50  0000 R CNN
-F 2 "" H 7710 5210 50  0001 C CNN
-F 3 "" H 7710 5210 50  0001 C CNN
-	1    7710 5210
+P 7700 5200
+F 0 "#PWR012" H 7700 4950 50  0001 C CNN
+F 1 "GND" V 7705 5072 50  0000 R CNN
+F 2 "" H 7700 5200 50  0001 C CNN
+F 3 "" H 7700 5200 50  0001 C CNN
+	1    7700 5200
 	0    -1   1    0   
 $EndComp
 Text Notes 1150 4300 0    39   ~ 0
@@ -287,12 +272,8 @@ Wire Wire Line
 Wire Wire Line
 	8860 5115 8860 5190
 Connection ~ 8860 5115
-Text GLabel 1860 3070 0    39   Input ~ 0
-SDA
-Text GLabel 1860 3170 0    39   Input ~ 0
-SCL
-NoConn ~ 7710 4910
-NoConn ~ 7210 5010
+NoConn ~ 7700 4900
+NoConn ~ 7200 5000
 Text Notes 5260 2705 0    39   ~ 0
 SMD
 Wire Notes Line
@@ -309,129 +290,62 @@ Wire Wire Line
 	5320 2845 5290 2845
 Wire Wire Line
 	5290 2845 5290 2875
-$Comp
-L power:VDD #PWR09
-U 1 1 60226D59
-P 3610 2570
-F 0 "#PWR09" H 3610 2420 50  0001 C CNN
-F 1 "VDD" H 3625 2743 50  0000 C CNN
-F 2 "" H 3610 2570 50  0001 C CNN
-F 3 "" H 3610 2570 50  0001 C CNN
-	1    3610 2570
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:VDD #PWR023
-U 1 1 60227507
-P 7210 5210
-F 0 "#PWR023" H 7210 5060 50  0001 C CNN
-F 1 "VDD" V 7225 5337 50  0000 L CNN
-F 2 "" H 7210 5210 50  0001 C CNN
-F 3 "" H 7210 5210 50  0001 C CNN
-	1    7210 5210
-	0    -1   -1   0   
-$EndComp
-Text Notes 3240 2150 0    39   ~ 0
-RAW:   unregulated voltage input for the Pro Micro\nVCC:   regulated voltage, 5V at 500mA\n
 Connection ~ 7970 3040
-Text GLabel 1860 3470 0    39   Input ~ 0
-AUX_4
-Text GLabel 1860 3370 0    39   Input ~ 0
-AUX_5
-Text GLabel 1860 3670 0    39   Input ~ 0
-AUX_2
-Text GLabel 1860 3770 0    39   Input ~ 0
-AUX_1
-Text GLabel 1860 3570 0    39   Input ~ 0
-AUX_3
-Text GLabel 1860 3270 0    39   Input ~ 0
-Buzzer_Pin
-Text GLabel 3610 3270 2    39   Input ~ 0
+Text GLabel 3600 3250 2    39   Input ~ 0
 AUX_6
-Text GLabel 3610 3370 2    39   Input ~ 0
+Text GLabel 3600 3350 2    39   Input ~ 0
 MPX
-Text GLabel 3610 3470 2    39   Input ~ 0
+Text GLabel 3600 3450 2    39   Input ~ 0
 NEOPIXEL
-Text GLabel 5690 4800 0    39   Input ~ 0
+Text GLabel 5700 4800 0    39   Input ~ 0
 NEOPIXEL
 $Comp
 L power:GND #PWR016
 U 1 1 5F4DD6BE
-P 5690 4700
-F 0 "#PWR016" H 5690 4450 50  0001 C CNN
-F 1 "GND" V 5695 4572 50  0000 R CNN
-F 2 "" H 5690 4700 50  0001 C CNN
-F 3 "" H 5690 4700 50  0001 C CNN
-	1    5690 4700
+P 5700 4700
+F 0 "#PWR016" H 5700 4450 50  0001 C CNN
+F 1 "GND" V 5705 4572 50  0000 R CNN
+F 2 "" H 5700 4700 50  0001 C CNN
+F 3 "" H 5700 4700 50  0001 C CNN
+	1    5700 4700
 	0    1    -1   0   
 $EndComp
 $Comp
 L Connector:Conn_01x03_Male J10
 U 1 1 5F4DCE7D
-P 5890 4800
-F 0 "J10" H 5998 4490 50  0000 C CNN
-F 1 "Conn_01x03_Male" H 5998 4590 50  0000 C CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical" H 5890 4800 50  0001 C CNN
-F 3 "~" H 5890 4800 50  0001 C CNN
-F 4 "https://at.rs-online.com/web/p/leiterplatten-header/2518092/" H 5890 4800 50  0001 C CNN "RS"
-F 5 "251-8092" H 5890 4800 50  0001 C CNN "RS-Nr"
-	1    5890 4800
+P 5900 4800
+F 0 "J10" H 6008 4490 50  0000 C CNN
+F 1 "Conn_01x03_Male" H 6008 4590 50  0000 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical" H 5900 4800 50  0001 C CNN
+F 3 "~" H 5900 4800 50  0001 C CNN
+F 4 "https://at.rs-online.com/web/p/leiterplatten-header/2518092/" H 5900 4800 50  0001 C CNN "RS"
+F 5 "251-8092" H 5900 4800 50  0001 C CNN "RS-Nr"
+	1    5900 4800
 	-1   0    0    1   
 $EndComp
-Connection ~ 1860 2870
-Wire Wire Line
-	3610 2570 3610 2670
-Wire Wire Line
-	1860 2970 1860 2870
-$Comp
-L ProMicro:ProMicro U2
-U 1 1 601F96F3
-P 2710 3220
-F 0 "U2" H 2735 3995 50  0000 C CNN
-F 1 "ProMicro" H 2735 3904 50  0000 C CNN
-F 2 "FABI_customLibs:ProMicro" H 2260 3870 50  0001 C CNN
-F 3 "" H 2260 3870 50  0001 C CNN
-	1    2710 3220
-	1    0    0    -1  
-$EndComp
-Text GLabel 1860 2670 0    39   Input ~ 0
-A_TX
-Text GLabel 1860 2770 0    39   Input ~ 0
+Text GLabel 7200 5100 0    39   Input ~ 0
 A_RX
-Text GLabel 7210 5110 0    39   Input ~ 0
-A_RX
-Text GLabel 7710 5110 2    39   Input ~ 0
+Text GLabel 7700 5100 2    39   Input ~ 0
 ESP_RX
 Text Notes 6250 7670 0    39   ~ 0
 R_x ... SMD Resistor\nRx  ... THT Resistor\n
-$Comp
-L power:VDD #PWR0103
-U 1 1 6031B043
-P 5690 4900
-F 0 "#PWR0103" H 5690 4750 50  0001 C CNN
-F 1 "VDD" V 5705 5028 50  0000 L CNN
-F 2 "" H 5690 4900 50  0001 C CNN
-F 3 "" H 5690 4900 50  0001 C CNN
-	1    5690 4900
-	0    -1   -1   0   
-$EndComp
 Text GLabel 5320 2845 2    39   Input ~ 0
 AddOn_Pin1
-Text GLabel 3610 3570 2    39   Input ~ 0
+Text GLabel 3600 3550 2    39   Input ~ 0
 AddOn_Pin3
-Text GLabel 7210 4910 0    39   Input ~ 0
+Text GLabel 7200 4900 0    39   Input ~ 0
 AddOn_Pin3
-Text GLabel 3610 3170 2    39   Input ~ 0
+Text GLabel 3600 3150 2    39   Input ~ 0
 AddOn_Pin2
-Text GLabel 3610 3070 2    39   Input ~ 0
+Text GLabel 3600 3050 2    39   Input ~ 0
 AddOn_Pin1
-Text GLabel 7710 4810 2    39   Input ~ 0
+Text GLabel 7700 4800 2    39   Input ~ 0
 AddOn_Pin2
-Text GLabel 7210 4810 0    39   Input ~ 0
+Text GLabel 7200 4800 0    39   Input ~ 0
 ESP_AddOn_Pin1
-Text GLabel 3610 3670 2    39   Input ~ 0
+Text GLabel 3600 3650 2    39   Input ~ 0
 AUX_7
-Text GLabel 3610 3770 2    39   Input ~ 0
+Text GLabel 3600 3750 2    39   Input ~ 0
 AUX_8
 Wire Notes Line
 	8490 5500 9840 5500
@@ -469,61 +383,50 @@ Wire Wire Line
 Wire Wire Line
 	7970 3690 7595 3690
 Connection ~ 7970 3690
-Text GLabel 5570 5320 0    39   Input ~ 0
+Text GLabel 5600 5300 0    39   Input ~ 0
 NEOPIXEL
 $Comp
 L power:GND #PWR015
 U 1 1 60329107
-P 5570 5220
-F 0 "#PWR015" H 5570 4970 50  0001 C CNN
-F 1 "GND" V 5575 5092 50  0000 R CNN
-F 2 "" H 5570 5220 50  0001 C CNN
-F 3 "" H 5570 5220 50  0001 C CNN
-	1    5570 5220
+P 5600 5200
+F 0 "#PWR015" H 5600 4950 50  0001 C CNN
+F 1 "GND" V 5605 5072 50  0000 R CNN
+F 2 "" H 5600 5200 50  0001 C CNN
+F 3 "" H 5600 5200 50  0001 C CNN
+	1    5600 5200
 	0    1    -1   0   
-$EndComp
-$Comp
-L power:VDD #PWR028
-U 1 1 6032910D
-P 5570 5420
-F 0 "#PWR028" H 5570 5270 50  0001 C CNN
-F 1 "VDD" V 5585 5548 50  0000 L CNN
-F 2 "" H 5570 5420 50  0001 C CNN
-F 3 "" H 5570 5420 50  0001 C CNN
-	1    5570 5420
-	0    -1   -1   0   
 $EndComp
 $Comp
 L Connector:Conn_01x01_Male J11_data1
 U 1 1 6032D010
-P 5770 5320
-F 0 "J11_data1" H 5742 5298 50  0000 R CNN
-F 1 "Conn_01x01_Male" H 5742 5343 50  0001 R CNN
-F 2 "Connector_Wire:SolderWirePad_1x01_SMD_1x2mm" H 5770 5320 50  0001 C CNN
-F 3 "~" H 5770 5320 50  0001 C CNN
-	1    5770 5320
+P 5800 5300
+F 0 "J11_data1" H 5772 5278 50  0000 R CNN
+F 1 "Conn_01x01_Male" H 5772 5323 50  0001 R CNN
+F 2 "Connector_Wire:SolderWirePad_1x01_SMD_1x2mm" H 5800 5300 50  0001 C CNN
+F 3 "~" H 5800 5300 50  0001 C CNN
+	1    5800 5300
 	-1   0    0    1   
 $EndComp
 $Comp
 L Connector:Conn_01x01_Male J11_GND1
 U 1 1 60327A50
-P 5770 5220
-F 0 "J11_GND1" H 5742 5198 50  0000 R CNN
-F 1 "Conn_01x01_Male" H 5742 5243 50  0001 R CNN
-F 2 "Connector_Wire:SolderWirePad_1x01_SMD_1x2mm" H 5770 5220 50  0001 C CNN
-F 3 "~" H 5770 5220 50  0001 C CNN
-	1    5770 5220
+P 5800 5200
+F 0 "J11_GND1" H 5772 5178 50  0000 R CNN
+F 1 "Conn_01x01_Male" H 5772 5223 50  0001 R CNN
+F 2 "Connector_Wire:SolderWirePad_1x01_SMD_1x2mm" H 5800 5200 50  0001 C CNN
+F 3 "~" H 5800 5200 50  0001 C CNN
+	1    5800 5200
 	-1   0    0    1   
 $EndComp
 $Comp
 L Connector:Conn_01x01_Male J11_VDD1
 U 1 1 603306CD
-P 5770 5420
-F 0 "J11_VDD1" H 5742 5398 50  0000 R CNN
-F 1 "Conn_01x01_Male" H 5742 5443 50  0001 R CNN
-F 2 "Connector_Wire:SolderWirePad_1x01_SMD_1x2mm" H 5770 5420 50  0001 C CNN
-F 3 "~" H 5770 5420 50  0001 C CNN
-	1    5770 5420
+P 5800 5400
+F 0 "J11_VDD1" H 5772 5378 50  0000 R CNN
+F 1 "Conn_01x01_Male" H 5772 5423 50  0001 R CNN
+F 2 "Connector_Wire:SolderWirePad_1x01_SMD_1x2mm" H 5800 5400 50  0001 C CNN
+F 3 "~" H 5800 5400 50  0001 C CNN
+	1    5800 5400
 	-1   0    0    1   
 $EndComp
 Wire Wire Line
@@ -1299,10 +1202,6 @@ F 5 "199-7554" H 4290 6740 50  0001 C CNN "RS-Nr"
 	1    4290 6740
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	3610 2970 3800 2970
-Wire Wire Line
-	3800 2970 3800 2900
 Wire Notes Line
 	7190 3970 7190 2420
 Text GLabel 7590 5850 0    39   Input ~ 0
@@ -1437,4 +1336,115 @@ F 5 "165-0369" H 7970 3540 50  0001 C CNN "RS-Nr"
 	1    7970 3540
 	1    0    0    -1  
 $EndComp
+$Comp
+L power:VCC #PWR0103
+U 1 1 60D9ED49
+P 5600 5400
+F 0 "#PWR0103" H 5600 5250 50  0001 C CNN
+F 1 "VCC" H 5615 5573 50  0000 C CNN
+F 2 "" H 5600 5400 50  0001 C CNN
+F 3 "" H 5600 5400 50  0001 C CNN
+	1    5600 5400
+	0    -1   -1   0   
+$EndComp
+$Comp
+L power:VCC #PWR0104
+U 1 1 60DAE02A
+P 5700 4900
+F 0 "#PWR0104" H 5700 4750 50  0001 C CNN
+F 1 "VCC" H 5715 5073 50  0000 C CNN
+F 2 "" H 5700 4900 50  0001 C CNN
+F 3 "" H 5700 4900 50  0001 C CNN
+	1    5700 4900
+	0    -1   -1   0   
+$EndComp
+$Comp
+L power:VCC #PWR0105
+U 1 1 60DAEC2E
+P 7200 5200
+F 0 "#PWR0105" H 7200 5050 50  0001 C CNN
+F 1 "VCC" H 7215 5373 50  0000 C CNN
+F 2 "" H 7200 5200 50  0001 C CNN
+F 3 "" H 7200 5200 50  0001 C CNN
+	1    7200 5200
+	0    -1   -1   0   
+$EndComp
+Text GLabel 1850 2750 0    39   Input ~ 0
+A_RX
+Text GLabel 1850 2650 0    39   Input ~ 0
+A_TX
+Text GLabel 1850 3250 0    39   Input ~ 0
+Buzzer_Pin
+Text GLabel 1850 3550 0    39   Input ~ 0
+AUX_3
+Text GLabel 1850 3750 0    39   Input ~ 0
+AUX_1
+Text GLabel 1850 3650 0    39   Input ~ 0
+AUX_2
+Text GLabel 1850 3350 0    39   Input ~ 0
+AUX_5
+Text GLabel 1850 3450 0    39   Input ~ 0
+AUX_4
+Text GLabel 1850 3150 0    39   Input ~ 0
+SCL
+Text GLabel 1850 3050 0    39   Input ~ 0
+SDA
+$Comp
+L power:GND #PWR0102
+U 1 1 5D913F91
+P 1800 2850
+F 0 "#PWR0102" H 1800 2600 50  0001 C CNN
+F 1 "GND" V 1805 2722 50  0000 R CNN
+F 2 "" H 1800 2850 50  0001 C CNN
+F 3 "" H 1800 2850 50  0001 C CNN
+	1    1800 2850
+	0    1    -1   0   
+$EndComp
+Wire Wire Line
+	1800 2850 1850 2850
+Wire Wire Line
+	1850 2850 1850 2950
+Connection ~ 1850 2850
+$Comp
+L ProMicro:ProMicro U2
+U 1 1 601F96F3
+P 2700 3200
+F 0 "U2" H 2725 3975 50  0000 C CNN
+F 1 "ProMicro" H 2725 3884 50  0000 C CNN
+F 2 "FABI_customLibs:ProMicro" H 2250 3850 50  0001 C CNN
+F 3 "" H 2250 3850 50  0001 C CNN
+	1    2700 3200
+	1    0    0    -1  
+$EndComp
+NoConn ~ 3600 2650
+NoConn ~ 3600 2750
+NoConn ~ 3600 2850
+Wire Wire Line
+	3800 2900 3800 2950
+Wire Wire Line
+	3800 2950 3600 2950
+$Comp
+L power:PWR_FLAG #FLG0101
+U 1 1 60E25EC7
+P 3800 2950
+F 0 "#FLG0101" H 3800 3025 50  0001 C CNN
+F 1 "PWR_FLAG" V 3800 3078 50  0000 L CNN
+F 2 "" H 3800 2950 50  0001 C CNN
+F 3 "~" H 3800 2950 50  0001 C CNN
+	1    3800 2950
+	0    1    1    0   
+$EndComp
+Connection ~ 3800 2950
+$Comp
+L power:PWR_FLAG #FLG0102
+U 1 1 60E261FC
+P 1850 2950
+F 0 "#FLG0102" H 1850 3025 50  0001 C CNN
+F 1 "PWR_FLAG" V 1850 3077 50  0000 L CNN
+F 2 "" H 1850 2950 50  0001 C CNN
+F 3 "~" H 1850 2950 50  0001 C CNN
+	1    1850 2950
+	0    -1   -1   0   
+$EndComp
+Connection ~ 1850 2950
 $EndSCHEMATC
