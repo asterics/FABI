@@ -20,6 +20,7 @@
 #include "display.h"
 #include "buzzer.h"
 
+const char ERRORMESSAGE_NOT_FOUND[] = "E: not found";
 
 // AT Command list - defines all valid commands and their paramter types
 // Note that the order of this list must match with the command index enum (see commands.h)
@@ -33,7 +34,7 @@ const struct atCommandType atCommands[] PROGMEM = {
     {"MY"  , PARTYPE_INT  },  {"KW"  , PARTYPE_STRING},{"KP"  , PARTYPE_STRING},{"KH"  , PARTYPE_STRING},
     {"KT"  , PARTYPE_STRING}, {"KR"  , PARTYPE_STRING},{"RA"  , PARTYPE_NONE }, {"SA"  , PARTYPE_STRING},
     {"LO"  , PARTYPE_STRING}, {"LA"  , PARTYPE_NONE }, {"LI"  , PARTYPE_NONE }, {"NE"  , PARTYPE_NONE }, 
-    {"DE"  , PARTYPE_NONE },  {"NC"  , PARTYPE_NONE }, {"SR"  , PARTYPE_NONE }, {"ER"  , PARTYPE_NONE },
+    {"DE"  , PARTYPE_STRING}, {"RS"  , PARTYPE_NONE }, {"NC"  , PARTYPE_NONE }, {"SR"  , PARTYPE_NONE }, {"ER"  , PARTYPE_NONE },
     {"TS"  , PARTYPE_UINT },  {"TP"  , PARTYPE_UINT }, {"MA"  , PARTYPE_STRING},{"WA"  , PARTYPE_UINT  },
     {"TT"  , PARTYPE_UINT },  {"AP"  , PARTYPE_UINT }, {"AR"  , PARTYPE_UINT},  {"AI"  , PARTYPE_UINT  },
     {"FR"  , PARTYPE_NONE },  {"BT"  , PARTYPE_UINT }, {"BC"  , PARTYPE_STRING},{"DP" , PARTYPE_UINT  },
@@ -345,10 +346,10 @@ void performCommand (uint8_t cmd, int16_t parNum, char * parString, int8_t perio
                  parString[MAX_SLOTNAME_LEN-1]=0;
                  
                release_all();
-               saveToEEPROM(parString); 
+               if (!saveToEEPROM(parString))
+                 Serial.println(F("E: EEPROM full"));
+               else Serial.println("OK"); 
              }
-             Serial.println("OK");          
-          
           break;
       case CMD_LO:
              #ifdef DEBUG_OUTPUT 
@@ -358,13 +359,15 @@ void performCommand (uint8_t cmd, int16_t parNum, char * parString, int8_t perio
              if (parString) {
                if (strlen (parString) > 0) {
                  release_all();
-                 readFromEEPROM(parString);
-                 if(PCBversion){
-                   updateNeoPixelColor(actSlot);    // update the Slot color of the LED 
-                   setBeepCount(actSlot);           // set some beep count -> time (dependend on loop time)
-                   writeSlot2Display();             // update the info on the Display 
-                 }
-                 Serial.println("OK");
+                 if (readFromEEPROM(parString)) {
+                   if(PCBversion){
+                     updateNeoPixelColor(actSlot);    // update the Slot color of the LED 
+                     setBeepCount(actSlot);           // set some beep count -> time (dependend on loop time)
+                     writeSlot2Display();             // update the info on the Display 
+                   }
+                   Serial.println("OK");
+                 } 
+                 else Serial.println(ERRORMESSAGE_NOT_FOUND);
                }
              }
           break;
@@ -406,8 +409,20 @@ void performCommand (uint8_t cmd, int16_t parNum, char * parString, int8_t perio
                Serial.println(F("delete slots")); 
              #endif
              release_all();
-             deleteSlots();
-             Serial.println("OK"); 
+             if (deleteSlots(parString))
+                Serial.println("OK"); 
+             else Serial.println(ERRORMESSAGE_NOT_FOUND);
+          break;
+      case CMD_RS:
+          deleteSlots(""); // delete all slots
+          memcpy(&settings,&defaultSettings,sizeof(struct settingsType)); //load default values from flash
+          initButtons(); //reset buttons
+          if (!saveToEEPROM(settings.slotname)) {
+            Serial.println(F("E: EEPROM full"));
+          } else {
+            readFromEEPROM(""); //load this slot
+            Serial.println("OK");
+          }
           break;
       case CMD_NC:
              #ifdef DEBUG_OUTPUT 
