@@ -24,12 +24,13 @@
 #include "hid_hal.h"
 #include "NeoPixel.h"
 #include "buzzer.h"
+#include "buttons.h"
 
 //#include <Wire.h>
 //#include <SPI.h>
 
 
-#define VERSION_STRING "FABI v2.5"
+#define VERSION_STRING "FABI v2.6"
 
 //Optional use of port D10 as switching output port with a MOSFET
 #define SWITCHING_OUTPUT_PORT_PIN 9
@@ -98,6 +99,7 @@ extern uint8_t addonUpgrade;
 extern uint8_t reportSlotParameters;
 extern uint8_t reportRawValues;
 extern struct settingsType settings;
+extern const struct settingsType defaultSettings;
 extern int EmptySlotAddress;
 extern struct buttonType buttons[NUMBER_OF_BUTTONS];
 extern struct buttonDebouncerType buttonDebouncers[NUMBER_OF_BUTTONS];

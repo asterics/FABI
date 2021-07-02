@@ -75,13 +75,13 @@
           AT RA             release all: releases all currently pressed keys and buttons    
           
     Housekeeping commands:
-          AT SA <string>  save settings and current button modes to slot under given name 
-                          a new slot will be appended (e.g. AT SA mouse1)
+          AT SA <string>  save settings and current button modes to next free eeprom slot under given name (e.g. "AT SA keys1")                          a new slot will be appended (e.g. AT SA mouse1)
           AT LO <string>  load button modes from eeprom slot (e.g. AT LO mouse1 -> loads profile named "mouse1")
           AT LA           load all slots (displays names and settings of all stored slots) 
           AT LI           list all saved slot names 
           AT NE           next slot will be loaded (wrap around after last slot)
-          AT DE           delete EEPROM content (delete all stored slots)
+          AT DE <string>  delete slot of given name (deletes all stored slots if no string parameter is given)
+          AT RS           resets FABI and restores default configuration (deletes EEPROM content and restores default Slot "slot1")
           AT NC           no command (idle operation)
           AT SR           start periodic reporting analog values (A0) over serial (starting with "VALUES:") 
           AT ER           end reporting analog values
@@ -117,7 +117,7 @@
 enum atCommands {
   CMD_ID, CMD_BM, CMD_CL, CMD_CR, CMD_CM, CMD_CD, CMD_HL, CMD_HR, CMD_HM, CMD_RL, CMD_RR, CMD_RM,
   CMD_TL, CMD_TR, CMD_TM, CMD_WU, CMD_WD, CMD_WS, CMD_MX, CMD_MY, CMD_KW, CMD_KP, CMD_KH, CMD_KT, 
-  CMD_KR, CMD_RA, CMD_SA, CMD_LO, CMD_LA, CMD_LI, CMD_NE, CMD_DE, CMD_NC, CMD_SR, CMD_ER, CMD_TS, 
+  CMD_KR, CMD_RA, CMD_SA, CMD_LO, CMD_LA, CMD_LI, CMD_NE, CMD_DE, CMD_RS, CMD_NC, CMD_SR, CMD_ER, CMD_TS, 
   CMD_TP, CMD_MA, CMD_WA, CMD_TT, CMD_AP, CMD_AR, CMD_AI, CMD_FR, CMD_BT, CMD_BC, CMD_DP, CMD_AD,
   CMD_SC, CMD_UG, CMD_SO, NUM_COMMANDS
 };

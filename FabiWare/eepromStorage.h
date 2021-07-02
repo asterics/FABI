@@ -19,17 +19,19 @@
 #include <EEPROM.h>
 
 
-#define EEPROM_SIZE        1023     // maximum size of EEPROM storage for Arduino Pro Micro
+#define EEPROM_TOP_ADDRESS        1022     // top address for EEPROM storage, one byte reserved for magic byte
 
 #define REPORT_NONE  0  
 #define REPORT_ONE_SLOT  1
 #define REPORT_ALL_SLOTS 2
 
 uint16_t getfreeEEPROM();
-void saveToEEPROM(char * slotname);
-void readFromEEPROM(char * slotname);
+uint8_t saveToEEPROM(char * slotname);
+void bootstrapEEPROM();
+uint8_t readFromEEPROM(char * slotname);
+uint8_t getSlotInfos(char * slotname, uint16_t * s_address, uint16_t * k_address, uint16_t * k_len);
 void listSlots();
-void deleteSlots();
+uint8_t deleteSlots(char * slotname);
 void printCurrentSlot();
 
 #endif
