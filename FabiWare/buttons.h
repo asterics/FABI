@@ -16,8 +16,8 @@
 #ifndef _BUTTONS_H_
 #define _BUTTONS_H_
 
-#define NUMBER_OF_PHYSICAL_BUTTONS_NOPCB 8  // number of connectable switches for no-PCB version
-#define NUMBER_OF_PHYSICAL_BUTTONS_PCB   7  // number of connectable switches for PCB version
+#define NUMBER_OF_PHYSICAL_BUTTONS_NOPCB 9  // number of connectable switches for no-PCB version
+#define NUMBER_OF_PHYSICAL_BUTTONS_PCB   8  // number of connectable switches for PCB version
 
 #define NUMBER_OF_LEDS     3                // number of connectable leds (no-PCB verion)
 

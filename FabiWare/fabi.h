@@ -35,12 +35,12 @@
 //Optional use of port D10 as switching output port with a MOSFET
 #define SWITCHING_OUTPUT_PORT_PIN 9
 
-#define DEBUG_OUTPUT 0      //  if debug output is desired
+//#define DEBUG_OUTPUT 0      //  if debug output is desired
 
 #include <Mouse.h>
 #include <Keyboard.h>
 
-#define NUMBER_OF_BUTTONS  10         // number of pyhsical plus virtual switches, note: if more than 16, change buttonState type to uint32_t!
+#define NUMBER_OF_BUTTONS  11         // number of pyhsical plus virtual switches, note: if more than 16, change buttonState type to uint32_t!
 
 #define MAX_SLOTNAME_LEN      12      // maximum lenght for a slotname
 #define KEYSTRING_BUFFER_LEN 400      // maximum lenght for all string parameters of a slot 
