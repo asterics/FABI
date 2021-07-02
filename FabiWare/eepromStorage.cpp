@@ -15,7 +15,7 @@
 #include "fabi.h"
 #include "eepromStorage.h"
 
-#define MAGIC_BYTE 42  // "magic byte" for valid EEPROM content
+#define MAGIC_BYTE 43  // "magic byte" for valid EEPROM content
 #define SLOTSIZE (sizeof(settingsType)+NUMBER_OF_BUTTONS*sizeof(buttonType))
 
 
