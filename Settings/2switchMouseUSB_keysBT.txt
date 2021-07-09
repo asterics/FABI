@@ -1,0 +1,33 @@
+
+FABI Settings description "1switchMouseUSB_keysBT.set":
+=======================================================
+
+This configuration is optimised for 2 switches (connected to switch inputs 1 and 2)
+It allows control of a PC/Mac/Laptop computer (mouse cursor emulation via USB) and a mobile device (iOS/Android, switch access via Bluetooth).
+ 
+Default mode is: USB/move mouse to the right. 
+Pressing Button1 activates the primary function.
+Pressing Button2 activates the secondary function, holding Button2 changes the mode of operation.
+(Buttons 3-6 are optional.)
+
+Function assignment:
+--------------------
+
+USB-Mode (slots 1-4): 
+  Button1 = move mouse cursor up/down/left/right
+  Button2 = short-press: change mouse direction; long-press: switch to BT-Mode
+  Button3 = hold left mouse button
+  Button4 = hold right mouse button
+  Button5 = mouse wheel up
+  Button6 = mouse wheel down
+
+
+BT-Mode (slot 5):
+  Button1 = hold SPACE key
+  Button2 = short-press: hold ENTER key; long-press: switch to USB-Mode
+  Button3 = hold CURSOR-UP key
+  Button4 = hold CURSOR-DOWN key
+  Button5 = hold CURSOR-LEFT key
+  Button6 = hold CURSOR-RIGHT key
+
+
