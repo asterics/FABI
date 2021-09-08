@@ -126,6 +126,10 @@ void setup() {
     Serial.println("Flexible Assistive Button Interface started !");
     Serial.print(F("Free RAM:"));  Serial.println(freeRam());
   #endif
+
+  //Emulate Key press F12 after setup has been finished. This can be used to trigger an action on the PC after plugging in the FABI, e.g. Restart ARE.
+  pressSingleKeys("KEY_F12");
+  releaseSingleKeys("KEY_F12");           
 }
 
 
