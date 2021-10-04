@@ -2,7 +2,7 @@
 
 # FABI - Flexible Assistive Button Interface
 
-![FabiFoto](.\Bilder\fabi2.PNG)
+![FabiFoto](./Bilder/fabi2.PNG)
 
 # Anwendungsanleitung
 
