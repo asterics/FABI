@@ -1,4 +1,4 @@
-![FabiLogo](Bilder\fabi1.PNG)
+![FabiLogo](.\Bilder\fabi1.PNG)
 
 # FABI - Flexible Assistive Button Interface
 
