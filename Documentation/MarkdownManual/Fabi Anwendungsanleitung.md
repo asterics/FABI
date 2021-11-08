@@ -33,7 +33,8 @@ Die Konfigurationssoftware wird erst wieder benötigt, wenn Einstellungen geänd
 #### Web-Konfiguration
 
 Die Web-Konfiguration ist hier zu finden: <a href="fabi.asterics.eu" target="_blank"> fabi.asterics.eu </a>. Untenstehend in Abbildung 1 sehen sie die Startseite. Wenn Sie auf den Button *Verbinden zu FABI (über USB angeschlossen)* klicken, so wird in der Auswahlbox noch kein Kommunikationsanschluss (COM Port) auswählbar sein, sofern Sie das FABI Modul noch nicht mittels USB-Stecker mit dem Computer verbunden haben. 
-![Abbildung1](./Bilder/abb1.PNG)
+![Abbildung1](./Bilder/abb1.png)
+
 *Abbildung 1*: Startseite der Web-Konfiguration
 
 #### Verbinden des USB-Micro Kabels
