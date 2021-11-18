@@ -23,7 +23,7 @@
 #include "bluetooth.h"
 #include "hid_hal.h"
 #include "NeoPixel.h"
-#include "buzzer.h"
+#include "toneFABI.h"
 #include "buttons.h"
 
 //#include <Wire.h>

@@ -18,7 +18,7 @@
 #include "keys.h"
 #include "commands.h"
 #include "display.h"
-#include "buzzer.h"
+#include "toneFABI.h"
 
 const char ERRORMESSAGE_NOT_FOUND[] = "E: not found";
 
@@ -362,7 +362,8 @@ void performCommand (uint8_t cmd, int16_t parNum, char * parString, int8_t perio
                  if (readFromEEPROM(parString)) {
                    if(PCBversion){
                      updateNeoPixelColor(actSlot);    // update the Slot color of the LED 
-                     setBeepCount(actSlot);           // set some beep count -> time (dependend on loop time)
+                     //setBeepCount(actSlot);           // set some beep count -> time (dependend on loop time)
+                     toneFABI(2000 + 200 * actSlot,150);
                      writeSlot2Display();             // update the info on the Display 
                    }
                    Serial.println("OK");
@@ -400,7 +401,8 @@ void performCommand (uint8_t cmd, int16_t parNum, char * parString, int8_t perio
              reportSlotParameters=REPORT_NONE;
              if(PCBversion){
                updateNeoPixelColor(actSlot);    // update the Slot color of the LED 
-               setBeepCount(actSlot);           // set some beep count -> time (dependend on loop time)
+               //setBeepCount(actSlot);           // set some beep count -> time (dependend on loop time)
+               toneFABI(2000 + 200 * actSlot,150);
                writeSlot2Display();             //update the info on the Display 
              }
              break;
