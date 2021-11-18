@@ -897,10 +897,10 @@ U 1 1 6039FDDB
 P 9385 4665
 F 0 "bzr1" H 9537 4694 50  0000 L CNN
 F 1 "Buzzer" H 9537 4603 50  0000 L CNN
-F 2 "Buzzer_Beeper:Buzzer_12x9.5RM7.6" V 9360 4765 50  0001 C CNN
-F 3 "https://docs.rs-online.com/f4c8/0900766b811685fc.pdf" V 9360 4765 50  0001 C CNN
-F 4 "https://at.rs-online.com/web/p/elektro-magnetische-buzzer/7716957/" H 9385 4665 50  0001 C CNN "RS"
-F 5 "771-6957" H 9385 4665 50  0001 C CNN "RS-Nr"
+F 2 "Buzzer_Beeper:Buzzer_TDK_PS1240P02BT_D12.2mm_H6.5mm" V 9360 4765 50  0001 C CNN
+F 3 "https://docs.rs-online.com/dcfc/0900766b8067c4cd.pdf" V 9360 4765 50  0001 C CNN
+F 4 "https://at.rs-online.com/web/p/piezo-signalgeber/5168268" H 9385 4665 50  0001 C CNN "RS"
+F 5 "516-8268" H 9385 4665 50  0001 C CNN "RS-Nr"
 	1    9385 4665
 	1    0    0    -1  
 $EndComp
@@ -914,7 +914,7 @@ L FABI_customLib:dispaly_connector_91601-304LF J11
 U 1 1 603EB941
 P 8640 2940
 F 0 "J11" H 9040 3205 50  0000 C CNN
-F 1 "dispaly_connector_91601-304LF" H 9040 3114 50  0000 C CNN
+F 1 "display_connector_91601-304LF" H 9040 3114 50  0000 C CNN
 F 2 "FABI_customLibs:91601304LF" H 9840 2990 50  0001 L CNN
 F 3 "http://www.mouser.com/datasheet/2/18/91601-1289404.pdf" H 9840 2890 50  0001 L CNN
 F 4 "Dubox 2.54mm, Board to Board Connector, PCB Mounted Receptacle, Vertical , Surface Mount, Dual Entry ,Single row , 4 Positions, 2.54mm (0.100in) Pitch" H 9840 2790 50  0001 L CNN "Description"
