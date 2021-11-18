@@ -14,7 +14,7 @@ ____
 
 FABI - das „Flexible Assistive Button Interface“ - ermöglicht es, mehrere Taster (Buttons) an einen Computer oder ein Tablet/Smartphone anzuschließen und dadurch Maus- oder Keyboard-Aktionen auszulösen sowie andere Aktionen auszuführen. Ein konfiguriertes FABI-Modul kann mit jedem Computer (Windows, Linux oder Mac), ohne Installation von spezieller Software verwendet werden, weil sich das FABI-Modul beim Anschließen an den Computer wie eine gewöhnliche Computermaus bzw. eine Tastatur verhält. Menschen, für die herkömmliche Eingabegeräte nicht geeignet sind, können dadurch Computerspiele spielen, im Internet surfen, E-Mails schreiben und vieles mehr. 
 
-Das FABI Interface kann mit Buttons, Schaltern oder selbstgebauten elektrischen Kontakten verwendet werden. FABI besteht aus einem Hardware-Modul (einem kostengünstigen Mikrocontroller, der als Computermaus oder Tastatur fungiert) und einer grafischen Konfigurationsoberfläche („FABI-GUI“) zum Einstellen von gewünschten Funktionen. 
+Das FABI Interface kann mit Buttons, Schaltern oder selbstgebauten elektrischen Kontakten verwendet werden. FABI besteht aus einem Hardware-Modul (einem kostengünstigen Mikrocontroller, der als Computermaus oder Tastatur fungiert) und einer grafischen Konfigurationsoberfläche („FABI-Konfigurationsmanager“) zum Einstellen von gewünschten Funktionen. 
 
 FABI ist als Open Source Bausatz (inkl. entsprechender Bauanleitung für die Hardware) verfügbar und wurde im Rahmen des AsTeRICS Academy Projektes der FH Technikum Wien entwickelt. 2017 wurde die gemeinnützige Organisation AsTeRICS Foundation gegründet, um die derartige Technologien und Systeme weiterzuentwickeln und zur Verfügung stellen zu können: [www.asterics-foundation.org](https://asterics-foundation.org/).
 
@@ -27,15 +27,13 @@ Für das Einstellen von gewünschten Funktionen durch das FABI-GUI ist es unter 
 
 ## Einleitung
 
-Die Konfigurationssoftware „FABI-GUI“ wird benötigt, um die Funktionen der Taster / Buttons festlegen zu können. Nachdem eine Konfiguration im FABI-System gespeichert wurde, bleibt sie dort erhalten und das FABI-System kann zur Steuerung unterschiedlicher Geräte verwendet werden (z.B. Windows-PC, Mac-Computer, Tablet oder Smart-Phone mit USB-Anschluss.) 
-Die Konfigurationssoftware wird erst wieder benötigt, wenn Einstellungen geändert werden sollen.
+Der FABI-Konfigurationsmanager wird benötigt, um die Funktionen der Taster / Buttons festlegen zu können. Nachdem eine Konfiguration im FABI-System gespeichert wurde, bleibt sie dort erhalten und das FABI-System kann zur Steuerung unterschiedlicher Geräte verwendet werden (z.B. Windows-PC, Mac-Computer, Tablet oder Smart-Phone mit USB-Anschluss.) 
+Der Konfigurationsmanager wird erst wieder benötigt, wenn Einstellungen geändert werden sollen.
 
-#### Web-Konfiguration
-
-Die Web-Konfiguration ist hier zu finden: <a href="fabi.asterics.eu" target="_blank"> fabi.asterics.eu </a>. Untenstehend in Abbildung 1 sehen sie die Startseite. Wenn Sie auf den Button *Verbinden zu FABI (über USB angeschlossen)* klicken, so wird in der Auswahlbox noch kein Kommunikationsanschluss (COM Port) auswählbar sein, sofern Sie das FABI Modul noch nicht mittels USB-Stecker mit dem Computer verbunden haben. 
+Der Konfigurationsmanager ist hier zu finden: <a href="fabi.asterics.eu" target="_blank"> fabi.asterics.eu </a>. Untenstehend in Abbildung 1 sehen sie die Startseite. Wenn Sie auf den Button VERBINDEN ZU FABI (ÜBER USB ANGESCHLOSSEN) klicken, so wird in der Auswahlbox noch kein Kommunikationsanschluss (COM Port) auswählbar sein, sofern Sie das FABI Modul noch nicht mittels USB-Stecker mit dem Computer verbunden haben. 
 ![Abbildung1](./Bilder/abb1.png)
 
-*Abbildung 1*: Startseite der Web-Konfiguration
+*Abbildung 1*: Startseite des Konfigurationsmanagers
 
 #### Verbinden des USB-Micro Kabels
 
@@ -43,21 +41,21 @@ Die Web-Konfiguration ist hier zu finden: <a href="fabi.asterics.eu" target="_bl
 
 *Abbildung 2*: Verbinden des USB-Micro Kabels
 
-**Danach sollte in dem aufpoppenden Fenster ein Kommunikations-Anschluss (COM Port) mit bestimmter Nummer (z.B. COM4) auswählbar sein.** Klicken sie diesen an und drücken Sie danach auf Verbinden. Nach dem Ausstecken des FABI-Moduls sollte der COM Port wieder verschwinden. 
+**Danach sollte in dem aufpoppenden Fenster ein Kommunikations-Anschluss (COM Port) mit bestimmter Nummer (z.B. COM4) auswählbar sein.** Klicken sie diesen an und drücken Sie danach auf *Verbinden*. Nach dem Ausstecken des FABI-Moduls sollte der COM Port wieder verschwinden. 
 
 Bei Fragen zum Download oder Problemen bei der Installation der Software schreiben Sie uns bitte eine E-Mail an: <office@asterics-foundation.org>. 
 
-## Verwendung der FABI-Web-GUI
+## Verwendung des Konfigurationsmanagers
 
-Nachdem Sie mit dem Kommunikations-Anschluss des Mikrokontrollers verbunden sind, sehen Sie nun die FABI Web-GUI (Abbildung 3). 
-![Abbildung3](./Bilder/abb3.PNG) *Abbildung 3*: FABI-GUI Benutzeroberfläche
+Nachdem Sie mit dem Kommunikations-Anschluss des Mikrokontrollers verbunden sind, sehen Sie nun den FABI Konfigurationsmanager (Abbildung 3). 
+![Abbildung3](./Bilder/abb3.PNG) *Abbildung 3*: FABI-Konfigurationsmanager Benutzeroberfläche
 
 #### Das FABI-Gerät verbinden
 
 Um die Funktionen der Web-Konfiguration zu verwenden, folgen Sie den nachfolgenden Schritten:
 
 1. Vergewissern Sie sich, dass das FABI- Gerät mit dem Computer verbunden ist. 
-2. **Sollten Sie nicht die FABI-GUI Benutzeroberfläche wie in Abbildung 3 sehen können, so öffnen Sie die Website erneut und wählen Sie einen anderen COM-Port in der aufpoppenden Auswahlbox. Danach klicken Sie erneut auf *Verbinden*.** 
+2. **Sollten Sie nicht die Benutzeroberfläche des FABI Konfigurationsmanagers wie in Abbildung 3 sehen können, so öffnen Sie die Website erneut und wählen Sie einen anderen COM-Port in der aufpoppenden Auswahlbox. Danach klicken Sie erneut auf *Verbinden*.** 
 
 #### Port Status
 
@@ -65,7 +63,7 @@ Der Portstatus rechts oben zeigt an, ob das Gerät aktuell mit der Anwendung ver
 
 #### Einstellungen speichern
 
-In der Webversion werden die Einstellungen automatisch gespeichert.
+In der Webversion (fabi.asterics.eu) werden die Einstellungen automatisch gespeichert.
 
 ### Verwendung der Speicherplätze (Reiter "SLOTS")
 
@@ -73,7 +71,7 @@ Funktionseinstellungen können in bis zu 10 Speicherplätze (***Konfigurations-S
 
 ![Abbildung4](./Bilder/abb4.PNG) *Abbildung 4*: Anlegen, Wechseln und Löschen von Speicherplätzen (“Slots“)
 
-Ein neuer Speicherplatz wird im Reiter **SLOTS** durch Klicken von „**SLOT ANLEGEN**“ angelegt. Mit einem vorhergehenden Klick in das Textfeld kann ein beliebiger Name vergeben werden. Mittig oben befindet sich ein Dropdown-Menu mit der Überschrift „**Slot auswählen**“. Wenn Sie auf der rechten Seite des Textfeldes auf den Pfeil klicken, öffnet sich das Dropdown-Menu, das bereits gespeicherte Slots anzeigt und wo diese ausgewählt werden können. In der Slot-Konfiguration sehen Sie auch die aktuellen Slots. Bei diesen können Sie die Farbe wählen, sie können gelöscht werden oder stehen auch zum Download bereit. 
+Ein neuer Speicherplatz wird im Reiter **SLOTS** durch Klicken von „**SLOT ANLEGEN**“ angelegt. Mit einem vorhergehenden Klick in das Textfeld kann ein beliebiger Name vergeben werden. Mittig oben befindet sich ein Dropdown-Menu mit der Überschrift **„Slot auswählen“**. Wenn Sie auf der rechten Seite des Textfeldes auf den Pfeil klicken, öffnet sich das Dropdown-Menu, das bereits gespeicherte Slots anzeigt und wo diese ausgewählt werden können. In der Slot-Konfiguration sehen Sie auch die aktuellen Slots. Bei diesen können Sie die Farbe wählen, sie können gelöscht werden oder stehen auch zum Download bereit. 
 
 #### Auswahl einer Farbe für die Konfiguration
 
@@ -93,7 +91,7 @@ Im Reiter **SLOTS** befinden sich ganz unten (Abbildung 5) auch verschiedenste V
 
 ### Zuweisung der Taster-Funktionen (Reiter "AKTIONEN")
 
-Durch die FabiGUI Anwendungen können bis zu 8 Taster mit verschiedenen Funktionen belegt werden. Solche Funktionen beinhalten etwa verschiedene Mausklicks, Mausbewegungen, scrollen oder Keyboard-Tasten drücken. Sollten mehr als 8 Taster benötigt werden, können mehrere FABI-Module parallel betrieben werden.
+Durch den Fabi Konfigurationsmanager können bis zu 8 Taster mit verschiedenen Funktionen belegt werden. Solche Funktionen beinhalten etwa verschiedene Mausklicks, Mausbewegungen, scrollen oder Keyboard-Tasten drücken. Sollten mehr als 8 Taster benötigt werden, können mehrere FABI-Module parallel betrieben werden.
 
 Im folgenden Kapitel wird die Auswahl der Funktionen für die Taster erklärt. Sie können die Aktion für den jeweiligen Button auswählen/ändern, indem Sie im Reiter **AKTIONEN** rechts vom gewünschten Button auf die unterstrichene (momentan eingestellte) Aktion klicken (siehe rotes Viereck in Abbildung 6). Dann erscheint ein Fenster, wo Sie die gewünschte Aktions-Kategorie (hier: Maus) und dann die gewünschte Aktion für diesen Taster auswählen können (hier: Linke Maustaste halten).
 
@@ -107,7 +105,7 @@ Durch diese Funktionen bleibt die linke, rechte oder mittlere Maustaste gedrück
 
 ##### Klick linke/rechte/mittlere Maustaste
 
-Mit diesen Funktionen kann einen Klick der linken, rechten oder mittleren Maustaste durch die Betätigung des Tasters ausgeführt werden. **Anmerkung**: ein Click besteht aus drücken & loslassen der entsprechenden Maustaste, beides passiert kurz hintereinander nach der Betätigung des Buttons!
+Mit diesen Funktionen kann einen Klick der linken, rechten oder mittleren Maustaste durch die Betätigung des Tasters ausgeführt werden. **Anmerkung**: ein Klick besteht aus drücken & loslassen der entsprechenden Maustaste, beides passiert kurz hintereinander nach der Betätigung des Buttons!
 
 ##### Doppelklick linke Maustaste
 
@@ -125,10 +123,10 @@ Die Funktionen „Nach oben scrollen” und „nach unten scrollen” erzeugen d
 
 Die „Maus horizontal bewegen (x-Achse)” und „Maus vertikal bewegen (y-Achse)” Funktionen erzeugen Computermausbewegungen entlang der gewählten Achsen. Für diese Funktionen können im darunter erscheinenden Feld Geschwindigkeitsparameter festgelegt werden. Beim Drücken des Tasters wird der Mauszeiger bis zu dieser maximalen Geschwindigkeit beschleunigt.
 
-*Ein positiver Wert für die X-Richtung bewegt den Mauszeiget nach rechts.
-Ein negativer Wert für die X-Richtung bewegt den Mauszeiget nach links.
+*Ein positiver Wert für die X-Richtung bewegt den Mauszeiger nach rechts.
+Ein negativer Wert für die X-Richtung bewegt den Mauszeiger nach links.
 Ein positiver Wert für die Y-Richtung bewegt den Mauszeiger nach unten.
-Ein negativer Wert für die Y-Richtung bewegt den Mauszeiget nach oben.*
+Ein negativer Wert für die Y-Richtung bewegt den Mauszeiger nach oben.*
 
 ![Abbildung7](./Bilder/abb7.PNG) *Abbildung 7*: Screenshot der "Maus horizontal bewegen (x-Achse)"-Funktion bzw. Geschwindigkeitseinstellung
 
@@ -150,7 +148,7 @@ Es ist möglich, auch mehrere Tasten für Tastenkombinationen auszuwählen, die 
 
 ##### Taste(n) drücken oder auslassen (wechseln)
 
-Mit der Funktion "Taste(n) drücken oder auslassen (wechseln)" können gewünschte Tasten auf der Computertastatur ihren Zustand ändern (also gedrückt warden bzw. Losgelassen warden), sobald die Taste gedrückt wird. Beachten Sie, dass die Tastaturtaste solange gedrückt bleibt, bis die Taste ein weiteres Mal gedrückt wird! Die Tastenauswahl funktioniert wie bei dem Befehl "Tasten drücken" beschrieben.
+Mit der Funktion "Taste(n) drücken oder auslassen (wechseln)" können gewünschte Tasten auf der Computertastatur ihren Zustand ändern (also gedrückt werden bzw. losgelassen werden), sobald die Taste gedrückt wird. Beachten Sie, dass die Tastaturtaste solange gedrückt bleibt, bis die Taste ein weiteres Mal gedrückt wird! Die Tastenauswahl funktioniert wie bei dem Befehl "Tasten drücken" beschrieben.
 
 ##### Schreibe Wort
 
@@ -228,7 +226,7 @@ Im Reiter **ALLGEMEIN** können die Bluetooth-Einstellungen angepasst werden, so
 
 #### USB Modus / Bluetooth Modus
 
-Die Auswahl dieser Selektionsbox definiert, ob die Maus- und Tastaturaktionen über USB oder über Bluetooth (oder über beides) erzeugt werden sollen:  
+Die Auswahl der untentehenden Selektionsbox (Abbildung 13) definiert, ob die Maus- und Tastaturaktionen über USB oder über Bluetooth (oder über beides) erzeugt werden sollen:  
 ![Abbildung13](./Bilder/abb13.PNG) *Abbildung 13*: Bluetooth Modus bzw. USB/Bluetooth Auswahl
 
 **Hinweis**: Die Auswahl USB/Bluetooh-Modus ist nur sinnvoll, wenn das optionale Bluetooth-AddOn-Modul am FABI-Gerät angeschlossen ist (siehe “Verwendung des Bluetooth Moduls”). 
@@ -240,7 +238,7 @@ Durch Drücken dieses Buttons wird versucht, die aktuellste Software (Firmware) 
 
 #### Rücksetzen auf Defaulteinstellungen, Tastenkombinationen
 
-Wenn sie weiter nach unten scrollen im Reiter **ALLGEMEIN**, finden Sie auch den Button, wo Sie das Gerät auf Defaulteinstellungen zurücksetzen können. Weiters sehen Sie die Tastenkombinationen, die auf dieser Seite verwendet warden können.
+Wenn sie weiter nach unten scrollen im Reiter **ALLGEMEIN**, finden Sie auch den Button, wo Sie das Gerät auf Defaulteinstellungen zurücksetzen können. Weiters sehen Sie die Tastenkombinationen, die auf dieser Seite verwendet werden können.
 
 ![Abbildung14](./Bilder/abb14.PNG) *Abbildung 14*: Gerät zurücksetzen, Tastenkombinationen
 
@@ -252,7 +250,7 @@ Das FABI System erlaubt die Verwendung eines optionalen Bluetooth “AddOn”-Mo
 
 #### Installation des Bluetooth Moduls
 
-Das Bluetooth Modul lässt sich sehr einfach mit der Platinen-Version des FABI-Systems (Bausatz) verwenden. (Eine Verwendung mit einem einzelnen Mikrocontroller ist auch möglich und wird in den weiterführenden Informationen im Github Repository des Bluetooth Moduls genauer beschrieben, siehe <https://github.com/asterics/esp32_mouse_keyboard> ).
+Das Bluetooth Modul lässt sich sehr einfach mit der Platinen-Version des FABI-Systems (Bausatz) verwenden. (Eine Verwendung mit einem einzelnen Mikrocontroller ist auch möglich und wird in den weiterführenden Informationen im [Github Repository](https://github.com/asterics/esp32_mouse_keyboard) des Bluetooth Moduls genauer beschrieben.
 Das Bluetooth Modul wird in der auf der Platine eingezeichneten Orientierung auf den 10-poligen Konnektor gesteckt. Öffnen Sie dafür das FABI-Gehäuse und drücken Sie den das Modul bis zum Anschlag auf die dafür vorgesehene Stiftleiste (siehe Abbildung 15):
 
 ![Abbildung15](./Bilder/abb15.PNG) *Abbildung 15*: Bluetooth Modul, aufgesteckt auf die FABI-Platine
@@ -295,7 +293,7 @@ Das Bluetooth Modul zeigt durch schnelles Blinken (ca. 2 mal pro Sekunde) an, da
 
 ### Liste der Kürzel für Keybord-Tasten
 
-![Abbildung17](.\Bilder\abb17.PNG)
+![Abbildung17](./Bilder/abb17.PNG)
 
 ### Weiterführende Links und software-Empfehlungen
 
@@ -309,21 +307,21 @@ Die weiteren Open Source Entwicklungen der AsTeRICS Foundation erlauben eine vie
 
 #### SpecialEffect.org
 
-Die gemeinnützige Organisation SpecialEffect (<https://www.specialeffect.org.uk>) widmet sich der Verbreitung von barrierefreiem Spielen in Großbritannien und führt spezielle Anpassungen für Menschen mit Behinderung durch.
+Die gemeinnützige Organisation SpecialEffect ([www.specialeffect.org.uk](https://www.specialeffect.org.uk)) widmet sich der Verbreitung von barrierefreiem Spielen in Großbritannien und führt spezielle Anpassungen für Menschen mit Behinderung durch.
 
-![Abbildung19](.\Bilder\abb19.PNG)
+![Abbildung19](./Bilder/abb19.PNG)
 
 #### BLTT.org
 
-Die Webseite Better Living Through Technology (<https://bltt.org/introduction-to-switch-access>) bietet nützliche Informationen für Tasten-basierte Verwendung von Computern und Links zu vielen Software-Tools.
+Die Webseite Better Living Through Technology ([bltt.org/introduction-to-switch-access](https://bltt.org/introduction-to-switch-access)) bietet nützliche Informationen für Tasten-basierte Verwendung von Computern und Links zu vielen Software-Tools.
 
-![Abbildung20](.\Bilder\abb20.PNG)
+![Abbildung20](./Bilder/abb20.PNG)
 
 #### OneSwitch.org
 
-Unter der Adresse <https://www.oneswitch.org.uk/> hat Barrie Ellis eine Fülle von Tipps und Informationen für Single-Switch Gaming und spezielle Adaptierungen für Tasten-Steuerung von Computerspielen gesammelt. Besonders interessant sind die Spiele-Bibliothek, das One-Switch-Pulse System und die Verwendung von Spiele-Konsolen mittels Controller-Adaptern wie dem „Titan-Two“.
+Unter der Adresse [www.oneswitch.org.uk](https://www.oneswitch.org.uk/) hat Barrie Ellis eine Fülle von Tipps und Informationen für Single-Switch Gaming und spezielle Adaptierungen für Tasten-Steuerung von Computerspielen gesammelt. Besonders interessant sind die Spiele-Bibliothek, das One-Switch-Pulse System und die Verwendung von Spiele-Konsolen mittels Controller-Adaptern wie dem „Titan-Two“.
 
-![Abbildung21](.\Bilder\abb21.PNG)
+![Abbildung21](./Bilder/abb21.PNG)
 
 ## Kontaktinformationen
 
