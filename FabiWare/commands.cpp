@@ -18,9 +18,11 @@
 #include "keys.h"
 #include "commands.h"
 #include "display.h"
+#include "mouseControl.h"
 #include "toneFABI.h"
 
 const char ERRORMESSAGE_NOT_FOUND[] = "E: not found";
+uint8_t macroRunning=0;
 
 // AT Command list - defines all valid commands and their paramter types
 // Note that the order of this list must match with the command index enum (see commands.h)
@@ -279,7 +281,7 @@ void performCommand (uint8_t cmd, int16_t parNum, char * parString, int8_t perio
                Serial.print(F("mouse move x "));
                Serial.println(parNum);
              #endif
-             if (periodicMouseMovement) moveX=parNum;
+             if (periodicMouseMovement || macroRunning) moveX=parNum;
              else mouseMove(parNum, 0); 
           break;
       case CMD_MY:
@@ -287,7 +289,7 @@ void performCommand (uint8_t cmd, int16_t parNum, char * parString, int8_t perio
                Serial.print(F("mouse move y ")); 
                Serial.println(parNum);
              #endif
-             if (periodicMouseMovement) moveY=parNum;
+             if (periodicMouseMovement || macroRunning) moveY=parNum;
              else mouseMove(0, parNum);
 
           break;
@@ -363,10 +365,11 @@ void performCommand (uint8_t cmd, int16_t parNum, char * parString, int8_t perio
                    if(PCBversion){
                      updateNeoPixelColor(actSlot);    // update the Slot color of the LED 
                      //setBeepCount(actSlot);           // set some beep count -> time (dependend on loop time)
-                     toneFABI(2000 + 200 * actSlot,150);
+                     toneFABI(500 + 100 * actSlot,150);
                      writeSlot2Display();             // update the info on the Display 
                    }
                    Serial.println("OK");
+                   initDebouncers();
                  } 
                  else Serial.println(ERRORMESSAGE_NOT_FOUND);
                }
@@ -402,7 +405,7 @@ void performCommand (uint8_t cmd, int16_t parNum, char * parString, int8_t perio
              if(PCBversion){
                updateNeoPixelColor(actSlot);    // update the Slot color of the LED 
                //setBeepCount(actSlot);           // set some beep count -> time (dependend on loop time)
-               toneFABI(2000 + 200 * actSlot,150);
+               toneFABI(500 + 100 * actSlot,150);
                writeSlot2Display();             //update the info on the Display 
              }
              break;
@@ -475,29 +478,49 @@ void performCommand (uint8_t cmd, int16_t parNum, char * parString, int8_t perio
           break;
       case CMD_MA:
              { 
+               #define MAX_MACROCMD_LEN 50
+               char macroCommand[MAX_MACROCMD_LEN];
+               int actMacroCmdLen=0;
+               macroRunning=1;
+               
                // execute a command macro                
                // make a copy from keystring because processing will be destructive...
-               memmove(cmdstring, parString, strlen(parString) + 1);
                uint8_t lastCmd=0;
-               char * cmdStart=cmdstring, *cmdEnd;
+
+               char *cmdChar=parString;
 
                // do the macro stuff: feed single commands to parser, separator: ';'
                do {
-                 cmdEnd=cmdStart;
-                 while ((*cmdEnd!=';') && (*cmdEnd)) {
-                  // use backslash for passing special characters (; or \). note: copy also 0-delimiter! 
-                  if (*cmdEnd =='\\') memmove (cmdEnd, cmdEnd+1, strlen(cmdEnd));
-                  cmdEnd++;
+                 actMacroCmdLen=0;
+                 while ((*cmdChar) && (*cmdChar!=';') && (actMacroCmdLen < MAX_MACROCMD_LEN-1)) {
+                   // use backslash for passing special characters (; or \)
+                   if (*cmdChar =='\\') cmdChar++;
+                   macroCommand[actMacroCmdLen]= *cmdChar;
+                   if (*cmdChar) {
+                     actMacroCmdLen++;
+                     cmdChar++;
+                   }
                  }
-                 if (!(*cmdEnd)) lastCmd=1;
-                 else *cmdEnd=0; 
-                 parseCommand(cmdStart);
-                 cmdStart=cmdEnd+1;
-                 if (!(*cmdStart)) lastCmd=1;
-               } while (!lastCmd);                 
+                 macroCommand[actMacroCmdLen]=0;
+
+                 // now execute current macro command!
+                 // Serial.print(F("execute: "));
+                 // Serial.println(macroCommand);
+                 parseCommand(macroCommand);
+                 updateMouse();
+                 if (*cmdChar) cmdChar++;
+               } while (*cmdChar);                 
+               macroRunning=0;moveX=0;moveY=0;
              }
              break;
       case CMD_WA:
+              if (macroRunning) {
+                while (parNum > DEFAULT_WAIT_TIME) {
+                  delay(DEFAULT_WAIT_TIME);
+                  parNum-=DEFAULT_WAIT_TIME;
+                  updateMouse();
+                }
+              }
               delay(parNum);
              break;
       case CMD_DP:

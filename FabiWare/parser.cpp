@@ -114,7 +114,7 @@ void parseCommand (char * cmdstr)
     int16_t num=0;
 
     
-    cmdstr[strlen(cmdstr)+1]=0;  // to prevent exceeing the actual commandstring (when emptry string parameters are passed!)
+    cmdstr[strlen(cmdstr)+1]=0;  // to prevent exceeing the actual commandstring (when empty string parameters are passed!)
     // Serial.print("parseCommand:"); Serial.println(cmdstr); 
     //char * actpos = strtok(cmdstr," ");   // see a nice explaination of strtok here:  http://www.reddit.com/r/arduino/comments/2h9l1l/using_the_strtok_function/
 
