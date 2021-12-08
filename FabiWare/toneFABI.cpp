@@ -66,12 +66,12 @@ void toneFABI(uint16_t frequency, uint16_t time)
   cli();
   ovf_counter = temp;
   sei();
-  //determine the OCR values, we have prescaler 8 -> 2MHz
+  //determine the OCR values, we have prescaler 64 -> 250kHHz
   //divide by the desired frequency to get the timer ticks
-  OCR3A = (uint16_t)((uint32_t)2000000 / (uint32_t)frequency); 
+  OCR3A = (uint16_t)((uint32_t)250000 / (uint32_t)frequency); 
   OCR3B = OCR3A / 2; //50% DC
   //set FastPWM mode (TOP -> OCR3A), enable prescaler 8
-  TCCR3B = (1<<WGM33)|(1<<WGM32)|(1<<CS31);
+  TCCR3B = (1<<WGM33)|(1<<WGM32)|(1<<CS31)|(1<<CS30);
 }
 
 uint8_t beepCounter = 0;    // number of beeps
@@ -89,5 +89,5 @@ void initBuzzer() {
   TIMSK3 = (1<<OCIE3A)|(1<<OCIE3B);
   TCCR3A = (1<<WGM31)|(1<<WGM30);
   sei();
-  toneFABI(100,500);
+  toneFABI(800,100);
 }
