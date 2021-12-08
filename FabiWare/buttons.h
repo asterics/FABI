@@ -37,5 +37,6 @@ void updateButtons();
 void handlePress (int buttonIndex);      // a button was pressed
 void handleRelease (int buttonIndex);    // a button was released
 void handleButton(int i, int l, uint8_t b);  // button debouncing
+uint8_t allButtonsReleased();
 
 #endif
