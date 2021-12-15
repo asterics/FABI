@@ -274,7 +274,7 @@ char * getKeystring (uint8_t button)
 {
   char *s = keystringBuffer;
 
-  // bypass first n strings in the keystrinBuffer array
+  // bypass first n strings in the keystringBuffer array
   for (int i = 0; i < button; i++) {
     while (*s) s++;
     s++;
