@@ -412,6 +412,7 @@ void performCommand (uint8_t cmd, int16_t parNum, char * parString, int8_t perio
         toneFABI(actSlot, 150);
         writeSlot2Display();             //update the info on the Display
       }
+      initDebouncers();
       break;
     case CMD_DE:
 #ifdef DEBUG_OUTPUT
