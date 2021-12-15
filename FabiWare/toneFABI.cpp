@@ -47,7 +47,9 @@ ISR(TIMER3_COMPA_vect) {
 ISR(TIMER3_COMPB_vect)
 {
   PORTD |= (1<<PD4);
-}/*
+}
+
+/*
 ISR(TIMER3_COMPB_vect, ISR_NAKED) {
 	//set PD4
 	///@note The sbi instruction is usable for registers <0x1F, therefor
@@ -86,9 +88,15 @@ void toneFABI(uint16_t frequency, uint16_t time)
    initialises the buzzer pin and creates initial tone
 */
 void initBuzzer() {
-  DDRD |= (1<<PD4);
+  DDRD &= ~(1<<PD4);
   TIMSK3 = (1<<OCIE3A)|(1<<OCIE3B);
   TCCR3A = (1<<WGM31)|(1<<WGM30);
   sei();
   toneFABI(1,100);
+  delay(300);
+  DDRD |= (1<<PD4);
+  toneFABI(1,200);  delay(200);
+  toneFABI(3,200);  delay(200);
+  toneFABI(5,100);
+
 }
