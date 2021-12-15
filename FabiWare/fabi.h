@@ -30,7 +30,7 @@
 //#include <SPI.h>
 
 
-#define VERSION_STRING "FABI v2.6"
+#define VERSION_STRING "FABI v2.7"
 
 //#define DEBUG_OUTPUT      //  if debug output is desired
 
@@ -40,8 +40,8 @@
 #define NUMBER_OF_BUTTONS  11         // number of pyhsical plus virtual switches, note: if more than 16, change buttonState type to uint32_t!
 
 #define MAX_SLOTNAME_LEN      12      // maximum lenght for a slotname
-#define KEYSTRING_BUFFER_LEN 400      // maximum lenght for all string parameters of a slot 
-#define MAX_CMDLEN           120      // maximum lenght of a single AT command
+#define KEYSTRING_BUFFER_LEN 300      // maximum lenght for all string parameters of a slot 
+#define MAX_CMDLEN           100      // maximum lenght of a single AT command
 
 #define DEFAULT_WAIT_TIME            5   // wait time for one loop interation in milliseconds
 #define DEFAULT_CLICK_TIME           8   // time for mouse click (loop iterations from press to release)
