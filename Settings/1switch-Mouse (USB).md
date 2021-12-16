@@ -3,7 +3,7 @@ This configuration works with 1 switch (connected to input 1).
 The switch controls the mouse pointer (press to move up/down/left/right).
 Double-pressing the switch changes direction (activates the next slot).
 A left click is performed automatically after 1 second of inactivity (dwell clicking).
-
+(for double/right mouse clicks, a click selection tool (e.g. click2speak) can be used)
  
 ## Function assignment
 

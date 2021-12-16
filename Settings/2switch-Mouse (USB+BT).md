@@ -5,16 +5,17 @@ and on a mobile device (iOS/Android, BT-mode).
  
 Default mode is: USB
 Button1 is used for moving the mouse in a given direction,
-Button2 ist used for changing the direction (short press) or the device mode (long press).
-Left mouse clicks are performed automatically after a short period of incativity (dwell clicking).
+Button2 is used for changing the direction (short press) or the device mode (long press).
+Left mouse clicks are performed automatically after a short period of inactivity (dwell clicking).
+(for double/right mouse clicks, a click selection tool (e.g. click2speak) can be used)
 
 ## Function assignment
 
-### USB-Mode (uses configuration slots 1-4):
-- Button1 = move mouse cursor up/down/left/right
+### USB-Mode (slots 1-4, color: green):
+- Button1 = move mouse cursor right/down/left/up
 - Button2 = short-press: change mouse direction; long-press: switch to BT-Mode
 
-### BT-Mode (uses configuration slots 5-8):
-- Button1 = move mouse cursor up/down/left/right
+### BT-Mode (slots 5-8, color: blue):
+- Button1 = move mouse cursor right/down/left/up
 - Button2 = short-press: change mouse direction; long-press: switch to USB-Mode
 

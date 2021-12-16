@@ -1,9 +1,10 @@
 ## Basic information
 This configuration works with 2 switches (connected to inputs 1 and 2).
-Up to 8 switches can be used (for extended functions).
+Up to 8 switches might be used (for extended functions).
 Button1 actuates the Space key, Button 2 actuates the Enter key.
-Other buttons can be connected for actuating cursor keys and left/right mouse button.
 The keys are sent to USB and Bluetooth (if a BT-device is paired).
+
+The other buttons can be connected for actuating cursor keys and left/right mouse button.
 
  
 ## Function assignment
