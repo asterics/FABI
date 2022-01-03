@@ -4,7 +4,7 @@
      for controlling HID functions via momentary switches and/or serial AT-commands  
      More Information: https://github.com/asterics/FABI
 
-     Module: Buzzer.h - tone generation / buzzer control
+     Module: toneFABI.h - tone generation / buzzer control
         
      This program is free software; you can redistribute it and/or modify
      it under the terms of the GNU General Public License, see:
@@ -21,7 +21,6 @@
 #define BUZZER_PIN 4
 
 void initBuzzer();
-void setBeepCount(uint16_t count);
-void UpdateBuzzer();
+void toneFABI(uint16_t frequency, uint16_t time);
 
 #endif

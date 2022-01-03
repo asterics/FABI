@@ -162,7 +162,7 @@ void loop() {
     updateMouse();
 
     if (PCBversion) {
-      UpdateBuzzer();       // generate tones (indicating slot change)
+      //UpdateBuzzer();       // generate tones (indicating slot change)
       UpdateNeoPixel();     // update the brightness of the NeoPixel if slotchange occured
     }
     else UpdateLeds();      // update slot indication leds in case no PCB version

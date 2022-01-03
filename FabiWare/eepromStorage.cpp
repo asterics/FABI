@@ -229,6 +229,7 @@ uint8_t saveToEEPROM(char * slotname)
 */
 uint8_t readFromEEPROM(char * slotname)
 {
+   char slotname_copy[MAX_SLOTNAME_LEN];
    char act_slotname[MAX_SLOTNAME_LEN];
    int address=0;
    int tmpSlotAddress=0;
@@ -238,6 +239,9 @@ uint8_t readFromEEPROM(char * slotname)
    uint8_t numSlots=0;
    uint8_t stringCount=0;
    uint8_t* p;
+
+   if (slotname) strcpy(slotname_copy,slotname);   // use a local copy of slotname
+                                     // (could be overwritten by keystring-update)!
 
    // iterate over all valid slots in EEPROM
    while (EEPROM.read(address)) 
@@ -256,7 +260,7 @@ uint8_t readFromEEPROM(char * slotname)
 
       // if slotname matches the slot stored in EEPROM
       if (slotname)  {
-        if (!strcmp(act_slotname, slotname)) { found=1; done=1; }
+        if (!strcmp(act_slotname, slotname_copy)) { found=1; done=1; }
       }
       
       address=tmpStartAddress;
@@ -264,7 +268,7 @@ uint8_t readFromEEPROM(char * slotname)
         #ifdef DEBUG_OUTPUT  
            Serial.print(F("LOADING slot ")); Serial.println(act_slotname);
         #endif
-
+ 
         // load settings structure
         p = (uint8_t*) &settings;
         for (int t=0;t<sizeof(settingsType);t++)
@@ -281,7 +285,7 @@ uint8_t readFromEEPROM(char * slotname)
         stringCount=0;
         do {
            uint8_t c=EEPROM.read(tmpKeystringAddress--);
-           *p++=c;
+           *p++=c; 
            if (!c) stringCount++;
         } while (stringCount < NUMBER_OF_BUTTONS);
 

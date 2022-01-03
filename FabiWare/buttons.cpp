@@ -94,7 +94,6 @@ void updateButtons() {
   }   
 }
 
-
 /**
    @name handlePress
    @param int buttonIndex represents the pressed physical (or virtual) button 
@@ -109,7 +108,7 @@ void handlePress (int buttonIndex)
   #ifdef DEBUG_OUTPUT
     Serial.print("press button "); Serial.print(buttonIndex);
   #endif
-
+  
   // check if double press condition is met
   if (settings.dp > 0) { 
     if ((millis() - doublePressTimestamp) < settings.dp) {
@@ -154,11 +153,32 @@ void handleRelease (int buttonIndex)
 
 
 /**
+   @name allButtonsReleased
+   @param none 
+   @return uint8_t
+
+   checks if all buttons (and sip puff values) are in the released state
+   returns true if yes, else false.
+*/
+uint8_t allButtonsReleased() {
+  uint8_t r=1;
+  for (int i = 0; i < NUMBER_OF_PHYSICAL_BUTTONS; i++)
+    if (digitalRead(input_map[i]) == LOW) r=0;
+
+  uint16_t pressure= analogRead(PRESSURE_SENSOR_PIN);
+  if ((settings.ts > 0) && (pressure < settings.ts)) r=0;
+  if ((settings.tp < 1023) && (pressure > settings.tp)) r=0;
+
+  return(r);
+}
+
+/**
    @name initDebouncers
    @param none 
    @return none
 
-   initialises the button debouncing structures / states  
+   initialises the button debouncing structures / states
+   and waits until all buttons are released
 */
 void initDebouncers()
 {
@@ -169,8 +189,23 @@ void initDebouncers()
     buttonDebouncers[i].idleCount = 0;
     buttonDebouncers[i].pressState = BUTTONSTATE_NOT_PRESSED;
   }
+
+  // wait until all buttons released or timeout reached!
+  uint32_t timeout=millis();
+  while (!allButtonsReleased() && millis()-timeout<RELEASE_ALL_TIMEOUT);
 }
 
+
+/**
+   @name longPressEnabled
+   @param int b: the button number 
+   @return uint8_t
+
+   returns true if a long press function is active for button b 
+*/
+uint8_t longPressEnabled(int b) {
+  return((settings.tt > 0) && (b<3) && (buttons[b+6].mode != CMD_NC));
+}
 
 /**
    @name handleButton
@@ -206,20 +241,18 @@ void handleButton(int i, int l, uint8_t actState)
 
     // antitremor press check: hold button a minimum time before press is valid (settings.ap)  
     if (buttonDebouncers[i].pressCount == settings.ap) {
-      handlePress(i);   // issue the short press action !
       buttonDebouncers[i].pressState = BUTTONSTATE_SHORT_PRESSED;
+      if (!longPressEnabled(i))  { handlePress(i); return; }  // issue the short press action !
     }
 
     // check for long press action 
     if ((buttonDebouncers[i].pressCount == settings.tt >> 2) && (settings.tt != 0)  
          && (l >= 0) && (l < NUMBER_OF_BUTTONS) && (buttons[l].mode != CMD_NC)) {
 
-      // in case pressed duration reaches threshold  settings.tt/4:
-      // release short press and issue long press function!
-      handleRelease(i);
+      // in case pressed duration reaches threshold  settings.tt/4: execute long press function!
       handlePress(l);
       buttonDebouncers[i].pressCount = settings.tt >> 2;  // update pressCount in case slot has changed!
-                                                          //(this avoids glitches if settings.tt differs)
+                                                          // (this avoids glitches if settings.tt differs)
       buttonDebouncers[i].pressState = BUTTONSTATE_LONG_PRESSED;
     }
   }
@@ -234,6 +267,7 @@ void handleButton(int i, int l, uint8_t actState)
       buttonDebouncers[i].releaseCount++;
     if (buttonDebouncers[i].releaseCount == settings.ar) {
       if (buttonDebouncers[i].pressState == BUTTONSTATE_SHORT_PRESSED) {
+        if (longPressEnabled(i))  handlePress(i); // do a short press action in case long press enabled but presstime not long enough ....
         handleRelease(i);   // stop ongoing press action
         buttonDebouncers[i].pressState = BUTTONSTATE_IDLE;
       }
@@ -256,7 +290,7 @@ char * getKeystring (uint8_t button)
 {
   char *s = keystringBuffer;
 
-  // bypass first n strings in the keystrinBuffer array
+  // bypass first n strings in the keystringBuffer array
   for (int i = 0; i < button; i++) {
     while (*s) s++;
     s++;

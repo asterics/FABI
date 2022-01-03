@@ -23,14 +23,14 @@
 #include "bluetooth.h"
 #include "hid_hal.h"
 #include "NeoPixel.h"
-#include "buzzer.h"
+#include "toneFABI.h"
 #include "buttons.h"
 
 //#include <Wire.h>
 //#include <SPI.h>
 
 
-#define VERSION_STRING "FABI v2.6"
+#define VERSION_STRING "FABI v2.7"
 
 //#define DEBUG_OUTPUT      //  if debug output is desired
 
@@ -40,8 +40,9 @@
 #define NUMBER_OF_BUTTONS  11         // number of pyhsical plus virtual switches, note: if more than 16, change buttonState type to uint32_t!
 
 #define MAX_SLOTNAME_LEN      12      // maximum lenght for a slotname
-#define KEYSTRING_BUFFER_LEN 400      // maximum lenght for all string parameters of a slot 
-#define MAX_CMDLEN           120      // maximum lenght of a single AT command
+#define KEYSTRING_BUFFER_LEN 300      // maximum lenght for all string parameters of a slot 
+#define MAX_CMDLEN           100      // maximum lenght of a single AT command
+#define RELEASE_ALL_TIMEOUT 2500      // timeout for button release @slot changes etc.
 
 #define DEFAULT_WAIT_TIME            5   // wait time for one loop interation in milliseconds
 #define DEFAULT_CLICK_TIME           8   // time for mouse click (loop iterations from press to release)
@@ -56,7 +57,6 @@
 #define DEFAULT_TRESHOLD_TIME        0   // treshold time for long press (0: disable long press)
 #define DEFAULT_DOUBLEPRESS_TIME     0   // treshold time for double press (0: disable double press)
 #define DEFAULT_AUTODWELL_TIME       0   // treshold time for automatic dwelling after mouse movement (0: disable autodwell)
-
 
 struct settingsType {
   char slotname[MAX_SLOTNAME_LEN];     // EEPROM slotname maximum length
