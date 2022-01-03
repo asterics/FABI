@@ -152,8 +152,14 @@ void handleRelease (int buttonIndex)
 }
 
 
+/**
+   @name allButtonsReleased
+   @param none 
+   @return uint8_t
 
-
+   checks if all buttons (and sip puff values) are in the released state
+   returns true if yes, else false.
+*/
 uint8_t allButtonsReleased() {
   uint8_t r=1;
   for (int i = 0; i < NUMBER_OF_PHYSICAL_BUTTONS; i++)
@@ -171,7 +177,8 @@ uint8_t allButtonsReleased() {
    @param none 
    @return none
 
-   initialises the button debouncing structures / states  
+   initialises the button debouncing structures / states
+   and waits until all buttons are released
 */
 void initDebouncers()
 {
@@ -182,11 +189,20 @@ void initDebouncers()
     buttonDebouncers[i].idleCount = 0;
     buttonDebouncers[i].pressState = BUTTONSTATE_NOT_PRESSED;
   }
-  while (!allButtonsReleased());  // wait until all buttons released!
+
+  // wait until all buttons released or timeout reached!
+  uint32_t timeout=millis();
+  while (!allButtonsReleased() && millis()-timeout<RELEASE_ALL_TIMEOUT);
 }
 
 
+/**
+   @name longPressEnabled
+   @param int b: the button number 
+   @return uint8_t
 
+   returns true if a long press function is active for button b 
+*/
 uint8_t longPressEnabled(int b) {
   return((settings.tt > 0) && (b<3) && (buttons[b+6].mode != CMD_NC));
 }

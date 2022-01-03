@@ -42,6 +42,7 @@
 #define MAX_SLOTNAME_LEN      12      // maximum lenght for a slotname
 #define KEYSTRING_BUFFER_LEN 300      // maximum lenght for all string parameters of a slot 
 #define MAX_CMDLEN           100      // maximum lenght of a single AT command
+#define RELEASE_ALL_TIMEOUT 2500      // timeout for button release @slot changes etc.
 
 #define DEFAULT_WAIT_TIME            5   // wait time for one loop interation in milliseconds
 #define DEFAULT_CLICK_TIME           8   // time for mouse click (loop iterations from press to release)
@@ -56,7 +57,6 @@
 #define DEFAULT_TRESHOLD_TIME        0   // treshold time for long press (0: disable long press)
 #define DEFAULT_DOUBLEPRESS_TIME     0   // treshold time for double press (0: disable double press)
 #define DEFAULT_AUTODWELL_TIME       0   // treshold time for automatic dwelling after mouse movement (0: disable autodwell)
-
 
 struct settingsType {
   char slotname[MAX_SLOTNAME_LEN];     // EEPROM slotname maximum length
