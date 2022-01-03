@@ -7,7 +7,7 @@ Default mode is: USB
 Button1 is used for moving the mouse in a given direction,
 Button2 is used for changing the direction (short press) or the device mode (long press).
 Left mouse clicks are performed automatically after a short period of inactivity (dwell clicking).
-(for double/right mouse clicks, a click selection tool (e.g. click2speak) can be used)
+For double/right mouse clicks, a click selection tool (e.g. click2speak) can be used.
 
 ## Function assignment
 

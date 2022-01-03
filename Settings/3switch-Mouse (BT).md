@@ -1,6 +1,6 @@
 ## Basic information
-This configuration is optimised for 3 buttons (connected to inputs 1 and 2)
-It allows mouse pointer control on a mobile device (Android, BT-mode).
+This configuration is optimised for 3 buttons (connected to inputs 1, 2 and 3)
+It allows mouse pointer control on a mobile device (e.g. Android) via bluetooth (BT-mode).
  
 Button1 is used for moving the mouse pointer in the given direction.
 Button2 is used for clicking the left mouse button.

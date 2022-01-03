@@ -15,5 +15,6 @@ It allows mouse pointer control via USB.
 - Button7 = scroll mouse wheel up
 - Button8 = scroll mouse wheel down
 
-Buttons 6-8 are optional, for double/right mouse clicks, a click selection tool (e.g. click2speak) can be used.
+Buttons 6-8 are optional.
+In order to perform right or double clicks, a click selection tool (e.g. click2speak) might be used.
 
