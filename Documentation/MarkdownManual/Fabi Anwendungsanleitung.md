@@ -1,12 +1,9 @@
 ![FabiLogo](./Bilder/fabi1.PNG)
 
-# FABI - Flexible Assistive Button Interface
+# FABI - Anwendungsanleitung
 
 ![FabiFoto](./Bilder/fabi2.PNG)
 
-# Anwendungsanleitung
-
-### AsTeRICS Foundation
 
 ____
 
