@@ -335,25 +335,27 @@ Falls die motorischen Fähigkeiten bzw. die Anzahl der verwendbaren Tasten-Funkt
 
 #### AsTeRICS und AsTeRICS Grid
 
-Die weiteren Open Source Entwicklungen der AsTeRICS Foundation erlauben eine vielseitige Verwendung von Taster-Schnittstellen. Das AsTeRICS-System ist ein Baukasten für Assistierende Technologien mit dem 1-Tasten Verfahren zur Computer-Kontrolle erstellt werden können. AsTeRICS Grid ist ein flexibles System für die Unterstütze Kommunikation (UK, AAC), das auch mit einzelnen Tastern verwendet werden kann.
+Die weiteren Open Source Entwicklungen der [AsTeRICS Foundation](https://www.asterics-foundation.org) erlauben eine vielseitige Verwendung von Taster-Schnittstellen. Das [AsTeRICS](https://www.asterics.eu)-System ist ein Baukasten für Assistierende Technologien mit dem 1-Tasten Verfahren zur Computer-Kontrolle erstellt werden können. [AsTeRICS Grid](https://grid.asterics.eu) ist ein flexibles System für die Unterstütze Kommunikation (UK, AAC), das auch mit einzelnen Tastern verwendet werden kann.
 
 #### SpecialEffect.org
 
 Die gemeinnützige Organisation SpecialEffect ([www.specialeffect.org.uk](https://www.specialeffect.org.uk)) widmet sich der Verbreitung von barrierefreiem Spielen in Großbritannien und führt spezielle Anpassungen für Menschen mit Behinderung durch.
 
-![Abbildung19](./Bilder/abb19.PNG)
 
 #### BLTT.org
 
 Die Webseite Better Living Through Technology ([bltt.org/introduction-to-switch-access](https://bltt.org/introduction-to-switch-access)) bietet nützliche Informationen für Tasten-basierte Verwendung von Computern und Links zu vielen Software-Tools.
 
-![Abbildung20](./Bilder/abb20.PNG)
 
 #### OneSwitch.org
 
 Unter der Adresse [www.oneswitch.org.uk](https://www.oneswitch.org.uk/) hat Barrie Ellis eine Fülle von Tipps und Informationen für Single-Switch Gaming und spezielle Adaptierungen für Tasten-Steuerung von Computerspielen gesammelt. Besonders interessant sind die Spiele-Bibliothek, das One-Switch-Pulse System und die Verwendung von Spiele-Konsolen mittels Controller-Adaptern wie dem „Titan-Two“.
 
-![Abbildung21](./Bilder/abb21.PNG)
+
+#### Click2Speak
+[Click2Speak](https://www.click2speak.net) ist eine flexible Bildschirmtastatur (On-Screen Keyboard) für Windows, die zusätzliche nützliche Funktionen bietet- etwa eine Maus-Click-Auswahlbox.
+
+
 
 ## Kontaktinformationen
 
