@@ -1,11 +1,24 @@
-# Welcome to FABI
+# FABI Switching output port branch
 
-The FABI (Flexible Assistive Button Interface) allows control of a computer’s mouse cursor or
-keyboard by just using momentary switches. This can be helpful for people who want to create 
-user interactions with the press of a button - and it allows people who can't use standard computer input devices
-to play games, surf the internet, communicate and much more.
+This FABI branch contains a modidfied version which let's you switch output port 8 with a transistor. This can be used to switch low voltage devices like toys on or off. The toy must be modified with a battery interrupter for this purpose.
 
-![A FABI box with attached 3d-printed switch](https://github.com/asterics/FABI/blob/master/img/FABI4.png "FABI box with attached switch")
+![A FABI PCB with modified switching output port 8 using a transistor](./img/FABI-switching-output-8-PCB.jpg)
+
+![A FABI box cover for the modified switching output port 8](./img/FABI-switching-output-8-cover.jpeg)
+
+![Soap bubble machinge modified with battery interrupter](./img/Soap-bubble-machine-with-battery-interrupter.jpg)
+
+## Modifications for the Switching Output
+
+Have a look at the blog [Hack a toy](https://mehackit.org/en/courses/electronics_projects/05-projects/08-hack_your_toy/) of mehackit to get an idea of how to hack a toy and control it's power supply.
+
+In our case the MOSFET transistor ([IRLB8721](https://www.infineon.com/cms/de/product/power/mosfet/n-channel/irlb8721/?redirId=150229)) was used instead of an NPN transistor.
+
+The **Gate** leg was connected to **pin 9** of the Arduino, the **Source** leg to the **GND** pin of the Arduino and the **GND** connector of the socket. Finally, the **Drain** leg was connected to the **shaft connector** of the socket.
+
+Finally the firmware was modified as described below:
+* Pin 9 was configured as GPIO output port
+* The command ```AT SO``` was added to switch the pin to **HIGH (1)** or **LOW (0)**. So when sending ```AT SO 1``` the toy is switched on. 
 
 
 ## How?
