@@ -4,7 +4,6 @@
 
 ![FabiFoto](./Bilder/fabi2.PNG)
 
-
 ____
 
 # Willkommen bei FABI
@@ -25,7 +24,8 @@ Diese Anleitung dient zur Erklärung der Konfigurationsoberfläche und der mögl
 
 Der FABI-Konfigurationsmanager wird benötigt, um die Funktionen der Taster / Buttons festlegen zu können. Nachdem eine Konfiguration im FABI-System gespeichert wurde, bleibt sie dort erhalten und das FABI-System kann zur Steuerung unterschiedlicher Geräte verwendet werden (z.B. Windows-PC, Mac-Computer, Tablet oder Smart-Phone mit USB- oder Bluetooth-Anschluss). Der Konfigurationsmanager wird erst wieder benötigt, wenn Einstellungen geändert werden sollen.
 
-Der Konfigurationsmanager wird im Chrome Web-Browser geöffnet und ist unter folgender Adresse zu finden: <a href="fabi.asterics.eu" target="_blank"> fabi.asterics.eu </a>. Untenstehend in Abbildung 1 sehen sie die Startseite. Wenn Sie auf den Button VERBINDEN ZU FABI (ÜBER USB ANGESCHLOSSEN) klicken, so wird in der Auswahlbox noch kein Kommunikationsanschluss (COM Port) auswählbar sein, sofern Sie das FABI Modul noch nicht mittels USB-Stecker mit dem Computer verbunden haben. 
+Der Konfigurationsmanager wird im Chrome Web-Browser geöffnet und ist unter folgender Adresse zu finden: [fabi.asterics.eu](https://fabi.asterics.eu/index_fabi.htm). Untenstehend in Abbildung 1 sehen sie die Startseite. Wenn Sie auf den Button VERBINDEN ZU FABI (ÜBER USB ANGESCHLOSSEN) klicken, so wird in der Auswahlbox noch kein Kommunikationsanschluss (COM Port) auswählbar sein, sofern Sie das FABI Modul noch nicht mittels USB-Stecker mit dem Computer verbunden haben. 
+
 ![Abbildung1](./Bilder/abb1.png)
 
 *Abbildung 1*: Startseite des Konfigurationsmanagers
@@ -35,7 +35,6 @@ Der Konfigurationsmanager wird im Chrome Web-Browser geöffnet und ist unter fol
 ![Abbildung2](./Bilder/abb2.PNG)
 
 *Abbildung 2*: Anschließen des USB-Micro Kabels
-
 
 #### Das FABI-Gerät verbinden
 
@@ -51,7 +50,6 @@ Nachdem Sie mit dem Kommunikations-Anschluss des FABI Systems verbunden sind, se
 ![Abbildung3](./Bilder/abb3.PNG) 
 
 *Abbildung 3*: FABI-Konfigurationsmanager Benutzeroberfläche
-
 
 #### Port Status
 
@@ -95,7 +93,8 @@ Im Reiter **SLOTS** können ganz unten im Bereich "Demo-Voreinstellungen" (siehe
 
 Im Reiter **AKTIONEN** können bis zu 8 Taster mit verschiedenen Funktionen belegt werden. Die Funktionen beinhalten etwa verschiedene Mausklicks, Mausbewegungen, Betätigung des Maus-Scrollrads oder von Keyboard-Tasten. Sie können die Aktion für den jeweiligen Taster ändern, indem Sie rechts vom gewünschten Button auf die unterstrichene (momentan aktive) Aktion klicken - siehe rotes Viereck in Abbildung 6. Dann erscheint ein Fenster, wo die gewünschte Aktions-Kategorie (hier: Maus) und die gewünschte Aktion ausgewählt werden kann (hier: Linke Maustaste halten). *Anmerkung:* Sollten mehr als 8 Taster benötigt werden, können mehrere FABI-Module parallel betrieben werden.
 
-![Abbildung6](./Bilder/abb6.PNG) 
+![Abbildung6.1](./Bilder/abb6.svg) 
+![Abbildung6.2](./Bilder/abb6.PNG) 
 
 *Abbildung 6*: Aktion für Taster auswählen
 
@@ -144,7 +143,6 @@ Mit der Funktion "Taste(n) halten (für Dauer der Eingabe-Aktion)" können gewü
 
 Die „Taste(n) drücken + wieder loslassen ”-Funktion ermöglicht es, gewünschte Tasten (auch Kombinationen) des Computerkeyboards auszulösen, sobald der Taster gedrückt wird. Die Keyboard-Tasten werden gedrückt und sofort wieder losgelassen (also nicht so lange gehalten, wie der Taster gehalten bleibt). 
 
-
 ##### Taste(n) drücken oder auslassen (wechseln)
 
 Mit der Funktion "Taste(n) drücken oder auslassen (wechseln)" können gewünschte Tasten auf der Computertastatur ihren Zustand ändern (also gedrückt werden bzw. losgelassen werden), sobald die Taste gedrückt wird. Beachten Sie, dass die Tastaturtaste solange gedrückt bleibt, bis die Taste ein weiteres Mal gedrückt wird! Die Tastenauswahl funktioniert wie bei dem Befehl "Tasten drücken" beschrieben.
@@ -157,8 +155,6 @@ Die gewünschte Taste kann jeweils aus der Auswahlbox gewählt werden, die recht
 Bereits zugewiesene Tasten können durch klicken von „Löschen“ entfernt werden.
 
 **Anmerkung:** Mit „KEY_SHIFT“ können Großbuchstaben verwendet werden. Alle weiteren unterstützen Keyboard-Tastenkürzel finden Sie im Anhang.
-
-
 
 ##### Schreibe Wort
 
@@ -245,7 +241,7 @@ Im Reiter **ALLGEMEIN** können die Bluetooth-Einstellungen angepasst werden, so
 #### USB Modus / Bluetooth Modus
 
 Das optionale Bluetooth-Modul (Add-On) ermöglicht die Aussendung von Tastatur- und Maus-Aktionen zur einem verbundenen ("gepairten") bluetoothfähigen Gerät (etwa zu einem Smartphone oder Tablet-Computer). Ist ein Bluetooth-Modul im FABI-Gehäuse installiert, so kann in der Selektionsbox pro Slot definiert werden, ob die Maus- und Tastaturaktionen über USB oder über Bluetooth (oder über beides) erzeugt werden sollen (Abbildung 13):  
- 
+
 ![Abbildung13](./Bilder/abb13.PNG) 
 
 *Abbildung 13*: Bluetooth-Modus bzw. USB/Bluetooth Auswahl
@@ -324,6 +320,23 @@ Das Bluetooth Modul zeigt durch schnelles Blinken (ca. 2 mal pro Sekunde) an, da
 
 ![Abbildung17](./Bilder/abb17.PNG)
 
+| **Unterstützte Kürzel für Tastaturtasten**                                                                                                                                                                                                                                                         |
+| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Buchstaben**                                                                                                                                                                                                                                                                                     |
+| KEY_A  KEY_B  KEY_C  KEY_D  KEY_E  KEY_F  KEY_G  KEY_H  <br/>KEY_I  KEY_J  KEY_K  KEY_L  KEY_M  KEY_N  KEY_O  KEY_P  <br/>KEY_Q  KEY_R  KEY_S  KEY_T  KEY_U  KEY_V  KEY_W  KEY_X                                                                                                                   |
+| **Ziffern**                                                                                                                                                                                                                                                                                        |
+| KEY_1  KEY_2  KEY_3  KEY_4  KEY_5  KEY_6  KEY_7  KEY_8  KEY_9  KEY_0                                                                                                                                                                                                                               |
+| **Function keys**                                                                                                                                                                                                                                                                                  |
+| KEY_F1  KEY_F2  KEY_F3  KEY_F4  KEY_F5  KEY_F6  KEY_F7  KEY_F8  KEY_F9  KEY_F10  <br/>KEY_F11  KEY_F12  KEY_F13  KEY_F14  KEY_F15  KEY_F16  KEY_F17  KEY_F18  KEY_F19 <br/>KEY_F20  KEY_F21  KEY_F22  KEY_F23  KEY_F24                                                                             |
+| **Funktionstasten**                                                                                                                                                                                                                                                                                |
+| KEY_UP  KEY_DOWN  KEY_LEFT  KEY_RIGHT  KEY_TAB  KEY_PAGE_UP  KEY_PAGE_DOWN <br/>KEY_HOME  KEY_END                                                                                                                                                                                                  |
+| **Spezielle Tasten**                                                                                                                                                                                                                                                                               |
+| KEY_ENTER  KEY_SPACE  KEY_BACKSPACE  KEY_DELETE  KEY_INSERT  KEY_ESC  KEY_NUM_LOCK<br/>KEY_SCROLL_LOCK  KEY_CAPS_LOCK  KEY_PAUSE<br/><br/>KEY_SEMICOLON  KEY_COMMA  KEY_PERIOD  KEY_MINUS  KEY_EQUAL  KEY_SLASH<br/>KEY_BACKSLASH  KEY_LEFT_BRACE  KEY_RIGHT_BRACE  KEY_QUOTE  KEY_TILDE  KEY_MENU |
+| **Keypad Tasten**                                                                                                                                                                                                                                                                                  |
+| KEYPAD_1  KEYPAD_2  KEYPAD_3  KEYPAD_4  KEYPAD_5  KEYPAD_6  KEYPAD_7  KEYPAD_8<br/>KEYPAD_9  KEYPAD_0  <br/>KEYPAD_SLASH  KEYPAD_ASTERIX  KEYPAD_MINUS  KEYPAD_PLUS  KEYPAD_ENTER  KEYPAD_PERIOD                                                                                                   |
+| **Tasten für alternative Funktionen**                                                                                                                                                                                                                                                              |
+| KEY_SHIFT  KEY_CTRL  KEY_ALT  KEY_RIGHT_ALT  KEY_GUI  KEY_RIGHT_GUI                                                                                                                                                                                                                                |
+
 ### Weiterführende Links und Software-Empfehlungen
 
 Das FABI Button Interface eignet sich als alternatives Eingabesystem für verschiedenste Anwendungszwecke – von Computer/Smartphone-Kontrolle bis zu Verwendung von Spielen und Lernsoftware. Je nach Anzahl der verwendbaren Taster können hier auch Standard-Programme mit Maus / Keyboard ohne weitere Anpassung genutzt werden.
@@ -338,21 +351,17 @@ Die weiteren Open Source Entwicklungen der [AsTeRICS Foundation](https://www.ast
 
 Die gemeinnützige Organisation SpecialEffect ([www.specialeffect.org.uk](https://www.specialeffect.org.uk)) widmet sich der Verbreitung von barrierefreiem Spielen in Großbritannien und führt spezielle Anpassungen für Menschen mit Behinderung durch.
 
-
 #### BLTT.org
 
 Die Webseite Better Living Through Technology ([bltt.org/introduction-to-switch-access](https://bltt.org/introduction-to-switch-access)) bietet nützliche Informationen für Tasten-basierte Verwendung von Computern und Links zu vielen Software-Tools.
-
 
 #### OneSwitch.org
 
 Unter der Adresse [www.oneswitch.org.uk](https://www.oneswitch.org.uk/) hat Barrie Ellis eine Fülle von Tipps und Informationen für Single-Switch Gaming und spezielle Adaptierungen für Tasten-Steuerung von Computerspielen gesammelt. Besonders interessant sind die Spiele-Bibliothek, das One-Switch-Pulse System und die Verwendung von Spiele-Konsolen mittels Controller-Adaptern wie dem „Titan-Two“.
 
-
 #### Click2Speak
+
 [Click2Speak](https://www.click2speak.net) ist eine flexible Bildschirmtastatur (On-Screen Keyboard) für Windows, die zusätzliche nützliche Funktionen bietet- etwa eine Maus-Click-Auswahlbox.
-
-
 
 ## Kontaktinformationen
 
