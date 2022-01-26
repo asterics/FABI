@@ -12,7 +12,7 @@ FABI - the "Flexible Assistive Button Interface" - allows you to connect up to e
 
 The FABI system can be used with commercially available switches, inexpensive arcade buttons, or even homemade electrical contacts. FABI consists of a hardware module (an inexpensive microcontroller that acts as a computer mouse or keyboard), other optional modules and sensors (Bluetooth add-on, sip/puff pressure sensor), and a graphical configuration interface for setting desired functions ("FABI configuration manager").
 
-FABI is available as an open source kit (including corresponding assembly instructions for the hardware) and was developed as part of the AsTeRICS Academy project at the FH Technikum Wien. In 2017, the non-profit organization AsTeRICS Foundation was founded to further develop such technologies and systems and to make them available at low cost: [www.asterics-foundation.org](https://asterics-foundation.org/).
+FABI is available as an open source kit (including corresponding assembly instructions for the hardware) and was developed as part of the AsTeRICS Academy project at the FH Technikum Wien. In 2017, the non-profit organization AsTeRICS Foundation was founded to further develop such technologies and systems and to make them available at low cost: [www.asterics-foundation.org](https://www.asterics-foundation.org/1270-2/).
 
 All software modules, hardware design files, and how-to documents are available under free open source licenses and can be used and modified for free. We have made every effort to select the lowest cost components, yet not compromise on functionality and flexibility - making FABI an affordable pushbutton interface with extensive capabilities!
 
@@ -26,7 +26,7 @@ The FABI configuration manager is required to be able to define the functions of
 
 The configuration manager has to be opened in the Chrome web browser and can be found at the following address: [fabi.asterics.eu](https://fabi.asterics.eu/index_fabi.htm). Below in figure 1 you can see the welcome page. If you click on CONNECT TO FABI CONNECTED VIA USB, no communication port (COM port) will be selectable in the selection box yet, unless you have connected the FABI module to the computer using the USB plug.
 
-![Abbildung1](./Bilder/ENabb1.png)
+![Abbildung1](./Bilder/ENabb1.PNG)
 
 *Figure 1*: Welcome page of the configuration manager
 
