@@ -1,105 +1,75 @@
 ![FabiLogo](./Bilder/fabi1.PNG)
 
-# FABI - User Manual
+# FABI - Anwendungsanleitung
 
 ![FabiFoto](./Bilder/fabi2.PNG)
 
 ____
 
-# Welcome to FABI
+# Willkommen bei FABI
 
-FABI - the "Flexible Assistive Button Interface" - allows you to connect up to eight buttons to a computer or tablet/smartphone to trigger mouse or keyboard actions and perform other actions. A configured FABI module can be used with any computer (Windows, Linux or Mac), without installing special software, because when connected to the computer, the FABI module behaves like an ordinary computer mouse or keyboard. People for whom conventional input devices are not suitable can thus play computer games, surf the Internet, write e-mails and much more.
+FABI - das „Flexible Assistive Button Interface“ - ermöglicht es, bis zu acht Taster (Buttons) an einen Computer oder ein Tablet/Smartphone anzuschließen und dadurch Maus- oder Keyboard-Aktionen auszulösen sowie andere Aktionen auszuführen. Ein konfiguriertes FABI-Modul kann mit jedem Computer (Windows, Linux oder Mac), ohne Installation von spezieller Software verwendet werden, weil sich das FABI-Modul beim Anschließen an den Computer wie eine gewöhnliche Computermaus bzw. eine Tastatur verhält. Menschen, für die herkömmliche Eingabegeräte nicht geeignet sind, können dadurch Computerspiele spielen, im Internet surfen, E-Mails schreiben und vieles mehr. 
 
-The FABI system can be used with commercially available switches, inexpensive arcade buttons, or even homemade electrical contacts. FABI consists of a hardware module (an inexpensive microcontroller that acts as a computer mouse or keyboard), other optional modules and sensors (Bluetooth add-on, sip/puff pressure sensor), and a graphical configuration interface for setting desired functions ("FABI configuration manager").
+Das FABI-System kann mit kommerziell erhältlichen Schaltern, günstigen Arcade-Buttons oder auch mit selbstgebauten elektrischen Kontakten verwendet werden. FABI besteht aus einem Hardware-Modul (einem kostengünstigen Mikrocontroller, der als Computermaus oder Tastatur fungiert), weiteren optionalen Modulen und Sensoren (Bluetooth-Add-On, Sip/Puff-Drucksensor) und einer grafischen Konfigurationsoberfläche zum Einstellen von gewünschten Funktionen („FABI-Konfigurationsmanager“). 
 
-FABI is available as an open source kit (including corresponding assembly instructions for the hardware) and was developed as part of the AsTeRICS Academy project at the FH Technikum Wien. In 2017, the non-profit organization AsTeRICS Foundation was founded to further develop such technologies and systems and to make them available at low cost: [www.asterics-foundation.org](https://www.asterics-foundation.org/1270-2/).
+FABI ist als Open Source Bausatz (inkl. entsprechender Bauanleitung für die Hardware) verfügbar und wurde im Rahmen des AsTeRICS Academy Projektes der FH Technikum Wien entwickelt. 2017 wurde die gemeinnützige Organisation AsTeRICS Foundation gegründet, um derartige Technologien und Systeme weiterzuentwickeln und kostengünstig zur Verfügung stellen zu können: [www.asterics-foundation.org](https://asterics-foundation.org/).
 
-All software modules, hardware design files, and how-to documents are available under free open source licenses and can be used and modified for free. We have made every effort to select the lowest cost components, yet not compromise on functionality and flexibility - making FABI an affordable pushbutton interface with extensive capabilities!
+Alle Softwaremodule, die Hardware-Designdateien und die Dokumente für die Anleitungen sind unter freien Open Source Lizenzen verfügbar und können kostenlos verwendet und verändert werden. Wir haben uns bemüht, preisgünstigste Komponenten auszuwählen und dennoch keine Kompromisse bei Funktionalität und Flexibilität zu machen – was FABI zu einer erschwinglichen Tasterschnittstelle mit umfangreichen Möglichkeiten macht!
 
-#### About this manual
+#### Über diese Anleitung
 
-This manual is used to explain the configuration interface and the possible settings and functions of the FABI system. The building instruction can be found in a separate document.
+Diese Anleitung dient zur Erklärung der Konfigurationsoberfläche und der möglichen Einstellungen und Funktionen des FABI Systems. Die Bauanleitung ist in einem separaten Dokument zu finden.
 
-## Introduction
+## Einleitung
 
-The FABI configuration manager is required to be able to define the functions of the buttons. Once a configuration has been saved in the FABI system, it remains there and the FABI system can be used to control different devices (e.g. Windows PC, Mac computer, tablet or smart phone with USB or Bluetooth connection). The configuration manager is only needed again if settings are changed.
+Der FABI-Konfigurationsmanager wird benötigt, um die Funktionen der Taster / Buttons festlegen zu können. Nachdem eine Konfiguration im FABI-System gespeichert wurde, bleibt sie dort erhalten und das FABI-System kann zur Steuerung unterschiedlicher Geräte verwendet werden (z.B. Windows-PC, Mac-Computer, Tablet oder Smart-Phone mit USB- oder Bluetooth-Anschluss). Der Konfigurationsmanager wird erst wieder benötigt, wenn Einstellungen geändert werden sollen.
 
-The configuration manager has to be opened in the Chrome web browser and can be found at the following address: [fabi.asterics.eu](https://fabi.asterics.eu/index_fabi.htm). Below in figure 1 you can see the welcome page. If you click on CONNECT TO FABI CONNECTED VIA USB, no communication port (COM port) will be selectable in the selection box yet, unless you have connected the FABI module to the computer using the USB plug.
+Der Konfigurationsmanager wird im Chrome Web-Browser geöffnet und ist unter folgender Adresse zu finden: [fabi.asterics.eu](https://fabi.asterics.eu/index_fabi.htm). Untenstehend in Abbildung 1 sehen sie die Startseite. Wenn Sie auf den Button VERBINDEN ZU FABI (ÜBER USB ANGESCHLOSSEN) klicken, so wird in der Auswahlbox noch kein Kommunikationsanschluss (COM Port) auswählbar sein, sofern Sie das FABI Modul noch nicht mittels USB-Stecker mit dem Computer verbunden haben. 
 
-![Abbildung1](./Bilder/ENabb1.PNG)
+![Abbildung1](./Bilder/abb1.png)
 
-*Figure 1*: Welcome page of the configuration manager
+*Abbildung 1*: Startseite des Konfigurationsmanagers
 
-#### Connecting the USB micro cable
+#### Anschließen des USB-Micro Kabels
 
-![Abbildung2](./Bilder/ENabb2.PNG)
+![Abbildung2](./Bilder/abb2.PNG)
 
-*Figure 2*: Connecting the USB micro cable
+*Abbildung 2*: Anschließen des USB-Micro Kabels
 
-#### Connecting the FABI device
+#### Das FABI-Gerät verbinden
 
-To use the web configuration functions, follow the steps below. 1:
+Um die Funktionen der Web-Konfiguration zu verwenden, folgen Sie den nachfolgenden Schritten:
 
-1. Make sure that the FABI device is connected to the computer.
-2. After that, a communication port (COM port) with a certain number (e.g. COM4) should be selectable in a pop-up window. Click on this COM port and then click on *Connect*. (After unplugging the FABI module the COM port should disappear again).
-3. **If you cannot see the user interface of the FABI configuration manager as in Figure 3, open the website again and select another COM port in the selection box that pops up. Then click again on *Connect*.**
+1. Vergewissern Sie sich, dass das FABI- Gerät mit dem Computer verbunden ist. 
+2. Danach sollte in einem Pop-Up Fenster ein Kommunikations-Anschluss (COM Port) mit bestimmter Nummer (z.B. COM4) auswählbar sein. Klicken Sie diesen Eintrag an und drücken Sie danach auf *Verbinden*. (Nach dem Ausstecken des FABI-Moduls sollte der COM Port wieder verschwinden.) 
+3. **Sollten Sie nicht die Benutzeroberfläche des FABI Konfigurationsmanagers wie in Abbildung 3 sehen können, so öffnen Sie die Website erneut und wählen Sie einen anderen COM-Port in der aufpoppenden Auswahlbox. Danach klicken Sie erneut auf *Verbinden*.** 
 
-## Using the configuration manager
+## Verwendung des Konfigurationsmanagers
 
-After connecting to the communication port of the FABI system, you will now see the user interface of the FABI Configuration Manager (Figure 3).
-![Abbildung3](./Bilder/ENabb3.PNG) 
+Nachdem Sie mit dem Kommunikations-Anschluss des FABI Systems verbunden sind, sehen Sie nun die Benutzeroberfläche des FABI Konfigurationsmanagers (Abbildung 3). 
+![Abbildung3](./Bilder/abb3.PNG) 
 
-*Figure 3*: FABI Configuration Manager User Interface
+*Abbildung 3*: FABI-Konfigurationsmanager Benutzeroberfläche
 
 #### Port Status
 
-The port status at the top right shows whether the FABI device is currently connected to the configuration manager. The set functions of the buttons can only be transferred to the device if "Connected" is displayed as the port status. If the device is no longer connected, you will return to the start page.
+Der Portstatus rechts oben zeigt an, ob das FABI-Gerät aktuell mit dem Konfigurationsmanager verbunden ist. Die eingestellten Funktionen der Taster können nur dann ins Gerät übertragen werden, wenn als Port Status „Verbunden” angezeigt wird. Ist das Gerät nicht mehr verbunden, gelangen Sie wieder auf die Startseite.
 
-#### Save settings
+#### Einstellungen speichern
 
-The settings made are automatically saved and are immediately active in the FABI device. **The configurations are retained even if the FABI system is disconnected from the USB cable or power supply.**
-
-### Using the memory locations (SLOTS tab)
-
-Various function assignments of the buttons can be stored in up to 10 memory locations (***configuration slots***). These memory slots can also be changed during operation, e.g. via any button. As soon as the FABI device is supplied with power via the USB cable, the first memory location (slot) is automatically loaded and activated.
-
-![Abbildung4](./Bilder/ENabb4.PNG) 
-
-*Figure 4*: Creating, changing and deleting memory locations ("Slots").
-
-A new memory slot is created in the **SLOTS** tab by clicking **CREATE SLOT**. The settings of the currently active slot are taken over (copied). With a preceding click in the text field, any name can be assigned to the new slot. In the top center there is a dropdown menu with the heading **"Select slot "**. If you click on the arrow on the right side of the text field, the dropdown menu opens showing slots that have already been saved and they can be selected here. In the **Slot configuration** list you can see all the available slots, with the active slot displayed in bold letters. Here you can also select the color, that is displayed when a slot is activated on the FABI device. The slots can be deleted individually or downloaded to the computer if required.
-
-#### Selecting a color for the configuration
-
-By clicking on the "Set color" field to the right of the corresponding slot in the **SLOTS** tab, a color selection dialog appears on the screen. A desired color can be selected here. The color light-emitting diode in the FABI housing assumes this color as soon as the corresponding configuration is activated. In this way, characteristic colors can be assigned to all configuration slots. **Note**: This function is only available in the new version (PCB version) of the FABI system.
-
-#### Laden, Speichern und Übertragen von Konfigurationen
-
-Wenn Sie im Reiter **SLOTS** weiter nach unten scrollen, finden Sie die Funktionen für das Slot-Backup. Hier Sie etwa Slots aus einer Datei hochladen: Dabei kann nach dem Anklicken von „Datei auswählen“ eine lokale Datei am Computer ausgewählt werden, die Konfigurationseinstellungen beinhaltet. Diese Einstellungen werden durch klicken von "Alle Slots hochladen und ersetzen" gesamt ins FABI-Gerät übertragen, dabei wird die aktuelle Konfiguration gelöscht. Es können jedoch auch einzelne Slots aus der Konfigurationsdatei zur aktiven FABI-Konfiguration hinzugefügt werden. Dafür werden nach dem Einblenden der erweiterten Optionen gewünschte Slots ausgewählt und durch klicken von "Gewählte(n) Slots hochladen" ins Gerät übertragen.
-
-Das Speichern der aktuellen Konfigurationseinstellungen des FABI-Systems in eine Datei wird durch klicken von „Alle Slots herunterladen“ ermöglicht (siehe Abbildung 5). Hierbei wird die gesamte Konfiguration als Datei (.set) auf dem Computer gespeichert. Diese Einstellungsdatei kann anschließend auf dasselbe oder ein anderes FABI-Gerät übertragen werden. Dadurch können mehrere Setups (zum Beispiel für unterschiedliche AnwenderInnen oder Anwendungsfälle) auf einem Computer gespeichert werden und durch einen Klick aktiviert werden. 
-
-**Achtung**: Beim Herunterladen einzelner Slots oder der gesamten Einstellungen werden die Dateien im Download-Verzeichnis des Web-Browsers abgelegt. Es ist sinnvoll, die Dateien anschließend in ein anderes Verzeichnis zu legen, damit sie leicht auffindbar sind und im Download-Verzeichnis nicht versehentlich gelöscht werden.
-
-#### Demo-Voreinstellungen
-
-Im Reiter **SLOTS** können ganz unten im Bereich "Demo-Voreinstellungen" (siehe Abbildung 5) vorbereitete Konfigurationseinstellungen ausgewählt werden. Diese bieten einen Überblick auf die Möglichkeiten des FABI-Systems und dienen als Anregung für eigene Anwendungen, etwa eine 1-Tasten-Maussteuerung, eine 2-Button-Steuerung von Computer und Smart-Phone oder eine Verwendung von Maus- und Cursortasten mit mehreren Buttons. Eine Beschreibung für die Demo-Konfigurationen kann angezeigt werden und bietet Kurzinformationen über die Funktionen bzw. Tastenbelegung.
-
-![Abbildung5](./Bilder/ENabb5.PNG) 
-
-*Abbildung 5*: Laden und Speichern von Konfigurationseinstellungen 
+Die getroffenen Einstellungen werden automatisch gespeichert und sind sofort im FABI-Gerät aktiv. **Die Konfigurationen bleiben auch dann erhalten, wenn das FABI System vom USB-Kabel bzw. von der Stromversorgung getrennt wird.** 
 
 ### Zuweisung der Taster-Funktionen (Reiter "AKTIONEN")
 
 Im Reiter **AKTIONEN** können bis zu 8 Taster mit verschiedenen Funktionen belegt werden. Die Funktionen beinhalten etwa verschiedene Mausklicks, Mausbewegungen, Betätigung des Maus-Scrollrads oder von Keyboard-Tasten. Sie können die Aktion für den jeweiligen Taster ändern, indem Sie rechts vom gewünschten Button auf die unterstrichene (momentan aktive) Aktion klicken - siehe rotes Viereck in Abbildung 6. Dann erscheint ein Fenster, wo die gewünschte Aktions-Kategorie (hier: Maus) und die gewünschte Aktion ausgewählt werden kann (hier: Linke Maustaste halten). *Anmerkung:* Sollten mehr als 8 Taster benötigt werden, können mehrere FABI-Module parallel betrieben werden.
 
-![Abbildung6.1](./Bilder/ENabb6.svg) 
+![Abbildung4.1](./Bilder/abb4.svg) 
 
-*Abbildung 6.1*: Aktion für Taster auswählen/ändern
+*Abbildung 4.1*: Aktion für Taster auswählen/ändern
 
-![Abbildung6.2](./Bilder/ENabb6.PNG) 
+![Abbildung4.2](./Bilder/abb4.PNG) 
 
-*Abbildung 6.2*: Aktion für Taster auswählen (hier: Button 1)
+*Abbildung 4.2*: Aktion für Taster auswählen (hier: Button 1)
 
 #### Aktionskategorie Maus
 
@@ -132,9 +102,9 @@ Ein negativer Wert für die X-Richtung bewegt den Mauszeiger nach links.
 Ein positiver Wert für die Y-Richtung bewegt den Mauszeiger nach unten.
 Ein negativer Wert für die Y-Richtung bewegt den Mauszeiger nach oben.*
 
-![Abbildung7](./Bilder/ENabb7.PNG) 
+![Abbildung5](./Bilder/abb5.PNG) 
 
-*Abbildung 7*: Screenshot der "Maus horizontal bewegen (x-Achse)"-Funktion bzw. Geschwindigkeitseinstellung
+*Abbildung 5*: Screenshot der "Maus horizontal bewegen (x-Achse)"-Funktion bzw. Geschwindigkeitseinstellung
 
 #### Aktionskategorie Tastatur
 
@@ -150,11 +120,11 @@ Die „Taste(n) drücken + wieder loslassen ”-Funktion ermöglicht es, gewüns
 
 Mit der Funktion "Taste(n) drücken oder auslassen (wechseln)" können gewünschte Tasten auf der Computertastatur ihren Zustand ändern (also gedrückt werden bzw. losgelassen werden), sobald die Taste gedrückt wird. Beachten Sie, dass die Tastaturtaste solange gedrückt bleibt, bis die Taste ein weiteres Mal gedrückt wird! Die Tastenauswahl funktioniert wie bei dem Befehl "Tasten drücken" beschrieben.
 
-![Abbildung8](./Bilder/ENabb8.PNG) 
+![Abbildung6](./Bilder/abb6.PNG) 
 
-*Abbildung 8*: Screenshot der "Press Key"-Funktion
+*Abbildung 6*: Screenshot der "Press Key"-Funktion
 
-Die gewünschte Taste kann jeweils aus der Auswahlbox gewählt werden, die rechts neben „Hinzufügen“ mit dem Pfeil aufklappbar ist. Danach klicken Sie auf „Hinzufügen“ und die Eingabe erscheint auch in der nächsten Zeile („Eingabe Tasten“). Das Beispiel in Abbildung 8 zeigt die Verwendung der Keyboard-Taste “KEY_E” – es wird dadurch bei jedem Druck des Tasters ein kleines „e“ geschrieben. Es ist möglich, auch mehrere Tasten für Tastenkombinationen auszuwählen, die dann gleichzeitig gedrückt/gehalten werden. Alternativ zur einzelnen Auswahl von Tasten aus der Auswahlbox können Tasten bzw. Tastenkombinationen auch automatisch erkannt werden, wenn das Feld "Tasten mit Tastatur eingeben" aktiviert wird. 
+Die gewünschte Taste kann jeweils aus der Auswahlbox gewählt werden, die links neben „Hinzufügen“ mit dem Pfeil aufklappbar ist. Danach klicken Sie auf „Hinzufügen“ und die Eingabe erscheint auch in der nächsten Zeile („Eingabe Tasten“). Das Beispiel in Abbildung 8 zeigt die Verwendung der Keyboard-Taste “KEY_E” – es wird dadurch bei jedem Druck des Tasters ein kleines „e“ geschrieben. Es ist möglich, auch mehrere Tasten für Tastenkombinationen auszuwählen, die dann gleichzeitig gedrückt/gehalten werden. Alternativ zur einzelnen Auswahl von Tasten aus der Auswahlbox können Tasten bzw. Tastenkombinationen auch automatisch erkannt werden, wenn das Feld "Tasten mit Tastatur eingeben" aktiviert wird. 
 Bereits zugewiesene Tasten können durch klicken von „Löschen“ entfernt werden.
 
 **Anmerkung:** Mit „KEY_SHIFT“ können Großbuchstaben verwendet werden. Alle weiteren unterstützen Keyboard-Tastenkürzel finden Sie im Anhang.
@@ -162,9 +132,9 @@ Bereits zugewiesene Tasten können durch klicken von „Löschen“ entfernt wer
 ##### Schreibe Wort
 
 Die „Write Text”-Funktion ermöglicht es, jedes Mal einen bestimmten Text zu schreiben, wenn der ausgewählte Taster gedrückt wird. Die kann z.B. für die Eingabe von Passwörtern nützlich sein. Wenn Sie „Schreibe Wort“ auswählen, scheint unter dem Dropdown-Menü ein leeres Textfeld auf, klicken Sie dann auf das Textfeld und geben Sie den gewünschten Text ein:
-![Abbildung9](./Bilder/ENabb9.PNG) 
+![Abbildung7](./Bilder/abb7.PNG) 
 
-*Abbildung 9*: Screenshot der "Schreibe Wort"-Funktion
+*Abbildung 7*: Screenshot der "Schreibe Wort"-Funktion
 
 #### Aktionskategorie Gerät
 
@@ -188,26 +158,44 @@ Diese fortgeschrittene Funktion ermöglicht die Ausführung mehrerer Kommandos �
 Beispiel: Das Makrokommando MX 10; WA 500; KP KEY_A; bewegt den Mauscursor 10 Punkte nach rechts, wartet dann 500 Millisekunden und drückt dann die Keyboardtaste „A“.
 **Anmerkung**: Die möglichen Befehle, die hinzugefügt werden können, werden aufgelistet, sobald der Pfeil rechts gedrückt wird. Die möglichen Kommando- und Tastenkürzel können aber auch händisch in der Zeile „Makro“ eingegeben werden, und sind auch am Ende dieser Dokumentation zu finden.
 
-### Verwendung eines Drucksensors (Sip-/Puff) - (Reiter "SAUG-PUSTE-STEUERUNG")
+### Verwendung der Speicherplätze (Reiter "SLOTS")
 
-Sofern ein analoger Drucksensor wie z.B. der Sensortyp MPXV7007GP mit dem FABI-System verbunden wird, können Aktionen für Sip und Puff (Ansaugen und Pusten) definiert werden. Der analoge Spannungswert wird dabei mit dem Lötkontakt A0 am Mikrocontroller Board verbunden. Weiters muss der Sensor mit Spannung versorgt werden (5V und GND richtig verbinden).
+Verschiedene Funktionsbelegungen der Buttons können in bis zu 10 Speicherplätzen (***Konfigurations-Slots***) abgelegt werden. Diese Speicherplätze können auch während des Betriebes gewechselt werden, z.B. über einen beliebigen Taster. Sobald das FABI-Gerät über das USB Kabel mit Strom versorgt wird, wird der erste Speicherplatz (Slot) automatisch geladen und aktiviert.
 
-Daraufhin können im Reiter „**SAUG-PUSTE-STEUERUNG**“ entsprechende Schwellwerte für die Stärke des Ansaugens bzw. Hineinblasens eingestellt werden. Durch diese Aktivitäten können weitere Funktionen ausgelöst werden. Der Ruhewert des Sensors (wenn weder angesaugt noch gepustet wird) liegt in der Mitte des Wertebereiches, bei ca. 512.
+![Abbildung8](file://C:\Users\Agnes Scheibenreif\OneDrive - FH Technikum Wien\Projekte\WBT\Github codes\FABI\Documentation\MarkdownManual\Bilder\abb8.PNG)
 
-Im Reiter „**AKTIONEN**“ kann, wie auch bei den Buttons, eine entsprechende Aktion ausgewählt werden, die beim Ansaugen bzw. beim Pusten ausgeführt werden soll.
+*Abbildung 8*: Anlegen, Wechseln und Löschen von Speicherplätzen (“Slots“)
 
-![Abbildung10](./Bilder/ENabb10.PNG) 
+Ein neuer Speicherplatz wird im Reiter **SLOTS** durch Klicken von „**SLOT ANLEGEN**“ erzeugt. Dabei werden die Einstellungen des aktuell akiven Slots übernommen (kopiert). Mit einem vorhergehenden Klick in das Textfeld kann ein beliebiger Name für den neuen Slot vergeben werden. Mittig oben befindet sich ein Dropdown-Menu mit der Überschrift **„Slot auswählen“**. Wenn Sie auf der rechten Seite des Textfeldes auf den Pfeil klicken, öffnet sich das Dropdown-Menu, das bereits gespeicherte Slots anzeigt und wo diese ausgewählt werden können. In der Liste **Slot-Konfiguration** sehen Sie alle verfügbaren Slots, wobei der aktive Slot in fetter Schift dargestellt wird. Hier können Sie auch die Farbe wählen, die beim Aktivieren eines Slots am FABI-Gerät dargestellt wird. Die Slots können bei Bedarf einzeln gelöscht oder auf den Computer heruntergeladen werden.
 
-*Abbildung 10*: Screenshot der Einstellungen für Saug- und Pusteschwellenwerte
+#### Auswahl einer Farbe für die Konfiguration
+
+Durch das Anklicken des Feldes “Farbe wählen” rechts neben dem entsprechenden Slot im Reiter **SLOTS** erscheint ein Farbwahl-Dialog am Bildschirm. Hier kann eine gewünschte Farbe selektiert werden. Die Farb-Leichtdiode im FABI-Gehäuse nimmt diese Farbe an, sobald die entsprechende Konfiguration aktiviert wird. So lassen sich allen Konfigurations-Slots charakteristische Farben zuordnen. **Hinweis**: Diese Funktion ist nur in der neuen Version (PCB Version) des FABI-Systems verfügbar.
+
+#### Laden, Speichern und Übertragen von Konfigurationen
+
+Wenn Sie im Reiter **SLOTS** weiter nach unten scrollen, finden Sie die Funktionen für das Slot-Backup. Hier können Sie etwa Slots aus einer Datei hochladen: Dabei kann nach dem Anklicken von „Datei auswählen“ eine lokale Datei am Computer ausgewählt werden, die Konfigurationseinstellungen beinhaltet. Diese Einstellungen werden durch klicken von "Alle Slots hochladen und ersetzen" gesamt ins FABI-Gerät übertragen, dabei wird die aktuelle Konfiguration gelöscht. Es können jedoch auch einzelne Slots aus der Konfigurationsdatei zur aktiven FABI-Konfiguration hinzugefügt werden. Dafür werden nach dem Einblenden der erweiterten Optionen gewünschte Slots ausgewählt und durch klicken von "Gewählte(n) Slots hochladen" ins Gerät übertragen.
+
+Das Speichern der aktuellen Konfigurationseinstellungen des FABI-Systems in eine Datei wird durch klicken von „Alle Slots herunterladen“ ermöglicht (siehe Abbildung 5). Hierbei wird die gesamte Konfiguration als Datei (.set) auf dem Computer gespeichert. Diese Einstellungsdatei kann anschließend auf dasselbe oder ein anderes FABI-Gerät übertragen werden. Dadurch können mehrere Setups (zum Beispiel für unterschiedliche AnwenderInnen oder Anwendungsfälle) auf einem Computer gespeichert werden und durch einen Klick aktiviert werden.
+
+**Achtung**: Beim Herunterladen einzelner Slots oder der gesamten Einstellungen werden die Dateien im Download-Verzeichnis des Web-Browsers abgelegt. Es ist sinnvoll, die Dateien anschließend in ein anderes Verzeichnis zu legen, damit sie leicht auffindbar sind und im Download-Verzeichnis nicht versehentlich gelöscht werden.
+
+#### Demo-Voreinstellungen
+
+Im Reiter **SLOTS** können ganz unten im Bereich "Demo-Voreinstellungen" (siehe Abbildung 5) vorbereitete Konfigurationseinstellungen ausgewählt werden. Diese bieten einen Überblick auf die Möglichkeiten des FABI-Systems und dienen als Anregung für eigene Anwendungen, etwa eine 1-Tasten-Maussteuerung, eine 2-Button-Steuerung von Computer und Smart-Phone oder eine Verwendung von Maus- und Cursortasten mit mehreren Buttons. Eine Beschreibung für die Demo-Konfigurationen kann angezeigt werden und bietet Kurzinformationen über die Funktionen bzw. Tastenbelegung.
+
+![Abbildung9](file://C:\Users\Agnes Scheibenreif\OneDrive - FH Technikum Wien\Projekte\WBT\Github codes\FABI\Documentation\MarkdownManual\Bilder\abb9.PNG)
+
+*Abbildung 9*: Laden und Speichern von Konfigurationseinstellungen
 
 ### Einstellmöglichkeiten im Reiter „TIMINGS“
 
 Über den Reiter **TIMINGS** können weitere Parameter für den Betrieb des FABI Systems eingestellt werden. In den Antitremor-Einstellungen können Schwellenwerte für Drücken und Loslassen bestimmt werden. Diese Antitremor Einstellungen dienen dazu, um versehentliches Drücken oder Loslassen durch Zittern der Hand zu vermeiden. Weiters können noch Schwellenwerte für langes Drücken, für Slot-Weiterschalten durch doppeltes Drücken und für den automatischen Linksklick bestimmt werden. All diese Einstellungen werden untenstehend näher erklärt.
 **Hinweis**: diese Einstellungen beziehen sich nur auf den aktiven Slot (Speicherplatz).
 
-![Abbildung11](./Bilder/ENabb11.PNG) 
+![Abbildung10](./Bilder/abb10.PNG) 
 
-*Abbildung 11*: Screenshot der weiteren Einstellungen im Reiter "Timings"
+*Abbildung 10*: Screenshot der weiteren Einstellungen im Reiter "Timings"
 
 #### Antitremor-Einstellungen
 
@@ -233,11 +221,23 @@ Der Wert "**Schwellenwert für Slot-Weiterschalten durch doppeltes Drücken**" d
 
 Diese Einstellung ermöglicht es, einen linken Mausklick nach erfolgter Mausbewegung zu erzeugen. Verstreicht die gewählte Zeitspanne (in Millisekunden) ohne weitere Mausbewegungen, dann wird der Mausklick automatisch erzeugt. Dies erlaubt die vollständige Steuerung eines Mauszeigers mit einer geringen Anzahl von Tastern oder (in Kombination mit der automatischen Slotwechsel-Funktion) mit nur einem Taster. Ein Wert von 0 Millisekunden schaltet die automatische Klick-Funktion ab.
 
+### Verwendung eines Drucksensors (Sip-/Puff) - (Reiter "SAUG-PUSTE-STEUERUNG")
+
+Sofern ein analoger Drucksensor wie z.B. der Sensortyp MPXV7007GP mit dem FABI-System verbunden wird, können Aktionen für Sip und Puff (Ansaugen und Pusten) definiert werden. Der analoge Spannungswert wird dabei mit dem Lötkontakt A0 am Mikrocontroller Board verbunden. Weiters muss der Sensor mit Spannung versorgt werden (5V und GND richtig verbinden).
+
+Daraufhin können im Reiter „**SAUG-PUSTE-STEUERUNG**“ entsprechende Schwellwerte für die Stärke des Ansaugens bzw. Hineinblasens eingestellt werden. Durch diese Aktivitäten können weitere Funktionen ausgelöst werden. Der Ruhewert des Sensors (wenn weder angesaugt noch gepustet wird) liegt in der Mitte des Wertebereiches, bei ca. 512.
+
+Im Reiter „**AKTIONEN**“ kann, wie auch bei den Buttons, eine entsprechende Aktion ausgewählt werden, die beim Ansaugen bzw. beim Pusten ausgeführt werden soll.
+
+![Abbildung11](file://C:\Users\Agnes Scheibenreif\OneDrive - FH Technikum Wien\Projekte\WBT\Github codes\FABI\Documentation\MarkdownManual\Bilder\abb11.PNG)
+
+*Abbildung 11*: Screenshot der Einstellungen für Saug- und Pusteschwellenwerte
+
 ### Einstellmöglichkeiten im Reiter „ALLGEMEIN“
 
 Im Reiter **ALLGEMEIN** können die Bluetooth-Einstellungen angepasst werden, sowie die Firmware und die Bluetooth-Firmware überschrieben / aktualisiert werden.
 
-![Abbildung12](./Bilder/ENabb12.PNG) 
+![Abbildung12](./Bilder/abb12.PNG) 
 
 *Abbildung 12*: Screenshot der weiteren Einstellungen im Reiter "ALLGEMEIN"
 
@@ -264,7 +264,7 @@ Durch Drücken dieses Buttons wird versucht, die aktuellste Software (Firmware) 
 
 Am unteren Ende des Reiters finden Sie den Button für das Zurücksetzen des FABI-Gerätes auf die Defaulteinstellungen. Dies ist sinnvoll, wenn die aktuellen Einstellungen Probleme mit der Verwendung der Gerätes verursachen. Weiters sehen Sie die Tastenkombinationen für das schnelle Wechseln zwischen den Reitern (Tabs).
 
-![Abbildung14](./Bilder/ENabb14.PNG) 
+![Abbildung14](./Bilder/abb14.PNG) 
 
 *Abbildung 14*: Gerät zurücksetzen, Tastenkombinationen
 
