@@ -47,6 +47,7 @@ To use the web configuration functions, follow the steps below. 1:
 ## Using the configuration manager
 
 After connecting to the communication port of the FABI system, you will now see the user interface of the FABI Configuration Manager (Figure 3).
+
 ![Abbildung3](./Bilder/ENabb3.PNG) 
 
 *Figure 3*: FABI Configuration Manager User Interface
@@ -132,6 +133,7 @@ Keys that have already been assigned can be removed by clicking "CLEAR".
 ##### Write word
 
 The "Write word" function allows to write a certain text every time the selected button is pressed. This can be useful for entering passwords, for example. When you select "Write word", an empty text field appears under the drop-down menu, then click on the text field and enter the desired text:
+
 ![Abbildung7](./Bilder/ENabb7.PNG) 
 
 *Figure 7*: Screenshot of the "Write word" function
@@ -162,7 +164,7 @@ Example: The macro command MX 10; WA 500; KP KEY_A; moves the mouse cursor 10 po
 
 Various function assignments of the buttons can be stored in up to 10 memory locations (***configuration slots***). These memory slots can also be changed during operation, e.g. via any button. As soon as the FABI device is supplied with power via the USB cable, the first memory location (slot) is automatically loaded and activated.
 
-![Abbildung8](file://C:\Users\Agnes Scheibenreif\OneDrive - FH Technikum Wien\Projekte\WBT\Github codes\FABI\Documentation\MarkdownManual\Bilder\ENabb8.PNG)
+![Abbildung8](./Bilder/ENabb8.PNG)
 
 *Figure 8*: Creating, changing and deleting memory locations ("Slots").
 
@@ -184,7 +186,7 @@ Saving the current configuration settings of the FABI system to a file is enable
 
 In the **SLOTS** tab, prepared configuration settings can be selected at the very bottom in the "Predefined settings" area (see Figure 5). These offer an overview of the possibilities of the FABI system and serve as a suggestion for your own applications, such as a 1-button mouse control, a 2-button control of computer and smart phone or a use of mouse and cursor keys with multiple buttons. A description for the demo configurations can be displayed and provides brief information about the functions or button assignments.
 
-![Abbildung9](file://C:\Users\Agnes Scheibenreif\OneDrive - FH Technikum Wien\Projekte\WBT\Github codes\FABI\Documentation\MarkdownManual\Bilder\ENabb9.PNG)
+![Abbildung9](./Bilder/ENabb9.PNG)
 
 *Figure 9*: Loading and saving configuration settings
 
@@ -229,7 +231,7 @@ Thereupon, in the tab "**SIPP-PUFF CONTROL**", corresponding threshold values fo
 
 In the "**ACTIONS**" tab, as with the buttons, a corresponding action can be selected that is to be carried out during sipping or puffing.
 
-![Abbildung11](file://C:\Users\Agnes Scheibenreif\OneDrive - FH Technikum Wien\Projekte\WBT\Github codes\FABI\Documentation\MarkdownManual\Bilder\ENabb11.PNG)
+![Abbildung11](./Bilder/ENabb11.PNG)
 
 *Figure 11*: Screenshot of the settings for sipping and puffing thresholds
 
@@ -277,7 +279,9 @@ The FABI system allows the use of an optional Bluetooth "AddOn" module for wirel
 #### Installation of the Bluetooth module
 
 The Bluetooth module is very easy to use with the board version of the FABI system (kit). (Use with a single microcontroller is also possible and is described in more detail in the further information in the [Github Repository](https://github.com/asterics/esp32_mouse_keyboard) of the Bluetooth module.
-The Bluetooth module is plugged onto the 10-pin connector in the orientation shown on the board. To do this, open the FABI housing and push the module onto the pin header provided as far as it is possible (see Figure 15):![Abbildung15](./Bilder/abb15.PNG) 
+The Bluetooth module is plugged onto the 10-pin connector in the orientation shown on the board. To do this, open the FABI housing and push the module onto the pin header provided as far as it is possible (see Figure 15):
+
+![Abbildung15](./Bilder/abb15.PNG) 
 
 *Figure 15*: Bluetooth module, plugged onto the FABI board
 
@@ -366,6 +370,7 @@ At [www.oneswitch.org.uk](https://www.oneswitch.org.uk/) Barrie Ellis has collec
 **AsTeRICS Foundation**
 
 Webpage: <https://www.asterics-foundation.org>
+ 
 Email: <office@asterics-foundation.org>
 
 ## Disclaimer
