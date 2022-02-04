@@ -46,7 +46,8 @@ Um die Funktionen der Web-Konfiguration zu verwenden, folgen Sie den nachfolgend
 
 ## Verwendung des Konfigurationsmanagers
 
-Nachdem Sie mit dem Kommunikations-Anschluss des FABI Systems verbunden sind, sehen Sie nun die Benutzeroberfläche des FABI Konfigurationsmanagers (Abbildung 3). 
+Nachdem Sie mit dem Kommunikations-Anschluss des FABI Systems verbunden sind, sehen Sie nun die Benutzeroberfläche des FABI Konfigurationsmanagers (Abbildung 3).
+
 ![Abbildung3](./Bilder/abb3.PNG) 
 
 *Abbildung 3*: FABI-Konfigurationsmanager Benutzeroberfläche
@@ -132,6 +133,7 @@ Bereits zugewiesene Tasten können durch klicken von „Löschen“ entfernt wer
 ##### Schreibe Wort
 
 Die „Write Text”-Funktion ermöglicht es, jedes Mal einen bestimmten Text zu schreiben, wenn der ausgewählte Taster gedrückt wird. Die kann z.B. für die Eingabe von Passwörtern nützlich sein. Wenn Sie „Schreibe Wort“ auswählen, scheint unter dem Dropdown-Menü ein leeres Textfeld auf, klicken Sie dann auf das Textfeld und geben Sie den gewünschten Text ein:
+
 ![Abbildung7](./Bilder/abb7.PNG) 
 
 *Abbildung 7*: Screenshot der "Schreibe Wort"-Funktion
@@ -162,7 +164,7 @@ Beispiel: Das Makrokommando MX 10; WA 500; KP KEY_A; bewegt den Mauscursor 10 Pu
 
 Verschiedene Funktionsbelegungen der Buttons können in bis zu 10 Speicherplätzen (***Konfigurations-Slots***) abgelegt werden. Diese Speicherplätze können auch während des Betriebes gewechselt werden, z.B. über einen beliebigen Taster. Sobald das FABI-Gerät über das USB Kabel mit Strom versorgt wird, wird der erste Speicherplatz (Slot) automatisch geladen und aktiviert.
 
-![Abbildung8](file://C:\Users\Agnes Scheibenreif\OneDrive - FH Technikum Wien\Projekte\WBT\Github codes\FABI\Documentation\MarkdownManual\Bilder\abb8.PNG)
+![Abbildung8](./Bilder/abb8.PNG)
 
 *Abbildung 8*: Anlegen, Wechseln und Löschen von Speicherplätzen (“Slots“)
 
@@ -184,7 +186,7 @@ Das Speichern der aktuellen Konfigurationseinstellungen des FABI-Systems in eine
 
 Im Reiter **SLOTS** können ganz unten im Bereich "Demo-Voreinstellungen" (siehe Abbildung 5) vorbereitete Konfigurationseinstellungen ausgewählt werden. Diese bieten einen Überblick auf die Möglichkeiten des FABI-Systems und dienen als Anregung für eigene Anwendungen, etwa eine 1-Tasten-Maussteuerung, eine 2-Button-Steuerung von Computer und Smart-Phone oder eine Verwendung von Maus- und Cursortasten mit mehreren Buttons. Eine Beschreibung für die Demo-Konfigurationen kann angezeigt werden und bietet Kurzinformationen über die Funktionen bzw. Tastenbelegung.
 
-![Abbildung9](file://C:\Users\Agnes Scheibenreif\OneDrive - FH Technikum Wien\Projekte\WBT\Github codes\FABI\Documentation\MarkdownManual\Bilder\abb9.PNG)
+![Abbildung9](./Bilder/abb9.PNG)
 
 *Abbildung 9*: Laden und Speichern von Konfigurationseinstellungen
 
@@ -229,7 +231,7 @@ Daraufhin können im Reiter „**SAUG-PUSTE-STEUERUNG**“ entsprechende Schwell
 
 Im Reiter „**AKTIONEN**“ kann, wie auch bei den Buttons, eine entsprechende Aktion ausgewählt werden, die beim Ansaugen bzw. beim Pusten ausgeführt werden soll.
 
-![Abbildung11](file://C:\Users\Agnes Scheibenreif\OneDrive - FH Technikum Wien\Projekte\WBT\Github codes\FABI\Documentation\MarkdownManual\Bilder\abb11.PNG)
+![Abbildung11](./Bilder/abb11.PNG)
 
 *Abbildung 11*: Screenshot der Einstellungen für Saug- und Pusteschwellenwerte
 
@@ -367,6 +369,7 @@ Unter der Adresse [www.oneswitch.org.uk](https://www.oneswitch.org.uk/) hat Barr
 **AsTeRICS Foundation**
 
 Webpage: <https://www.asterics-foundation.org>
+  
 Email: <office@asterics-foundation.org> 
 
 ## Haftungsausschluss
