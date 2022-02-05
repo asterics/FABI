@@ -42,7 +42,7 @@ After the Welcome page of the configuration manager is visible, connect your FAB
 
 
 1. Make sure that the FABI device is connected to the PC via a USB port, using a USB micro cable (see figure 2 above).
-2. Click **CONNECT TO FABI CONNECTED VIA USB** on the configuration manager welcome page. *Note* that you could also have a look at the configuration manager's functions without connecting the FABI hardware, by using the Test Mode (which simulates a hardware connection).
+2. Click **CONNECT TO FABI CONNECTED VIA USB** on the configuration manager welcome page. ***Note*** that you could also have a look at the configuration manager's functions without connecting the FABI hardware, by using the Test Mode (which simulates a hardware connection).
 3. A communication port identifier with a certain name (e.g. COM4 or /dev/ttyUSB1) should be displayed in a pop-up window. Click on this identifier and then click **Connect**. 
 4. If you cannot see the user interface of the FABI configuration manager as in Figure 3, open the website again and reselect the communication port in the selection box. Then click **Connect**.
 
@@ -63,9 +63,9 @@ The port status is displayed at the top right corner, it shows whether the FABI 
 
 Any changes in the settings are automatically applied and safed in the FABI device. The configurations are retained even if the FABI system is disconnected from the USB cable or power supply.
 
-### Assigning the button functions ("ACTIONS" Tab)
+### *ACTIONS Tab*: Assigning Button Functions
 
-In the *ACTIONS Tab*, different functions (actions) can be assigned to (up to) 8 buttons. Possible actions include various mouse clicks, mouse movements, operation of the mouse scroll wheel or keyboard keys. You can change the action for a desired button by clicking the underlined (currently active) action next to the button name - see red square in Figure 4.1. Then, a pop-up window appears where the desired action category and the desired action can be selected. *Note:* If more than 8 buttons are needed, several FABI modules can be operated in parallel.
+In the *ACTIONS Tab*, different functions (actions) can be assigned to (up to) 8 buttons. Possible actions include various mouse clicks, mouse movements, operation of the mouse scroll wheel or keyboard keys. You can change the action for a desired button by clicking the underlined (currently active) action next to the button name - see red square in Figure 4.1. Then, a pop-up window appears where the desired action category and the desired action can be selected. ***Note:*** If more than 8 buttons are needed, several FABI modules can be operated in parallel.
 
 ![Abbildung4.1](./Bilder/ENabb4.svg) 
 
@@ -75,11 +75,11 @@ In the *ACTIONS Tab*, different functions (actions) can be assigned to (up to) 8
 
 *Figure 4.2*: Select action for a button (here: button 1)
 
-*Note*: The action settings are applied to the active configuration slot by clicking **SAVE**, but can also be applied to all slots by clicking **Save for all slots** (see chapter *Using configuration slots*).
+***Note:*** The action settings are applied to the active configuration slot by clicking **SAVE**, but can also be applied to all slots by clicking **Save for all slots** (see chapter *Using configuration slots*).
 
 #### Action category: Mouse
 
-In the following, the actions of category *Mouse* are briefly explained.
+In the following, the actions of category *Mouse* are briefly explained:
 
 ##### Hold Left/Right/Middle Mouse Button (as long as input action)
 
@@ -87,7 +87,7 @@ These actions allow to pressing (and holding) the left, right or middle mouse bu
 
 ##### Click left/right/middle mouse button
 
-With these actions, a single click of the left, right or middle mouse button can be executed by pressing the button. *Note*: a click consists of pressing & releasing the corresponding with a short delay, no matter how long the button is held!
+With these actions, a single click of the left, right or middle mouse button can be executed by pressing the button. ***Note*** that a click consists of pressing & releasing the corresponding with a short delay, no matter how long the button is held!
 
 ##### Double-click left mouse button
 
@@ -95,7 +95,7 @@ By assigning this action, a double click of the left mouse button can be perform
 
 ##### Press or release left/right/middle mouse button (toggle).
 
-These actions change the state of the left, right or middle mouse button when the assigned button is pressed. Note that the mouse button remains pressed until the button is pressed again!
+These actions change the state of the left, right or middle mouse button when the assigned button is pressed. ***Note*** that the mouse button remains pressed until the button is pressed again!
 
 ##### Scroll down / scroll up
 
@@ -116,27 +116,29 @@ A negative value for the Y direction moves the mouse pointer upward.*
 
 #### Action category: Keyboard
 
-In the following, the actions of category *Keyboard* are briefly explained.
+In the following, the actions of category *Keyboard* are briefly explained:
 
 ##### Hold key(s) (as long as input action)
 
-This action presses (and holds) desired keys (or key combinations) of the computer keyboard as long as the corresponding button is pressed. The previously selected keyboard key(s) will be held down for as long as the key is held down. The desired keyboard key(s) can be selected from a dropdown selection box or recorded directly from the keyboard input. (Explaination of key selection see below and figure 6).
+This action presses (and holds) desired keys (or key combinations) as long as the corresponding button is pressed. The desired keyboard key(s) can be selected from a dropdown selection box or recorded directly from the keyboard input (see key selection explaination below, figure 6).
 
 ##### Press key(s) + release automatically
 
-The "Press key(s) + release again"-action allows to press desired keys (or key combinations) of the computer keyboard as soon as the button is pressed. The keyboard keys are pressed and released immediately (i.e. not held down as long as the button is pressed). The desired keyboard key(s) can be selected from a dropdown selection box or recorded directly from the keyboard input. (Explaination of key selection see below and figure 6).
+This action pressed desired keys (or key combinations). The keyboard keys are pressed and released immediately (i.e. not held down as long as the button is pressed). The desired keyboard key(s) can be selected from a dropdown selection box or recorded directly from the keyboard input (see key selection explaination below, figure 6).
 
 ##### Press or release key(s) (toggle)
 
-The "Press or Release Key(s) (toggle)" actions allows desired (or key combinations) keys on the computer keyboard to change their state (i.e. pressed or released) as soon as the button is pressed. Note that the keyboard key remains pressed until the key is pressed again! 
+This action allows desired keys (or key combinations) to change their state (i.e. pressed or released) every time the button is pressed. ***Note*** that the keyboard key remains pressed until the button is pressed *again*! 
 
-*Key selection works as follows*:
+**Key selection explained:**
 The desired keyboard key can be chosen from a selection box (left of the "Add" button). After clicking **ADD**, the selected key name (key identifier) appears in "Insert Keys" field, indicating that this key is now assigned to the button. Multiple keys can be added for generating key combinations / keyboard shortcuts. 
 Figure 8 shows how to assign keyboard key "KEY_D" to button 1. This will cause a lowercase "d" to be written each time button 1 is pressed. 
 Alternatively to the selection box, keys or key combinations can also be recorded from live keyboard input by clicking the "Insert key" field (left of the "Clear" button). 
 Keys that have already been assigned can be removed by clicking **CLEAR**.
 
-**Note:** With "KEY_SHIFT" in combination with letter keys, capital letters can be created. All supported key names (identifiers) can be found in the appendix.
+***Note:*** With "KEY_SHIFT" in combination with letter keys, capital letters can be created. All supported key names (identifiers) can be found in the appendix.
+
+
 ![Abbildung6](./Bilder/ENabb6.PNG) 
 
 *Figure 6*: Key selection (here for the "Press or release key(s) toggle" action)
@@ -153,7 +155,7 @@ The "Write word" action allows to write a certain text every time the button is 
 
 #### Action category: Device
 
-In the following, the actions of category *Device* are briefly explained.
+In the following, the actions of category *Device* are briefly explained:
 
 ##### No command (empty)
 
@@ -173,10 +175,10 @@ As soon as the button is pressed, the configuration with the specified name is a
 
 This advanced feature allows multiple commands to be executed using appropriate command shortcuts, providing a high degree of flexibility. The individual commands are entered in the text field, separated by semicolons. Command shortcuts can also be selected using "Add Command" and then be added to the macro using "ADD". If several commands are added in succession, the semicolons are entered automatically.
 Example: The macro command MX 10; WA 500; KP KEY_A; moves the mouse cursor 10 points to the right, then waits 500 milliseconds and presses the keyboard key "A".
-*Note*: Supported commands are listed as soon as the arrow on the right is pressed. However, commands and keyboard shortcuts can also be entered manually into the "Macro" field. A complete list of supported commands can be found in the appendix.
+***Note:*** Supported commands are listed as soon as the arrow on the right is pressed. However, commands and keyboard shortcuts can also be entered manually into the "Macro" field. A complete list of supported commands can be found in the appendix.
 
 
-### Using configuration slots ("SLOTS" tab)
+### *SLOTS Tab*: Using Configuration Slots
 
 Various action assignments for the buttons can be stored in up to 10 memory locations (*configuration slots*). The active configuration slot can also be changed during operation, e.g. via a specific button (see actions). As soon as the FABI device is supplied with power via the USB cable, the first configuration slot is automatically activated. The slots can be created and managed by opening the *SLOTS Tab*, see figure 8:
 
@@ -185,8 +187,8 @@ Various action assignments for the buttons can be stored in up to 10 memory loca
 *Figure 8*: Creating, changing and deleting configuration slots (*Slots Tab*).
 
 In the top center, the dropdown selection box **Select slot** shows the currently active slot name. By clicking the selection box, all existing slots are shown and the active slot can be changed. 
-In *Slot configuration* list you can see all the available slots as well, with the active slot being displayed in bold letters. Here you can change the active slot by clicking one of the incative slot names. Furthermore, the color of each individual slot can be assigned by clicking **Set color**, which opens a pop-up color selection box. The color which is chosen here will be displayed on the FABI device via a built-in mulicolor led whenever the slot is activated.  *Note*: This function is only available in the new version (PCB version) of the FABI system.
-A new configuration slot is created by entering a name into the correspnding text field (*"insert name for new slot"*) and clicking **CREATE SLOT**. The settings of the currently active slot are copied to the new slot. The slots can be deleted individually by clicking **Delete**. When **Download** is clicked, the configuration data of the respective slot is downloaded to the PC as a file, which is stored in the download-folder of the web browser. This file can then be used to add individual slots to another configuration. Note that the complete configuration (all slots) can also be downloaded as as single file, see section "Loading, saving and transferring configurations" below.)
+In *Slot configuration* list you can see all the available slots as well, with the active slot being displayed in bold letters. Here you can change the active slot by clicking one of the incative slot names. Furthermore, the color of each individual slot can be assigned by clicking **Set color**, which opens a pop-up color selection box. The color which is chosen here will be displayed on the FABI device via a built-in mulicolor led whenever the slot is activated.  ***Note*** that this function is only available in the new version (PCB version) of the FABI system.
+A new configuration slot is created by entering a name into the correspnding text field (*"insert name for new slot"*) and clicking **CREATE SLOT**. The settings of the currently active slot are copied to the new slot. The slots can be deleted individually by clicking **Delete**. When **Download** is clicked, the configuration data of the respective slot is downloaded to the PC as a file, which is stored in the download-folder of the web browser. This file can then be used to add individual slots to another configuration. ***Note*** that the complete configuration (all slots) can also be downloaded as as single file, see section "Loading, saving and transferring configurations" below.)
 
 
 #### Loading, saving and transferring configurations
@@ -195,7 +197,7 @@ If you scroll further down in the *SLOTS Tab*, you will find functions for backu
 
 Saving the current configuration slots of the FABI system is enabled by clicking **Download all slots** (see Figure 5). Here, the entire configuration is downloaded as a single file (.set) to the download-folder of the web browser. This file can then be transferred to another computer, and it can be applied to the same or to another FABI device. This allows multiple setups (for example for different users or use cases) to be saved on one computer and to be activated with one click.
 
-*Attention*: When downloading configuration data, the files are stored in the download-folder of the web browser. It makes sense to move these files to another folder afterwards (and eventually rename them) so that they can be easily found and are not accidentally deleted.
+***Attention:*** When downloading configuration data, the files are stored in the download-folder of the web browser. It makes sense to move these files to another folder afterwards (and eventually rename them) so that they can be easily found and are not accidentally deleted.
 
 #### Predefined settings
 
@@ -206,10 +208,10 @@ Demo configuration settings can be selected at the very bottom of the *SLOTS Tab
 *Figure 9*: Loading and saving configuration settings
 
 
-### Special Options in the "TIMINGS Tab"
+### *TIMINGS Tab*: Antitremor and Special Functions 
 
 The *TIMINGS Tab* tab can be used to set further parameters for the operation of the FABI system: The *Antitremor settings* allow to specify minimum durations for pressing and releasing the buttons (in milliseconds). These settings can be useful in order to prevent accidental pressing or releasing of buttons due to hand tremor. Furthermore, thresholds can be set for long presses (to create special actions), double presses (to acctivate the next slot), and dell timings for automatic left clicks. All these settings are explained in more detail below.
-*Note*: these settings apply to the active configuration slot, but can be applied to all slots by clicking **Copy config to all slots**.
+***Note:*** these settings apply to the active configuration slot, but can be applied to all slots by clicking **Copy config to all slots**.
 
 ![Abbildung10](./Bilder/ENabb10.PNG) 
 
@@ -239,20 +241,20 @@ The **Threshold for slot change by double press** defines the maximum duration o
 
 This setting makes it possible to generate a left mouse click after the mouse has been moved (dwell clicking). If the selected time period (in milliseconds) elapses without further mouse movements, the left mouse click will be generated automatically. This allows complete control of a mouse pointer with a small number of buttons or (in combination with the automatic slot change function) with only one button. *A value of 0 milliseconds disables the automatic click function*.
 
-### Using a pressure sensor - ("SIP AND PUFF" Tab).
+### *SIP AND PUFF Tab*: Using a Pressure Sensor
 
 If an analog pressure sensor like e.g. the sensor type MPXV7007GP is connected to the FABI system, actions for Sip and Puff (suck and blow) can be defined. The analog voltage value must be connected to the solder contact A0 of the microcontroller board. Furthermore, the sensor must be supplied with voltage (connect 5V and GND correctly).
 
 In the *SIP AND PUFF Tab*, corresponding threshold values for the strength of sipping or puffing can be set. In the *ACTIONS Tab*, corresponding actions can be selected that can be triggered by these activities. The idle value of the sensor (when neither sipping nor puffing is performed) is in the middle of the value range, around 512.
 
-*Note*: these settings apply to the active configuration slot, but can be applied to all slots by clicking **Copy config to all slots**.
+***Note:*** these settings apply to the active configuration slot, but can be applied to all slots by clicking **Copy config to all slots**.
 
 ![Abbildung11](./Bilder/ENabb11.PNG)
 
 *Figure 11*: Screenshot of the settings for sip and puff thresholds
 
 
-### Bluetooth and Firmware options: the "GENERAL Tab"
+### *GENERAL Tab*: Bluetooth and Firmware Options
 
 In the *GENERAL Tab*, the Bluetooth settings can be adjusted and the main module firmware and Bluetooth module firmware can be updated.
 
@@ -268,7 +270,7 @@ The optional Bluetooth module (hardware add-on) allows keyboard- and mouse actio
 
 *Figure 13*: Bluetooth/USB mode selection
 
-*Note*: The USB/Bluetooh mode selection is only useful if the optional Bluetooth add-on module is connected to the FABI device (see section "Using the Bluetooth module"). 
+***Note:*** The USB/Bluetooh mode selection is only useful if the optional Bluetooth add-on module is connected to the FABI device (see section "Using the Bluetooth module"). 
 Since this setting is defined per configuration slot, the same FABI device can be used e.g. to control a laptop via USB and a smartphone/tablet via Bluetooth. Switching control between those devices is done by simply changing the active slot.
 
 #### Overwrite / update firmware
@@ -278,7 +280,7 @@ Pressing this button will attempt to install the latest software (firmware) for 
 #### Overwrite / update Bluetooth firmware
 
 Pressing this button will attempt to download the latest software (firmware) for the Bluetooth add-on module. This process can take a few minutes and is only possible if a Bluetooth module is connected to the FABI system. To the left of the button, the version number of the installed firmware and the most recent available version are displayed. 
-*Note:* Here it can be determined whether a Bluetooth module is installed and correctly recognized.
+***Note:*** Here it can be determined whether a Bluetooth module is installed and correctly recognized.
 
 #### Reset to default configuration, key combinations
 
