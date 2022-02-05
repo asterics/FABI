@@ -67,7 +67,7 @@ Any changes in the settings are automatically applied and safed in the FABI devi
 
 In the *ACTIONS Tab*, different functions (actions) can be assigned to (up to) 8 buttons. Possible actions include various mouse clicks, mouse movements, operation of the mouse scroll wheel or keyboard keys. You can change the action for a desired button by clicking the underlined (currently active) action next to the button name - see red square in Figure 4.1. Then, a pop-up window appears where the desired action category and the desired action can be selected. ***Note:*** If more than 8 buttons are needed, several FABI modules can be operated in parallel.
 
-![Abbildung4.1](./Bilder/ENabb4.svg) 
+![Abbildung4.1](./Bilder/ENabb3a.png) 
 
 *Figure 4.1*: Select/change action for button
 
