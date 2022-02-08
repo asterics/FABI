@@ -280,7 +280,7 @@ Pressing this button will attempt to install the latest software (firmware) for 
 ### Overwrite / update Bluetooth firmware
 
 Pressing this button will attempt to download the latest software (firmware) for the Bluetooth add-on module. This process can take a few minutes and is only possible if a Bluetooth module is connected to the FABI system. To the left of the button, the version number of the installed firmware and the most recent available version are displayed. 
-***Note:*** Here it can be determined whether a Bluetooth module is installed and correctly recognized.
+***Note:*** Here it can be determined whether a Bluetooth module is installed and correctly recognized. If "installed version" of the Bluetooth module is "unknown", this means that the module is not installed or not correctly recognized. If "installed version" is "unknown", while the Bluetooth module is connected to FABI, sometimes "Overwrite Firmware" can fix the problem.
 
 ### Reset to default configuration, key combinations
 
