@@ -174,8 +174,8 @@ As soon as the button is pressed, the configuration with the specified name is a
 #### Custom Macro - Execute Macro Commands
 
 This advanced feature allows multiple commands to be executed using appropriate command shortcuts, providing a high degree of flexibility. The individual commands are entered in the text field, separated by semicolons. Command shortcuts can also be selected using "Add Command" and then be added to the macro using "ADD". If several commands are added in succession, the semicolons are entered automatically.
-Example: The macro command `MX 10; WA 500; KP KEY_A;` moves the mouse cursor 10 points to the right, then waits 500 milliseconds and presses the keyboard key "A".
-***Note:*** Supported commands are listed as soon as the arrow on the right is pressed. However, commands and keyboard shortcuts can also be entered manually into the "Macro" field. A complete list of supported commands can be found in the appendix.
+Example: The macro command `MX 10; WA 500; KP KEY_A;` moves the mouse cursor 10 pixels to the right, then waits 500 milliseconds and presses the keyboard key "A".
+***Note:*** Supported commands are listed in the combobox "Add command". However, commands and keyboard shortcuts can also be entered manually into the "Macro" field. A complete list of supported commands can be found in the appendix.
 
 
 ## *SLOTS Tab*: Using Configuration Slots
