@@ -163,7 +163,7 @@ If *No command (empty)* is selected, the corresponding button will be disabled.
 
 #### Load next slot - switch to next configuration
 
-As soon as the button is pressed, the next configuration slot is activated. This allows the individual slots to be changes sequentially, using the assigned button. After the last configuration, the first configuration is automatically activated. (This action is only relevant if you stored configurations into multiple memory slots - for an explaination of the slot system please refer to chapter "Using configuration slots").
+As soon as the button is pressed, the next configuration slot is activated. This allows the individual slots to be changed sequentially, using the assigned button. After the last configuration, the first configuration is automatically activated. (This action is only relevant if you stored configurations into multiple memory slots - for an explaination of the slot system please refer to chapter "Using configuration slots").
 
 #### Load slot by name - switch to configuration with specific name
 
@@ -174,7 +174,7 @@ As soon as the button is pressed, the configuration with the specified name is a
 #### Custom Macro - Execute Macro Commands
 
 This advanced feature allows multiple commands to be executed using appropriate command shortcuts, providing a high degree of flexibility. The individual commands are entered in the text field, separated by semicolons. Command shortcuts can also be selected using "Add Command" and then be added to the macro using "ADD". If several commands are added in succession, the semicolons are entered automatically.
-Example: The macro command MX 10; WA 500; KP KEY_A; moves the mouse cursor 10 points to the right, then waits 500 milliseconds and presses the keyboard key "A".
+Example: The macro command `MX 10; WA 500; KP KEY_A;` moves the mouse cursor 10 points to the right, then waits 500 milliseconds and presses the keyboard key "A".
 ***Note:*** Supported commands are listed as soon as the arrow on the right is pressed. However, commands and keyboard shortcuts can also be entered manually into the "Macro" field. A complete list of supported commands can be found in the appendix.
 
 
