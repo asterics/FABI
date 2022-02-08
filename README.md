@@ -28,16 +28,15 @@ Essential information can be found in the following folders
 
 The source of the current web based config manager can be found in another repository: [source of web based config manager](https://github.com/asterics/Addon-Bluetooth-WebGUI/tree/main/webgui)
 
-## Configuration and User manual
+## Configuration Manager and User manual
 
 The FABI system does not ony offer fixed mappings of buttons to functions - it allows storing multiple configuration settings and changing them "on-the-fly". For configuration the [web-based config manager](https://fabi.asterics.eu/) should be used.
-You can find information how to configure the individual button functions and system options in the user manual of the config manager:
-* [English user manual for config manager](https://github.com/asterics/FABI/blob/master/Documentation/MarkdownManual/Fabi%20User%20Manual.md) 
-* [German user manual for config manager](https://github.com/asterics/FABI/blob/master/Documentation/MarkdownManual/Fabi%20Anwendungsanleitung.md)
+You can find information how to configure the individual button functions and system options in the user manual:
 
-For the old, outdated C# configuration client the user manuals can be found here:
-* [English user manual for outdated config manager](https://github.com/asterics/FABI/blob/master/Documentation/UserManual/FABI_GUI/en/FABI_UserManual.pdf) 
-* [German user manual for outdated config manager](https://github.com/asterics/FABI/blob/master/Documentation/UserManual/FABI_GUI/de/FABI_AnwendungsAnleitung.pdf)
+* [English user manual for configuration manager](https://github.com/asterics/FABI/blob/master/Documentation/UserManual/Fabi%20User%20Manual.pdf) 
+* [German user manual for configuration manager](https://github.com/asterics/FABI/blob/master/Documentation/UserManual/Fabi%20Anwendungsanleitung.pdf)
+
+
 
 ## Building the hardware
 
