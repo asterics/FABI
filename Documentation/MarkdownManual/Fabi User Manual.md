@@ -12,7 +12,7 @@ FABI - the "Flexible Assistive Button Interface" - connects up to eight momentar
 
 The FABI system can be used with commercially available switches, inexpensive arcade buttons, or even homemade electrical contacts. FABI consists of a hardware module (an inexpensive microcontroller that acts as a computer peripheral), and optional add-on modules and sensors (Bluetooth add-on, sip/puff pressure sensor, LC-display). A web-based graphical configuration editor (the *FABI configuration manager*) is available for setting up desired actions. 
 
-Various action assignments are possible for each button, allowing different configurations to be stored in up to 10 memory slots (*configuration slots*). The configuration slots can be changed during operation, e.g. via a specific button, making FABI a very flexible alternative input system which allows control of even multiple devices (e.g. connected via USB and BT) via only a few buttons! 
+Various actions are possible for each button, allowing different configurations to be stored in up to 10 memory slots (*configuration slots*). The configuration slots can be changed during operation, e.g. via a specific button, making FABI a very flexible alternative input system which allows control of even multiple devices (e.g. connected via USB and BT) via only a few buttons! 
 
 FABI is available as an [open source construction kit](https://github.com/asterics/FABI)  including corresponding assembly instructions for the hardware. The first FABI version was developed in course of the *AsTeRICS Academy* project at the FH Technikum Wien. In 2017, the non-profit organization *AsTeRICS Foundation* was founded in order to foster open source assistive technology solutions and to make them available at low cost: [www.asterics-foundation.org](https://www.asterics-foundation.org/1270-2/).
 
@@ -394,7 +394,7 @@ At [www.oneswitch.org.uk](https://www.oneswitch.org.uk/) Barrie Ellis has collec
 **AsTeRICS Foundation**
 
 Webpage: <https://www.asterics-foundation.org>
- 
+
 Email: <office@asterics-foundation.org>
 
 ## Disclaimer
