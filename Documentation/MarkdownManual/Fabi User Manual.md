@@ -83,11 +83,11 @@ In the following, the actions of category *Mouse* are briefly explained:
 
 #### Hold Left/Right/Middle Mouse Button (as long as input action)
 
-These actions allow to pressing (and holding) the left, right or middle mouse button. The mouse button remains pressed as long as the button is held (for example, for dragging files or folders it is necessary to keep the left mouse button pressed).
+These actions allow to press (and hold) the left, right or middle mouse button. The mouse button remains pressed as long as the button is held (for example, for dragging files or folders it is necessary to keep the left mouse button pressed).
 
 #### Click left/right/middle mouse button
 
-With these actions, a single click of the left, right or middle mouse button can be executed by pressing the button. ***Note*** that a click consists of pressing & releasing the corresponding with a short delay, no matter how long the button is held!
+With these actions, a single click of the left, right or middle mouse button can be executed by pressing the button. ***Note*** that a click consists of pressing & releasing the corresponding mouse button with a short delay, no matter how long the button is held!
 
 #### Double-click left mouse button
 
@@ -133,7 +133,7 @@ This action allows desired keys (or key combinations) to change their state (i.e
 **Key selection explained:**
 The desired keyboard key can be chosen from a selection box (left of the "Add" button). After clicking **ADD**, the selected key name (key identifier) appears in "Insert Keys" field, indicating that this key is now assigned to the button. Multiple keys can be added for generating key combinations / keyboard shortcuts. 
 Figure 8 shows how to assign keyboard key "KEY_D" to button 1. This will cause a lowercase "d" to be written each time button 1 is pressed. 
-Alternatively to the selection box, keys or key combinations can also be recorded from live keyboard input by clicking the "Insert key" field (left of the "Clear" button). 
+Alternatively to the selection box, keys or key combinations can also be recorded from live keyboard input by clicking the "Insert keys" field (left of the "Clear" button). 
 Keys that have already been assigned can be removed by clicking **CLEAR**.
 
 ***Note:*** With "KEY_SHIFT" in combination with letter keys, capital letters can be created. All supported key names (identifiers) can be found in the appendix.
