@@ -36,8 +36,8 @@ You can find information how to configure the individual button functions and sy
 * [German user manual for config manager](https://github.com/asterics/FABI/blob/master/Documentation/MarkdownManual/Fabi%20Anwendungsanleitung.md)
 
 For the old, outdated C# configuration client the user manuals can be found here:
-* [English version of user manual](https://github.com/asterics/FABI/blob/master/Documentation/UserManual/FABI_GUI/en/FABI_UserManual.pdf) 
-* [German version of user manual](https://github.com/asterics/FABI/blob/master/Documentation/UserManual/FABI_GUI/de/FABI_AnwendungsAnleitung.pdf)
+* [English user manual for outdated config manager](https://github.com/asterics/FABI/blob/master/Documentation/UserManual/FABI_GUI/en/FABI_UserManual.pdf) 
+* [German user manual for outdated config manager](https://github.com/asterics/FABI/blob/master/Documentation/UserManual/FABI_GUI/de/FABI_AnwendungsAnleitung.pdf)
 
 ## Building the hardware
 
@@ -68,7 +68,7 @@ The graphical configuration software (GUI) exists in two flavours:
 * Current: [Web based config manager](https://fabi.asterics.eu/)
 * Outdated: [Windows based config manager client](https://github.com/asterics/FABI/tree/master/FabiGUI_C%23)
 
-For both config managers the manuals are linked above in section [Configuration and User manual](#Configuration and User manual).
+For both config managers the manuals are linked above in section [Configuration and User manual](https://github.com/asterics/FABI/blob/master/README.md#configuration-and-user-manual).
 
 ## Bluetooth AddOn
 
