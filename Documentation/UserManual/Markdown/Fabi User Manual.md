@@ -61,7 +61,7 @@ The port status is displayed at the top right corner, it shows whether the FABI 
 
 #### Save settings
 
-Any changes in the settings are automatically applied and safed in the FABI device. The configurations are retained even if the FABI system is disconnected from the USB cable or power supply.
+Any changes in the settings are automatically applied and saved in the FABI device. The configurations are retained even if the FABI system is disconnected from the USB cable or power supply.
 
 ## *ACTIONS Tab*: Assigning Button Functions
 
@@ -83,11 +83,11 @@ In the following, the actions of category *Mouse* are briefly explained:
 
 #### Hold Left/Right/Middle Mouse Button (as long as input action)
 
-These actions allow to pressing (and holding) the left, right or middle mouse button. The mouse button remains pressed as long as the button is held (for example, for dragging files or folders it is necessary to keep the left mouse button pressed).
+These actions allow to press (and hold) the left, right or middle mouse button. The mouse button remains pressed as long as the button is held (for example, for dragging files or folders it is necessary to keep the left mouse button pressed).
 
 #### Click left/right/middle mouse button
 
-With these actions, a single click of the left, right or middle mouse button can be executed by pressing the button. ***Note*** that a click consists of pressing & releasing the corresponding with a short delay, no matter how long the button is held!
+With these actions, a single click of the left, right or middle mouse button can be executed by pressing the button. ***Note*** that a click consists of pressing & releasing the corresponding mouse button with a short delay, no matter how long the button is held!
 
 #### Double-click left mouse button
 
@@ -133,7 +133,7 @@ This action allows desired keys (or key combinations) to change their state (i.e
 **Key selection explained:**
 The desired keyboard key can be chosen from a selection box (left of the "Add" button). After clicking **ADD**, the selected key name (key identifier) appears in "Insert Keys" field, indicating that this key is now assigned to the button. Multiple keys can be added for generating key combinations / keyboard shortcuts. 
 Figure 8 shows how to assign keyboard key "KEY_D" to button 1. This will cause a lowercase "d" to be written each time button 1 is pressed. 
-Alternatively to the selection box, keys or key combinations can also be recorded from live keyboard input by clicking the "Insert key" field (left of the "Clear" button). 
+Alternatively to the selection box, keys or key combinations can also be recorded from live keyboard input by clicking the "Insert keys" field (left of the "Clear" button). 
 Keys that have already been assigned can be removed by clicking **CLEAR**.
 
 ***Note:*** With "KEY_SHIFT" in combination with letter keys, capital letters can be created. All supported key names (identifiers) can be found in the appendix.
@@ -163,7 +163,7 @@ If *No command (empty)* is selected, the corresponding button will be disabled.
 
 #### Load next slot - switch to next configuration
 
-As soon as the button is pressed, the next configuration slot is activated. This allows the individual slots to be changes sequentially, using the assigned button. After the last configuration, the first configuration is automatically activated. (This action is only relevant if you stored configurations into multiple memory slots - for an explaination of the slot system please refer to chapter "Using configuration slots").
+As soon as the button is pressed, the next configuration slot is activated. This allows the individual slots to be changed sequentially, using the assigned button. After the last configuration, the first configuration is automatically activated. (This action is only relevant if you stored configurations into multiple memory slots - for an explaination of the slot system please refer to chapter "Using configuration slots").
 
 #### Load slot by name - switch to configuration with specific name
 
@@ -174,8 +174,8 @@ As soon as the button is pressed, the configuration with the specified name is a
 #### Custom Macro - Execute Macro Commands
 
 This advanced feature allows multiple commands to be executed using appropriate command shortcuts, providing a high degree of flexibility. The individual commands are entered in the text field, separated by semicolons. Command shortcuts can also be selected using "Add Command" and then be added to the macro using "ADD". If several commands are added in succession, the semicolons are entered automatically.
-Example: The macro command MX 10; WA 500; KP KEY_A; moves the mouse cursor 10 points to the right, then waits 500 milliseconds and presses the keyboard key "A".
-***Note:*** Supported commands are listed as soon as the arrow on the right is pressed. However, commands and keyboard shortcuts can also be entered manually into the "Macro" field. A complete list of supported commands can be found in the appendix.
+Example: The macro command `MX 10; WA 500; KP KEY_A;` moves the mouse cursor 10 pixels to the right, then waits 500 milliseconds and presses the keyboard key "A".
+***Note:*** Supported commands are listed in the combobox "Add command". However, commands and keyboard shortcuts can also be entered manually into the "Macro" field. A complete list of supported commands can be found in the appendix.
 
 
 ## *SLOTS Tab*: Using Configuration Slots
@@ -187,21 +187,21 @@ Various action assignments for the buttons can be stored in up to 10 memory loca
 *Figure 8*: Creating, changing and deleting configuration slots (*Slots Tab*).
 
 In the top center, the dropdown selection box **Select slot** shows the currently active slot name. By clicking the selection box, all existing slots are shown and the active slot can be changed. 
-In *Slot configuration* list you can see all the available slots as well, with the active slot being displayed in bold letters. Here you can change the active slot by clicking one of the incative slot names. Furthermore, the color of each individual slot can be assigned by clicking **Set color**, which opens a pop-up color selection box. The color which is chosen here will be displayed on the FABI device via a built-in mulicolor led whenever the slot is activated.  ***Note*** that this function is only available in the new version (PCB version) of the FABI system.
+In *Slot configuration* list you can see all the available slots as well, with the active slot being displayed in bold letters. Here you can change the active slot by clicking one of the inactive slot names. Furthermore, the color of each individual slot can be assigned by clicking **Set color**, which opens a pop-up color selection box. The color which is chosen here will be displayed on the FABI device via a built-in mulicolor led whenever the slot is activated.  ***Note*** that this function is only available in the new version (PCB version) of the FABI system.
 A new configuration slot is created by entering a name into the correspnding text field (*"insert name for new slot"*) and clicking **CREATE SLOT**. The settings of the currently active slot are copied to the new slot. The slots can be deleted individually by clicking **Delete**. When **Download** is clicked, the configuration data of the respective slot is downloaded to the PC as a file, which is stored in the download-folder of the web browser. This file can then be used to add individual slots to another configuration. ***Note*** that the complete configuration (all slots) can also be downloaded as as single file, see section "Loading, saving and transferring configurations" below.)
 
 
 ### Loading, saving and transferring configurations
 
-If you scroll further down in the *SLOTS Tab*, you will find functions for backup and restore of configurations. Here you can upload slots from a file: After clicking **Select File**, a local file on the computer can be selected. This file must contain a valid FABI configruation with one or more slots (usually, this file has been saved before to your computer). The whole configuration is applied to the FABI device by clicking **Upload and replace all slots**. This deletes the active configuration in the process. However, by clicking **Show advanced options to upload single slots** instead - desired slots can be selected from the configuration file, which can then be added to the active FABI configuration by clicking **Upload selected slot(s)**.
+If you scroll further down in the *SLOTS Tab*, you will find functions to backup and restore configurations (Fig. 9). Here you can upload slots from a file: After clicking **Select File**, a local file on the computer can be selected. This file must contain a valid FABI configruation with one or more slots (usually, this file has been saved before to your computer). The whole configuration is applied to the FABI device by clicking **Upload and replace all slots**. This deletes the active configuration in the process. However, by clicking **Show advanced options to upload single slots** instead - desired slots can be selected from the configuration file, which can then be added to the active FABI configuration by clicking **Upload selected slot(s)**.
 
-Saving the current configuration slots of the FABI system is enabled by clicking **Download all slots** (see Figure 5). Here, the entire configuration is downloaded as a single file (.set) to the download-folder of the web browser. This file can then be transferred to another computer, and it can be applied to the same or to another FABI device. This allows multiple setups (for example for different users or use cases) to be saved on one computer and to be activated with one click.
+Saving the current configuration slots of the FABI system is enabled by clicking **Download all slots** (see Figure 9). Here, the entire configuration is downloaded as a single file (.set) to the download-folder of the computer. This file can then be transferred to another computer, and it can be applied to the same or to another FABI device. This allows multiple setups (for example for different users or use cases) to be saved on one computer and to be activated with one click.
 
-***Attention:*** When downloading configuration data, the files are stored in the download-folder of the web browser. It makes sense to move these files to another folder afterwards (and eventually rename them) so that they can be easily found and are not accidentally deleted.
+***Attention:*** When downloading configuration data, the files are stored in the download-folder of the computer. It makes sense to move these files to another folder afterwards (and eventually rename them) so that they can be easily found and are not accidentally deleted.
 
 ### Predefined settings
 
-Demo configuration settings can be selected at the very bottom of the *SLOTS Tab*, in section *Predefined settings* (see Figure 5). These examples offer an overview of the possibilities of the FABI system and serve as a suggestion for your own applications, such as one- or two-button mouse control setups for PC and smart phone or gaming-keys for different applications. A description for the demo configurations can be displayed in a pop-up window, which provides brief information about the button assignments.
+Demo configuration settings can be selected at the very bottom of the *SLOTS Tab*, in section *Predefined settings* (see Figure 9). These examples offer an overview of the possibilities of the FABI system and serve as a suggestion for your own applications, such as one- or two-button mouse control setups for PC and smart phone or gaming-keys for different applications. A description for the demo configurations can be displayed in a pop-up window, which provides brief information about the button assignments.
 
 ![Abbildung9](./Bilder/ENabb9.PNG)
 
@@ -243,7 +243,7 @@ This setting makes it possible to generate a left mouse click after the mouse ha
 
 ## *SIP AND PUFF Tab*: Using a Pressure Sensor
 
-If an analog pressure sensor like e.g. the sensor type MPXV7007GP is connected to the FABI system, actions for Sip and Puff (suck and blow) can be defined. The analog voltage value must be connected to the solder contact A0 of the microcontroller board. Furthermore, the sensor must be supplied with voltage (connect 5V and GND correctly).
+If an analog pressure sensor like e.g. the sensor type MPXV7007GP is connected to the FABI system, actions for Sip and Puff (suck and blow) can be defined. The analog voltage value must be connected to the solder contact A0 of the microcontroller board. Furthermore, the sensor needs the correct supply voltage (connect 5V and GND correctly).
 
 In the *SIP AND PUFF Tab*, corresponding threshold values for the strength of sipping or puffing can be set. In the *ACTIONS Tab*, corresponding actions can be selected that can be triggered by these activities. The idle value of the sensor (when neither sipping nor puffing is performed) is in the middle of the value range, around 512.
 
@@ -280,7 +280,7 @@ Pressing this button will attempt to install the latest software (firmware) for 
 ### Overwrite / update Bluetooth firmware
 
 Pressing this button will attempt to download the latest software (firmware) for the Bluetooth add-on module. This process can take a few minutes and is only possible if a Bluetooth module is connected to the FABI system. To the left of the button, the version number of the installed firmware and the most recent available version are displayed. 
-***Note:*** Here it can be determined whether a Bluetooth module is installed and correctly recognized.
+***Note:*** Here it can be determined whether a Bluetooth module is installed and correctly recognized. If "installed version" of the Bluetooth module is "unknown", this means that the module is not installed or not correctly recognized. If "installed version" is "unknown", while the Bluetooth module is connected to FABI, sometimes "Overwrite Firmware" can fix the problem.
 
 ### Reset to default configuration, key combinations
 
