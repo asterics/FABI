@@ -61,7 +61,7 @@ The port status is displayed at the top right corner, it shows whether the FABI 
 
 #### Save settings
 
-Any changes in the settings are automatically applied and safed in the FABI device. The configurations are retained even if the FABI system is disconnected from the USB cable or power supply.
+Any changes in the settings are automatically applied and saved in the FABI device. The configurations are retained even if the FABI system is disconnected from the USB cable or power supply.
 
 ## *ACTIONS Tab*: Assigning Button Functions
 
