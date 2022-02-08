@@ -13,7 +13,7 @@ to play games, surf the internet, communicate and much more.
 The FABI Interface can be actuated via dedicated buttons, momentary switches or self-made
 electrical contacts. Additionally, a sip-puff sensor can be used to create user input.
 FABI consists of a hardware module (a low-cost microcontroller which behaves
-as a computer mouse and/or keyboard) and a graphical software application for configuration of
+as a computer mouse and/or keyboard) and a config manager software for configuration of
 the desired functions. The FABI system can be attached to computers, tablets or smart phones via USB.
 Additionally, a bluetooth-module is available for devices that do not have a USB port (some Android or iOS phones).
 
@@ -21,11 +21,23 @@ Additionally, a bluetooth-module is available for devices that do not have a USB
 Essential information can be found in the following folders
 * _Case Designs:_ different 3d-printable / lasercut designs for enclosures
 * _Documentation:_ all user and construction manuals
-* _FabiGUI_C#:_ the graphical user interface (for Windows) is located
+* _FabiGUI_C#:_ the (outdated) graphical user interface (for Windows)
 * _FabiWare:_ the microcontroller firmware
 * _hardware:_ the KiCad design files and models for schematics and PCB layout
 * _Settings:_ demo configurations which can be loaded into the FABI device via the GUI
 
+The source of the current web based config manager can be found in another repository: [source of web based config manager](https://github.com/asterics/Addon-Bluetooth-WebGUI/tree/main/webgui)
+
+## Configuration and User manual
+
+The FABI system does not ony offer fixed mappings of buttons to functions - it allows storing multiple configuration settings and changing them "on-the-fly". For configuration the [web-based config manager](https://fabi.asterics.eu/) should be used.
+You can find information how to configure the individual button functions and system options in the user manual of the config manager:
+* [English user manual for config manager](https://github.com/asterics/FABI/blob/master/Documentation/MarkdownManual/Fabi%20User%20Manual.md) 
+* [German user manual for config manager](https://github.com/asterics/FABI/blob/master/Documentation/MarkdownManual/Fabi%20Anwendungsanleitung.md)
+
+For the old, outdated C# configuration client the user manuals can be found here:
+* [English version of user manual](https://github.com/asterics/FABI/blob/master/Documentation/UserManual/FABI_GUI/en/FABI_UserManual.pdf) 
+* [German version of user manual](https://github.com/asterics/FABI/blob/master/Documentation/UserManual/FABI_GUI/de/FABI_AnwendungsAnleitung.pdf)
 
 ## Building the hardware
 
@@ -52,15 +64,11 @@ Besides the Arduino framework, the following libraries are used und must be inst
 
 Please follow the installation instructions in the respective github repositories.
 
-The graphical configuration software (GUI) will come in two flavours: Currently, a [Windows-based GUI](https://github.com/asterics/FABI/tree/master/FabiGUI_C%23) is available (written in C#) which is also described in the User manual (see below).
-We are currently working on a **cross-platform GUI which runs in the browser** and adds improved User Experience - so stay tuned !!
+The graphical configuration software (GUI) exists in two flavours:
+* Current: [Web based config manager](https://fabi.asterics.eu/)
+* Outdated: [Windows based config manager client](https://github.com/asterics/FABI/tree/master/FabiGUI_C%23)
 
-## Configuration and User manual
-
-The FABI system does not ony offer fixed mappings of buttons to functions - it allows storing multiple configuration settings and changing them "on-the-fly".
-You can find information how to configure the individual button functions and system options in the user manual:
-* [English version of user manual](https://github.com/asterics/FABI/blob/master/Documentation/UserManual/FABI_GUI/en/FABI_UserManual.pdf) 
-* [German version of user manual](https://github.com/asterics/FABI/blob/master/Documentation/UserManual/FABI_GUI/de/FABI_AnwendungsAnleitung.pdf)
+For both config managers the manuals are linked above in section [Configuration and User manual](#Configuration and User manual).
 
 ## Bluetooth AddOn
 
