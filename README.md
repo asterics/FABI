@@ -33,8 +33,8 @@ The source of the current web based config manager can be found in another repos
 The FABI system does not ony offer fixed mappings of buttons to functions - it allows storing multiple configuration settings and changing them "on-the-fly". For configuration the [web-based config manager](https://fabi.asterics.eu/) should be used.
 You can find information how to configure the individual button functions and system options in the user manual:
 
-* [English user manual for configuration manager](https://github.com/asterics/FABI/blob/master/Documentation/UserManual/Fabi%20User%20Manual.pdf) 
-* [German user manual for configuration manager](https://github.com/asterics/FABI/blob/master/Documentation/UserManual/Fabi%20Anwendungsanleitung.pdf)
+* [English user manual for configuration manager](https://github.com/asterics/FABI/blob/master/Documentation/UserManual/Markdown/Fabi%20User%20Manual.md) 
+* [German user manual for configuration manager](https://github.com/asterics/FABI/blob/master/Documentation/UserManual/Markdown/Fabi%20Anwendungsanleitung.md)
 
 
 
@@ -52,10 +52,9 @@ or [German version of construction manual](https://github.com/asterics/FABI/blob
 * **DIY Building Guide - "all-selfmade"**: guide for creating a FABI device with a bare microcontroller and without the provided 3d-printed enclosures.\
 See [DIY Building Guide](https://github.com/asterics/FABI/blob/master/Documentation/ConstructionManual/SelfmadeBox/FABI_Construction_SelfmadeBox.pdf)
 
-## Installing the Software
+## Building and Installing the Firmware
 
-The FABI system consists of a firmware part which runs on the [Arduino Pro Micro](https://www.sparkfun.com/products/12640) microcontroller, and a GUI with runs on a PC.
-The firmware can be built and uploaded to the microcontroller using a recent version of the [Arduino IDE](https://www.arduino.cc/en/software).
+The FABI system consists of a firmware part which runs on the [Arduino Pro Micro](https://www.sparkfun.com/products/12640) microcontroller. The firmware can be updated / uploaded directly from the [Configuration Manager](https://fabi.asterics.eu/). Alternatively, you can build and upload the fimware using a recent version of the [Arduino IDE](https://www.arduino.cc/en/software).
 Besides the Arduino framework, the following libraries are used und must be installed before the firmware can be compiled:
 
 * [Light_WS2812 Neopixel library by cpldcpu](https://github.com/cpldcpu/light_ws2812) 
@@ -63,11 +62,6 @@ Besides the Arduino framework, the following libraries are used und must be inst
 
 Please follow the installation instructions in the respective github repositories.
 
-The graphical configuration software (GUI) exists in two flavours:
-* Current: [Web based config manager](https://fabi.asterics.eu/)
-* Outdated: [Windows based config manager client](https://github.com/asterics/FABI/tree/master/FabiGUI_C%23)
-
-For both config managers the manuals are linked above in section [Configuration and User manual](https://github.com/asterics/FABI/blob/master/README.md#configuration-and-user-manual).
 
 ## Bluetooth AddOn
 
@@ -94,3 +88,4 @@ FABI is an open source Assistive Technology module developed by the AsTeRICS Fou
 All software and hardware documents are open source and we took care to use the most
 affordable components available on the market to establish these functionalities – making FABI the
 most reasonably priced flexible assistive button interface we know !!
+

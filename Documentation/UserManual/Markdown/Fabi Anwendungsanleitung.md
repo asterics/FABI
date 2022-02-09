@@ -1,14 +1,28 @@
+# FABI - Anwendungsanleitung
+
 ![FabiLogo](./Bilder/fabi1.PNG)
 
-# FABI - Anwendungsanleitung
+
 
 ![FabiFoto](./Bilder/fabi2.PNG)
 
 ____
 
+
+
 # Willkommen bei FABI
 
-FABI - das „Flexible Assistive Button Interface“ - ermöglicht es, bis zu acht Taster (Buttons) an einen Computer oder ein Tablet/Smartphone anzuschließen und dadurch Maus- oder Keyboard-Aktionen auszulösen sowie andere Aktionen auszuführen. Ein konfiguriertes FABI-Modul kann mit jedem Computer (Windows, Linux oder Mac), ohne Installation von spezieller Software verwendet werden, weil sich das FABI-Modul beim Anschließen an den Computer wie eine gewöhnliche Computermaus bzw. eine Tastatur verhält. Menschen, für die herkömmliche Eingabegeräte nicht geeignet sind, können dadurch Computerspiele spielen, im Internet surfen, E-Mails schreiben und vieles mehr. 
+FABI - das „Flexible Assistive Button Interface“ - ermöglicht es, bis zu acht Taster (Buttons) an einen Computer oder ein Tablet/Smartphone anzuschließen und dadurch Maus- oder Keyboard-Aktionen auszulösen sowie andere Aktionen auszuführen. Ein konfiguriertes FABI-Modul kann mit jedem Computer (Windows, Linux oder Mac), ohne Installation von spezieller Software verwendet werden, weil sich das FABI-Modul beim Anschließen an den Computer wie eine gewöhnliche Computermaus bzw. eine Tastatur verhält. Menschen, für die herkömmliche Eingabegeräte nicht geeignet sind, können dadurch Computerspiele spielen, im Internet surfen, E-Mails schreiben und vieles mehr.
+
+
+
+
+
+ 
+
+[TOC]
+
+## Einleitung
 
 Das FABI-System kann mit kommerziell erhältlichen Schaltern, günstigen Arcade-Buttons oder auch mit selbstgebauten elektrischen Kontakten verwendet werden. FABI besteht aus einem Hardware-Modul (einem kostengünstigen Mikrocontroller, der als Computermaus oder Tastatur fungiert), weiteren optionalen Modulen und Sensoren (Bluetooth-Add-On, Sip/Puff-Drucksensor) und einer grafischen Konfigurationsoberfläche zum Einstellen von gewünschten Funktionen („FABI-Konfigurationsmanager“). 
 
@@ -16,13 +30,7 @@ FABI ist als Open Source Bausatz (inkl. entsprechender Bauanleitung für die Har
 
 Alle Softwaremodule, die Hardware-Designdateien und die Dokumente für die Anleitungen sind unter freien Open Source Lizenzen verfügbar und können kostenlos verwendet und verändert werden. Wir haben uns bemüht, preisgünstigste Komponenten auszuwählen und dennoch keine Kompromisse bei Funktionalität und Flexibilität zu machen – was FABI zu einer erschwinglichen Tasterschnittstelle mit umfangreichen Möglichkeiten macht!
 
-#### Über diese Anleitung
-
-Diese Anleitung dient zur Erklärung der Konfigurationsoberfläche und der möglichen Einstellungen und Funktionen des FABI Systems. Die Bauanleitung ist in einem separaten Dokument zu finden.
-
-## Einleitung
-
-Der FABI-Konfigurationsmanager wird benötigt, um die Funktionen der Taster / Buttons festlegen zu können. Nachdem eine Konfiguration im FABI-System gespeichert wurde, bleibt sie dort erhalten und das FABI-System kann zur Steuerung unterschiedlicher Geräte verwendet werden (z.B. Windows-PC, Mac-Computer, Tablet oder Smart-Phone mit USB- oder Bluetooth-Anschluss). Der Konfigurationsmanager wird erst wieder benötigt, wenn Einstellungen geändert werden sollen.
+Der **FABI-Konfigurationsmanager** wird benötigt, um die Funktionen der Taster / Buttons festlegen zu können. Nachdem eine Konfiguration im FABI-System gespeichert wurde, bleibt sie dort erhalten und das FABI-System kann zur Steuerung unterschiedlicher Geräte verwendet werden (z.B. Windows-PC, Mac-Computer, Tablet oder Smart-Phone mit USB- oder Bluetooth-Anschluss). Der Konfigurationsmanager wird erst wieder benötigt, wenn Einstellungen geändert werden sollen.
 
 Der Konfigurationsmanager wird im Chrome Web-Browser geöffnet und ist unter folgender Adresse zu finden: [fabi.asterics.eu](https://fabi.asterics.eu/index_fabi.htm). Untenstehend in Abbildung 1 sehen sie die Startseite. Wenn Sie auf den Button VERBINDEN ZU FABI (ÜBER USB ANGESCHLOSSEN) klicken, so wird in der Auswahlbox noch kein Kommunikationsanschluss (COM Port) auswählbar sein, sofern Sie das FABI Modul noch nicht mittels USB-Stecker mit dem Computer verbunden haben. 
 
@@ -43,6 +51,8 @@ Um die Funktionen der Web-Konfiguration zu verwenden, folgen Sie den nachfolgend
 1. Vergewissern Sie sich, dass das FABI- Gerät mit dem Computer verbunden ist. 
 2. Danach sollte in einem Pop-Up Fenster ein Kommunikations-Anschluss (COM Port) mit bestimmter Nummer (z.B. COM4) auswählbar sein. Klicken Sie diesen Eintrag an und drücken Sie danach auf *Verbinden*. (Nach dem Ausstecken des FABI-Moduls sollte der COM Port wieder verschwinden.) 
 3. **Sollten Sie nicht die Benutzeroberfläche des FABI Konfigurationsmanagers wie in Abbildung 3 sehen können, so öffnen Sie die Website erneut und wählen Sie einen anderen COM-Port in der aufpoppenden Auswahlbox. Danach klicken Sie erneut auf *Verbinden*.** 
+
+
 
 ## Verwendung des Konfigurationsmanagers
 

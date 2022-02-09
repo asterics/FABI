@@ -1,14 +1,36 @@
 ![FabiLogo](./Bilder/fabi1.PNG)
 
+
+
 # FABI - User Manual
 
 ![FabiFoto](./Bilder/fabi2.PNG)
 
 ____
 
+
+
 # Welcome to FABI
 
 FABI - the "Flexible Assistive Button Interface" - connects up to eight momentary switches (buttons) to a Personal Computer, smartphone or tablet, in order to perform complex mouse- and keyboard actions. A configured FABI module can be used with any PC or mobile device (running Windows, Linux, MacOs, iOS or Android) without installing additional software, because the FABI module behaves like an ordinary computer mouse/keyboard. Using FABI, people with limitied motor capabilities can play computer games, surf the internet, write e-mails and much more.
+
+
+
+
+
+
+
+
+
+[TOC]
+
+
+
+
+
+
+
+## Introduction
 
 The FABI system can be used with commercially available switches, inexpensive arcade buttons, or even homemade electrical contacts. FABI consists of a hardware module (an inexpensive microcontroller that acts as a computer peripheral), and optional add-on modules and sensors (Bluetooth add-on, sip/puff pressure sensor, LC-display). A web-based graphical configuration editor (the *FABI configuration manager*) is available for setting up desired actions. 
 
@@ -18,13 +40,7 @@ FABI is available as an [open source construction kit](https://github.com/asteri
 
 All software modules, hardware design files, and "how-to"-documents are available under free and open source licenses and can be used and modified without fees. We have made every effort to select low-cost components without compromising functionality and flexibility - making FABI an affordable switch interface with extensive capabilities!
 
-#### About this manual
-
-This user manual explains the FABI Configuration Manager and shows example settings of the FABI system. The [building instructions](https://github.com/asterics/FABI/raw/master/Documentation/ConstructionManual/PCB-Version/FABIManual.pdf) can be found in a separate document.
-
-## Introduction
-
-The FABI configuration manager enables to assign functions (actions) to connected switches (buttons). Once a configuration has been applied, it remains active, also if the power supply is removed. The FABI system can then be used to control different devices (e.g. Windows/Linux PCs, or Mac computers via USB connection or tablets / smart phones via USB-OTG or Bluetooth connection). The configuration manager is only needed if settings should be changed.
+The **FABI configuration manager** enables to assign functions (actions) to connected switches (buttons). Once a configuration has been applied, it remains active, also if the power supply is removed. The FABI system can then be used to control different devices (e.g. Windows/Linux PCs, or Mac computers via USB connection or tablets / smart phones via USB-OTG or Bluetooth connection). The configuration manager is only needed if settings should be changed.
 
 The configuration manager has to be opened in the *Chrome web browser* running on a PC or Mac. It can be found at the following web address: [https://fabi.asterics.eu](https://fabi.asterics.eu/index_fabi.htm). Figure 1 shows the Welcome page of the configuration manager. 
 
@@ -44,6 +60,10 @@ After the Welcome page of the configuration manager is visible, connect your FAB
 2. Click **CONNECT TO FABI CONNECTED VIA USB** on the configuration manager welcome page. ***Note*** that you could also have a look at the configuration manager's functions without connecting the FABI hardware, by using the Test Mode (which simulates a hardware connection).
 3. A communication port identifier with a certain name (e.g. COM4 or /dev/ttyUSB1) should be displayed in a pop-up window. Click on this identifier and then click **Connect**. 
 4. If you cannot see the user interface of the FABI configuration manager as in Figure 3, open the website again and reselect the communication port in the selection box. Then click **Connect**.
+
+
+
+
 
 ## Using the configuration manager
 
@@ -283,6 +303,12 @@ At the bottom of the *GENERAL Tab* you will find the button for resetting the FA
 
 **Have fun trying out and creating your own FABI configurations!**
 
+
+
+
+
+
+
 ## Using the Bluetooth module
 
 The FABI system allows the use of an optional Bluetooth-"AddOn" module for wireless device connections to cell phones, tablets and computers with Bluetooth capability. The Bluetooth module is either included in your version of the FABI kit, or it is available separately - please contact the AsTeRICS Foundation.
@@ -300,9 +326,13 @@ The Bluetooth module is plugged onto the 10-pin connector in the orientation sho
 
 The Bluetooth module indicates that it is ready to connect to a host device by flashing rapidly (approximately 2 times per second). (The flashing of the module can be perceived on the bottom sider of the FABI housing). The host device for the connection pairing can be e.g. a cell phone or tablet computer. A new device must be added in the Bluetooth settings of the host device. Here it should be possible to select the "FABI" device. If the connection is successful, the LED of the Bluetooth module should flash slowly (approx. 1 time per second). The host device should now be able to receive mouse- and keyboard actions from the FABI system (in parallel to the device connected via USB, see [*GENERAL Tab*](https://github.com/asterics/FABI/blob/master/Documentation/UserManual/Markdown/Fabi%20User%20Manual.md#general-tab-bluetooth-and-firmware-options), figure 13).
 
+
+
 ## Appendix
 
 ### Supported Macro commands:
+
+
 
 | **Abbreviation** | **Function**                                                                                                                   | **example**                                                                                 |
 | ---------------- | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------- |
@@ -335,6 +365,8 @@ The Bluetooth module indicates that it is ready to connect to a host device by f
 | LO <string>      | Load slot per name, changes to the given slot                                                                                  | LO mouse                                                                                    |
 | NC               | No command                                                                                                                     |                                                                                             |
 
+
+
 ### Supported Key Identifiers:
 
 | **Supported KEY Identifiers:**                                                                                                                                                                                         |
@@ -351,6 +383,8 @@ The Bluetooth module indicates that it is ready to connect to a host device by f
 | KEY_ENTER  KEY_SPACE  KEY_BACKSPACE  KEY_DELETE  KEY_INSERT  KEY_ESC  KEY_NUM_LOCK<br/>KEY_SCROLL_LOCK  KEY_CAPS_LOCK  KEY_PAUSE<br/>                                                                                  |
 | **Tasten für alternative Funktionen**                                                                                                                                                                                  |
 | KEY_SHIFT  KEY_CTRL  KEY_ALT  KEY_RIGHT_ALT  KEY_GUI  KEY_RIGHT_GUI                                                                                                                                                    |
+
+
 
 ### Further links and software recommendations
 
@@ -378,6 +412,8 @@ At [www.oneswitch.org.uk](https://www.oneswitch.org.uk/) Barrie Ellis has collec
 
 [Click2Speak](https://www.click2speak.net) is a flexible on-screen keyboard for Windows that provides additional useful features - such as a mouse click selection box.
 
+
+
 ## Contact Information
 
 **AsTeRICS Foundation**
@@ -386,12 +422,16 @@ Webpage: <https://www.asterics-foundation.org>
 
 Email: <office@asterics-foundation.org>
 
+
+
 ## Disclaimer
 
 The University of Applied Sciences Technikum Wien and the AsTeRICS Foundation do not assume any warranty or liability for the functionality of the hardware/software modules or the correctness of the documentation.
 
 Furthermore, the FH Technikum Wien and the AsTeRICS Foundation are not liable for any damage to health caused by the use of the provided hardware/software modules. 
 The use of the provided modules and information is at your own risk!
+
+
 
 ## Acknowledgements
 
