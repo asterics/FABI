@@ -26,7 +26,7 @@ Der FABI-Konfigurationsmanager wird benötigt, um die Funktionen der Taster / Bu
 
 Der Konfigurationsmanager wird im Chrome Web-Browser geöffnet und ist unter folgender Adresse zu finden: [fabi.asterics.eu](https://fabi.asterics.eu/index_fabi.htm). Untenstehend in Abbildung 1 sehen sie die Startseite. Wenn Sie auf den Button VERBINDEN ZU FABI (ÜBER USB ANGESCHLOSSEN) klicken, so wird in der Auswahlbox noch kein Kommunikationsanschluss (COM Port) auswählbar sein, sofern Sie das FABI Modul noch nicht mittels USB-Stecker mit dem Computer verbunden haben. 
 
-![Abbildung1](./Bilder/abb1.png)
+![Abbildung1](./Bilder/abb1.PNG)
 
 *Abbildung 1*: Startseite des Konfigurationsmanagers
 
