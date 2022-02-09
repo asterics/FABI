@@ -134,7 +134,7 @@ Figure 8 shows how to assign keyboard key "KEY_D" to button 1. This will cause a
 Alternatively to the selection box, keys or key combinations can also be recorded from live keyboard input by clicking the "Insert keys" field (left of the "Clear" button). 
 Keys that have already been assigned can be removed by clicking **CLEAR**.
 
-***Note:*** With "KEY_SHIFT" in combination with letter keys, capital letters can be created. All supported key names (identifiers) can be found in the [appendix]([FABI/Fabi User Manual.md at master · asterics/FABI · GitHub](https://github.com/asterics/FABI/blob/master/Documentation/UserManual/Markdown/Fabi%20User%20Manual.md#supported-key-identifiers).
+***Note:*** With "KEY_SHIFT" in combination with letter keys, capital letters can be created. All supported key names (identifiers) can be found in the [appendix](https://github.com/asterics/FABI/blob/master/Documentation/UserManual/Markdown/Fabi%20User%20Manual.md#supported-key-identifiers).
 
 ![Abbildung6](./Bilder/ENabb6.PNG) 
 
@@ -170,7 +170,7 @@ As soon as the button is pressed, the configuration with the specified name is a
 
 This advanced feature allows multiple commands to be executed using appropriate command shortcuts, providing a high degree of flexibility. The individual commands are entered in the text field, separated by semicolons. Command shortcuts can also be selected using "Add Command" and then be added to the macro using "ADD". If several commands are added in succession, the semicolons are entered automatically.
 Example: The macro command `MX 10; WA 500; KP KEY_A;` moves the mouse cursor 10 pixels to the right, then waits 500 milliseconds and presses the keyboard key "A".
-***Note:*** Supported commands are listed in the combobox "Add command". However, commands and keyboard shortcuts can also be entered manually into the "Macro" field. A complete list of supported commands can be found in the [appendix]([FABI/Fabi User Manual.md at master · asterics/FABI · GitHub](https://github.com/asterics/FABI/blob/master/Documentation/UserManual/Markdown/Fabi%20User%20Manual.md#supported-macro-commands)).
+***Note:*** Supported commands are listed in the combobox "Add command". However, commands and keyboard shortcuts can also be entered manually into the "Macro" field. A complete list of supported commands can be found in the [appendix](https://github.com/asterics/FABI/blob/master/Documentation/UserManual/Markdown/Fabi%20User%20Manual.md#supported-macro-commands).
 
 ## *SLOTS Tab*: Using Configuration Slots
 
@@ -298,7 +298,7 @@ The Bluetooth module is plugged onto the 10-pin connector in the orientation sho
 
 ### Connecting to a Bluetooth device (pairing)
 
-The Bluetooth module indicates that it is ready to connect to a host device by flashing rapidly (approximately 2 times per second). (The flashing of the module can be perceived on the bottom sider of the FABI housing). The host device for the connection pairing can be e.g. a cell phone or tablet computer. A new device must be added in the Bluetooth settings of the host device. Here it should be possible to select the "FABI" device. If the connection is successful, the LED of the Bluetooth module should flash slowly (approx. 1 time per second). The host device should now be able to receive mouse- and keyboard actions from the FABI system (in parallel to the device connected via USB, see [*GENERAL Tab*]([FABI/Fabi Anwendungsanleitung.md at master · asterics/FABI · GitHub](https://github.com/asterics/FABI/blob/master/Documentation/UserManual/Markdown/Fabi%20Anwendungsanleitung.md#usb-modus--bluetooth-modus)), figure 13).
+The Bluetooth module indicates that it is ready to connect to a host device by flashing rapidly (approximately 2 times per second). (The flashing of the module can be perceived on the bottom sider of the FABI housing). The host device for the connection pairing can be e.g. a cell phone or tablet computer. A new device must be added in the Bluetooth settings of the host device. Here it should be possible to select the "FABI" device. If the connection is successful, the LED of the Bluetooth module should flash slowly (approx. 1 time per second). The host device should now be able to receive mouse- and keyboard actions from the FABI system (in parallel to the device connected via USB, see [*GENERAL Tab*](https://github.com/asterics/FABI/blob/master/Documentation/UserManual/Markdown/Fabi%20Anwendungsanleitung.md#usb-modus--bluetooth-modus), figure 13).
 
 ## Appendix
 
