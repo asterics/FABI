@@ -40,12 +40,10 @@ After the Welcome page of the configuration manager is visible, connect your FAB
 
 *Figure 2*: Connecting the USB micro cable
 
-
 1. Make sure that the FABI device is connected to the PC via a USB port, using a USB micro cable (see figure 2 above).
 2. Click **CONNECT TO FABI CONNECTED VIA USB** on the configuration manager welcome page. ***Note*** that you could also have a look at the configuration manager's functions without connecting the FABI hardware, by using the Test Mode (which simulates a hardware connection).
 3. A communication port identifier with a certain name (e.g. COM4 or /dev/ttyUSB1) should be displayed in a pop-up window. Click on this identifier and then click **Connect**. 
 4. If you cannot see the user interface of the FABI configuration manager as in Figure 3, open the website again and reselect the communication port in the selection box. Then click **Connect**.
-
 
 ## Using the configuration manager
 
@@ -136,14 +134,11 @@ Figure 8 shows how to assign keyboard key "KEY_D" to button 1. This will cause a
 Alternatively to the selection box, keys or key combinations can also be recorded from live keyboard input by clicking the "Insert keys" field (left of the "Clear" button). 
 Keys that have already been assigned can be removed by clicking **CLEAR**.
 
-***Note:*** With "KEY_SHIFT" in combination with letter keys, capital letters can be created. All supported key names (identifiers) can be found in the appendix.
-
+***Note:*** With "KEY_SHIFT" in combination with letter keys, capital letters can be created. All supported key names (identifiers) can be found in the [appendix]([FABI/Fabi User Manual.md at master · asterics/FABI · GitHub](https://github.com/asterics/FABI/blob/master/Documentation/UserManual/Markdown/Fabi%20User%20Manual.md#supported-key-identifiers).
 
 ![Abbildung6](./Bilder/ENabb6.PNG) 
 
 *Figure 6*: Key selection (here for the "Press or release key(s) toggle" action)
-
-
 
 #### Write word
 
@@ -175,8 +170,7 @@ As soon as the button is pressed, the configuration with the specified name is a
 
 This advanced feature allows multiple commands to be executed using appropriate command shortcuts, providing a high degree of flexibility. The individual commands are entered in the text field, separated by semicolons. Command shortcuts can also be selected using "Add Command" and then be added to the macro using "ADD". If several commands are added in succession, the semicolons are entered automatically.
 Example: The macro command `MX 10; WA 500; KP KEY_A;` moves the mouse cursor 10 pixels to the right, then waits 500 milliseconds and presses the keyboard key "A".
-***Note:*** Supported commands are listed in the combobox "Add command". However, commands and keyboard shortcuts can also be entered manually into the "Macro" field. A complete list of supported commands can be found in the appendix.
-
+***Note:*** Supported commands are listed in the combobox "Add command". However, commands and keyboard shortcuts can also be entered manually into the "Macro" field. A complete list of supported commands can be found in the [appendix]([FABI/Fabi User Manual.md at master · asterics/FABI · GitHub](https://github.com/asterics/FABI/blob/master/Documentation/UserManual/Markdown/Fabi%20User%20Manual.md#supported-macro-commands)).
 
 ## *SLOTS Tab*: Using Configuration Slots
 
@@ -189,7 +183,6 @@ Various action assignments for the buttons can be stored in up to 10 memory loca
 In the top center, the dropdown selection box **Select slot** shows the currently active slot name. By clicking the selection box, all existing slots are shown and the active slot can be changed. 
 In *Slot configuration* list you can see all the available slots as well, with the active slot being displayed in bold letters. Here you can change the active slot by clicking one of the inactive slot names. Furthermore, the color of each individual slot can be assigned by clicking **Set color**, which opens a pop-up color selection box. The color which is chosen here will be displayed on the FABI device via a built-in mulicolor led whenever the slot is activated.  ***Note*** that this function is only available in the new version (PCB version) of the FABI system.
 A new configuration slot is created by entering a name into the correspnding text field (*"insert name for new slot"*) and clicking **CREATE SLOT**. The settings of the currently active slot are copied to the new slot. The slots can be deleted individually by clicking **Delete**. When **Download** is clicked, the configuration data of the respective slot is downloaded to the PC as a file, which is stored in the download-folder of the web browser. This file can then be used to add individual slots to another configuration. ***Note*** that the complete configuration (all slots) can also be downloaded as as single file, see section "Loading, saving and transferring configurations" below.)
-
 
 ### Loading, saving and transferring configurations
 
@@ -207,8 +200,7 @@ Demo configuration settings can be selected at the very bottom of the *SLOTS Tab
 
 *Figure 9*: Loading and saving configuration settings
 
-
-## *TIMINGS Tab*: Antitremor and Special Functions 
+## *TIMINGS Tab*: Antitremor and Special Functions
 
 The *TIMINGS Tab* tab can be used to set further parameters for the operation of the FABI system: The *Antitremor settings* allow to specify minimum durations for pressing and releasing the buttons (in milliseconds). These settings can be useful in order to prevent accidental pressing or releasing of buttons due to hand tremor. Furthermore, thresholds can be set for long presses (to create special actions), double presses (to acctivate the next slot), and dell timings for automatic left clicks. All these settings are explained in more detail below.
 ***Note:*** these settings apply to the active configuration slot, but can be applied to all slots by clicking **Copy config to all slots**.
@@ -253,7 +245,6 @@ In the *SIP AND PUFF Tab*, corresponding threshold values for the strength of si
 
 *Figure 11*: Screenshot of the settings for sip and puff thresholds
 
-
 ## *GENERAL Tab*: Bluetooth and Firmware Options
 
 In the *GENERAL Tab*, the Bluetooth settings can be adjusted and the main module firmware and Bluetooth module firmware can be updated.
@@ -292,7 +283,6 @@ At the bottom of the *GENERAL Tab* you will find the button for resetting the FA
 
 **Have fun trying out and creating your own FABI configurations!**
 
-
 ## Using the Bluetooth module
 
 The FABI system allows the use of an optional Bluetooth-"AddOn" module for wireless device connections to cell phones, tablets and computers with Bluetooth capability. The Bluetooth module is either included in your version of the FABI kit, or it is available separately - please contact the AsTeRICS Foundation.
@@ -308,10 +298,9 @@ The Bluetooth module is plugged onto the 10-pin connector in the orientation sho
 
 ### Connecting to a Bluetooth device (pairing)
 
-The Bluetooth module indicates that it is ready to connect to a host device by flashing rapidly (approximately 2 times per second). (The flashing of the module can be perceived on the bottom sider of the FABI housing). The host device for the connection pairing can be e.g. a cell phone or tablet computer. A new device must be added in the Bluetooth settings of the host device. Here it should be possible to select the "FABI" device. If the connection is successful, the LED of the Bluetooth module should flash slowly (approx. 1 time per second). The host device should now be able to receive mouse- and keyboard actions from the FABI system (in parallel to the device connected via USB, see *GENERAL Tab*, figure 13).
+The Bluetooth module indicates that it is ready to connect to a host device by flashing rapidly (approximately 2 times per second). (The flashing of the module can be perceived on the bottom sider of the FABI housing). The host device for the connection pairing can be e.g. a cell phone or tablet computer. A new device must be added in the Bluetooth settings of the host device. Here it should be possible to select the "FABI" device. If the connection is successful, the LED of the Bluetooth module should flash slowly (approx. 1 time per second). The host device should now be able to receive mouse- and keyboard actions from the FABI system (in parallel to the device connected via USB, see [*GENERAL Tab*]([FABI/Fabi Anwendungsanleitung.md at master · asterics/FABI · GitHub](https://github.com/asterics/FABI/blob/master/Documentation/UserManual/Markdown/Fabi%20Anwendungsanleitung.md#usb-modus--bluetooth-modus)), figure 13).
 
-
-## Appendix 
+## Appendix
 
 ### Supported Macro commands:
 
@@ -411,4 +400,3 @@ We would like to thank Miriam Brenner, Fabian Schiegl and Fanny Peternell for th
 This project was financially supported by the City of Vienna (Magistratsabteilung 23 für Wirtschaft, Arbeit und Statistik, MA 23) (project number 14-02, 18-04).
 
 ![Abbildung18](./Bilder/abb18.PNG)
-
