@@ -81,8 +81,10 @@ More examples are available in the [wiki](https://github.com/asterics/FABI/wiki)
 
 ## Support us
 If you want to support the development of FABI you're very welcome to donate to the AsTeRICS Foundation:
-<div><a title="Support AsTeRICS Foundation on betterplace.org!" target="_blank" href="https://www.betterplace.at/development-of-open-source-assistive-technologies"><img style="border:0px" alt="" src="https://betterplace-assets.betterplace.org/static-images/projects/donation-button-en.png" width="160" height="100"></a>
-</div>
+
+<a title="Support FABI on opencollective.com" href="https://opencollective.com/asterics-foundation" target="_blank">
+  <img src="https://opencollective.com/webpack/donate/button@2x.png?color=blue" width=300 />
+</a>
 
 ## About / Credits
 
