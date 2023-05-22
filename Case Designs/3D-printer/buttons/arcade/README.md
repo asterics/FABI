@@ -13,16 +13,17 @@ After printing the case, you need to remove the built-in support material within
 
 ## Designfiles
 
-The original source for these buttons is included in the FABI.fcstd design.
+Both button designs are located in __arcade_buttons.FCStd__
 
 ## Print settings & tools
 
-All designs are made with FreeCAD v0.17.
+All designs are made with FreeCAD v0.20.1.
 
 Recommended print settings:
 
 * 0.2-0.35mm
+* Place the button hole on the printbed!
 * No support
 * Please use PLA or other biocompatible/-degradable filament (we use GreenTec from extrudr.at)
 
-All designs are tested on a Prusa i3 MK2.
+All designs are tested on a Prusa i3 MK3.
