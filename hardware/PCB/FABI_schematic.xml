@@ -1,58 +1,234 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<export version="D">
+<export version="E">
   <design>
-    <source>E:\daten_2012_11_16\eigene_dokumente\FH\FH\Internship\Git\hardware\PCB\FABI_schematic.sch</source>
-    <date>18/02/2021 13:16:33</date>
-    <tool>Eeschema (5.1.8)-1</tool>
+    <source>/home/beni/Projects/fabi/hardware/PCB/FABI_schematic.sch</source>
+    <date>Wed 27 Jul 2022 14:58:56 CEST</date>
+    <tool>Eeschema 6.0.6+dfsg-1</tool>
     <sheet number="1" name="/" tstamps="/">
       <title_block>
         <title>FABI PCB for 8 jack plugs (ESP32 addon board conn)</title>
         <company>AsTeRICS Foundation</company>
-        <rev/>
-        <date>2021-02-11</date>
+        <rev>v1.1</rev>
+        <date>2021-06-26</date>
         <source>FABI_schematic.sch</source>
         <comment number="1" value="www.asterics-foundation.org"/>
-        <comment number="2" value=""/>
+        <comment number="2" value="Fußthaler, Aigner, Veigl"/>
         <comment number="3" value=""/>
         <comment number="4" value=""/>
+        <comment number="5" value=""/>
+        <comment number="6" value=""/>
+        <comment number="7" value=""/>
+        <comment number="8" value=""/>
+        <comment number="9" value=""/>
       </title_block>
     </sheet>
   </design>
   <components>
-    <comp ref="R2">
-      <value>18k</value>
-      <footprint>Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal</footprint>
-      <datasheet>~</datasheet>
-      <libsource lib="Device" part="R" description="Resistor"/>
-      <sheetpath names="/" tstamps="/"/>
-      <tstamp>5F3C349E</tstamp>
-    </comp>
-    <comp ref="R_2">
-      <value>18k</value>
-      <footprint>Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder</footprint>
-      <datasheet>~</datasheet>
-      <libsource lib="Device" part="R" description="Resistor"/>
-      <sheetpath names="/" tstamps="/"/>
-      <tstamp>5F39FBC8</tstamp>
-    </comp>
-    <comp ref="R_1">
-      <value>10k</value>
-      <footprint>Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder</footprint>
-      <datasheet>~</datasheet>
-      <libsource lib="Device" part="R" description="Resistor"/>
-      <sheetpath names="/" tstamps="/"/>
-      <tstamp>5F39FBCE</tstamp>
-    </comp>
-    <comp ref="D12">
-      <value>SP0504BAHT</value>
-      <footprint>Package_TO_SOT_SMD:SOT-23-5</footprint>
-      <datasheet>http://www.littelfuse.com/~/media/files/littelfuse/technical%20resources/documents/data%20sheets/sp05xxba.pdf</datasheet>
+    <comp ref="bzr1">
+      <value>Buzzer</value>
+      <footprint>Buzzer_Beeper:Buzzer_TDK_PS1240P02BT_D12.2mm_H6.5mm</footprint>
+      <datasheet>https://docs.rs-online.com/dcfc/0900766b8067c4cd.pdf</datasheet>
       <fields>
-        <field name="RS">https://at.rs-online.com/web/p/suppressordioden-tvs/7931960/</field>
+        <field name="RS">https://at.rs-online.com/web/p/piezo-signalgeber/5168268</field>
+        <field name="RS-Nr">516-8268</field>
       </fields>
-      <libsource lib="Power_Protection" part="SP0504BAHT" description="TVS Diode Array, 5.5V Standoff, 4 Channels, SOT-23-5 package"/>
+      <libsource lib="Device" part="Buzzer" description="Buzzer, polarized"/>
+      <property name="RS" value="https://at.rs-online.com/web/p/piezo-signalgeber/5168268"/>
+      <property name="RS-Nr" value="516-8268"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="/home/beni/Projects/fabi/hardware/PCB/FABI_schematic.sch"/>
       <sheetpath names="/" tstamps="/"/>
-      <tstamp>5F3C5FAA</tstamp>
+      <tstamps>00000000-0000-0000-0000-00006039fddb</tstamps>
+    </comp>
+    <comp ref="C1">
+      <value>100n</value>
+      <footprint>Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P5.00mm</footprint>
+      <fields>
+        <field name="RS">https://at.rs-online.com/web/p/keramik-vielschichtkondensatoren/8523277/</field>
+        <field name="RS-Nr">852-3277</field>
+      </fields>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <property name="RS" value="https://at.rs-online.com/web/p/keramik-vielschichtkondensatoren/8523277/"/>
+      <property name="RS-Nr" value="852-3277"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="/home/beni/Projects/fabi/hardware/PCB/FABI_schematic.sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>00000000-0000-0000-0000-0000601facc9</tstamps>
+    </comp>
+    <comp ref="C_1">
+      <value>100n</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder</footprint>
+      <fields>
+        <field name="RS">https://at.rs-online.com/web/p/keramik-vielschichtkondensatoren/4646688/</field>
+        <field name="RS-Nr">464-6688</field>
+      </fields>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <property name="RS" value="https://at.rs-online.com/web/p/keramik-vielschichtkondensatoren/4646688/"/>
+      <property name="RS-Nr" value="464-6688"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="/home/beni/Projects/fabi/hardware/PCB/FABI_schematic.sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>00000000-0000-0000-0000-00006021926d</tstamps>
+    </comp>
+    <comp ref="D1">
+      <value>P6KE6.8A</value>
+      <footprint>Diode_THT:D_DO-201AE_P12.70mm_Horizontal</footprint>
+      <datasheet>https://www.vishay.com/docs/88301/15ke.pdf</datasheet>
+      <fields>
+        <field name="Farnell">https://at.farnell.com/littelfuse/p6ke6-8a/tvs-diode/dp/1703028</field>
+        <field name="Farnell-Nr">1703028</field>
+        <field name="RS">https://at.rs-online.com/web/p/suppressordioden-tvs/1719669/</field>
+        <field name="RS-Nr">171-9669</field>
+      </fields>
+      <libsource lib="Diode" part="1.5KExxA" description="1500W unidirectional TRANSZORB® Transient Voltage Suppressor, DO-201AE"/>
+      <property name="Farnell" value="https://at.farnell.com/littelfuse/p6ke6-8a/tvs-diode/dp/1703028"/>
+      <property name="Farnell-Nr" value="1703028"/>
+      <property name="RS" value="https://at.rs-online.com/web/p/suppressordioden-tvs/1719669/"/>
+      <property name="RS-Nr" value="171-9669"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="/home/beni/Projects/fabi/hardware/PCB/FABI_schematic.sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>00000000-0000-0000-0000-00005f3d9b1d</tstamps>
+    </comp>
+    <comp ref="D2">
+      <value>P6KE6.8A</value>
+      <footprint>Diode_THT:D_DO-201AE_P12.70mm_Horizontal</footprint>
+      <datasheet>https://www.vishay.com/docs/88301/15ke.pdf</datasheet>
+      <fields>
+        <field name="Farnell">https://at.farnell.com/littelfuse/p6ke6-8a/tvs-diode/dp/1703028</field>
+        <field name="Farnell-Nr">1703028</field>
+        <field name="RS">https://at.rs-online.com/web/p/suppressordioden-tvs/1719669/</field>
+        <field name="RS-Nr">171-9669</field>
+      </fields>
+      <libsource lib="Diode" part="1.5KExxA" description="1500W unidirectional TRANSZORB® Transient Voltage Suppressor, DO-201AE"/>
+      <property name="Farnell" value="https://at.farnell.com/littelfuse/p6ke6-8a/tvs-diode/dp/1703028"/>
+      <property name="Farnell-Nr" value="1703028"/>
+      <property name="RS" value="https://at.rs-online.com/web/p/suppressordioden-tvs/1719669/"/>
+      <property name="RS-Nr" value="171-9669"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="/home/beni/Projects/fabi/hardware/PCB/FABI_schematic.sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>00000000-0000-0000-0000-00006045de65</tstamps>
+    </comp>
+    <comp ref="D3">
+      <value>P6KE6.8A</value>
+      <footprint>Diode_THT:D_DO-201AE_P12.70mm_Horizontal</footprint>
+      <datasheet>https://www.vishay.com/docs/88301/15ke.pdf</datasheet>
+      <fields>
+        <field name="Farnell">https://at.farnell.com/littelfuse/p6ke6-8a/tvs-diode/dp/1703028</field>
+        <field name="Farnell-Nr">1703028</field>
+        <field name="RS">https://at.rs-online.com/web/p/suppressordioden-tvs/1719669/</field>
+        <field name="RS-Nr">171-9669</field>
+      </fields>
+      <libsource lib="Diode" part="1.5KExxA" description="1500W unidirectional TRANSZORB® Transient Voltage Suppressor, DO-201AE"/>
+      <property name="Farnell" value="https://at.farnell.com/littelfuse/p6ke6-8a/tvs-diode/dp/1703028"/>
+      <property name="Farnell-Nr" value="1703028"/>
+      <property name="RS" value="https://at.rs-online.com/web/p/suppressordioden-tvs/1719669/"/>
+      <property name="RS-Nr" value="171-9669"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="/home/beni/Projects/fabi/hardware/PCB/FABI_schematic.sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>00000000-0000-0000-0000-000060469ac8</tstamps>
+    </comp>
+    <comp ref="D4">
+      <value>P6KE6.8A</value>
+      <footprint>Diode_THT:D_DO-201AE_P12.70mm_Horizontal</footprint>
+      <datasheet>https://www.vishay.com/docs/88301/15ke.pdf</datasheet>
+      <fields>
+        <field name="Farnell">https://at.farnell.com/littelfuse/p6ke6-8a/tvs-diode/dp/1703028</field>
+        <field name="Farnell-Nr">1703028</field>
+        <field name="RS">https://at.rs-online.com/web/p/suppressordioden-tvs/1719669/</field>
+        <field name="RS-Nr">171-9669</field>
+      </fields>
+      <libsource lib="Diode" part="1.5KExxA" description="1500W unidirectional TRANSZORB® Transient Voltage Suppressor, DO-201AE"/>
+      <property name="Farnell" value="https://at.farnell.com/littelfuse/p6ke6-8a/tvs-diode/dp/1703028"/>
+      <property name="Farnell-Nr" value="1703028"/>
+      <property name="RS" value="https://at.rs-online.com/web/p/suppressordioden-tvs/1719669/"/>
+      <property name="RS-Nr" value="171-9669"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="/home/beni/Projects/fabi/hardware/PCB/FABI_schematic.sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>00000000-0000-0000-0000-00006046d833</tstamps>
+    </comp>
+    <comp ref="D5">
+      <value>P6KE6.8A</value>
+      <footprint>Diode_THT:D_DO-201AE_P12.70mm_Horizontal</footprint>
+      <datasheet>https://www.vishay.com/docs/88301/15ke.pdf</datasheet>
+      <fields>
+        <field name="Farnell">https://at.farnell.com/littelfuse/p6ke6-8a/tvs-diode/dp/1703028</field>
+        <field name="Farnell-Nr">1703028</field>
+        <field name="RS">https://at.rs-online.com/web/p/suppressordioden-tvs/1719669/</field>
+        <field name="RS-Nr">171-9669</field>
+      </fields>
+      <libsource lib="Diode" part="1.5KExxA" description="1500W unidirectional TRANSZORB® Transient Voltage Suppressor, DO-201AE"/>
+      <property name="Farnell" value="https://at.farnell.com/littelfuse/p6ke6-8a/tvs-diode/dp/1703028"/>
+      <property name="Farnell-Nr" value="1703028"/>
+      <property name="RS" value="https://at.rs-online.com/web/p/suppressordioden-tvs/1719669/"/>
+      <property name="RS-Nr" value="171-9669"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="/home/beni/Projects/fabi/hardware/PCB/FABI_schematic.sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>00000000-0000-0000-0000-0000604a6c55</tstamps>
+    </comp>
+    <comp ref="D6">
+      <value>P6KE6.8A</value>
+      <footprint>Diode_THT:D_DO-201AE_P12.70mm_Horizontal</footprint>
+      <datasheet>https://www.vishay.com/docs/88301/15ke.pdf</datasheet>
+      <fields>
+        <field name="Farnell">https://at.farnell.com/littelfuse/p6ke6-8a/tvs-diode/dp/1703028</field>
+        <field name="Farnell-Nr">1703028</field>
+        <field name="RS">https://at.rs-online.com/web/p/suppressordioden-tvs/1719669/</field>
+        <field name="RS-Nr">171-9669</field>
+      </fields>
+      <libsource lib="Diode" part="1.5KExxA" description="1500W unidirectional TRANSZORB® Transient Voltage Suppressor, DO-201AE"/>
+      <property name="Farnell" value="https://at.farnell.com/littelfuse/p6ke6-8a/tvs-diode/dp/1703028"/>
+      <property name="Farnell-Nr" value="1703028"/>
+      <property name="RS" value="https://at.rs-online.com/web/p/suppressordioden-tvs/1719669/"/>
+      <property name="RS-Nr" value="171-9669"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="/home/beni/Projects/fabi/hardware/PCB/FABI_schematic.sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>00000000-0000-0000-0000-0000604a6c74</tstamps>
+    </comp>
+    <comp ref="D7">
+      <value>P6KE6.8A</value>
+      <footprint>Diode_THT:D_DO-201AE_P12.70mm_Horizontal</footprint>
+      <datasheet>https://www.vishay.com/docs/88301/15ke.pdf</datasheet>
+      <fields>
+        <field name="Farnell">https://at.farnell.com/littelfuse/p6ke6-8a/tvs-diode/dp/1703028</field>
+        <field name="Farnell-Nr">1703028</field>
+        <field name="RS">https://at.rs-online.com/web/p/suppressordioden-tvs/1719669/</field>
+        <field name="RS-Nr">171-9669</field>
+      </fields>
+      <libsource lib="Diode" part="1.5KExxA" description="1500W unidirectional TRANSZORB® Transient Voltage Suppressor, DO-201AE"/>
+      <property name="Farnell" value="https://at.farnell.com/littelfuse/p6ke6-8a/tvs-diode/dp/1703028"/>
+      <property name="Farnell-Nr" value="1703028"/>
+      <property name="RS" value="https://at.rs-online.com/web/p/suppressordioden-tvs/1719669/"/>
+      <property name="RS-Nr" value="171-9669"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="/home/beni/Projects/fabi/hardware/PCB/FABI_schematic.sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>00000000-0000-0000-0000-0000604a6c93</tstamps>
+    </comp>
+    <comp ref="D8">
+      <value>P6KE6.8A</value>
+      <footprint>Diode_THT:D_DO-201AE_P12.70mm_Horizontal</footprint>
+      <datasheet>https://www.vishay.com/docs/88301/15ke.pdf</datasheet>
+      <fields>
+        <field name="Farnell">https://at.farnell.com/littelfuse/p6ke6-8a/tvs-diode/dp/1703028</field>
+        <field name="Farnell-Nr">1703028</field>
+        <field name="RS">https://at.rs-online.com/web/p/suppressordioden-tvs/1719669/</field>
+        <field name="RS-Nr">171-9669</field>
+      </fields>
+      <libsource lib="Diode" part="1.5KExxA" description="1500W unidirectional TRANSZORB® Transient Voltage Suppressor, DO-201AE"/>
+      <property name="Farnell" value="https://at.farnell.com/littelfuse/p6ke6-8a/tvs-diode/dp/1703028"/>
+      <property name="Farnell-Nr" value="1703028"/>
+      <property name="RS" value="https://at.rs-online.com/web/p/suppressordioden-tvs/1719669/"/>
+      <property name="RS-Nr" value="171-9669"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="/home/beni/Projects/fabi/hardware/PCB/FABI_schematic.sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>00000000-0000-0000-0000-0000604a6cb2</tstamps>
     </comp>
     <comp ref="D11">
       <value>SP0504BAHT</value>
@@ -60,410 +236,192 @@
       <datasheet>http://www.littelfuse.com/~/media/files/littelfuse/technical%20resources/documents/data%20sheets/sp05xxba.pdf</datasheet>
       <fields>
         <field name="RS">https://at.rs-online.com/web/p/suppressordioden-tvs/7931960/</field>
+        <field name="RS-Nr">793-1960</field>
       </fields>
       <libsource lib="Power_Protection" part="SP0504BAHT" description="TVS Diode Array, 5.5V Standoff, 4 Channels, SOT-23-5 package"/>
+      <property name="RS" value="https://at.rs-online.com/web/p/suppressordioden-tvs/7931960/"/>
+      <property name="RS-Nr" value="793-1960"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="/home/beni/Projects/fabi/hardware/PCB/FABI_schematic.sch"/>
       <sheetpath names="/" tstamps="/"/>
-      <tstamp>5F3C6CE7</tstamp>
+      <tstamps>00000000-0000-0000-0000-00005f3c6ce7</tstamps>
+    </comp>
+    <comp ref="D12">
+      <value>SP0504BAHT</value>
+      <footprint>Package_TO_SOT_SMD:SOT-23-5</footprint>
+      <datasheet>http://www.littelfuse.com/~/media/files/littelfuse/technical%20resources/documents/data%20sheets/sp05xxba.pdf</datasheet>
+      <fields>
+        <field name="RS">https://at.rs-online.com/web/p/suppressordioden-tvs/7931960/</field>
+        <field name="RS-Nr">793-1960</field>
+      </fields>
+      <libsource lib="Power_Protection" part="SP0504BAHT" description="TVS Diode Array, 5.5V Standoff, 4 Channels, SOT-23-5 package"/>
+      <property name="RS" value="https://at.rs-online.com/web/p/suppressordioden-tvs/7931960/"/>
+      <property name="RS-Nr" value="793-1960"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="/home/beni/Projects/fabi/hardware/PCB/FABI_schematic.sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>00000000-0000-0000-0000-00005f3c5faa</tstamps>
+    </comp>
+    <comp ref="J1">
+      <value>AudioJack3_Ground</value>
+      <footprint>FABI_customLibs:FC68125</footprint>
+      <datasheet>https://docs.rs-online.com/db52/0900766b812d152e.pdf</datasheet>
+      <fields>
+        <field name="RS">https://at.rs-online.com/web/p/klinken-steckerbuchsen/8051655/</field>
+        <field name="RS-Nr">805-1655</field>
+      </fields>
+      <libsource lib="FABI_customLib" part="AudioJack3_Ground" description="Audio Jack, 3 Poles (Stereo / TRS), Grounded Sleeve"/>
+      <property name="RS" value="https://at.rs-online.com/web/p/klinken-steckerbuchsen/8051655/"/>
+      <property name="RS-Nr" value="805-1655"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="/home/beni/Projects/fabi/hardware/PCB/FABI_schematic.sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>00000000-0000-0000-0000-0000603f5a97</tstamps>
+    </comp>
+    <comp ref="J2">
+      <value>AudioJack3_Ground</value>
+      <footprint>FABI_customLibs:FC68125</footprint>
+      <datasheet>https://docs.rs-online.com/db52/0900766b812d152e.pdf</datasheet>
+      <fields>
+        <field name="RS">https://at.rs-online.com/web/p/klinken-steckerbuchsen/8051655/</field>
+        <field name="RS-Nr">805-1655</field>
+      </fields>
+      <libsource lib="FABI_customLib" part="AudioJack3_Ground" description="Audio Jack, 3 Poles (Stereo / TRS), Grounded Sleeve"/>
+      <property name="RS" value="https://at.rs-online.com/web/p/klinken-steckerbuchsen/8051655/"/>
+      <property name="RS-Nr" value="805-1655"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="/home/beni/Projects/fabi/hardware/PCB/FABI_schematic.sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>00000000-0000-0000-0000-00006045de6d</tstamps>
+    </comp>
+    <comp ref="J3">
+      <value>AudioJack3_Ground</value>
+      <footprint>FABI_customLibs:FC68125</footprint>
+      <datasheet>https://docs.rs-online.com/db52/0900766b812d152e.pdf</datasheet>
+      <fields>
+        <field name="RS">https://at.rs-online.com/web/p/klinken-steckerbuchsen/8051655/</field>
+        <field name="RS-Nr">805-1655</field>
+      </fields>
+      <libsource lib="FABI_customLib" part="AudioJack3_Ground" description="Audio Jack, 3 Poles (Stereo / TRS), Grounded Sleeve"/>
+      <property name="RS" value="https://at.rs-online.com/web/p/klinken-steckerbuchsen/8051655/"/>
+      <property name="RS-Nr" value="805-1655"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="/home/beni/Projects/fabi/hardware/PCB/FABI_schematic.sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>00000000-0000-0000-0000-000060469ad0</tstamps>
+    </comp>
+    <comp ref="J4">
+      <value>AudioJack3_Ground</value>
+      <footprint>FABI_customLibs:FC68125</footprint>
+      <datasheet>https://docs.rs-online.com/db52/0900766b812d152e.pdf</datasheet>
+      <fields>
+        <field name="RS">https://at.rs-online.com/web/p/klinken-steckerbuchsen/8051655/</field>
+        <field name="RS-Nr">805-1655</field>
+      </fields>
+      <libsource lib="FABI_customLib" part="AudioJack3_Ground" description="Audio Jack, 3 Poles (Stereo / TRS), Grounded Sleeve"/>
+      <property name="RS" value="https://at.rs-online.com/web/p/klinken-steckerbuchsen/8051655/"/>
+      <property name="RS-Nr" value="805-1655"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="/home/beni/Projects/fabi/hardware/PCB/FABI_schematic.sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>00000000-0000-0000-0000-00006046d83b</tstamps>
+    </comp>
+    <comp ref="J5">
+      <value>AudioJack3_Ground</value>
+      <footprint>FABI_customLibs:FC68125</footprint>
+      <datasheet>https://docs.rs-online.com/db52/0900766b812d152e.pdf</datasheet>
+      <fields>
+        <field name="RS">https://at.rs-online.com/web/p/klinken-steckerbuchsen/8051655/</field>
+        <field name="RS-Nr">805-1655</field>
+      </fields>
+      <libsource lib="FABI_customLib" part="AudioJack3_Ground" description="Audio Jack, 3 Poles (Stereo / TRS), Grounded Sleeve"/>
+      <property name="RS" value="https://at.rs-online.com/web/p/klinken-steckerbuchsen/8051655/"/>
+      <property name="RS-Nr" value="805-1655"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="/home/beni/Projects/fabi/hardware/PCB/FABI_schematic.sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>00000000-0000-0000-0000-0000604a6c5d</tstamps>
+    </comp>
+    <comp ref="J6">
+      <value>AudioJack3_Ground</value>
+      <footprint>FABI_customLibs:FC68125</footprint>
+      <datasheet>https://docs.rs-online.com/db52/0900766b812d152e.pdf</datasheet>
+      <fields>
+        <field name="RS">https://at.rs-online.com/web/p/klinken-steckerbuchsen/8051655/</field>
+        <field name="RS-Nr">805-1655</field>
+      </fields>
+      <libsource lib="FABI_customLib" part="AudioJack3_Ground" description="Audio Jack, 3 Poles (Stereo / TRS), Grounded Sleeve"/>
+      <property name="RS" value="https://at.rs-online.com/web/p/klinken-steckerbuchsen/8051655/"/>
+      <property name="RS-Nr" value="805-1655"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="/home/beni/Projects/fabi/hardware/PCB/FABI_schematic.sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>00000000-0000-0000-0000-0000604a6c7c</tstamps>
+    </comp>
+    <comp ref="J7">
+      <value>AudioJack3_Ground</value>
+      <footprint>FABI_customLibs:FC68125</footprint>
+      <datasheet>https://docs.rs-online.com/db52/0900766b812d152e.pdf</datasheet>
+      <fields>
+        <field name="RS">https://at.rs-online.com/web/p/klinken-steckerbuchsen/8051655/</field>
+        <field name="RS-Nr">805-1655</field>
+      </fields>
+      <libsource lib="FABI_customLib" part="AudioJack3_Ground" description="Audio Jack, 3 Poles (Stereo / TRS), Grounded Sleeve"/>
+      <property name="RS" value="https://at.rs-online.com/web/p/klinken-steckerbuchsen/8051655/"/>
+      <property name="RS-Nr" value="805-1655"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="/home/beni/Projects/fabi/hardware/PCB/FABI_schematic.sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>00000000-0000-0000-0000-0000604a6c9b</tstamps>
+    </comp>
+    <comp ref="J8">
+      <value>AudioJack3_Ground</value>
+      <footprint>FABI_customLibs:FC68125</footprint>
+      <datasheet>https://docs.rs-online.com/db52/0900766b812d152e.pdf</datasheet>
+      <fields>
+        <field name="RS">https://at.rs-online.com/web/p/klinken-steckerbuchsen/8051655/</field>
+        <field name="RS-Nr">805-1655</field>
+      </fields>
+      <libsource lib="FABI_customLib" part="AudioJack3_Ground" description="Audio Jack, 3 Poles (Stereo / TRS), Grounded Sleeve"/>
+      <property name="RS" value="https://at.rs-online.com/web/p/klinken-steckerbuchsen/8051655/"/>
+      <property name="RS-Nr" value="805-1655"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="/home/beni/Projects/fabi/hardware/PCB/FABI_schematic.sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>00000000-0000-0000-0000-0000604a6cba</tstamps>
     </comp>
     <comp ref="J9">
       <value>Conn_02x05_Odd_Even</value>
       <footprint>Connector_PinHeader_2.54mm:PinHeader_2x05_P2.54mm_Vertical</footprint>
-      <datasheet>~</datasheet>
       <fields>
-        <field name="RS">https://at.rs-online.com/web/p/leiterplatten-header/2518272/</field>
-        <field name="RS-components">251-8272</field>
+        <field name="RS">https://at.rs-online.com/web/p/leiterplatten-header/7457059/</field>
+        <field name="RS-Nr">745-7059</field>
       </fields>
       <libsource lib="Connector_Generic" part="Conn_02x05_Odd_Even" description="Generic connector, double row, 02x05, odd/even pin numbering scheme (row 1 odd numbers, row 2 even numbers), script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="RS" value="https://at.rs-online.com/web/p/leiterplatten-header/7457059/"/>
+      <property name="RS-Nr" value="745-7059"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="/home/beni/Projects/fabi/hardware/PCB/FABI_schematic.sch"/>
       <sheetpath names="/" tstamps="/"/>
-      <tstamp>5F49020A</tstamp>
-    </comp>
-    <comp ref="R8">
-      <value>4.7k</value>
-      <footprint>Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal</footprint>
-      <datasheet>~</datasheet>
-      <libsource lib="Device" part="R" description="Resistor"/>
-      <sheetpath names="/" tstamps="/"/>
-      <tstamp>601AB4BF</tstamp>
-    </comp>
-    <comp ref="D1">
-      <value>P6KE6.8A</value>
-      <footprint>Diode_THT:D_DO-201AE_P12.70mm_Horizontal</footprint>
-      <datasheet>https://www.vishay.com/docs/88301/15ke.pdf</datasheet>
-      <fields>
-        <field name="Farnell">1703028</field>
-        <field name="RS">https://at.rs-online.com/web/p/suppressordioden-tvs/1719669/</field>
-        <field name="RS-components">171-9669</field>
-      </fields>
-      <libsource lib="Diode" part="1.5KExxA" description="1500W unidirectional TRANSZORB® Transient Voltage Suppressor, DO-201AE"/>
-      <sheetpath names="/" tstamps="/"/>
-      <tstamp>5F3D9B1D</tstamp>
-    </comp>
-    <comp ref="C1">
-      <value>100n</value>
-      <footprint>Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P5.00mm</footprint>
-      <datasheet>~</datasheet>
-      <fields>
-        <field name="RS">https://at.rs-online.com/web/p/keramik-vielschichtkondensatoren/8523277/</field>
-      </fields>
-      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
-      <sheetpath names="/" tstamps="/"/>
-      <tstamp>601FACC9</tstamp>
-    </comp>
-    <comp ref="U1">
-      <value>MPXV7007GP</value>
-      <footprint>MPXV7007GP:MPXV7007GP</footprint>
-      <datasheet>http://www.nxp.com/files/sensors/doc/data_sheet/MPXA6115A.pdf</datasheet>
-      <fields>
-        <field name="Farnell">https://at.farnell.com/nxp/mpxv7007gp/drucksensor-7-7kpa-sop-8/dp/2776055</field>
-      </fields>
-      <libsource lib="Sensor_Pressure" part="MPXA6115A" description="Absolute pressure sensor, 15 to 115kPa, analog output, integrated signal conditioning, temperature compensated, SO package"/>
-      <sheetpath names="/" tstamps="/"/>
-      <tstamp>5F4DAB0A</tstamp>
-    </comp>
-    <comp ref="R_8">
-      <value>4.7k</value>
-      <footprint>Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder</footprint>
-      <datasheet>~</datasheet>
-      <libsource lib="Device" part="R" description="Resistor"/>
-      <sheetpath names="/" tstamps="/"/>
-      <tstamp>6037812A</tstamp>
-    </comp>
-    <comp ref="C_1">
-      <value>100n</value>
-      <footprint>Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder</footprint>
-      <datasheet>~</datasheet>
-      <fields>
-        <field name="Farnell">1327731</field>
-        <field name="RS">https://at.rs-online.com/web/p/keramik-vielschichtkondensatoren/1243314/</field>
-      </fields>
-      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
-      <sheetpath names="/" tstamps="/"/>
-      <tstamp>6021926D</tstamp>
+      <tstamps>00000000-0000-0000-0000-00005f49020a</tstamps>
     </comp>
     <comp ref="J10">
       <value>Conn_01x03_Male</value>
       <footprint>Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical</footprint>
-      <datasheet>~</datasheet>
       <fields>
         <field name="RS">https://at.rs-online.com/web/p/leiterplatten-header/2518092/</field>
-        <field name="RS-components">251-8092</field>
+        <field name="RS-Nr">251-8092</field>
       </fields>
       <libsource lib="Connector" part="Conn_01x03_Male" description="Generic connector, single row, 01x03, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="RS" value="https://at.rs-online.com/web/p/leiterplatten-header/2518092/"/>
+      <property name="RS-Nr" value="251-8092"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="/home/beni/Projects/fabi/hardware/PCB/FABI_schematic.sch"/>
       <sheetpath names="/" tstamps="/"/>
-      <tstamp>5F4DCE7D</tstamp>
-    </comp>
-    <comp ref="U2">
-      <value>ProMicro</value>
-      <footprint>FABI_customLibs:ProMicro</footprint>
-      <libsource lib="ProMicro" part="ProMicro" description=""/>
-      <sheetpath names="/" tstamps="/"/>
-      <tstamp>601F96F3</tstamp>
-    </comp>
-    <comp ref="R1">
-      <value>10k</value>
-      <footprint>Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal</footprint>
-      <datasheet>~</datasheet>
-      <libsource lib="Device" part="R" description="Resistor"/>
-      <sheetpath names="/" tstamps="/"/>
-      <tstamp>5F3C36EA</tstamp>
-    </comp>
-    <comp ref="R5">
-      <value>10k</value>
-      <footprint>Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal</footprint>
-      <datasheet>~</datasheet>
-      <libsource lib="Device" part="R" description="Resistor"/>
-      <sheetpath names="/" tstamps="/"/>
-      <tstamp>603348A8</tstamp>
-    </comp>
-    <comp ref="R_5">
-      <value>10k</value>
-      <footprint>Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder</footprint>
-      <datasheet>~</datasheet>
-      <libsource lib="Device" part="R" description="Resistor"/>
-      <sheetpath names="/" tstamps="/"/>
-      <tstamp>6032A458</tstamp>
-    </comp>
-    <comp ref="R_6">
-      <value>4.7k</value>
-      <footprint>Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder</footprint>
-      <datasheet>~</datasheet>
-      <libsource lib="Device" part="R" description="Resistor"/>
-      <sheetpath names="/" tstamps="/"/>
-      <tstamp>602F9FD4</tstamp>
-    </comp>
-    <comp ref="R_7">
-      <value>4.7k</value>
-      <footprint>Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder</footprint>
-      <datasheet>~</datasheet>
-      <libsource lib="Device" part="R" description="Resistor"/>
-      <sheetpath names="/" tstamps="/"/>
-      <tstamp>602F7E46</tstamp>
-    </comp>
-    <comp ref="R7">
-      <value>4.7k</value>
-      <footprint>Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal</footprint>
-      <datasheet>~</datasheet>
-      <libsource lib="Device" part="R" description="Resistor"/>
-      <sheetpath names="/" tstamps="/"/>
-      <tstamp>6031DA63</tstamp>
-    </comp>
-    <comp ref="R6">
-      <value>4.7k</value>
-      <footprint>Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal</footprint>
-      <datasheet>~</datasheet>
-      <libsource lib="Device" part="R" description="Resistor"/>
-      <sheetpath names="/" tstamps="/"/>
-      <tstamp>6031DA69</tstamp>
-    </comp>
-    <comp ref="J11_data1">
-      <value>Conn_01x01_Male</value>
-      <footprint>Connector_Wire:SolderWirePad_1x01_SMD_1x2mm</footprint>
-      <datasheet>~</datasheet>
-      <libsource lib="Connector" part="Conn_01x01_Male" description="Generic connector, single row, 01x01, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
-      <sheetpath names="/" tstamps="/"/>
-      <tstamp>6032D010</tstamp>
-    </comp>
-    <comp ref="J11_GND1">
-      <value>Conn_01x01_Male</value>
-      <footprint>Connector_Wire:SolderWirePad_1x01_SMD_1x2mm</footprint>
-      <datasheet>~</datasheet>
-      <libsource lib="Connector" part="Conn_01x01_Male" description="Generic connector, single row, 01x01, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
-      <sheetpath names="/" tstamps="/"/>
-      <tstamp>60327A50</tstamp>
-    </comp>
-    <comp ref="J11_VDD1">
-      <value>Conn_01x01_Male</value>
-      <footprint>Connector_Wire:SolderWirePad_1x01_SMD_1x2mm</footprint>
-      <datasheet>~</datasheet>
-      <libsource lib="Connector" part="Conn_01x01_Male" description="Generic connector, single row, 01x01, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
-      <sheetpath names="/" tstamps="/"/>
-      <tstamp>603306CD</tstamp>
-    </comp>
-    <comp ref="R_3">
-      <value>10k</value>
-      <footprint>Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder</footprint>
-      <datasheet>~</datasheet>
-      <libsource lib="Device" part="R" description="Resistor"/>
-      <sheetpath names="/" tstamps="/"/>
-      <tstamp>6021ABA9</tstamp>
-    </comp>
-    <comp ref="R_4">
-      <value>18k</value>
-      <footprint>Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder</footprint>
-      <datasheet>~</datasheet>
-      <libsource lib="Device" part="R" description="Resistor"/>
-      <sheetpath names="/" tstamps="/"/>
-      <tstamp>6021ABA3</tstamp>
-    </comp>
-    <comp ref="R3">
-      <value>10k</value>
-      <footprint>Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal</footprint>
-      <datasheet>~</datasheet>
-      <libsource lib="Device" part="R" description="Resistor"/>
-      <sheetpath names="/" tstamps="/"/>
-      <tstamp>6021AB94</tstamp>
-    </comp>
-    <comp ref="R4">
-      <value>18k</value>
-      <footprint>Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal</footprint>
-      <datasheet>~</datasheet>
-      <libsource lib="Device" part="R" description="Resistor"/>
-      <sheetpath names="/" tstamps="/"/>
-      <tstamp>6021AB8E</tstamp>
-    </comp>
-    <comp ref="J1">
-      <value>AudioJack3_Ground</value>
-      <footprint>SamacSys_Parts:FC68125</footprint>
-      <datasheet>https://docs.rs-online.com/db52/0900766b812d152e.pdf</datasheet>
-      <fields>
-        <field name="RS">https://at.rs-online.com/web/p/klinken-steckerbuchsen/8051655/</field>
-      </fields>
-      <libsource lib="FABI_customLib" part="AudioJack3_Ground" description="Audio Jack, 3 Poles (Stereo / TRS), Grounded Sleeve"/>
-      <sheetpath names="/" tstamps="/"/>
-      <tstamp>603F5A97</tstamp>
-    </comp>
-    <comp ref="D2">
-      <value>P6KE6.8A</value>
-      <footprint>Diode_THT:D_DO-201AE_P12.70mm_Horizontal</footprint>
-      <datasheet>https://www.vishay.com/docs/88301/15ke.pdf</datasheet>
-      <fields>
-        <field name="Farnell">1703028</field>
-        <field name="RS">https://at.rs-online.com/web/p/klinken-steckerbuchsen/8051655/</field>
-        <field name="RS-components">171-9669</field>
-      </fields>
-      <libsource lib="Diode" part="1.5KExxA" description="1500W unidirectional TRANSZORB® Transient Voltage Suppressor, DO-201AE"/>
-      <sheetpath names="/" tstamps="/"/>
-      <tstamp>6045DE65</tstamp>
-    </comp>
-    <comp ref="J2">
-      <value>AudioJack3_Ground</value>
-      <footprint>SamacSys_Parts:FC68125</footprint>
-      <datasheet>https://docs.rs-online.com/db52/0900766b812d152e.pdf</datasheet>
-      <fields>
-        <field name="RS">https://at.rs-online.com/web/p/klinken-steckerbuchsen/8051655/</field>
-      </fields>
-      <libsource lib="FABI_customLib" part="AudioJack3_Ground" description="Audio Jack, 3 Poles (Stereo / TRS), Grounded Sleeve"/>
-      <sheetpath names="/" tstamps="/"/>
-      <tstamp>6045DE6D</tstamp>
-    </comp>
-    <comp ref="D3">
-      <value>P6KE6.8A</value>
-      <footprint>Diode_THT:D_DO-201AE_P12.70mm_Horizontal</footprint>
-      <datasheet>https://www.vishay.com/docs/88301/15ke.pdf</datasheet>
-      <fields>
-        <field name="Farnell">1703028</field>
-        <field name="RS">https://at.rs-online.com/web/p/klinken-steckerbuchsen/8051655/</field>
-        <field name="RS-components">171-9669</field>
-      </fields>
-      <libsource lib="Diode" part="1.5KExxA" description="1500W unidirectional TRANSZORB® Transient Voltage Suppressor, DO-201AE"/>
-      <sheetpath names="/" tstamps="/"/>
-      <tstamp>60469AC8</tstamp>
-    </comp>
-    <comp ref="J3">
-      <value>AudioJack3_Ground</value>
-      <footprint>SamacSys_Parts:FC68125</footprint>
-      <datasheet>https://docs.rs-online.com/db52/0900766b812d152e.pdf</datasheet>
-      <fields>
-        <field name="RS">https://at.rs-online.com/web/p/klinken-steckerbuchsen/8051655/</field>
-      </fields>
-      <libsource lib="FABI_customLib" part="AudioJack3_Ground" description="Audio Jack, 3 Poles (Stereo / TRS), Grounded Sleeve"/>
-      <sheetpath names="/" tstamps="/"/>
-      <tstamp>60469AD0</tstamp>
-    </comp>
-    <comp ref="D4">
-      <value>P6KE6.8A</value>
-      <footprint>Diode_THT:D_DO-201AE_P12.70mm_Horizontal</footprint>
-      <datasheet>https://www.vishay.com/docs/88301/15ke.pdf</datasheet>
-      <fields>
-        <field name="Farnell">1703028</field>
-        <field name="RS">https://at.rs-online.com/web/p/klinken-steckerbuchsen/8051655/</field>
-        <field name="RS-components">171-9669</field>
-      </fields>
-      <libsource lib="Diode" part="1.5KExxA" description="1500W unidirectional TRANSZORB® Transient Voltage Suppressor, DO-201AE"/>
-      <sheetpath names="/" tstamps="/"/>
-      <tstamp>6046D833</tstamp>
-    </comp>
-    <comp ref="J4">
-      <value>AudioJack3_Ground</value>
-      <footprint>SamacSys_Parts:FC68125</footprint>
-      <datasheet>https://docs.rs-online.com/db52/0900766b812d152e.pdf</datasheet>
-      <fields>
-        <field name="RS">https://at.rs-online.com/web/p/klinken-steckerbuchsen/8051655/</field>
-      </fields>
-      <libsource lib="FABI_customLib" part="AudioJack3_Ground" description="Audio Jack, 3 Poles (Stereo / TRS), Grounded Sleeve"/>
-      <sheetpath names="/" tstamps="/"/>
-      <tstamp>6046D83B</tstamp>
-    </comp>
-    <comp ref="D5">
-      <value>P6KE6.8A</value>
-      <footprint>Diode_THT:D_DO-201AE_P12.70mm_Horizontal</footprint>
-      <datasheet>https://www.vishay.com/docs/88301/15ke.pdf</datasheet>
-      <fields>
-        <field name="Farnell">1703028</field>
-        <field name="RS">https://at.rs-online.com/web/p/klinken-steckerbuchsen/8051655/</field>
-        <field name="RS-components">171-9669</field>
-      </fields>
-      <libsource lib="Diode" part="1.5KExxA" description="1500W unidirectional TRANSZORB® Transient Voltage Suppressor, DO-201AE"/>
-      <sheetpath names="/" tstamps="/"/>
-      <tstamp>604A6C55</tstamp>
-    </comp>
-    <comp ref="J5">
-      <value>AudioJack3_Ground</value>
-      <footprint>SamacSys_Parts:FC68125</footprint>
-      <datasheet>https://docs.rs-online.com/db52/0900766b812d152e.pdf</datasheet>
-      <fields>
-        <field name="RS">https://at.rs-online.com/web/p/klinken-steckerbuchsen/8051655/</field>
-      </fields>
-      <libsource lib="FABI_customLib" part="AudioJack3_Ground" description="Audio Jack, 3 Poles (Stereo / TRS), Grounded Sleeve"/>
-      <sheetpath names="/" tstamps="/"/>
-      <tstamp>604A6C5D</tstamp>
-    </comp>
-    <comp ref="D6">
-      <value>P6KE6.8A</value>
-      <footprint>Diode_THT:D_DO-201AE_P12.70mm_Horizontal</footprint>
-      <datasheet>https://www.vishay.com/docs/88301/15ke.pdf</datasheet>
-      <fields>
-        <field name="Farnell">1703028</field>
-        <field name="RS">https://at.rs-online.com/web/p/klinken-steckerbuchsen/8051655/</field>
-        <field name="RS-components">171-9669</field>
-      </fields>
-      <libsource lib="Diode" part="1.5KExxA" description="1500W unidirectional TRANSZORB® Transient Voltage Suppressor, DO-201AE"/>
-      <sheetpath names="/" tstamps="/"/>
-      <tstamp>604A6C74</tstamp>
-    </comp>
-    <comp ref="J6">
-      <value>AudioJack3_Ground</value>
-      <footprint>SamacSys_Parts:FC68125</footprint>
-      <datasheet>https://docs.rs-online.com/db52/0900766b812d152e.pdf</datasheet>
-      <fields>
-        <field name="RS">https://at.rs-online.com/web/p/klinken-steckerbuchsen/8051655/</field>
-      </fields>
-      <libsource lib="FABI_customLib" part="AudioJack3_Ground" description="Audio Jack, 3 Poles (Stereo / TRS), Grounded Sleeve"/>
-      <sheetpath names="/" tstamps="/"/>
-      <tstamp>604A6C7C</tstamp>
-    </comp>
-    <comp ref="D7">
-      <value>P6KE6.8A</value>
-      <footprint>Diode_THT:D_DO-201AE_P12.70mm_Horizontal</footprint>
-      <datasheet>https://www.vishay.com/docs/88301/15ke.pdf</datasheet>
-      <fields>
-        <field name="Farnell">1703028</field>
-        <field name="RS">https://at.rs-online.com/web/p/klinken-steckerbuchsen/8051655/</field>
-        <field name="RS-components">171-9669</field>
-      </fields>
-      <libsource lib="Diode" part="1.5KExxA" description="1500W unidirectional TRANSZORB® Transient Voltage Suppressor, DO-201AE"/>
-      <sheetpath names="/" tstamps="/"/>
-      <tstamp>604A6C93</tstamp>
-    </comp>
-    <comp ref="J7">
-      <value>AudioJack3_Ground</value>
-      <footprint>SamacSys_Parts:FC68125</footprint>
-      <datasheet>https://docs.rs-online.com/db52/0900766b812d152e.pdf</datasheet>
-      <fields>
-        <field name="RS">https://at.rs-online.com/web/p/klinken-steckerbuchsen/8051655/</field>
-      </fields>
-      <libsource lib="FABI_customLib" part="AudioJack3_Ground" description="Audio Jack, 3 Poles (Stereo / TRS), Grounded Sleeve"/>
-      <sheetpath names="/" tstamps="/"/>
-      <tstamp>604A6C9B</tstamp>
-    </comp>
-    <comp ref="D8">
-      <value>P6KE6.8A</value>
-      <footprint>Diode_THT:D_DO-201AE_P12.70mm_Horizontal</footprint>
-      <datasheet>https://www.vishay.com/docs/88301/15ke.pdf</datasheet>
-      <fields>
-        <field name="Farnell">1703028</field>
-        <field name="RS">https://at.rs-online.com/web/p/klinken-steckerbuchsen/8051655/</field>
-        <field name="RS-components">171-9669</field>
-      </fields>
-      <libsource lib="Diode" part="1.5KExxA" description="1500W unidirectional TRANSZORB® Transient Voltage Suppressor, DO-201AE"/>
-      <sheetpath names="/" tstamps="/"/>
-      <tstamp>604A6CB2</tstamp>
-    </comp>
-    <comp ref="J8">
-      <value>AudioJack3_Ground</value>
-      <footprint>SamacSys_Parts:FC68125</footprint>
-      <datasheet>https://docs.rs-online.com/db52/0900766b812d152e.pdf</datasheet>
-      <fields>
-        <field name="RS">https://at.rs-online.com/web/p/klinken-steckerbuchsen/8051655/</field>
-      </fields>
-      <libsource lib="FABI_customLib" part="AudioJack3_Ground" description="Audio Jack, 3 Poles (Stereo / TRS), Grounded Sleeve"/>
-      <sheetpath names="/" tstamps="/"/>
-      <tstamp>604A6CBA</tstamp>
-    </comp>
-    <comp ref="bzr1">
-      <value>Buzzer</value>
-      <footprint>Buzzer_Beeper:Buzzer_12x9.5RM7.6</footprint>
-      <datasheet>https://docs.rs-online.com/f4c8/0900766b811685fc.pdf</datasheet>
-      <fields>
-        <field name="RS">https://at.rs-online.com/web/p/elektro-magnetische-buzzer/7716957/</field>
-        <field name="RS-components">771-6957</field>
-      </fields>
-      <libsource lib="Device" part="Buzzer" description="Buzzer, polarized"/>
-      <sheetpath names="/" tstamps="/"/>
-      <tstamp>6039FDDB</tstamp>
+      <tstamps>00000000-0000-0000-0000-00005f4dce7d</tstamps>
     </comp>
     <comp ref="J11">
-      <value>dispaly_connector_91601-304LF</value>
+      <value>display_connector_91601-304LF</value>
       <footprint>FABI_customLibs:91601304LF</footprint>
       <datasheet>http://www.mouser.com/datasheet/2/18/91601-1289404.pdf</datasheet>
       <fields>
@@ -474,10 +432,313 @@
         <field name="Mouser Part Number">649-91601-304LF</field>
         <field name="Mouser Price/Stock">https://www.mouser.com/Search/Refine.aspx?Keyword=649-91601-304LF</field>
         <field name="RS">https://at.rs-online.com/web/p/leiterplatten-buchsen/6737405/</field>
+        <field name="RS-Nr">673-7405</field>
       </fields>
       <libsource lib="FABI_customLib" part="dispaly_connector_91601-304LF" description="Dubox 2.54mm, Board to Board Connector, PCB Mounted Receptacle, Vertical , Surface Mount, Dual Entry ,Single row , 4 Positions, 2.54mm (0.100in) Pitch"/>
+      <property name="Description" value="Dubox 2.54mm, Board to Board Connector, PCB Mounted Receptacle, Vertical , Surface Mount, Dual Entry ,Single row , 4 Positions, 2.54mm (0.100in) Pitch"/>
+      <property name="Height" value="8"/>
+      <property name="Mouser Part Number" value="649-91601-304LF"/>
+      <property name="Mouser Price/Stock" value="https://www.mouser.com/Search/Refine.aspx?Keyword=649-91601-304LF"/>
+      <property name="Manufacturer_Name" value="Amphenol"/>
+      <property name="Manufacturer_Part_Number" value="91601-304LF"/>
+      <property name="RS" value="https://at.rs-online.com/web/p/leiterplatten-buchsen/6737405/"/>
+      <property name="RS-Nr" value="673-7405"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="/home/beni/Projects/fabi/hardware/PCB/FABI_schematic.sch"/>
       <sheetpath names="/" tstamps="/"/>
-      <tstamp>603EB941</tstamp>
+      <tstamps>00000000-0000-0000-0000-0000603eb941</tstamps>
+    </comp>
+    <comp ref="J11_data1">
+      <value>Conn_01x01_Male</value>
+      <footprint>Connector_Wire:SolderWirePad_1x01_SMD_1x2mm</footprint>
+      <libsource lib="Connector" part="Conn_01x01_Male" description="Generic connector, single row, 01x01, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="/home/beni/Projects/fabi/hardware/PCB/FABI_schematic.sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>00000000-0000-0000-0000-00006032d010</tstamps>
+    </comp>
+    <comp ref="J11_GND1">
+      <value>Conn_01x01_Male</value>
+      <footprint>Connector_Wire:SolderWirePad_1x01_SMD_1x2mm</footprint>
+      <libsource lib="Connector" part="Conn_01x01_Male" description="Generic connector, single row, 01x01, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="/home/beni/Projects/fabi/hardware/PCB/FABI_schematic.sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>00000000-0000-0000-0000-000060327a50</tstamps>
+    </comp>
+    <comp ref="J11_VDD1">
+      <value>Conn_01x01_Male</value>
+      <footprint>Connector_Wire:SolderWirePad_1x01_SMD_1x2mm</footprint>
+      <libsource lib="Connector" part="Conn_01x01_Male" description="Generic connector, single row, 01x01, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="/home/beni/Projects/fabi/hardware/PCB/FABI_schematic.sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>00000000-0000-0000-0000-0000603306cd</tstamps>
+    </comp>
+    <comp ref="R1">
+      <value>10k</value>
+      <footprint>Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal</footprint>
+      <fields>
+        <field name="RS">https://at.rs-online.com/web/p/widerstande-durchsteckmontage/1650369/</field>
+        <field name="RS-Nr">165-0369</field>
+      </fields>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <property name="RS" value="https://at.rs-online.com/web/p/widerstande-durchsteckmontage/1650369/"/>
+      <property name="RS-Nr" value="165-0369"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="/home/beni/Projects/fabi/hardware/PCB/FABI_schematic.sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>00000000-0000-0000-0000-00005f3c36ea</tstamps>
+    </comp>
+    <comp ref="R2">
+      <value>18k</value>
+      <footprint>Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal</footprint>
+      <fields>
+        <field name="RS">https://at.rs-online.com/web/p/widerstande-durchsteckmontage/1997554/</field>
+        <field name="RS-Nr">199-7554</field>
+      </fields>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <property name="RS" value="https://at.rs-online.com/web/p/widerstande-durchsteckmontage/1997554/"/>
+      <property name="RS-Nr" value="199-7554"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="/home/beni/Projects/fabi/hardware/PCB/FABI_schematic.sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>00000000-0000-0000-0000-00005f3c349e</tstamps>
+    </comp>
+    <comp ref="R3">
+      <value>10k</value>
+      <footprint>Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal</footprint>
+      <fields>
+        <field name="RS">https://at.rs-online.com/web/p/widerstande-durchsteckmontage/1650369/</field>
+        <field name="RS-Nr">165-0369</field>
+      </fields>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <property name="RS" value="https://at.rs-online.com/web/p/widerstande-durchsteckmontage/1650369/"/>
+      <property name="RS-Nr" value="165-0369"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="/home/beni/Projects/fabi/hardware/PCB/FABI_schematic.sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>00000000-0000-0000-0000-00006021ab94</tstamps>
+    </comp>
+    <comp ref="R4">
+      <value>18k</value>
+      <footprint>Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal</footprint>
+      <fields>
+        <field name="RS">https://at.rs-online.com/web/p/widerstande-durchsteckmontage/1997554/</field>
+        <field name="RS-Nr">199-7554</field>
+      </fields>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <property name="RS" value="https://at.rs-online.com/web/p/widerstande-durchsteckmontage/1997554/"/>
+      <property name="RS-Nr" value="199-7554"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="/home/beni/Projects/fabi/hardware/PCB/FABI_schematic.sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>00000000-0000-0000-0000-00006021ab8e</tstamps>
+    </comp>
+    <comp ref="R5">
+      <value>10k</value>
+      <footprint>Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal</footprint>
+      <fields>
+        <field name="RS">https://at.rs-online.com/web/p/widerstande-durchsteckmontage/1650369/</field>
+        <field name="RS-Nr">165-0369</field>
+      </fields>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <property name="RS" value="https://at.rs-online.com/web/p/widerstande-durchsteckmontage/1650369/"/>
+      <property name="RS-Nr" value="165-0369"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="/home/beni/Projects/fabi/hardware/PCB/FABI_schematic.sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>00000000-0000-0000-0000-0000603348a8</tstamps>
+    </comp>
+    <comp ref="R6">
+      <value>10k</value>
+      <footprint>Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal</footprint>
+      <fields>
+        <field name="RS">https://at.rs-online.com/web/p/widerstande-durchsteckmontage/1650369/</field>
+        <field name="RS-Nr">165-0369</field>
+      </fields>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <property name="RS" value="https://at.rs-online.com/web/p/widerstande-durchsteckmontage/1650369/"/>
+      <property name="RS-Nr" value="165-0369"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="/home/beni/Projects/fabi/hardware/PCB/FABI_schematic.sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>00000000-0000-0000-0000-00006076fbc9</tstamps>
+    </comp>
+    <comp ref="R7">
+      <value>10k</value>
+      <footprint>Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal</footprint>
+      <fields>
+        <field name="RS">https://at.rs-online.com/web/p/widerstande-durchsteckmontage/1650369/</field>
+        <field name="RS-Nr">165-0369</field>
+      </fields>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <property name="RS" value="https://at.rs-online.com/web/p/widerstande-durchsteckmontage/1650369/"/>
+      <property name="RS-Nr" value="165-0369"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="/home/beni/Projects/fabi/hardware/PCB/FABI_schematic.sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>00000000-0000-0000-0000-00006076abe6</tstamps>
+    </comp>
+    <comp ref="R8">
+      <value>200</value>
+      <footprint>Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal</footprint>
+      <fields>
+        <field name="RS">https://at.rs-online.com/web/p/widerstande-durchsteckmontage/6833281/</field>
+        <field name="RS-Nr">683-3281</field>
+      </fields>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <property name="RS" value="https://at.rs-online.com/web/p/widerstande-durchsteckmontage/6833281/"/>
+      <property name="RS-Nr" value="683-3281"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="/home/beni/Projects/fabi/hardware/PCB/FABI_schematic.sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>00000000-0000-0000-0000-0000601ab4bf</tstamps>
+    </comp>
+    <comp ref="R_1">
+      <value>10k</value>
+      <footprint>Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder</footprint>
+      <fields>
+        <field name="RS">https://at.rs-online.com/web/p/smd-widerstande/8123375/</field>
+        <field name="RS-Nr">812-3375</field>
+      </fields>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <property name="RS" value="https://at.rs-online.com/web/p/smd-widerstande/8123375/"/>
+      <property name="RS-Nr" value="812-3375"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="/home/beni/Projects/fabi/hardware/PCB/FABI_schematic.sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>00000000-0000-0000-0000-00005f39fbce</tstamps>
+    </comp>
+    <comp ref="R_2">
+      <value>18k</value>
+      <footprint>Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder</footprint>
+      <fields>
+        <field name="RS">https://at.rs-online.com/web/p/smd-widerstande/9059694/</field>
+        <field name="RS-Nr">905-9694</field>
+      </fields>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <property name="RS" value="https://at.rs-online.com/web/p/smd-widerstande/9059694/"/>
+      <property name="RS-Nr" value="905-9694"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="/home/beni/Projects/fabi/hardware/PCB/FABI_schematic.sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>00000000-0000-0000-0000-00005f39fbc8</tstamps>
+    </comp>
+    <comp ref="R_3">
+      <value>10k</value>
+      <footprint>Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder</footprint>
+      <fields>
+        <field name="RS">https://at.rs-online.com/web/p/smd-widerstande/8123375/</field>
+        <field name="RS-Nr">812-3375</field>
+      </fields>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <property name="RS" value="https://at.rs-online.com/web/p/smd-widerstande/8123375/"/>
+      <property name="RS-Nr" value="812-3375"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="/home/beni/Projects/fabi/hardware/PCB/FABI_schematic.sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>00000000-0000-0000-0000-00006021aba9</tstamps>
+    </comp>
+    <comp ref="R_4">
+      <value>18k</value>
+      <footprint>Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder</footprint>
+      <fields>
+        <field name="RS">https://at.rs-online.com/web/p/smd-widerstande/9059694/</field>
+        <field name="RS-Nr">905-9694</field>
+      </fields>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <property name="RS" value="https://at.rs-online.com/web/p/smd-widerstande/9059694/"/>
+      <property name="RS-Nr" value="905-9694"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="/home/beni/Projects/fabi/hardware/PCB/FABI_schematic.sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>00000000-0000-0000-0000-00006021aba3</tstamps>
+    </comp>
+    <comp ref="R_5">
+      <value>10k</value>
+      <footprint>Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder</footprint>
+      <fields>
+        <field name="RS">https://at.rs-online.com/web/p/smd-widerstande/8123375/</field>
+        <field name="RS-Nr">812-3375</field>
+      </fields>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <property name="RS" value="https://at.rs-online.com/web/p/smd-widerstande/8123375/"/>
+      <property name="RS-Nr" value="812-3375"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="/home/beni/Projects/fabi/hardware/PCB/FABI_schematic.sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>00000000-0000-0000-0000-00006032a458</tstamps>
+    </comp>
+    <comp ref="R_6">
+      <value>10k</value>
+      <footprint>Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder</footprint>
+      <fields>
+        <field name="RS">https://at.rs-online.com/web/p/smd-widerstande/8123375/</field>
+        <field name="RS-Nr">812-3375</field>
+      </fields>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <property name="RS" value="https://at.rs-online.com/web/p/smd-widerstande/8123375/"/>
+      <property name="RS-Nr" value="812-3375"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="/home/beni/Projects/fabi/hardware/PCB/FABI_schematic.sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>00000000-0000-0000-0000-00006074fd21</tstamps>
+    </comp>
+    <comp ref="R_7">
+      <value>10k</value>
+      <footprint>Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder</footprint>
+      <fields>
+        <field name="RS">https://at.rs-online.com/web/p/smd-widerstande/8123375/</field>
+        <field name="RS-Nr">812-3375</field>
+      </fields>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <property name="RS" value="https://at.rs-online.com/web/p/smd-widerstande/8123375/"/>
+      <property name="RS-Nr" value="812-3375"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="/home/beni/Projects/fabi/hardware/PCB/FABI_schematic.sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>00000000-0000-0000-0000-00006074582f</tstamps>
+    </comp>
+    <comp ref="R_8">
+      <value>200</value>
+      <footprint>Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder</footprint>
+      <fields>
+        <field name="RS">https://at.rs-online.com/web/p/smd-widerstande/8101741/</field>
+        <field name="RS-Nr">810-1741</field>
+      </fields>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <property name="RS" value="https://at.rs-online.com/web/p/smd-widerstande/8101741/"/>
+      <property name="RS-Nr" value="810-1741"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="/home/beni/Projects/fabi/hardware/PCB/FABI_schematic.sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>00000000-0000-0000-0000-00006037812a</tstamps>
+    </comp>
+    <comp ref="U1">
+      <value>MPXV7007GP</value>
+      <footprint>MPXV7007GP:MPXV7007GP</footprint>
+      <datasheet>http://www.nxp.com/files/sensors/doc/data_sheet/MPXA6115A.pdf</datasheet>
+      <fields>
+        <field name="Farnell">https://at.farnell.com/nxp/mpxv7007gp/drucksensor-7-7kpa-sop-8/dp/2776055</field>
+        <field name="Farnell-Nr">2776055</field>
+      </fields>
+      <libsource lib="Sensor_Pressure" part="MPXA6115A" description="Absolute pressure sensor, 15 to 115kPa, analog output, integrated signal conditioning, temperature compensated, SO package"/>
+      <property name="Farnell" value="https://at.farnell.com/nxp/mpxv7007gp/drucksensor-7-7kpa-sop-8/dp/2776055"/>
+      <property name="Farnell-Nr" value="2776055"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="/home/beni/Projects/fabi/hardware/PCB/FABI_schematic.sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>00000000-0000-0000-0000-00005f4dab0a</tstamps>
+    </comp>
+    <comp ref="U2">
+      <value>ProMicro</value>
+      <footprint>FABI_customLibs:ProMicro</footprint>
+      <libsource lib="ProMicro" part="ProMicro" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="/home/beni/Projects/fabi/hardware/PCB/FABI_schematic.sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>00000000-0000-0000-0000-0000601f96f3</tstamps>
     </comp>
   </components>
   <libparts>
@@ -490,6 +751,7 @@
       <fields>
         <field name="Reference">J</field>
         <field name="Value">Conn_01x01_Male</field>
+        <field name="Datasheet">~</field>
       </fields>
       <pins>
         <pin num="1" name="Pin_1" type="passive"/>
@@ -504,6 +766,7 @@
       <fields>
         <field name="Reference">J</field>
         <field name="Value">Conn_01x03_Male</field>
+        <field name="Datasheet">~</field>
       </fields>
       <pins>
         <pin num="1" name="Pin_1" type="passive"/>
@@ -520,6 +783,7 @@
       <fields>
         <field name="Reference">J</field>
         <field name="Value">Conn_02x05_Odd_Even</field>
+        <field name="Datasheet">~</field>
       </fields>
       <pins>
         <pin num="1" name="Pin_1" type="passive"/>
@@ -543,6 +807,7 @@
       <fields>
         <field name="Reference">BZ</field>
         <field name="Value">Buzzer</field>
+        <field name="Datasheet">~</field>
       </fields>
       <pins>
         <pin num="1" name="-" type="passive"/>
@@ -558,10 +823,11 @@
       <fields>
         <field name="Reference">C</field>
         <field name="Value">C</field>
+        <field name="Datasheet">~</field>
       </fields>
       <pins>
-        <pin num="1" name="~" type="passive"/>
-        <pin num="2" name="~" type="passive"/>
+        <pin num="1" name="" type="passive"/>
+        <pin num="2" name="" type="passive"/>
       </pins>
     </libpart>
     <libpart lib="Device" part="R">
@@ -573,17 +839,14 @@
       <fields>
         <field name="Reference">R</field>
         <field name="Value">R</field>
+        <field name="Datasheet">~</field>
       </fields>
       <pins>
-        <pin num="1" name="~" type="passive"/>
-        <pin num="2" name="~" type="passive"/>
+        <pin num="1" name="" type="passive"/>
+        <pin num="2" name="" type="passive"/>
       </pins>
     </libpart>
     <libpart lib="Diode" part="1.5KExxA">
-      <aliases>
-        <alias>1N62xxA</alias>
-        <alias>1N630xA</alias>
-      </aliases>
       <description>1500W unidirectional TRANSZORB® Transient Voltage Suppressor, DO-201AE</description>
       <docs>https://www.vishay.com/docs/88301/15ke.pdf</docs>
       <footprints>
@@ -593,6 +856,7 @@
         <field name="Reference">D</field>
         <field name="Value">1.5KExxA</field>
         <field name="Footprint">Diode_THT:D_DO-201AE_P15.24mm_Horizontal</field>
+        <field name="Datasheet">https://www.vishay.com/docs/88301/15ke.pdf</field>
       </fields>
       <pins>
         <pin num="1" name="A1" type="passive"/>
@@ -608,12 +872,13 @@
       <fields>
         <field name="Reference">J</field>
         <field name="Value">AudioJack3_Ground</field>
+        <field name="Datasheet">~</field>
       </fields>
       <pins>
-        <pin num="1S" name="~" type="passive"/>
-        <pin num="2R" name="~" type="passive"/>
-        <pin num="3T" name="~" type="passive"/>
-        <pin num="6SR" name="~" type="passive"/>
+        <pin num="1S" name="" type="passive"/>
+        <pin num="2R" name="" type="passive"/>
+        <pin num="3T" name="" type="passive"/>
+        <pin num="6SR" name="" type="passive"/>
       </pins>
     </libpart>
     <libpart lib="FABI_customLib" part="dispaly_connector_91601-304LF">
@@ -648,6 +913,7 @@
         <field name="Reference">D</field>
         <field name="Value">SP0504BAHT</field>
         <field name="Footprint">Package_TO_SOT_SMD:SOT-23-5</field>
+        <field name="Datasheet">http://www.littelfuse.com/~/media/files/littelfuse/technical%20resources/documents/data%20sheets/sp05xxba.pdf</field>
       </fields>
       <pins>
         <pin num="1" name="K" type="passive"/>
@@ -663,26 +929,26 @@
         <field name="Value">ProMicro</field>
       </fields>
       <pins>
-        <pin num="1" name="TX" type="BiDi"/>
-        <pin num="2" name="RX" type="BiDi"/>
+        <pin num="1" name="TX" type="bidirectional"/>
+        <pin num="2" name="RX" type="bidirectional"/>
         <pin num="3" name="GND" type="power_in"/>
         <pin num="4" name="GND" type="power_in"/>
-        <pin num="5" name="SDA" type="BiDi"/>
-        <pin num="6" name="SCL" type="BiDi"/>
-        <pin num="7" name="D4/A6(PD4)" type="BiDi"/>
-        <pin num="8" name="D5(PC6)" type="BiDi"/>
-        <pin num="9" name="D6/A7(PD7)" type="BiDi"/>
-        <pin num="10" name="D7(PE6)" type="BiDi"/>
-        <pin num="11" name="D8/A8(PB4)" type="BiDi"/>
-        <pin num="12" name="D9/A9(PB5)" type="BiDi"/>
-        <pin num="13" name="D10/A10(PB6)" type="BiDi"/>
-        <pin num="14" name="D16/MOSI(PB2)" type="BiDi"/>
-        <pin num="15" name="D14/MISO(PB3)" type="BiDi"/>
-        <pin num="16" name="D15/SCLK(PB1)" type="BiDi"/>
-        <pin num="17" name="D18/A0(PF7)" type="BiDi"/>
-        <pin num="18" name="D19/A1(PF6)" type="BiDi"/>
-        <pin num="19" name="D20/A2(PF5)" type="BiDi"/>
-        <pin num="20" name="D21/A3(PF4)" type="BiDi"/>
+        <pin num="5" name="SDA" type="bidirectional"/>
+        <pin num="6" name="SCL" type="bidirectional"/>
+        <pin num="7" name="D4/A6(PD4)" type="bidirectional"/>
+        <pin num="8" name="D5(PC6)" type="bidirectional"/>
+        <pin num="9" name="D6/A7(PD7)" type="bidirectional"/>
+        <pin num="10" name="D7(PE6)" type="bidirectional"/>
+        <pin num="11" name="D8/A8(PB4)" type="bidirectional"/>
+        <pin num="12" name="D9/A9(PB5)" type="bidirectional"/>
+        <pin num="13" name="D10/A10(PB6)" type="bidirectional"/>
+        <pin num="14" name="D16/MOSI(PB2)" type="bidirectional"/>
+        <pin num="15" name="D14/MISO(PB3)" type="bidirectional"/>
+        <pin num="16" name="D15/SCLK(PB1)" type="bidirectional"/>
+        <pin num="17" name="D18/A0(PF7)" type="bidirectional"/>
+        <pin num="18" name="D19/A1(PF6)" type="bidirectional"/>
+        <pin num="19" name="D20/A2(PF5)" type="bidirectional"/>
+        <pin num="20" name="D21/A3(PF4)" type="bidirectional"/>
         <pin num="21" name="VCC" type="power_in"/>
         <pin num="22" name="RST" type="input"/>
         <pin num="23" name="GND" type="power_in"/>
@@ -690,301 +956,297 @@
       </pins>
     </libpart>
     <libpart lib="Sensor_Pressure" part="MPXA6115A">
-      <aliases>
-        <alias>MPXAZ6115A</alias>
-        <alias>MPXH6115A</alias>
-        <alias>MPXHZ6115A</alias>
-      </aliases>
       <description>Absolute pressure sensor, 15 to 115kPa, analog output, integrated signal conditioning, temperature compensated, SO package</description>
       <docs>http://www.nxp.com/files/sensors/doc/data_sheet/MPXA6115A.pdf</docs>
       <fields>
         <field name="Reference">U</field>
         <field name="Value">MPXA6115A</field>
+        <field name="Datasheet">http://www.nxp.com/files/sensors/doc/data_sheet/MPXA6115A.pdf</field>
       </fields>
       <pins>
-        <pin num="1" name="NC" type="NotConnected"/>
+        <pin num="1" name="NC" type="no_connect"/>
         <pin num="2" name="Vcc" type="power_in"/>
         <pin num="3" name="GND" type="power_in"/>
         <pin num="4" name="Vout" type="output"/>
-        <pin num="5" name="NC" type="NotConnected"/>
-        <pin num="6" name="NC" type="NotConnected"/>
-        <pin num="7" name="NC" type="NotConnected"/>
-        <pin num="8" name="NC" type="NotConnected"/>
+        <pin num="5" name="NC" type="no_connect"/>
+        <pin num="6" name="NC" type="no_connect"/>
+        <pin num="7" name="NC" type="no_connect"/>
+        <pin num="8" name="NC" type="no_connect"/>
       </pins>
     </libpart>
   </libparts>
   <libraries>
     <library logical="Connector">
-      <uri>E:\Programme (x86)\KiCad\share\kicad\library/Connector.lib</uri>
+      <uri>/usr/share/kicad/symbols//Connector.kicad_sym</uri>
     </library>
     <library logical="Connector_Generic">
-      <uri>E:\Programme (x86)\KiCad\share\kicad\library/Connector_Generic.lib</uri>
+      <uri>/usr/share/kicad/symbols//Connector_Generic.kicad_sym</uri>
     </library>
     <library logical="Device">
-      <uri>E:\Programme (x86)\KiCad\share\kicad\library/Device.lib</uri>
+      <uri>/usr/share/kicad/symbols//Device.kicad_sym</uri>
     </library>
     <library logical="Diode">
-      <uri>E:\Programme (x86)\KiCad\share\kicad\library/Diode.lib</uri>
+      <uri>/usr/share/kicad/symbols//Diode.kicad_sym</uri>
     </library>
     <library logical="FABI_customLib">
-      <uri>E:\daten_2012_11_16\eigene_dokumente\FH\FH\Internship\Git\hardware\PCB/FABI_customLib.lib</uri>
+      <uri>/home/beni/Projects/fabi/hardware/PCB/FABI_customLib.lib</uri>
     </library>
     <library logical="Power_Protection">
-      <uri>E:\Programme (x86)\KiCad\share\kicad\library/Power_Protection.lib</uri>
+      <uri>/usr/share/kicad/symbols//Power_Protection.kicad_sym</uri>
     </library>
     <library logical="ProMicro">
-      <uri>E:\daten_2012_11_16\eigene_dokumente\FH\FH\Internship\Git\hardware\PCB/kicad_libs/ProMicro-symbol/ProMicro.lib</uri>
+      <uri>/home/beni/Projects/fabi/hardware/PCB/kicad_libs/ProMicro-symbol/ProMicro.lib</uri>
     </library>
     <library logical="Sensor_Pressure">
-      <uri>E:\Programme (x86)\KiCad\share\kicad\library/Sensor_Pressure.lib</uri>
+      <uri>/usr/share/kicad/symbols//Sensor_Pressure.kicad_sym</uri>
     </library>
   </libraries>
   <nets>
-    <net code="1" name="Net-(J2-Pad2R)">
-      <node ref="J2" pin="2R"/>
+    <net code="1" name="AUX_1">
+      <node ref="D1" pin="1" pinfunction="A1" pintype="passive"/>
+      <node ref="D11" pin="5" pinfunction="K" pintype="passive"/>
+      <node ref="J1" pin="3T" pintype="passive"/>
+      <node ref="U2" pin="12" pinfunction="D9/A9(PB5)" pintype="bidirectional"/>
     </net>
     <net code="2" name="AUX_2">
-      <node ref="D2" pin="1"/>
-      <node ref="D11" pin="1"/>
-      <node ref="U2" pin="11"/>
-      <node ref="J2" pin="3T"/>
+      <node ref="D11" pin="1" pinfunction="K" pintype="passive"/>
+      <node ref="D2" pin="1" pinfunction="A1" pintype="passive"/>
+      <node ref="J2" pin="3T" pintype="passive"/>
+      <node ref="U2" pin="11" pinfunction="D8/A8(PB4)" pintype="bidirectional"/>
     </net>
-    <net code="3" name="GND">
-      <node ref="D4" pin="2"/>
-      <node ref="J4" pin="1S"/>
-      <node ref="J5" pin="1S"/>
-      <node ref="J6" pin="1S"/>
-      <node ref="D6" pin="2"/>
-      <node ref="C_1" pin="2"/>
-      <node ref="J9" pin="6"/>
-      <node ref="U2" pin="4"/>
-      <node ref="D8" pin="2"/>
-      <node ref="J7" pin="1S"/>
-      <node ref="D7" pin="2"/>
-      <node ref="J11" pin="1"/>
-      <node ref="J8" pin="1S"/>
-      <node ref="J9" pin="10"/>
-      <node ref="D5" pin="2"/>
-      <node ref="R5" pin="2"/>
-      <node ref="U1" pin="3"/>
-      <node ref="R_2" pin="2"/>
-      <node ref="D11" pin="2"/>
-      <node ref="D12" pin="2"/>
-      <node ref="R_5" pin="2"/>
-      <node ref="R2" pin="2"/>
-      <node ref="U2" pin="3"/>
-      <node ref="C1" pin="2"/>
-      <node ref="D1" pin="2"/>
-      <node ref="R8" pin="1"/>
-      <node ref="R_8" pin="1"/>
-      <node ref="D3" pin="2"/>
-      <node ref="J11_GND1" pin="1"/>
-      <node ref="R4" pin="2"/>
-      <node ref="J1" pin="1S"/>
-      <node ref="J10" pin="3"/>
-      <node ref="R_4" pin="2"/>
-      <node ref="J3" pin="1S"/>
-      <node ref="D2" pin="2"/>
-      <node ref="J2" pin="1S"/>
+    <net code="3" name="AUX_3">
+      <node ref="D11" pin="3" pinfunction="K" pintype="passive"/>
+      <node ref="D3" pin="1" pinfunction="A1" pintype="passive"/>
+      <node ref="J3" pin="3T" pintype="passive"/>
+      <node ref="U2" pin="10" pinfunction="D7(PE6)" pintype="bidirectional"/>
     </net>
-    <net code="4" name="Net-(J2-Pad6SR)">
-      <node ref="J2" pin="6SR"/>
+    <net code="4" name="AUX_4">
+      <node ref="D11" pin="4" pinfunction="K" pintype="passive"/>
+      <node ref="D4" pin="1" pinfunction="A1" pintype="passive"/>
+      <node ref="J4" pin="3T" pintype="passive"/>
+      <node ref="U2" pin="9" pinfunction="D6/A7(PD7)" pintype="bidirectional"/>
     </net>
-    <net code="5" name="Net-(J1-Pad6SR)">
-      <node ref="J1" pin="6SR"/>
+    <net code="5" name="AUX_5">
+      <node ref="D12" pin="3" pinfunction="K" pintype="passive"/>
+      <node ref="D5" pin="1" pinfunction="A1" pintype="passive"/>
+      <node ref="J5" pin="3T" pintype="passive"/>
+      <node ref="U2" pin="8" pinfunction="D5(PC6)" pintype="bidirectional"/>
     </net>
-    <net code="6" name="AUX_1">
-      <node ref="D11" pin="5"/>
-      <node ref="J1" pin="3T"/>
-      <node ref="D1" pin="1"/>
-      <node ref="U2" pin="12"/>
+    <net code="6" name="AUX_6">
+      <node ref="D12" pin="5" pinfunction="K" pintype="passive"/>
+      <node ref="D6" pin="1" pinfunction="A1" pintype="passive"/>
+      <node ref="J6" pin="3T" pintype="passive"/>
+      <node ref="U2" pin="18" pinfunction="D19/A1(PF6)" pintype="bidirectional"/>
     </net>
-    <net code="7" name="Net-(J1-Pad2R)">
-      <node ref="J1" pin="2R"/>
+    <net code="7" name="AUX_7">
+      <node ref="D12" pin="1" pinfunction="K" pintype="passive"/>
+      <node ref="D7" pin="1" pinfunction="A1" pintype="passive"/>
+      <node ref="J7" pin="3T" pintype="passive"/>
+      <node ref="U2" pin="14" pinfunction="D16/MOSI(PB2)" pintype="bidirectional"/>
     </net>
-    <net code="8" name="Net-(J3-Pad6SR)">
-      <node ref="J3" pin="6SR"/>
+    <net code="8" name="AUX_8">
+      <node ref="D12" pin="4" pinfunction="K" pintype="passive"/>
+      <node ref="D8" pin="1" pinfunction="A1" pintype="passive"/>
+      <node ref="J8" pin="3T" pintype="passive"/>
+      <node ref="U2" pin="13" pinfunction="D10/A10(PB6)" pintype="bidirectional"/>
     </net>
-    <net code="9" name="AUX_3">
-      <node ref="D3" pin="1"/>
-      <node ref="J3" pin="3T"/>
-      <node ref="D11" pin="3"/>
-      <node ref="U2" pin="10"/>
+    <net code="9" name="A_RX">
+      <node ref="J9" pin="7" pinfunction="Pin_7" pintype="passive"/>
+      <node ref="U2" pin="2" pinfunction="RX" pintype="bidirectional"/>
     </net>
-    <net code="10" name="Net-(J3-Pad2R)">
-      <node ref="J3" pin="2R"/>
+    <net code="10" name="A_TX">
+      <node ref="R1" pin="1" pintype="passive"/>
+      <node ref="R_1" pin="1" pintype="passive"/>
+      <node ref="U2" pin="1" pinfunction="TX" pintype="bidirectional"/>
     </net>
-    <net code="11" name="SDA">
-      <node ref="U2" pin="5"/>
-      <node ref="R_6" pin="1"/>
-      <node ref="R6" pin="1"/>
-      <node ref="J11" pin="7"/>
+    <net code="11" name="AddOn_Pin1">
+      <node ref="R3" pin="1" pintype="passive"/>
+      <node ref="R_3" pin="1" pintype="passive"/>
+      <node ref="U2" pin="20" pinfunction="D21/A3(PF4)" pintype="bidirectional"/>
     </net>
-    <net code="12" name="VCC">
-      <node ref="R_7" pin="2"/>
-      <node ref="C1" pin="1"/>
-      <node ref="U1" pin="2"/>
-      <node ref="R_6" pin="2"/>
-      <node ref="J11" pin="3"/>
-      <node ref="R6" pin="2"/>
-      <node ref="U2" pin="21"/>
-      <node ref="R7" pin="2"/>
-      <node ref="C_1" pin="1"/>
+    <net code="12" name="AddOn_Pin2">
+      <node ref="J9" pin="2" pinfunction="Pin_2" pintype="passive"/>
+      <node ref="U2" pin="19" pinfunction="D20/A2(PF5)" pintype="bidirectional"/>
     </net>
-    <net code="13" name="ESP_AddOn_Pin1">
-      <node ref="R_4" pin="1"/>
-      <node ref="R_3" pin="2"/>
-      <node ref="J9" pin="1"/>
-      <node ref="R4" pin="1"/>
-      <node ref="R3" pin="2"/>
+    <net code="13" name="AddOn_Pin3">
+      <node ref="J9" pin="3" pinfunction="Pin_3" pintype="passive"/>
+      <node ref="R5" pin="1" pintype="passive"/>
+      <node ref="R_5" pin="1" pintype="passive"/>
+      <node ref="U2" pin="15" pinfunction="D14/MISO(PB3)" pintype="bidirectional"/>
     </net>
-    <net code="14" name="VDD">
-      <node ref="J9" pin="9"/>
-      <node ref="J11_VDD1" pin="1"/>
-      <node ref="U2" pin="24"/>
-      <node ref="J10" pin="1"/>
+    <net code="14" name="Buzzer_Pin">
+      <node ref="U2" pin="7" pinfunction="D4/A6(PD4)" pintype="bidirectional"/>
+      <node ref="bzr1" pin="1" pinfunction="-" pintype="passive"/>
     </net>
-    <net code="15" name="NEOPIXEL">
-      <node ref="J10" pin="2"/>
-      <node ref="U2" pin="16"/>
-      <node ref="J11_data1" pin="1"/>
+    <net code="15" name="ESP_AddOn_Pin1">
+      <node ref="J9" pin="1" pinfunction="Pin_1" pintype="passive"/>
+      <node ref="R3" pin="2" pintype="passive"/>
+      <node ref="R4" pin="1" pintype="passive"/>
+      <node ref="R_3" pin="2" pintype="passive"/>
+      <node ref="R_4" pin="1" pintype="passive"/>
     </net>
-    <net code="16" name="Net-(J7-Pad6SR)">
-      <node ref="J7" pin="6SR"/>
+    <net code="16" name="ESP_RX">
+      <node ref="J9" pin="8" pinfunction="Pin_8" pintype="passive"/>
+      <node ref="R1" pin="2" pintype="passive"/>
+      <node ref="R2" pin="1" pintype="passive"/>
+      <node ref="R_1" pin="2" pintype="passive"/>
+      <node ref="R_2" pin="1" pintype="passive"/>
     </net>
-    <net code="17" name="Net-(J8-Pad2R)">
-      <node ref="J8" pin="2R"/>
+    <net code="17" name="GND">
+      <node ref="C1" pin="2" pintype="passive"/>
+      <node ref="C_1" pin="2" pintype="passive"/>
+      <node ref="D1" pin="2" pinfunction="A2" pintype="passive"/>
+      <node ref="D11" pin="2" pinfunction="A" pintype="passive"/>
+      <node ref="D12" pin="2" pinfunction="A" pintype="passive"/>
+      <node ref="D2" pin="2" pinfunction="A2" pintype="passive"/>
+      <node ref="D3" pin="2" pinfunction="A2" pintype="passive"/>
+      <node ref="D4" pin="2" pinfunction="A2" pintype="passive"/>
+      <node ref="D5" pin="2" pinfunction="A2" pintype="passive"/>
+      <node ref="D6" pin="2" pinfunction="A2" pintype="passive"/>
+      <node ref="D7" pin="2" pinfunction="A2" pintype="passive"/>
+      <node ref="D8" pin="2" pinfunction="A2" pintype="passive"/>
+      <node ref="J1" pin="1S" pintype="passive"/>
+      <node ref="J10" pin="3" pinfunction="Pin_3" pintype="passive"/>
+      <node ref="J11" pin="1" pinfunction="1" pintype="passive"/>
+      <node ref="J11_GND1" pin="1" pinfunction="Pin_1" pintype="passive"/>
+      <node ref="J2" pin="1S" pintype="passive"/>
+      <node ref="J3" pin="1S" pintype="passive"/>
+      <node ref="J4" pin="1S" pintype="passive"/>
+      <node ref="J5" pin="1S" pintype="passive"/>
+      <node ref="J6" pin="1S" pintype="passive"/>
+      <node ref="J7" pin="1S" pintype="passive"/>
+      <node ref="J8" pin="1S" pintype="passive"/>
+      <node ref="J9" pin="10" pinfunction="Pin_10" pintype="passive"/>
+      <node ref="J9" pin="6" pinfunction="Pin_6" pintype="passive"/>
+      <node ref="R2" pin="2" pintype="passive"/>
+      <node ref="R4" pin="2" pintype="passive"/>
+      <node ref="R5" pin="2" pintype="passive"/>
+      <node ref="R8" pin="1" pintype="passive"/>
+      <node ref="R_2" pin="2" pintype="passive"/>
+      <node ref="R_4" pin="2" pintype="passive"/>
+      <node ref="R_5" pin="2" pintype="passive"/>
+      <node ref="R_8" pin="1" pintype="passive"/>
+      <node ref="U1" pin="3" pinfunction="GND" pintype="power_in"/>
+      <node ref="U2" pin="3" pinfunction="GND" pintype="power_in"/>
+      <node ref="U2" pin="4" pinfunction="GND" pintype="power_in"/>
     </net>
-    <net code="18" name="Net-(J8-Pad6SR)">
-      <node ref="J8" pin="6SR"/>
+    <net code="18" name="MPX">
+      <node ref="U1" pin="4" pinfunction="Vout" pintype="output"/>
+      <node ref="U2" pin="17" pinfunction="D18/A0(PF7)" pintype="bidirectional"/>
     </net>
-    <net code="19" name="AUX_7">
-      <node ref="D12" pin="1"/>
-      <node ref="D7" pin="1"/>
-      <node ref="J7" pin="3T"/>
-      <node ref="U2" pin="14"/>
+    <net code="19" name="NEOPIXEL">
+      <node ref="J10" pin="2" pinfunction="Pin_2" pintype="passive"/>
+      <node ref="J11_data1" pin="1" pinfunction="Pin_1" pintype="passive"/>
+      <node ref="U2" pin="16" pinfunction="D15/SCLK(PB1)" pintype="bidirectional"/>
     </net>
-    <net code="20" name="Net-(J7-Pad2R)">
-      <node ref="J7" pin="2R"/>
+    <net code="20" name="Net-(R8-Pad2)">
+      <node ref="R8" pin="2" pintype="passive"/>
+      <node ref="R_8" pin="2" pintype="passive"/>
+      <node ref="bzr1" pin="2" pinfunction="+" pintype="passive"/>
     </net>
-    <net code="21" name="Buzzer_Pin">
-      <node ref="U2" pin="7"/>
-      <node ref="bzr1" pin="1"/>
+    <net code="21" name="SCL">
+      <node ref="J11" pin="5" pinfunction="5" pintype="passive"/>
+      <node ref="R7" pin="2" pintype="passive"/>
+      <node ref="R_7" pin="2" pintype="passive"/>
+      <node ref="U2" pin="6" pinfunction="SCL" pintype="bidirectional"/>
     </net>
-    <net code="22" name="Net-(R8-Pad2)">
-      <node ref="R_8" pin="2"/>
-      <node ref="bzr1" pin="2"/>
-      <node ref="R8" pin="2"/>
+    <net code="22" name="SDA">
+      <node ref="J11" pin="7" pinfunction="7" pintype="passive"/>
+      <node ref="R6" pin="2" pintype="passive"/>
+      <node ref="R_6" pin="2" pintype="passive"/>
+      <node ref="U2" pin="5" pinfunction="SDA" pintype="bidirectional"/>
     </net>
-    <net code="23" name="AUX_8">
-      <node ref="J8" pin="3T"/>
-      <node ref="D12" pin="4"/>
-      <node ref="D8" pin="1"/>
-      <node ref="U2" pin="13"/>
+    <net code="23" name="VCC">
+      <node ref="C1" pin="1" pintype="passive"/>
+      <node ref="C_1" pin="1" pintype="passive"/>
+      <node ref="J10" pin="1" pinfunction="Pin_1" pintype="passive"/>
+      <node ref="J11" pin="3" pinfunction="3" pintype="passive"/>
+      <node ref="J11_VDD1" pin="1" pinfunction="Pin_1" pintype="passive"/>
+      <node ref="J9" pin="9" pinfunction="Pin_9" pintype="passive"/>
+      <node ref="R6" pin="1" pintype="passive"/>
+      <node ref="R7" pin="1" pintype="passive"/>
+      <node ref="R_6" pin="1" pintype="passive"/>
+      <node ref="R_7" pin="1" pintype="passive"/>
+      <node ref="U1" pin="2" pinfunction="Vcc" pintype="power_in"/>
+      <node ref="U2" pin="21" pinfunction="VCC" pintype="power_in"/>
     </net>
-    <net code="24" name="AUX_5">
-      <node ref="D12" pin="3"/>
-      <node ref="D5" pin="1"/>
-      <node ref="U2" pin="8"/>
-      <node ref="J5" pin="3T"/>
+    <net code="24" name="unconnected-(J1-Pad2R)">
+      <node ref="J1" pin="2R" pintype="passive+no_connect"/>
     </net>
-    <net code="25" name="Net-(J5-Pad2R)">
-      <node ref="J5" pin="2R"/>
+    <net code="25" name="unconnected-(J1-Pad6SR)">
+      <node ref="J1" pin="6SR" pintype="passive+no_connect"/>
     </net>
-    <net code="26" name="Net-(J5-Pad6SR)">
-      <node ref="J5" pin="6SR"/>
+    <net code="26" name="unconnected-(J2-Pad2R)">
+      <node ref="J2" pin="2R" pintype="passive+no_connect"/>
     </net>
-    <net code="27" name="Net-(J4-Pad6SR)">
-      <node ref="J4" pin="6SR"/>
+    <net code="27" name="unconnected-(J2-Pad6SR)">
+      <node ref="J2" pin="6SR" pintype="passive+no_connect"/>
     </net>
-    <net code="28" name="AUX_4">
-      <node ref="U2" pin="9"/>
-      <node ref="D4" pin="1"/>
-      <node ref="J4" pin="3T"/>
-      <node ref="D11" pin="4"/>
+    <net code="28" name="unconnected-(J3-Pad2R)">
+      <node ref="J3" pin="2R" pintype="passive+no_connect"/>
     </net>
-    <net code="29" name="Net-(J4-Pad2R)">
-      <node ref="J4" pin="2R"/>
+    <net code="29" name="unconnected-(J3-Pad6SR)">
+      <node ref="J3" pin="6SR" pintype="passive+no_connect"/>
     </net>
-    <net code="30" name="Net-(J6-Pad6SR)">
-      <node ref="J6" pin="6SR"/>
+    <net code="30" name="unconnected-(J4-Pad2R)">
+      <node ref="J4" pin="2R" pintype="passive+no_connect"/>
     </net>
-    <net code="31" name="AUX_6">
-      <node ref="J6" pin="3T"/>
-      <node ref="D12" pin="5"/>
-      <node ref="D6" pin="1"/>
-      <node ref="U2" pin="18"/>
+    <net code="31" name="unconnected-(J4-Pad6SR)">
+      <node ref="J4" pin="6SR" pintype="passive+no_connect"/>
     </net>
-    <net code="32" name="Net-(J6-Pad2R)">
-      <node ref="J6" pin="2R"/>
+    <net code="32" name="unconnected-(J5-Pad2R)">
+      <node ref="J5" pin="2R" pintype="passive+no_connect"/>
     </net>
-    <net code="33" name="Net-(U1-Pad1)">
-      <node ref="U1" pin="1"/>
+    <net code="33" name="unconnected-(J5-Pad6SR)">
+      <node ref="J5" pin="6SR" pintype="passive+no_connect"/>
     </net>
-    <net code="34" name="Net-(J9-Pad4)">
-      <node ref="J9" pin="4"/>
+    <net code="34" name="unconnected-(J6-Pad2R)">
+      <node ref="J6" pin="2R" pintype="passive+no_connect"/>
     </net>
-    <net code="35" name="Net-(U1-Pad8)">
-      <node ref="U1" pin="8"/>
+    <net code="35" name="unconnected-(J6-Pad6SR)">
+      <node ref="J6" pin="6SR" pintype="passive+no_connect"/>
     </net>
-    <net code="36" name="Net-(U1-Pad7)">
-      <node ref="U1" pin="7"/>
+    <net code="36" name="unconnected-(J7-Pad2R)">
+      <node ref="J7" pin="2R" pintype="passive+no_connect"/>
     </net>
-    <net code="37" name="Net-(U1-Pad6)">
-      <node ref="U1" pin="6"/>
+    <net code="37" name="unconnected-(J7-Pad6SR)">
+      <node ref="J7" pin="6SR" pintype="passive+no_connect"/>
     </net>
-    <net code="38" name="Net-(U1-Pad5)">
-      <node ref="U1" pin="5"/>
+    <net code="38" name="unconnected-(J8-Pad2R)">
+      <node ref="J8" pin="2R" pintype="passive+no_connect"/>
     </net>
-    <net code="39" name="MPX">
-      <node ref="U2" pin="17"/>
-      <node ref="U1" pin="4"/>
+    <net code="39" name="unconnected-(J8-Pad6SR)">
+      <node ref="J8" pin="6SR" pintype="passive+no_connect"/>
     </net>
-    <net code="40" name="ESP_RX">
-      <node ref="R2" pin="1"/>
-      <node ref="J9" pin="8"/>
-      <node ref="R_2" pin="1"/>
-      <node ref="R1" pin="2"/>
-      <node ref="R_1" pin="2"/>
+    <net code="40" name="unconnected-(J9-Pad4)">
+      <node ref="J9" pin="4" pinfunction="Pin_4" pintype="passive+no_connect"/>
     </net>
-    <net code="41" name="Net-(U2-Pad23)">
-      <node ref="U2" pin="23"/>
+    <net code="41" name="unconnected-(J9-Pad5)">
+      <node ref="J9" pin="5" pinfunction="Pin_5" pintype="passive+no_connect"/>
     </net>
-    <net code="42" name="A_RX">
-      <node ref="U2" pin="2"/>
-      <node ref="J9" pin="7"/>
+    <net code="42" name="unconnected-(U1-Pad1)">
+      <node ref="U1" pin="1" pinfunction="NC" pintype="no_connect"/>
     </net>
-    <net code="43" name="Net-(J9-Pad5)">
-      <node ref="J9" pin="5"/>
+    <net code="43" name="unconnected-(U1-Pad5)">
+      <node ref="U1" pin="5" pinfunction="NC" pintype="no_connect"/>
     </net>
-    <net code="44" name="AddOn_Pin2">
-      <node ref="J9" pin="2"/>
-      <node ref="U2" pin="19"/>
+    <net code="44" name="unconnected-(U1-Pad6)">
+      <node ref="U1" pin="6" pinfunction="NC" pintype="no_connect"/>
     </net>
-    <net code="45" name="A_TX">
-      <node ref="U2" pin="1"/>
-      <node ref="R_1" pin="1"/>
-      <node ref="R1" pin="1"/>
+    <net code="45" name="unconnected-(U1-Pad7)">
+      <node ref="U1" pin="7" pinfunction="NC" pintype="no_connect"/>
     </net>
-    <net code="46" name="SCL">
-      <node ref="U2" pin="6"/>
-      <node ref="J11" pin="5"/>
-      <node ref="R7" pin="1"/>
-      <node ref="R_7" pin="1"/>
+    <net code="46" name="unconnected-(U1-Pad8)">
+      <node ref="U1" pin="8" pinfunction="NC" pintype="no_connect"/>
     </net>
-    <net code="47" name="Net-(U2-Pad22)">
-      <node ref="U2" pin="22"/>
+    <net code="47" name="unconnected-(U2-Pad22)">
+      <node ref="U2" pin="22" pinfunction="RST" pintype="input+no_connect"/>
     </net>
-    <net code="48" name="AddOn_Pin3">
-      <node ref="R_5" pin="1"/>
-      <node ref="J9" pin="3"/>
-      <node ref="R5" pin="1"/>
-      <node ref="U2" pin="15"/>
+    <net code="48" name="unconnected-(U2-Pad23)">
+      <node ref="U2" pin="23" pinfunction="GND" pintype="power_in+no_connect"/>
     </net>
-    <net code="49" name="AddOn_Pin1">
-      <node ref="R3" pin="1"/>
-      <node ref="R_3" pin="1"/>
-      <node ref="U2" pin="20"/>
+    <net code="49" name="unconnected-(U2-Pad24)">
+      <node ref="U2" pin="24" pinfunction="RAW" pintype="power_in+no_connect"/>
     </net>
   </nets>
 </export>
