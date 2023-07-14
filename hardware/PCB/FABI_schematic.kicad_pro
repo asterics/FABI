@@ -637,8 +637,8 @@
       "idf": "",
       "netlist": "FABI_schematic.net",
       "specctra_dsn": "",
-      "step": "",
-      "vrml": ""
+      "step": "FABI_schematic.step",
+      "vrml": "FABI_schematic.wrl"
     },
     "page_layout_descr_file": ""
   },
