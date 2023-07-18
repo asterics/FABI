@@ -1,4 +1,4 @@
-21905603000953697
+21907292662460806
 Audio_Module
 Reverb_BTDR-1H
 Digital Reverberation Unit, http://www.belton.co.kr/inc/downfile.php?seq=17&file=pdf (footprint from http://www.uk-electronic.de/PDF/BTDR-1.pdf)
@@ -53528,6 +53528,13 @@ QR_FABI_ProjectPage
 0
 0
 0
+FABI
+SolderWirePad_1x01_SMD_1x2mm_NOPASTE
+Wire Pad, Square, SMD Pad,  1mm x 2mm,
+MesurementPoint Square SMDPad 1mmx2mm 
+0
+1
+1
 FLipMouse
 009159005551906
 
