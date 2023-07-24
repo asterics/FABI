@@ -12,7 +12,7 @@ ____
 
 # Welcome to FABI
 
-FABI - the "Flexible Assistive Button Interface" - connects up to eight momentary switches (buttons) to a Personal Computer, smartphone or tablet, in order to perform complex mouse- and keyboard actions. A configured FABI module can be used with any PC or mobile device (running Windows, Linux, MacOs, iOS or Android) without installing additional software, because the FABI module behaves like an ordinary computer mouse/keyboard. Using FABI, people with limitied motor capabilities can play computer games, surf the internet, write e-mails and much more.
+FABI - the "Flexible Assistive Button Interface" - connects up to five momentary switches (buttons) to a Personal Computer, smartphone or tablet, in order to perform complex mouse-, keyboard- and joystick actions. A configured FABI module can be used with any PC or mobile device (running Windows, Linux, macOS, iOS or Android) without installing additional software, because the FABI module behaves like an ordinary computer mouse/keyboard/joystick. Using FABI, people with limited motor capabilities can play computer games, surf the internet, write e-mails and much more.
 
 
 
@@ -32,11 +32,11 @@ FABI - the "Flexible Assistive Button Interface" - connects up to eight momentar
 
 ## Introduction
 
-The FABI system can be used with commercially available switches, inexpensive arcade buttons, or even homemade electrical contacts. FABI consists of a hardware module (an inexpensive microcontroller that acts as a computer peripheral), and optional add-on modules and sensors (Bluetooth add-on, sip/puff pressure sensor, LC-display). A web-based graphical configuration editor (the *FABI configuration manager*) is available for setting up desired actions. 
+The FABI system can be used with commercially available switches, inexpensive arcade buttons, or even homemade electrical contacts. FABI consists of a hardware module (an inexpensive microcontroller that acts as a computer peripheral), and optional add-on modules and sensors (sip/puff pressure sensor). A web-based graphical configuration editor (the *FABI configuration manager*) is available for setting up desired actions. 
 
 Various actions are possible for each button, allowing different configurations to be stored in up to 10 memory slots (*configuration slots*). The configuration slots can be changed during operation, e.g. via a specific button, making FABI a very flexible alternative input system which allows control of even multiple devices (e.g. connected via USB and BT) via only a few buttons! 
 
-FABI is available as an [open source construction kit](https://github.com/asterics/FABI)  including corresponding assembly instructions for the hardware. The first FABI version was developed in course of the *AsTeRICS Academy* project at the FH Technikum Wien. In 2017, the non-profit organization *AsTeRICS Foundation* was founded in order to foster open source assistive technology solutions and to make them available at low cost: [www.asterics-foundation.org](https://www.asterics-foundation.org/1270-2/).
+FABI is available as an [open source construction kit](https://github.com/asterics/FABI)  including corresponding assembly instructions for the hardware. The first FABI version was developed in course of the *AsTeRICS Academy* project at the UAS (University of Applied Sciences) Technikum Wien. In 2017, the non-profit organization *AsTeRICS Foundation* was founded in order to foster open source assistive technology solutions and to make them available at low cost: [www.asterics-foundation.org](https://www.asterics-foundation.org/1270-2/).
 
 All software modules, hardware design files, and "how-to"-documents are available under free and open source licenses and can be used and modified without fees. We have made every effort to select low-cost components without compromising functionality and flexibility - making FABI an affordable switch interface with extensive capabilities!
 
@@ -168,6 +168,47 @@ The "Write word" action allows to write a certain text every time the button is 
 
 *Figure 7*: Screenshot of the "Write word" action
 
+### Action category: Joystick
+
+In the following, the actions of category *Joystick* are briefly explained:
+
+**Joystick set x-/y-/z-axis/slider**
+These actions can be used to send a desired value to the joystick axis. The selectable joystick axes are: *X / Y / Z / Z-Turn / slider*. The joystick is moved back to middle position when the associated user activity ends.
+
+**Press Joystick Button**
+This action can be used to press a desired joystick button. The FLipMouse device supports 32 buttons, so any value from 1 to 32 is allowed. The joystick button is released when the associated user activity ends.
+
+**Joystick hat position**
+This action sets the orientation of the joystick "hat" (in degrees). Allowed values are:
+*-1, 0, 45, 90, 135, 180, 225, 270, 315*. The value of -1 sets the hat to the middle (idle) position. 
+The joystick hat is moved back to middle position when the associated user activity ends. 
+
+
+
+### Action category: Infrared
+
+**Play / Hold / Stop Infrared Command**
+This action replays the infrared (IR-)code with the given command name. The existing (recorded) IR-commands can be selected from the drop-down menu. The *play* action sends the recorded code once, whereas the *hold* action repeats the code until the user activity ends. 
+
+
+
+<p align="left" width="100%">
+    <img width="70%" src="./Bilder/fig13.PNG">
+</p>
+*Figure 8: Infrared Recording and Replay Configuration Manager*
+
+The FABI device includes an infrared remote control receiver module and four high current IR LED so that it can record and replay remote control codes of many remote control devices used in consumer electronics. If you want to use this feature of the FABI, make sure that the IR sending LED is points towards the device you want to control.
+
+To record a new IR code, go to the tab ACTIONS. Click the desired action and select the action category “**Infrared**” in the popup-window. There, three different types of IR-actions can be selected from the combo box:
+
+* *Play infrared command*: sends the recorded code once
+* *Hold infrared command*: repeats the code until the user activity ends
+* *Stop infrared command*: stops a currently plaing IR-code
+
+The existing commands can be chosen from the drop-down menu.
+
+In this window you can also manage IR commands. Next to *New IR Command*, you can enter a name and then click RECORD - point your IR remote to the side of the FABI where it is marked as __IR__ and send the IR command (there is a 10 seconds time limit for the recording phase). The new command is now stored in the FABI and can be chosen and replayed by selecting it's name in the drop down menu. If the command is not correctly replayed, try to increase the IR-Code timeout – for example to 250 milliseconds. Using *Delete IR command* commands can be deleted. 
+
 ### Action category: Device
 
 In the following, the actions of category *Device* are briefly explained:
@@ -194,11 +235,11 @@ Example: The macro command `MX 10; WA 500; KP KEY_A;` moves the mouse cursor 10 
 
 ## *SLOTS Tab*: Using Configuration Slots
 
-Various action assignments for the buttons can be stored in up to 10 memory locations (*configuration slots*). The active configuration slot can also be changed during operation, e.g. via a specific button (see actions). As soon as the FABI device is supplied with power via the USB cable, the first configuration slot is automatically activated. The slots can be created and managed by opening the *SLOTS Tab*, see figure 8:
+Various action assignments for the buttons can be stored in up to 10 memory locations (*configuration slots*). The active configuration slot can also be changed during operation, e.g. via a specific button (see actions). As soon as the FABI device is supplied with power via the USB cable, the first configuration slot is automatically activated. The slots can be created and managed by opening the *SLOTS Tab*, see Figure 9:
 
 ![Abbildung8](./Bilder/ENabb8.PNG)
 
-*Figure 8*: Creating, changing and deleting configuration slots (*Slots Tab*).
+*Figure 9: Creating, changing and deleting configuration slots (*Slots Tab*).
 
 In the top center, the dropdown selection box **Select slot** shows the currently active slot name. By clicking the selection box, all existing slots are shown and the active slot can be changed. 
 In *Slot configuration* list you can see all the available slots as well, with the active slot being displayed in bold letters. Here you can change the active slot by clicking one of the inactive slot names. Furthermore, the color of each individual slot can be assigned by clicking **Set color**, which opens a pop-up color selection box. The color which is chosen here will be displayed on the FABI device via a built-in mulicolor led whenever the slot is activated.  ***Note*** that this function is only available in the new version (PCB version) of the FABI system.
@@ -208,17 +249,17 @@ A new configuration slot is created by entering a name into the correspnding tex
 
 If you scroll further down in the *SLOTS Tab*, you will find functions to backup and restore configurations (Fig. 9). Here you can upload slots from a file: After clicking **Select File**, a local file on the computer can be selected. This file must contain a valid FABI configruation with one or more slots (usually, this file has been saved before to your computer). The whole configuration is applied to the FABI device by clicking **Upload and replace all slots**. This deletes the active configuration in the process. However, by clicking **Show advanced options to upload single slots** instead - desired slots can be selected from the configuration file, which can then be added to the active FABI configuration by clicking **Upload selected slot(s)**.
 
-Saving the current configuration slots of the FABI system is enabled by clicking **Download all slots** (see Figure 9). Here, the entire configuration is downloaded as a single file (.set) to the download-folder of the computer. This file can then be transferred to another computer, and it can be applied to the same or to another FABI device. This allows multiple setups (for example for different users or use cases) to be saved on one computer and to be activated with one click.
+Saving the current configuration slots of the FABI system is enabled by clicking **Download all slots** (see Figure 10). Here, the entire configuration is downloaded as a single file (.set) to the download-folder of the computer. This file can then be transferred to another computer, and it can be applied to the same or to another FABI device. This allows multiple setups (for example for different users or use cases) to be saved on one computer and to be activated with one click.
 
 ***Attention:*** When downloading configuration data, the files are stored in the download-folder of the computer. It makes sense to move these files to another folder afterwards (and eventually rename them) so that they can be easily found and are not accidentally deleted.
 
 ### Predefined settings
 
-Demo configuration settings can be selected at the very bottom of the *SLOTS Tab*, in section *Predefined settings* (see Figure 9). These examples offer an overview of the possibilities of the FABI system and serve as a suggestion for your own applications, such as one- or two-button mouse control setups for PC and smart phone or gaming-keys for different applications. A description for the demo configurations can be displayed in a pop-up window, which provides brief information about the button assignments.
+Demo configuration settings can be selected at the very bottom of the *SLOTS Tab*, in section *Predefined settings* (see Figure 10). These examples offer an overview of the possibilities of the FABI system and serve as a suggestion for your own applications, such as one- or two-button mouse control setups for PC and smart phone or gaming-keys for different applications. A description for the demo configurations can be displayed in a pop-up window, which provides brief information about the button assignments.
 
 ![Abbildung9](./Bilder/ENabb9.PNG)
 
-*Figure 9*: Loading and saving configuration settings
+*Figure 10*: Loading and saving configuration settings
 
 ## *TIMINGS Tab*: Antitremor and Special Functions
 
@@ -227,7 +268,7 @@ The *TIMINGS Tab* tab can be used to set further parameters for the operation of
 
 ![Abbildung10](./Bilder/ENabb10.PNG) 
 
-*Figure 10*: Screenshot of further settings in the "Timings" tab
+*Figure 11*: Screenshot of further settings in the "Timings" tab
 
 ### Antitremor settings
 
@@ -263,7 +304,7 @@ In the *SIP AND PUFF Tab*, corresponding threshold values for the strength of si
 
 ![Abbildung11](./Bilder/ENabb11.PNG)
 
-*Figure 11*: Screenshot of the settings for sip and puff thresholds
+*Figure 12*: Screenshot of the settings for sip and puff thresholds
 
 ## *GENERAL Tab*: Bluetooth and Firmware Options
 
@@ -271,15 +312,15 @@ In the *GENERAL Tab*, the Bluetooth settings can be adjusted and the main module
 
 ![Abbildung12](./Bilder/ENabb12.PNG) 
 
-*Figure 12*: Screenshot of USB/BT settings in the "GENERAL" tab
+*Figure 13*: Screenshot of USB/BT settings in the "GENERAL" tab
 
 ### USB Mode / Bluetooth Mode
 
-The optional Bluetooth module (hardware add-on) allows keyboard- and mouse actions to be sent to a connected ("paired") Bluetooth-enabled device (such as a smartphone or tablet computer). The **Mode for Slot x** selection defines whether the mouse and keyboard actions shall be generated via USB, Bluetooth or both (see figure 12 and figure 13):
+The optional Bluetooth module (hardware add-on) allows keyboard- and mouse actions to be sent to a connected ("paired") Bluetooth-enabled device (such as a smartphone or tablet computer). The **Mode for Slot x** selection defines whether the mouse and keyboard actions shall be generated via USB, Bluetooth or both (see Figure 13 and Figure 14):
 
 ![Abbildung13](./Bilder/abb13.PNG) 
 
-*Figure 13*: Bluetooth/USB mode selection
+*Figure 14*: Bluetooth/USB mode selection
 
 ***Note:*** The USB/Bluetooh mode selection is only useful if the optional Bluetooth add-on module is connected to the FABI device (see section "Using the Bluetooth module"). 
 Since this setting is defined per configuration slot, the same FABI device can be used e.g. to control a laptop via USB and a smartphone/tablet via Bluetooth. Switching control between those devices is done by simply changing the active slot.
@@ -288,43 +329,15 @@ Since this setting is defined per configuration slot, the same FABI device can b
 
 Pressing this button will attempt to install the latest software (firmware) for the FABI main module into the microcontroller. This process may take a few minutes. To the left of the button, the version number of the installed firmware and the most recent available version are displayed.
 
-### Overwrite / update Bluetooth firmware
-
-Pressing this button will attempt to download the latest software (firmware) for the Bluetooth add-on module. This process can take a few minutes and is only possible if a Bluetooth module is connected to the FABI system. To the left of the button, the version number of the installed firmware and the most recent available version are displayed. 
-***Note:*** Here it can be determined whether a Bluetooth module is installed and correctly recognized. If "installed version" of the Bluetooth module is "unknown", this means that the module is not installed or not correctly recognized. If "installed version" is "unknown", while the Bluetooth module is connected to FABI, sometimes "Overwrite Firmware" can fix the problem.
-
 ### Reset to default configuration, key combinations
 
 At the bottom of the *GENERAL Tab* you will find the button for resetting the FABI device to the default settings. This is useful if the current settings cause problems with the use of the device. Furthermore, the keyboard shorcuts for switching tabs are displayed here.
 
 ![Abbildung14](./Bilder/ENabb14.PNG) 
 
-*Figure 14*: Reset device, keyboard shortcuts
+*Figure 15*: Reset device, keyboard shortcuts
 
 **Have fun trying out and creating your own FABI configurations!**
-
-
-
-
-
-
-
-## Using the Bluetooth module
-
-The FABI system allows the use of an optional Bluetooth-"AddOn" module for wireless device connections to cell phones, tablets and computers with Bluetooth capability. The Bluetooth module is either included in your version of the FABI kit, or it is available separately - please contact the AsTeRICS Foundation.
-
-### Installation of the Bluetooth module
-
-The Bluetooth module can be easily installed in the PCB-version of the FABI system. (Use with a single microcontroller is also possible and is described in more detail in the [Github Repository](https://github.com/asterics/esp32_mouse_keyboard) of the Bluetooth module.
-The Bluetooth module is plugged onto the 10-pin connector in the orientation shown on the board. To do this, open the FABI housing and push the module onto the pin header (see Figure 15):
-
-![Abbildung15](./Bilder/abb15.PNG) 
-
-*Figure 15*: Bluetooth module, plugged onto the FABI board
-
-### Connecting to a Bluetooth device (pairing)
-
-The Bluetooth module indicates that it is ready to connect to a host device by flashing rapidly (approximately 2 times per second). (The flashing of the module can be perceived on the bottom sider of the FABI housing). The host device for the connection pairing can be e.g. a cell phone or tablet computer. A new device must be added in the Bluetooth settings of the host device. Here it should be possible to select the "FABI" device. If the connection is successful, the LED of the Bluetooth module should flash slowly (approx. 1 time per second). The host device should now be able to receive mouse- and keyboard actions from the FABI system (in parallel to the device connected via USB, see [*GENERAL Tab*](https://github.com/asterics/FABI/blob/master/Documentation/UserManual/Markdown/Fabi%20User%20Manual.md#general-tab-bluetooth-and-firmware-options), figure 13).
 
 
 
@@ -435,7 +448,7 @@ The use of the provided modules and information is at your own risk!
 
 ## Acknowledgements
 
-We would like to thank Miriam Brenner, Fabian Schiegl and Fanny Peternell for their support in writing this manual and Andreas Fußthaler for developing the FABI-PCB version.
+We would like to thank Miriam Brenner, Fabian Schiegl and Fanny Peternell for their support in writing this manual and Andreas Fußthaler for developing the PCB & case of the previous version.
 
 This project was financially supported by the City of Vienna (Magistratsabteilung 23 für Wirtschaft, Arbeit und Statistik, MA 23) (project number 14-02, 18-04).
 
