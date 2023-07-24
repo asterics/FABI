@@ -1,0 +1,3 @@
+3DX_CUI_DEVICES_Supplier: CUI Devices
+3DX_CUI_DEVICES_Description: 9.6 mm, 3 Vdc, 80 dB, Through Hole, Driving Circuit, Magnetic Audio Indicator Buzzer
+3DX_CUI_DEVICES_Model Number: CMI-9605IC-0380T

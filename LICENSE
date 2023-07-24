@@ -4,8 +4,8 @@ The Flexible Assistive Button Interfaces uses a dual-licensing concept, using
 either the CC BY-SA 4.0 license or the GNU General Public License (GPL) version 3. 
 See both license texts below.
 
-The CC BY-SA 4.0 license applies to all hardware design files, documentation and all images.
-The source code (located in the folder FabiWare and FabiGUI_*) is provided under the terms of the GPLv3 license.
+The CC BY-SA 4.0 license applies to all hardware design files, documentation and all images (all subfolders, exclusive FabiWare)
+The source code (located in the folder FabiWare) is provided under the terms of the GPLv3 license.
 
 If there is any deviation from this general licensing, a file called LICENSE is placed in the corresponding
 folder and this file applies for all sub-folders if not stated otherwise.

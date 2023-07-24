@@ -1,26 +1,13 @@
 # FABI - case designs
 
-This folder contains different types of case designs for the FABI or its buttons.
-By now, all of them are designed for acrylic glass production with a laser cutter.
-For compatibility reasons, they are all saved in the Corel Draw X5 format.
-If not stated otherwise, the material is a 250mmx250mm acrylic glass (3mm thickness).
+This folder contains the design files for the 3D printed case for FABI3.
 
-### 6buttons.cdr
+### Software
 
-This design contains 2 boards, each with 6 buttons (30mm hole).
-They can be used as a full mouse replacement with the FABI interface.
-Mounting is possible via the centre hole, fitting a 3/8" mount (used for photographic equipment)
+FreeCAD v0.20.1, x86_64 Linux
 
-### Button_30mm.cdr
+### Files
 
-This design is a simple button housing as a show case.
-Very good to demonstrate the easy assembling of buttons for the FABI interface.
-
-### stand-up_display.cdr
-
-The stand-up display file contains one part with 6 buttons. The acrylic glass board should be bent with hot air support (angle: approx. 90°), to get a self-standing FABI display for show cases.
-
-
-## Pictures
-
-TBD...
+* __FABI_PCB_Bottom.stl__ Normally printed with 0.2mm, no support (place it correctly on the flat surface). One piece needed for a FABI.
+* __FABI_PCB_Top.stl__ Normally printed with 0.2mm, no support (place it correctly on the flat surface). One piece needed for a FABI.
+* __TBA:__ There will be an additional file for FABIs with a connected pressure sensor, we need a tube outlet for that.
