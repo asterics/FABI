@@ -1,341 +1,216 @@
+/*
+      FabiWare - AsTeRICS Foundation
+     For more info please visit: https://www.asterics-foundation.org
 
-/* 
-     Flexible Assistive Button Interface (FABI) - AsTeRICS Foundation - http://www.asterics-foundation.org
-     for controlling HID functions via momentary switches and/or serial AT-commands  
-     More Information: https://github.com/asterics/FABI
+     Module: buttons.cpp - implementation of the button handling
 
-     Module: buttons.cpp - button mapping and press/release handling
-        
-     This program is free software; you can redistribute it and/or modify
-     it under the terms of the GNU General Public License, see:
-     http://www.gnu.org/licenses/gpl-3.0.en.html
+   This program is free software; you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation.
+
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; See the GNU General Public License:
+   http://www.gnu.org/licenses/gpl-3.0.en.html
 
 */
 
-#include "fabi.h"
+#include "FlipWare.h"        //  FABI command definitions
+#include "infrared.h"
 #include "keys.h"
-#include "buttons.h"
 
-int8_t  input_map[NUMBER_OF_PHYSICAL_BUTTONS_NOPCB] = {2, 3, 4, 5, 6, 7, 8, 9, 10};
-int8_t  input_map_PCB[NUMBER_OF_PHYSICAL_BUTTONS_PCB] = {10, 16, 19, 5, 6, 7, 8, 9};
-
-struct buttonType buttons [NUMBER_OF_BUTTONS];                     // array for all buttons - type definition see fabi.h
+struct slotButtonSettings buttons [NUMBER_OF_BUTTONS];   // array for all buttons - type definition see FlipWare.h
+char * buttonKeystrings[NUMBER_OF_BUTTONS];              // pointers to keystring parameters
+char keystringBuffer[MAX_KEYSTRINGBUFFER_LEN]={0};       // storage for keystring parameters for all buttons
 struct buttonDebouncerType buttonDebouncers [NUMBER_OF_BUTTONS];   // array for all buttonsDebouncers - type definition see fabi.h
-char   keystringBuffer[KEYSTRING_BUFFER_LEN]; // buffer for all string parameters for the buttons of a slot
+uint32_t buttonStates = 0;  // current button states for reporting raw values (AT SR)
 
-uint8_t NUMBER_OF_PHYSICAL_BUTTONS;
-uint16_t buttonStates = 0;
-uint16_t pressure = 0;
-uint8_t reportRawValues = 0;
-uint8_t reportSlotParameters = 0;
-uint8_t valueReportCount = 0;
+void initButtonKeystrings()
+{
+  slotSettings.keystringBufferLen=0;
+  for (int i=0;i<NUMBER_OF_BUTTONS;i++) {
+    buttonKeystrings[i]=keystringBuffer + slotSettings.keystringBufferLen;
+    while (keystringBuffer[slotSettings.keystringBufferLen++]) ; 
+  }
+#ifdef DEBUG_OUTPUT_FULL
+  Serial.print("Init ButtonKeystrings, bufferlen ="); 
+  Serial.println(slotSettings.keystringBufferLen);
+#endif
+}
 
-/**
-   @name initButtons
-   @param none
-   @return none
+char * getButtonKeystring(int num)
+{
+  char * str = keystringBuffer;
+  for (int i=0;i<num;i++) {
+    if(*str) while(*str++);
+    else str++;  
+  }
+  return(str);
+}
 
-   initialise button pins and default modes
-*/
+
+void printKeystrings()
+{
+  char * x = keystringBuffer;
+  for (int i=0;i<NUMBER_OF_BUTTONS;i++) {
+    if (*x) {
+      Serial.print("Keystring ");
+      Serial.print(i);
+      Serial.print(" = ");
+      Serial.println(x);
+      while (*x++);
+    } else x++;
+  }
+}
+uint16_t setButtonKeystring(uint8_t buttonIndex, char const * newKeystring)
+{
+  char * keystringAddress = getButtonKeystring(buttonIndex);
+  
+  int oldKeyStringLen = strlen (keystringAddress);
+  char * sourceAddress = keystringAddress + oldKeyStringLen +1;
+  
+  if (slotSettings.keystringBufferLen - oldKeyStringLen + strlen(newKeystring) >= MAX_KEYSTRINGBUFFER_LEN - 1) 
+    return (0);   // new keystring does not fit into buffer !
+
+  uint16_t bytesToMove = keystringBuffer + slotSettings.keystringBufferLen - sourceAddress;
+  int delta = strlen(newKeystring) - oldKeyStringLen;  // if positive: expand keystringBuffer!
+  char * targetAddress = sourceAddress + delta;
+  if (delta) {
+     memmove(targetAddress, sourceAddress, bytesToMove);    
+  }
+    
+  strcpy (keystringAddress, newKeystring);  // store the new keystring!
+  
+  //update ALL keystring pointers, because we might have moved some of them
+  char * x = keystringBuffer;
+  for (int i=0;i<NUMBER_OF_BUTTONS;i++) {
+    if (*x) {
+      buttonKeystrings[i] = x;
+      while (*x++);
+    } else x++;
+  }
+
+  slotSettings.keystringBufferLen += delta;  // update buffer length
+  
+#ifdef DEBUG_OUTPUT_FULL
+  printKeystrings();
+  Serial.print("bytes left:");Serial.println(MAX_KEYSTRINGBUFFER_LEN-slotSettings.keystringBufferLen);
+#endif
+  return (MAX_KEYSTRINGBUFFER_LEN - slotSettings.keystringBufferLen);
+}
+
+
 void initButtons() {
-  
-  // update pin mapping for PCB version 
-  if (PCBversion)  {
-    NUMBER_OF_PHYSICAL_BUTTONS = NUMBER_OF_PHYSICAL_BUTTONS_PCB;
-    memcpy(input_map, input_map_PCB, NUMBER_OF_PHYSICAL_BUTTONS);
-  }
-  else NUMBER_OF_PHYSICAL_BUTTONS = NUMBER_OF_PHYSICAL_BUTTONS_NOPCB;
 
-  for (int i = 0; i < NUMBER_OF_PHYSICAL_BUTTONS; i++) // initialize physical buttons and bouncers
-    pinMode (input_map[i], INPUT_PULLUP);   // configure the pins for input mode with pullup resistors
+  initButtonKeystrings();
 
-  // initialize button array
-  for (int i = 0; i < NUMBER_OF_BUTTONS; i++)  { 
-    buttons[i].mode = CMD_HL;   // set default command for every button to "left mouse click"
+  // set default functions
+  for (int i=0;i<NUMBER_OF_BUTTONS;i++) {
     buttons[i].value = 0;
-    keystringBuffer[i] = 0;
+    buttons[i].mode = CMD_NC;  // no command
   }
-}
-
-/**
-   @name updateButtons
-   @param none
-   @return none
-
-   update buttons states and call handling functions
-   handle sip/puff pressure sensor values
-   perform live value reports
-*/
-void updateButtons() {
-  pressure = analogRead(PRESSURE_SENSOR_PIN);
-
-  // update button press / release events
-  for (int i = 0; i < NUMBER_OF_PHYSICAL_BUTTONS; i++)
-    handleButton(i, i + 6, digitalRead(input_map[i]) == LOW ? BUTTON_PRESSED : BUTTON_RELEASED);
-
-  // handle pressure sensor and perform sip/puff actions if enabled
-  if (settings.ts > 0)    handleButton(SIP_BUTTON, -1, pressure < settings.ts ? BUTTON_PRESSED : BUTTON_RELEASED);
-  if (settings.tp < 1023) handleButton(PUFF_BUTTON, -1, pressure > settings.tp ? BUTTON_PRESSED : BUTTON_RELEASED);
-
-  // if value report is active: send live values over serial
-  if (reportRawValues)   {
-    if (valueReportCount++ > 10) {      // report raw values !
-      Serial.print("VALUES:"); Serial.print(pressure); Serial.print(",");
-      for (uint8_t i = 0; i < NUMBER_OF_BUTTONS; i++)
-      {
-        if (buttonStates & (1 << i)) Serial.print("1");
-        else Serial.print("0");
-      }
-      Serial.print(",");
-      Serial.print(actSlot-1);
-      Serial.println("");
-      valueReportCount = 0;
-    }
-  }   
-}
-
-/**
-   @name handlePress
-   @param int buttonIndex represents the pressed physical (or virtual) button 
-   @return none
-
-   calls action commands according to button mode
-   takes care for double press actions / slot change 
-*/
-void handlePress (int buttonIndex)
-{
-  static uint32_t doublePressTimestamp = 0;
-  #ifdef DEBUG_OUTPUT
-    Serial.print("press button "); Serial.print(buttonIndex);
-  #endif
   
-  // check if double press condition is met
-  if (settings.dp > 0) { 
-    if ((millis() - doublePressTimestamp) < settings.dp) {
-      // Serial.println("skip to next Slot!");
-      performCommand(CMD_NE, 0, 0, 0); // activate next slot
-      while (digitalRead(input_map[buttonIndex]) ==LOW) ;  // wait until button is released
-      return;
+  buttons[0].mode = CMD_KP; setButtonKeystring(3, "KEY_SPACE ");
+  buttons[1].mode = CMD_KP; setButtonKeystring(3, "KEY_ENTER ");
+  buttons[2].mode = CMD_CL;
+  buttons[3].mode = CMD_KP; setButtonKeystring(5, "KEY_LEFT "); 
+  buttons[4].mode = CMD_KP; setButtonKeystring(6, "KEY_RIGHT ");
+}
+
+
+void handlePress (int buttonIndex)   // a button was pressed
+{
+  buttonStates |= (1<<buttonIndex); //save for reporting
+  performCommand(buttons[buttonIndex].mode, buttons[buttonIndex].value, buttonKeystrings[buttonIndex], 1);
+}
+
+void handleRelease (int buttonIndex)    // a button was released: deal with "sticky"-functions
+{
+  buttonStates &= ~(1<<buttonIndex); //save for reporting
+  switch (buttons[buttonIndex].mode) {
+    case CMD_PL:
+    case CMD_HL:
+      mouseRelease(MOUSE_LEFT);
+      break;
+    case CMD_PR:
+    case CMD_HR:
+      mouseRelease(MOUSE_RIGHT);
+      break;
+    case CMD_PM:
+    case CMD_HM:
+      mouseRelease(MOUSE_MIDDLE);
+      break;
+    case CMD_JP: joystickButton(buttons[buttonIndex].value, 0); break;
+    case CMD_MX: sensorData.autoMoveX = 0; break;
+    case CMD_MY: sensorData.autoMoveY = 0; break;
+    case CMD_KH: releaseKeys(buttonKeystrings[buttonIndex]); break;
+    case CMD_IH:
+      stop_IR_command();
+      break;
+  }
+}
+
+
+uint8_t handleButton(int i, uint8_t state)    // button debouncing and press detection
+{
+  if ( buttonDebouncers[i].bounceState == state) {
+    if (buttonDebouncers[i].bounceCount < DEFAULT_DEBOUNCING_TIME) {
+      buttonDebouncers[i].bounceCount++;
+      if (buttonDebouncers[i].bounceCount == DEFAULT_DEBOUNCING_TIME) {
+
+        if (state != buttonDebouncers[i].stableState)  // entering stable state
+        {
+          buttonDebouncers[i].stableState = state;
+          if (state == 1) {      // new stable state: pressed !
+            //if (inHoldMode(i))
+            buttonStates |= (1<<i); //save for reporting
+            handlePress(i);
+            buttonDebouncers[i].timestamp = millis(); // start measuring time
+          }
+          else {   // new stable state: released !
+            // if (!inHoldMode(i))
+            //   handlePress(i);
+            buttonStates &= ~(1<<i); //save for reporting
+            if (inHoldMode(i))
+              handleRelease(i);
+            return (1);        // indicate that button action has been performed !
+          }
+        }
+      }
+    }
+    else {  // in stable state
     }
   }
-  buttonStates |= (1 << buttonIndex);  // save for reporting
-  doublePressTimestamp = millis();     // remember timestamp in order to detect double presses
-
-  // perform the associated button action 
-  performCommand(buttons[buttonIndex].mode, buttons[buttonIndex].value, getKeystring(buttonIndex), 1);
-}
-
-
-
-/**
-   @name handleRelease
-   @param int buttonIndex represents the pressed physical (or virtual) button 
-   @return none
-
-   stops (sticky / hold) commands according to button mode
-   when a button is released 
-*/
-void handleRelease (int buttonIndex)
-{
-  #ifdef DEBUG_OUTPUT
-    Serial.print("release button "); Serial.print(buttonIndex);
-  #endif
-  buttonStates &= ~(1 << buttonIndex); //save for reporting
-  switch (buttons[buttonIndex].mode) {
-    case CMD_HL: leftMouseButton = 0; break;
-    case CMD_HR: rightMouseButton = 0; break;
-    case CMD_HM: middleMouseButton = 0; break;
-    case CMD_MX: moveX = 0; break;
-    case CMD_MY: moveY = 0; break;
-    case CMD_KH: releaseSingleKeys(getKeystring(buttonIndex)); break;
+  else {
+    buttonDebouncers[i].bounceState = state;
+    buttonDebouncers[i].bounceCount = 0;
   }
+  return (0);
 }
 
-
-/**
-   @name allButtonsReleased
-   @param none 
-   @return uint8_t
-
-   checks if all buttons (and sip puff values) are in the released state
-   returns true if yes, else false.
-*/
-uint8_t allButtonsReleased() {
-  uint8_t r=1;
-  for (int i = 0; i < NUMBER_OF_PHYSICAL_BUTTONS; i++)
-    if (digitalRead(input_map[i]) == LOW) r=0;
-
-  uint16_t pressure= analogRead(PRESSURE_SENSOR_PIN);
-  if ((settings.ts > 0) && (pressure < settings.ts)) r=0;
-  if ((settings.tp < 1023) && (pressure > settings.tp)) r=0;
-
-  return(r);
+uint8_t inHoldMode (int i)
+{
+  if ((buttons[i].mode == CMD_PL) ||
+      (buttons[i].mode == CMD_PR) ||
+      (buttons[i].mode == CMD_PM) ||
+      (buttons[i].mode == CMD_HL) ||
+      (buttons[i].mode == CMD_HR) ||
+      (buttons[i].mode == CMD_HM) ||
+      (buttons[i].mode == CMD_JP) ||
+      (buttons[i].mode == CMD_MX) ||
+      (buttons[i].mode == CMD_MY) ||
+      (buttons[i].mode == CMD_KH) ||
+      (buttons[i].mode == CMD_IH))
+    return (1);
+  else return (0);
 }
 
-/**
-   @name initDebouncers
-   @param none 
-   @return none
-
-   initialises the button debouncing structures / states
-   and waits until all buttons are released
-*/
 void initDebouncers()
 {
   for (int i = 0; i < NUMBER_OF_BUTTONS; i++) // initialize button array
   {
-    buttonDebouncers[i].pressCount = 0;
-    buttonDebouncers[i].releaseCount = 0;
-    buttonDebouncers[i].idleCount = 0;
-    buttonDebouncers[i].pressState = BUTTONSTATE_NOT_PRESSED;
+    buttonDebouncers[i].bounceState = 0;
+    buttonDebouncers[i].stableState = 0;
+    buttonDebouncers[i].bounceCount = 0;
+    buttonDebouncers[i].longPressed = 0;
   }
-
-  // wait until all buttons released or timeout reached!
-  uint32_t timeout=millis();
-  while (!allButtonsReleased() && millis()-timeout<RELEASE_ALL_TIMEOUT);
-}
-
-
-/**
-   @name longPressEnabled
-   @param int b: the button number 
-   @return uint8_t
-
-   returns true if a long press function is active for button b 
-*/
-uint8_t longPressEnabled(int b) {
-  return((settings.tt > 0) && (b<3) && (buttons[b+6].mode != CMD_NC));
-}
-
-/**
-   @name handleButton
-   @param int i index of the buttonaction for press 
-   @param int l index of the buttonaction for long press 
-   @param uint8_t actstate (e.g. BUTTON_PRESSED, see buttons.h)
-   @return none
-
-   performs the button debouncing and performs longpress detection
-   calls press / long press actions 
-   (if button i is pressed long and index l>=0, virtual button l is activated !)
-*/
-void handleButton(int i, int l, uint8_t actState)
-{
-  // antitremor idle count check:
-  // keeps the button inactive a minimum time (settings.ai) after it was pressed
-  if (buttonDebouncers[i].pressState == BUTTONSTATE_IDLE) {
-    buttonDebouncers[i].idleCount++;
-    if (buttonDebouncers[i].idleCount >= settings.ai) {
-      buttonDebouncers[i].idleCount = 0;
-      buttonDebouncers[i].pressCount = 0;
-      buttonDebouncers[i].releaseCount = 0;
-      buttonDebouncers[i].pressState = BUTTONSTATE_NOT_PRESSED;
-    }
-    return;
-  }
-
-  // handle button press detection
-  if ((actState == BUTTON_PRESSED))  {
-    buttonDebouncers[i].releaseCount = 0;
-    if ((buttonDebouncers[i].pressCount <= settings.tt >> 2) || (settings.tt == 0))
-      buttonDebouncers[i].pressCount++;
-
-    // antitremor press check: hold button a minimum time before press is valid (settings.ap)  
-    if (buttonDebouncers[i].pressCount == settings.ap) {
-      buttonDebouncers[i].pressState = BUTTONSTATE_SHORT_PRESSED;
-      if (!longPressEnabled(i))  { handlePress(i); return; }  // issue the short press action !
-    }
-
-    // check for long press action 
-    if ((buttonDebouncers[i].pressCount == settings.tt >> 2) && (settings.tt != 0)  
-         && (l >= 0) && (l < NUMBER_OF_BUTTONS) && (buttons[l].mode != CMD_NC)) {
-
-      // in case pressed duration reaches threshold  settings.tt/4: execute long press function!
-      handlePress(l);
-      buttonDebouncers[i].pressCount = settings.tt >> 2;  // update pressCount in case slot has changed!
-                                                          // (this avoids glitches if settings.tt differs)
-      buttonDebouncers[i].pressState = BUTTONSTATE_LONG_PRESSED;
-    }
-  }
-
-  // handle button release detection
-  if ((actState == BUTTON_RELEASED)) {
-    buttonDebouncers[i].pressCount = 0;
-
-    // antitremor release count check:
-    // release the button only if it stays released for a minimum time (settings.ar)
-    if (buttonDebouncers[i].releaseCount <= settings.ar)
-      buttonDebouncers[i].releaseCount++;
-    if (buttonDebouncers[i].releaseCount == settings.ar) {
-      if (buttonDebouncers[i].pressState == BUTTONSTATE_SHORT_PRESSED) {
-        if (longPressEnabled(i))  handlePress(i); // do a short press action in case long press enabled but presstime not long enough ....
-        handleRelease(i);   // stop ongoing press action
-        buttonDebouncers[i].pressState = BUTTONSTATE_IDLE;
-      }
-      else if (buttonDebouncers[i].pressState == BUTTONSTATE_LONG_PRESSED) {
-        handleRelease(l);  // stop ongoing longpress action
-        buttonDebouncers[i].pressState = BUTTONSTATE_IDLE;
-      }
-    }
-  }
-}
-
-/**
-   @name getKeystring
-   @param uint8_t button  the button index
-   @return char *  the keystring
-
-   returns the key parameter string for a given button index
-*/
-char * getKeystring (uint8_t button)
-{
-  char *s = keystringBuffer;
-
-  // bypass first n strings in the keystringBuffer array
-  for (int i = 0; i < button; i++) {
-    while (*s) s++;
-    s++;
-  }
-  return (s);
-}
-
-/**
-   @name keystringMemUsage
-   @param uint8_t button  the button index
-   @return uint16_t memory usage (length)
-
-   returns the length of all key parameter strings, starting with index "button"
-   keystringMemUsage(0) returns the lenght of all currently stored keystings in the keystringBuffer array
-*/
-uint16_t keystringMemUsage(uint8_t button)
-{
-  uint16_t sum = 0;
-  for (int i = button; i < NUMBER_OF_BUTTONS; i++)
-    sum += strlen(getKeystring(i)) + 1;
-  return (sum);
-}
-
-/**
-   @name setKeystring
-   @param uint8_t button  the button index
-   @param char * text  the text to be stored
-   @return none
-
-   stores a new string/ASCII-text (for the given button) into the keyStringBuffer array
-   all individual strings in the array are zero-terminated
-*/
-void setKeystring (uint8_t button, char * text)
-{
-
-  // check if new string fits into memory, cancel if not!
-  if (keystringMemUsage(0) - strlen(getKeystring(button)) + strlen(text) >= KEYSTRING_BUFFER_LEN)
-    return;
-
-  if (button < NUMBER_OF_BUTTONS - 1) {
-    uint16_t bytesToCopy = keystringMemUsage(button + 1);
-    int16_t delta = strlen(text) - strlen(getKeystring(button));
-
-    // move other strings in order to fit in the new one !
-    memmove(getKeystring(button + 1) + delta, getKeystring(button + 1), bytesToCopy);
-  }
-  strcpy(getKeystring(button), text);
 }

@@ -1,14 +1,16 @@
+/*
+     FabiWare - AsTeRICS Foundation
+     For more info please visit: https://www.asterics-foundation.org
 
-/* 
-     Flexible Assistive Button Interface (FABI) - AsTeRICS Foundation - http://www.asterics-foundation.org
-     for controlling HID functions via momentary switches and/or serial AT-commands  
-     More Information: https://github.com/asterics/FABI
+     Module: eeprom.h - implementation of the storage management (now in flash filesystem), header
 
-     Module: eeprom.h - eeprom memory management
-        
-     This program is free software; you can redistribute it and/or modify
-     it under the terms of the GNU General Public License, see:
-     http://www.gnu.org/licenses/gpl-3.0.en.html
+   This program is free software; you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation.
+
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; See the GNU General Public License:
+   http://www.gnu.org/licenses/gpl-3.0.en.html
 
 */
 
@@ -40,7 +42,8 @@
 #ifndef _EEPROM_H_
 #define _EEPROM_H_
 
-#include "fabi.h"
+#include "FlipWare.h"
+#include "parser.h"
 
 #define MAX_SLOTS_IN_EERPOM 10
 #define MAX_IRCOMMANDS_IN_EERPOM 20

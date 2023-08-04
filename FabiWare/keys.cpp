@@ -1,41 +1,260 @@
 /*
-     Flexible Assistive Button Interface (FABI) - AsTeRICS Foundation - http://www.asterics-foundation.org
-     for controlling HID functions via momentary switches and/or serial AT-commands  
-     More Information: https://github.com/asterics/FABI
+     FabiWare - AsTeRICS Foundation
+     For more info please visit: https://www.asterics-foundation.org
 
-     Module: keys.cpp - keyboard and keycode support
+     Module: keys.cpp - implementation of the keyboard handling
 
-     This program is free software; you can redistribute it and/or modify
-     it under the terms of the GNU General Public License, see:
-     http://www.gnu.org/licenses/gpl-3.0.en.html
- 
+   This program is free software; you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation.
+
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; See the GNU General Public License:
+   http://www.gnu.org/licenses/gpl-3.0.en.html
+
 */
 
-#include "fabi.h"
+#include "FlipWare.h"
 #include "keys.h"
-#include <avr/pgmspace.h>
 
 
+/**
+   forward declarations of module-internal functions
+*/
+int pressed_keys[KEYPRESS_BUFFERSIZE];
+uint8_t in_keybuffer(int key);
+void remove_from_keybuffer(int key);
+void add_to_keybuffer(int key);
+void performKeyActions(char* text, uint8_t keyAction);
+char kbdLayout[6] = "en_US";
+const uint8_t *kbdLayoutArray = KeyboardLayout_en_US;
 
-int storedKeys[HID_REPORT_KEY_COUNT]={0};  // arrays for keycodes of currently pressed keys
-extern const int usToDE[];                 // translation map for keycodes, see below
+/**
+   @name printKeyboardLayout
+   @brief Prints out the currently used keyboard layout (e.g. "en_US\n")
+   @return none
+*/
+void printKeyboardLayout()
+{
+	Serial.println(kbdLayout);
+}
+
+/**
+   @name setKeyboardLayout
+   @brief Updates the currently used keyboard layout.
+   @param name Name of the new keyboard layout (e.g. "en_US" or "de_DE")
+   @return 1 on success, 0 if layout is not found.
+   @note Currently supported: de_DE, en_US, es_ES, fr_FR, it_IT, sv_SE, da_DK
+*/
+int8_t setKeyboardLayout(char *name)
+{
+	const uint8_t *newLayout = 0;
+	
+	if(strncmp(name, "de_DE",5) == 0) newLayout = KeyboardLayout_de_DE;
+	if(strncmp(name, "en_US",5) == 0) newLayout = KeyboardLayout_en_US;
+	if(strncmp(name, "es_ES",5) == 0) newLayout = KeyboardLayout_es_ES;
+	if(strncmp(name, "fr_FR",5) == 0) newLayout = KeyboardLayout_fr_FR;
+	if(strncmp(name, "it_IT",5) == 0) newLayout = KeyboardLayout_it_IT;
+	if(strncmp(name, "sv_SE",5) == 0) newLayout = KeyboardLayout_sv_SE;
+	if(strncmp(name, "da_DK",5) == 0) newLayout = KeyboardLayout_da_DK;
+	
+	if(newLayout)
+	{
+		Keyboard.begin(newLayout);
+    kbdLayoutArray = newLayout;
+		#ifdef DEBUG_OUTPUT_FULL
+			Serial.print("Found new layout pointer for ");
+			Serial.print(name);
+			Serial.println(", setting in Keyboard.begin");
+		#endif
+    strncpy(kbdLayout,name,5); //save locally
+		return 1;
+	} else return 0;
+}
+
+/**
+   @name getKeyboardLayout
+   @brief Used to get the pointer to the current keyboard layout
+   @return Pointer to keyboard layout array
+*/
+const uint8_t *getKeyboardLayout()
+{
+  return kbdLayoutArray;
+}
+
+/**
+   @name updateKey
+   @brief performs a new press/release action for a given keycode
+   @param key the keycode
+   @param keyAction action to be performed
+   @return none
+*/
+void updateKey(int key, uint8_t keyAction)
+{
+  switch (keyAction)  {
+    case KEY_PRESS:
+    #ifdef DEBUG_OUTPUT_KEYS
+      Serial.print("P+");
+    #endif
+    case KEY_HOLD:
+      #ifdef DEBUG_OUTPUT_KEYS
+        Serial.println("H");
+      #endif
+      add_to_keybuffer(key);
+      keyboardPress(key);       // press/hold keys individually
+      break;
+
+    case KEY_RELEASE:
+      #ifdef DEBUG_OUTPUT_KEYS
+        Serial.println("R");
+      #endif
+      remove_from_keybuffer(key);
+      keyboardRelease(key);       // release keys individually
+      break;
+
+    case KEY_TOGGLE:
+      #ifdef DEBUG_OUTPUT_KEYS
+        Serial.print("T-");
+      #endif
+      if (in_keybuffer(key))  {
+        #ifdef DEBUG_OUTPUT_KEYS
+          Serial.println("R");
+        #endif
+        remove_from_keybuffer(key);
+        keyboardRelease(key);
+      } else {
+        #ifdef DEBUG_OUTPUT_KEYS
+          Serial.println("P");
+        #endif
+        add_to_keybuffer (key);
+        keyboardPress(key);
+      }
+      break;
+  }
+  //need to delay to avoid missing keyboard actions
+  delay(10);
+}
+
+void pressKeys (char * text)
+{
+  performKeyActions(text, KEY_PRESS);
+  performKeyActions(text, KEY_RELEASE);
+}
+
+void holdKeys (char * text)
+{
+  performKeyActions(text, KEY_HOLD);
+}
+
+void releaseKeys (char * text)
+{
+  performKeyActions(text, KEY_RELEASE);
+}
+
+void toggleKeys (char * text)
+{
+  performKeyActions(text, KEY_TOGGLE);
+}
+
+void release_all_keys()
+{
+  keyboardReleaseAll();
+  for (int i = 0; i < KEYPRESS_BUFFERSIZE; i++)
+    pressed_keys[i] = 0;
+}
 
 
-// this keymap associates keycode-strings to the actual key codes
-//
-const keymap_struct keymap[] PROGMEM  = {   
+void release_all()  // releases all previously pressed keys and stop mouse actions
+{
+  release_all_keys();
+  mouseRelease(MOUSE_LEFT);
+  mouseRelease(MOUSE_MIDDLE);
+  mouseRelease(MOUSE_RIGHT);
+  sensorData.autoMoveX = 0;
+  sensorData.autoMoveY = 0;
+}
+
+/**
+   @name add_to_keybuffer
+   @brief adds a keycode to buffer of pressed keys
+   @param key the keycode
+   @return none
+*/
+void add_to_keybuffer(int key)
+{
+  for (int i = 0; i < KEYPRESS_BUFFERSIZE; i++)
+  {
+    if (pressed_keys[i] == 0)
+      pressed_keys[i] = key;
+    if (pressed_keys[i] == key) i = KEYPRESS_BUFFERSIZE;
+  }
+}
+
+/**
+   @name remove_from_keybuffer
+   @brief removes a keycode from buffer of pressed keys
+   @param key the keycode
+   @return none
+*/
+void remove_from_keybuffer(int key)
+{
+  for (int i = 0; i < KEYPRESS_BUFFERSIZE; i++)
+  {
+    if (pressed_keys[i] == key)
+    {
+      while (i < KEYPRESS_BUFFERSIZE - 1)
+      {
+        pressed_keys[i] = pressed_keys[i + 1];
+        i++;
+      }
+      pressed_keys[KEYPRESS_BUFFERSIZE - 1] = 0;
+      i = KEYPRESS_BUFFERSIZE;
+    }
+  }
+}
+
+/**
+   @name in_keybuffer
+   @brief returns true if a given keycode is in the buffer of pressed keys
+   @param key the keycode
+   @return true if key is actually pressed, otherwise false
+*/
+uint8_t in_keybuffer(int key)
+{
+  for (int i = 0; i < KEYPRESS_BUFFERSIZE; i++)
+  {
+    if (pressed_keys[i] == key)
+      return (1);
+  }
+  return (0);
+}
+
+/**
+   keymap_struct 
+   maps a keycode to a key-identifier string
+*/
+struct keymap_struct {
+  char const *token;
+  int key;
+};
+
+/**
+   keymap1
+   keycode/key-identifier mapping for key-identifiers with prefix "KEY_"
+*/
+const keymap_struct keymap1 [] = {
   {"SHIFT", KEY_LEFT_SHIFT},
   {"CTRL", KEY_LEFT_CTRL},
   {"ALT", KEY_LEFT_ALT},
   {"RIGHT_ALT", KEY_RIGHT_ALT},
   {"GUI", KEY_LEFT_GUI},
   {"RIGHT_GUI", KEY_RIGHT_GUI},
-  {"UP", KEY_UP},
-  {"DOWN", KEY_DOWN},
-  {"LEFT", KEY_LEFT},
-  {"RIGHT", KEY_RIGHT},
-  {"ENTER", KEY_ENTER},
-  {"SPACE", KEY_SPACE},
+  {"UP", KEY_UP_ARROW},
+  {"DOWN", KEY_DOWN_ARROW},
+  {"LEFT", KEY_LEFT_ARROW},
+  {"RIGHT", KEY_RIGHT_ARROW},
+  {"ENTER", KEY_RETURN},
+  {"SPACE", ' '},
   {"ESC", KEY_ESC},
   {"BACKSPACE", KEY_BACKSPACE},
   {"TAB", KEY_TAB},
@@ -70,336 +289,119 @@ const keymap_struct keymap[] PROGMEM  = {
   {"DELETE", KEY_DELETE},
   {"END", KEY_END},
   {"PAGE_DOWN", KEY_PAGE_DOWN},
-  {"A", KEY_A},
-  {"B", KEY_B},
-  {"C", KEY_C},
-  {"D", KEY_D},
-  {"E", KEY_E},
-  {"F", KEY_F},
-  {"G", KEY_G},
-  {"H", KEY_H},
-  {"I", KEY_I},
-  {"J", KEY_J},
-  {"K", KEY_K},
-  {"L", KEY_L},
-  {"M", KEY_M},
-  {"N", KEY_N},
-  {"O", KEY_O},
-  {"P", KEY_P},
-  {"Q", KEY_Q},
-  {"R", KEY_R},
-  {"S", KEY_S},
-  {"T", KEY_T},
-  {"U", KEY_U},
-  {"V", KEY_V},
-  {"W", KEY_W},
-  {"X", KEY_X},
-  {"Y", KEY_Y},
-  {"Z", KEY_Z},
-  {"1", KEY_1},
-  {"2", KEY_2},
-  {"3", KEY_3},
-  {"4", KEY_4},
-  {"5", KEY_5},
-  {"6", KEY_6},
-  {"7", KEY_7},
-  {"8", KEY_8},
-  {"9", KEY_9},
-  {"0", KEY_0}
+  {"PAUSE", KEY_PAUSE},
+  {"SCROLL_LOCK", KEY_SCROLL_LOCK},
+  {"NUM_LOCK", KEY_NUM_LOCK},
+  {"PRINTSCREEN", KEY_PRINT_SCREEN},
+  {"SEMICOLON", ';'},
+  {"COMMA", ','},
+  {"PERIOD", ','},
+  {"MINUS", '-'},
+  {"EQUAL", '='},
+  {"SLASH", '/'},
+  {"BACKSLASH", '\\'},
+  {"LEFT_BRACE", '('},
+  {"RIGHT_BRACE", ')'},
+  {"QUOTE", '"'},
+  {"TILDE", '~'},
+  {"MENU", KEY_MENU}
 };
 
-#define KEYMAP_ELEMENTS (sizeof keymap / sizeof keymap[0])
+/**
+   keymap2
+   keycode/key-identifier mapping for key-identifiers with prefix "KEYPAD_"
+*/
+const keymap_struct keymap2 [] = {
+  {"SLASH", KEY_KP_SLASH},
+  {"ASTERIX", KEY_KP_ASTERISK},
+  {"MINUS", KEY_KP_MINUS},
+  {"PLUS", KEY_KP_PLUS},
+  {"ENTER", KEY_KP_ENTER},
+  {"1", KEY_KP_1},
+  {"2", KEY_KP_2},
+  {"3", KEY_KP_3},
+  {"4", KEY_KP_4},
+  {"5", KEY_KP_5},
+  {"6", KEY_KP_6},
+  {"7", KEY_KP_7},
+  {"8", KEY_KP_8},
+  {"9", KEY_KP_9},
+  {"0", KEY_KP_0},
+  {"PERIOD", KEY_KP_DOT}
+};
+
+#define KEYMAP1_ELEMENTS (sizeof keymap1 / sizeof keymap1[0])   // number of key-identifiers with prefix "KEY_"
+#define KEYMAP2_ELEMENTS (sizeof keymap2 / sizeof keymap2[0])   // number of key-identifiers with prefix "KEYPAD_"
 
 /**
-   @name getKeycode
-   @param char* acttoken
-   @return int
-
-   returns a keycode for a given keycode-string (acttoken)
+   @name performKeyActions
+   @brief press, release or hold multiple keys
+   @param text is a string which contains the key identifiers eg. "KEY_CTRL KEY_C" for Ctrl-C
+   @param keyAction the action will shall be performed
+   @return none
 */
-int getKeycode(char* acttoken)
+void performKeyActions(char* text,  uint8_t keyAction)
 {
-    keymap_struct keyRAM;    
+  char * tmptxt = (char *) malloc( sizeof(char) * ( strlen(text) + 2 ) ); // for parsing keystrings
+  char * acttoken;
+  bool found = false;
+
+  strcpy(tmptxt, text);
+  if (tmptxt[strlen(tmptxt) - 1] != ' ') strcat(tmptxt, " ");
+
+  acttoken = strtok(tmptxt, " ");
+  while (acttoken)
+  {
     if (!strncmp(acttoken, "KEY_", 4)) {
       acttoken += 4;
-      for (int i = 0; i < KEYMAP_ELEMENTS; i++) {
-        // Serial.print("scanning for ");  Serial.println(keymap[i].token);
-        // if (!strcmp_FM(acttoken,(uint_farptr_t_FM)keymap[i].token)) {
-
-        memcpy_P( &keyRAM, &keymap[i], sizeof(keymap[0]));
-        if (!strcmp(acttoken, keyRAM.token)) {
-          // Serial.print ("found "); Serial.println (keyRAM.key);
-          return(keyRAM.key);
+      found = false;
+      
+      for (unsigned int i = 0; i < KEYMAP1_ELEMENTS; i++) {
+        #ifdef DEBUG_OUTPUT_KEYS
+          Serial.print("scanning for ");  Serial.println(keymap1[i].token);
+        #endif
+        
+        if (!strcmp(acttoken, keymap1[i].token)) {
+          #ifdef DEBUG_OUTPUT_KEYS
+            Serial.print("found @"); Serial.print(i); Serial.print(", keycode: "); Serial.println(keymap1[i].key);
+          #endif
+          
+          updateKey(keymap1[i].key, keyAction);
+          found = true;
+          break;
         }
       }
+      //if not found in the array, try if it is 0-9 or A-Z keys
+      //we need to split this test, because we need small letters for Keyboard.print.
+      if(!found && (acttoken[0] >= '0' && acttoken[0] <= '9'))
+      {
+        #ifdef DEBUG_OUTPUT_KEYS
+          Serial.print("found num key: "); Serial.println(acttoken[0]);
+        #endif
+        
+        updateKey(acttoken[0], keyAction);
+        found = true;
+      }
+	    
+      if(!found && (acttoken[0] >= 'A' && acttoken[0] <= 'Z'))
+      {
+        #ifdef DEBUG_OUTPUT_KEYS
+          Serial.print("found ascii keys: "); Serial.println(toLowerCase(acttoken[0]));
+        #endif
+        
+        updateKey(toLowerCase(acttoken[0]), keyAction);
+        found = true;
+      }
     }
-    return(0);
-}
 
-/**
-   @name getNextKeyName
-   @param char* keyNames
-   @param char* singleKeyName
-   @return uint16_t
-
-   stores the first keycode-string into "singleKeyName" and returns its lenght
-   Note: this function is called multiple times in order to 
-   tokenizes a string which contains multiple keycode-stings (eg. "KEY_A KEY_B")
- 
-*/
-uint16_t getNextKeyName(char* keyNames, char* singleKeyName)
-{
-  int i=0,j=0;
-  while (keyNames[i]==' ') i++;
-  while ((keyNames[i]!=' ') && (keyNames[i])) {
-     singleKeyName[j++]=keyNames[i++];
-  }
-  singleKeyName[j]=0;
-  return(i);
-}
-
-/**
-   @name storeKey
-   @param int k
-   @return none
-
-   adds a keycode to an array, in order to keep track of currently pressed keys
- 
-*/
-void storeKey(int k) {
-  for (int i=0;i<HID_REPORT_KEY_COUNT;i++) {
-    if (storedKeys[i]==k) return;  // already stored
-    if (storedKeys[i]==0) {storedKeys[i]=k; return;} // store new key    
-  }
-}
-
-/**
-   @name removeKey
-   @param int k
-   @return none
-
-   removes a keycode to an array, in order to keep track of currently pressed keys
- 
-*/
-void removeKey(int k) {
-  for (int i=0;i<HID_REPORT_KEY_COUNT;i++) {
-    if (storedKeys[i]==k) {storedKeys[i]=0; return;} // remove key    
-  }
-}
-
-/**
-   @name keyStored
-   @param int k
-   @return int
-
-   returns if a given key (keycode) is pressed (0: no / 1:yes)
-*/
-int keyStored(int k) {
-  for (int i=0;i<HID_REPORT_KEY_COUNT;i++) {
-    if (storedKeys[i]==k) return (1);  // found
-  }
-  return(0);
-}
-
-
-/**
-   @name pressSingleKeys
-   @param char* keyNames
-   @return none
-
-   press sequence of supported single keys 
-   keyNames is a string which contains the key identifiers eg. "KEY_CTRL KEY_C" for Ctrl-C
-*/
-void pressSingleKeys(char* keyNames)
-{
-  int len;
-  char singleKeyName[20];   // e.g. KEY_A
-  while (len=getNextKeyName(keyNames,singleKeyName))
-  {
-    int kc=getKeycode(singleKeyName);
-    if (kc) {
-     keyboardPress(kc);
-     storeKey(kc);
-     // Serial.print ("press key ");  Serial.println (kc);
+    if (!strncmp(acttoken, "KEYPAD_", 7)) {
+      acttoken += 7;
+      for (unsigned int i = 0; i < KEYMAP2_ELEMENTS; i++) {
+        if (!strcmp(acttoken, keymap2[i].token))
+          updateKey(keymap2[i].key, keyAction);
+      }
     }
-    keyNames+=len;
+    acttoken = strtok(NULL, " ");
   }
+  free(tmptxt);
 }
-
-/**
-   @name releaseSingleKeys
-   @param char* keyNames
-   @return none
-
-   release sequence of supported single keys 
-   keyNames is a string which contains the key identifiers eg. "KEY_CTRL KEY_C" for Ctrl-C
-*/
-void releaseSingleKeys (char * keyNames)
-{
-  int len;
-  char singleKeyName[20];
-  while (len=getNextKeyName(keyNames,singleKeyName))
-  {
-    int kc=getKeycode(singleKeyName);
-    if (kc) {
-      keyboardRelease(kc);
-      removeKey(kc);
-    }
-    keyNames+=len;
-  }
-}
-
-
-/**
-   @name toggleSingleKeys
-   @param char* keyNames
-   @return none
-
-   toggle sequence of supported single keys 
-   keyNames is a string which contains the key identifiers eg. "KEY_CTRL KEY_C" for Ctrl-C
-*/
-void toggleSingleKeys(char* keyNames)
-{
-  int len;
-  char singleKeyName[20];   // e.g. KEY_A
-  while (len=getNextKeyName(keyNames,singleKeyName))
-  {
-    int kc=getKeycode(singleKeyName);
-    if (kc) {
-      if (keyStored(kc)) { keyboardRelease(kc); removeKey(kc); }
-      else { keyboardPress(kc); storeKey(kc);}
-      // Serial.print ("toggle key ");  Serial.println (kc);
-    }
-    keyNames+=len;
-  }
-}
-
-
-
-/**
-   @name writeTranslatedKeys
-   @param char * str
-   @param int len
-   @return none
-   
-   write a sequence of characters, translated to locale using modifier keys
-*/
-void writeTranslatedKeys(char * str, int len)
-{
-   int k;
-   for (int i=0; i<len; i++) {
-      if (KEYBOARD_LAYOUT == KBD_DE)
-         k=pgm_read_word_near(&(usToDE[(uint8_t)str[i]]));  // get the translated keycode (DE layout)
-      else k=str[i];
-      
-     // Serial.print ("char:"); Serial.print(*p1); Serial.print(" -> ");Serial.print(k);Serial.print(" (");
-     // if (k&MOD_ALTGR) Serial.print("AltGr + "); if (k&MOD_SHIFT) Serial.print("Shift + "); 
-     // Serial.print((char)(k&0xff)); Serial.println(")");
-
-      if (k&MOD_ALTGR) keyboardPress(KEY_RIGHT_ALT); 
-      if (k&MOD_SHIFT) keyboardPress(KEY_LEFT_SHIFT); 
-      keyboardPress(k&0xff); 
-      keyboardRelease(k&0xff); 
-      if (k&MOD_SHIFT) keyboardRelease(KEY_LEFT_SHIFT); 
-      if (k&MOD_ALTGR) keyboardRelease(KEY_RIGHT_ALT);
-   }
-}
-
-
-/**
-   @name sendToKeyboard
-   @param char * writeKeystring
-   @return none
-   
-   write a string to the keyboard, replacing special keys (identified by "KEY_NAME") with their keycodes
-*/ 
-void sendToKeyboard(char * writeKeystring)
-{
-    char singleKeyName[20];
-    char * actpos = writeKeystring;
-    char * specialKeyLocation=strstr(actpos,"KEY_");
-
-    while (specialKeyLocation) {
-        // write all normal characters until the special key position
-        writeTranslatedKeys (actpos, specialKeyLocation-actpos);
-        //extract name of special key
-        getNextKeyName(specialKeyLocation,singleKeyName);
-        int kc=getKeycode(singleKeyName);
-        if (kc)  {
-           keyboardPress(kc);
-           keyboardRelease(kc);
-        }
-        // continue after special key name
-        actpos= specialKeyLocation+strlen(singleKeyName);
-        specialKeyLocation=strstr(actpos,"KEY_");
-    }
-    // write remainder of normal characters   
-    writeTranslatedKeys(actpos, strlen(actpos));
-}
-
-
-/**
-   @name release_all
-   @param none
-   @return none
-   
-   releases all previously pressed keys and mouse buttons
-   stop mouse movement
-*/
-void release_all() 
-{
-  // Serial.println("release all!");
-  keyboardReleaseAll();  //Keyboard.releaseAll();
-  leftMouseButton = 0;
-  rightMouseButton = 0;
-  middleMouseButton = 0;
-  moveX = 0;
-  moveY = 0;
-}
-
-
-
-// here comes a character translation table - this works only for DE by now ...
-const int usToDE[] PROGMEM = 
-{
-//  0,  0,  0,  0,  0,  0,  0,  0, BS, TB, CR,  0,  0,  0,  0,  0,
-    0,  0,  0,  0,  0,  0,  0,  0,  8,  9, 10,  0,  0, 13,  0,  0,
-
-    0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-
-// BL,  !,  Ä,  §,     $,  %,  /,       ä,        ),  =,  (,  `,  ,,  ß,  .,  -,
-//          "                  &        /         (   )   *   +       -       /
-   32, 33, 64,  '\\', 36, 37, 94, MOD_SHIFT+'\\', 42, 40,125,184, 44, 47, 46, 38,
-
-//  0,  1,  2,  3,  4,  5,  6,  7,  8,  9,  Ö,  ö, ;,  ´,  :,  _,
-//                                          :   ;  <  |    >   =        
-   48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 62, 60, 0, 41,  0, 95,
-
-//      ",          A,  B,  C,  D,  E,  F,  G,  H,  I,  J,  K,  L,  M,  N,  O,
-//      @
-    MOD_ALTGR+'q', 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79,
-
-//  P,  Q,  R,  S,  T,  U,  V,  W,  X,  Z,  Y,      ü,                #,                +,          &,  ?,
-//                                      Y   Z       [                 \                 ]           ^   _
-   80, 81, 82, 83, 84, 85, 86, 87, 88, 90, 89,  MOD_ALTGR+KEY_8,  MOD_ALTGR+'-',  MOD_ALTGR+KEY_9, 96, 63,
-
-//  ^,  a,  b,  c,  d,  e,  f,  g,  h,  i,  j,  k,  l,  m,  n,  o,
-//  `
-   43, 97, 98, 99,100,101,102,103,104,105,106,107,108,109,110,111,
-
-//  p,  q,  r,  s,  t,  u,  v,  w,  x,  z,  y,         Ü,         ,           *,        °,  0,
-//                                      y   z          {          |           }         ~
-  112,113,114,115,116,117,118,119,120,122,121,  MOD_ALTGR+KEY_7,  0,  MOD_ALTGR+KEY_0,  0,  0,
-
-
-// 
-    0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-    0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-    0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-    0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-    0,  0,  0,  0,  '\"',  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-    0,  0,  0,  0,  0,  0,  ':',  0,  0,  0,  0,  0,  MOD_SHIFT+'[',  0,  0,  '-',
-    0,  0,  0,  0,  '\'',  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-    0,  0,  0,  0,  0,  0,  ';',  0,  0,  0,  0,  0,  '[',  0,  0,  0,
-
-};
