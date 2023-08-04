@@ -555,14 +555,5 @@ void performCommand (uint8_t cmd, int16_t parNum, char * parString, int8_t perio
         Serial1.write('\n'); //terminate command
       }
       break;
-    case CMD_UG:
-      //we set this flag here, flushing & disabling serial port is done in loop()
-      addonUpgrade = BTMODULE_UPGRADE_START;
-      Serial.println("Starting upgrade for BT addon!");
-      // Command for upgrade sent to ESP - triggering reset into factory reset mode
-      Serial1.println("$UG");
-      // delaying to ensure that UART command is sent and received
-      delay(500);
-      break;
   }
 }

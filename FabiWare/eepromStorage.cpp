@@ -15,401 +15,631 @@
 #include "fabi.h"
 #include "eepromStorage.h"
 
-#define MAGIC_BYTE 42  // "magic byte" for valid EEPROM content
-#define SLOTSIZE (sizeof(settingsType)+NUMBER_OF_BUTTONS*sizeof(buttonType))
-
-
-
-int nextSlotAddress=0;
-int EmptySlotAddress = 0;
-int EmptyKeystringAddress=EEPROM_TOP_ADDRESS-1;
-uint16_t freeEEPROMbytes = EEPROM_TOP_ADDRESS;
-
+#include <FS.h>
+#include <LittleFS.h>
 
 /**
-   @name getfreeEEPROM
-   @param none
-   @return none
-
-   returns free EEPROM memory in percent
-*/
-uint16_t getfreeEEPROM() {
-  return ((uint32_t) freeEEPROMbytes * 100 / EEPROM_TOP_ADDRESS);
-}
-
-
-/**
-   move multiple bytes in EEPROM 
-   targetAdr: start address for writing bytes 
-   sourceAdr: start address for reading bytes 
-   count: number of bytes to move
-   moving overlapping regions is possible
+   Local copy of IR command header (name and edge count)
  * */
-void moveEEPROM(uint16_t targetAdr, uint16_t sourceAdr, int count) {
-  if (sourceAdr > targetAdr) {  // forward copy
-    while (count-- > 0) {      
-      uint8_t c=EEPROM.read(sourceAdr++);
-      EEPROM.update(targetAdr++,c);
-    }
-  }
-  else {  // backward copy
-    sourceAdr+=count-1;
-    targetAdr+=count-1;
-    while (count--) {
-      EEPROM.update(targetAdr--,EEPROM.read(sourceAdr--));
-    }
-  }
-}
-
-
+struct irCommandHeader irCommand;
 
 /**
-   @name getSlotInfos
-   @param char * slotname
-   @param uint16_t * s_address
-   @param uint16_t * k_address
-   @param uint16_t * k_len
-   @return uint8_t
-
-   get information about a slot from the EEPROM
-
-   returns 1 if slotname was found, and 0 if not.
-   if the slow was found, the slot address (s_address), 
-   the keystring address (k_address) and the length of the keysting (k_len) are returned.
-   Note that keystrings are stored "top-down" in EEPROM (k_address is the top address)
-*/
-uint8_t getSlotInfos(char * slotname, uint16_t * s_address, uint16_t * k_address, uint16_t * k_len)
+   Save the current slot by the given slotname.
+   If there is no slot existing with this name,
+   it will be saved to a new slot.
+   returns 1 if successful, 0 if maximum slot count is reached
+ * */
+uint8_t saveToEEPROM(char const * slotname)
 {
-   uint16_t address=0;
-   uint16_t keystringAddress=EEPROM_TOP_ADDRESS-1;
-
-   while (EEPROM.read(address))
-   {
-      uint8_t c,i=0,match=0;
-      while (c=EEPROM.read(address+i)) {
-        if (slotname[i] == c) i++;
-        else break;
-      }
-      if (!slotname[i] && !c) {
-          match=1; 
-          *s_address = address;
-          *k_address = keystringAddress;
-          *k_len=0;
-      }
-      
-      uint8_t stringCount=0; 
-      while (stringCount < NUMBER_OF_BUTTONS) {
-         if (!EEPROM.read(keystringAddress--)) stringCount++;
-         if (match) *k_len = *k_len + 1;  // increase keystring length info 
-      }
-      if (match) return(1);
-
-      // skip to next slot address
-      address+=SLOTSIZE;
-   }
-   return(0);
-}
-
-
-/**
-   @name saveToEEPROM
-   @param char * slotname
-   @return 1:success/0:fail
-
-   saves the configuration slot (identified by slotname) to the EEPROM
-   cancels if not enough EEPROM memory free
-   returns 0 if EEPROM memory is full / 1 if save was successful
-   
-*/
-uint8_t saveToEEPROM(char * slotname)
-{
-   char act_slotname[MAX_SLOTNAME_LEN];
-   int delta=0;
-   uint16_t address=0;
-   uint16_t keystring_address;
-   uint16_t old_keystring_len, keystring_len;
-   uint8_t append=0;
-   uint8_t * p;
-
-
-   keystring_len=keystringMemUsage(0);  // lenght of current keystrings
-
-   if (getSlotInfos(slotname, &address, &keystring_address, &old_keystring_len)) {
-     #ifdef DEBUG_OUTPUT   
-       Serial.println("Slot already exists !!");
-       Serial.print(F(" starting from EEPROM address ")); Serial.println(address);
-       Serial.print(F(" keystring address ")); Serial.println(keystring_address);
-       Serial.print(F(" old keystring length ")); Serial.print(old_keystring_len);
-       Serial.print(F(", act len: ")); Serial.println(keystring_len);
-     #endif
-
-     delta = old_keystring_len - keystring_len;
-     if (delta) {  
-
-       //  move slot data?
-       #ifdef DEBUG_OUTPUT   
-         Serial.print(F(" move from address ")); Serial.print(EmptyKeystringAddress);
-         Serial.print(F(" to address ")); Serial.println(EmptyKeystringAddress+delta);
-         Serial.print(F(" bytes: ")); Serial.println(keystring_address - old_keystring_len - EmptyKeystringAddress);
-       #endif
-       
-       if (-delta > (int)freeEEPROMbytes) 
-         return 0;
-         
-       moveEEPROM (EmptyKeystringAddress+delta+1, EmptyKeystringAddress+1, keystring_address - old_keystring_len - EmptyKeystringAddress);
-       EmptyKeystringAddress+=delta;
-     }
-   }
-   else {
-    // start with new slot
-    if ( SLOTSIZE + keystring_len > freeEEPROMbytes) 
-       return 0;
-
-    address=EmptySlotAddress;
-    keystring_address=EmptyKeystringAddress;
-    append=1;
-  }
-
-   
-   #ifdef DEBUG_OUTPUT   
-     Serial.print(F("Writing slot ")); if (slotname) Serial.print(slotname);
-     Serial.print(F(" starting from EEPROM address ")); Serial.println(address);
-     Serial.print(F("We need ")); Serial.print(SLOTSIZE);
-     Serial.print(F(" bytes for the config and ")); Serial.print(keystring_len);
-     Serial.println(F(" bytes for keystrings."));
-
-     Serial.print(freeEEPROMbytes);
-     Serial.println(F(" bytes are free.")); 
-   #endif
-
- 
-   // update slotname
-   if (!slotname) settings.slotname[0]=0;
-   else strcpy(settings.slotname,slotname);
-      
-   // write general settings 
-   p = (uint8_t*) &settings;
-   for (int t=0;t<sizeof(settingsType);t++)
-      EEPROM.update(address++,*p++);
-
-   // write all buttons
-   p = (uint8_t*) buttons;
-   for (int i=0;i<NUMBER_OF_BUTTONS*sizeof(buttonType);i++)
-        EEPROM.update(address++,*p++);
-   
-   // write keystrings
-   // Note that the keystrings are stored "top down", starting at the highest EEPROM adress
-   for (int i=0;i<keystring_len;i++)
-        EEPROM.update(keystring_address--,keystringBuffer[i]);
-
-   // update free bytes
-   if (append) {
-     EEPROM.update(address,0);
-     EmptySlotAddress=address;
-     EmptyKeystringAddress-=keystring_len;
-   }
-   
-   freeEEPROMbytes=EmptyKeystringAddress-EmptySlotAddress;
-   return(1);
-}
-
-
-/**
-   @name readFromEEPROM
-   @param char * slotname
-   @return 1:success/0:fail
-
-   loads the configuration slot (identified by slotname) from the EEPROM
-
-   in case reportSlotParameters==REPORT_ONE_SLOT, the slot configuration is printed (if slotname is found)
-   in case reportSlotParameters==REPORT_ALL_SLOTS, all slot configurations are printed
-
-   returns 1 if slot data was loaded and/or printed, 0 if slotname was not found
-   
-*/
-uint8_t readFromEEPROM(char * slotname)
-{
-   char slotname_copy[MAX_SLOTNAME_LEN];
-   char act_slotname[MAX_SLOTNAME_LEN];
-   int address=0;
-   int tmpSlotAddress=0;
-   int tmpStartAddress=0;
-   int tmpKeystringAddress=EEPROM_TOP_ADDRESS-1;
-   uint8_t done=0;
-   uint8_t numSlots=0;
-   uint8_t stringCount=0;
-   uint8_t* p;
-
-   if (slotname) strcpy(slotname_copy,slotname);   // use a local copy of slotname
-                                     // (could be overwritten by keystring-update)!
-
-   // iterate over all valid slots in EEPROM
-   while (EEPROM.read(address)) 
-   {
-      uint8_t found=0;
-      
-      if ((!slotname) && (address==nextSlotAddress)) found=1;
-
-      tmpStartAddress=address;
-      uint8_t i=0;
-      while ((act_slotname[i++]=EEPROM.read(address++)) != 0) ; 
-      
-      #ifdef DEBUG_OUTPUT   
-         Serial.print(F("processing slot ")); Serial.println(act_slotname);
-      #endif
-
-      // if slotname matches the slot stored in EEPROM
-      if (slotname)  {
-        if (!strcmp(act_slotname, slotname_copy)) { found=1; done=1; }
-      }
-      
-      address=tmpStartAddress;
-      if ((found) || (reportSlotParameters==REPORT_ALL_SLOTS))  {       
-        #ifdef DEBUG_OUTPUT  
-           Serial.print(F("LOADING slot ")); Serial.println(act_slotname);
-        #endif
- 
-        // load settings structure
-        p = (uint8_t*) &settings;
-        for (int t=0;t<sizeof(settingsType);t++)
-            *p++=EEPROM.read(address++);
-        
-        // load button array
-        p = (uint8_t*) buttons;
-        for (int i=0;i<NUMBER_OF_BUTTONS*sizeof(buttonType);i++) 
-           *p++=EEPROM.read(address++);
-           
-        // load keystrings
-        // Note that the keystrings are stored "top down", starting at the highest EEPROM adress
-        p = (uint8_t*) keystringBuffer;
-        stringCount=0;
-        do {
-           uint8_t c=EEPROM.read(tmpKeystringAddress--);
-           *p++=c; 
-           if (!c) stringCount++;
-        } while (stringCount < NUMBER_OF_BUTTONS);
-
-        if (reportSlotParameters!=REPORT_NONE)  
-          printCurrentSlot();
-
-        actSlot=numSlots+1; 
-        tmpSlotAddress=address;
-      } 
-      else {
-        address += SLOTSIZE;   // skip this slot  
-        stringCount=0;
-        do {
-           if (!EEPROM.read(tmpKeystringAddress--)) stringCount++;
-        } while (stringCount < NUMBER_OF_BUTTONS);
-      }
-      numSlots++;
-   }
-
-   // update top address (for storing a new slot) and free bytes
-   EmptySlotAddress=address;
-   if (tmpSlotAddress) nextSlotAddress=tmpSlotAddress;
-   if (nextSlotAddress==EmptySlotAddress) nextSlotAddress=0;
-   EmptyKeystringAddress=tmpKeystringAddress;
-
-   freeEEPROMbytes=EmptyKeystringAddress-EmptySlotAddress;
-   
-   #ifdef DEBUG_OUTPUT   
-       Serial.print(numSlots); Serial.print(F(" slots were found in EEPROM, occupying "));
-       Serial.print(address+ EEPROM_TOP_ADDRESS-1-tmpKeystringAddress); Serial.print(F(" bytes ("));
-       Serial.print(F("config: ")); Serial.print(address); Serial.print(F(", keystrings: "));
-       Serial.print(EEPROM_TOP_ADDRESS-1-tmpKeystringAddress); Serial.println(F(")"));
-       Serial.print(freeEEPROMbytes); Serial.println(F(" bytes are free.")); 
-   #endif
-   
-   if (reportSlotParameters) {
-     Serial.println(F("END"));   // important: end marker for slot parameter list (command "load all" - AT LA)
-     return(1);
-   }
-
-   return(done);
-}
-
-/**
-   @name deleteSlots
-   @param slotname
-   @return 1:success / 0:fail
-
-   deletes one slot and it's keystring from the EEPROM
-   if slotname is empty: deletes all slots and keystrings from EEPROM
-   setting the first valid indicators to 0
-   returns 0 if slotname was not found, 1 if slot(s) were deleted successfully
-*/
-uint8_t deleteSlots(char * slotname)
-{
-   if (!strlen(slotname)) {
-    Serial.println("deleting all slots!");
-    EmptySlotAddress=0;
-    EmptyKeystringAddress=EEPROM_TOP_ADDRESS-1;
-    freeEEPROMbytes=EEPROM_TOP_ADDRESS-1;
-    nextSlotAddress=0;
-    EEPROM.update(0,0);
-    return 1;
-   }
-   
-   uint16_t address=0, old_keystring_len, keystring_address, keystring_len;
-
-   if (getSlotInfos(slotname, &address, &keystring_address, &old_keystring_len)) {
-     #ifdef DEBUG_OUTPUT   
-       Serial.print("deleting one slot @address "); Serial.println(address);    
-       Serial.print(" keystring length = "); Serial.println(old_keystring_len);    
-     #endif
-
-     moveEEPROM (address, address+SLOTSIZE, EmptySlotAddress-address);
-     moveEEPROM (EmptyKeystringAddress+old_keystring_len+1, EmptyKeystringAddress+1 , keystring_address - old_keystring_len - EmptyKeystringAddress);
-
-     EmptySlotAddress-=SLOTSIZE;
-     EEPROM.update(EmptySlotAddress,0);
-     EmptyKeystringAddress+=old_keystring_len;
-     #ifdef DEBUG_OUTPUT   
-       Serial.print("EmptySlotAddress "); Serial.println(EmptySlotAddress);    
-       Serial.print("EmptyKeystringAddress "); Serial.println(EmptyKeystringAddress);    
-     #endif
-     return(1);
-   }  
-   return(0);
-}
-
-void bootstrapEEPROM()
-{
-  if (EEPROM.read(EEPROM_TOP_ADDRESS) != MAGIC_BYTE)
-  {
-    #ifdef DEBUG_OUTPUT   
-      Serial.println("initializing EEPROM");
+  
+  //check if a slot with this name is available
+  int8_t nr = slotnameToNumber(slotname);
+  
+  //if not
+  if (nr == -1) {
+    //get last slot index number, add 1 and store.
+      saveToEEPROMSlotNumber(getLastSlotIndex()+1, slotname);
+  } else {
+    //overwrite existing one
+    #ifdef DEBUG_OUTPUT_MEMORY
+      Serial.print("Overwrite Slot ");
+      Serial.print(slotname);
+      Serial.print(", slot index= ");
+      Serial.println(nr);
     #endif
-    EEPROM.update(EEPROM_TOP_ADDRESS, MAGIC_BYTE);
-    EEPROM.update(0,0);
-    saveToEEPROM("default");
+    saveToEEPROMSlotNumber(nr, slotname);
+  }
+  return 1;
+}
+
+/**
+   Store current slot data to the EEPROM.
+   nr: the slot number.
+   If the start address of the given slot is != 0, the slot will be 
+   overwritten (other slot data will be moved if necessary).
+   If the start address of the slot is 0 (first free slot), 
+   a new slot will be created, starting at the end address of 
+   the previous slot. 
+ * */
+void saveToEEPROMSlotNumber(int8_t nr, char const * slotname)
+{
+  (void)slotname; //TODO: this implementation currently uses the slotname from slotSettings.
+  
+  /** save this slot **/
+  char path[32];
+  uint8_t revision = getSettingsRevision(); //determine current settings revision number
+  sprintf(path,"/%03d/%02d",revision,nr);
+  File f = LittleFS.open(path,"w");
+
+  #ifdef DEBUG_OUTPUT_MEMORY
+    Serial.print("Start new slot: ");
+    Serial.println(path);
+  #endif
+  
+  if (!f) {
+    Serial.println("file open failed");
+    return;
+  }
+
+  //just use the reporting function to put all our settings into the file
+  printCurrentSlot(&f);
+  
+  #ifdef DEBUG_OUTPUT_MEMORY
+    Serial.print("Slotsize:");
+    Serial.println(f.size());
+  #endif
+  
+  //finished
+  f.close();
+}
+
+/**
+   slotnameToNumber(char * slotname)
+   Determines the slot number for a given slot name
+ * */
+int8_t slotnameToNumber(char const * slotname)
+{
+  /** open current directory */
+  char path[32];
+  uint8_t revision = getSettingsRevision(); //determine current settings revision number
+  sprintf(path,"/%03d",revision);
+  Dir dir = LittleFS.openDir(path);
+  
+  /** find a slot for given name */
+  uint8_t slotnumber = 0;
+  while (dir.next()) {
+    if(dir.fileSize()) {
+      File f = dir.openFile("r");
+      String name = f.readStringUntil('\n');
+      name.trim();
+      f.close();
+      
+      if(name.equals(slotname)) return slotnumber; 
+      else slotnumber++;
+    }
+  }
+  //not found
+  return -1;
+}
+
+
+/**
+   Load one slot by the given slotname
+   If there is no slotname given: load next slot...
+   returns 1 if successful, 0 otherwise
+ * */
+uint8_t readFromEEPROM(char const * slotname)
+{
+  if (*slotname == 0)
+  {
+    //either load next slot or first slot.
+    #ifdef DEBUG_OUTPUT_MEMORY
+			Serial.print("Load next:");
+			if(actSlot == getLastSlotIndex()) Serial.println("0");
+			else Serial.println(actSlot + 1);
+		#endif
+    if(actSlot == getLastSlotIndex()) return readFromEEPROMSlotNumber(0, true);
+    else return readFromEEPROMSlotNumber(actSlot + 1, true);
+  }
+
+  int8_t nr = slotnameToNumber(slotname);
+  #ifdef DEBUG_OUTPUT_MEMORY
+    Serial.print("Load slot ");
+    Serial.print(slotname);
+    Serial.print("@");
+    Serial.println(nr);
+  #endif
+  //call the method which loads the data
+  if (nr >= 0) return readFromEEPROMSlotNumber(nr, true);
+  else return readFromEEPROMSlotNumber(0, true);
+  
+}
+
+/**
+   Read one slot data from the EEPROM to the global variables
+   The slot is identified by the slot number.
+   if the playTone flag is set, a tone according to the current slot number will be played
+   returns 1 if successful, 0 otherwise   
+ * */
+uint8_t readFromEEPROMSlotNumber(uint8_t nr, bool playTone)
+{
+  /** open & read this slot **/
+  char path[32];
+  uint8_t revision = getSettingsRevision(); //determine current settings revision number
+  sprintf(path,"/%03d/%02d",revision,nr);
+  
+  if(!LittleFS.exists(path))
+  {
+    #ifdef DEBUG_OUTPUT_MEMORY
+      Serial.print(nr);
+      Serial.println(" Slot not found!");
+    #endif
+    return 0;
+  }
+  
+  File f = LittleFS.open(path,"r");
+  
+  if(!f) return 0;
+
+  // load name & store to slotSettings
+  String name = f.readStringUntil('\n');
+  name.trim();
+  strncpy(slotSettings.slotName,name.c_str(),MAX_NAME_LEN);
+  
+  
+  // read line by line & feed into parser
+  String line = "";
+  do{
+		//check for remaining byte size, otherwise readStringUntil hangs until timeout
+		if((f.position()+5) > f.size()) break;
+    line = f.readStringUntil('\n');
+    line.trim();
+    //check again length, we need at least 5 bytes: "AT ..", e.g. "AT NC"
+    if(line.length() < 5) break;
+    line = line.substring(3);
+    //after substringing, we need at least 2 bytes: "..", e.g. "NC"
+    if(line.length() < 2) break;
+    #ifdef DEBUG_OUTPUT_MEMORY
+      Serial.print("Sending to parser: ");
+      Serial.println(line);
+    #endif
+    parseCommand((char*)line.c_str());
+  } while(line.length()>0);
+  
+  //finished
+  f.close();
+
+  #ifdef DEBUG_OUTPUT_MEMORY
+    Serial.print("read slotname "); Serial.println(slotSettings.slotName);
+  #endif
+
+  //now next slot is active
+  actSlot = nr;
+
+  if (playTone) makeTone(TONE_CHANGESLOT, actSlot);
+  #ifdef DEBUG_OUTPUT_MEMORY
+    Serial.print("actSlot: "); Serial.println(actSlot);
+  #endif
+
+  return(1);
+}
+
+
+//
+//  Infrared Code Storage
+//
+
+/**
+   Determines the irSlot number for a given ir Name
+ * */
+int8_t slotnameIRToNumber(char const * irName)
+{
+  /** open current directory */
+  char path[32];
+  sprintf(path,"/ir");
+  Dir dir = LittleFS.openDir(path);
+  
+  /** find a slot for given name */
+  uint8_t slotnumber = 0;
+  while (dir.next()) {
+    if(dir.fileSize()) {
+      File f = dir.openFile("r");
+      String name = f.readStringUntil(0);
+      f.close();
+      
+      if(name.equals(irName)) return slotnumber; 
+      else slotnumber++;
+    }
+  }
+  //not found
+  #ifdef DEBUG_OUTPUT_MEMORY
+    Serial.print("No IR slotName found for ");
+    Serial.println(irName);
+  #endif
+  return -1;
+}
+
+
+
+/**
+   This function deletes one IR command
+   If the "name" parameter is set to \0, all IR commands will be deleted.
+   returns 1 if successful, 0 otherwise
+
+ * */
+uint8_t deleteIRCommand(char const * name)
+{
+  char path[32];
+    
+  if (!strlen(name)) {
+    #ifdef DEBUG_OUTPUT_MEMORY
+        Serial.println("Deleting all IR slots");
+    #endif
+    
+    //open ir dir
+    Dir dir = LittleFS.openDir("/ir");
+    //and iterate over files to remove them.
+    while(dir.next()) {
+      LittleFS.remove(String("/ir/") + String(dir.fileName()));
+    }
+    return (1);
+  }
+  
+  int8_t nr = slotnameIRToNumber(name);
+  if (nr < 0) return (0);  // slot name does not exist
+  
+  //get current number of IR cmds
+  int lastSlot= getLastIRIndex();
+  
+  #ifdef DEBUG_OUTPUT_MEMORY
+      Serial.print("Deleting slot ");
+      Serial.print(name);
+      Serial.print("@");
+      Serial.println(nr);   
+  #endif
+  
+  //delete file
+  sprintf(path,"/ir/%02d",nr);
+  LittleFS.remove(path);
+
+  
+  if (nr != lastSlot) {
+    // we must move files
+    char pathTo[32];
+    for (int i=nr; i<lastSlot;i++) {
+      sprintf(path,"/ir/%02d",i+1);
+      sprintf(pathTo,"/ir/%02d",i);
+      LittleFS.rename(path,pathTo);
+    }
+  }
+  
+  return(1);
+}
+
+/**
+   Save one IR command to the EEPROM. If the name is already assigned,
+   it will be overwritten, otherwise a new slot will be used.
+   There is an array of timings between the edges, the length
+   is provided by cntEdges.
+   The name is also provided as parameter
+ * */
+void saveIRToEEPROM(char * name, uint16_t *timings, uint16_t cntEdges)
+{
+  int8_t nr = slotnameIRToNumber(name);
+  uint16_t irSlot=0;
+  if (nr == -1)  {
+    // a new IR slot, use next free number
+    irSlot = getLastIRIndex() + 1;
+
+    if (irSlot < MAX_IRCOMMANDS_IN_EERPOM) {
+      #ifdef DEBUG_OUTPUT_MEMORY
+        Serial.print("New IR command @");
+        Serial.println(irSlot);
+      #endif
+      saveIRToEEPROMSlotNumber(irSlot, name, timings, cntEdges);
+    } else Serial.println ("IR memory full, code not saved.");
+  }
+  else {
+    #ifdef DEBUG_OUTPUT_MEMORY
+      Serial.print("Overwrite IR Slot ");
+      Serial.print(name);
+      Serial.print(" at position ");
+      Serial.println(nr);
+    #endif
+    saveIRToEEPROMSlotNumber(nr, name, timings, cntEdges);
   }
 }
 
 
 /**
-   @name listSlots
-   @param none
-   @return none
+   Save one IR command to the EEPROM. The slot is determined by the slot number.
+   There is an array of timings between the edges, the length
+   is provided by cntEdges.
+   The name is also provided as parameter
+ * */
+void saveIRToEEPROMSlotNumber(uint8_t nr, char * name, uint16_t *timings, uint16_t cntEdges)
+{
+  #ifdef DEBUG_OUTPUT_MEMORY
+    //determine the size of this slot
+    size_t size = sizeof (irCommand) + cntEdges * 2;
+    Serial.print("IR slot size:");
+    Serial.println(size);
+  #endif
+  
+  /** save this slot **/
+  char path[32];
+  sprintf(path,"/ir/%02d",nr);
+  File f = LittleFS.open(path,"w");
 
-   lists all stored slotnames  from EEPROM
-*/
+  #ifdef DEBUG_OUTPUT_MEMORY
+    Serial.print("Start new slot: ");
+    Serial.println(path);
+  #endif
+  
+  if (!f) {
+    Serial.println("file open failed");
+    return;
+  }
+  
+  //prepare header
+  strncpy(irCommand.irName, name, MAX_NAME_LEN);
+  irCommand.edges = cntEdges;
+  
+  // save the command header (name / edgecount
+  f.write((uint8_t *)&irCommand, sizeof(irCommandHeader));
+  
+  // write IR data
+  f.write((uint8_t *)timings, cntEdges * 2);
+  
+  //finished
+  f.close();
+}
+
+/**
+   Replay one IR command from the EEPROM.
+   The slot is identified by the slot name
+ * */
+uint16_t readIRFromEEPROM(char * name, uint16_t *timings, uint16_t maxEdges)
+{
+  int8_t nr = slotnameIRToNumber(name);
+
+  if (nr < 0) {
+    #ifdef DEBUG_OUTPUT_FULL
+      Serial.print("Could not find IR command ");
+      Serial.println(name);
+    #endif
+    return 0;
+  }
+  #ifdef DEBUG_OUTPUT_MEMORY
+    Serial.print("Load IR command by nr: ");
+    Serial.print(nr);
+  #endif
+  
+  char path[32];
+  sprintf(path,"/ir/%02d",nr);
+  
+  if(!LittleFS.exists(path))
+  {
+    #ifdef DEBUG_OUTPUT_MEMORY
+      Serial.print(nr);
+      Serial.println(" IRcmd not found!");
+    #endif
+    return 0;
+  }
+  
+  File f = LittleFS.open(path,"r");
+  
+  if(!f) return 0;
+
+  // load the general ircmd struct, containing the name
+  f.readBytes((char *)&irCommand, sizeof(irCommandHeader));
+  #ifdef DEBUG_OUTPUT_MEMORY
+    Serial.print("read slotname "); Serial.println(irCommand.irName);
+    Serial.print("edge count "); Serial.println(irCommand.edges);
+  #endif
+  
+  if(irCommand.edges > maxEdges) {
+    f.close();
+    return 0;
+  }
+  
+  f.readBytes((char *)timings, irCommand.edges * 2);
+  f.close();
+
+  //return the count of available edges (used by the IR parser)
+  return irCommand.edges;
+}
+
+
+/**
+   Check if storage is valid, initialize if not.
+ * */
+void initStorage()
+{
+  //uint16_t versionID = 0; //TODO: maybe implement the version ID to initialize/overwrite slots?
+
+  LittleFS.begin();
+  
+  // check if we need to initialize FS (/rev.bin not found)
+  if (!LittleFS.exists("/rev.bin")) {
+    makeTone(TONE_CHANGESLOT, 4);
+    Serial.println("Initializing flash!");
+    File f = LittleFS.open("/rev.bin", "w");
+    if (!f) {
+        Serial.println("file open failed");
+    } else {
+      f.println(VERSION_STRING);
+      f.close();
+    }
+    saveToEEPROMSlotNumber(0, "mouse");   // save default slotSettings to first slot
+    
+    //create IR folder
+    LittleFS.mkdir("/ir");
+  }
+  
+  //if no slot is found, save current startup settings to "mouse"
+  if(getLastSlotIndex() < 0) {
+    saveToEEPROMSlotNumber(0, "mouse");
+  }
+}
+
+
+/**
+   This function deletes a slot from EEPROM.
+   if an empty string is given as parameter, all slots are deleted!
+   returns 1 if successful, 0 otherwise
+ * */
+uint8_t deleteSlot(char const * name)
+{
+  char path[32];
+  uint8_t revision = getSettingsRevision(); //determine current settings revision number
+  
+  if (!strlen(name)) {
+    #ifdef DEBUG_OUTPUT_MEMORY
+        Serial.println("Deleting all slots");
+    #endif
+  
+    //open current dir
+    sprintf(path,"/%03d/",revision);
+    Dir dir = LittleFS.openDir(path);
+    //and iterate over files to remove them.
+    while(dir.next()) {
+      LittleFS.remove(String(path) + String(dir.fileName()));
+    }
+    return (1);
+  }
+
+  #ifdef DEBUG_OUTPUT_MEMORY
+    Serial.print("Deleting slot ");
+    Serial.println(name);      
+  #endif
+  
+  int8_t nr = slotnameToNumber(name);
+  if (nr < 0) return (0);  // slot name does not exist
+  
+  //get currently valid last slot
+  int lastSlot = getLastSlotIndex();
+  
+  //delete file
+  sprintf(path,"/%03d/%02d",revision,nr);
+  LittleFS.remove(path);
+
+  if (nr != lastSlot) {
+    // we must move files
+    char pathTo[32];
+    for (int i=nr; i<lastSlot;i++) {
+      sprintf(path,"/%03d/%02d",revision,i+1);
+      sprintf(pathTo,"/%03d/%02d",revision,i);
+      LittleFS.rename(path,pathTo);
+    }
+  }
+  return(1);
+}
+
+
+/**
+   Print out all slotnames to the serial interface
+   Used by the PC-GUI to load all available slot names
+ * */
 void listSlots()
 {
-   int address=0,tmpStartAddress=0;
-   uint8_t numSlots=0;
-   uint8_t b;
-   
-   while (EEPROM.read(address))  
-   {
-     numSlots++;
-     tmpStartAddress=address;
-     Serial.print(F("Slot")); Serial.print(numSlots); Serial.print(":"); 
-     while ((b=EEPROM.read(address++)) != 0)   // print slot name
-         Serial.write(b);
-     Serial.println();
-     
-     address=tmpStartAddress+SLOTSIZE;         
-   }
+  char path[32];
+  uint8_t revision = getSettingsRevision(); //determine current settings revision number
+  for(int8_t i = 0; i<MAX_SLOTS_IN_EERPOM; i++)
+  {
+    sprintf(path,"/%03d/%02d",revision,i);
+    File f = LittleFS.open(path,"r");
+    if(f)
+    {
+      //read slotname (until new line, trim away CR)
+      String slotname = f.readStringUntil('\n');
+      slotname.trim();
+      f.close();
+      Serial.print("Slot"); Serial.print(i); Serial.print(":");
+      Serial.println(slotname);
+    } else return;
+  }
+}
+
+
+/**
+   Print out all slotnames to the serial interface
+   Used by the PC-GUI to load all available slot names
+ * */
+void listIRCommands()
+{
+  char path[32];
+  for(int8_t i = 0; i<MAX_IRCOMMANDS_IN_EERPOM; i++)
+  {
+    sprintf(path,"/ir/%02d",i);
+    File f = LittleFS.open(path,"r");
+    if(f)
+    {
+      //read slotname
+      String slotname = f.readStringUntil(0);
+      f.close();
+      Serial.print("IRCommand"); Serial.print(i); Serial.print(":");
+      Serial.println(slotname);
+    } else return;
+  }
+}
+
+/**
+   get the index of the last slot which holds data  
+ * */
+int8_t getLastSlotIndex(void) {
+  char path[32];
+  uint8_t revision = getSettingsRevision(); //determine current settings revision number
+  for(int8_t i = 0; i<MAX_SLOTS_IN_EERPOM; i++)
+  {
+    sprintf(path,"/%03d/%02d",revision,i);
+    if(!LittleFS.exists(path)) return i-1;
+  }
+  return -1;
+}
+
+/**
+   get the index of the last IR command  
+ * */
+int8_t getLastIRIndex(void) {
+  char path[32];
+  for(int8_t i = 0; i<MAX_IRCOMMANDS_IN_EERPOM; i++)
+  {
+    sprintf(path,"/ir/%02d",i);
+    if(!LittleFS.exists(path)) return i-1;
+  }
+  return -1;
+}
+
+
+
+/**
+   print all slot slotSettings and button mode to serial 
+ * */
+void printAllSlots(void) {
+  char path[32];
+  uint8_t revision = getSettingsRevision(); //determine current settings revision number
+  
+  for(uint8_t i = 0; i<MAX_SLOTS_IN_EERPOM; i++)
+  {
+	  sprintf(path,"/%03d/%02d",revision,i);
+	  File f = LittleFS.open(path,"r");
+	  if(f)
+	  {
+		  String slot = f.readString();
+		  Serial.print("Slot"); Serial.print(":");
+		  Serial.print(slot);
+	  } else break;
+	}
+	Serial.println("END");
+}
+
+/**
+ * If settings are under version control (TBD!), this function returns the current
+ * revision (-> foldername in FS) to read from / write to.
+ */
+uint8_t getSettingsRevision(void)
+{
+	//TODO: implement revisions (or use the first folder name for something different)
+	return 1;
 }

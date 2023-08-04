@@ -20,7 +20,6 @@
 #include <stdint.h>
 #include <avr/pgmspace.h>
 #include "commands.h"
-#include "bluetooth.h"
 #include "hid_hal.h"
 #include "NeoPixel.h"
 #include "toneFABI.h"
@@ -35,7 +34,9 @@
 //#define DEBUG_OUTPUT      //  if debug output is desired
 
 #include <Mouse.h>
+#include <MouseBLE.h>
 #include <Keyboard.h>
+#include <KeyboardBLE.h>
 
 #define NUMBER_OF_BUTTONS  11         // number of pyhsical plus virtual switches, note: if more than 16, change buttonState type to uint32_t!
 
@@ -92,7 +93,6 @@ struct buttonDebouncerType {       // holds working data for button debouncing a
 
 extern uint8_t PCBversion;
 extern uint8_t actSlot;
-extern uint8_t addonUpgrade;
 extern uint8_t reportSlotParameters;
 extern uint8_t reportRawValues;
 extern struct settingsType settings;
