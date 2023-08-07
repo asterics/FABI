@@ -20,12 +20,12 @@
 #define _BUTTONS_H_
 
 // Constants and Macro definitions
-#define NUMBER_OF_BUTTONS  18         // number of physical + virtual switches. Note: if higher than 32, change buttonStates to uint64_t!
+#define NUMBER_OF_BUTTONS  17         // number of physical + virtual switches. Note: if higher than 32, change buttonStates to uint64_t!
 
 #define DEFAULT_DEBOUNCING_TIME 5   // debouncing interval for button-press / release
 
  
-// (buttons 0-2 are the physical switches on the device)
+// (buttons 0-4 are the physical switches on the device)
 /**
    definition of Button numbers/indices of the "virtual buttons"
    (these are not pin numbers but button function identifiers!)
@@ -36,20 +36,21 @@
 #define BUTTON_4                3
 #define BUTTON_5                4
 
-#define SIP_BUTTON               6
-#define STRONGSIP_BUTTON         7
-#define PUFF_BUTTON              8
-#define STRONGPUFF_BUTTON        9
+#define SIP_BUTTON               5
+#define STRONGSIP_BUTTON         6
+#define PUFF_BUTTON              7
+#define STRONGPUFF_BUTTON        8
 
-#define STRONGSIP_2_BUTTON     	10
-#define STRONGSIP_3_BUTTON   	11
-#define STRONGSIP_4_BUTTON   	12
-#define STRONGSIP_5_BUTTON  	13
-
-#define STRONGPUFF_2_BUTTON    	14
-#define STRONGPUFF_3_BUTTON  	15
-#define STRONGPUFF_4_BUTTON  	16
-#define STRONGPUFF_5_BUTTON 	17
+///@note must be sequential! (modes.cpp)
+#define STRONGSIP_2_BUTTON     	9
+#define STRONGSIP_3_BUTTON   	  10
+#define STRONGSIP_4_BUTTON   	  11
+#define STRONGSIP_5_BUTTON  	  12
+///@note must be sequential! (modes.cpp)
+#define STRONGPUFF_2_BUTTON    	13
+#define STRONGPUFF_3_BUTTON  	  14
+#define STRONGPUFF_4_BUTTON  	  15
+#define STRONGPUFF_5_BUTTON 	  16
 
 
 /**

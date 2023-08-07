@@ -205,10 +205,11 @@ int64_t generate_next_IR_phase(alarm_id_t id, void *user_data)
       ret = IR_REPEAT_GAP; // gap between code repetitions
     } else {
       uint32_t duration = timings[act_edge];
-      if (duration > MAX_HIGHPRECISION_DURATION)  // timing in milliseconds
+      if (duration > MAX_HIGHPRECISION_DURATION) { // timing in milliseconds
         duration = (duration - MAX_HIGHPRECISION_DURATION) * 1000; // switch to microseconds
         //RP2040:
         ret = duration;
+      }
     }
 
     analogWrite(IR_LED_PIN, output_state);

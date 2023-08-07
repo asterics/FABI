@@ -9,29 +9,23 @@
    (sent via serial interface, 115200 baud, using spaces between parameters.  Enter (<cr>, ASCII-code 0x0d) finishes a command)
 
           AT                returns "OK"
-          AT ID             returns identification string (e.g. "FLipMouse V2.0")
+          AT ID             returns identification string (e.g. "FABI v3.0")
           AT BM <uint>      puts button into programming mode (e.g. "AT BM 2" -> next AT-command defines the new function for button 2)
-                            for the FLipmouse, there are 11 buttons available (3 physical buttons, 8 virtual functions):
+                            for the FABI, there are 17 buttons available (5 physical buttons, 12 virtual functions):
 
-                              1: internal button1 / Strong Puff + UP
-                              2: external button2 / Strong Puff + LEFT
-                              3: external button3 / Strong Puff + RIGHT
-                              4: alternative UP
-                              5: alternative DOWN
-                              6: alternative LEFT
-                              7: alternative RIGHT
-                              8: Sip (pressure lower than sip threshold)
-                              9: Strong Sip
-                              10: Puff (pressure bigger than puff threshold)
-                              11_ Strong Puff
-                              12: StrongSip + Up
-                              13: StrongSip + Down
-                              14: StrongSip + Left
-                              15: StrongSip + Right
-                              16: StrongPuff + Up
-                              17: StrongPuff + Down
-                              18: StrongPuff + Left
-                              19: StrongPuff + Right
+                              1-5: 3.5mm jack plugs 1-5
+                              6: Sip (pressure lower than sip threshold) (pressure sensor addon required)
+                              7: Strong Sip (pressure sensor addon required)
+                              8: Puff (pressure bigger than puff threshold) (pressure sensor addon required)
+                              9: Strong Puff (pressure sensor addon required)
+                              10: StrongSip + jack plug 2 pressed
+                              11: StrongSip + jack plug 3 pressed
+                              12: StrongSip + jack plug 4 pressed
+                              13: StrongSip + jack plug 5 pressed
+                              14: StrongPuff + jack plug 2 pressed
+                              15: StrongPuff + jack plug 3 pressed
+                              16: StrongPuff + jack plug 4 pressed
+                              17: StrongPuff + jack plug 5 pressed
 
     USB HID commands:
 
@@ -58,7 +52,6 @@
 
           AT MX <int>       move mouse in x direction (e.g. "AT MX 4" moves cursor 4 pixels to the right)
           AT MY <int>       move mouse in y direction (e.g. "AT MY -10" moves cursor 10 pixels up)
-          AT RO <uint>      rotate stick orientation (e.g. "AT RO 180" flips x any y movements)
 
           AT JX <int>       set joystick x axis (e.g. "AT JX 512" sets the x-axis to middle position)
           AT JY <int>       set joystick y axis (e.g. "AT JY 1023" sets the y-axis to full up position)
@@ -94,7 +87,7 @@
           AT LI           list all saved mode names
           AT NE           next mode will be loaded (wrap around after last slot)
           AT DE <string>  delete slot of given name (deletes all stored slots if no string parameter is given)
-          AT RS           resets FLipMouse settings and restores default configuration (deletes EEPROM and restores default Slot "mouse")
+          AT RS           resets FABI settings and restores default configuration (deletes EEPROM and restores default Slot "keys")
           AT RE           perform a reboot (SW-reset)
           AT NC           no command (idle operation)
           AT BT <uint>    set bluetooth mode, 1=USB only, 2=BT only, 3=both(default)
@@ -104,15 +97,14 @@
           AT SR           start reporting raw values (5 sensor values, starting with "VALUES:")
           AT ER           end reporting raw values
           AT CA           calibration of zeropoint
-          AT AC <uint>    acceleration time (0-100)
           AT MA <string>  execute a command macro containing multiple commands (separated by semicolon)
                           example: "AT MA MX 100;MY 100;CL;"  use backslash to mask semicolon: "AT MA KW \;;CL;" writes a semicolon and then clicks left
           AT WA <uint>    wait (given in milliseconds, useful for macro commands)
 
-          AT TS <uint>    treshold for sip action  (0-512)
-          AT TP <uint>    treshold for puff action (512-1023)
-          AT SP <uint>    treshold for strong puff (512-1023)
-          AT SS <uint>    treshold for strong sip (0-512)
+          AT TS <uint>    threshold for sip action  (0-512)
+          AT TP <uint>    threshold for puff action (512-1023)
+          AT SP <uint>    threshold for strong puff (512-1023)
+          AT SS <uint>    threshold for strong sip (0-512)
 
     Infrared-specific commands:
 
@@ -163,14 +155,12 @@
    enumeration of AT command identifiers
 */
 enum atCommands {
-  CMD_ID, CMD_BM, CMD_CL, CMD_CR, CMD_CM, CMD_CD, CMD_PL, CMD_PR, CMD_PM, CMD_RL, CMD_RR, CMD_RM,
-  CMD_WU, CMD_WD, CMD_WS, CMD_MX, CMD_MY, CMD_KW, CMD_KP, CMD_KR, CMD_RA, CMD_SA, CMD_LO, CMD_LA,
-  CMD_LI, CMD_NE, CMD_DE, CMD_RS, CMD_NC, CMD_MM, CMD_SW, CMD_SR, CMD_ER, CMD_CA, CMD_AX,
-  CMD_AY, CMD_DX, CMD_DY, CMD_TS, CMD_TP, CMD_SP, CMD_SS, CMD_GV, CMD_RV, CMD_GH, CMD_RH, CMD_IR,
-  CMD_IP, CMD_IC, CMD_IL, CMD_JX, CMD_JY, CMD_JZ, CMD_JT, CMD_JS, CMD_JP, CMD_JR, CMD_JH,
-  CMD_IT, CMD_KH, CMD_MS, CMD_AC, CMD_MA, CMD_WA, CMD_RO, CMD_IW, CMD_BT, CMD_HL, CMD_HR, CMD_HM,
-  CMD_TL, CMD_TR, CMD_TM, CMD_KT, CMD_IH, CMD_IS, CMD_UG, CMD_BC, CMD_KL, CMD_BR, CMD_RE, CMD_SB,
-  CMD_SC,
+  CMD_ID, CMD_BM, CMD_CL, CMD_CR, CMD_CM, CMD_CD, CMD_PL, CMD_PR, CMD_PM, CMD_HL, CMD_HR, CMD_HM,
+  CMD_RL, CMD_RR, CMD_RM, CMD_TL, CMD_TR, CMD_TM, CMD_WU, CMD_WD, CMD_WS, CMD_MX, CMD_MY, CMD_JX,
+  CMD_JY, CMD_JZ, CMD_JT, CMD_JS, CMD_JP, CMD_JR, CMD_JH, CMD_KW, CMD_KP, CMD_KH, CMD_KT, CMD_KR, 
+  CMD_RA, CMD_KL, CMD_SA, CMD_LO, CMD_LA, CMD_LI, CMD_NE, CMD_DE, CMD_RS, CMD_RE, CMD_NC, CMD_BT, 
+  CMD_SC, CMD_SR, CMD_ER, CMD_CA, CMD_MA, CMD_WA, CMD_TS, CMD_TP, CMD_SP, CMD_SS, CMD_IR, CMD_IP,
+  CMD_IH, CMD_IS, CMD_IC, CMD_IW, CMD_IL, CMD_IT,
   NUM_COMMANDS
 };
 

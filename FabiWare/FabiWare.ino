@@ -45,7 +45,6 @@
 #include "tone.h"
 #include "parser.h"  
 #include "reporting.h"
-#include "cim.h"
 #include "keys.h"
 #include <hardware/watchdog.h>
 
@@ -108,13 +107,16 @@ void setup() {
     delay(3000);  // allow some time for serial interface to come up
   #endif
   
+  MouseBLE.begin("FABI");
+  KeyboardBLE.begin("");
+  JoystickBLE.begin("");
+  
   initGPIO();
   initIR();
   initButtons();
   initDebouncers();
   initStorage();   // initialize storage if necessary
   readFromEEPROMSlotNumber(0, true); // read slot from first EEPROM slot if available !
-  rp2040.fifo.push_nb(slotSettings.sb); // apply sensorboard settings
 
   // NOTE: changed for RP2040!  TBD: why does setBTName damage the console UART TX ??
   // setBTName(moduleName);             // if BT-module installed: set advertising name 
@@ -151,8 +153,7 @@ void loop() {
     mutex_enter_blocking(&(sensorValues.sensorDataMutex));
     sensorData.pressure=sensorValues.pressure;
     mutex_exit(&(sensorValues.sensorDataMutex));
-	applyDeadzone(&sensorData, &slotSettings);  // calculate updated x/y/force values according to deadzone
-	handleUserInteraction();                    // handle all mouse / joystick / button activities
+    handleUserInteraction();                    // handle all mouse / joystick / button activities
 
     reportValues();   // send live data to serial
     updateLeds();     // mode indication via front facing neopixel LEDs
@@ -187,16 +188,6 @@ void setup1() {
 */
 void loop1() {
   static uint32_t lastMPRLS_ts=0;
-
-  // check if there is a message from the other core (sensorboard change, profile ID)
-  if (rp2040.fifo.available()) {
-      setSensorBoard(rp2040.fifo.pop());  
-  }
-
-  // if the Data Ready Pin of NAU chip signals new data: get force sensor values
-  if (digitalRead(DRDY_PIN) == HIGH)  { 
-    readForce(&sensorValues);    
-  }
 
   // if desired sampling period for MPRLS pressure sensor passed: get pressure sensor value
   if (millis()-lastMPRLS_ts >= 1000/MPRLS_SAMPLINGRATE) {

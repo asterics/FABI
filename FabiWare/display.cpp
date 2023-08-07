@@ -62,10 +62,6 @@ uint8_t displayInit (uint8_t useWire1) {
 */
 void displayClear(void) {
   oled->clear();
-  if (slotSettings.ro>90)
-    oled->displayRemap(true);
-  else oled->displayRemap(false);
-  oled->setInvertMode(false);
 }
 
 
@@ -99,14 +95,6 @@ void displayUpdate(void) {
   oled->print(slotSettings.slotName);  
 
   oled->set1X();
-  oled->setCursor(100,0);
-  switch (slotSettings.stickMode) {
-    case 0:
-    case 1: oled->print("Stk"); break;
-    case 2:
-    case 3:
-    case 4: oled->print("Joy"); break;
-  }
 
   oled->setCursor(100,3);
   switch (slotSettings.bt) {

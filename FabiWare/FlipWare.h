@@ -26,6 +26,9 @@
 
 #include <Arduino.h>
 #include <Wire.h>
+#include <MouseBLE.h>
+#include <KeyboardBLE.h>
+#include <JoystickBLE.h>
 #include <Mouse.h>
 #include <Keyboard.h>
 #include <Joystick.h>
@@ -33,6 +36,7 @@
 #include <string.h>
 #include <stdint.h>
 #include "commands.h"
+#include "bluetooth.h"
 #include "eeprom.h"
 #include "buttons.h"
 #include "infrared.h"
@@ -92,17 +96,10 @@ struct SlotSettings {
    contain working data of sensors (raw and processed values)
 */
 struct SensorData {
-  int x, y, xRaw,yRaw;
   int pressure;
-  float deadZone, force, forceRaw, angle;
-  uint8_t dir;
-  int8_t autoMoveX,autoMoveY;
-  int xDriftComp, yDriftComp;
-  int xLocalMax, yLocalMax;  
 };
 
 struct I2CSensorValues {
-  int xRaw,yRaw;
   int pressure;
   uint16_t calib_now;
   mutex_t sensorDataMutex; // for synchronization of data access between cores

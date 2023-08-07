@@ -24,6 +24,12 @@
 #define MEDIAN_VALUES 5                 // number of values used for median-based spike filter (for MPRLS sensor)
 #define SPIKE_DETECTION_THRESHOLD 1000  // distance from median value which classifies a spike
 
+
+/**
+ * @brief Sensor Watchdog value (approx. milliseconds until device resets)
+ */
+#define SENSOR_WATCHDOG_TIMEOUT 3000
+
 /**
    @brief Sensorboard IDs for different signal processing parameters
 */
