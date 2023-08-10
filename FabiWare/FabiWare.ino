@@ -52,13 +52,13 @@
 /**
    device name for ID string & BT-pairing
 */
-char moduleName[]="FLipmouse";   
+char moduleName[]="FABI";   
 
 /**
    default values for empty configuration slot 
 */
 const struct SlotSettings defaultSlotSettings = {      // default slotSettings valus, for type definition see Flipware.h
-  "mouse",                          // initial slot name
+  "keys",                          // initial slot name
   0,                                // initial keystringbuffer length
   400, 600, 3,                      // threshold sip, threshold puff, wheel step,
   800, 10,                          // threshold strong puff, threshold strong sip
@@ -97,7 +97,7 @@ void setup() {
   // prepare synchronizsation of sensor data exchange between cores
   mutex_init(&(sensorValues.sensorDataMutex));
 
- //load slotSettings
+  //load slotSettings
   memcpy(&slotSettings,&defaultSlotSettings,sizeof(struct SlotSettings));
 
   // initialize peripherals
@@ -123,8 +123,10 @@ void setup() {
 
   setKeyboardLayout(slotSettings.kbdLayout); //load keyboard layout from slot
   
-  // displayInstalled=displayInit(0);   // check if i2c-display connected   TBD: missing i2c core2 synchronisation!
-  // displayUpdate();
+  if(!displayInit(0)) {
+    Serial.println("Error, cannot find display");   // check if i2c-display connected   TBD: missing i2c core2 synchronisation!
+  }
+  displayUpdate();
   
 #ifdef DEBUG_OUTPUT_FULL 
   Serial.print(moduleName); Serial.println(" ready !");

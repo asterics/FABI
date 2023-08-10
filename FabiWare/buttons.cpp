@@ -109,11 +109,11 @@ void initButtons() {
     buttons[i].mode = CMD_NC;  // no command
   }
   
-  buttons[0].mode = CMD_KP; setButtonKeystring(3, "KEY_SPACE ");
-  buttons[1].mode = CMD_KP; setButtonKeystring(3, "KEY_ENTER ");
+  buttons[0].mode = CMD_KP; setButtonKeystring(0, "KEY_SPACE ");
+  buttons[1].mode = CMD_KP; setButtonKeystring(1, "KEY_ENTER ");
   buttons[2].mode = CMD_CL;
-  buttons[3].mode = CMD_KP; setButtonKeystring(5, "KEY_LEFT "); 
-  buttons[4].mode = CMD_KP; setButtonKeystring(6, "KEY_RIGHT ");
+  buttons[3].mode = CMD_KP; setButtonKeystring(3, "KEY_LEFT "); 
+  buttons[4].mode = CMD_KP; setButtonKeystring(4, "KEY_RIGHT ");
 }
 
 

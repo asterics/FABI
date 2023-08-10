@@ -20,6 +20,10 @@
 */
 #define NUMBER_OF_PHYSICAL_BUTTONS 5 // number of physical switches
 #define NEOPIXEL_PIN 10
+#define PIN_WIRE_SDA 12
+#define PIN_WIRE_SCL 13
+#define PIN_WIRE1_SDA 26
+#define PIN_WIRE1_SCL 27
 
 /**
    extern declaration of static variables

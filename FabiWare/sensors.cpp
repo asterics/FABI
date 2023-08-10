@@ -14,8 +14,11 @@
 #include "modes.h"
 #include "utils.h"
 
+/// Enable pin for the MIC5504 LDO for NAU7802 & MPRLS sensors
+#define LDO_ENABLE_PIN 7
+
 LoadcellSensor PS;
-int sensorWatchdog = -1;
+int sensorWatchdog=-1;
 
 #define MPRLS_READ_TIMEOUT (20)     ///< millis
 #define MPRLS_STATUS_POWERED (0x40) ///< Status SPI powered bit
@@ -25,9 +28,10 @@ int sensorWatchdog = -1;
 #define MPRLS_STATUS_MASK (0b01100101) ///< Sensor status mask: only these bits are set
 
 /**
-   @brief Used pressure sensor type. We can use the MPRLS sensor board with I2C (or no sensor)
-*/
-typedef enum {MPRLS, NO_PRESSURE} pressure_type_t;
+ * @brief Used pressure sensor type. We can use either the MPXV7007GP
+ * sensor connected to an analog pin or the MPRLS sensor board with I2C
+ */
+typedef enum {MPXV, MPRLS, NO_PRESSURE} pressure_type_t;
 pressure_type_t sensor_pressure = NO_PRESSURE;
 
 
@@ -44,6 +48,11 @@ int32_t mprls_rawval = 512;
 */
 void initSensors()
 {
+  //first: switch on LDO for sensors
+  pinMode(LDO_ENABLE_PIN,OUTPUT);
+  digitalWrite(LDO_ENABLE_PIN,HIGH);
+  delay(10);
+  
   //detect if there is an MPRLS sensor connected to I2C (Wire)
   Wire1.setClock(400000);  // use 400kHz I2C clock
   Wire1.beginTransmission(MPRLS_ADDR);
