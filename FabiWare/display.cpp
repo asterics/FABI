@@ -34,15 +34,15 @@ SSD1306AsciiWire *oled;    // pointer to the display driver class
 */
 uint8_t displayInit (uint8_t useWire1) {
   if (useWire1) {
-    Wire1.setSDA(PIN_WIRE1_SDA);
-    Wire1.setSCL(PIN_WIRE1_SCL);
+    Wire1.setSDA(PIN_WIRE1_SDA_);
+    Wire1.setSCL(PIN_WIRE1_SCL_);
     Wire1.begin();
     Wire1.beginTransmission(SCREEN_ADDRESS);  
     if (Wire1.endTransmission()) return (false);
     oled = new SSD1306AsciiWire(Wire1);
   } else {
-    Wire.setSDA(PIN_WIRE_SDA);
-    Wire.setSCL(PIN_WIRE_SCL);
+    Wire.setSDA(PIN_WIRE0_SDA_);
+    Wire.setSCL(PIN_WIRE0_SCL_);
     Wire.begin();
     Wire.beginTransmission(SCREEN_ADDRESS);  
     if (Wire.endTransmission()) return (false);

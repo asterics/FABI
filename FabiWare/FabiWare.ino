@@ -176,7 +176,8 @@ void loop() {
    @return none
 */
 void setup1() {
-
+  Wire1.setSDA(PIN_WIRE1_SDA_);
+  Wire1.setSCL(PIN_WIRE1_SCL_);
   Wire1.begin();
   Wire1.setClock(400000);  // use 400kHz I2C clock
   initSensors();
