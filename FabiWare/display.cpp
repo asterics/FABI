@@ -15,6 +15,7 @@
 
 #include <Arduino.h>
 #include "FlipWare.h"
+#include "gpio.h"
 #include "SSD1306Ascii.h"
 #include "SSD1306AsciiWire.h"
 #include "display.h"
