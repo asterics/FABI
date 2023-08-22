@@ -17,6 +17,15 @@
 /// Enable pin for the MIC5504 LDO for NAU7802 & MPRLS sensors
 #define LDO_ENABLE_PIN 7
 
+// #define PRINT_RAWVALUES
+
+#ifdef PRINT_RAWVALUES
+ uint32_t ts=0;
+ uint8_t calibRawValue=1;
+ int sr=0;
+ int32_t raw_mid=0;
+#endif
+
 LoadcellSensor PS;
 int sensorWatchdog=-1;
 
@@ -66,7 +75,7 @@ void initSensors()
     PS.setGain(1.0);  // adjust gain for pressure sensor
     PS.enableOvershootCompensation(false);
     PS.setSampleRate(MPRLS_SAMPLINGRATE);
-    PS.setMovementThreshold(2500);
+    PS.setMovementThreshold(5000);
     PS.setBaselineLowpass(0.4);
     PS.setNoiseLowpass(10.0);
 
@@ -91,6 +100,9 @@ void initSensors()
 void calibrateSensors()
 {
   PS.calib();
+  #ifdef PRINT_RAWVALUES
+    calibRawValue=1;
+  #endif  
 }
 
 
@@ -147,20 +159,19 @@ void readPressure(struct I2CSensorValues *data)
         // get new value from MPRLS chip
         int mprlsStatus = getMPRLSValue(&mprls_rawval);
 
-        // any errors?  - just indicate them via orange LED!
+
+#ifdef DEBUG_OUTPUT_SENSORS
+        // any errors?  - just indicate them via serial message
         if (mprlsStatus & MPRLS_STATUS_BUSY) {
-          //Serial.println("MPRLS: busy");
-          digitalWrite (6, HIGH);
+          Serial.println("MPRLS: busy");
         }
-        else if (mprlsStatus & MPRLS_STATUS_FAILED) {
-          //Serial.println("MPRLS:failed");
-          digitalWrite (6, HIGH);
+        if (mprlsStatus & MPRLS_STATUS_FAILED) {
+          Serial.println("MPRLS:failed");
         }
-        else if (mprlsStatus & MPRLS_STATUS_MATHSAT) {
-          //Serial.println("MPRLS:saturated");
-          digitalWrite (6, HIGH);
+        if (mprlsStatus & MPRLS_STATUS_MATHSAT) {
+          Serial.println("MPRLS:saturated");
         }
-        else digitalWrite (6, LOW);
+#endif
 
         int med = calculateMedian(mprls_rawval);
         if (abs(med - mprls_rawval) >  SPIKE_DETECTION_THRESHOLD) {
@@ -172,16 +183,20 @@ void readPressure(struct I2CSensorValues *data)
         if (mprls_filtered > 0) mprls_filtered = sqrt(mprls_filtered);
         if (mprls_filtered < 0) mprls_filtered = -sqrt(-mprls_filtered);
 
-        /*
-              // raw_mid=mprls_rawval;
+        #ifdef PRINT_RAWVALUES
+            if (calibRawValue) { 
+              calibRawValue=0; raw_mid=mprls_rawval;
+            }
+            else {
               Serial.print (mprls_rawval-raw_mid); Serial.print(" ");
-              Serial.print (mprls_filtered); Serial.print(" ");
-              sr= 1000000 / (micros()-ts);
-              ts=micros();
-              Serial.print (sr); Serial.print(" ");
+              Serial.print (mprls_filtered*100); Serial.print(" ");
+              //sr= 1000000 / (micros()-ts);
+              //ts=micros();
+              //Serial.print (sr); Serial.print(" ");
               Serial.println(" ");
-        */
-
+            }
+        #endif
+        
         actPressure = 512 + mprls_filtered / MPRLS_DIVIDER;
 
         // clamp to 1/1022 (allows disabling strong sip/puff)
