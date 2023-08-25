@@ -51,8 +51,6 @@
       },
       "diff_pair_dimensions": [],
       "drc_exclusions": [
-        "clearance|124725799|113812500|d7f6daa1-cd02-4f63-b008-06e7bcfac543|d2f18c28-e5a4-40e0-bd91-5951102d5d1f",
-        "clearance|165040000|103435838|ab06b5fe-7786-4b5c-b9cd-bc35c16658fb|d2f18c28-e5a4-40e0-bd91-5951102d5d1f",
         "items_not_allowed|132740000|136640000|00000000-0000-0000-0000-0000602efea2|00000000-0000-0000-0000-000000000000"
       ],
       "meta": {
