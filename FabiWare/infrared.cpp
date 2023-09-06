@@ -32,8 +32,8 @@ alarm_id_t ir_alarm_id = -1; //alarm id for replaying
 alarm_pool_t *ir_alarm_pool = nullptr; //alarm pool for replaying
 // Keep std::map safe for multicore use
 auto_init_mutex(_irMutex);
-//initialize with 128, DC is 0.5 on first timer call
-volatile uint8_t output_state = 128;     // PWM duty cycle
+//initialize with IR_PWM_ON, DC is 0.5 on first timer call
+volatile uint8_t output_state = IR_PWM_ON;     // PWM duty cycle
 
 // array for edge times (time difference between the IR code edges)
 volatile uint16_t timings [IR_EDGE_REC_MAX];
@@ -50,12 +50,16 @@ void start_IR_command_playback(char * name);
  * */
 void initIR() {
   
-	//RP2040: enable default alarm pool, used for IR edge playback.
-	//alarm_pool_init_default();
+
 	//RP2040: create a new alarm pool, the default one is already crowded (tone & analogWrite?)
 	//Note/Todo: figure out why the alarm pool fills up and needs to be this big,
 	//even if we just use one alarm.
-	ir_alarm_pool = alarm_pool_create(2, 64);
+  #if IR_ALARM_POOL
+    ir_alarm_pool = alarm_pool_create(2, 64);
+  #else 
+    //RP2040: enable default alarm pool, used for IR edge playback.
+    alarm_pool_init_default();
+  #endif
 	
 	//RP2040:
 	analogWriteFreq(38000);
@@ -177,12 +181,12 @@ int64_t generate_next_IR_phase(alarm_id_t id, void *user_data)
 	//avoid unused parameter warning
 	(void)id;
 	(void)user_data;
-    int64_t ret = 0; //return 0 -> no reschedule; <0 [us] from last timestamp; >0 [us] from this return.
+  int64_t ret = 0; //return 0 -> no reschedule; <0 [us] from last timestamp; >0 [us] from this return.
   if (act_edge > edges) {          // one code repetition finished
     analogWrite(IR_LED_PIN, 0);
     digitalWrite(IR_LED_PIN, LOW);
     //RP2040: start with pulses.
-    output_state = 128;
+    output_state = IR_PWM_ON;
     act_edge = 0;
     if (repeatCounter > 0) repeatCounter--;
     if (repeatCounter == 0) {
@@ -198,8 +202,7 @@ int64_t generate_next_IR_phase(alarm_id_t id, void *user_data)
       //we need this alarm again
       ret = IR_REPEAT_GAP;
     }
-  }
-  else {
+  } else {
     if (act_edge == edges) {
       //RP2040:
       ret = IR_REPEAT_GAP; // gap between code repetitions
@@ -207,13 +210,13 @@ int64_t generate_next_IR_phase(alarm_id_t id, void *user_data)
       uint32_t duration = timings[act_edge];
       if (duration > MAX_HIGHPRECISION_DURATION) { // timing in milliseconds
         duration = (duration - MAX_HIGHPRECISION_DURATION) * 1000; // switch to microseconds
-        //RP2040:
-        ret = duration;
       }
+      //RP2040:
+      ret = duration;        
     }
 
     analogWrite(IR_LED_PIN, output_state);
-    if (output_state == 0) output_state = 128;
+    if (output_state == 0) output_state = IR_PWM_ON;
     else output_state = 0;
 
     act_edge++;   // increase edge index for next interrupt
@@ -260,17 +263,34 @@ void start_IR_command_playback(char * name)
     Serial.println(timings[i]);
   }
   Serial.println("END ----------");
+  Serial.print("act_edge: ");
+  Serial.print(act_edge);
+  Serial.print(", edges: ");
+  Serial.println(edges);
 #endif
 
   makeTone(TONE_IR, 0);
   act_edge = 0;
   //RP2040: start with pulses
-  output_state = 128;
+  output_state = IR_PWM_ON;
   //add CB function as alarm
-  ir_alarm_id = alarm_pool_add_alarm_in_us(ir_alarm_pool, 25, generate_next_IR_phase, nullptr, true);
+  #if IR_ALARM_POOL
+    ir_alarm_id = alarm_pool_add_alarm_in_us(ir_alarm_pool, 25, generate_next_IR_phase, nullptr, true);
+  #else
+    ir_alarm_id = add_alarm_in_us(25, generate_next_IR_phase, nullptr, true);
+  #endif
   if(ir_alarm_id == -1) Serial.println("IR: no alarm available!");
   //busy wait for finished IR
-  while(act_edge < edges);
+  uint16_t c = 0;
+  while(act_edge < edges)
+  {
+    delay(1);
+    c++;
+    if(c>= 1000) {
+      Serial.println("Timeout...");
+      c = 0;
+    }
+  }
 }
 
 void play_IR_command(char * name)
