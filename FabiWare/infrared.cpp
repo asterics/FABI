@@ -281,16 +281,7 @@ void start_IR_command_playback(char * name)
   #endif
   if(ir_alarm_id == -1) Serial.println("IR: no alarm available!");
   //busy wait for finished IR
-  uint16_t c = 0;
-  while(act_edge < edges)
-  {
-    delay(1);
-    c++;
-    if(c>= 1000) {
-      Serial.println("Timeout...");
-      c = 0;
-    }
-  }
+  while(act_edge < edges);
 }
 
 void play_IR_command(char * name)
