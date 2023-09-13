@@ -731,7 +731,7 @@
       (stroke (width 0.12) (type solid)) (layer "F.SilkS") (tstamp c62679a5-b525-4166-8a27-5ba305e22166))
     (fp_arc (start 10 -25.61) (mid 10.357937 -25.493944) (end 10.579676 -25.189937)
       (stroke (width 0.12) (type solid)) (layer "F.SilkS") (tstamp 4155c127-a697-4184-a8ce-220764b866ac))
-    (fp_arc (start 10.579676 25.189937) (mid 10.494803 25.356771) (end 10.363318 25.49)
+    (fp_arc (start 10.579676 25.189937) (mid 10.494812 25.356783) (end 10.363318 25.49)
       (stroke (width 0.12) (type solid)) (layer "F.SilkS") (tstamp 949789cc-aa5c-44f1-8e98-81264ec1c62a))
     (fp_circle (center -5.7 -23.5) (end -4.76 -23.5)
       (stroke (width 0.12) (type solid)) (fill none) (layer "F.SilkS") (tstamp dbab341b-b23a-4b6f-9e42-8204370e21f9))
@@ -3507,10 +3507,10 @@
       (net 62 "/EXT1") (pintype "passive") (tstamp d9b04f42-cdc6-400a-bcbb-98bd81153045))
     (pad "6" thru_hole circle (at 6.35 2.54 270) (size 1.52 1.52) (drill 0.76) (layers "*.Cu" "*.Mask")
       (net 63 "/EXT2") (pintype "passive") (tstamp 2886869f-d31c-4ad2-beac-69ea2e75162b))
-    (model "${KICAD6_3DMODEL_DIR}/Connector_RJ.3dshapes/RJ12_Amphenol_54601.wrl"
-      (offset (xyz 0 0 0))
+    (model "${KIPRJMOD}/kicad_libs/FABI.pretty/54601-906WPLF.stp"
+      (offset (xyz 3.25 -16.75 0))
       (scale (xyz 1 1 1))
-      (rotate (xyz 0 0 0))
+      (rotate (xyz -90 0 0))
     )
   )
 
