@@ -105,7 +105,13 @@ const keymap_struct keymap[] PROGMEM  = {
   {"7", KEY_7},
   {"8", KEY_8},
   {"9", KEY_9},
-  {"0", KEY_0}
+  {"0", KEY_0},
+  {"PLUS", 0xdf},
+  {"MINUS", 0xde},
+  {"ASTERISK", 0xdd},
+  {"SLASH", 0xdc},
+  {"HASH", 0xba},
+  {"DOT", 0xeb},
 };
 
 #define KEYMAP_ELEMENTS (sizeof keymap / sizeof keymap[0])

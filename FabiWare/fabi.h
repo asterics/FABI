@@ -30,7 +30,7 @@
 //#include <SPI.h>
 
 
-#define VERSION_STRING "FABI v2.7"
+#define VERSION_STRING "FABI v2.8"
 
 //#define DEBUG_OUTPUT      //  if debug output is desired
 
