@@ -106,12 +106,18 @@ const keymap_struct keymap[] PROGMEM  = {
   {"8", KEY_8},
   {"9", KEY_9},
   {"0", KEY_0},
-  {"PLUS", 0xdf},
-  {"MINUS", 0xde},
-  {"ASTERISK", 0xdd},
-  {"SLASH", 0xdc},
+  {"PLUS", 184},
+  {"MINUS", 47},
+  {"ASTERISK", 125},
+  {"SLASH", 38},
+  {"DOT", 46},
+  {"COLON", 62},
+  {"SEMICOLON", 60},
   {"HASH", 0xba},
-  {"DOT", 0xeb},
+  {"KP_PLUS", 0xdf},
+  {"KP_MINUS", 0xde},
+  {"KP_ASTERISK", 0xdd},
+  {"KP_SLASH", 0xdc},
 };
 
 #define KEYMAP_ELEMENTS (sizeof keymap / sizeof keymap[0])
@@ -298,9 +304,9 @@ void writeTranslatedKeys(char * str, int len)
          k=pgm_read_word_near(&(usToDE[(uint8_t)str[i]]));  // get the translated keycode (DE layout)
       else k=str[i];
       
-     // Serial.print ("char:"); Serial.print(*p1); Serial.print(" -> ");Serial.print(k);Serial.print(" (");
-     // if (k&MOD_ALTGR) Serial.print("AltGr + "); if (k&MOD_SHIFT) Serial.print("Shift + "); 
-     // Serial.print((char)(k&0xff)); Serial.println(")");
+      // Serial.print ("char:"); Serial.print(str[i]); Serial.print(" -> ");Serial.print(k);Serial.print(" (");
+      // if (k&MOD_ALTGR) Serial.print("AltGr + "); if (k&MOD_SHIFT) Serial.print("Shift + "); 
+      // Serial.print((char)(k&0xff)); Serial.println(")");
 
       if (k&MOD_ALTGR) keyboardPress(KEY_RIGHT_ALT); 
       if (k&MOD_SHIFT) keyboardPress(KEY_LEFT_SHIFT); 
