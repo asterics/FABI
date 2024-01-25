@@ -100,16 +100,16 @@ void setup() {
   //load slotSettings
   memcpy(&slotSettings,&defaultSlotSettings,sizeof(struct SlotSettings));
 
-  // initialize peripherals
+  // initialize tinyUSB soon. TODO: determine which interfaces are used.
+  initHID(0); //mouse + kbd + consumer + joystick (everything normal: Linux, Android, Win)
+  //initHID(1); //kbd + consumer + mouse (iOS?)
+  //initHID(2); //joystick (XAC)
   Serial.begin(115200);
+  
   
   #ifdef DEBUG_DELAY_STARTUP
     delay(3000);  // allow some time for serial interface to come up
   #endif
-  
-  MouseBLE.begin("FABI");
-  KeyboardBLE.begin("");
-  JoystickBLE.begin("");
   
   initGPIO();
   initIR();

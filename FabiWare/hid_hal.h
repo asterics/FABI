@@ -30,6 +30,19 @@ extern uint8_t dragRecordingState;
 extern int16_t dragRecordingX;
 extern int16_t dragRecordingY;
 
+#define MOUSE_LEFT 0
+#define MOUSE_RIGHT 1
+#define MOUSE_MIDDLE 2
+
+/*
+   @name initHID
+   @param uint8_t interface Number of HID interface. Currently: 0 for mouse+kbd+joystick (general); 1 for keyboard+mouse (iOS); 2 for joystick (XAC)
+   @return none
+
+   This method prints out an ASCII string (no modifiers available!)
+*/
+void initHID(uint8_t interface);
+
 /*
    @name keyboardPrint
    @param char* keyString string to be typed by keyboard

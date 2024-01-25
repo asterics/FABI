@@ -27,7 +27,8 @@ void remove_from_keybuffer(int key);
 void add_to_keybuffer(int key);
 void performKeyActions(char* text, uint8_t keyAction);
 char kbdLayout[6] = "en_US";
-const uint8_t *kbdLayoutArray = KeyboardLayout_en_US;
+//const uint8_t *kbdLayoutArray = KeyboardLayout_en_US;
+const uint8_t *kbdLayoutArray;
 
 /**
    @name printKeyboardLayout
@@ -50,17 +51,18 @@ int8_t setKeyboardLayout(char *name)
 {
 	const uint8_t *newLayout = 0;
 	
-	if(strncmp(name, "de_DE",5) == 0) newLayout = KeyboardLayout_de_DE;
+	/*if(strncmp(name, "de_DE",5) == 0) newLayout = KeyboardLayout_de_DE;
 	if(strncmp(name, "en_US",5) == 0) newLayout = KeyboardLayout_en_US;
 	if(strncmp(name, "es_ES",5) == 0) newLayout = KeyboardLayout_es_ES;
 	if(strncmp(name, "fr_FR",5) == 0) newLayout = KeyboardLayout_fr_FR;
 	if(strncmp(name, "it_IT",5) == 0) newLayout = KeyboardLayout_it_IT;
 	if(strncmp(name, "sv_SE",5) == 0) newLayout = KeyboardLayout_sv_SE;
-	if(strncmp(name, "da_DK",5) == 0) newLayout = KeyboardLayout_da_DK;
+	if(strncmp(name, "da_DK",5) == 0) newLayout = KeyboardLayout_da_DK;*/
 	
 	if(newLayout)
 	{
-		Keyboard.begin(newLayout);
+		//Keyboard.begin(newLayout);
+    #warning "TODO: tinyUSB layouts not available, if using would include Keyboard.h"
     kbdLayoutArray = newLayout;
 		#ifdef DEBUG_OUTPUT_FULL
 			Serial.print("Found new layout pointer for ");
@@ -158,7 +160,8 @@ void toggleKeys (char * text)
 
 void release_all_keys()
 {
-  keyboardReleaseAll();
+  #warning "TODO: change approbriate..."
+  //keyboardReleaseAll();
   for (int i = 0; i < KEYPRESS_BUFFERSIZE; i++)
     pressed_keys[i] = 0;
 }
@@ -241,56 +244,56 @@ struct keymap_struct {
    keycode/key-identifier mapping for key-identifiers with prefix "KEY_"
 */
 const keymap_struct keymap1 [] = {
-  {"SHIFT", KEY_LEFT_SHIFT},
-  {"CTRL", KEY_LEFT_CTRL},
-  {"ALT", KEY_LEFT_ALT},
-  {"RIGHT_ALT", KEY_RIGHT_ALT},
-  {"GUI", KEY_LEFT_GUI},
-  {"RIGHT_GUI", KEY_RIGHT_GUI},
-  {"UP", KEY_UP_ARROW},
-  {"DOWN", KEY_DOWN_ARROW},
-  {"LEFT", KEY_LEFT_ARROW},
-  {"RIGHT", KEY_RIGHT_ARROW},
-  {"ENTER", KEY_RETURN},
+  {"SHIFT", HID_KEY_SHIFT_LEFT},
+  {"CTRL", HID_KEY_CONTROL_LEFT},
+  {"ALT", HID_KEY_ALT_LEFT},
+  {"RIGHT_ALT", HID_KEY_ALT_RIGHT},
+  {"GUI", HID_KEY_GUI_LEFT},
+  {"RIGHT_GUI", HID_KEY_GUI_RIGHT},
+  {"UP", HID_KEY_ARROW_UP},
+  {"DOWN", HID_KEY_ARROW_DOWN},
+  {"LEFT", HID_KEY_ARROW_LEFT},
+  {"RIGHT", HID_KEY_ARROW_RIGHT},
+  {"ENTER", HID_KEY_ENTER},
   {"SPACE", ' '},
-  {"ESC", KEY_ESC},
-  {"BACKSPACE", KEY_BACKSPACE},
-  {"TAB", KEY_TAB},
-  {"CAPS_LOCK", KEY_CAPS_LOCK},
-  {"F1", KEY_F1},
-  {"F2", KEY_F2},
-  {"F3", KEY_F3},
-  {"F4", KEY_F4},
-  {"F5", KEY_F5},
-  {"F6", KEY_F6},
-  {"F7", KEY_F7},
-  {"F8", KEY_F8},
-  {"F9", KEY_F9},
-  {"F10", KEY_F10},
-  {"F11", KEY_F11},
-  {"F12", KEY_F12},
-  {"F13", KEY_F13},
-  {"F14", KEY_F14},
-  {"F15", KEY_F15},
-  {"F16", KEY_F16},
-  {"F17", KEY_F17},
-  {"F18", KEY_F18},
-  {"F19", KEY_F19},
-  {"F20", KEY_F20},
-  {"F21", KEY_F21},
-  {"F22", KEY_F22},
-  {"F23", KEY_F23},
-  {"F24", KEY_F24},
-  {"INSERT", KEY_INSERT},
-  {"HOME", KEY_HOME},
-  {"PAGE_UP", KEY_PAGE_UP},
-  {"DELETE", KEY_DELETE},
-  {"END", KEY_END},
-  {"PAGE_DOWN", KEY_PAGE_DOWN},
-  {"PAUSE", KEY_PAUSE},
-  {"SCROLL_LOCK", KEY_SCROLL_LOCK},
-  {"NUM_LOCK", KEY_NUM_LOCK},
-  {"PRINTSCREEN", KEY_PRINT_SCREEN},
+  {"ESC", HID_KEY_ESCAPE},
+  {"BACKSPACE", HID_KEY_BACKSPACE},
+  {"TAB", HID_KEY_TAB},
+  {"CAPS_LOCK", HID_KEY_LOCKING_CAPS_LOCK},
+  {"F1", HID_KEY_F1},
+  {"F2", HID_KEY_F2},
+  {"F3", HID_KEY_F3},
+  {"F4", HID_KEY_F4},
+  {"F5", HID_KEY_F5},
+  {"F6", HID_KEY_F6},
+  {"F7", HID_KEY_F7},
+  {"F8", HID_KEY_F8},
+  {"F9", HID_KEY_F9},
+  {"F10", HID_KEY_F10},
+  {"F11", HID_KEY_F11},
+  {"F12", HID_KEY_F12},
+  {"F13", HID_KEY_F13},
+  {"F14", HID_KEY_F14},
+  {"F15", HID_KEY_F15},
+  {"F16", HID_KEY_F16},
+  {"F17", HID_KEY_F17},
+  {"F18", HID_KEY_F18},
+  {"F19", HID_KEY_F19},
+  {"F20", HID_KEY_F20},
+  {"F21", HID_KEY_F21},
+  {"F22", HID_KEY_F22},
+  {"F23", HID_KEY_F23},
+  {"F24", HID_KEY_F24},
+  {"INSERT", HID_KEY_INSERT},
+  {"HOME", HID_KEY_HOME},
+  {"PAGE_UP", HID_KEY_PAGE_UP},
+  {"DELETE", HID_KEY_DELETE},
+  {"END", HID_KEY_END},
+  {"PAGE_DOWN", HID_KEY_PAGE_DOWN},
+  {"PAUSE", HID_KEY_PAUSE},
+  {"SCROLL_LOCK", HID_KEY_SCROLL_LOCK},
+  {"NUM_LOCK", HID_KEY_NUM_LOCK},
+  {"PRINTSCREEN", HID_KEY_PRINT_SCREEN},
   {"SEMICOLON", ';'},
   {"COMMA", ','},
   {"PERIOD", ','},
@@ -302,7 +305,7 @@ const keymap_struct keymap1 [] = {
   {"RIGHT_BRACE", ')'},
   {"QUOTE", '"'},
   {"TILDE", '~'},
-  {"MENU", KEY_MENU}
+  {"MENU", HID_KEY_MENU}
 };
 
 /**
@@ -310,22 +313,22 @@ const keymap_struct keymap1 [] = {
    keycode/key-identifier mapping for key-identifiers with prefix "KEYPAD_"
 */
 const keymap_struct keymap2 [] = {
-  {"SLASH", KEY_KP_SLASH},
-  {"ASTERIX", KEY_KP_ASTERISK},
-  {"MINUS", KEY_KP_MINUS},
-  {"PLUS", KEY_KP_PLUS},
-  {"ENTER", KEY_KP_ENTER},
-  {"1", KEY_KP_1},
-  {"2", KEY_KP_2},
-  {"3", KEY_KP_3},
-  {"4", KEY_KP_4},
-  {"5", KEY_KP_5},
-  {"6", KEY_KP_6},
-  {"7", KEY_KP_7},
-  {"8", KEY_KP_8},
-  {"9", KEY_KP_9},
-  {"0", KEY_KP_0},
-  {"PERIOD", KEY_KP_DOT}
+  {"SLASH", HID_KEY_KEYPAD_DIVIDE},
+  {"ASTERIX", HID_KEY_KEYPAD_MULTIPLY},
+  {"MINUS", HID_KEY_KEYPAD_SUBTRACT},
+  {"PLUS", HID_KEY_KEYPAD_ADD},
+  {"ENTER", HID_KEY_KEYPAD_ENTER},
+  {"1", HID_KEY_KEYPAD_1},
+  {"2", HID_KEY_KEYPAD_2},
+  {"3", HID_KEY_KEYPAD_3},
+  {"4", HID_KEY_KEYPAD_4},
+  {"5", HID_KEY_KEYPAD_5},
+  {"6", HID_KEY_KEYPAD_6},
+  {"7", HID_KEY_KEYPAD_7},
+  {"8", HID_KEY_KEYPAD_8},
+  {"9", HID_KEY_KEYPAD_9},
+  {"0", HID_KEY_KEYPAD_0},
+  {"PERIOD", HID_KEY_KEYPAD_DECIMAL}
 };
 
 #define KEYMAP1_ELEMENTS (sizeof keymap1 / sizeof keymap1[0])   // number of key-identifiers with prefix "KEY_"

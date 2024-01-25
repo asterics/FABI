@@ -25,13 +25,8 @@
 #define _FLIPWARE_H_
 
 #include <Arduino.h>
+#include "Adafruit_TinyUSB.h"
 #include <Wire.h>
-#include <MouseBLE.h>
-#include <KeyboardBLE.h>
-#include <JoystickBLE.h>
-#include <Mouse.h>
-#include <Keyboard.h>
-#include <Joystick.h>
 #include <EEPROM.h>
 #include <string.h>
 #include <stdint.h>
