@@ -21,10 +21,10 @@
 /**
    forward declarations of module-internal functions
 */
-int pressed_keys[KEYPRESS_BUFFERSIZE];
-uint8_t in_keybuffer(int key);
-void remove_from_keybuffer(int key);
-void add_to_keybuffer(int key);
+uint8_t pressed_keys[KEYPRESS_BUFFERSIZE];
+uint8_t in_keybuffer(uint16_t key);
+void remove_from_keybuffer(uint16_t key);
+void add_to_keybuffer(uint16_t key);
 void performKeyActions(char* text, uint8_t keyAction);
 char kbdLayout[6] = "en_US";
 //const uint8_t *kbdLayoutArray = KeyboardLayout_en_US;
@@ -103,7 +103,7 @@ void updateKey(int key, uint8_t keyAction)
         Serial.println("H");
       #endif
       add_to_keybuffer(key);
-      keyboardPress(key);       // press/hold keys individually
+      sendKeyboard(pressed_keys);
       break;
 
     case KEY_RELEASE:
@@ -111,7 +111,7 @@ void updateKey(int key, uint8_t keyAction)
         Serial.println("R");
       #endif
       remove_from_keybuffer(key);
-      keyboardRelease(key);       // release keys individually
+      sendKeyboard(pressed_keys);
       break;
 
     case KEY_TOGGLE:
@@ -123,13 +123,13 @@ void updateKey(int key, uint8_t keyAction)
           Serial.println("R");
         #endif
         remove_from_keybuffer(key);
-        keyboardRelease(key);
+        sendKeyboard(pressed_keys);
       } else {
         #ifdef DEBUG_OUTPUT_KEYS
           Serial.println("P");
         #endif
         add_to_keybuffer (key);
-        keyboardPress(key);
+        sendKeyboard(pressed_keys);
       }
       break;
   }
@@ -141,6 +141,16 @@ void pressKeys (char * text)
 {
   performKeyActions(text, KEY_PRESS);
   performKeyActions(text, KEY_RELEASE);
+}
+
+void printKeys(char * keystring)
+{
+  //Keyboard.print(keystring);  // improved for ISO 8859 compatibility (but: slower ..)
+  for (unsigned int i = 0; i < strlen(keystring); i++)
+  {
+      /*if (slotSettings.bt & 1) Keyboard.write(keystring[i]);*/
+      //if (slotSettings.bt & 2) KeyboardBLE.write(keystring[i]);
+  }
 }
 
 void holdKeys (char * text)
@@ -160,10 +170,8 @@ void toggleKeys (char * text)
 
 void release_all_keys()
 {
-  #warning "TODO: change approbriate..."
-  //keyboardReleaseAll();
-  for (int i = 0; i < KEYPRESS_BUFFERSIZE; i++)
-    pressed_keys[i] = 0;
+  for (int i = 0; i < KEYPRESS_BUFFERSIZE; i++) pressed_keys[i] = 0;
+  sendKeyboard(pressed_keys);
 }
 
 
@@ -181,13 +189,18 @@ void release_all()  // releases all previously pressed keys and stop mouse actio
    @param key the keycode
    @return none
 */
-void add_to_keybuffer(int key)
+void add_to_keybuffer(uint16_t key)
 {
-  for (int i = 0; i < KEYPRESS_BUFFERSIZE; i++)
+  //check if it is a modifier
+  if((key & 0xE000) == 0xE000) {
+    pressed_keys[0] |= (key & 0x00FF); //set bit 0 - 7, depending on modifier.
+    return;
+  }
+  //place other keycodes into upper 6 bytes of key array
+  for (int i = 2; i < KEYPRESS_BUFFERSIZE; i++)
   {
-    if (pressed_keys[i] == 0)
-      pressed_keys[i] = key;
-    if (pressed_keys[i] == key) i = KEYPRESS_BUFFERSIZE;
+    if (pressed_keys[i] == 0) pressed_keys[i] = key;
+    if (pressed_keys[i] == key) break;
   }
 }
 
@@ -197,19 +210,29 @@ void add_to_keybuffer(int key)
    @param key the keycode
    @return none
 */
-void remove_from_keybuffer(int key)
+void remove_from_keybuffer(uint16_t key)
 {
-  for (int i = 0; i < KEYPRESS_BUFFERSIZE; i++)
+  //check if it is a modifier
+  if((key & 0xE000) == 0xE000) {
+    pressed_keys[0] &= ~(key & 0x00FF); //clear bit 0 - 7, depending on modifier.
+    return;
+  }
+  
+  //remove other keycodes from upper 6 bytes of key array
+  for (int i = 2; i < KEYPRESS_BUFFERSIZE; i++)
   {
-    if (pressed_keys[i] == key)
+    //is this possible slot containing the keycode?
+    if(pressed_keys[i] == key)
     {
+      //if yes move all trailing keycodes by one position forward, overwriting old keycode
       while (i < KEYPRESS_BUFFERSIZE - 1)
       {
         pressed_keys[i] = pressed_keys[i + 1];
         i++;
       }
+      //set last byte to 0
       pressed_keys[KEYPRESS_BUFFERSIZE - 1] = 0;
-      i = KEYPRESS_BUFFERSIZE;
+      break;
     }
   }
 }
@@ -220,9 +243,15 @@ void remove_from_keybuffer(int key)
    @param key the keycode
    @return true if key is actually pressed, otherwise false
 */
-uint8_t in_keybuffer(int key)
+uint8_t in_keybuffer(uint16_t key)
 {
-  for (int i = 0; i < KEYPRESS_BUFFERSIZE; i++)
+  //check if it is a modifier
+  if((key & 0xE000) == 0xE000) {
+    pressed_keys[0] |= (key & 0x00FF); //set bit 0 - 7, depending on modifier.
+    return (pressed_keys[0] & (key & 0x00FF)) ? 1 : 0;
+  }
+  
+  for (int i = 2; i < KEYPRESS_BUFFERSIZE; i++)
   {
     if (pressed_keys[i] == key)
       return (1);
@@ -230,109 +259,6 @@ uint8_t in_keybuffer(int key)
   return (0);
 }
 
-/**
-   keymap_struct 
-   maps a keycode to a key-identifier string
-*/
-struct keymap_struct {
-  char const *token;
-  int key;
-};
-
-/**
-   keymap1
-   keycode/key-identifier mapping for key-identifiers with prefix "KEY_"
-*/
-const keymap_struct keymap1 [] = {
-  {"SHIFT", HID_KEY_SHIFT_LEFT},
-  {"CTRL", HID_KEY_CONTROL_LEFT},
-  {"ALT", HID_KEY_ALT_LEFT},
-  {"RIGHT_ALT", HID_KEY_ALT_RIGHT},
-  {"GUI", HID_KEY_GUI_LEFT},
-  {"RIGHT_GUI", HID_KEY_GUI_RIGHT},
-  {"UP", HID_KEY_ARROW_UP},
-  {"DOWN", HID_KEY_ARROW_DOWN},
-  {"LEFT", HID_KEY_ARROW_LEFT},
-  {"RIGHT", HID_KEY_ARROW_RIGHT},
-  {"ENTER", HID_KEY_ENTER},
-  {"SPACE", ' '},
-  {"ESC", HID_KEY_ESCAPE},
-  {"BACKSPACE", HID_KEY_BACKSPACE},
-  {"TAB", HID_KEY_TAB},
-  {"CAPS_LOCK", HID_KEY_LOCKING_CAPS_LOCK},
-  {"F1", HID_KEY_F1},
-  {"F2", HID_KEY_F2},
-  {"F3", HID_KEY_F3},
-  {"F4", HID_KEY_F4},
-  {"F5", HID_KEY_F5},
-  {"F6", HID_KEY_F6},
-  {"F7", HID_KEY_F7},
-  {"F8", HID_KEY_F8},
-  {"F9", HID_KEY_F9},
-  {"F10", HID_KEY_F10},
-  {"F11", HID_KEY_F11},
-  {"F12", HID_KEY_F12},
-  {"F13", HID_KEY_F13},
-  {"F14", HID_KEY_F14},
-  {"F15", HID_KEY_F15},
-  {"F16", HID_KEY_F16},
-  {"F17", HID_KEY_F17},
-  {"F18", HID_KEY_F18},
-  {"F19", HID_KEY_F19},
-  {"F20", HID_KEY_F20},
-  {"F21", HID_KEY_F21},
-  {"F22", HID_KEY_F22},
-  {"F23", HID_KEY_F23},
-  {"F24", HID_KEY_F24},
-  {"INSERT", HID_KEY_INSERT},
-  {"HOME", HID_KEY_HOME},
-  {"PAGE_UP", HID_KEY_PAGE_UP},
-  {"DELETE", HID_KEY_DELETE},
-  {"END", HID_KEY_END},
-  {"PAGE_DOWN", HID_KEY_PAGE_DOWN},
-  {"PAUSE", HID_KEY_PAUSE},
-  {"SCROLL_LOCK", HID_KEY_SCROLL_LOCK},
-  {"NUM_LOCK", HID_KEY_NUM_LOCK},
-  {"PRINTSCREEN", HID_KEY_PRINT_SCREEN},
-  {"SEMICOLON", ';'},
-  {"COMMA", ','},
-  {"PERIOD", ','},
-  {"MINUS", '-'},
-  {"EQUAL", '='},
-  {"SLASH", '/'},
-  {"BACKSLASH", '\\'},
-  {"LEFT_BRACE", '('},
-  {"RIGHT_BRACE", ')'},
-  {"QUOTE", '"'},
-  {"TILDE", '~'},
-  {"MENU", HID_KEY_MENU}
-};
-
-/**
-   keymap2
-   keycode/key-identifier mapping for key-identifiers with prefix "KEYPAD_"
-*/
-const keymap_struct keymap2 [] = {
-  {"SLASH", HID_KEY_KEYPAD_DIVIDE},
-  {"ASTERIX", HID_KEY_KEYPAD_MULTIPLY},
-  {"MINUS", HID_KEY_KEYPAD_SUBTRACT},
-  {"PLUS", HID_KEY_KEYPAD_ADD},
-  {"ENTER", HID_KEY_KEYPAD_ENTER},
-  {"1", HID_KEY_KEYPAD_1},
-  {"2", HID_KEY_KEYPAD_2},
-  {"3", HID_KEY_KEYPAD_3},
-  {"4", HID_KEY_KEYPAD_4},
-  {"5", HID_KEY_KEYPAD_5},
-  {"6", HID_KEY_KEYPAD_6},
-  {"7", HID_KEY_KEYPAD_7},
-  {"8", HID_KEY_KEYPAD_8},
-  {"9", HID_KEY_KEYPAD_9},
-  {"0", HID_KEY_KEYPAD_0},
-  {"PERIOD", HID_KEY_KEYPAD_DECIMAL}
-};
-
-#define KEYMAP1_ELEMENTS (sizeof keymap1 / sizeof keymap1[0])   // number of key-identifiers with prefix "KEY_"
-#define KEYMAP2_ELEMENTS (sizeof keymap2 / sizeof keymap2[0])   // number of key-identifiers with prefix "KEYPAD_"
 
 /**
    @name performKeyActions
@@ -343,11 +269,13 @@ const keymap_struct keymap2 [] = {
 */
 void performKeyActions(char* text,  uint8_t keyAction)
 {
-  char * tmptxt = (char *) malloc( sizeof(char) * ( strlen(text) + 2 ) ); // for parsing keystrings
+  //allocate new memory for working with this keystring.
+  //limit to MAX_KEYSTRING_LEN
+  char * tmptxt = (char *) malloc( sizeof(char) * ( strnlen(text,MAX_KEYSTRING_LEN) + 2 ) ); // for parsing keystrings
   char * acttoken;
   bool found = false;
 
-  strcpy(tmptxt, text);
+  strncpy(tmptxt, text,MAX_KEYSTRING_LEN);
   if (tmptxt[strlen(tmptxt) - 1] != ' ') strcat(tmptxt, " ");
 
   acttoken = strtok(tmptxt, " ");
@@ -355,52 +283,15 @@ void performKeyActions(char* text,  uint8_t keyAction)
   {
     if (!strncmp(acttoken, "KEY_", 4)) {
       acttoken += 4;
-      found = false;
-      
-      for (unsigned int i = 0; i < KEYMAP1_ELEMENTS; i++) {
-        #ifdef DEBUG_OUTPUT_KEYS
-          Serial.print("scanning for ");  Serial.println(keymap1[i].token);
-        #endif
-        
-        if (!strcmp(acttoken, keymap1[i].token)) {
-          #ifdef DEBUG_OUTPUT_KEYS
-            Serial.print("found @"); Serial.print(i); Serial.print(", keycode: "); Serial.println(keymap1[i].key);
-          #endif
-          
-          updateKey(keymap1[i].key, keyAction);
-          found = true;
-          break;
-        }
-      }
-      //if not found in the array, try if it is 0-9 or A-Z keys
-      //we need to split this test, because we need small letters for Keyboard.print.
-      if(!found && (acttoken[0] >= '0' && acttoken[0] <= '9'))
-      {
-        #ifdef DEBUG_OUTPUT_KEYS
-          Serial.print("found num key: "); Serial.println(acttoken[0]);
-        #endif
-        
-        updateKey(acttoken[0], keyAction);
-        found = true;
-      }
-	    
-      if(!found && (acttoken[0] >= 'A' && acttoken[0] <= 'Z'))
-      {
-        #ifdef DEBUG_OUTPUT_KEYS
-          Serial.print("found ascii keys: "); Serial.println(toLowerCase(acttoken[0]));
-        #endif
-        
-        updateKey(toLowerCase(acttoken[0]), keyAction);
-        found = true;
-      }
+      uint16_t key = parseIdentifierToKeycode(acttoken);
+      if(key) updateKey(key, keyAction);
     }
 
+    //if using a KEYPAD key, search in second array
     if (!strncmp(acttoken, "KEYPAD_", 7)) {
       acttoken += 7;
-      for (unsigned int i = 0; i < KEYMAP2_ELEMENTS; i++) {
-        if (!strcmp(acttoken, keymap2[i].token))
-          updateKey(keymap2[i].key, keyAction);
-      }
+      uint16_t key = parseIdentifierToKeycode(acttoken);
+      if(key) updateKey(key, keyAction);
     }
     acttoken = strtok(NULL, " ");
   }

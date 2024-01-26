@@ -19,40 +19,17 @@ uint8_t dragRecordingState=DRAG_RECORDING_IDLE;
 int16_t dragRecordingX=0;
 int16_t dragRecordingY=0;
 
-Adafruit_USBD_HID usb_hid;
-
-//general HID report descriptor for every normal use case:
-// Linux
-// Android
-// Windows
-uint8_t const desc_hid_0[] =
-{
-  TUD_HID_REPORT_DESC_MOUSE   ( HID_REPORT_ID(1) ),
-  TUD_HID_REPORT_DESC_KEYBOARD( HID_REPORT_ID(2) ),
-  TUD_HID_REPORT_DESC_CONSUMER( HID_REPORT_ID(3) ),
-  TUD_HID_REPORT_DESC_GAMEPAD ( HID_REPORT_ID(4) )
-};
-
-// special case: iOS (no joystick)
-uint8_t const desc_hid_1[] =
-{
-  TUD_HID_REPORT_DESC_MOUSE   ( HID_REPORT_ID(1) ),
-  TUD_HID_REPORT_DESC_KEYBOARD( HID_REPORT_ID(2) ),
-  TUD_HID_REPORT_DESC_CONSUMER( HID_REPORT_ID(3) ),
-};
-
-// very special case: XBox adaptive controller (XAC), very picky...
-uint8_t const desc_hid_2[] =
-{
-  TUD_HID_REPORT_DESC_GAMEPAD ( HID_REPORT_ID(1) )
-};
-
 uint8_t rid_mouse = 0;
 uint8_t rid_keyboard = 0;
 uint8_t rid_joystick = 0;
 uint8_t report_mouse[5];
-uint8_t report_kbd[8];
+uint8_t report_kbd[8]; //unused, just used to determine max size of a kbd report. Data is provided when sending
 uint8_t report_gamepad[11];
+
+/*Adafruit_USBD_HID usb_hid0(desc_hid_0, sizeof(desc_hid_0), HID_ITF_PROTOCOL_NONE, 2, false);
+Adafruit_USBD_HID usb_hid1(desc_hid_1, sizeof(desc_hid_1), HID_ITF_PROTOCOL_NONE, 2, false);
+Adafruit_USBD_HID usb_hid2(desc_hid_2, sizeof(desc_hid_2), HID_ITF_PROTOCOL_NONE, 2, false);*/
+extern Adafruit_USBD_HID usb_hid;
 
 #warning "BLE disabled, because it isn't compatible with TinyUBS. Implement here & use PicoBluetoothBLEHID"
 /*
@@ -62,42 +39,22 @@ uint8_t report_gamepad[11];
 */
 
 /*
-   @name initHID
-   @param uint8_t interface Number of HID interface. Currently: 0 for mouse+kbd+joystick (general); 1 for keyboard+mouse (iOS); 2 for joystick (XAC)
+   @name setReportIDs
+   @param uint8_t rid_m Report ID for the mouse, set to 0 if not used
+   @param uint8_t rid_k Report ID for the keyboard, set to 0 if not used. rid_keyboard + 1 is assumed to be the consumer control
+   @param uint8_t rid_j Report ID for the joystick, set to 0 if not used
    @return none
-
-   This method prints out an ASCII string (no modifiers available!)
 */
-void initHID(uint8_t interface) {
-  bool init = true;
-  switch(interface) {
-    case 0:
-      rid_mouse = 1; rid_keyboard = 2; rid_joystick = 4;
-      usb_hid.setReportDescriptor(desc_hid_0,sizeof(desc_hid_0));
-      usb_hid.setStringDescriptor("FABI Composite");
-      break;
-    case 1:
-      rid_mouse = 1; rid_keyboard = 2;
-      usb_hid.setReportDescriptor(desc_hid_1,sizeof(desc_hid_1));
-      usb_hid.setStringDescriptor("FABI iOS");
-      break;
-    case 2:
-      rid_joystick = 1;
-      usb_hid.setReportDescriptor(desc_hid_2,sizeof(desc_hid_2));
-      usb_hid.setStringDescriptor("FABI XAC");
-      break;
-    default:
-      init = false;
-      break;
-  }
-  if(init) {
-    usb_hid.begin();
-  }
+void setReportIDs(uint8_t rid_m, uint8_t rid_k, uint8_t rid_j)
+{
+  rid_mouse = rid_m;
+  rid_keyboard = rid_k;
+  rid_joystick = rid_j;
 }
 
 void mouseRelease(uint8_t button)
 {
-  if(usb_hid.ready() && (slotSettings.bt & 1)) {
+  if(usb_hid.ready() && (slotSettings.bt & 1) && (rid_mouse != 0)) {
     report_mouse[0] &= ~(1<<button);
     usb_hid.sendReport(rid_mouse,report_mouse,sizeof(report_mouse));
   }
@@ -106,7 +63,7 @@ void mouseRelease(uint8_t button)
 
 void mousePress(uint8_t button)
 {
-  if(usb_hid.ready() && (slotSettings.bt & 1)) {
+  if(usb_hid.ready() && (slotSettings.bt & 1) && (rid_mouse != 0)) {
     report_mouse[0] |= (1<<button);
     usb_hid.sendReport(rid_mouse,report_mouse,sizeof(report_mouse));
   }
@@ -115,7 +72,7 @@ void mousePress(uint8_t button)
 
 void mouseToggle(uint8_t button)
 {
-  if (slotSettings.bt & 1) {
+  if ((slotSettings.bt & 1) && (rid_mouse != 0)) {
     if(report_mouse[0] & (1<<button)) report_mouse[0] &= ~(1<<button);
     else report_mouse[0] |= (1<<button);
     if(usb_hid.ready()) usb_hid.sendReport(rid_mouse,report_mouse,sizeof(report_mouse));
@@ -130,7 +87,7 @@ void mouseToggle(uint8_t button)
 
 void mouseScroll(int8_t steps)
 {
-  if(usb_hid.ready() && (slotSettings.bt & 1)) {
+  if(usb_hid.ready() && (slotSettings.bt & 1) && (rid_mouse != 0)) {
     report_mouse[3] = (uint8_t)steps;
     usb_hid.sendReport(rid_mouse,report_mouse,sizeof(report_mouse));
     report_mouse[3] = 0;
@@ -139,7 +96,7 @@ void mouseScroll(int8_t steps)
 }
 
 void hidMouseMove(int8_t x, int8_t y) {
-  if(usb_hid.ready()) {
+  if(usb_hid.ready() && (rid_mouse != 0)) {
     report_mouse[1] = (uint8_t)x;
     report_mouse[2] = (uint8_t)y;
     usb_hid.sendReport(rid_mouse,report_mouse,sizeof(report_mouse));
@@ -180,94 +137,77 @@ void mouseMove(int x, int y)
 }
 
 
-void keyboardPrint(char * keystring)
-{
-  //Keyboard.print(keystring);  // improved for ISO 8859 compatibility (but: slower ..)
-  for (unsigned int i = 0; i < strlen(keystring); i++)
-  {
-      /*if (slotSettings.bt & 1) Keyboard.write(keystring[i]);*/
-      //if (slotSettings.bt & 2) KeyboardBLE.write(keystring[i]);
-  }
-}
-
-void keyboardPress(int key)
-{
-  /*if (slotSettings.bt & 1)
-    Keyboard.press(key);
-  if (slotSettings.bt & 2)
-    KeyboardBLE.press(key);*/
-}
-
-void keyboardRelease(int key)
-{
-  /*if (slotSettings.bt & 1)
-    Keyboard.release(key);
-  if (slotSettings.bt & 2)
-    KeyboardBLE.release(key);/*
-}
-
-void keyboardReleaseAll()
-{
-  /*if (slotSettings.bt & 1)
-    Keyboard.releaseAll();
-  if (slotSettings.bt & 2)
-    KeyboardBLE.releaseAll();*/
+void sendKeyboard(uint8_t *keys) {
+  //always mask out the reserved byte
+  keys[1] = 0;
+  
+  if ((slotSettings.bt & 1) && (rid_keyboard != 0)) usb_hid.sendReport(rid_keyboard,keys,sizeof(report_kbd));
+  //TODO: send here for BT as well...
 }
 
 void joystickAxis(int axis1, int axis2, uint8_t select)
 {
-  /*if (slotSettings.bt & 1)
-  {
-    switch(select)
-    {
-      case 0:
-        Joystick.X(axis1);
-        Joystick.Y(axis2);
-      break;
-      case 1:
-        Joystick.Z(axis1);
-        Joystick.Zrotate(axis2);
-      break;
-      case 2:
-        Joystick.sliderLeft(axis1);
-        Joystick.sliderRight(axis2);
-      break;
-      default: break;
-    }
+  //check if select has correct range
+  if(select > 2) return;
+  //if axis 1 should be updated (!= -1/<0), map to 8bit value
+  if(axis1 >= 0) {
+    report_gamepad[select*2] = map(axis1,0,1023,0,255);
   }
-  if (slotSettings.bt & 2)
-  {
-    switch(select)
-    {
-      case 0:
-        JoystickBLE.X(axis1);
-        JoystickBLE.Y(axis2);
+  //if axis 2 should be updated (!= -1/<0), map to 8bit value
+  if(axis2 >= 0) {
+    report_gamepad[select*2+1] = map(axis2,0,1023,0,255);
+  }
+  //send out reports
+  if ((slotSettings.bt & 1) && (rid_joystick != 0)) usb_hid.sendReport(rid_joystick,report_gamepad,sizeof(report_gamepad));
+  //TODO: here for BLE now...
+  
+  //setup data here
+  switch(select) {
+    case 0:
+      if(axis1 >= 0) report_gamepad[0] = map(axis1,0,1023,0,255);
+      if(axis2 >= 0) report_gamepad[2] = map(axis2,0,1023,0,255);
       break;
-      case 1:
-        JoystickBLE.Z(axis1);
-        JoystickBLE.Zrotate(axis2);
+    case 1:
+      if(axis1 >= 0) report_gamepad[0] = map(axis1,0,1023,0,255);
+      if(axis2 >= 0) report_gamepad[2] = map(axis2,0,1023,0,255);
       break;
-      case 2:
-        JoystickBLE.sliderLeft(axis1);
-        JoystickBLE.sliderRight(axis2);
-      break;
-      default: break;
-    }
-  }*/
+  }
 }
 
 void joystickButton(uint8_t nr, int val)
 {
-  /*if (slotSettings.bt & 1) 
-    Joystick.button(nr,val);
-  if (slotSettings.bt & 2)
-    JoystickBLE.button(nr,val);*/
+  //out of range
+  if(nr == 0 || nr > 32) return;
+  
+  //first possible button byte (nr: 1-8)
+  if(nr <= 8) {
+    if(val) report_gamepad[7] |= (1<<(nr-1));
+    else report_gamepad[7] &= ~(1<<(nr-1));
+  }
+  //second possible button byte (nr: 9-16)
+  if(nr >= 9 && nr <= 16) {
+    if(val) report_gamepad[8] |= (1<<(nr-9));
+    else report_gamepad[8] &= ~(1<<(nr-9));
+  }
+  //third possible button byte (nr: 17-24)
+  if(nr >= 17 && nr <= 24) {
+    if(val) report_gamepad[9] |= (1<<(nr-17));
+    else report_gamepad[9] &= ~(1<<(nr-17));
+  }
+  //fourth possible button byte (nr: 25-32)
+  if(nr >= 25 && nr <= 32) {
+    if(val) report_gamepad[10] |= (1<<(nr-25));
+    else report_gamepad[10] &= ~(1<<(nr-25));
+  }
+  //send out reports
+  if ((slotSettings.bt & 1) && (rid_joystick != 0)) usb_hid.sendReport(rid_joystick,report_gamepad,sizeof(report_gamepad));
+  //TODO: here for BLE now...
 }
 
 void joystickHat(int val)
 {
- /* if (slotSettings.bt & 1) 
-    Joystick.hat(val);
-  if (slotSettings.bt & 2)
-    JoystickBLE.hat(val);*/
+  report_gamepad[6] = val;
+  //send out reports
+   if ((slotSettings.bt & 1) && (rid_joystick != 0)) usb_hid.sendReport(rid_joystick,report_gamepad,sizeof(report_gamepad));
+  //TODO: here for BLE now...
 }

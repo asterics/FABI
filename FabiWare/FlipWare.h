@@ -24,8 +24,8 @@
 #ifndef _FLIPWARE_H_
 #define _FLIPWARE_H_
 
-#include <Arduino.h>
 #include "Adafruit_TinyUSB.h"
+#include <Arduino.h>
 #include <Wire.h>
 #include <EEPROM.h>
 #include <string.h>

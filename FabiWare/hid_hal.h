@@ -34,23 +34,54 @@ extern int16_t dragRecordingY;
 #define MOUSE_RIGHT 1
 #define MOUSE_MIDDLE 2
 
+//general HID report descriptor for every normal use case:
+// Linux
+// Android
+// Windows
+uint8_t const desc_hid_0[] =
+{
+  TUD_HID_REPORT_DESC_MOUSE   ( HID_REPORT_ID(1) ),
+  TUD_HID_REPORT_DESC_KEYBOARD( HID_REPORT_ID(2) ),
+  TUD_HID_REPORT_DESC_CONSUMER( HID_REPORT_ID(3) ),
+  TUD_HID_REPORT_DESC_GAMEPAD ( HID_REPORT_ID(4) )
+};
+
+// special case: iOS (no joystick)
+uint8_t const desc_hid_1[] =
+{
+  TUD_HID_REPORT_DESC_MOUSE   ( HID_REPORT_ID(1) ),
+  TUD_HID_REPORT_DESC_KEYBOARD( HID_REPORT_ID(2) ),
+  TUD_HID_REPORT_DESC_CONSUMER( HID_REPORT_ID(3) ),
+};
+
+// very special case: XBox adaptive controller (XAC), very picky...
+uint8_t const desc_hid_2[] =
+{
+  TUD_HID_REPORT_DESC_GAMEPAD ( HID_REPORT_ID(1) )
+};
+
 /*
-   @name initHID
-   @param uint8_t interface Number of HID interface. Currently: 0 for mouse+kbd+joystick (general); 1 for keyboard+mouse (iOS); 2 for joystick (XAC)
+   @name setReportIDs
+   @param uint8_t rid_m Report ID for the mouse, set to 0 if not used
+   @param uint8_t rid_k Report ID for the keyboard, set to 0 if not used. rid_keyboard + 1 is assumed to be the consumer control
+   @param uint8_t rid_j Report ID for the joystick, set to 0 if not used
+   @return none
+*/
+void setReportIDs(uint8_t rid_m, uint8_t rid_k, uint8_t rid_j);
+
+
+/*
+   @name sendKeyboard
+   @param uint8_t* keys Array of keycodes. Byte 0 contains modifiers, Byte 1 is ignored Byte 2-7 are keycodes.
    @return none
 
-   This method prints out an ASCII string (no modifiers available!)
+   Sends out a full keyboard report. It is assumed that the bytes inside
+   the buffer are properly located:
+   [0]   modifier keys (CTRL, GUI, ALT, SHIFT, ...)
+   [1]   is ignored (detail: LED OUT in report)
+   [2-7] up to 6 different keycodes. use 0 for released key
 */
-void initHID(uint8_t interface);
-
-/*
-   @name keyboardPrint
-   @param char* keyString string to be typed by keyboard
-   @return none
-
-   This method prints out an ASCII string (no modifiers available!)
-*/
-void keyboardPrint(char * keyString);
+void sendKeyboard(uint8_t *keys);
 
 /*
    @name keyboardPress

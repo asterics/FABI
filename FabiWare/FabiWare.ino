@@ -24,7 +24,7 @@
                   Adafruit Neopixel library, installable via library manager
                   https://github.com/ChrisVeigl/LoadcellSensor
                   SSD1306Ascii-library by Bill Greiman, see https://github.com/greiman/SSD1306Ascii
-                  Arduino settings: Tools->Board:"Raspberry Pi Pico W",  "Tools->Flash Size: "1792kB Sketch, 256kB FS", Tools->IP/Bluetooth Stack:"IPv4+Bluetooth"
+                  Arduino settings: Tools->Board:"Raspberry Pi Pico W",  "Tools->Flash Size: "1792kB Sketch, 256kB FS", Tools->IP/Bluetooth Stack:"IPv4+Bluetooth", USB Stack: "Adafruit TinyUSB"
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -86,6 +86,8 @@ uint8_t workingmem[WORKINGMEM_SIZE];          // working memory (command parser,
 uint8_t actSlot = 0;                          // number of current slot
 unsigned long lastInteractionUpdate;          // timestamp for HID interaction updates
 
+//TODO: shouldn't be defined here, but unfortunately doesn't work when declared & initialized in hid_hal.
+Adafruit_USBD_HID usb_hid;
 
 /**
    @name setup
@@ -93,6 +95,11 @@ unsigned long lastInteractionUpdate;          // timestamp for HID interaction u
    @return none
 */
 void setup() {
+  // initialize tinyUSB soon. TODO: determine which interfaces are used.
+  usb_hid.setReportDescriptor(desc_hid_0,sizeof(desc_hid_0)); //mouse + kbd + consumer + joystick (everything normal: Linux, Android, Win)
+  //usb_hid.setReportDescriptor(desc_hid_1,sizeof(desc_hid_1)); //kbd + consumer + mouse
+  //usb_hid.setReportDescriptor(desc_hid_2,sizeof(desc_hid_2)); //joystick only (XAC)
+  usb_hid.begin();
 
   // prepare synchronizsation of sensor data exchange between cores
   mutex_init(&(sensorValues.sensorDataMutex));
@@ -100,13 +107,6 @@ void setup() {
   //load slotSettings
   memcpy(&slotSettings,&defaultSlotSettings,sizeof(struct SlotSettings));
 
-  // initialize tinyUSB soon. TODO: determine which interfaces are used.
-  initHID(0); //mouse + kbd + consumer + joystick (everything normal: Linux, Android, Win)
-  //initHID(1); //kbd + consumer + mouse (iOS?)
-  //initHID(2); //joystick (XAC)
-  Serial.begin(115200);
-  
-  
   #ifdef DEBUG_DELAY_STARTUP
     delay(3000);  // allow some time for serial interface to come up
   #endif
@@ -133,6 +133,10 @@ void setup() {
 #endif
   lastInteractionUpdate = millis();  // get first timestamp
 
+  //no idea why it is not working otherwise, but set here the report IDs
+  setReportIDs(1,2,4);
+  //setReportIDs(1,2,0);
+  //setReportIDs(0,0,1);
 }
 
 /**
@@ -175,7 +179,9 @@ void loop() {
    @brief setup1 function, program execution of core1 starts here (for I2C sensor updates)
    @return none
 */
+#if 0
 void setup1() {
+  delay(100);
   Wire1.setSDA(PIN_WIRE1_SDA_);
   Wire1.setSCL(PIN_WIRE1_SCL_);
   Wire1.begin();
@@ -183,12 +189,14 @@ void setup1() {
   initSensors();
   initBlink(10,20);  // first signs of life!
 }
+#endif
 
 /**
    @name loop1
    @brief loop1 function, periodically called from core1 after setup1(), performs I2C sensor updates
    @return none
 */
+#if 0
 void loop1() {
   static uint32_t lastMPRLS_ts=0;
 
@@ -217,3 +225,4 @@ void loop1() {
   
   delay(1);  // core1: sleep a bit ...  
 }
+#endif

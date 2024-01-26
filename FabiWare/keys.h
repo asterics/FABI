@@ -13,6 +13,8 @@
 #ifndef _KEYS_H_
 #define _KEYS_H_
 
+#include "keyboard.h"
+
 /**
    key action constant definitions
 */
@@ -22,6 +24,7 @@
 #define KEY_TOGGLE   3
 
 // size of the buffer for currently pressed keys
+// must include modifier, reserved and keycode bytes (currently 6)
 #define KEYPRESS_BUFFERSIZE 8
 
 /**
@@ -46,6 +49,15 @@ const uint8_t *getKeyboardLayout();
    @note Currently supported: de_DE, en_US, es_ES, fr_FR, it_IT, sv_SE, da_DK
 */
 int8_t setKeyboardLayout(char *name);
+
+/**
+   @name printKeys
+   @param char* keyString string to be typed by keyboard
+   @return none
+
+   This method prints out an ASCII string (no modifiers available!)
+*/
+void printKeys(char * keyString);
 
 /**
    @name pressKeys
