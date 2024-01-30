@@ -141,6 +141,9 @@ void sendKeyboard(uint8_t *keys) {
   //always mask out the reserved byte
   keys[1] = 0;
   
+  //if you want full debug output.
+  //Serial.printf("kbd: 0x%02X,0x%02X; 0x%02X,0x%02X,0x%02X,0x%02X,0x%02X,0x%02X",keys[0],keys[1],keys[2],keys[3],keys[4],keys[5],keys[6],keys[7]);
+  
   if ((slotSettings.bt & 1) && (rid_keyboard != 0)) usb_hid.sendReport(rid_keyboard,keys,sizeof(report_kbd));
   //TODO: send here for BT as well...
 }

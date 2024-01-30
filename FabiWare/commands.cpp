@@ -54,7 +54,7 @@ const struct atCommandType atCommands[] PROGMEM = {
   {"JS"  , PARTYPE_INT  }, {"JP"  , PARTYPE_INT  }, {"JR"  , PARTYPE_INT  }, {"JH"  , PARTYPE_INT  },
   /***** keyboard *****/
   {"KW"  , PARTYPE_STRING}, {"KP"  , PARTYPE_STRING}, {"KH"  , PARTYPE_STRING}, {"KT"  , PARTYPE_STRING },
-  {"KR"  , PARTYPE_STRING}, {"RA"  , PARTYPE_NONE },  {"KL"  , PARTYPE_STRING },
+  {"KR"  , PARTYPE_STRING}, {"RA"  , PARTYPE_NONE },  {"KL"  , PARTYPE_UINT },
   /***** slots *****/
   {"SA"  , PARTYPE_STRING}, {"LO"  , PARTYPE_STRING}, {"LA"  , PARTYPE_NONE }, {"LI"  , PARTYPE_NONE },
   {"NE"  , PARTYPE_NONE }, {"DE"  , PARTYPE_STRING }, {"RS"  , PARTYPE_NONE }, {"RE"  , PARTYPE_NONE },
@@ -229,13 +229,7 @@ void performCommand (uint8_t cmd, int16_t par1, char * keystring, int8_t periodi
       break;
     case CMD_KL:
       //change keyboard layout.
-      if(strnlen(keystring,5) == 5) {
-        if(setKeyboardLayout(keystring)) {
-          strncpy(slotSettings.kbdLayout, keystring, 5);
-        } else Serial.println("NOK: supported layouts: de_DE, en_US, es_ES, fr_FR, it_IT, sv_SE, da_DK");
-      } else { 
-        printKeyboardLayout(); 
-      }
+      setKeyboardLayout(par1);
       break;
     case CMD_RA:
       release_all();

@@ -13,7 +13,7 @@
 #ifndef _KEYS_H_
 #define _KEYS_H_
 
-#include "keyboard.h"
+#include "keycodes.h"
 
 /**
    key action constant definitions
@@ -29,26 +29,25 @@
 
 /**
    @name printKeyboardLayout
-   @brief Prints out the currently used keyboard layout (e.g. "en_US\n")
+   @brief Prints out the currently used keyboard locale. (see keycodes.h)
    @return none
 */
 void printKeyboardLayout();
 
 /**
    @name getKeyboardLayout
-   @brief Used to get the pointer to the current keyboard layout
-   @return Pointer to keyboard layout array
+   @brief Used to get the current keyboard locale
+   @return Locale nr.
 */
-const uint8_t *getKeyboardLayout();
+uint8_t getKeyboardLayout();
 
 /**
    @name setKeyboardLayout
    @brief Updates the currently used keyboard layout.
-   @param name Name of the new keyboard layout (e.g. "en_US" or "de_DE")
+   @param locale Number of the new keyboard layout (see keycodes.h)
    @return 0 on success, 1 if layout is not found.
-   @note Currently supported: de_DE, en_US, es_ES, fr_FR, it_IT, sv_SE, da_DK
 */
-int8_t setKeyboardLayout(char *name);
+int8_t setKeyboardLayout(uint8_t locale);
 
 /**
    @name printKeys

@@ -64,7 +64,7 @@ const struct SlotSettings defaultSlotSettings = {      // default slotSettings v
   800, 10,                          // threshold strong puff, threshold strong sip
   1,                                // bt-mode 1: USB, 2: Bluetooth, 3: both (2 & 3 need daughter board))
   0x0000FF,                         // default slot color: blue
-  "en_US",                          // en_US as default keyboard layout.
+  0,                          // en_US as default keyboard layout.
 };
 
 
@@ -96,6 +96,7 @@ Adafruit_USBD_HID usb_hid;
 */
 void setup() {
   // initialize tinyUSB soon. TODO: determine which interfaces are used.
+  #warning "TODO: descriptors hardcoded here."
   usb_hid.setReportDescriptor(desc_hid_0,sizeof(desc_hid_0)); //mouse + kbd + consumer + joystick (everything normal: Linux, Android, Win)
   //usb_hid.setReportDescriptor(desc_hid_1,sizeof(desc_hid_1)); //kbd + consumer + mouse
   //usb_hid.setReportDescriptor(desc_hid_2,sizeof(desc_hid_2)); //joystick only (XAC)
@@ -134,6 +135,7 @@ void setup() {
   lastInteractionUpdate = millis();  // get first timestamp
 
   //no idea why it is not working otherwise, but set here the report IDs
+  #warning "TODO: RIDs hardcoded here."
   setReportIDs(1,2,4);
   //setReportIDs(1,2,0);
   //setReportIDs(0,0,1);
@@ -179,7 +181,6 @@ void loop() {
    @brief setup1 function, program execution of core1 starts here (for I2C sensor updates)
    @return none
 */
-#if 0
 void setup1() {
   delay(100);
   Wire1.setSDA(PIN_WIRE1_SDA_);
@@ -189,14 +190,12 @@ void setup1() {
   initSensors();
   initBlink(10,20);  // first signs of life!
 }
-#endif
 
 /**
    @name loop1
    @brief loop1 function, periodically called from core1 after setup1(), performs I2C sensor updates
    @return none
 */
-#if 0
 void loop1() {
   static uint32_t lastMPRLS_ts=0;
 
@@ -225,4 +224,3 @@ void loop1() {
   
   delay(1);  // core1: sleep a bit ...  
 }
-#endif

@@ -55,11 +55,13 @@
  * @note Once again: Thank you very much Paul for these layouts!
  **/
 
-#include "keyboard.h"
+#include "keycodes.h"
 
 /** Helper macro to compare key identifiers, y must be of fixed size! */
-#define COMP(x,y) ((memcmp(x,y,sizeof(y)-1) == 0) && (x[sizeof(y)-1] == '\0' || \
+/*#define COMP(x,y) ((memcmp(x,y,sizeof(y)-1) == 0) && (x[sizeof(y)-1] == '\0' || \
   x[sizeof(y)-1] == '\r' || x[sizeof(y)-1] == '\n' || x[sizeof(y)-1] == ' '))
+*/
+#define COMP(x,y) (!strcmp(x,y))
 /** Helper macro to save key identifier, x must be a static string! */
 #define SAVE(x) if(buf_len > sizeof(x)) { memcpy(buffer,x,sizeof(x)); } else { return 2; } break
 

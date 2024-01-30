@@ -76,8 +76,7 @@
 
           AT KR <string>    key release: releases all keys identified in the string
           AT RA             release all: releases all currently pressed keys and buttons
-          AT KL <string>    change keyboard layout. No parameter prints the currently used layout. 
-                            Currently supported: de_DE, en_US, es_ES, fr_FR, it_IT, sv_SE, da_DK.
+          AT KL <uint>     change keyboard layout. Use the locale number from keylayouts.h
 
     Housekeeping commands:
 

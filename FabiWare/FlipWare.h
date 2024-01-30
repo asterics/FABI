@@ -46,7 +46,7 @@
 
 //#define DEBUG_OUTPUT_FULL      // if full debug output is desired
 //#define DEBUG_OUTPUT_MEMORY    // enables eeprom.cpp debugging, showing memory access
-//#define DEBUG_OUTPUT_KEYS      // enable keys.cpp debugging, showing key press/release events and keycode lookup
+#define DEBUG_OUTPUT_KEYS      // enable keys.cpp debugging, showing key press/release events and keycode lookup
 //#define DEBUG_OUTPUT_IR      	 // enable infrared.cpp debugging, showing whats happening on IR recv/send
 //#define DEBUG_OUTPUT_SENSORS 	 // enable sensors.cpp debugging, showing whats happening on sensor reading & init
 //#define DEBUG_DELAY_STARTUP 	 // enable a 3s delay after Serial.begin and before all the other stuff.
@@ -83,7 +83,7 @@ struct SlotSettings {
   uint16_t ss;     // threshold strong sip
   uint8_t  bt;     // bt-mode (0,1,2)
   uint32_t sc;     // slotcolor (0x: rrggbb)
-  char kbdLayout[6];
+  uint8_t kbdLayout;
 };
 
 /**
