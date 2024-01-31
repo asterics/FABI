@@ -39,179 +39,184 @@ extern "C"{
 
 // http://en.wikipedia.org/wiki/Keyboard_layout
 
+#define TAG_MODIFIER  0x2000
+#define TAG_SYSTEM    0x4000
+#define TAG_MEDIA     0x6000
+#define TAG_KEY       0x8000
 
-#define MODIFIERKEY_CTRL        ( 0x01 | 0xE000 )
-#define MODIFIERKEY_SHIFT       ( 0x02 | 0xE000 )
-#define MODIFIERKEY_ALT         ( 0x04 | 0xE000 )
-#define MODIFIERKEY_GUI         ( 0x08 | 0xE000 )
-#define MODIFIERKEY_LEFT_CTRL   ( 0x01 | 0xE000 )
-#define MODIFIERKEY_LEFT_SHIFT  ( 0x02 | 0xE000 )
-#define MODIFIERKEY_LEFT_ALT    ( 0x04 | 0xE000 )
-#define MODIFIERKEY_LEFT_GUI    ( 0x08 | 0xE000 )
-#define MODIFIERKEY_RIGHT_CTRL  ( 0x10 | 0xE000 )
-#define MODIFIERKEY_RIGHT_SHIFT ( 0x20 | 0xE000 )
-#define MODIFIERKEY_RIGHT_ALT   ( 0x40 | 0xE000 )
-#define MODIFIERKEY_RIGHT_GUI   ( 0x80 | 0xE000 )
 
-#define KEY_SYSTEM_POWER_DOWN   ( 0x81 | 0xE200 )
-#define KEY_SYSTEM_SLEEP        ( 0x82 | 0xE200 )
-#define KEY_SYSTEM_WAKE_UP      ( 0x83 | 0xE200 )
+#define MODIFIERKEY_CTRL        ( 0x01 | TAG_MODIFIER )
+#define MODIFIERKEY_SHIFT       ( 0x02 | TAG_MODIFIER )
+#define MODIFIERKEY_ALT         ( 0x04 | TAG_MODIFIER )
+#define MODIFIERKEY_GUI         ( 0x08 | TAG_MODIFIER )
+#define MODIFIERKEY_LEFT_CTRL   ( 0x01 | TAG_MODIFIER )
+#define MODIFIERKEY_LEFT_SHIFT  ( 0x02 | TAG_MODIFIER )
+#define MODIFIERKEY_LEFT_ALT    ( 0x04 | TAG_MODIFIER )
+#define MODIFIERKEY_LEFT_GUI    ( 0x08 | TAG_MODIFIER )
+#define MODIFIERKEY_RIGHT_CTRL  ( 0x10 | TAG_MODIFIER )
+#define MODIFIERKEY_RIGHT_SHIFT ( 0x20 | TAG_MODIFIER )
+#define MODIFIERKEY_RIGHT_ALT   ( 0x40 | TAG_MODIFIER )
+#define MODIFIERKEY_RIGHT_GUI   ( 0x80 | TAG_MODIFIER )
+
+#define KEY_SYSTEM_POWER_DOWN   ( 0x81 | TAG_SYSTEM )
+#define KEY_SYSTEM_SLEEP        ( 0x82 | TAG_SYSTEM )
+#define KEY_SYSTEM_WAKE_UP      ( 0x83 | TAG_SYSTEM )
 
 /*++++++++++++++++*/
 //formerly in ble_hid/hid_dev.h
 //not tested yet
-#define KEY_MEDIA_POWER          (48 | 0xE400 )  // Power
-#define KEY_MEDIA_RESET          (49 | 0xE400 )  // Reset
-#define KEY_MEDIA_SLEEP          (50 | 0xE400 )  // Sleep
+#define KEY_MEDIA_POWER          (48 | TAG_MEDIA )  // Power
+#define KEY_MEDIA_RESET          (49 | TAG_MEDIA )  // Reset
+#define KEY_MEDIA_SLEEP          (50 | TAG_MEDIA )  // Sleep
 
-#define KEY_MEDIA_MENU           (64 | 0xE400 )  // Menu
-#define KEY_MEDIA_SELECTION      (128 | 0xE400 ) // Selection
-#define KEY_MEDIA_ASSIGN_SEL     (129 | 0xE400 ) // Assign Selection
-#define KEY_MEDIA_MODE_STEP      (130 | 0xE400 ) // Mode Step
-#define KEY_MEDIA_RECALL_LAST    (131 | 0xE400 ) // Recall Last
-#define KEY_MEDIA_QUIT           (148 | 0xE400 ) // Quit
-#define KEY_MEDIA_HELP           (149 | 0xE400 ) // Help
-#define KEY_MEDIA_CHANNEL_UP     (156 | 0xE400 ) // Channel Increment
-#define KEY_MEDIA_CHANNEL_DOWN   (157 | 0xE400 ) // Channel Decrement
+#define KEY_MEDIA_MENU           (64 | TAG_MEDIA )  // Menu
+#define KEY_MEDIA_SELECTION      (128 | TAG_MEDIA ) // Selection
+#define KEY_MEDIA_ASSIGN_SEL     (129 | TAG_MEDIA ) // Assign Selection
+#define KEY_MEDIA_MODE_STEP      (130 | TAG_MEDIA ) // Mode Step
+#define KEY_MEDIA_RECALL_LAST    (131 | TAG_MEDIA ) // Recall Last
+#define KEY_MEDIA_QUIT           (148 | TAG_MEDIA ) // Quit
+#define KEY_MEDIA_HELP           (149 | TAG_MEDIA ) // Help
+#define KEY_MEDIA_CHANNEL_UP     (156 | TAG_MEDIA ) // Channel Increment
+#define KEY_MEDIA_CHANNEL_DOWN   (157 | TAG_MEDIA ) // Channel Decrement
 
 
-#define KEY_MEDIA_SELECT_DISC    (186 | 0xE400 ) // Select Disk
-#define KEY_MEDIA_ENTER_DISC     (187 | 0xE400 ) // Enter Disc
-#define KEY_MEDIA_REPEAT         (188 | 0xE400 ) // Repeat
+#define KEY_MEDIA_SELECT_DISC    (186 | TAG_MEDIA ) // Select Disk
+#define KEY_MEDIA_ENTER_DISC     (187 | TAG_MEDIA ) // Enter Disc
+#define KEY_MEDIA_REPEAT         (188 | TAG_MEDIA ) // Repeat
 
-#define KEY_MEDIA_VOLUME         (224 | 0xE400 ) // Volume
-#define KEY_MEDIA_BALANCE        (225 | 0xE400 ) // Balance
-#define KEY_MEDIA_BASS           (227 | 0xE400 ) // Bass
+#define KEY_MEDIA_VOLUME         (224 | TAG_MEDIA ) // Volume
+#define KEY_MEDIA_BALANCE        (225 | TAG_MEDIA ) // Balance
+#define KEY_MEDIA_BASS           (227 | TAG_MEDIA ) // Bass
 /*++++++++++++++++*/
 
 
-#define KEY_MEDIA_PLAY          ( 0xB0 | 0xE400 )
-#define KEY_MEDIA_PAUSE         ( 0xB1 | 0xE400 )
-#define KEY_MEDIA_RECORD        ( 0xB2 | 0xE400 )
-#define KEY_MEDIA_FAST_FORWARD  ( 0xB3 | 0xE400 )
-#define KEY_MEDIA_REWIND        ( 0xB4 | 0xE400 )
-#define KEY_MEDIA_NEXT_TRACK    ( 0xB5 | 0xE400 )
-#define KEY_MEDIA_PREV_TRACK    ( 0xB6 | 0xE400 )
-#define KEY_MEDIA_STOP          ( 0xB7 | 0xE400 )
-#define KEY_MEDIA_EJECT         ( 0xB8 | 0xE400 )
-#define KEY_MEDIA_RANDOM_PLAY   ( 0xB9 | 0xE400 )
-#define KEY_MEDIA_STOP_EJECT    ( 0xCC | 0xE400 )
-#define KEY_MEDIA_PLAY_PAUSE    ( 0xCD | 0xE400 )
-#define KEY_MEDIA_PLAY_SKIP     ( 0xCE | 0xE400 )
-#define KEY_MEDIA_MUTE          ( 0xE2 | 0xE400 )
-#define KEY_MEDIA_VOLUME_INC    ( 0xE9 | 0xE400 )
-#define KEY_MEDIA_VOLUME_DEC    ( 0xEA | 0xE400 )
+#define KEY_MEDIA_PLAY          ( 0xB0 | TAG_MEDIA )
+#define KEY_MEDIA_PAUSE         ( 0xB1 | TAG_MEDIA )
+#define KEY_MEDIA_RECORD        ( 0xB2 | TAG_MEDIA )
+#define KEY_MEDIA_FAST_FORWARD  ( 0xB3 | TAG_MEDIA )
+#define KEY_MEDIA_REWIND        ( 0xB4 | TAG_MEDIA )
+#define KEY_MEDIA_NEXT_TRACK    ( 0xB5 | TAG_MEDIA )
+#define KEY_MEDIA_PREV_TRACK    ( 0xB6 | TAG_MEDIA )
+#define KEY_MEDIA_STOP          ( 0xB7 | TAG_MEDIA )
+#define KEY_MEDIA_EJECT         ( 0xB8 | TAG_MEDIA )
+#define KEY_MEDIA_RANDOM_PLAY   ( 0xB9 | TAG_MEDIA )
+#define KEY_MEDIA_STOP_EJECT    ( 0xCC | TAG_MEDIA )
+#define KEY_MEDIA_PLAY_PAUSE    ( 0xCD | TAG_MEDIA )
+#define KEY_MEDIA_PLAY_SKIP     ( 0xCE | TAG_MEDIA )
+#define KEY_MEDIA_MUTE          ( 0xE2 | TAG_MEDIA )
+#define KEY_MEDIA_VOLUME_INC    ( 0xE9 | TAG_MEDIA )
+#define KEY_MEDIA_VOLUME_DEC    ( 0xEA | TAG_MEDIA )
 
-#define KEY_A                   (   4  | 0xF000 )
-#define KEY_B                   (   5  | 0xF000 )
-#define KEY_C                   (   6  | 0xF000 )
-#define KEY_D                   (   7  | 0xF000 )
-#define KEY_E                   (   8  | 0xF000 )
-#define KEY_F                   (   9  | 0xF000 )
-#define KEY_G                   (  10  | 0xF000 )
-#define KEY_H                   (  11  | 0xF000 )
-#define KEY_I                   (  12  | 0xF000 )
-#define KEY_J                   (  13  | 0xF000 )
-#define KEY_K                   (  14  | 0xF000 )
-#define KEY_L                   (  15  | 0xF000 )
-#define KEY_M                   (  16  | 0xF000 )
-#define KEY_N                   (  17  | 0xF000 )
-#define KEY_O                   (  18  | 0xF000 )
-#define KEY_P                   (  19  | 0xF000 )
-#define KEY_Q                   (  20  | 0xF000 )
-#define KEY_R                   (  21  | 0xF000 )
-#define KEY_S                   (  22  | 0xF000 )
-#define KEY_T                   (  23  | 0xF000 )
-#define KEY_U                   (  24  | 0xF000 )
-#define KEY_V                   (  25  | 0xF000 )
-#define KEY_W                   (  26  | 0xF000 )
-#define KEY_X                   (  27  | 0xF000 )
-#define KEY_Y                   (  28  | 0xF000 )
-#define KEY_Z                   (  29  | 0xF000 )
-#define KEY_1                   (  30  | 0xF000 )
-#define KEY_2                   (  31  | 0xF000 )
-#define KEY_3                   (  32  | 0xF000 )
-#define KEY_4                   (  33  | 0xF000 )
-#define KEY_5                   (  34  | 0xF000 )
-#define KEY_6                   (  35  | 0xF000 )
-#define KEY_7                   (  36  | 0xF000 )
-#define KEY_8                   (  37  | 0xF000 )
-#define KEY_9                   (  38  | 0xF000 )
-#define KEY_0                   (  39  | 0xF000 )
-#define KEY_ENTER               (  40  | 0xF000 )
-#define KEY_ESC                 (  41  | 0xF000 )
-#define KEY_BACKSPACE           (  42  | 0xF000 )
-#define KEY_TAB                 (  43  | 0xF000 )
-#define KEY_SPACE               (  44  | 0xF000 )
-#define KEY_MINUS               (  45  | 0xF000 )
-#define KEY_EQUAL               (  46  | 0xF000 )
-#define KEY_LEFT_BRACE          (  47  | 0xF000 )
-#define KEY_RIGHT_BRACE         (  48  | 0xF000 )
-#define KEY_BACKSLASH           (  49  | 0xF000 )
-#define KEY_NON_US_NUM          (  50  | 0xF000 )
-#define KEY_SEMICOLON           (  51  | 0xF000 )
-#define KEY_QUOTE               (  52  | 0xF000 )
-#define KEY_TILDE               (  53  | 0xF000 )
-#define KEY_COMMA               (  54  | 0xF000 )
-#define KEY_PERIOD              (  55  | 0xF000 )
-#define KEY_SLASH               (  56  | 0xF000 )
-#define KEY_CAPS_LOCK           (  57  | 0xF000 )
-#define KEY_F1                  (  58  | 0xF000 )
-#define KEY_F2                  (  59  | 0xF000 )
-#define KEY_F3                  (  60  | 0xF000 )
-#define KEY_F4                  (  61  | 0xF000 )
-#define KEY_F5                  (  62  | 0xF000 )
-#define KEY_F6                  (  63  | 0xF000 )
-#define KEY_F7                  (  64  | 0xF000 )
-#define KEY_F8                  (  65  | 0xF000 )
-#define KEY_F9                  (  66  | 0xF000 )
-#define KEY_F10                 (  67  | 0xF000 )
-#define KEY_F11                 (  68  | 0xF000 )
-#define KEY_F12                 (  69  | 0xF000 )
-#define KEY_PRINTSCREEN         (  70  | 0xF000 )
-#define KEY_SCROLL_LOCK         (  71  | 0xF000 )
-#define KEY_PAUSE               (  72  | 0xF000 )
-#define KEY_INSERT              (  73  | 0xF000 )
-#define KEY_HOME                (  74  | 0xF000 )
-#define KEY_PAGE_UP             (  75  | 0xF000 )
-#define KEY_DELETE              (  76  | 0xF000 )
-#define KEY_END                 (  77  | 0xF000 )
-#define KEY_PAGE_DOWN           (  78  | 0xF000 )
-#define KEY_RIGHT               (  79  | 0xF000 )
-#define KEY_LEFT                (  80  | 0xF000 )
-#define KEY_DOWN                (  81  | 0xF000 )
-#define KEY_UP                  (  82  | 0xF000 )
-#define KEY_NUM_LOCK            (  83  | 0xF000 )
-#define KEYPAD_SLASH            (  84  | 0xF000 )
-#define KEYPAD_ASTERIX          (  85  | 0xF000 )
-#define KEYPAD_MINUS            (  86  | 0xF000 )
-#define KEYPAD_PLUS             (  87  | 0xF000 )
-#define KEYPAD_ENTER            (  88  | 0xF000 )
-#define KEYPAD_1                (  89  | 0xF000 )
-#define KEYPAD_2                (  90  | 0xF000 )
-#define KEYPAD_3                (  91  | 0xF000 )
-#define KEYPAD_4                (  92  | 0xF000 )
-#define KEYPAD_5                (  93  | 0xF000 )
-#define KEYPAD_6                (  94  | 0xF000 )
-#define KEYPAD_7                (  95  | 0xF000 )
-#define KEYPAD_8                (  96  | 0xF000 )
-#define KEYPAD_9                (  97  | 0xF000 )
-#define KEYPAD_0                (  98  | 0xF000 )
-#define KEYPAD_PERIOD           (  99  | 0xF000 )
-#define KEY_NON_US_BS           ( 100  | 0xF000 )
-#define KEY_MENU        	( 101  | 0xF000 )
-#define KEY_F13                 ( 104  | 0xF000 )
-#define KEY_F14                 ( 105  | 0xF000 )
-#define KEY_F15                 ( 106  | 0xF000 )
-#define KEY_F16                 ( 107  | 0xF000 )
-#define KEY_F17                 ( 108  | 0xF000 )
-#define KEY_F18                 ( 109  | 0xF000 )
-#define KEY_F19                 ( 110  | 0xF000 )
-#define KEY_F20                 ( 111  | 0xF000 )
-#define KEY_F21                 ( 112  | 0xF000 )
-#define KEY_F22                 ( 113  | 0xF000 )
-#define KEY_F23                 ( 114  | 0xF000 )
-#define KEY_F24                 ( 115  | 0xF000 )
+#define KEY_A                   (   4  | TAG_KEY )
+#define KEY_B                   (   5  | TAG_KEY )
+#define KEY_C                   (   6  | TAG_KEY )
+#define KEY_D                   (   7  | TAG_KEY )
+#define KEY_E                   (   8  | TAG_KEY )
+#define KEY_F                   (   9  | TAG_KEY )
+#define KEY_G                   (  10  | TAG_KEY )
+#define KEY_H                   (  11  | TAG_KEY )
+#define KEY_I                   (  12  | TAG_KEY )
+#define KEY_J                   (  13  | TAG_KEY )
+#define KEY_K                   (  14  | TAG_KEY )
+#define KEY_L                   (  15  | TAG_KEY )
+#define KEY_M                   (  16  | TAG_KEY )
+#define KEY_N                   (  17  | TAG_KEY )
+#define KEY_O                   (  18  | TAG_KEY )
+#define KEY_P                   (  19  | TAG_KEY )
+#define KEY_Q                   (  20  | TAG_KEY )
+#define KEY_R                   (  21  | TAG_KEY )
+#define KEY_S                   (  22  | TAG_KEY )
+#define KEY_T                   (  23  | TAG_KEY )
+#define KEY_U                   (  24  | TAG_KEY )
+#define KEY_V                   (  25  | TAG_KEY )
+#define KEY_W                   (  26  | TAG_KEY )
+#define KEY_X                   (  27  | TAG_KEY )
+#define KEY_Y                   (  28  | TAG_KEY )
+#define KEY_Z                   (  29  | TAG_KEY )
+#define KEY_1                   (  30  | TAG_KEY )
+#define KEY_2                   (  31  | TAG_KEY )
+#define KEY_3                   (  32  | TAG_KEY )
+#define KEY_4                   (  33  | TAG_KEY )
+#define KEY_5                   (  34  | TAG_KEY )
+#define KEY_6                   (  35  | TAG_KEY )
+#define KEY_7                   (  36  | TAG_KEY )
+#define KEY_8                   (  37  | TAG_KEY )
+#define KEY_9                   (  38  | TAG_KEY )
+#define KEY_0                   (  39  | TAG_KEY )
+#define KEY_ENTER               (  40  | TAG_KEY )
+#define KEY_ESC                 (  41  | TAG_KEY )
+#define KEY_BACKSPACE           (  42  | TAG_KEY )
+#define KEY_TAB                 (  43  | TAG_KEY )
+#define KEY_SPACE               (  44  | TAG_KEY )
+#define KEY_MINUS               (  45  | TAG_KEY )
+#define KEY_EQUAL               (  46  | TAG_KEY )
+#define KEY_LEFT_BRACE          (  47  | TAG_KEY )
+#define KEY_RIGHT_BRACE         (  48  | TAG_KEY )
+#define KEY_BACKSLASH           (  49  | TAG_KEY )
+#define KEY_NON_US_NUM          (  50  | TAG_KEY )
+#define KEY_SEMICOLON           (  51  | TAG_KEY )
+#define KEY_QUOTE               (  52  | TAG_KEY )
+#define KEY_TILDE               (  53  | TAG_KEY )
+#define KEY_COMMA               (  54  | TAG_KEY )
+#define KEY_PERIOD              (  55  | TAG_KEY )
+#define KEY_SLASH               (  56  | TAG_KEY )
+#define KEY_CAPS_LOCK           (  57  | TAG_KEY )
+#define KEY_F1                  (  58  | TAG_KEY )
+#define KEY_F2                  (  59  | TAG_KEY )
+#define KEY_F3                  (  60  | TAG_KEY )
+#define KEY_F4                  (  61  | TAG_KEY )
+#define KEY_F5                  (  62  | TAG_KEY )
+#define KEY_F6                  (  63  | TAG_KEY )
+#define KEY_F7                  (  64  | TAG_KEY )
+#define KEY_F8                  (  65  | TAG_KEY )
+#define KEY_F9                  (  66  | TAG_KEY )
+#define KEY_F10                 (  67  | TAG_KEY )
+#define KEY_F11                 (  68  | TAG_KEY )
+#define KEY_F12                 (  69  | TAG_KEY )
+#define KEY_PRINTSCREEN         (  70  | TAG_KEY )
+#define KEY_SCROLL_LOCK         (  71  | TAG_KEY )
+#define KEY_PAUSE               (  72  | TAG_KEY )
+#define KEY_INSERT              (  73  | TAG_KEY )
+#define KEY_HOME                (  74  | TAG_KEY )
+#define KEY_PAGE_UP             (  75  | TAG_KEY )
+#define KEY_DELETE              (  76  | TAG_KEY )
+#define KEY_END                 (  77  | TAG_KEY )
+#define KEY_PAGE_DOWN           (  78  | TAG_KEY )
+#define KEY_RIGHT               (  79  | TAG_KEY )
+#define KEY_LEFT                (  80  | TAG_KEY )
+#define KEY_DOWN                (  81  | TAG_KEY )
+#define KEY_UP                  (  82  | TAG_KEY )
+#define KEY_NUM_LOCK            (  83  | TAG_KEY )
+#define KEYPAD_SLASH            (  84  | TAG_KEY )
+#define KEYPAD_ASTERIX          (  85  | TAG_KEY )
+#define KEYPAD_MINUS            (  86  | TAG_KEY )
+#define KEYPAD_PLUS             (  87  | TAG_KEY )
+#define KEYPAD_ENTER            (  88  | TAG_KEY )
+#define KEYPAD_1                (  89  | TAG_KEY )
+#define KEYPAD_2                (  90  | TAG_KEY )
+#define KEYPAD_3                (  91  | TAG_KEY )
+#define KEYPAD_4                (  92  | TAG_KEY )
+#define KEYPAD_5                (  93  | TAG_KEY )
+#define KEYPAD_6                (  94  | TAG_KEY )
+#define KEYPAD_7                (  95  | TAG_KEY )
+#define KEYPAD_8                (  96  | TAG_KEY )
+#define KEYPAD_9                (  97  | TAG_KEY )
+#define KEYPAD_0                (  98  | TAG_KEY )
+#define KEYPAD_PERIOD           (  99  | TAG_KEY )
+#define KEY_NON_US_BS           ( 100  | TAG_KEY )
+#define KEY_MENU        	      ( 101  | TAG_KEY )
+#define KEY_F13                 ( 104  | TAG_KEY )
+#define KEY_F14                 ( 105  | TAG_KEY )
+#define KEY_F15                 ( 106  | TAG_KEY )
+#define KEY_F16                 ( 107  | TAG_KEY )
+#define KEY_F17                 ( 108  | TAG_KEY )
+#define KEY_F18                 ( 109  | TAG_KEY )
+#define KEY_F19                 ( 110  | TAG_KEY )
+#define KEY_F20                 ( 111  | TAG_KEY )
+#define KEY_F21                 ( 112  | TAG_KEY )
+#define KEY_F22                 ( 113  | TAG_KEY )
+#define KEY_F23                 ( 114  | TAG_KEY )
+#define KEY_F24                 ( 115  | TAG_KEY )
 
 // for compatibility with Leonardo's slightly different names
 #define KEY_UP_ARROW	KEY_UP
@@ -236,8 +241,8 @@ extern "C"{
 
 #ifdef LAYOUT_US_ENGLISH
 
-#define SHIFT_MASK		0x40
-#define KEYCODE_TYPE		uint8_t
+#define SHIFT_MASK		0x1000
+#define KEYCODE_TYPE		uint16_t
 #define KEYCODE_MASK		0x007F
 
 #define ASCII_20	KEY_SPACE				// 32  
@@ -344,8 +349,8 @@ extern "C"{
 
 #ifdef LAYOUT_US_INTERNATIONAL
 
-#define SHIFT_MASK		0x0040
-#define ALTGR_MASK		0x0080
+#define SHIFT_MASK		0x1000
+#define ALTGR_MASK		0x0800
 #define DEADKEYS_MASK		0x0700
 #define	CIRCUMFLEX_BITS		0x0100
 #define ACUTE_ACCENT_BITS	0x0200
@@ -353,7 +358,7 @@ extern "C"{
 #define TILDE_BITS		0x0400
 #define DIAERESIS_BITS		0x0500
 #define KEYCODE_TYPE		uint16_t
-#define KEYCODE_MASK		0x07FF
+#define KEYCODE_MASK		0x007F
 #define DEADKEY_CIRCUMFLEX	KEY_6 + SHIFT_MASK
 #define DEADKEY_ACUTE_ACCENT	KEY_QUOTE
 #define DEADKEY_GRAVE_ACCENT	KEY_TILDE
@@ -563,14 +568,14 @@ extern "C"{
 
 #ifdef LAYOUT_GERMAN
 
-#define SHIFT_MASK		0x0040
-#define ALTGR_MASK		0x0080
+#define SHIFT_MASK		0x1000
+#define ALTGR_MASK		0x0800
 #define DEADKEYS_MASK		0x0700
 #define	CIRCUMFLEX_BITS		0x0300
 #define ACUTE_ACCENT_BITS	0x0400
 #define GRAVE_ACCENT_BITS	0x0500
 #define KEYCODE_TYPE		uint16_t
-#define KEYCODE_MASK		0x07FF
+#define KEYCODE_MASK		0x007F
 #define DEADKEY_CIRCUMFLEX	KEY_TILDE
 #define DEADKEY_ACUTE_ACCENT	KEY_EQUAL
 #define DEADKEY_GRAVE_ACCENT	KEY_EQUAL + SHIFT_MASK
@@ -779,8 +784,8 @@ extern "C"{
 
 #ifdef LAYOUT_GERMAN_MAC
 
-#define SHIFT_MASK		0x0040
-#define ALTGR_MASK		0x0080
+#define SHIFT_MASK		0x1000
+#define ALTGR_MASK		0x0800
 #define DEADKEYS_MASK		0x0700
 #define ACUTE_ACCENT_BITS	0x0100
 #define GRAVE_ACCENT_BITS	0x0200
@@ -1002,8 +1007,8 @@ extern "C"{
 
 #ifdef LAYOUT_CANADIAN_FRENCH
 
-#define SHIFT_MASK		0x0040
-#define ALTGR_MASK		0x0080
+#define SHIFT_MASK		0x1000
+#define ALTGR_MASK		0x0800
 #define DEADKEYS_MASK		0x0700
 #define	CIRCUMFLEX_BITS		0x0100
 #define ACUTE_ACCENT_BITS	0x0200
@@ -1220,8 +1225,8 @@ extern "C"{
 
 #ifdef LAYOUT_CANADIAN_MULTILINGUAL
 
-#define SHIFT_MASK		0x0040
-#define ALTGR_MASK		0x0080
+#define SHIFT_MASK		0x1000
+#define ALTGR_MASK		0x0800
 #define RCTRL_MASK		0x0800
 #define DEADKEYS_MASK		0x0700
 #define	CIRCUMFLEX_BITS		0x0100
@@ -1444,8 +1449,8 @@ extern "C"{
 
 #ifdef LAYOUT_UNITED_KINGDOM
 
-#define SHIFT_MASK		0x0040
-#define ALTGR_MASK		0x0080
+#define SHIFT_MASK		0x1000
+#define ALTGR_MASK		0x0800
 #define KEYCODE_TYPE		uint8_t
 #define KEYCODE_MASK		0x00FF
 #define KEY_NON_US_100		63
@@ -1654,8 +1659,8 @@ extern "C"{
 
 #ifdef LAYOUT_FINNISH
 
-#define SHIFT_MASK		0x0040
-#define ALTGR_MASK		0x0080
+#define SHIFT_MASK		0x1000
+#define ALTGR_MASK		0x0800
 #define DEADKEYS_MASK		0x0700
 #define	CIRCUMFLEX_BITS		0x0100
 #define ACUTE_ACCENT_BITS	0x0200
@@ -1880,8 +1885,8 @@ extern "C"{
 
 #ifdef LAYOUT_FRENCH
 
-#define SHIFT_MASK		0x0040
-#define ALTGR_MASK		0x0080
+#define SHIFT_MASK		0x1000
+#define ALTGR_MASK		0x0800
 #define DEADKEYS_MASK		0x0700
 #define	CIRCUMFLEX_BITS		0x0100
 #define GRAVE_ACCENT_BITS	0x0200
@@ -2100,8 +2105,8 @@ extern "C"{
 
 #ifdef LAYOUT_DANISH
 
-#define SHIFT_MASK		0x0040
-#define ALTGR_MASK		0x0080
+#define SHIFT_MASK		0x1000
+#define ALTGR_MASK		0x0800
 #define DEADKEYS_MASK		0x0700
 #define	CIRCUMFLEX_BITS		0x0100
 #define ACUTE_ACCENT_BITS	0x0200
@@ -2323,8 +2328,8 @@ extern "C"{
 
 #ifdef LAYOUT_NORWEGIAN
 
-#define SHIFT_MASK		0x0040
-#define ALTGR_MASK		0x0080
+#define SHIFT_MASK		0x1000
+#define ALTGR_MASK		0x0800
 #define DEADKEYS_MASK		0x0700
 #define	CIRCUMFLEX_BITS		0x0100
 #define ACUTE_ACCENT_BITS	0x0200
@@ -2547,8 +2552,8 @@ extern "C"{
 
 #ifdef LAYOUT_SWEDISH
 
-#define SHIFT_MASK		0x0040
-#define ALTGR_MASK		0x0080
+#define SHIFT_MASK		0x1000
+#define ALTGR_MASK		0x0800
 #define DEADKEYS_MASK		0x0700
 #define	CIRCUMFLEX_BITS		0x0100
 #define ACUTE_ACCENT_BITS	0x0200
@@ -2771,8 +2776,8 @@ extern "C"{
 
 #ifdef LAYOUT_SPANISH
 
-#define SHIFT_MASK		0x0040
-#define ALTGR_MASK		0x0080
+#define SHIFT_MASK		0x1000
+#define ALTGR_MASK		0x0800
 #define DEADKEYS_MASK		0x0700
 #define	CIRCUMFLEX_BITS		0x0100
 #define ACUTE_ACCENT_BITS	0x0200
@@ -2993,8 +2998,8 @@ extern "C"{
 
 #ifdef LAYOUT_PORTUGUESE
 
-#define SHIFT_MASK		0x0040
-#define ALTGR_MASK		0x0080
+#define SHIFT_MASK		0x1000
+#define ALTGR_MASK		0x0800
 #define DEADKEYS_MASK		0x0700
 #define	CIRCUMFLEX_BITS		0x0100
 #define ACUTE_ACCENT_BITS	0x0200
@@ -3218,9 +3223,9 @@ extern "C"{
 
 #ifdef LAYOUT_ITALIAN
 
-#define SHIFT_MASK		0x40
+#define SHIFT_MASK		0x1000
 #define ALTGR_MASK		0x80
-#define KEYCODE_TYPE		uint8_t
+#define KEYCODE_TYPE		uint16_t
 #define KEYCODE_MASK		0x00FF
 #define KEY_NON_US_100		63
 
@@ -3425,8 +3430,8 @@ extern "C"{
 
 #ifdef LAYOUT_PORTUGUESE_BRAZILIAN
 
-#define SHIFT_MASK		0x0040
-#define ALTGR_MASK		0x0080
+#define SHIFT_MASK		0x1000
+#define ALTGR_MASK		0x0800
 #define DEADKEYS_MASK		0x0700
 #define	CIRCUMFLEX_BITS		0x0100
 #define ACUTE_ACCENT_BITS	0x0200
@@ -3642,8 +3647,8 @@ extern "C"{
 
 #ifdef LAYOUT_FRENCH_BELGIAN
 
-#define SHIFT_MASK		0x0040
-#define ALTGR_MASK		0x0080
+#define SHIFT_MASK		0x1000
+#define ALTGR_MASK		0x0800
 #define DEADKEYS_MASK		0x0700
 #define	CIRCUMFLEX_BITS		0x0100
 #define GRAVE_ACCENT_BITS	0x0200
@@ -3863,8 +3868,8 @@ extern "C"{
 
 #ifdef LAYOUT_GERMAN_SWISS
 
-#define SHIFT_MASK		0x0040
-#define ALTGR_MASK		0x0080
+#define SHIFT_MASK		0x1000
+#define ALTGR_MASK		0x0800
 #define DEADKEYS_MASK		0x0700
 #define	CIRCUMFLEX_BITS		0x0100
 #define GRAVE_ACCENT_BITS	0x0200
@@ -4084,8 +4089,8 @@ extern "C"{
 
 #ifdef LAYOUT_FRENCH_SWISS
 
-#define SHIFT_MASK		0x0040
-#define ALTGR_MASK		0x0080
+#define SHIFT_MASK		0x1000
+#define ALTGR_MASK		0x0800
 #define DEADKEYS_MASK		0x0700
 #define	CIRCUMFLEX_BITS		0x0100
 #define GRAVE_ACCENT_BITS	0x0200
@@ -4306,8 +4311,8 @@ extern "C"{
 
 #ifdef LAYOUT_SPANISH_LATIN_AMERICA
 
-#define SHIFT_MASK		0x0040
-#define ALTGR_MASK		0x0080
+#define SHIFT_MASK		0x1000
+#define ALTGR_MASK		0x0800
 #define DEADKEYS_MASK		0x0700
 #define	CIRCUMFLEX_BITS		0x0100
 #define ACUTE_ACCENT_BITS	0x0200
@@ -4521,8 +4526,8 @@ extern "C"{
 
 #ifdef LAYOUT_IRISH
 
-#define SHIFT_MASK		0x0040
-#define ALTGR_MASK		0x0080
+#define SHIFT_MASK		0x1000
+#define ALTGR_MASK		0x0800
 #define DEADKEYS_MASK		0x0300
 #define GRAVE_ACCENT_BITS	0x0100
 #define ACUTE_ACCENT_BITS	0x0200
@@ -4737,8 +4742,8 @@ extern "C"{
 
 #ifdef LAYOUT_ICELANDIC
 
-#define SHIFT_MASK		0x0040
-#define ALTGR_MASK		0x0080
+#define SHIFT_MASK		0x1000
+#define ALTGR_MASK		0x0800
 #define DEADKEYS_MASK		0x0700
 #define	CIRCUMFLEX_BITS		0x0100
 #define ACUTE_ACCENT_BITS	0x0200
@@ -4959,8 +4964,8 @@ extern "C"{
 #ifdef LAYOUT_TURKISH
 // http://forum.pjrc.com/threads/18781-Turkish-Language-Support
 
-#define SHIFT_MASK		0x0040
-#define ALTGR_MASK		0x0080
+#define SHIFT_MASK		0x1000
+#define ALTGR_MASK		0x0800
 #define DEADKEYS_MASK		0x0700
 #define	CIRCUMFLEX_BITS		0x0100
 #define ACUTE_ACCENT_BITS	0x0200
@@ -5193,8 +5198,8 @@ extern "C"{
 #ifdef LAYOUT_CZECH
 // http://forum.pjrc.com/threads/24495-Czech-keyboard
 
-#define SHIFT_MASK		0x0040
-#define ALTGR_MASK		0x0080
+#define SHIFT_MASK		0x1000
+#define ALTGR_MASK		0x0800
 #define DEADKEYS_MASK		0x0F00
 #define ACUTE_ACCENT_BITS	0x0100  // TODO: the Czech might not support some
 #define DEGREE_SIGN_BITS	0x0200  // of these deadkeys, perhaps not any???
@@ -5444,8 +5449,8 @@ extern "C"{
 #ifdef LAYOUT_SERBIAN_LATIN_ONLY
 // http://forum.pjrc.com/threads/27032-Serbian-Keyboard-Layout
 
-#define SHIFT_MASK		0x0040
-#define ALTGR_MASK		0x0080
+#define SHIFT_MASK		0x1000
+#define ALTGR_MASK		0x0800
 #define DEADKEYS_MASK		0x0F00
 #define CEDILLA_BITS		0x0100
 #define CARON_BITS		0x0200
