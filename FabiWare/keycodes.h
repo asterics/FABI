@@ -119,9 +119,10 @@ uint16_t unicode_to_keycode(uint16_t cpoint, uint8_t locale);
  * HID keycode, which can be used in HID reports.
  * 
  * @param keycode Keycode from other parsing methods
+ * @param locale Currently used keyboard layout
  * @return 8-bit keycode for HID
  **/
-uint8_t keycode_to_key(uint16_t keycode);
+uint8_t keycode_to_key(uint16_t keycode, uint8_t locale);
 
 /** @brief Mask the keycode to get the modifiers, step 5
  * 

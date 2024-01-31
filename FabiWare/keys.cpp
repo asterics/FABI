@@ -148,7 +148,7 @@ void printKeys(char * keystring)
     // - a possible necessary deadkey which is pressed before.
     modifier = 0;
     deadkey = 0;
-    uint8_t kc = parse_for_keycode(keystring[len],kbdLocale,&modifier,&deadkey);
+    uint8_t kc = parse_for_keycode(keystring[len],kbdLocale,&modifier,&deadkey) & 0x7F;
     #warning "TODO: still a bug here: first key press is not recognized"
     //check if successful, or maybe need next byte
     if(kc) {
@@ -173,12 +173,10 @@ void printKeys(char * keystring)
       //if necessary, deadkey is pressed:
       // now to the real keycode + modifier.
       #warning "TODO: still a bug here: modifier is not handled correctly, maybe somthing with modifier mask in keylayouts.h"
-      if(modifier) {
-        pressed_keys[0] = modifier;
-        sendKeyboard(pressed_keys); delay(10);
-      }
+      pressed_keys[0] = modifier;
       pressed_keys[2] = kc;
       sendKeyboard(pressed_keys); delay(10);
+      
       pressed_keys[0] = 0;
       pressed_keys[2] = 0;
       sendKeyboard(pressed_keys); delay(10);

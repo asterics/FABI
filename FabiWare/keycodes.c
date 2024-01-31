@@ -350,12 +350,8 @@ const uint16_t keycodes_masks[][5] = {
  * */
 uint8_t keycode_is_modifier(uint16_t keycode)
 {
-  if((keycode & 0xFF00) == 0xE000)
-  {
-    return 1;
-  } else {
-    return 0;
-  }
+  if((keycode & 0xFF00) == 0xE000)return 1;
+  else return 0;
 }
 
 /**
@@ -2012,9 +2008,10 @@ uint16_t deadkey_to_keycode(uint16_t keycode, uint8_t locale)
  * HID keycode, which can be used in HID reports.
  * 
  * @param keycode Keycode from other parsing methods
+ * @param locale Currently used keyboard layout
  * @return 8-bit keycode for HID
  **/
-uint8_t keycode_to_key(uint16_t keycode)
+uint8_t keycode_to_key(uint16_t keycode, uint8_t locale)
 {
 	uint8_t key = keycode & 0x7F;
 	if (key == KEY_NON_US_100) key = 100;
@@ -2035,9 +2032,9 @@ uint8_t keycode_to_key(uint16_t keycode)
 uint8_t keycode_to_modifier(uint16_t keycode, uint8_t locale)
 {
 	uint8_t modifier=0;
-	if (keycode & keycodes_masks[locale][0]) modifier |= MODIFIERKEY_SHIFT;
-	if (keycode & keycodes_masks[locale][1]) modifier |= MODIFIERKEY_RIGHT_ALT;
-	if (keycode & keycodes_masks[locale][4]) modifier |= MODIFIERKEY_RIGHT_CTRL;
+	if (keycode & keycodes_masks[locale][0]) modifier |= MODIFIERKEY_SHIFT & 0xFF;
+	if (keycode & keycodes_masks[locale][1]) modifier |= MODIFIERKEY_RIGHT_ALT & 0xFF;
+	if (keycode & keycodes_masks[locale][4]) modifier |= MODIFIERKEY_RIGHT_CTRL & 0xFF;
   /*#ifdef DEBUG_OUTPUT_KEYS
     if(modifier) Serial.printf("found modifiers: %X\n",modifier);
   #endif*/
@@ -2075,9 +2072,9 @@ uint8_t parse_for_keycode(uint8_t inputdata, uint8_t locale, uint8_t *keycode_mo
     keycode = unicode_to_keycode(inputdata, locale);
     deadkey = deadkey_to_keycode(keycode,locale);
     *keycode_modifier = keycode_to_modifier(keycode,locale);
-    if(deadkey) *deadkey_first_keycode = keycode_to_key(deadkey);
+    if(deadkey) *deadkey_first_keycode = keycode_to_key(deadkey,locale);
     else *deadkey_first_keycode = 0;
-		return keycode_to_key(keycode & keycodes_masks[locale][3]);
+		return keycode_to_key(keycode,locale);
 	} else if (inputdata < 0xC0) {
 		// 2nd, 3rd or 4th byte, 0x80 to 0xBF
 		inputdata &= 0x3F;
@@ -2086,9 +2083,9 @@ uint8_t parse_for_keycode(uint8_t inputdata, uint8_t locale, uint8_t *keycode_mo
       keycode = unicode_to_keycode(unicode_wchar | inputdata, locale);
       deadkey = deadkey_to_keycode(keycode,locale);
       *keycode_modifier = keycode_to_modifier(keycode,locale);
-      if(deadkey) *deadkey_first_keycode = keycode_to_key(deadkey);
+      if(deadkey) *deadkey_first_keycode = keycode_to_key(deadkey,locale);
       else *deadkey_first_keycode = 0;
-      return keycode_to_key(keycode & keycodes_masks[locale][3]);
+      return keycode_to_key(keycode, locale);
 		} else if (utf8_state == 2) {
 			unicode_wchar |= ((uint16_t)inputdata << 6);
 			utf8_state = 1;
