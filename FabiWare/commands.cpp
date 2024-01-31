@@ -229,7 +229,8 @@ void performCommand (uint8_t cmd, int16_t par1, char * keystring, int8_t periodi
       break;
     case CMD_KL:
       //change keyboard layout.
-      setKeyboardLayout(par1);
+      if(setKeyboardLayout(par1)) { slotSettings.kbdLayout = par1; Serial.println("OK"); }
+      else Serial.println("NOK");
       break;
     case CMD_RA:
       release_all();
@@ -253,7 +254,6 @@ void performCommand (uint8_t cmd, int16_t par1, char * keystring, int8_t periodi
         if (readFromEEPROM(keystring)) Serial.println("OK");
         else Serial.println(ERRORMESSAGE_NOT_FOUND);
         displayUpdate();
-        setKeyboardLayout(slotSettings.kbdLayout);
       }
       break;
     case CMD_LA:
@@ -272,7 +272,6 @@ void performCommand (uint8_t cmd, int16_t par1, char * keystring, int8_t periodi
       release_all();
       if (!readFromEEPROM("")) Serial.println(ERRORMESSAGE_NOT_FOUND);
       displayUpdate();
-      setKeyboardLayout(slotSettings.kbdLayout);
       break;
     case CMD_DE:
 #ifdef DEBUG_OUTPUT_FULL
@@ -288,7 +287,6 @@ void performCommand (uint8_t cmd, int16_t par1, char * keystring, int8_t periodi
       initButtons(); //reset buttons
       saveToEEPROM(slotSettings.slotName); //save default slot to default name
       readFromEEPROM(""); //load this slot
-      setKeyboardLayout(slotSettings.kbdLayout);
       Serial.println("OK");    // send AT command acknowledge
       break;
     case CMD_RE:

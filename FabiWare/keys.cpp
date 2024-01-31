@@ -159,9 +159,9 @@ void printKeys(char * keystring)
           Serial.println(deadkey);
         #endif
         pressed_keys[2] = deadkey;
-        sendKeyboard(pressed_keys); delay(10);
+        delay(10); sendKeyboard(pressed_keys);
         pressed_keys[2] = 0;
-        sendKeyboard(pressed_keys); delay(10);
+        delay(10); sendKeyboard(pressed_keys);
         delay(2);
       }
       #ifdef DEBUG_OUTPUT_KEYS
@@ -175,11 +175,11 @@ void printKeys(char * keystring)
       #warning "TODO: still a bug here: modifier is not handled correctly, maybe somthing with modifier mask in keylayouts.h"
       pressed_keys[0] = modifier;
       pressed_keys[2] = kc;
-      sendKeyboard(pressed_keys); delay(10);
+      delay(10); sendKeyboard(pressed_keys);
       
       pressed_keys[0] = 0;
       pressed_keys[2] = 0;
-      sendKeyboard(pressed_keys); delay(10);
+      delay(10); sendKeyboard(pressed_keys);
     }
     
     //go to next byte
