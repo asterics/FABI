@@ -20,27 +20,29 @@
 // #define PRINT_RAWVALUES
 
 #ifdef PRINT_RAWVALUES
- uint32_t ts=0;
- uint8_t calibRawValue=1;
- int sr=0;
- int32_t raw_mid=0;
+uint32_t ts = 0;
+uint8_t calibRawValue = 1;
+int sr = 0;
+int32_t raw_mid = 0;
 #endif
 
 LoadcellSensor PS;
-int sensorWatchdog=-1;
+int sensorWatchdog = -1;
 
-#define MPRLS_READ_TIMEOUT (20)     ///< millis
-#define MPRLS_STATUS_POWERED (0x40) ///< Status SPI powered bit
-#define MPRLS_STATUS_BUSY (0x20)    ///< Status busy bit
-#define MPRLS_STATUS_FAILED (0x04)  ///< Status bit for integrity fail
-#define MPRLS_STATUS_MATHSAT (0x01) ///< Status bit for math saturation
-#define MPRLS_STATUS_MASK (0b01100101) ///< Sensor status mask: only these bits are set
+#define MPRLS_READ_TIMEOUT (20)         ///< millis
+#define MPRLS_STATUS_POWERED (0x40)     ///< Status SPI powered bit
+#define MPRLS_STATUS_BUSY (0x20)        ///< Status busy bit
+#define MPRLS_STATUS_FAILED (0x04)      ///< Status bit for integrity fail
+#define MPRLS_STATUS_MATHSAT (0x01)     ///< Status bit for math saturation
+#define MPRLS_STATUS_MASK (0b01100101)  ///< Sensor status mask: only these bits are set
 
 /**
  * @brief Used pressure sensor type. We can use either the MPXV7007GP
  * sensor connected to an analog pin or the MPRLS sensor board with I2C
  */
-typedef enum {MPXV, MPRLS, NO_PRESSURE} pressure_type_t;
+typedef enum { MPXV,
+               MPRLS,
+               NO_PRESSURE } pressure_type_t;
 pressure_type_t sensor_pressure = NO_PRESSURE;
 
 
@@ -55,32 +57,32 @@ int32_t mprls_rawval = 512;
    @brief initialises I2C interface, prepares NAU and MPRLS readouts. [called from core 1]
    @return none
 */
-void initSensors()
-{
+void initSensors() {
   //first: switch on LDO for sensors
-  pinMode(LDO_ENABLE_PIN,OUTPUT);
-  digitalWrite(LDO_ENABLE_PIN,HIGH);
+  pinMode(LDO_ENABLE_PIN, OUTPUT);
+  digitalWrite(LDO_ENABLE_PIN, HIGH);
   delay(10);
-  
+
   //detect if there is an MPRLS sensor connected to I2C (Wire)
   Wire1.setClock(400000);  // use 400kHz I2C clock
   Wire1.beginTransmission(MPRLS_ADDR);
   uint8_t result = Wire1.endTransmission();
   //we found the MPRLS sensor, start the initialization
   if (result == 0) {
-  
-	sensor_pressure = MPRLS;
+
+    sensor_pressure = MPRLS;
 
     // set signal processing parameters for sip/puff (MPRLS pressure sensor)
     PS.setGain(1.0);  // adjust gain for pressure sensor
-    PS.enableOvershootCompensation(false);
+  //  PS.enableOvershootCompensation(false); // TODO: enableOvershootCompensation does not exist yet.
     PS.setSampleRate(MPRLS_SAMPLINGRATE);
     PS.setMovementThreshold(5000);
     PS.setBaselineLowpass(0.4);
     PS.setNoiseLowpass(10.0);
 
+
     // PS.setStartupTime(2000);
-    PS.enableAutoCalibration(true);
+   // PS.enableAutoCalibration(true); // TODO: enableAutoCalibration does not exist yet.
     PS.setActivityLowpass(1);
     PS.setIdleDetectionPeriod(500);
     PS.setIdleDetectionThreshold(500);
@@ -89,7 +91,6 @@ void initSensors()
 #ifdef DEBUG_OUTPUT_SENSORS
   Serial.println("SEN: Calibrated internal offset");
 #endif
-
 }
 
 /**
@@ -97,12 +98,11 @@ void initSensors()
    @brief calibrates the offset values for the sensors (pressure & force)
    @return none
 */
-void calibrateSensors()
-{
+void calibrateSensors() {
   PS.calib();
-  #ifdef PRINT_RAWVALUES
-    calibRawValue=1;
-  #endif  
+#ifdef PRINT_RAWVALUES
+  calibRawValue = 1;
+#endif
 }
 
 
@@ -113,8 +113,8 @@ void calibrateSensors()
    @param newVal: pointer where result will be stored
    @return status byte of MPRLS
 */
-int getMPRLSValue(int32_t * newVal) {
-  uint8_t buffer[4]  = {0};
+int getMPRLSValue(int32_t *newVal) {
+  uint8_t buffer[4] = { 0 };
 
   // request status byte
   // myWire.requestFrom(MPRLS_ADDR,1);
@@ -144,15 +144,13 @@ int getMPRLSValue(int32_t * newVal) {
    @param data: pointer to I2CSensorValues struct, used by core1
    @return none
 */
-void readPressure(struct I2CSensorValues *data)
-{
+void readPressure(struct I2CSensorValues *data) {
   //static uint32_t ts=0;
   //static int32_t raw_mid=0;
   //int sr=0;
   int actPressure = 512;
 
-  switch (sensor_pressure)
-  {
+  switch (sensor_pressure) {
     case MPRLS:
       {
 
@@ -174,7 +172,7 @@ void readPressure(struct I2CSensorValues *data)
 #endif
 
         int med = calculateMedian(mprls_rawval);
-        if (abs(med - mprls_rawval) >  SPIKE_DETECTION_THRESHOLD) {
+        if (abs(med - mprls_rawval) > SPIKE_DETECTION_THRESHOLD) {
           mprls_rawval = med;
         }
 
@@ -183,20 +181,22 @@ void readPressure(struct I2CSensorValues *data)
         if (mprls_filtered > 0) mprls_filtered = sqrt(mprls_filtered);
         if (mprls_filtered < 0) mprls_filtered = -sqrt(-mprls_filtered);
 
-        #ifdef PRINT_RAWVALUES
-            if (calibRawValue) { 
-              calibRawValue=0; raw_mid=mprls_rawval;
-            }
-            else {
-              Serial.print (mprls_rawval-raw_mid); Serial.print(" ");
-              Serial.print (mprls_filtered*100); Serial.print(" ");
-              //sr= 1000000 / (micros()-ts);
-              //ts=micros();
-              //Serial.print (sr); Serial.print(" ");
-              Serial.println(" ");
-            }
-        #endif
-        
+#ifdef PRINT_RAWVALUES
+        if (calibRawValue) {
+          calibRawValue = 0;
+          raw_mid = mprls_rawval;
+        } else {
+          Serial.print(mprls_rawval - raw_mid);
+          Serial.print(" ");
+          Serial.print(mprls_filtered * 100);
+          Serial.print(" ");
+          //sr= 1000000 / (micros()-ts);
+          //ts=micros();
+          //Serial.print (sr); Serial.print(" ");
+          Serial.println(" ");
+        }
+#endif
+
         actPressure = 512 + mprls_filtered / MPRLS_DIVIDER;
 
         // clamp to 1/1022 (allows disabling strong sip/puff)
@@ -283,14 +283,14 @@ void quickSort(int values[], int left, int right) {
    @return median value
 */
 int calculateMedian(int value) {
-  static int medianBuf[MEDIAN_VALUES] = {0};
+  static int medianBuf[MEDIAN_VALUES] = { 0 };
   static int medianBufPos = 0;
   int values[MEDIAN_VALUES];
 
   medianBuf[medianBufPos] = value;
   medianBufPos++;
   if (medianBufPos >= MEDIAN_VALUES) medianBufPos = 0;
-  memcpy(values, medianBuf, sizeof(int)*MEDIAN_VALUES);
+  memcpy(values, medianBuf, sizeof(int) * MEDIAN_VALUES);
 
   quickSort(values, 0, MEDIAN_VALUES - 1);
 

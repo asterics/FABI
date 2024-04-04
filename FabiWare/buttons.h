@@ -20,37 +20,43 @@
 #define _BUTTONS_H_
 
 // Constants and Macro definitions
-#define NUMBER_OF_BUTTONS  17         // number of physical + virtual switches. Note: if higher than 32, change buttonStates to uint64_t!
+#define NUMBER_OF_BUTTONS 22  // number of physical + virtual switches. Note: if higher than 32, change buttonStates to uint64_t! // If one were to put 21 here, then the last element in the action tab (WebGUI) would say (in the Slot column) AT NC, the rest should say empty, if they indeed are.
 
-#define DEFAULT_DEBOUNCING_TIME 5   // debouncing interval for button-press / release
+#define DEFAULT_DEBOUNCING_TIME 5  // debouncing interval for button-press / release
 
- 
+
 // (buttons 0-4 are the physical switches on the device)
 /**
    definition of Button numbers/indices of the "virtual buttons"
    (these are not pin numbers but button function identifiers!)
 */
-#define BUTTON_1                0
-#define BUTTON_2                1
-#define BUTTON_3                2
-#define BUTTON_4                3
-#define BUTTON_5                4
+#define BUTTON_1 0
+#define BUTTON_2 1
+#define BUTTON_3 2
+#define BUTTON_4 3
+#define BUTTON_5 4
 
-#define SIP_BUTTON               5
-#define STRONGSIP_BUTTON         6
-#define PUFF_BUTTON              7
-#define STRONGPUFF_BUTTON        8
+#define LONG_PRESS_BUTTON_1 5
+#define LONG_PRESS_BUTTON_2 6
+#define LONG_PRESS_BUTTON_3 7
+#define LONG_PRESS_BUTTON_4 8
+#define LONG_PRESS_BUTTON_5 9
+
+#define SIP_BUTTON 10
+#define STRONGSIP_BUTTON 11
+#define PUFF_BUTTON 12
+#define STRONGPUFF_BUTTON 13
 
 ///@note must be sequential! (modes.cpp)
-#define STRONGSIP_2_BUTTON     	9
-#define STRONGSIP_3_BUTTON   	  10
-#define STRONGSIP_4_BUTTON   	  11
-#define STRONGSIP_5_BUTTON  	  12
+#define STRONGSIP_2_BUTTON 14
+#define STRONGSIP_3_BUTTON 15
+#define STRONGSIP_4_BUTTON 16
+#define STRONGSIP_5_BUTTON 17
 ///@note must be sequential! (modes.cpp)
-#define STRONGPUFF_2_BUTTON    	13
-#define STRONGPUFF_3_BUTTON  	  14
-#define STRONGPUFF_4_BUTTON  	  15
-#define STRONGPUFF_5_BUTTON 	  16
+#define STRONGPUFF_2_BUTTON 18
+#define STRONGPUFF_3_BUTTON 19
+#define STRONGPUFF_4_BUTTON 20
+#define STRONGPUFF_5_BUTTON 21
 
 
 /**
@@ -74,7 +80,7 @@ struct buttonDebouncerType {
   uint8_t stableState;
   uint8_t longPressed;
   uint32_t timestamp;
-} ;
+};
 
 /**
    extern declarations of data structures 
@@ -105,7 +111,7 @@ void initButtonKeystrings();
    @brief get n-th keystring parameter of current slot
    @return char pointer to the keystring
 */
-char * getButtonKeystring(int num);
+char* getButtonKeystring(int num);
 
 
 /**
@@ -115,7 +121,7 @@ char * getButtonKeystring(int num);
    @param text: pointer to string which shall be copied to keystring buffer
    @return number of free bytes remaining in keystring buffer
 */
-uint16_t setButtonKeystring(uint8_t buttonIndex, char const * text);
+uint16_t setButtonKeystring(uint8_t buttonIndex, char const* text);
 
 /**
    @name handlePress
@@ -123,7 +129,7 @@ uint16_t setButtonKeystring(uint8_t buttonIndex, char const * text);
    @param buttonIndex: number of button which was pressed
    @return none
 */
-void handlePress (int buttonIndex);      // a button was pressed
+void handlePress(int buttonIndex);  // a button was pressed
 
 
 /**
@@ -132,7 +138,7 @@ void handlePress (int buttonIndex);      // a button was pressed
    @param buttonIndex: number of button which was released
    @return none
 */
-void handleRelease (int buttonIndex);    // a button was released
+void handleRelease(int buttonIndex);  // a button was released
 
 /**
    @name handleButton
@@ -141,7 +147,7 @@ void handleRelease (int buttonIndex);    // a button was released
    @param state: current state (1:pressed, 0:released) raw value (without debouncing)
    @return none
 */
-uint8_t handleButton(int i, uint8_t state);    // button debouncing and longpress detection
+uint8_t handleButton(int i, uint8_t state);  // button debouncing and longpress detection
 
 
 /**
@@ -150,7 +156,7 @@ uint8_t handleButton(int i, uint8_t state);    // button debouncing and longpres
    @param i: number of button to be checked
    @return true or false
 */
-uint8_t inHoldMode (int i);
+uint8_t inHoldMode(int i);
 
 /**
    @name initDebounces
