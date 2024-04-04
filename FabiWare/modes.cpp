@@ -32,10 +32,9 @@ unsigned long previousTime = 0;
 /**
    forward declarations of module-internal functions
 */
-void handleMovement(); 
+void handleMovement();
 
-void handleUserInteraction()
-{
+void handleUserInteraction() {
   static uint8_t pressureRising = 0, pressureFalling = 0;
   static int previousPressure = 512;
   static int waitStable = 0;
@@ -46,27 +45,29 @@ void handleUserInteraction()
   int strongDirThreshold;
 
   // check sip/puff activities
-  if (sensorData.pressure > previousPressure) pressureRising = 1; else pressureRising = 0;
-  if (sensorData.pressure < previousPressure) pressureFalling = 1; else pressureFalling = 0;
+  if (sensorData.pressure > previousPressure) pressureRising = 1;
+  else pressureRising = 0;
+  if (sensorData.pressure < previousPressure) pressureFalling = 1;
+  else pressureFalling = 0;
   previousPressure = sensorData.pressure;
 
   strongDirThreshold = STRONGMODE_MOUSE_JOYSTICK_THRESHOLD;
 
   // handle strong sip and puff actions
-  switch (strongSipPuffState)  {
+  switch (strongSipPuffState) {
 
-    case STRONG_MODE_IDLE:   // IDLE
+    case STRONG_MODE_IDLE:  // IDLE
       if (sensorData.pressure > slotSettings.sp) {
         strongSipPuffState = STRONG_MODE_ENTER_STRONGPUFF;
-        makeTone(TONE_ENTER_STRONGPUFF, 0 );
+        makeTone(TONE_ENTER_STRONGPUFF, 0);
       }
-      if (sensorData.pressure < slotSettings.ss ) {
+      if (sensorData.pressure < slotSettings.ss) {
         strongSipPuffState = STRONG_MODE_ENTER_STRONGSIP;
-        makeTone(TONE_ENTER_STRONGSIP, 0 );
+        makeTone(TONE_ENTER_STRONGSIP, 0);
       }
       break;
 
-    case STRONG_MODE_ENTER_STRONGPUFF:     // puffed strong, wait for release
+    case STRONG_MODE_ENTER_STRONGPUFF:  // puffed strong, wait for release
       if (sensorData.pressure < slotSettings.tp)
         waitStable++;
       else waitStable = 0;
@@ -74,13 +75,13 @@ void handleUserInteraction()
         strongSipPuffState = STRONG_MODE_STRONGPUFF_ACTIVE;
       break;
 
-    case STRONG_MODE_STRONGPUFF_ACTIVE:    // strong puff mode active
+    case STRONG_MODE_STRONGPUFF_ACTIVE:  // strong puff mode active
       isHandled = 0;
       //check if strong-puff + button 2/3/4/5 pressed
       ///@note if changing, check for indices of STRONGPUFF_x_BUTTON, i & input map!
-      for(uint8_t i = 1; i<=4; i++) {
-        if(digitalRead(input_map[i]) == LOW) {
-          makeTone(TONE_EXIT_STRONGPUFF, 0 );
+      for (uint8_t i = 1; i <= 4; i++) {
+        if (digitalRead(input_map[i]) == LOW) {
+          makeTone(TONE_EXIT_STRONGPUFF, 0);
           handlePress(STRONGPUFF_2_BUTTON + i - 1);
           handleRelease(STRONGPUFF_2_BUTTON + i - 1);
           strongSipPuffState = STRONG_MODE_RETURN_TO_IDLE;
@@ -89,9 +90,9 @@ void handleUserInteraction()
           break;
         }
       }
-      if(!isHandled) {
+      if (!isHandled) {
         waitStable++;
-        if (waitStable > STRONGMODE_EXIT_TIME) { // no stick movement occurred: perform strong puff action
+        if (waitStable > STRONGMODE_EXIT_TIME) {  // no stick movement occurred: perform strong puff action
           waitStable = 0;
           handlePress(STRONGPUFF_BUTTON);
           handleRelease(STRONGPUFF_BUTTON);
@@ -100,7 +101,7 @@ void handleUserInteraction()
       }
       break;
 
-    case STRONG_MODE_ENTER_STRONGSIP:   // sipped strong, wait for release
+    case STRONG_MODE_ENTER_STRONGSIP:  // sipped strong, wait for release
       if (sensorData.pressure > slotSettings.ts)
         waitStable++;
       else waitStable = 0;
@@ -108,13 +109,13 @@ void handleUserInteraction()
         strongSipPuffState = STRONG_MODE_STRONGSIP_ACTIVE;
       break;
 
-    case STRONG_MODE_STRONGSIP_ACTIVE:   // strong sip mode active
+    case STRONG_MODE_STRONGSIP_ACTIVE:  // strong sip mode active
       isHandled = 0;
       //check if strong-sip + button 2/3/4/5 pressed
       ///@note if changing, check for indices of STRONGSIP_x_BUTTON, i & input map!
-      for(uint8_t i = 1; i<=4; i++) {
-        if(digitalRead(input_map[i]) == LOW) {
-          makeTone(TONE_EXIT_STRONGSIP, 0 );
+      for (uint8_t i = 1; i <= 4; i++) {
+        if (digitalRead(input_map[i]) == LOW) {
+          makeTone(TONE_EXIT_STRONGSIP, 0);
           handlePress(STRONGSIP_2_BUTTON + i - 1);
           handleRelease(STRONGSIP_2_BUTTON + i - 1);
           strongSipPuffState = STRONG_MODE_RETURN_TO_IDLE;
@@ -123,49 +124,47 @@ void handleUserInteraction()
           break;
         }
       }
-      if(!isHandled) {
+      if (!isHandled) {
         waitStable++;
-        if (waitStable > STRONGMODE_EXIT_TIME) { // no stick movement occurred: perform strong puff action
+        if (waitStable > STRONGMODE_EXIT_TIME) {  // no stick movement occurred: perform strong puff action
           waitStable = 0;
           handlePress(STRONGSIP_BUTTON);
           handleRelease(STRONGSIP_BUTTON);
           strongSipPuffState = STRONG_MODE_RETURN_TO_IDLE;
         }
-      }    
+      }
       break;
 
     case STRONG_MODE_RETURN_TO_IDLE:
       waitStable++;
-      if (waitStable > STRONGMODE_IDLE_TIME)
-      {
+      if (waitStable > STRONGMODE_IDLE_TIME) {
         waitStable = 0;
         strongSipPuffState = STRONG_MODE_IDLE;
         initDebouncers();
-        puffState = 0; sipState = 0;
+        puffState = 0;
+        sipState = 0;
       }
       break;
     default: break;
   }
 
 
-  if (strongSipPuffState == STRONG_MODE_IDLE)
-  {
+  if (strongSipPuffState == STRONG_MODE_IDLE) {
 
     //handle normal sip and puff actions
-    switch (puffState)  {
+    switch (puffState) {
       case SIP_PUFF_STATE_IDLE:
-        if (sensorData.pressure > slotSettings.tp)   // handle single puff actions
+        if (sensorData.pressure > slotSettings.tp)  // handle single puff actions
         {
           makeTone(TONE_INDICATE_PUFF, 0);
-          puffState = SIP_PUFF_STATE_STARTED; puffCount = 0;
+          puffState = SIP_PUFF_STATE_STARTED;
+          puffCount = 0;
         }
         break;
 
       case SIP_PUFF_STATE_STARTED:
-        if (!pressureRising)
-        {
-          if (puffCount++ > SIP_PUFF_SETTLE_TIME)
-          {
+        if (!pressureRising) {
+          if (puffCount++ > SIP_PUFF_SETTLE_TIME) {
             puffCount = MIN_HOLD_TIME;
             handlePress(PUFF_BUTTON);
             puffState = SIP_PUFF_STATE_PRESSED;
@@ -181,20 +180,19 @@ void handleUserInteraction()
         }
     }
 
-    switch (sipState)  {
+    switch (sipState) {
       case SIP_PUFF_STATE_IDLE:
-        if (sensorData.pressure < slotSettings.ts)   // handle single sip actions
+        if (sensorData.pressure < slotSettings.ts)  // handle single sip actions
         {
           makeTone(TONE_INDICATE_SIP, 0);
-          sipState = SIP_PUFF_STATE_STARTED; sipCount = 0;
+          sipState = SIP_PUFF_STATE_STARTED;
+          sipCount = 0;
         }
         break;
 
       case SIP_PUFF_STATE_STARTED:
-        if (!pressureFalling)
-        {
-          if (sipCount++ > SIP_PUFF_SETTLE_TIME)
-          {
+        if (!pressureFalling) {
+          if (sipCount++ > SIP_PUFF_SETTLE_TIME) {
             sipCount = MIN_HOLD_TIME;
             handlePress(SIP_BUTTON);
             sipState = SIP_PUFF_STATE_PRESSED;
@@ -210,10 +208,10 @@ void handleUserInteraction()
         }
     }
   }
-  
+
   // check physical buttons 1-5 (only if not handled by any special sip/puff state)
-  if(strongSipPuffState == STRONG_MODE_IDLE) {
-    for (int i = 0; i < NUMBER_OF_PHYSICAL_BUTTONS; i++) { // update button press / release events
+  if (strongSipPuffState == STRONG_MODE_IDLE) {
+    for (int i = 0; i < NUMBER_OF_PHYSICAL_BUTTONS; i++) {  // update button press / release events
       handleButton(i, digitalRead(input_map[i]) == LOW ? 1 : 0);
     }
   }

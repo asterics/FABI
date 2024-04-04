@@ -37,13 +37,13 @@
 */
 
 #include "FlipWare.h"
-#include "gpio.h"      
-#include "sensors.h"      
-#include "infrared.h"      
-#include "display.h"       // for SSD1306 I2C-Oled display
+#include "gpio.h"
+#include "sensors.h"
+#include "infrared.h"
+#include "display.h"  // for SSD1306 I2C-Oled display
 #include "modes.h"
 #include "tone.h"
-#include "parser.h"  
+#include "parser.h"
 #include "reporting.h"
 #include "keys.h"
 #include <hardware/watchdog.h>
@@ -52,39 +52,40 @@
 /**
    device name for ID string & BT-pairing
 */
-char moduleName[]="FABI";   
+char moduleName[] = "FABI";
 
 /**
    default values for empty configuration slot 
 */
-const struct SlotSettings defaultSlotSettings = {      // default slotSettings valus, for type definition see Flipware.h
-  "keys",                          // initial slot name
-  0,                                // initial keystringbuffer length
-  400, 600, 3,                      // threshold sip, threshold puff, wheel step,
-  800, 10,                          // threshold strong puff, threshold strong sip
-  1,                                // bt-mode 1: USB, 2: Bluetooth, 3: both (2 & 3 need daughter board))
-  0x0000FF,                         // default slot color: blue
-  "en_US",                          // en_US as default keyboard layout.
+const struct SlotSettings defaultSlotSettings = {
+  // default slotSettings valus, for type definition see Flipware.h
+  "keys",       // initial slot name
+  0,            // initial keystringbuffer length
+  400, 600, 3,  // threshold sip, threshold puff, wheel step,
+  800, 10,      // threshold strong puff, threshold strong sip
+  1,            // bt-mode 1: USB, 2: Bluetooth, 3: both (2 & 3 need daughter board))
+  0x0000FF,     // default slot color: blue
+  "en_US",      // en_US as default keyboard layout.
 };
 
 
 /**
    static variables and data structures for settings and sensor data management
 */
-struct SensorData sensorData {        
-  .pressure=0, 
+struct SensorData sensorData {
+  .pressure = 0,
 };
 
-struct I2CSensorValues sensorValues {        
-  .pressure=512, 
-  .calib_now=CALIBRATION_PERIOD     // calibrate sensors after startup !
+struct I2CSensorValues sensorValues {
+  .pressure = 512,
+  .calib_now = CALIBRATION_PERIOD  // calibrate sensors after startup !
 };
 
 
-struct SlotSettings slotSettings;             // contains all slot settings
-uint8_t workingmem[WORKINGMEM_SIZE];          // working memory (command parser, IR-rec/play)
-uint8_t actSlot = 0;                          // number of current slot
-unsigned long lastInteractionUpdate;          // timestamp for HID interaction updates
+struct SlotSettings slotSettings;     // contains all slot settings
+uint8_t workingmem[WORKINGMEM_SIZE];  // working memory (command parser, IR-rec/play)
+uint8_t actSlot = 0;                  // number of current slot
+unsigned long lastInteractionUpdate;  // timestamp for HID interaction updates
 
 
 /**
@@ -98,41 +99,41 @@ void setup() {
   mutex_init(&(sensorValues.sensorDataMutex));
 
   //load slotSettings
-  memcpy(&slotSettings,&defaultSlotSettings,sizeof(struct SlotSettings));
+  memcpy(&slotSettings, &defaultSlotSettings, sizeof(struct SlotSettings));
 
   // initialize peripherals
   Serial.begin(115200);
-  
-  #ifdef DEBUG_DELAY_STARTUP
-    delay(3000);  // allow some time for serial interface to come up
-  #endif
-  
+
+#ifdef DEBUG_DELAY_STARTUP
+  delay(3000);  // allow some time for serial interface to come up
+#endif
+
   MouseBLE.begin("FABI");
   KeyboardBLE.begin("");
   JoystickBLE.begin("");
-  
+
   initGPIO();
   initIR();
   initButtons();
   initDebouncers();
-  initStorage();   // initialize storage if necessary
-  readFromEEPROMSlotNumber(0, true); // read slot from first EEPROM slot if available !
+  initStorage();                      // initialize storage if necessary
+  readFromEEPROMSlotNumber(0, true);  // read slot from first EEPROM slot if available !
 
   // NOTE: changed for RP2040!  TBD: why does setBTName damage the console UART TX ??
-  // setBTName(moduleName);             // if BT-module installed: set advertising name 
+  // setBTName(moduleName);             // if BT-module installed: set advertising name
 
-  setKeyboardLayout(slotSettings.kbdLayout); //load keyboard layout from slot
-  
-  if(!displayInit(0)) {
-    Serial.println("Error, cannot find display");   // check if i2c-display connected   TBD: missing i2c core2 synchronisation!
+  setKeyboardLayout(slotSettings.kbdLayout);  //load keyboard layout from slot
+
+  if (!displayInit(0)) {
+    Serial.println("Error, cannot find display");  // check if i2c-display connected   TBD: missing i2c core2 synchronisation!
   }
   displayUpdate();
-  
-#ifdef DEBUG_OUTPUT_FULL 
-  Serial.print(moduleName); Serial.println(" ready !");
+
+#ifdef DEBUG_OUTPUT_FULL
+  Serial.print(moduleName);
+  Serial.println(" ready !");
 #endif
   lastInteractionUpdate = millis();  // get first timestamp
-
 }
 
 /**
@@ -144,25 +145,25 @@ void loop() {
   // handle incoming serial data (AT-commands)
   while (Serial.available() > 0) {
     // send incoming bytes to parser
-    parseByte (Serial.read());      // implemented in parser.cpp
+    parseByte(Serial.read());  // implemented in parser.cpp
   }
 
-  // perform periodic updates  
-  if (millis() >= lastInteractionUpdate + UPDATE_INTERVAL)  {
+  // perform periodic updates
+  if (millis() >= lastInteractionUpdate + UPDATE_INTERVAL) {
     lastInteractionUpdate = millis();
 
     // get current sensor data from core1
     mutex_enter_blocking(&(sensorValues.sensorDataMutex));
-    sensorData.pressure=sensorValues.pressure;
+    sensorData.pressure = sensorValues.pressure;
     mutex_exit(&(sensorValues.sensorDataMutex));
-    handleUserInteraction();                    // handle all mouse / joystick / button activities
+    handleUserInteraction();  // handle all mouse / joystick / button activities
 
-    reportValues();   // send live data to serial
-    updateLeds();     // mode indication via front facing neopixel LEDs
-    updateBTConnectionState(); // check if BT is connected (for pairing indication LED animation)
-    updateTones();    // mode indication via audio signals (buzzer)
+    reportValues();             // send live data to serial
+    updateLeds();               // mode indication via front facing neopixel LEDs
+    updateBTConnectionState();  // check if BT is connected (for pairing indication LED animation)
+    updateTones();              // mode indication via audio signals (buzzer)
   }
-  delay(1);  // core0: sleep a bit ...  
+  delay(1);  // core0: sleep a bit ...
 }
 
 
@@ -181,7 +182,7 @@ void setup1() {
   Wire1.begin();
   Wire1.setClock(400000);  // use 400kHz I2C clock
   initSensors();
-  initBlink(10,20);  // first signs of life!
+  initBlink(10, 20);  // first signs of life!
 }
 
 /**
@@ -190,21 +191,21 @@ void setup1() {
    @return none
 */
 void loop1() {
-  static uint32_t lastMPRLS_ts=0;
+  static uint32_t lastMPRLS_ts = 0;
 
   // if desired sampling period for MPRLS pressure sensor passed: get pressure sensor value
-  if (millis()-lastMPRLS_ts >= 1000/MPRLS_SAMPLINGRATE) {
-    lastMPRLS_ts=millis();
+  if (millis() - lastMPRLS_ts >= 1000 / MPRLS_SAMPLINGRATE) {
+    lastMPRLS_ts = millis();
     readPressure(&sensorValues);
   }
 
   // if calibration running: update calibration counter
   if (sensorValues.calib_now) {
-    sensorValues.calib_now--;  
+    sensorValues.calib_now--;
     // calibrate sensors in the middle of the calibration period
-    if(sensorValues.calib_now==CALIBRATION_PERIOD/2) {
+    if (sensorValues.calib_now == CALIBRATION_PERIOD / 2) {
       calibrateSensors();
-    }     
+    }
   }
 
 
@@ -212,8 +213,9 @@ void loop1() {
   if (!checkSensorWatchdog()) {
     //Serial.println("WATCHDOG !!");
     watchdog_reboot(0, 0, 10);
-    while(1);
+    while (1)
+      ;
   }
-  
-  delay(1);  // core1: sleep a bit ...  
+
+  delay(1);  // core1: sleep a bit ...
 }
