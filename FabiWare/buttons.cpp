@@ -18,19 +18,23 @@
 #include "infrared.h"
 #include "keys.h"
 
+
 struct slotButtonSettings buttons[NUMBER_OF_BUTTONS];            // array for all buttons - type definition see FlipWare.h
 char* buttonKeystrings[NUMBER_OF_BUTTONS];                       // pointers to keystring parameters
 char keystringBuffer[MAX_KEYSTRINGBUFFER_LEN] = { 0 };           // storage for keystring parameters for all buttons
 struct buttonDebouncerType buttonDebouncers[NUMBER_OF_BUTTONS];  // array for all buttonsDebouncers - type definition see fabi.h
 uint32_t buttonStates = 0;                                       // current button states for reporting raw values (AT SR)
+bool isLongPress;
 
 void initButtonKeystrings() {
   slotSettings.keystringBufferLen = 0;
+
   for (int i = 0; i < NUMBER_OF_BUTTONS; i++) {
     buttonKeystrings[i] = keystringBuffer + slotSettings.keystringBufferLen;
     while (keystringBuffer[slotSettings.keystringBufferLen++])
       ;
   }
+
 #ifdef DEBUG_OUTPUT_FULL
   Serial.print("Init ButtonKeystrings, bufferlen =");
   Serial.println(slotSettings.keystringBufferLen);
@@ -101,7 +105,7 @@ uint16_t setButtonKeystring(uint8_t buttonIndex, char const* newKeystring) {
 }
 
 
-void initButtons() {
+void initButtons() {  // The default values for the buttons. Can be seen in action configuration (WebGUI).
 
   initButtonKeystrings();
 
@@ -111,11 +115,11 @@ void initButtons() {
     buttons[i].mode = CMD_NC;  // no command
   }
 
-  buttons[0].mode = CMD_KP;
+  buttons[0].mode = CMD_KP;  // KP, Key press.
   setButtonKeystring(0, "KEY_SPACE ");
   buttons[1].mode = CMD_KP;
   setButtonKeystring(1, "KEY_ENTER ");
-  buttons[2].mode = CMD_CL;
+  buttons[2].mode = CMD_CL;  // CL, Left mouse button clicked.
   buttons[3].mode = CMD_KP;
   setButtonKeystring(3, "KEY_LEFT ");
   buttons[4].mode = CMD_KP;
@@ -156,31 +160,36 @@ void handleRelease(int buttonIndex)  // a button was released: deal with "sticky
 
 uint8_t handleButton(int i, uint8_t state)  // button debouncing and press detection
 {
-  if (buttonDebouncers[i].bounceState == state) {
-    if (buttonDebouncers[i].bounceCount < DEFAULT_DEBOUNCING_TIME) {
+  if (buttonDebouncers[i].bounceState == state) {                     // Checks whether the current state of the button is the same as the previous state.
+    if (buttonDebouncers[i].bounceCount < DEFAULT_DEBOUNCING_TIME) {  // Makes sure that the debouncer issue does not surpass the default time of 5ms.
       buttonDebouncers[i].bounceCount++;
       if (buttonDebouncers[i].bounceCount == DEFAULT_DEBOUNCING_TIME) {
 
-        if (state != buttonDebouncers[i].stableState)  // entering stable state
-        {
+        if (state != buttonDebouncers[i].stableState) {  // entering stable state // Checks whether the button state has changed.
           buttonDebouncers[i].stableState = state;
-          if (state == 1) {  // new stable state: pressed !
-            //if (inHoldMode(i))
-            buttonStates |= (1 << i);  //save for reporting
+
+          if (state == 1) {  // new stable state: pressed ! // Checking whether a button has been pressed.
+            //  if (inHoldMode(i))
+
+            buttonStates |= (1 << i);  //save for reporting // Reporting, can be seen in visualisation of the WebGUI.
             handlePress(i);
             buttonDebouncers[i].timestamp = millis();  // start measuring time
-          } else {                                     // new stable state: released !
+
+          } else {  // new stable state: released !
             // if (!inHoldMode(i))
-            //   handlePress(i);
+            // handlePress(i);
             buttonStates &= ~(1 << i);  //save for reporting
+
             if (inHoldMode(i))
               handleRelease(i);
             return (1);  // indicate that button action has been performed !
           }
         }
       }
+
     } else {  // in stable state
     }
+
   } else {
     buttonDebouncers[i].bounceState = state;
     buttonDebouncers[i].bounceCount = 0;
@@ -188,7 +197,8 @@ uint8_t handleButton(int i, uint8_t state)  // button debouncing and press detec
   return (0);
 }
 
-uint8_t inHoldMode(int i) {
+
+uint8_t inHoldMode(int i) {  // Not necessarily on purpose.
   if ((buttons[i].mode == CMD_PL) || (buttons[i].mode == CMD_PR) || (buttons[i].mode == CMD_PM) || (buttons[i].mode == CMD_HL) || (buttons[i].mode == CMD_HR) || (buttons[i].mode == CMD_HM) || (buttons[i].mode == CMD_JP) || (buttons[i].mode == CMD_MX) || (buttons[i].mode == CMD_MY) || (buttons[i].mode == CMD_KH) || (buttons[i].mode == CMD_IH))
     return (1);
   else return (0);

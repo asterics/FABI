@@ -11,21 +11,22 @@
           AT                returns "OK"
           AT ID             returns identification string (e.g. "FABI v3.0")
           AT BM <uint>      puts button into programming mode (e.g. "AT BM 2" -> next AT-command defines the new function for button 2)
-                            for the FABI, there are 17 buttons available (5 physical buttons, 12 virtual functions):
+                            for the FABI, there are 22 buttons available (5 physical buttons, 17 virtual functions):
 
                               1-5: 3.5mm jack plugs 1-5
-                              6: Sip (pressure lower than sip threshold) (pressure sensor addon required)
-                              7: Strong Sip (pressure sensor addon required)
-                              8: Puff (pressure bigger than puff threshold) (pressure sensor addon required)
-                              9: Strong Puff (pressure sensor addon required)
-                              10: StrongSip + jack plug 2 pressed
-                              11: StrongSip + jack plug 3 pressed
-                              12: StrongSip + jack plug 4 pressed
-                              13: StrongSip + jack plug 5 pressed
-                              14: StrongPuff + jack plug 2 pressed
-                              15: StrongPuff + jack plug 3 pressed
-                              16: StrongPuff + jack plug 4 pressed
-                              17: StrongPuff + jack plug 5 pressed
+                              6-10 Long press.
+                              11: Sip (pressure lower than sip threshold) (pressure sensor addon required)
+                              12: Strong Sip (pressure sensor addon required)
+                              13: Puff (pressure bigger than puff threshold) (pressure sensor addon required)
+                              14: Strong Puff (pressure sensor addon required)
+                              15: StrongSip + jack plug 2 pressed
+                              16: StrongSip + jack plug 3 pressed
+                              17: StrongSip + jack plug 4 pressed
+                              18: StrongSip + jack plug 5 pressed
+                              19: StrongPuff + jack plug 2 pressed
+                              20: StrongPuff + jack plug 3 pressed
+                              21: StrongPuff + jack plug 4 pressed
+                              22: StrongPuff + jack plug 5 pressed
 
     USB HID commands:
 

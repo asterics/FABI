@@ -48,7 +48,6 @@
 #include "keys.h"
 #include <hardware/watchdog.h>
 
-
 /**
    device name for ID string & BT-pairing
 */
@@ -164,6 +163,8 @@ void loop() {
     updateTones();              // mode indication via audio signals (buzzer)
   }
   delay(1);  // core0: sleep a bit ...
+
+  //SmartButton::service();  // Asynchronous service routine, should be called periodically. // This is for the Long press.
 }
 
 
