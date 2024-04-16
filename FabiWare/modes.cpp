@@ -44,6 +44,7 @@ void handleUserInteraction() {
   static uint8_t puffCount = 0, sipCount = 0;
   uint8_t isHandled = 0;
   int strongDirThreshold;
+  int longPressButtonThreshold;
 
   // check sip/puff activities
   if (sensorData.pressure > previousPressure) pressureRising = 1;
@@ -53,6 +54,7 @@ void handleUserInteraction() {
   previousPressure = sensorData.pressure;
 
   strongDirThreshold = STRONGMODE_MOUSE_JOYSTICK_THRESHOLD;
+  longPressButtonThreshold = LONG_PRESS_BUTTON_THRESHOLD;
 
   // handle strong sip and puff actions
   switch (strongSipPuffState) {
@@ -213,47 +215,40 @@ void handleUserInteraction() {
 
   // check physical buttons 1-5 (only if not handled by any special sip/puff state)
   if (strongSipPuffState == STRONG_MODE_IDLE) {
-
-    uint16_t thresholdForLongPress = 500;  // TODO: thresholdForLongPress should not have a hard coded value, seeing as the user decides the time (WebGUI => Timings).
-    bool currentButtonState;
+    //uint16_t thresholdForLongPress = slotSettings.lp; // This should replace the one below.
+    uint16_t thresholdForLongPress = 500;                                           // TODO: thresholdForLongPress should not have a hard coded value, seeing as the user decides the time (WebGUI => Timings).
     static unsigned long buttonPressStartTime[NUMBER_OF_PHYSICAL_BUTTONS] = { 0 };  // Stores the start time of button presses. So that it can distinguish between the first time a button has been pressed.
-    unsigned long buttonPressDuration;                                              // Tracks the length of time a button has been pressed.
-
 
     for (int i = 0; i < NUMBER_OF_PHYSICAL_BUTTONS; i++) {  // update button press / release events
-      currentButtonState = digitalRead(input_map[i]);
 
-      if (currentButtonState == LOW) {  // Button pressed.
-        if (buttonPressStartTime[i] == 0) {
-          buttonPressStartTime[i] = millis();  // Saves the time, when the button was pressed.
-        }
+      if (buttons[LONG_PRESS_BUTTON_1 + i].mode == CMD_NC) {  // Makes sure that that specific button does not have a command (KEY_SPACE) in place.
+        handleButton(i, !digitalRead(input_map[i]));          // Short press.
 
-      } else {  // Once the button is being released AKA not pressed.
+      } else {
+        if (digitalRead(input_map[i]) == LOW) {  // Button has been pressed.
+          buttonStates |= (1 << i);              // Which state is used can be seen using the command AT SR (with Serial Monitor). Also visualises it in the WebGUI.
 
-        handleButton(i, currentButtonState == 0);
-        handleButton(LONG_PRESS_BUTTON_1 + i, 0);
-
-        if (buttonPressStartTime[i] > 0) {                           // If a button has previously been pressed. // ASK: Can this value ever be negativ.
-          buttonPressDuration = millis() - buttonPressStartTime[i];  // Tracks the length of time a button has been pressed.
-          buttonPressStartTime[i] = 0;
-
-          //  if (buttons[LONG_PRESS_BUTTON_1 + i].mode != CMD_NC) {  // A command has been saved AKA is available. Long press mode.
-          if (buttonPressDuration >= thresholdForLongPress) {
-            Serial.print("Long press.\n");
-            handleButton(LONG_PRESS_BUTTON_1 + i, 1);
-            //    }
-
-          } else {
-            // if (buttons[LONG_PRESS_BUTTON_1 + i].mode == CMD_NC && (buttonPressDuration < thresholdForLongPress)) {
-            Serial.print("Short press.\n");
-            handleButton(i, currentButtonState == 1);
+          if (buttonPressStartTime[i] == 0) {    //save press timestamp, only if not set already
+            buttonPressStartTime[i] = millis();  // Saves the time, when the button was pressed.
           }
+
+          if ((millis() - buttonPressStartTime[i]) >= thresholdForLongPress) {  //already a long press?
+            handleButton(LONG_PRESS_BUTTON_1 + i, 1);                           // Long press.
+          }
+
+        } else {  // When the button has been released, HIGH.
+
+          buttonStates &= ~(1 << i);
+
+          if ((millis() - buttonPressStartTime[i]) < thresholdForLongPress) {  //was it a short press? If yes, trigger immediately
+            handlePress(i);
+            handleRelease(i);
+          }
+
+          handleButton(LONG_PRESS_BUTTON_1 + i, 0);  // No long press.
+          buttonPressStartTime[i] = 0;               // Reset start time.
         }
-
-        // Serial.print("HIGH.\n");
       }
-
-      //  Serial.print("Out of Loop.\n");
     }
   }
 }

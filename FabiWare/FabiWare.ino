@@ -65,6 +65,7 @@ const struct SlotSettings defaultSlotSettings = {
   1,            // bt-mode 1: USB, 2: Bluetooth, 3: both (2 & 3 need daughter board))
   0x0000FF,     // default slot color: blue
   "en_US",      // en_US as default keyboard layout.
+  500,          // Threshold for long button press.
 };
 
 

@@ -54,6 +54,8 @@
 #define STICKMODE_JOYSTICK_ZR      3
 #define STICKMODE_JOYSTICK_SLIDERS 4
 
+
+#define LONG_PRESS_BUTTON_THRESHOLD 500
 /**
    @name handleUserInteraction
    @brief applies all movement / action handling according to movement data and button modes of current slot

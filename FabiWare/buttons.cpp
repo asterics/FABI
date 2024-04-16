@@ -24,7 +24,6 @@ char* buttonKeystrings[NUMBER_OF_BUTTONS];                       // pointers to 
 char keystringBuffer[MAX_KEYSTRINGBUFFER_LEN] = { 0 };           // storage for keystring parameters for all buttons
 struct buttonDebouncerType buttonDebouncers[NUMBER_OF_BUTTONS];  // array for all buttonsDebouncers - type definition see fabi.h
 uint32_t buttonStates = 0;                                       // current button states for reporting raw values (AT SR)
-bool isLongPress;
 
 void initButtonKeystrings() {
   slotSettings.keystringBufferLen = 0;
@@ -170,7 +169,7 @@ uint8_t handleButton(int i, uint8_t state)  // button debouncing and press detec
 
           if (state == 1) {  // new stable state: pressed ! // Checking whether a button has been pressed.
             //  if (inHoldMode(i))
-
+          
             buttonStates |= (1 << i);  //save for reporting // Reporting, can be seen in visualisation of the WebGUI.
             handlePress(i);
             buttonDebouncers[i].timestamp = millis();  // start measuring time
@@ -198,7 +197,7 @@ uint8_t handleButton(int i, uint8_t state)  // button debouncing and press detec
 }
 
 
-uint8_t inHoldMode(int i) {  // Not necessarily on purpose.
+uint8_t inHoldMode(int i) {  
   if ((buttons[i].mode == CMD_PL) || (buttons[i].mode == CMD_PR) || (buttons[i].mode == CMD_PM) || (buttons[i].mode == CMD_HL) || (buttons[i].mode == CMD_HR) || (buttons[i].mode == CMD_HM) || (buttons[i].mode == CMD_JP) || (buttons[i].mode == CMD_MX) || (buttons[i].mode == CMD_MY) || (buttons[i].mode == CMD_KH) || (buttons[i].mode == CMD_IH))
     return (1);
   else return (0);

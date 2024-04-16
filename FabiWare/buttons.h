@@ -80,7 +80,6 @@ struct buttonDebouncerType {
   uint8_t stableState;
   uint8_t longPressed;
   uint32_t timestamp;
-  unsigned long buttonPressStartTime;
 };
 
 /**
@@ -91,7 +90,6 @@ extern struct slotButtonSettings buttons[NUMBER_OF_BUTTONS];
 extern char* buttonKeystrings[NUMBER_OF_BUTTONS];
 extern uint32_t buttonStates;
 extern struct buttonDebouncerType buttonDebouncers[NUMBER_OF_BUTTONS];
-extern bool isLongPress;
 
 
 /**
