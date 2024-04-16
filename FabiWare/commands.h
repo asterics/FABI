@@ -35,6 +35,10 @@
           AT CM             click middle mouse button
           AT CD             click double with left mouse button
 
+          AT PL             Press left mouse button.
+          AT PR             Press right mouse button.
+          AT PM             Press middle mouse button.
+
           AT HL             hold the left mouse button (automatic release when user action is done)
           AT HR             hold the right mouse button (automatic release when user action is done)
           AT HM             hold the middle mouse button (automatic release when user action is done)
