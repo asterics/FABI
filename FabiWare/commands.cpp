@@ -55,6 +55,9 @@ const struct atCommandType atCommands[] PROGMEM = {
   /***** keyboard *****/
   {"KW"  , PARTYPE_STRING}, {"KP"  , PARTYPE_STRING}, {"KH"  , PARTYPE_STRING}, {"KT"  , PARTYPE_STRING },
   {"KR"  , PARTYPE_STRING}, {"RA"  , PARTYPE_NONE },  {"KL"  , PARTYPE_STRING },
+  /***** Long press time/threshold. *****/
+  {"LP", PARTYPE_UINT}, 
+
   /***** slots *****/
   {"SA"  , PARTYPE_STRING}, {"LO"  , PARTYPE_STRING}, {"LA"  , PARTYPE_NONE }, {"LI"  , PARTYPE_NONE },
   {"NE"  , PARTYPE_NONE }, {"DE"  , PARTYPE_STRING }, {"RS"  , PARTYPE_NONE }, {"RE"  , PARTYPE_NONE },
@@ -179,7 +182,7 @@ void performCommand (uint8_t cmd, int16_t par1, char * keystring, int8_t periodi
       mouseScroll(slotSettings.ws);
       break;
     case CMD_WS:
-      slotSettings.ws = par1;
+      slotSettings.ws = par1; // par1, Parameter.
       break;
     case CMD_MX:
       mouseMove(par1, 0);
@@ -237,6 +240,11 @@ void performCommand (uint8_t cmd, int16_t par1, char * keystring, int8_t periodi
         printKeyboardLayout(); 
       }
       break;
+
+    case CMD_LP:
+      slotSettings.lp = par1;
+      break;
+      
     case CMD_RA:
       release_all();
       break;

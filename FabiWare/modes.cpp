@@ -215,8 +215,7 @@ void handleUserInteraction() {
 
   // check physical buttons 1-5 (only if not handled by any special sip/puff state)
   if (strongSipPuffState == STRONG_MODE_IDLE) {
-    //uint16_t thresholdForLongPress = slotSettings.lp; // This should replace the one below.
-    uint16_t thresholdForLongPress = 500;                                           // TODO: thresholdForLongPress should not have a hard coded value, seeing as the user decides the time (WebGUI => Timings).
+    uint16_t thresholdForLongPress = slotSettings.lp; 
     static unsigned long buttonPressStartTime[NUMBER_OF_PHYSICAL_BUTTONS] = { 0 };  // Stores the start time of button presses. So that it can distinguish between the first time a button has been pressed.
 
     for (int i = 0; i < NUMBER_OF_PHYSICAL_BUTTONS; i++) {  // update button press / release events

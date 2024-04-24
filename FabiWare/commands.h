@@ -84,6 +84,8 @@
           AT KL <string>    change keyboard layout. No parameter prints the currently used layout. 
                             Currently supported: de_DE, en_US, es_ES, fr_FR, it_IT, sv_SE, da_DK.
 
+          AT LP <uint>      Long press threshold AKA long press should be active once that time (in [ms]) has been reached. 
+
     Housekeeping commands:
 
           AT SA <string>  save slotSettings and current button modes to next free eeprom slot under given name (e.g. "AT SA mouse1")
@@ -121,6 +123,7 @@
           AT IW           wipe infrared memory (clear all codes)
           AT IL           lists all stored infrared command names
           AT IT <uint>    set code timeout value for IR Recording (e.g. "AT IT 10" sets 10 milliseconds timeout)
+          
 
    supported key identifiers for key commands (AT KP/KH/KR/KT):
 
@@ -163,7 +166,7 @@ enum atCommands {
   CMD_ID, CMD_BM, CMD_CL, CMD_CR, CMD_CM, CMD_CD, CMD_PL, CMD_PR, CMD_PM, CMD_HL, CMD_HR, CMD_HM,
   CMD_RL, CMD_RR, CMD_RM, CMD_TL, CMD_TR, CMD_TM, CMD_WU, CMD_WD, CMD_WS, CMD_MX, CMD_MY, CMD_JX,
   CMD_JY, CMD_JZ, CMD_JT, CMD_JS, CMD_JP, CMD_JR, CMD_JH, CMD_KW, CMD_KP, CMD_KH, CMD_KT, CMD_KR, 
-  CMD_RA, CMD_KL, CMD_SA, CMD_LO, CMD_LA, CMD_LI, CMD_NE, CMD_DE, CMD_RS, CMD_RE, CMD_NC, CMD_BT, 
+  CMD_RA, CMD_KL, CMD_LP, CMD_SA, CMD_LO, CMD_LA, CMD_LI, CMD_NE, CMD_DE, CMD_RS, CMD_RE, CMD_NC, CMD_BT, 
   CMD_SC, CMD_SR, CMD_ER, CMD_CA, CMD_MA, CMD_WA, CMD_TS, CMD_TP, CMD_SP, CMD_SS, CMD_IR, CMD_IP,
   CMD_IH, CMD_IS, CMD_IC, CMD_IW, CMD_IL, CMD_IT,
   NUM_COMMANDS

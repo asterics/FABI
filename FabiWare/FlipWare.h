@@ -89,7 +89,7 @@ struct SlotSettings {
   uint8_t bt;   // bt-mode (0,1,2)
   uint32_t sc;  // slotcolor (0x: rrggbb)
   char kbdLayout[6];
-  uint16_t lp;  // Threshold long button press. // ASK. Whether it is supposed to go here and what the initials are supposed to be.
+  uint16_t lp;  // Threshold long button press. 
 };
 
 /**
