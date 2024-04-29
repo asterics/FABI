@@ -90,6 +90,7 @@ struct SlotSettings {
   uint32_t sc;  // slotcolor (0x: rrggbb)
   char kbdLayout[6];
   uint16_t lp;  // Threshold long button press. 
+  uint16_t dp;  // Threshold/Time for double press for slot change.
 };
 
 /**

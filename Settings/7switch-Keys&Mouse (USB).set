@@ -1,5 +1,5 @@
 Slot:cursorkeys
-AT TT 0
+AT DP 0
 AT AP 1
 AT AR 2
 AT AI 1
@@ -22,9 +22,9 @@ AT KH KEY_ENTER
 AT BM 7
 AT NE
 AT BM 8
-AT NC
-AT BM 9
 AT HR
+AT BM 9
+AT NC
 AT BM 10
 AT NC
 AT BM 11
@@ -33,7 +33,7 @@ AT BT 1
 AT SC 0x0f3961
 
 Slot:mouse
-AT TT 0
+AT DP 0
 AT AP 1
 AT AR 2
 AT AI 1
@@ -56,9 +56,9 @@ AT HR
 AT BM 7
 AT NE
 AT BM 8
-AT NC
-AT BM 9
 AT HR
+AT BM 9
+AT NC
 AT BM 10
 AT NC
 AT BM 11

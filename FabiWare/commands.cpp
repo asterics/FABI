@@ -57,6 +57,8 @@ const struct atCommandType atCommands[] PROGMEM = {
   {"KR"  , PARTYPE_STRING}, {"RA"  , PARTYPE_NONE },  {"KL"  , PARTYPE_STRING },
   /***** Long press time/threshold. *****/
   {"LP", PARTYPE_UINT}, 
+  /***** Double press time/threshold. *****/
+  {"DP", PARTYPE_UINT}, 
 
   /***** slots *****/
   {"SA"  , PARTYPE_STRING}, {"LO"  , PARTYPE_STRING}, {"LA"  , PARTYPE_NONE }, {"LI"  , PARTYPE_NONE },
@@ -243,6 +245,17 @@ void performCommand (uint8_t cmd, int16_t par1, char * keystring, int8_t periodi
 
     case CMD_LP:
       slotSettings.lp = par1;
+      break;
+
+    case CMD_DP: 
+      slotSettings.dp = par1;
+     /* mousePress(MOUSE_LEFT);
+      delay(DEFAULT_CLICK_TIME);
+      mouseRelease(MOUSE_LEFT);
+      delay(DEFAULT_CLICK_TIME);
+      mousePress(MOUSE_LEFT);
+      delay(DEFAULT_CLICK_TIME);
+      mouseRelease(MOUSE_LEFT);*/
       break;
       
     case CMD_RA:

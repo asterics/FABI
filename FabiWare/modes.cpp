@@ -47,10 +47,14 @@ void handleUserInteraction() {
   int longPressButtonThreshold;
 
   // check sip/puff activities
-  if (sensorData.pressure > previousPressure) pressureRising = 1;
-  else pressureRising = 0;
-  if (sensorData.pressure < previousPressure) pressureFalling = 1;
-  else pressureFalling = 0;
+  if (sensorData.pressure > previousPressure)
+    pressureRising = 1;
+  else
+    pressureRising = 0;
+  if (sensorData.pressure < previousPressure)
+    pressureFalling = 1;
+  else
+    pressureFalling = 0;
   previousPressure = sensorData.pressure;
 
   strongDirThreshold = STRONGMODE_MOUSE_JOYSTICK_THRESHOLD;
@@ -73,14 +77,15 @@ void handleUserInteraction() {
     case STRONG_MODE_ENTER_STRONGPUFF:  // puffed strong, wait for release
       if (sensorData.pressure < slotSettings.tp)
         waitStable++;
-      else waitStable = 0;
+      else
+        waitStable = 0;
       if (waitStable >= STRONGMODE_STABLETIME)
         strongSipPuffState = STRONG_MODE_STRONGPUFF_ACTIVE;
       break;
 
     case STRONG_MODE_STRONGPUFF_ACTIVE:  // strong puff mode active
       isHandled = 0;
-      //check if strong-puff + button 2/3/4/5 pressed
+      // check if strong-puff + button 2/3/4/5 pressed
       ///@note if changing, check for indices of STRONGPUFF_x_BUTTON, i & input map!
       for (uint8_t i = 1; i <= 4; i++) {
         if (digitalRead(input_map[i]) == LOW) {
@@ -107,14 +112,15 @@ void handleUserInteraction() {
     case STRONG_MODE_ENTER_STRONGSIP:  // sipped strong, wait for release
       if (sensorData.pressure > slotSettings.ts)
         waitStable++;
-      else waitStable = 0;
+      else
+        waitStable = 0;
       if (waitStable >= STRONGMODE_STABLETIME)
         strongSipPuffState = STRONG_MODE_STRONGSIP_ACTIVE;
       break;
 
     case STRONG_MODE_STRONGSIP_ACTIVE:  // strong sip mode active
       isHandled = 0;
-      //check if strong-sip + button 2/3/4/5 pressed
+      // check if strong-sip + button 2/3/4/5 pressed
       ///@note if changing, check for indices of STRONGSIP_x_BUTTON, i & input map!
       for (uint8_t i = 1; i <= 4; i++) {
         if (digitalRead(input_map[i]) == LOW) {
@@ -148,13 +154,13 @@ void handleUserInteraction() {
         sipState = 0;
       }
       break;
-    default: break;
+    default:
+      break;
   }
-
 
   if (strongSipPuffState == STRONG_MODE_IDLE) {
 
-    //handle normal sip and puff actions
+    // handle normal sip and puff actions
     switch (puffState) {
       case SIP_PUFF_STATE_IDLE:
         if (sensorData.pressure > slotSettings.tp)  // handle single puff actions
@@ -172,11 +178,13 @@ void handleUserInteraction() {
             handlePress(PUFF_BUTTON);
             puffState = SIP_PUFF_STATE_PRESSED;
           }
-        } else if (puffCount) puffCount--;
+        } else if (puffCount)
+          puffCount--;
         break;
 
       case SIP_PUFF_STATE_PRESSED:
-        if (puffCount) puffCount--;
+        if (puffCount)
+          puffCount--;
         if ((sensorData.pressure < slotSettings.tp) && (!puffCount)) {
           handleRelease(PUFF_BUTTON);
           puffState = 0;
@@ -200,11 +208,13 @@ void handleUserInteraction() {
             handlePress(SIP_BUTTON);
             sipState = SIP_PUFF_STATE_PRESSED;
           }
-        } else if (sipCount) sipCount--;
+        } else if (sipCount)
+          sipCount--;
         break;
 
       case SIP_PUFF_STATE_PRESSED:
-        if (sipCount) sipCount--;
+        if (sipCount)
+          sipCount--;
         if ((sensorData.pressure > slotSettings.ts) && (!sipCount)) {
           handleRelease(SIP_BUTTON);
           sipState = 0;
@@ -212,34 +222,32 @@ void handleUserInteraction() {
     }
   }
 
-
   // check physical buttons 1-5 (only if not handled by any special sip/puff state)
   if (strongSipPuffState == STRONG_MODE_IDLE) {
-    uint16_t thresholdForLongPress = slotSettings.lp; 
+    uint16_t thresholdForLongPress = slotSettings.lp;
+    uint16_t thresholdDoublePress = slotSettings.dp;
     static unsigned long buttonPressStartTime[NUMBER_OF_PHYSICAL_BUTTONS] = { 0 };  // Stores the start time of button presses. So that it can distinguish between the first time a button has been pressed.
 
     for (int i = 0; i < NUMBER_OF_PHYSICAL_BUTTONS; i++) {  // update button press / release events
 
       if (buttons[LONG_PRESS_BUTTON_1 + i].mode == CMD_NC) {  // Makes sure that that specific button does not have a command (KEY_SPACE) in place.
         handleButton(i, !digitalRead(input_map[i]));          // Short press.
-
       } else {
         if (digitalRead(input_map[i]) == LOW) {  // Button has been pressed.
           buttonStates |= (1 << i);              // Which state is used can be seen using the command AT SR (with Serial Monitor). Also visualises it in the WebGUI.
 
-          if (buttonPressStartTime[i] == 0) {    //save press timestamp, only if not set already
+          if (buttonPressStartTime[i] == 0) {    // save press timestamp, only if not set already
             buttonPressStartTime[i] = millis();  // Saves the time, when the button was pressed.
           }
 
-          if ((millis() - buttonPressStartTime[i]) >= thresholdForLongPress) {  //already a long press?
+          if ((millis() - buttonPressStartTime[i]) >= thresholdForLongPress) {  // already a long press?
             handleButton(LONG_PRESS_BUTTON_1 + i, 1);                           // Long press.
           }
-
         } else {  // When the button has been released, HIGH.
 
           buttonStates &= ~(1 << i);
 
-          if ((millis() - buttonPressStartTime[i]) < thresholdForLongPress) {  //was it a short press? If yes, trigger immediately
+          if ((millis() - buttonPressStartTime[i]) < thresholdForLongPress) {  // was it a short press? If yes, trigger immediately
             handlePress(i);
             handleRelease(i);
           }
@@ -249,5 +257,13 @@ void handleUserInteraction() {
         }
       }
     }
+    // Double press stuff.
+    /*  for (int i = 0; i < NUMBER_OF_PHYSICAL_BUTTONS; i++)
+    { // Created a different one because it avoids errors.
+      if (input == doubleClick)
+      {
+        
+      }
+    }*/
   }
 }
