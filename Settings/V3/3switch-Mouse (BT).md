@@ -14,7 +14,7 @@ Changing the direction can be done be double-pressing any button.
 ### Mouse control, BT Mode (slots 1-4, color: red,blue,turquoise,yellow):
 - Button1 = move mouse cursor right/down/left/up
 - Button2 = short-press: click left mouse button mouse direction; 
-            long press: Home-Key
+- Button2 = long press: Home-Key
 - Button3 = swipe gesture right/down/left/up
 
 double press any button: change direction

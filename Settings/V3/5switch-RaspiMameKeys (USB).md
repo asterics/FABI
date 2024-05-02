@@ -12,33 +12,33 @@ Button 5 changes between the three slots.
 
 ### mouse (slot1, color: yellow):
 - Button1 = short-press: move mouse up; 
-            long-press: move mouse down
+- Button1 = long-press: move mouse down
 - Button2 = short-press: move mouse left; 
-            long-press: move mouse right
+- Button2 = long-press: move mouse right
 - Button3 = click left mouse button
 - Button4 = click right mouse button
 - Button5 = short-press: load next slot; 
-            long-press: hold escape key (KEY_ESCAPE) 
+- Button5 = long-press: hold escape key (KEY_ESCAPE) 
 
 
 ### mame1 (slot2, color: red):
 - Button1 = short-press: hold cursor up key (KEY_UP); 
-            long-press: hold cursor down key (KEY_DOWN)
+- Button1 = long-press: hold cursor down key (KEY_DOWN)
 - Button2 = short-press: hold cursor left key (KEY_LEFT); 
-            long-press: hold cursor right key (KEY_RIGHT)
+- Button2 = long-press: hold cursor right key (KEY_RIGHT)
 - Button3 = short-press: hold ALT key (KEY_ALT); 
-            long-press: hold 1 key (KEY_1)
+- Button3 = long-press: hold 1 key (KEY_1)
 - Button4 = hold control key (KEY_CTRL)
 - Button5 = load next slot
 
 
 ### mame2 (slot3, color: green):
 - Button1 = short-press: hold cursor up key (KEY_UP);
-            long-press: hold cursor down key (KEY_DOWN)
+- Button1 = long-press: hold cursor down key (KEY_DOWN)
 - Button2 = short-press: hold cursor left key (KEY_LEFT);
-            long-press: hold cursor right key (KEY_RIGHT)
+- Button2 = long-press: hold cursor right key (KEY_RIGHT)
 - Button3 = short-press: hold A key (KEY_A);
-            long-press: hold F1 key (KEY_F1)
+- Button3 = long-press: hold F1 key (KEY_F1)
 - Button4 = hold enter key (KEY_ENTER)
 - Button5 = load next slot
 

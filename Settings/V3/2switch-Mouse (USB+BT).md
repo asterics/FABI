@@ -14,10 +14,10 @@ For double/right mouse clicks, a click selection tool (e.g. click2speak) can be 
 ### USB-Mode (slots 1-4, color: green):
 - Button1 = move mouse cursor right/down/left/up
 - Button2 = short-press: change mouse direction; 
-            long-press: switch to BT-Mode
+- Button2 = long-press: switch to BT-Mode
 
 ### BT-Mode (slots 5-8, color: blue):
 - Button1 = move mouse cursor right/down/left/up
 - Button2 = short-press: change mouse direction; 
-            long-press: switch to USB-Mode
+- Button2 = long-press: switch to USB-Mode
 
