@@ -6,11 +6,14 @@ It allows mouse pointer control via USB.
 ## Function assignment
 
 ### Mouse (slot1, color: blue):
-- Button1 = short-press: move mouse pointer up; long-press: move mouse pointer down
-- Button2 = short-press: move mouse pointer left; long-press: move mouse pointer right
+- Button1 = short-press: move mouse pointer up; 
+            long-press: move mouse pointer down
+- Button2 = short-press: move mouse pointer left; 
+            long-press: move mouse pointer right
 - Button3 = hold left mouse button
 - Button4 = hold right mouse button
-- Button5 = short-press: scroll mouse wheel up; long-press: scroll mouse wheel down
+- Button5 = short-press: scroll mouse wheel up; 
+            long-press: scroll mouse wheel down
 
 
 In order to perform right or double clicks, a click selection tool (e.g. click2speak) might be used.

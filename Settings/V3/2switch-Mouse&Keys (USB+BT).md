@@ -12,10 +12,12 @@ holding Button2 for > 1 second changes the mode.
 
 ### USB-Mode (slots 1-4, color: green):
 - Button1 = move mouse cursor right/down/left/up
-- Button2 = short-press: change mouse direction; long-press: switch to BT-Mode
+- Button2 = short-press: change mouse direction; 
+            long-press: switch to BT-Mode
 - Button3 = hold left mouse button
 - Button4 = hold right mouse button
-- Button5 = short-press: mouse wheel up; long-press: mouse wheel down
+- Button5 = short-press: mouse wheel up; 
+            long-press: mouse wheel down
 
 Buttons 3-5 are optional.
 A left click is performed automatically after 2 seconds of inactivity (dwell clicking).
@@ -23,8 +25,10 @@ A left click is performed automatically after 2 seconds of inactivity (dwell cli
 
 
 ### BT-Mode (slot 5, color: blue):
-- Button1 = short-press: hold SPACE key; long-press: hold ENTER key
-- Button2 = short-press: hold CURSOR-UP key; long-press: switch to USB-Mode
+- Button1 = short-press: hold SPACE key; 
+            long-press: hold ENTER key
+- Button2 = short-press: hold CURSOR-UP key; 
+            long-press: switch to USB-Mode
 - Button3 = hold CURSOR-DOWN key
 - Button4 = hold CURSOR-LEFT key
 - Button5 = hold CURSOR-RIGHT key
