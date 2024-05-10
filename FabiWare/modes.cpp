@@ -21,6 +21,9 @@
 #include "gpio.h"
 #include "tone.h"
 #include "utils.h"
+#include "keys.h"
+//#include "commands.h"
+#include "display.h"
 
 /**
    static variables for mode handling
@@ -44,7 +47,6 @@ void handleUserInteraction() {
   static uint8_t puffCount = 0, sipCount = 0;
   uint8_t isHandled = 0;
   int strongDirThreshold;
-  int longPressButtonThreshold;
 
   // check sip/puff activities
   if (sensorData.pressure > previousPressure)
@@ -58,7 +60,6 @@ void handleUserInteraction() {
   previousPressure = sensorData.pressure;
 
   strongDirThreshold = STRONGMODE_MOUSE_JOYSTICK_THRESHOLD;
-  longPressButtonThreshold = LONG_PRESS_BUTTON_THRESHOLD;
 
   // handle strong sip and puff actions
   switch (strongSipPuffState) {
@@ -222,16 +223,47 @@ void handleUserInteraction() {
     }
   }
 
+
+
   // check physical buttons 1-5 (only if not handled by any special sip/puff state)
   if (strongSipPuffState == STRONG_MODE_IDLE) {
     uint16_t thresholdForLongPress = slotSettings.lp;
     uint16_t thresholdDoublePress = slotSettings.dp;
     static unsigned long buttonPressStartTime[NUMBER_OF_PHYSICAL_BUTTONS] = { 0 };  // Stores the start time of button presses. So that it can distinguish between the first time a button has been pressed.
+    static unsigned long buttonLastPressTime[NUMBER_OF_PHYSICAL_BUTTONS] = { 0 };
 
     for (int i = 0; i < NUMBER_OF_PHYSICAL_BUTTONS; i++) {  // update button press / release events
 
+
+      /** Double press start. **/
+      if (digitalRead(input_map[i]) == HIGH) {  // Button has been released.
+
+        if (buttonLastPressTime[i] == 0) {  // First button press.
+          buttonLastPressTime[i] = millis();
+        }
+
+      } else {                                                              // Button is being pressed.
+        if (buttonLastPressTime[i] != 0) {                                  // Button has previously been pressed.
+          if (millis() - buttonLastPressTime[i] <= thresholdDoublePress) {  // Double press.
+
+            release_all();
+            /*  if (!readFromEEPROM("")) { // TODO: Needs to be properly imported from commands.cpp.
+            //Serial.println(ERRORMESSAGE_NOT_FOUND);
+              } */
+            displayUpdate();
+            setKeyboardLayout(slotSettings.kbdLayout);
+            // TODO: Next slot is supposed to be loaded at this point. Does not work yet.
+          }
+          buttonLastPressTime[i] = 0;  // Reset for next button press.
+        }
+      }
+      /** Double press end. **/
+
+
+      /** Long press start. **/
       if (buttons[LONG_PRESS_BUTTON_1 + i].mode == CMD_NC) {  // Makes sure that that specific button does not have a command (KEY_SPACE) in place.
         handleButton(i, !digitalRead(input_map[i]));          // Short press.
+
       } else {
         if (digitalRead(input_map[i]) == LOW) {  // Button has been pressed.
           buttonStates |= (1 << i);              // Which state is used can be seen using the command AT SR (with Serial Monitor). Also visualises it in the WebGUI.
@@ -256,14 +288,7 @@ void handleUserInteraction() {
           buttonPressStartTime[i] = 0;               // Reset start time.
         }
       }
+      /** Long press end. **/
     }
-    // Double press stuff.
-    /*  for (int i = 0; i < NUMBER_OF_PHYSICAL_BUTTONS; i++)
-    { // Created a different one because it avoids errors.
-      if (input == doubleClick)
-      {
-        
-      }
-    }*/
   }
 }

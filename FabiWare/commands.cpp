@@ -249,13 +249,6 @@ void performCommand (uint8_t cmd, int16_t par1, char * keystring, int8_t periodi
 
     case CMD_DP: 
       slotSettings.dp = par1;
-     /* mousePress(MOUSE_LEFT);
-      delay(DEFAULT_CLICK_TIME);
-      mouseRelease(MOUSE_LEFT);
-      delay(DEFAULT_CLICK_TIME);
-      mousePress(MOUSE_LEFT);
-      delay(DEFAULT_CLICK_TIME);
-      mouseRelease(MOUSE_LEFT);*/
       break;
       
     case CMD_RA:

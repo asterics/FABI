@@ -66,7 +66,7 @@ const struct SlotSettings defaultSlotSettings = {
   0x0000FF,     // default slot color: blue
   "en_US",      // en_US as default keyboard layout.
   500,          // Threshold for long button press.
-  500,          // Threshold/time for double press for slot change.
+  200,          // Threshold/time for double press for slot change.
 };
 
 
