@@ -246,13 +246,7 @@ void handleUserInteraction() {
         if (buttonLastPressTime[i] != 0) {                                  // Button has previously been pressed.
           if (millis() - buttonLastPressTime[i] <= thresholdDoublePress) {  // Double press.
 
-            release_all();
-            /*  if (!readFromEEPROM("")) { // TODO: Needs to be properly imported from commands.cpp.
-            //Serial.println(ERRORMESSAGE_NOT_FOUND);
-              } */
-            displayUpdate();
-            setKeyboardLayout(slotSettings.kbdLayout);
-            // TODO: Next slot is supposed to be loaded at this point. Does not work yet.
+            performCommand(CMD_NE, 0, 0, 0);  // Activates next slot. 
           }
           buttonLastPressTime[i] = 0;  // Reset for next button press.
         }
