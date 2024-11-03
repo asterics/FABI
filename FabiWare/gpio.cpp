@@ -14,7 +14,13 @@
 #include "FlipWare.h"
 #include "gpio.h"
 
-int8_t  input_map[NUMBER_OF_PHYSICAL_BUTTONS] = {11,9,8,4,3};      //  NOTE: changed for RP2040!
+#ifdef FABI
+  int8_t  input_map[NUMBER_OF_PHYSICAL_BUTTONS] = {11,9,8,4,3};
+#endif
+
+#ifdef FLIPMOUSE
+  int8_t  input_map[NUMBER_OF_PHYSICAL_BUTTONS] = {17, 28, 20};
+#endif
 
 uint8_t blinkCount = 0;
 uint8_t blinkTime = 0;

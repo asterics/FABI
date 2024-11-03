@@ -42,15 +42,32 @@ void handleUserInteraction()
   static int checkPairing = 0;
   static uint8_t puffState = SIP_PUFF_STATE_IDLE, sipState = SIP_PUFF_STATE_IDLE;
   static uint8_t puffCount = 0, sipCount = 0;
-  uint8_t isHandled = 0;
   int strongDirThreshold;
+
+  // check physical buttons
+  for (int i = 0; i < NUMBER_OF_PHYSICAL_BUTTONS; i++) // update button press / release events
+  handleButton(i, digitalRead(input_map[i]) == LOW ? 1 : 0);
+
+  #ifdef FLIPMOUSE
+    // check "long-press" of internal button unpairing all BT hosts
+    if (digitalRead(input_map[0]) == LOW) {
+      checkPairing++;
+      if (checkPairing == 800) {   // approx 4 sec.
+        makeTone(TONE_BT_PAIRING, 0);
+        unpairAllBT();
+        checkPairing = 0;
+      }
+    } else checkPairing = 0;
+  #endif  
 
   // check sip/puff activities
   if (sensorData.pressure > previousPressure) pressureRising = 1; else pressureRising = 0;
   if (sensorData.pressure < previousPressure) pressureFalling = 1; else pressureFalling = 0;
   previousPressure = sensorData.pressure;
 
-  strongDirThreshold = STRONGMODE_MOUSE_JOYSTICK_THRESHOLD;
+  if (slotSettings.stickMode == STICKMODE_ALTERNATIVE)
+    strongDirThreshold = 0;
+  else strongDirThreshold = STRONGMODE_MOUSE_JOYSTICK_THRESHOLD;
 
   // handle strong sip and puff actions
   switch (strongSipPuffState)  {
@@ -75,21 +92,31 @@ void handleUserInteraction()
       break;
 
     case STRONG_MODE_STRONGPUFF_ACTIVE:    // strong puff mode active
-      isHandled = 0;
-      //check if strong-puff + button 2/3/4/5 pressed
-      ///@note if changing, check for indices of STRONGPUFF_x_BUTTON, i & input map!
-      for(uint8_t i = 1; i<=4; i++) {
-        if(digitalRead(input_map[i]) == LOW) {
-          makeTone(TONE_EXIT_STRONGPUFF, 0 );
-          handlePress(STRONGPUFF_2_BUTTON + i - 1);
-          handleRelease(STRONGPUFF_2_BUTTON + i - 1);
-          strongSipPuffState = STRONG_MODE_RETURN_TO_IDLE;
-          waitStable = 0;
-          isHandled = 1;
-          break;
-        }
+      if (sensorData.y < -strongDirThreshold) {
+        makeTone(TONE_EXIT_STRONGPUFF, 0 );
+        handlePress(STRONGPUFF_UP_BUTTON); handleRelease(STRONGPUFF_UP_BUTTON);
+        strongSipPuffState = STRONG_MODE_RETURN_TO_IDLE;
+        waitStable = 0;
       }
-      if(!isHandled) {
+      else if (sensorData.x < -strongDirThreshold) {
+        makeTone(TONE_EXIT_STRONGPUFF, 0 );
+        handlePress(STRONGPUFF_LEFT_BUTTON); handleRelease(STRONGPUFF_LEFT_BUTTON);
+        strongSipPuffState = STRONG_MODE_RETURN_TO_IDLE;
+        waitStable = 0;
+      }
+      else if (sensorData.x > strongDirThreshold) {
+        makeTone(TONE_EXIT_STRONGPUFF, 0 );
+        handlePress(STRONGPUFF_RIGHT_BUTTON); handleRelease(STRONGPUFF_RIGHT_BUTTON);
+        strongSipPuffState = STRONG_MODE_RETURN_TO_IDLE;
+        waitStable = 0;
+      }
+      else if (sensorData.y > strongDirThreshold) {
+        makeTone(TONE_EXIT_STRONGPUFF, 0 );
+        handlePress(STRONGPUFF_DOWN_BUTTON); handleRelease(STRONGPUFF_DOWN_BUTTON);
+        strongSipPuffState = STRONG_MODE_RETURN_TO_IDLE;
+        waitStable = 0;
+      }
+      else {
         waitStable++;
         if (waitStable > STRONGMODE_EXIT_TIME) { // no stick movement occurred: perform strong puff action
           waitStable = 0;
@@ -109,29 +136,39 @@ void handleUserInteraction()
       break;
 
     case STRONG_MODE_STRONGSIP_ACTIVE:   // strong sip mode active
-      isHandled = 0;
-      //check if strong-sip + button 2/3/4/5 pressed
-      ///@note if changing, check for indices of STRONGSIP_x_BUTTON, i & input map!
-      for(uint8_t i = 1; i<=4; i++) {
-        if(digitalRead(input_map[i]) == LOW) {
-          makeTone(TONE_EXIT_STRONGSIP, 0 );
-          handlePress(STRONGSIP_2_BUTTON + i - 1);
-          handleRelease(STRONGSIP_2_BUTTON + i - 1);
-          strongSipPuffState = STRONG_MODE_RETURN_TO_IDLE;
-          waitStable = 0;
-          isHandled = 1;
-          break;
-        }
+      if (sensorData.y < -strongDirThreshold) {
+        makeTone(TONE_EXIT_STRONGSIP, 0 );
+        handlePress(STRONGSIP_UP_BUTTON); handleRelease(STRONGSIP_UP_BUTTON);
+        strongSipPuffState = STRONG_MODE_RETURN_TO_IDLE;
+        waitStable = 0;
       }
-      if(!isHandled) {
+      else if (sensorData.x < -strongDirThreshold) {
+        makeTone(TONE_EXIT_STRONGSIP, 0 );
+        handlePress(STRONGSIP_LEFT_BUTTON); handleRelease(STRONGSIP_LEFT_BUTTON);
+        strongSipPuffState = STRONG_MODE_RETURN_TO_IDLE;
+        waitStable = 0;
+      }
+      else if (sensorData.x > strongDirThreshold) {
+        makeTone(TONE_EXIT_STRONGSIP, 0 );
+        handlePress(STRONGSIP_RIGHT_BUTTON); handleRelease(STRONGSIP_RIGHT_BUTTON);
+        strongSipPuffState = STRONG_MODE_RETURN_TO_IDLE;
+        waitStable = 0;
+      }
+      else if (sensorData.y > strongDirThreshold) {
+        makeTone(TONE_EXIT_STRONGSIP, 0 );
+        handlePress(STRONGSIP_DOWN_BUTTON); handleRelease(STRONGSIP_DOWN_BUTTON);
+        strongSipPuffState = STRONG_MODE_RETURN_TO_IDLE;
+        waitStable = 0;
+      }
+      else {
         waitStable++;
-        if (waitStable > STRONGMODE_EXIT_TIME) { // no stick movement occurred: perform strong puff action
+        if (waitStable > STRONGMODE_EXIT_TIME) {  // no stick movement occurred: perform strong sip action
           waitStable = 0;
           handlePress(STRONGSIP_BUTTON);
           handleRelease(STRONGSIP_BUTTON);
           strongSipPuffState = STRONG_MODE_RETURN_TO_IDLE;
         }
-      }    
+      }
       break;
 
     case STRONG_MODE_RETURN_TO_IDLE:
@@ -209,12 +246,137 @@ void handleUserInteraction()
           sipState = 0;
         }
     }
+
+    // now handle stick movements!
+    handleMovement();
   }
-  
-  // check physical buttons 1-5 (only if not handled by any special sip/puff state)
-  if(strongSipPuffState == STRONG_MODE_IDLE) {
-    for (int i = 0; i < NUMBER_OF_PHYSICAL_BUTTONS; i++) { // update button press / release events
-      handleButton(i, digitalRead(input_map[i]) == LOW ? 1 : 0);
+}
+
+/**
+   @name getAccelFactor
+   @brief calculates acceleration for mouse pointer movements 
+          according to sensordata and acceleration settings 
+   @return float value of current acceleration factor
+*/
+float getAccelFactor() {
+  static float accelFactor=0;
+  static int xo = 0, yo = 0;
+  static float accelMaxForce = 0, lastAngle = 0;
+
+  if (sensorData.force == 0) {
+    accelFactor = 0;
+    accelMaxForce = 0;
+    lastAngle = 0;
+  }
+  else {
+    if (sensorData.force > accelMaxForce) accelMaxForce = sensorData.force;
+    if (sensorData.force > accelMaxForce * 0.8f) {
+      if (accelFactor < 1.0f)
+        accelFactor += ((float)slotSettings.ac / 5000000.0f);
     }
+    else if (accelMaxForce > 0) accelMaxForce *= 0.99f;
+
+    if (sensorData.force < accelMaxForce * 0.6f)  accelFactor *= 0.995f;
+    if (sensorData.force < accelMaxForce * 0.4f)  accelFactor *= 0.99f;
+
+    float dampingFactor = fabsf(sensorData.x - xo) + fabsf(sensorData.y - yo);
+    accelFactor *= (1.0f - dampingFactor / 1000.0f);
+    lastAngle = sensorData.angle;
+    xo = sensorData.x; yo = sensorData.y;
+  }
+  (void)lastAngle; //avoid compiler warnings on unused variable. TODO: necessary value?
+  return(accelFactor);
+}
+
+/**
+   @name acceleratedMouseMove
+   @brief performs accelerated mouse pointer movement
+   @param accelFactor current acceleration factor
+   @return none
+*/
+void acceleratedMouseMove(float accelFactor) {
+  static float accumXpos = 0;
+  static float accumYpos = 0;
+
+  float moveValX = sensorData.x * (float)slotSettings.ax * accelFactor;
+  float moveValY = sensorData.y * (float)slotSettings.ay * accelFactor;
+  float actSpeed =  __ieee754_sqrtf (moveValX * moveValX + moveValY * moveValY);
+  float max_speed = (float)slotSettings.ms / 3.0f;
+
+  if (actSpeed > max_speed) {
+    moveValX *= (max_speed / actSpeed);
+    moveValY *= (max_speed / actSpeed);
+    accelFactor *= 0.98f;
+  }
+
+  accumXpos += moveValX;
+  accumYpos += moveValY;
+
+  int xMove = (int)accumXpos;
+  int yMove = (int)accumYpos;
+  
+  if ((xMove != 0) || (yMove != 0)) {
+    mouseMove(xMove, yMove);
+  }
+
+  accumXpos -= xMove;
+  accumYpos -= yMove;
+}
+
+/**
+   @name scaleJoystickAxis
+   @brief scales/crops coordinate values to joystick coordinates (0-1023, centered around 512)
+   @param val x/y coordinate value to be scaled
+   @return integer value for joystick coordinate
+*/
+int scaleJoystickAxis (float val) {
+  int axis = 512 + (int) (val / 50);
+  if (axis < 0) axis = 0; 
+  else if (axis > 1023) axis = 1023;
+  return (axis);
+}
+
+/**
+   @name handleMovement
+   @brief performs an action or movement according to the current sensorData and mode of operation
+   @return none
+*/
+void handleMovement() 
+{
+  //static int upState=0,downState=0,leftState=0,rightState=0;
+  
+  if ((sensorData.autoMoveX != 0) || (sensorData.autoMoveY != 0)) // handle movement induced by button actions
+  {
+    if (mouseMoveCount++ % 4 == 0)
+      mouseMove(sensorData.autoMoveX, sensorData.autoMoveY);
+  }
+
+  switch (slotSettings.stickMode) {  
+
+    case STICKMODE_MOUSE:   // handle mouse stick mode
+      acceleratedMouseMove(getAccelFactor());
+      break; 
+     
+    case STICKMODE_ALTERNATIVE:  // handle alternative actions stick mode
+      handleButton(UP_BUTTON,  sensorData.y < 0 ? 1 : 0);
+      handleButton(DOWN_BUTTON,  sensorData.y > 0 ? 1 : 0);
+      handleButton(LEFT_BUTTON,  sensorData.x < 0 ? 1 : 0);
+      handleButton(RIGHT_BUTTON,  sensorData.x > 0 ? 1 : 0);
+      break;
+      
+    case STICKMODE_JOYSTICK_XY:
+      joystickAxis(scaleJoystickAxis((float)sensorData.x * slotSettings.ax), \
+        scaleJoystickAxis((float)sensorData.y * slotSettings.ay),0);
+      break;
+
+    case STICKMODE_JOYSTICK_ZR:
+      joystickAxis(scaleJoystickAxis((float)sensorData.x * slotSettings.ax), \
+        scaleJoystickAxis((float)sensorData.y * slotSettings.ay),1);
+      break;
+
+    case STICKMODE_JOYSTICK_SLIDERS:
+      joystickAxis(scaleJoystickAxis((float)sensorData.x * slotSettings.ax), \
+        scaleJoystickAxis((float)sensorData.y * slotSettings.ay),2);
+      break;
   }
 }

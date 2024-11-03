@@ -26,8 +26,6 @@ volatile int idlesequenceCounter;  // bumber of gaps which should be inserted be
 volatile uint16_t edges;           // number of edges for current code
 volatile uint16_t act_edge;        // current edge
 
-
-//RP2040:
 alarm_id_t ir_alarm_id = -1; //alarm id for replaying
 alarm_pool_t *ir_alarm_pool = nullptr; //alarm pool for replaying
 // Keep std::map safe for multicore use

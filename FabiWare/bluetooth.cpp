@@ -14,6 +14,8 @@
 	http://www.gnu.org/licenses/gpl-3.0.en.html
 */
 
+//TBD: include Fliümouse version of this module
+
 #include "bluetooth.h"
 #include <BTstackLib.h>
 //necessary to include keyboard / keyboardlayout.h to have access to the key definitions

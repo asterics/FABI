@@ -35,16 +35,20 @@ SSD1306AsciiWire *oled;    // pointer to the display driver class
 */
 uint8_t displayInit (uint8_t useWire1) {
   if (useWire1) {
+  #ifdef FABI
     Wire1.setSDA(PIN_WIRE1_SDA_);
     Wire1.setSCL(PIN_WIRE1_SCL_);
     Wire1.begin();
+  #endif
     Wire1.beginTransmission(SCREEN_ADDRESS);  
     if (Wire1.endTransmission()) return (false);
     oled = new SSD1306AsciiWire(Wire1);
   } else {
+  #ifdef FABI
     Wire.setSDA(PIN_WIRE0_SDA_);
     Wire.setSCL(PIN_WIRE0_SCL_);
     Wire.begin();
+  #endif
     Wire.beginTransmission(SCREEN_ADDRESS);  
     if (Wire.endTransmission()) return (false);
     oled = new SSD1306AsciiWire(Wire);
@@ -70,6 +74,10 @@ uint8_t displayInit (uint8_t useWire1) {
 */
 void displayClear(void) {
   oled->clear();
+  if (slotSettings.ro>90)
+    oled->displayRemap(true);
+  else oled->displayRemap(false);
+  oled->setInvertMode(false);
 }
 
 
@@ -103,6 +111,18 @@ void displayUpdate(void) {
   oled->print(slotSettings.slotName);  
 
   oled->set1X();
+
+  // display modes for FLipPad
+  #ifndef FABI
+  oled->setCursor(100,0);
+  switch (slotSettings.stickMode) {
+    case 0:
+    case 1: oled->print("Stk"); break;
+    case 2:
+    case 3:
+    case 4: oled->print("Joy"); break;
+  }
+  #endif  
 
   oled->setCursor(100,3);
   switch (slotSettings.bt) {

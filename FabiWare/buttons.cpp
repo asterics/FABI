@@ -109,11 +109,23 @@ void initButtons() {
     buttons[i].mode = CMD_NC;  // no command
   }
   
-  buttons[0].mode = CMD_KP; setButtonKeystring(0, "KEY_SPACE ");
-  buttons[1].mode = CMD_KP; setButtonKeystring(1, "KEY_ENTER ");
-  buttons[2].mode = CMD_CL;
-  buttons[3].mode = CMD_KP; setButtonKeystring(3, "KEY_LEFT "); 
-  buttons[4].mode = CMD_KP; setButtonKeystring(4, "KEY_RIGHT ");
+  #ifdef FLIPMOUSE
+    buttons[0].mode = CMD_KP; setButtonKeystring(0, "KEY_SPACE ");
+    buttons[1].mode = CMD_KP; setButtonKeystring(1, "KEY_ENTER ");
+    buttons[2].mode = CMD_CL;
+    buttons[3].mode = CMD_KP; setButtonKeystring(3, "KEY_LEFT "); 
+    buttons[4].mode = CMD_KP; setButtonKeystring(4, "KEY_RIGHT ");
+  #endif
+  #ifdef FLIPMOUSE
+    buttons[0].mode = CMD_NE; // button1: switch to next slot
+    buttons[3].mode = CMD_KP; setButtonKeystring(3, "KEY_UP ");
+    buttons[4].mode = CMD_KP; setButtonKeystring(4, "KEY_DOWN ");
+    buttons[5].mode = CMD_KP; setButtonKeystring(5, "KEY_LEFT "); 
+    buttons[6].mode = CMD_KP; setButtonKeystring(6, "KEY_RIGHT ");
+    buttons[7].mode = CMD_HL; // sip: hold left mouse button
+    buttons[9].mode = CMD_CR; // puff: click right
+    buttons[10].mode = CMD_CA; // strong puff: calibrate
+  #endif
 }
 
 
@@ -140,6 +152,8 @@ void handleRelease (int buttonIndex)    // a button was released: deal with "sti
       mouseRelease(MOUSE_MIDDLE);
       break;
     case CMD_JP: joystickButton(buttons[buttonIndex].value, 0); break;
+    case CMD_MX: sensorData.autoMoveX = 0; break;
+    case CMD_MY: sensorData.autoMoveY = 0; break;
     case CMD_KH: releaseKeys(buttonKeystrings[buttonIndex]); break;
     case CMD_IH:
       stop_IR_command();

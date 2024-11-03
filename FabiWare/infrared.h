@@ -18,7 +18,13 @@
    physical pin definitions
 */
 //RP2040:
-#define IR_LED_PIN     14    //  IR-Led output pin      // NOTE: changed for RP2040 ? 28 and 26 are ADC pins ...
+#ifdef FABI
+  #define IR_LED_PIN     14    //  IR-Led output pin for FABI
+#endif
+#ifdef FLIPMOUSE
+  #define IR_LED_PIN     19    //  IR-Led output pin for FlipMouse
+#endif
+
 #define IR_SENSOR_PIN  16    //  input pin of the TSOP IR receiver
 
 // Time until the record command will be canceled (in milliseconds)

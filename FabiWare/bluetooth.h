@@ -14,6 +14,7 @@
 	http://www.gnu.org/licenses/gpl-3.0.en.html
 */
 
+//TBD: include Flipmouse version of this module
 
 #ifndef _BLUETOOTH_H_
 #define _BLUETOOTH_H_

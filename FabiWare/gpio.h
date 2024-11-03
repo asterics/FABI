@@ -18,12 +18,19 @@
 /**
    constant definitions
 */
-#define NUMBER_OF_PHYSICAL_BUTTONS 5 // number of physical switches
-#define NEOPIXEL_PIN 10
-#define PIN_WIRE0_SDA_ 12
-#define PIN_WIRE0_SCL_ 13
-#define PIN_WIRE1_SDA_ 26
-#define PIN_WIRE1_SCL_ 27
+#ifdef FABI
+  #define NUMBER_OF_PHYSICAL_BUTTONS 5 // number of physical switches for FABI
+  #define NEOPIXEL_PIN 10
+  #define PIN_WIRE0_SDA_ 12
+  #define PIN_WIRE0_SCL_ 13
+  #define PIN_WIRE1_SDA_ 26
+  #define PIN_WIRE1_SCL_ 27
+#endif
+#ifdef FLIPMOUSE
+  #define NUMBER_OF_PHYSICAL_BUTTONS 3  // number of physical switches for FlipMouse
+  #define NEOPIXEL_PIN 15
+#endif
+
 
 /**
    extern declaration of static variables

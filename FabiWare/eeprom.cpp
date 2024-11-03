@@ -473,15 +473,15 @@ void initStorage()
       f.println(VERSION_STRING);
       f.close();
     }
-    saveToEEPROMSlotNumber(0, "keys");   // save default slotSettings to first slot
+    saveToEEPROMSlotNumber(0, "slot1");   // save default slotSettings to first slot
     
     //create IR folder
     LittleFS.mkdir("/ir");
   }
   
-  //if no slot is found, save current startup settings to "mouse"
+  //if no slot is found, save current startup settings to "slot1"
   if(getLastSlotIndex() < 0) {
-    saveToEEPROMSlotNumber(0, "keys");
+    saveToEEPROMSlotNumber(0, "slot1");
   }
 }
 

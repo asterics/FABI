@@ -54,6 +54,21 @@ void printCurrentSlot(Stream *S)
 {
   char tmp[10];
   S->println(slotSettings.slotName);
+  #ifdef FLIPMOUSE
+    S->print("AT AX "); S->println(slotSettings.ax);
+    S->print("AT AY "); S->println(slotSettings.ay);
+    S->print("AT DX "); S->println(slotSettings.dx);
+    S->print("AT DY "); S->println(slotSettings.dy);
+    S->print("AT MS "); S->println(slotSettings.ms);
+    S->print("AT AC "); S->println(slotSettings.ac);
+    S->print("AT MM "); S->println(slotSettings.stickMode);
+    S->print("AT GV "); S->println(slotSettings.gv);
+    S->print("AT RV "); S->println(slotSettings.rv);
+    S->print("AT GH "); S->println(slotSettings.gh);
+    S->print("AT RH "); S->println(slotSettings.rh);
+    S->print("AT RO "); S->println(slotSettings.ro);
+    S->print("AT SB "); S->println(slotSettings.sb);
+  #endif  
   //IR timeout only if not default value
   if(get_IR_timeout() != IR_EDGE_TIMEOUT_US) {
     S->print("AT IT "); S->println(get_IR_timeout());
@@ -102,7 +117,14 @@ void reportValues()
   if (!reportRawValues)   return;
 
   if (valueReportCount++ > 50/UPDATE_INTERVAL) {      // report raw values approx. every 50ms !
+    int32_t u=sensorData.yRaw+512; int32_t d=512-sensorData.yRaw;   // just for GUI compatibility with V2 (bar displays up/down)
+    int32_t l=sensorData.xRaw+512; int32_t r=512-sensorData.xRaw;   // just for GUI compatibility with V2 (bar displays left/right)
     Serial.print("VALUES:"); Serial.print(sensorData.pressure); Serial.print(",");
+    #ifdef FLIPMOUSE
+    Serial.print(u); Serial.print(","); Serial.print(d); Serial.print(",");
+    Serial.print(l); Serial.print(","); Serial.print(r); Serial.print(",");
+    Serial.print(sensorData.xRaw); Serial.print(","); Serial.print(sensorData.yRaw); Serial.print(",");
+    #endif
     for (uint8_t i = 0; i < NUMBER_OF_BUTTONS; i++)
     {
       if (buttonStates & (1 << i)) Serial.print("1");
@@ -111,6 +133,14 @@ void reportValues()
     Serial.print(",");
     Serial.print(actSlot);
     Serial.println("");
+    //  TBD:remove?
+    #ifdef FLIPMOUSE
+    Serial.print(",");
+    Serial.print(sensorData.xDriftComp);
+    Serial.print(",");
+    Serial.print(sensorData.yDriftComp);
+    Serial.println("");
+    #endif    
     valueReportCount = 0;
   }
 }
