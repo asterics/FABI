@@ -73,14 +73,13 @@ void initSensors()
 
     // set signal processing parameters for sip/puff (MPRLS pressure sensor)
     PS.setGain(1.0);  // adjust gain for pressure sensor
-    PS.enableOvershootCompensation(false);
     PS.setSampleRate(MPRLS_SAMPLINGRATE);
     PS.setMovementThreshold(5000);
     PS.setBaselineLowpass(0.4);
     PS.setNoiseLowpass(10.0);
 
     // PS.setStartupTime(2000);
-    PS.enableAutoCalibration(true);
+    PS.setAutoCalibrationMode(AUTOCALIBRATION_RESET_BASELINE);
     PS.setActivityLowpass(1);
     PS.setIdleDetectionPeriod(500);
     PS.setIdleDetectionThreshold(500);
