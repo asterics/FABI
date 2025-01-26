@@ -15,6 +15,7 @@
 
 #include "FlipWare.h"        // we need the SensorData and SlotSettings structure definitions
 #include "Wire.h"            // MPRLS pressure sensor and NAU7802 sensor use I2C
+#include <hardware/adc.h>    // for directly reading the internal ADC
 #include <LoadcellSensor.h>  // for signal conditioning
 #include <Adafruit_NAU7802.h>  //NAU7802 library (Benjamin Aigner's fork with channel change feature)
 
@@ -34,14 +35,17 @@
 #define DPS_SCALEFACTOR  -20            // scale factor for aligning DPS with MPRLS raw values
 #define DPS_DIVIDER  3                  // divider for the DPS310 values
 #define DPS_SPIKE_DETECTION_THRESHOLD 150  // distance from median value which classifies a spike
-#define DPS_MEDIAN_VALUES 5                 // number of values used for median-based spike filter (for MPRLS sensor)
+#define DPS_MEDIAN_VALUES 5                // number of values used for median-based spike filter (for MPRLS sensor)
 
 /**** NAU7802 related signal shaping parameters */
 #define NAU_DIVIDER 120                 // divider for the NAU raw values
 
 /**** general sensor related settings */
 #define SENSOR_WATCHDOG_TIMEOUT 3000    // watchdog reset time (no NAU sensor data for x millsec. resets device)
-#define PRESSURE_SAMPLINGRATE   100        // sampling frequency of pressure sensor (MPRLS or DPS)
+#define PRESSURE_SAMPLINGRATE   100     // sampling frequency of pressure sensor (MPRLS or DPS)
+
+/**** detection threshold for floating ADC pin */
+#define PINFLOAT_DIFFERENCE_THRESHOLD 500
 
 
 /**
@@ -53,10 +57,10 @@ extern pressure_type_t sensor_pressure;
 
 
 /**
-   @brief Used force sensor type. We can use the FSR sensors or possibly
-   in a future version the resistor gauge sensors.
+   @brief Used force sensor type. We can use the Sensorboard (NAU7802 with Strain gauge or resistive sensors)
+   or the internal ADC (ADC0 and ADC1).
 */
-typedef enum {NAU7802, NO_FORCE} force_type_t;
+typedef enum {INTERNAL_ADC, NAU7802, NO_FORCE} force_type_t;
 extern force_type_t sensor_force;
 
 
@@ -162,6 +166,15 @@ void getNAUValues(int32_t * actX, int32_t * actY);
    @return median value
 */
 int calculateMedian(int value);
+
+
+/**
+   @name isAnalogPinFloating
+   @brief performs a check if an ADC pin is floating or a sensor is connected
+   @return true if the ADC pin is floating, false otherwise
+*/
+int isAnalogPinFloating (int pin);
+
 
 
 #endif /* _SENSORS_H_ */

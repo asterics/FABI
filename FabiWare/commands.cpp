@@ -124,6 +124,8 @@ void performCommand (uint8_t cmd, int16_t par1, char * keystring, int8_t periodi
       switch (sensor_force) {
         case NO_FORCE: Serial.print("None"); break;
         case NAU7802: Serial.print("NAU7802"); break;
+        case INTERNAL_ADC: Serial.print("InternalADC"); break;
+
       }
       //Serial.print(", Sensorboard=");
       //if (slotsettings.sb<SENSORBOARD_SMD_HIGH) Serial.print("StrainGauge"); 

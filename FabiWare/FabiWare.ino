@@ -11,7 +11,7 @@
         For a description of the supported commands see: commands.h
 
         HW-requirements:
-                  Raspberry Pi PicoW
+                  Raspberry Pi Pico2W
                   (optional) I2C pressure sensor (MPRLS or DPS310)
                   up to 5 external switches connected to GPIO pins
                   Neopixel LED
@@ -250,17 +250,12 @@ void setup1() {
 void loop1() {
   static uint32_t lastPressure_ts=0;
 
-  #ifdef FLIPMOUSE  
-    // check if there is a message from the other core (sensorboard change, profile ID)
-    if (rp2040.fifo.available()) {
-        setSensorBoard(rp2040.fifo.pop());  
-    }
+  // check if there is a message from the other core (sensorboard change, profile ID)
+  if (rp2040.fifo.available()) {
+      setSensorBoard(rp2040.fifo.pop());  
+  }
   
-    // if the Data Ready Pin of NAU chip signals new data: get force sensor values
-    if (digitalRead(DRDY_PIN) == HIGH)  { 
-      readForce(&sensorValues);    
-    }
-  #endif
+  readForce(&sensorValues);    
 
   // if desired sampling period for MPRLS pressure sensor passed: get pressure sensor value
   if (millis()-lastPressure_ts >= 1000/PRESSURE_SAMPLINGRATE) {
