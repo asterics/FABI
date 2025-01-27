@@ -12,7 +12,6 @@
 
 #include "sensors.h"
 #include "modes.h"
-#include "utils.h"
 
 Adafruit_NAU7802 nau;
 LoadcellSensor XS, YS;
@@ -42,10 +41,12 @@ uint8_t channel, newData = 0;
 int32_t nau_x = 0, nau_y = 0;
 int32_t pressure_rawval = 512;
 uint8_t reportXValues = 0, reportYValues = 0;
-int16_t calibX=512, calibY=512;  // for internal ADC force sensors
 
-pressure_type_t sensor_pressure;
-force_type_t sensor_force;
+struct CurrentSensorDataCore1 currentSensorDataCore1 {        
+  .xRaw=0, .yRaw=0, .pressure=512, 
+  .calib_now=CALIBRATION_PERIOD,     // calibrate sensors after startup !
+  .calibX=512, .calibY=512
+};
 
 
 /**
@@ -105,9 +106,9 @@ void initSensors()
   digitalWrite(LDO_ENABLE_PIN, HIGH);
   delay(10);
 
-  sensor_pressure = NO_PRESSURE;
+  currentSensorDataCore1.pressureSensorType = PRESSURE_NONE;
   //detect if there is a DPS310 sensor connected to I2C (Wire)
-  Wire1.setClock(400000);  // use 400kHz I2C clock
+
   Wire1.beginTransmission(DPS310_ADDR);
   uint8_t result = Wire1.endTransmission();
   if (result == 0) {
@@ -115,7 +116,7 @@ void initSensors()
     Serial.println("SEN: found DPS310");
   #endif
     // we found the DPS310 sensor, so use it!
-    sensor_pressure = DPS310;
+    currentSensorDataCore1.pressureSensorType = PRESSURE_DPS310;
     configureDPS();
     #ifdef DEBUG_OUTPUT_SENSORS
         Serial.println("SEN: setup DPS310 finished");
@@ -124,24 +125,31 @@ void initSensors()
     #ifdef DEBUG_OUTPUT_SENSORS
         Serial.println("SEN: cannot find DPS310");
     #endif
-  }
   
-  //detect if there is a MPRLS sensor connected to I2C (Wire)
-  Wire1.beginTransmission(MPRLS_ADDR);
-  result = Wire1.endTransmission();
-  if (result == 0) {
-  #ifdef DEBUG_OUTPUT_SENSORS
-    Serial.println("SEN: found MPRLS");
-  #endif
-    // we found the MPRLS sensor, so use it!
-    sensor_pressure = MPRLS;
-  } else {
+    //detect if there is a MPRLS sensor connected to I2C (Wire)
+    Wire1.beginTransmission(MPRLS_ADDR);
+    result = Wire1.endTransmission();
+    if (result == 0) {
     #ifdef DEBUG_OUTPUT_SENSORS
-      Serial.println("SEN: cannot find MPRLS");
+      Serial.println("SEN: found MPRLS");
     #endif
+      // we found the MPRLS sensor, so use it!
+      currentSensorDataCore1.pressureSensorType = PRESSURE_MPRLS;
+    } else {
+      #ifdef DEBUG_OUTPUT_SENSORS
+        Serial.println("SEN: cannot find MPRLS");
+      #endif
+      // check if an analog pressure sensor (e.g. MPX7007) is connected to the internal ADC
+      if (!isAnalogPinFloating(ANALOG_PRESSURE_SENSOR_PIN)) {
+        #ifdef DEBUG_OUTPUT_SENSORS
+          Serial.println("SEN: Pressure sensor connected to internal ADC");
+        #endif
+        currentSensorDataCore1.pressureSensorType = PRESSURE_INTERNAL_ADC;
+      }
+    }
   }
 
-  if (sensor_pressure != NO_PRESSURE) {
+  if (currentSensorDataCore1.pressureSensorType != PRESSURE_NONE) {
     // set signal processing parameters for sip/puff pressure sensor
     PS.setGain(1.0);  // adjust gain for pressure sensor
     PS.setSampleRate(PRESSURE_SAMPLINGRATE);    
@@ -153,15 +161,19 @@ void initSensors()
     PS.setActivityLowpass(1);
     PS.setIdleDetectionPeriod(500);
     PS.setIdleDetectionThreshold(500);
-  }
+  } else {
+  #ifdef DEBUG_OUTPUT_SENSORS
+    Serial.println("SEN: no pressure sensor connected");
+  #endif     
+  } 
 
-  sensor_force = NO_FORCE;
+  currentSensorDataCore1.forceSensorType = FORCE_NONE;
   //NAU7802 init
   if (!nau.begin(&Wire1)) {
     #ifdef DEBUG_OUTPUT_SENSORS
         Serial.println("SEN: Found NAU7802");
     #endif
-    sensor_force = NAU7802;
+    currentSensorDataCore1.forceSensorType = FORCE_NAU7802;
     pinMode (DRDY_PIN, INPUT);
     nau.setChannel(NAU7802_CHANNEL1);
     configureNAU();
@@ -184,11 +196,18 @@ void initSensors()
       Serial.println("SEN: cannot find NAU7802 sensorboard");
     #endif
 
-    if ((!isAnalogPinFloating(A0)) && (!isAnalogPinFloating(A0))) {
+    // check if an analog x/y sensor (e.g. a joystick module) is connected to the internal ADC
+    if ((!isAnalogPinFloating(ANALOG_FORCE_SENSOR_X_PIN)) && (!isAnalogPinFloating(ANALOG_FORCE_SENSOR_Y_PIN))) {
       #ifdef DEBUG_OUTPUT_SENSORS
-        Serial.println("SEN: Sensor connected to internal ADC");
+        Serial.println("SEN: Force sensor connected to internal ADC");
       #endif
-      sensor_force = INTERNAL_ADC;
+      currentSensorDataCore1.forceSensorType = FORCE_INTERNAL_ADC;
+      #ifndef FLIPMOUSE
+        // in case the FABI3 PCB is used, we cannot use internal ADC0 for force and pressure ...
+        if (currentSensorDataCore1.pressureSensorType == PRESSURE_INTERNAL_ADC) { 
+          currentSensorDataCore1.pressureSensorType = PRESSURE_NONE;
+        }
+      #endif
     }
     else {
      #ifdef DEBUG_OUTPUT_SENSORS
@@ -199,27 +218,64 @@ void initSensors()
 }
 
 /**
-   @name calibrateSensors
-   @brief calibrates the offset values for the sensors (pressure & force)
+   @name getForceSensorType
+   @brief returns the type of the available force sensor
+   @return forceSensor_type_t
+*/
+forceSensor_type_t getForceSensorType() {
+  return (currentSensorDataCore1.forceSensorType);
+}
+
+/**
+   @name getPressureSensorType
+   @brief returns the type of the available pressure sensor
+   @return pressureSensor_type_t
+*/
+pressureSensor_type_t getPressureSensorType(){
+  return (currentSensorDataCore1.pressureSensorType);
+}
+
+
+/**
+   @name startSensorCalibration
+   @brief prepares a sensor calibration 
    @return none
 */
-void calibrateSensors()
+void startSensorCalibration() {
+   currentSensorDataCore1.calib_now = CALIBRATION_PERIOD;  
+}
+
+/**
+   @name checkSensorCalibration
+   @brief calibrates the offset values for the sensors (pressure & force) if necessary
+   @return none
+*/
+void checkSensorCalibration()
 {
-  switch (sensor_force) {
-    case INTERNAL_ADC: 
-          calibX = analogRead (A0);
-          calibY = analogRead (A1);
+  // if calibration running: update calibration counter
+  if (!currentSensorDataCore1.calib_now) return;
+  currentSensorDataCore1.calib_now--;  
+  if(currentSensorDataCore1.calib_now != CALIBRATION_PERIOD/2) return;
+
+  // calibrate sensors in the middle of the calibration period
+  switch (currentSensorDataCore1.forceSensorType) {
+    case FORCE_INTERNAL_ADC: 
+          currentSensorDataCore1.calibX = analogRead (ANALOG_FORCE_SENSOR_X_PIN);
+          currentSensorDataCore1.calibY = analogRead (ANALOG_FORCE_SENSOR_Y_PIN);
           break;
 
-    case NAU7802: XS.calib();
-                  YS.calib();
-                  break;   
+    case FORCE_NAU7802:
+          XS.calib();
+          YS.calib();
+          break;   
   }
 
-  switch (sensor_pressure) {
-    case DPS310:
-    case MPRLS: PS.calib();
-                 break;
+  switch (currentSensorDataCore1.pressureSensorType) {
+    case PRESSURE_INTERNAL_ADC: 
+    case PRESSURE_DPS310:
+    case PRESSURE_MPRLS: 
+          PS.calib();
+          break;
   }
 }
 
@@ -237,7 +293,6 @@ int getMPRLSValue(int32_t * newVal) {
   // request status byte
   // myWire.requestFrom(MPRLS_ADDR,1);
   // buffer[0] = myWire.read();
-
 
   //request all 4 bytes
   Wire1.requestFrom(MPRLS_ADDR, 4);
@@ -297,7 +352,7 @@ int getDPSValue(int32_t * newVal) {
           reads NAU data, changes NAU channel and reads MPRLS data
           expected sampling rate ca. 30 Hz per channel (-> 60 Hz interpolated)
    @param actX, actY: pointers where results will be stored
-   @return status byte of MPRLS
+   @return none
 */
 void getNAUValues(int32_t * actX, int32_t * actY) {
   static int32_t xChange = 0, yChange = 0;
@@ -323,18 +378,21 @@ void getNAUValues(int32_t * actX, int32_t * actY) {
 /**
    @name readPressure
    @brief updates and processes new pressure sensor values form MPRLS. [called from core 1]
-   @param data: pointer to I2CSensorValues struct, used by core1
    @return none
 */
-void readPressure(struct I2CSensorValues *data)
+void readPressure()
 {
   int actPressure = 512;
+  static uint32_t lastPressure_ts=0;
 
-  switch (sensor_pressure)
+  // if desired sampling period for pressure sensor passed: get pressure sensor value
+  if (millis()-lastPressure_ts < 1000/PRESSURE_SAMPLINGRATE) return;
+  lastPressure_ts=millis();
+
+  switch (currentSensorDataCore1.pressureSensorType)
   {
-    case MPRLS:
-      {
-
+    case PRESSURE_MPRLS:
+    {
         // get new value from MPRLS chip
         int mprlsStatus = getMPRLSValue(&pressure_rawval);
 
@@ -365,7 +423,7 @@ void readPressure(struct I2CSensorValues *data)
       }
       break;
 
-    case DPS310:
+    case PRESSURE_DPS310:
       {
         // get new value from DPS chip
         getDPSValue(&pressure_rawval);
@@ -385,13 +443,13 @@ void readPressure(struct I2CSensorValues *data)
       }
       break;
     
-    case NO_PRESSURE:
-      actPressure = 512;
+    case PRESSURE_INTERNAL_ADC:
+      actPressure = analogRead(ANALOG_PRESSURE_SENSOR_PIN);
       break;
 
-    case MPXV:
     default:
-      actPressure = analogRead(PRESSURE_SENSOR_PIN);
+    case PRESSURE_NONE:
+      actPressure = 512;
       break;
   }
   
@@ -400,35 +458,34 @@ void readPressure(struct I2CSensorValues *data)
   if (actPressure > 1022) actPressure = 1022;
 
   // during calibration period: set pressure to center (bypass)
-  if (data->calib_now) actPressure = 512;
+  if (currentSensorDataCore1.calib_now) actPressure = 512;
 
   // here we provide new pressure values for further processing by core 0 !
-  mutex_enter_blocking(&(data->sensorDataMutex));
-  data->pressure = actPressure;
-  mutex_exit(&(data->sensorDataMutex));
+  mutex_enter_blocking(&(currentSensorDataCore1.sensorDataMutex));
+  currentSensorDataCore1.pressure = actPressure;
+  mutex_exit(&(currentSensorDataCore1.sensorDataMutex));
 }
 
 /**
    @name readForce
    @brief updates and processes new  x/y sensor values from NAU7802. [called from core 1]
-   @param data: pointer to I2CSensorValues struct, used by core1
    @return none
 */
-void readForce(struct I2CSensorValues *data)
+void readForce()
 {
   static uint8_t printCount = 0;
   uint8_t newData=0;
   int32_t currentX = 0, currentY = 0;
 
-  switch (sensor_force)
+  switch (currentSensorDataCore1.forceSensorType)
   {
-    case INTERNAL_ADC:
+    case FORCE_INTERNAL_ADC:
       newData=1;
-      currentX = analogRead (A0)-calibX;
-      currentY = analogRead (A1)-calibY;
+      currentX = analogRead (ANALOG_FORCE_SENSOR_X_PIN)-currentSensorDataCore1.calibX;
+      currentY = analogRead (ANALOG_FORCE_SENSOR_Y_PIN)-currentSensorDataCore1.calibY;
       break;
 
-    case NAU7802:
+    case FORCE_NAU7802:
       // if the Data Ready Pin of NAU chip signals new data: get force sensor values
       if (digitalRead(DRDY_PIN) == HIGH)  { 
         newData=1;
@@ -447,7 +504,7 @@ void readForce(struct I2CSensorValues *data)
           if (reportXValues || reportYValues) Serial.println("");
         }
 
-        if (data->calib_now) {
+        if (currentSensorDataCore1.calib_now) {
           // during calibration period: set X/Y value to zero
           currentX = 0;
           currentY = 0;
@@ -459,17 +516,17 @@ void readForce(struct I2CSensorValues *data)
       }
       break;
 
-    case NO_FORCE:
+    case FORCE_NONE:
     default:
       break;
   }
 
   if (newData) {
     // here we provide new X/Y values for further processing by core 0 !
-    mutex_enter_blocking(&(data->sensorDataMutex));
-    data->xRaw =  currentX;
-    data->yRaw =  currentY;
-    mutex_exit(&(data->sensorDataMutex));
+    mutex_enter_blocking(&(currentSensorDataCore1.sensorDataMutex));
+    currentSensorDataCore1.xRaw =  currentX;
+    currentSensorDataCore1.yRaw =  currentY;
+    mutex_exit(&(currentSensorDataCore1.sensorDataMutex));
   }
 }
 
@@ -482,7 +539,7 @@ void readForce(struct I2CSensorValues *data)
 */
 void calculateDirection(struct SensorData * sensorData)
 {
-  sensorData->forceRaw = __ieee754_sqrtf(sensorData->xRaw * sensorData->xRaw + sensorData->yRaw * sensorData->yRaw);
+  sensorData->forceRaw = sqrtf(sensorData->xRaw * sensorData->xRaw + sensorData->yRaw * sensorData->yRaw);
   if (sensorData->forceRaw != 0) {
     sensorData->angle = atan2f ((float)sensorData->yRaw / sensorData->forceRaw, (float)sensorData->xRaw / sensorData->forceRaw );
 
@@ -524,7 +581,7 @@ void applyDeadzone(struct SensorData * sensorData, struct SlotSettings * slotSet
       float b = slotSettings->dy > 0 ? slotSettings->dy : 1 ;
       float s = sinf(sensorData->angle);
       float c = cosf(sensorData->angle);
-      sensorData->deadZone =  a * b / __ieee754_sqrtf(a * a * s * s + b * b * c * c); // ellipse equation, polar form
+      sensorData->deadZone =  a * b / sqrtf(a * a * s * s + b * b * c * c); // ellipse equation, polar form
     }
     else sensorData->deadZone = slotSettings->dx;
 
@@ -624,10 +681,10 @@ void setSensorBoard(int sensorBoardID)
    @return true: value within normal range  false: value exceeded -> action must be taken
 */
 uint8_t checkSensorWatchdog() {
-  //if we never received any valid values, proceed
+  // if we never received any valid I2C sensor values, proceed
   if (sensorWatchdog == -1) return (true);
-  //if we received at least one time values, but then it stops,
-  //check the value and reset after ~1s (SENSOR_WATCHDOG_TIMEOUT)
+  // if we received valid sensor values at least once, 
+  // check if I2C sensors are still active, reset after ~1s (SENSOR_WATCHDOG_TIMEOUT)
   if (sensorWatchdog++ > SENSOR_WATCHDOG_TIMEOUT)
     return (false);
   return (true);
@@ -708,16 +765,15 @@ int calculateMedian(int value) {
 */
 
 int isAnalogPinFloating (int pin) {
- int x,y;
- pinMode(pin, INPUT_PULLUP);
- analogRead (pin);
- x= adc_read();
- 
- pinMode(pin, INPUT_PULLDOWN);
- analogRead (pin);
- y= adc_read();
+  int x,y;
+  pinMode(pin, INPUT_PULLUP);
+  analogRead (pin);
+  x= adc_read();
+  
+  pinMode(pin, INPUT_PULLDOWN);
+  analogRead (pin);
+  y= adc_read();
 
- if (x-y < PINFLOAT_DIFFERENCE_THRESHOLD) return(false);
- return(true);
+  if (x-y < PINFLOAT_DIFFERENCE_THRESHOLD) return(false);
+  return(true);
 }
-

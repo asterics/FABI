@@ -26,7 +26,6 @@
 #include "parser.h"
 #include "reporting.h"
 #include "sensors.h"
-#include "utils.h"
 #include <hardware/watchdog.h>
 
 /**
@@ -114,23 +113,21 @@ void performCommand (uint8_t cmd, int16_t par1, char * keystring, int8_t periodi
       Serial.print(moduleName); Serial.print(" ");
       Serial.print(VERSION_STRING);
       Serial.print(", PressureSensor=");
-      switch (sensor_pressure) {
-        case NO_PRESSURE: Serial.print("None"); break;
-        case DPS310: Serial.print("DSP310"); break;
-        case MPRLS: Serial.print("MPRLS"); break;
-        case MPXV: Serial.print("MPXV"); break;
+      switch (getPressureSensorType()) {
+        case PRESSURE_NONE: Serial.print("None"); break;
+        case PRESSURE_DPS310: Serial.print("DSP310"); break;
+        case PRESSURE_MPRLS: Serial.print("MPRLS"); break;
+        case PRESSURE_INTERNAL_ADC: Serial.print("InternalADC"); break;
       }
       Serial.print(", ForceSensor=");
-      switch (sensor_force) {
-        case NO_FORCE: Serial.print("None"); break;
-        case NAU7802: Serial.print("NAU7802"); break;
-        case INTERNAL_ADC: Serial.print("InternalADC"); break;
-
+      switch (getForceSensorType()) {
+        case FORCE_NONE: Serial.print("None"); break;
+        case FORCE_NAU7802: Serial.print("NAU7802"); break;
+        case FORCE_INTERNAL_ADC: Serial.print("InternalADC"); break;
       }
       //Serial.print(", Sensorboard=");
       //if (slotsettings.sb<SENSORBOARD_SMD_HIGH) Serial.print("StrainGauge"); 
       //else Serial.print("SMD"); 
-
       Serial.println("");
       break;
     case CMD_BM:
@@ -362,7 +359,7 @@ void performCommand (uint8_t cmd, int16_t par1, char * keystring, int8_t periodi
       Serial.println("start calibration");
 #endif
       initBlink(10, 20);
-      sensorValues.calib_now = CALIBRATION_PERIOD;
+      startSensorCalibration();
       makeTone(TONE_CALIB, 0);
       break;
     case CMD_AX:
@@ -443,7 +440,7 @@ void performCommand (uint8_t cmd, int16_t par1, char * keystring, int8_t periodi
     case CMD_SB:
       if ((par1 < SENSORBOARD_REPORT_X) && (slotSettings.sb != par1)) {
         slotSettings.sb = par1;
-        sensorValues.calib_now = CALIBRATION_PERIOD;  // initiate calibration for new sensorboard profile!
+        startSensorCalibration();  // initiate calibration for new sensorboard profile!
         initBlink(10, 20);
         makeTone(TONE_CALIB, 0);
         rp2040.fifo.push_nb(par1); // tell the other core to switch sensorboard profile

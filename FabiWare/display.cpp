@@ -3,8 +3,6 @@
      For more info please visit: https://www.asterics-foundation.org
 
      Module: display.cpp - implementation of the Oled display functions 
-
-     Note: Oled display connects to I2C-1 (Wire) for FlipMouse
      The utilized library is https://github.com/greiman/SSD1306Ascii
 
    This program is distributed in the hope that it will be useful,
@@ -22,46 +20,53 @@
 
 #define SCREEN_ADDRESS 0x3C
 
-uint8_t displayInstalled=0;
+uint8_t displayAvailable=0;
 SSD1306AsciiWire *oled;    // pointer to the display driver class
 
-
 /**
-   @name displayInit
+   @name initDisplay
    @param uint8_t useWire1:  true if Wire1 should be used, else use Wire
    @return uint_t: returns true if display was found, else false
 
    initialises the i2c-communication and display module, prints out module name
 */
-uint8_t displayInit (uint8_t useWire1) {
-  if (useWire1) {
-  #ifdef FABI
-    Wire1.setSDA(PIN_WIRE1_SDA_);
-    Wire1.setSCL(PIN_WIRE1_SCL_);
-    Wire1.begin();
-  #endif
-    Wire1.beginTransmission(SCREEN_ADDRESS);  
-    if (Wire1.endTransmission()) return (false);
-    oled = new SSD1306AsciiWire(Wire1);
-  } else {
-  #ifdef FABI
-    Wire.setSDA(PIN_WIRE0_SDA_);
-    Wire.setSCL(PIN_WIRE0_SCL_);
-    Wire.begin();
-  #endif
-    Wire.beginTransmission(SCREEN_ADDRESS);  
-    if (Wire.endTransmission()) return (false);
+uint8_t initDisplay () {
+  displayAvailable=0;
+
+  // check if LCD is found on Wire0 
+  Wire.beginTransmission(SCREEN_ADDRESS);  
+  if (!Wire.endTransmission()) {
+    displayAvailable=1;
     oled = new SSD1306AsciiWire(Wire);
   }
-  
-  oled->begin(&Adafruit128x32, SCREEN_ADDRESS);
-  oled->setFont(Adafruit5x7);
-  //oled->setFont(Arial_bold_14);
-  //displayClear();
-  //oled->set2X();
-  //oled->print(moduleName);
-  displayInstalled = 1;
-  return true;
+/*  else {
+    // check if LCD is found on Wire1 
+    Wire1.beginTransmission(SCREEN_ADDRESS);  
+    if (!Wire1.endTransmission()) {
+      displayAvailable=1;
+      oled = new SSD1306AsciiWire(Wire1);
+    } 
+  }  */
+
+  if (displayAvailable) {
+    oled->begin(&Adafruit128x32, SCREEN_ADDRESS);
+    oled->setFont(Adafruit5x7);
+    //oled->setFont(Arial_bold_14);
+    //displayClear();
+    //oled->set2X();
+    //oled->print(moduleName);
+    return true;
+  }
+  return false;
+}
+
+/**
+   @name isDisplayAvailable
+   @brief returns true if LC Display is available at interface Wire0 or Wire1
+   @return true if LCD was initialized, false if not
+*/
+uint8_t isDisplayAvailable() {
+  return (displayAvailable);
 }
 
 
@@ -89,7 +94,7 @@ void displayClear(void) {
    clears the display and prints message (center line, double sized)
 */
 void displayMessage(char * msg) {
-  if (!displayInstalled) return;
+  if (!displayAvailable) return;
   displayClear();
   oled->set2X();
   oled->setCursor(5,1);
@@ -104,24 +109,23 @@ void displayMessage(char * msg) {
    clear display, then print current slotname and mode information
 */
 void displayUpdate(void) {
-  if (!displayInstalled) return;
+  if (!displayAvailable) return;
   displayClear();
   oled->set2X();
   oled->setCursor(5,1);
   oled->print(slotSettings.slotName);  
-
   oled->set1X();
 
   // display modes for FLipPad
-  #ifndef FABI
-  oled->setCursor(100,0);
-  switch (slotSettings.stickMode) {
-    case 0:
-    case 1: oled->print("Stk"); break;
-    case 2:
-    case 3:
-    case 4: oled->print("Joy"); break;
-  }
+  #ifdef FLIPPAD
+    oled->setCursor(100,0);
+    switch (slotSettings.stickMode) {
+      case 0:
+      case 1: oled->print("Stk"); break;
+      case 2:
+      case 3:
+      case 4: oled->print("Joy"); break;
+    }
   #endif  
 
   oled->setCursor(100,3);

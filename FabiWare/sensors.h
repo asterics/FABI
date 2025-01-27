@@ -20,9 +20,17 @@
 #include <Adafruit_NAU7802.h>  //NAU7802 library (Benjamin Aigner's fork with channel change feature)
 
 /**** sensor GPIOs & addresses */
-#define LDO_ENABLE_PIN 7         // Enable pin for the MIC5504 LDO (VCC supply for sensors)
-#define DRDY_PIN        21       // Data ready pin of NAU chip
-#define PRESSURE_SENSOR_PIN A3   // Analog input pin if a analog pressure sensor is used 
+#define LDO_ENABLE_PIN 7         // Enable pin for the MIC5504 3,3V regulator (VCC supply for sensors)
+#define ANALOG_FORCE_SENSOR_X_PIN A0   // input pin if an analog force sensor is used (x axis) 
+#define ANALOG_FORCE_SENSOR_Y_PIN A1   // input pin if an analog force sensor is used (y axis) 
+#ifdef FLIPMOUSE
+  #define DRDY_PIN        21       // Data ready pin of NAU chip for FlipMouse
+  #define ANALOG_PRESSURE_SENSOR_PIN A3   // input pin if an analog pressure sensor is used with FlipMouse3 PCB 
+#else
+  #define DRDY_PIN        27       // Data ready pin of NAU chip (EXT2)
+  #define ANALOG_PRESSURE_SENSOR_PIN A0   // input pin if an analog pressure sensor is used with FABI3 PCB
+#endif
+
 #define MPRLS_ADDR 0x18          // I2C address of the MPRLS pressure sensor 
 #define DPS310_ADDR 0x77         // I2C address of the DPS310 pressure sensor 
 
@@ -49,21 +57,36 @@
 
 
 /**
-   @brief Used pressure sensor type. We can use either the MPXV7007GP
-   sensor connected to an analog pin or the DPS310 / MPRLS sensor boards with I2C
+   @brief Used pressure sensor type. We can use either an analog sensor connected to an ADC pin 
+   (e.g. the MPXV7007GP) or the DPS310 / MPRLS sensor boards with I2C
 */
-typedef enum {MPXV, DPS310, MPRLS, NO_PRESSURE} pressure_type_t;
-extern pressure_type_t sensor_pressure;
+typedef enum {PRESSURE_INTERNAL_ADC, PRESSURE_DPS310, PRESSURE_MPRLS, PRESSURE_NONE} pressureSensor_type_t;
 
 
 /**
    @brief Used force sensor type. We can use the Sensorboard (NAU7802 with Strain gauge or resistive sensors)
-   or the internal ADC (ADC0 and ADC1).
+   or 2 internal ADC channels.
 */
-typedef enum {INTERNAL_ADC, NAU7802, NO_FORCE} force_type_t;
-extern force_type_t sensor_force;
+typedef enum {FORCE_INTERNAL_ADC, FORCE_NAU7802, FORCE_NONE} forceSensor_type_t;
 
+/**
+   @brief Data structure for sensor updates performed by Core1.
+*/
+struct CurrentSensorDataCore1 {
+  int xRaw,yRaw; // current y and x force sensor values
+  int pressure;  // current pressur value   
+  uint16_t calib_now;    // calibration counter, to initiate a calibration procedure
+  int calibX;  // x-axis calibration for using internal ADC
+  int calibY;  // y-axis calibration for using internal ADC
+  pressureSensor_type_t pressureSensorType;
+  forceSensor_type_t forceSensorType;
+  mutex_t sensorDataMutex; // for synchronization of data access between cores
+};
 
+//extern pressureSensor_type_t pressureSensorType;
+//extern forceSensor_type_t forceSensorType;
+
+extern struct CurrentSensorDataCore1 currentSensorDataCore1;
 
 /**
    @brief Sensorboard IDs for different signal processing parameters
@@ -87,26 +110,47 @@ extern force_type_t sensor_force;
 void initSensors();
 
 /**
-   @name calibrateSensors
-   @brief calibrates the offset values for the sensors (pressure & force)
+   @name getForceSensorType
+   @brief returns the type of the available force sensor
+   @return forceSensor_type_t
+*/
+forceSensor_type_t getForceSensorType();
+
+/**
+   @name getPressureSensorType
+   @brief returns the type of the available pressure sensor
+   @return pressureSensor_type_t
+*/
+pressureSensor_type_t getPressureSensorType();
+
+/**
+   @name startSensorCalibration
+   @brief prepares a sensor calibration 
    @return none
 */
-void calibrateSensors();
+void startSensorCalibration();
+
+/**
+   @name checkSensorCalibration
+   @brief calibrates the offset values for the sensors (pressure & force) if necessary
+   @return none
+*/
+void checkSensorCalibration();
 
 /**
    @name readPressure
-   @brief read current pressure sensor (either MPXV7007GP or MPRS)
+   @brief read current pressure sensor (either DPS310 or MPRLS)
    @note For the MPRLS sensor, it returns the previous measurement & triggers a new one!
    @return none
 */
-void readPressure(struct I2CSensorValues *data);
+void readPressure();
 
 /**
    @name readForce
    @brief read current force sensors (might be FSR or RES-DMS)
    @return none
 */
-void readForce(struct I2CSensorValues *data);
+void readForce();
 
 
 /**

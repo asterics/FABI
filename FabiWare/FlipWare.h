@@ -22,16 +22,18 @@
 #ifndef _FLIPWARE_H_
 #define _FLIPWARE_H_
 
-// uncomment the target device (FLipMouse or FABI) and version string:
+// uncomment the target device (FLIPMOUSE or FABI or FLIPPAD):
 // #define FLIPMOUSE
-// #define VERSION_STRING "v3.6.2"
-
+// #define FLIPAD
 #define FABI
-#define VERSION_STRING "v3.1"
+
+// update the version string with every firmware change:
+#define VERSION_STRING "v3.7.0"
 
 #include <Arduino.h>
 #include <Wire.h>
-#ifdef FABI
+#ifndef FLIPMOUSE
+  // needed for RP PICO boards
   #include <MouseBLE.h>
   #include <KeyboardBLE.h>
   #include <JoystickBLE.h>
@@ -71,6 +73,7 @@
 #else
   #define UPDATE_INTERVAL     5    // update interval for performing HID actions (in milliseconds)
 #endif
+
 #define DEFAULT_CLICK_TIME  8    // time for mouse click (loop iterations from press to release)
 #define CALIBRATION_PERIOD  1000  // approx. 1000ms calibration time
 
@@ -137,15 +140,6 @@ struct SensorData {
   int xLocalMax, yLocalMax;  
 };
 
-
-struct I2CSensorValues {
-  int xRaw,yRaw;
-  int pressure;
-  uint16_t calib_now;
-  mutex_t sensorDataMutex; // for synchronization of data access between cores
-};
-
-
 /**
    extern declarations of functions and data structures 
    which can be accessed from different modules
@@ -154,7 +148,7 @@ extern char moduleName[];
 extern uint8_t actSlot;
 extern uint8_t addonUpgrade;
 extern struct SensorData sensorData;
-extern struct I2CSensorValues sensorValues;
+extern struct CurrentSensorDataCore1 currentSensorDataCore1;
 extern struct SlotSettings slotSettings; 
 extern const struct SlotSettings defaultSlotSettings;
 extern uint8_t workingmem[WORKINGMEM_SIZE];            // working memory  (command parser, IR-rec/play)

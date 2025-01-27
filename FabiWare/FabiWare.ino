@@ -4,27 +4,34 @@
      For more info please visit: https://www.asterics-foundation.org
      https://github.com/asterics/FLipMouse
 
-     Module: FLipWare.ino  (main module)
+     Module: FabiWare.ino  (main module)
 
-        This is the firmware for the FabiWare module, 
-        it supports HID device emulation via USB and/or Bluetooth via connected sensors and/or serial AT-commands
+        This is the universal firmware for FABI, FlipMouse and FlipPad devices (HW version 3 or higher). 
+        It supports HID device emulation via USB and/or Bluetooth via connected sensors and/or serial AT-commands
         For a description of the supported commands see: commands.h
 
         HW-requirements:
-                  Raspberry Pi Pico2W
-                  (optional) I2C pressure sensor (MPRLS or DPS310)
-                  up to 5 external switches connected to GPIO pins
-                  Neopixel LED
-                  1 TSOP 38kHz IR-receiver
-                  1 high current IR-LED, driven with a MOSFET
-                  SSD1306 display
+                  Microcontroller platform:
+                    Raspberry Pi Pico, PicoW or Pico2W (for FABI or FlipPad)
+                    Arduino Nano 2040 Connect (for FlipMouse) 
+                  Optional sensors and peripherals:
+                    I2C pressure sensor board (MPRLS or DPS310) or analog pressure sensor (e.g. MPX7007)
+                    I2C force sensor board (NAU7802-based) or analog 2d force sonsor (e.g. joystick module)
+                    up to 5 external switches connected to GPIO pins
+                    Neopixel LED
+                    1 TSOP 38kHz IR-receiver
+                    1 high current IR-LED, driven with a MOSFET
+                    SSD1306 display
+                    Piezo Buzzer and/or Analog Audio amplifier (FABI only) for acoustic feedback
 
         SW-requirements:
-                  arduino-pico core (https://github.com/earlephilhower/arduino-pico), installable via board manager
+                  Arduino-pico core (https://github.com/earlephilhower/arduino-pico), installable via board manager
                   Adafruit Neopixel library, installable via library manager
                   https://github.com/ChrisVeigl/LoadcellSensor
                   SSD1306Ascii-library by Bill Greiman, see https://github.com/greiman/SSD1306Ascii
-                  Arduino settings: Tools->Board:"Raspberry Pi Pico W",  "Tools->Flash Size: "1792kB Sketch, 256kB FS", Tools->IP/Bluetooth Stack:"IPv4+Bluetooth"
+
+       Arduino settings for RP Pico: Tools->Board:"Raspberry Pi Pico W",  "Tools->Flash Size: "1MB Sketch, 1MB FS", Tools->IP/Bluetooth Stack:"IPv4+Bluetooth"
+       Arduino settings for Nano2040 Connect: Tools->Board:"Arduino Nano2040 Connect"
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -54,6 +61,9 @@
 #endif 
 #ifdef FABI
   char moduleName[]="FABI";
+#endif
+#ifdef FLIPPAD
+  char moduleName[]="FLipPad";
 #endif
 
 
@@ -88,12 +98,6 @@ struct SensorData sensorData {
   .xLocalMax=0, .yLocalMax=0
 };
 
-struct I2CSensorValues sensorValues {        
-  .xRaw=0, .yRaw=0, .pressure=512, 
-  .calib_now=CALIBRATION_PERIOD     // calibrate sensors after startup !
-};
-
-
 struct SlotSettings slotSettings;             // contains all slot settings
 uint8_t workingmem[WORKINGMEM_SIZE];          // working memory (command parser, IR-rec/play)
 uint8_t actSlot = 0;                          // number of current slot
@@ -107,54 +111,58 @@ unsigned long lastInteractionUpdate;          // timestamp for HID interaction u
 void setup() {
 
   // prepare synchronizsation of sensor data exchange between cores
-  mutex_init(&(sensorValues.sensorDataMutex));
-
-  //load slotSettings
-  memcpy(&slotSettings,&defaultSlotSettings,sizeof(struct SlotSettings));
+  mutex_init(&(currentSensorDataCore1.sensorDataMutex));
 
   #ifdef FLIPMOUSE
-    //initialise BT module, if available (must be done early!)
+    //initialise BT module on Arduino Nano 2040 Connect (must be done early!)
     initBluetooth();
   #endif
 
-  // initialize peripherals
+  // enable Wire I2C interface (used by Core0 for LCD/NFC if connected)
+
+  #ifndef FLIPMOUSE
+    // set I2C pins for Wire0 (internal I2C for LC-Display / NFC) when using RP Pico 
+    Wire.setSDA(PIN_WIRE0_SDA_);
+    Wire.setSCL(PIN_WIRE0_SCL_);    
+  #endif  
+  Wire.begin();
+
+  // initialize Serial interface
   Serial.begin(115200);
   
   #ifdef DEBUG_DELAY_STARTUP
     delay(3000);  // allow some time for serial interface to come up
   #endif
 
-  #ifdef FABI
-    MouseBLE.begin("FABI");
-    KeyboardBLE.begin("");
-    JoystickBLE.begin("");
-  #endif
-  #ifdef FLIPMOUSE  
-    rp2040.fifo.push_nb(slotSettings.sb); // apply sensorboard settings
-  #endif
-  
+  // initialize other peripherals interface  
   initGPIO();
   initIR();
   initButtons();
   initDebouncers();
   initStorage();   // initialize storage if necessary
-  readFromEEPROMSlotNumber(0, true); // read slot from first EEPROM slot if available !
+  #ifndef FLIPMOUSE
+    MouseBLE.begin(moduleName);
+    KeyboardBLE.begin("");
+    JoystickBLE.begin("");
+  #endif
+
+  // load default slot settings
+  memcpy(&slotSettings,&defaultSlotSettings,sizeof(struct SlotSettings));
+
+  // read first configuration slot from storage if possible!
+  readFromEEPROMSlotNumber(0, true); 
 
   // NOTE: changed for RP2040!  TBD: why does setBTName damage the console UART TX ??
   // setBTName(moduleName);             // if BT-module installed: set advertising name 
 
   setKeyboardLayout(slotSettings.kbdLayout); //load keyboard layout from slot
 
-  #ifdef FABI
-    if(!displayInit(0)) {
-      Serial.println("Error, cannot find display");   // check if i2c-display connected   TBD: missing i2c core2 synchronisation!
-    }
-    displayUpdate();
-  #endif
+  initDisplay();
+  if (isDisplayAvailable()) displayUpdate();
   
-#ifdef DEBUG_OUTPUT_FULL 
-  Serial.print(moduleName); Serial.println(" ready !");
-#endif
+  #ifdef DEBUG_OUTPUT_FULL 
+    Serial.print(moduleName); Serial.println(" ready !");
+  #endif
   lastInteractionUpdate = millis();  // get first timestamp
 
 }
@@ -189,11 +197,11 @@ void loop() {
     lastInteractionUpdate = millis();
   
     // get current sensor data from core1
-    mutex_enter_blocking(&(sensorValues.sensorDataMutex));
-    sensorData.xRaw=sensorValues.xRaw;
-    sensorData.yRaw=sensorValues.yRaw;
-    sensorData.pressure=sensorValues.pressure;
-    mutex_exit(&(sensorValues.sensorDataMutex));
+    mutex_enter_blocking(&(currentSensorDataCore1.sensorDataMutex));
+    sensorData.xRaw=currentSensorDataCore1.xRaw;
+    sensorData.yRaw=currentSensorDataCore1.yRaw;
+    sensorData.pressure=currentSensorDataCore1.pressure;
+    mutex_exit(&(currentSensorDataCore1.sensorDataMutex));
 
     // apply rotation if needed
     switch (slotSettings.ro) {
@@ -212,7 +220,9 @@ void loop() {
 
     reportValues();   // send live data to serial
     updateLeds();     // mode indication via front facing neopixel LEDs
-    updateBTConnectionState(); // check if BT is connected (for pairing indication LED animation)
+    #ifdef FLIPMOUSE
+      updateBTConnectionState(); // check if BT is connected (for pairing indication LED animation)
+    #endif
     updateTones();    // mode indication via audio signals (buzzer)
   }
   delay(1);  // core0: sleep a bit ...  
@@ -229,49 +239,40 @@ void loop() {
    @return none
 */
 void setup1() {
-  #ifdef DEBUG_DELAY_STARTUP
-    delay(3000);  // allow some time for serial interface to come up
-  #endif
-  #ifdef FABI
+  // enable Wire1 I2C interface (used by Core1 for sensors)
+  #ifndef FLIPMOUSE
     Wire1.setSDA(PIN_WIRE1_SDA_);
     Wire1.setSCL(PIN_WIRE1_SCL_);
   #endif
   Wire1.begin();
   Wire1.setClock(400000);  // use 400kHz I2C clock
+
   initSensors();
+  if (getForceSensorType()==FORCE_NAU7802)
+    setSensorBoard(slotSettings.sb); // apply sensorboard settings
+
   initBlink(10,20);  // first signs of life!
 }
 
 /**
    @name loop1
-   @brief loop1 function, periodically called from core1 after setup1(), performs I2C sensor updates
+   @brief loop1 function, periodically called from core1 after setup1(), performs sensor updates
    @return none
 */
 void loop1() {
-  static uint32_t lastPressure_ts=0;
 
   // check if there is a message from the other core (sensorboard change, profile ID)
   if (rp2040.fifo.available()) {
       setSensorBoard(rp2040.fifo.pop());  
   }
-  
-  readForce(&sensorValues);    
 
-  // if desired sampling period for MPRLS pressure sensor passed: get pressure sensor value
-  if (millis()-lastPressure_ts >= 1000/PRESSURE_SAMPLINGRATE) {
-    lastPressure_ts=millis();
-    readPressure(&sensorValues);
-  }
+  if (getForceSensorType() != FORCE_NONE)
+     readForce();    
 
-  // if calibration running: update calibration counter
-  if (sensorValues.calib_now) {
-    sensorValues.calib_now--;  
-    // calibrate sensors in the middle of the calibration period
-    if(sensorValues.calib_now==CALIBRATION_PERIOD/2) {
-      calibrateSensors();
-    }     
-  }
+  if (getPressureSensorType() != PRESSURE_NONE)
+     readPressure();    
 
+  checkSensorCalibration();  // perform sensor calibration if necessary
 
   // reset if sensors don't deliver data for several seconds (interface hangs?)
   if (!checkSensorWatchdog()) {

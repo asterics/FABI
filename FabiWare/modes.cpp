@@ -18,7 +18,6 @@
 #include "modes.h"
 #include "gpio.h"
 #include "tone.h"
-#include "utils.h"
 
 /**
    static variables for mode handling
@@ -300,7 +299,7 @@ void acceleratedMouseMove(float accelFactor) {
 
   float moveValX = sensorData.x * (float)slotSettings.ax * accelFactor;
   float moveValY = sensorData.y * (float)slotSettings.ay * accelFactor;
-  float actSpeed =  __ieee754_sqrtf (moveValX * moveValX + moveValY * moveValY);
+  float actSpeed =  sqrtf (moveValX * moveValX + moveValY * moveValY);
   float max_speed = (float)slotSettings.ms / 3.0f;
 
   if (actSpeed > max_speed) {

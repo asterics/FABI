@@ -17,18 +17,19 @@
 #define _DISPLAY_H_
 
 /**
-   extern declaration of static variables
-   which shall be accessed from other modules
-*/
-extern uint8_t displayInstalled;
-
-/**
-   @name displayInit
-   @brief initalizes the SSD1306 LCD using I2C interface
-   @param useWire1 true if I2C interface 1 (the second I2C) shall be used
+   @name initDisplay
+   @brief initalizes the SSD1306 LCD using I2C interface Wire0 or Wire1
    @return true if LCD could be initialized, false if not
 */
-uint8_t displayInit (uint8_t useWire1);
+uint8_t initDisplay();
+
+/**
+   @name isDisplayAvailable
+   @brief returns true if LC Display is available at interface Wire0 or Wire1
+   @return true if LCD was initialized, false if not
+*/
+uint8_t isDisplayAvailable();
+
 
 /**
    @name displayClear
