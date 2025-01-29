@@ -54,21 +54,19 @@ void printCurrentSlot(Stream *S)
 {
   char tmp[10];
   S->println(slotSettings.slotName);
-  #ifdef FLIPMOUSE
-    S->print("AT AX "); S->println(slotSettings.ax);
-    S->print("AT AY "); S->println(slotSettings.ay);
-    S->print("AT DX "); S->println(slotSettings.dx);
-    S->print("AT DY "); S->println(slotSettings.dy);
-    S->print("AT MS "); S->println(slotSettings.ms);
-    S->print("AT AC "); S->println(slotSettings.ac);
-    S->print("AT MM "); S->println(slotSettings.stickMode);
-    S->print("AT GV "); S->println(slotSettings.gv);
-    S->print("AT RV "); S->println(slotSettings.rv);
-    S->print("AT GH "); S->println(slotSettings.gh);
-    S->print("AT RH "); S->println(slotSettings.rh);
-    S->print("AT RO "); S->println(slotSettings.ro);
-    S->print("AT SB "); S->println(slotSettings.sb);
-  #endif  
+  S->print("AT AX "); S->println(slotSettings.ax);
+  S->print("AT AY "); S->println(slotSettings.ay);
+  S->print("AT DX "); S->println(slotSettings.dx);
+  S->print("AT DY "); S->println(slotSettings.dy);
+  S->print("AT MS "); S->println(slotSettings.ms);
+  S->print("AT AC "); S->println(slotSettings.ac);
+  S->print("AT MM "); S->println(slotSettings.stickMode);
+  S->print("AT GV "); S->println(slotSettings.gv);
+  S->print("AT RV "); S->println(slotSettings.rv);
+  S->print("AT GH "); S->println(slotSettings.gh);
+  S->print("AT RH "); S->println(slotSettings.rh);
+  S->print("AT RO "); S->println(slotSettings.ro);
+  S->print("AT SB "); S->println(slotSettings.sb);
   //IR timeout only if not default value
   if(get_IR_timeout() != IR_EDGE_TIMEOUT_US) {
     S->print("AT IT "); S->println(get_IR_timeout());

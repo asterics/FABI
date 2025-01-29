@@ -11,7 +11,6 @@
 */
 
 #include <Arduino.h>
-#include "FlipWare.h"
 #include "gpio.h"
 
 #ifdef FABI

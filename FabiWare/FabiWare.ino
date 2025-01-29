@@ -112,14 +112,12 @@ void setup() {
 
   // prepare synchronizsation of sensor data exchange between cores
   mutex_init(&(currentSensorDataCore1.sensorDataMutex));
-
   #ifdef FLIPMOUSE
     //initialise BT module on Arduino Nano 2040 Connect (must be done early!)
     initBluetooth();
   #endif
 
   // enable Wire I2C interface (used by Core0 for LCD/NFC if connected)
-
   #ifndef FLIPMOUSE
     // set I2C pins for Wire0 (internal I2C for LC-Display / NFC) when using RP Pico 
     Wire.setSDA(PIN_WIRE0_SDA_);
@@ -129,7 +127,6 @@ void setup() {
 
   // initialize Serial interface
   Serial.begin(115200);
-  
   #ifdef DEBUG_DELAY_STARTUP
     delay(3000);  // allow some time for serial interface to come up
   #endif
@@ -154,7 +151,6 @@ void setup() {
 
   // NOTE: changed for RP2040!  TBD: why does setBTName damage the console UART TX ??
   // setBTName(moduleName);             // if BT-module installed: set advertising name 
-
   setKeyboardLayout(slotSettings.kbdLayout); //load keyboard layout from slot
 
   initDisplay();
@@ -164,7 +160,6 @@ void setup() {
     Serial.print(moduleName); Serial.println(" ready !");
   #endif
   lastInteractionUpdate = millis();  // get first timestamp
-
 }
 
 /**
@@ -173,6 +168,7 @@ void setup() {
    @return none
 */
 void loop() {
+  static int cnt=0;   pinMode(LED_BUILTIN,OUTPUT); if (!(cnt++%200)) digitalWrite(LED_BUILTIN,!digitalRead(LED_BUILTIN));
 
   #ifdef FLIPMOUSE
     //check if we should go into addon upgrade mode
@@ -246,6 +242,10 @@ void setup1() {
   #endif
   Wire1.begin();
   Wire1.setClock(400000);  // use 400kHz I2C clock
+
+  #ifdef DEBUG_DELAY_STARTUP
+    delay(3000);  // allow some time for serial interface to come up
+  #endif
 
   initSensors();
   if (getForceSensorType()==FORCE_NAU7802)

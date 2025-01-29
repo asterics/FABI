@@ -169,7 +169,7 @@ void initSensors()
 
   currentSensorDataCore1.forceSensorType = FORCE_NONE;
   //NAU7802 init
-  if (!nau.begin(&Wire1)) {
+  if (nau.begin(&Wire1)) {
     #ifdef DEBUG_OUTPUT_SENSORS
         Serial.println("SEN: Found NAU7802");
     #endif
