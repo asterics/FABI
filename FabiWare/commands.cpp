@@ -63,12 +63,13 @@ const struct atCommandType atCommands[] PROGMEM = {
   /***** infrared *****/
   {"IR"  , PARTYPE_STRING}, {"IP"  , PARTYPE_STRING}, {"IH"  , PARTYPE_STRING }, {"IS"  , PARTYPE_NONE },
   {"IC"  , PARTYPE_STRING}, {"IW"  , PARTYPE_NONE }, {"IL"  , PARTYPE_NONE }, {"IT"  , PARTYPE_UINT  },
-
   /***** 2D mouse cursor control *****/
   {"MM"  , PARTYPE_UINT }, {"SW"  , PARTYPE_NONE },
   {"AX"  , PARTYPE_UINT }, {"AY"  , PARTYPE_UINT }, {"DX"  , PARTYPE_UINT }, {"DY"  , PARTYPE_UINT },
   {"GV"  , PARTYPE_UINT }, {"RV"  , PARTYPE_UINT }, {"GH"  , PARTYPE_UINT }, {"RH"  , PARTYPE_UINT },
   {"MS"  , PARTYPE_UINT }, {"AC"  , PARTYPE_UINT }, {"RO"  , PARTYPE_UINT }, {"SB"  , PARTYPE_UINT },
+  /***** audio feedback *****/
+  {"AT"  , PARTYPE_STRING}, {"AP"  , PARTYPE_STRING},
   #ifdef FLIPMOUSE
   /***** BT-Housekeeping / FM-Only *****/
   {"BC"  , PARTYPE_STRING}, {"BR"  , PARTYPE_UINT }, {"UG", PARTYPE_NONE },
@@ -303,6 +304,7 @@ void performCommand (uint8_t cmd, int16_t par1, char * keystring, int8_t periodi
       if (!readFromEEPROM("")) Serial.println(ERRORMESSAGE_NOT_FOUND);
       displayUpdate();
       setKeyboardLayout(slotSettings.kbdLayout);
+      audioPlayback(0);
       break;
     case CMD_DE:
 #ifdef DEBUG_OUTPUT_FULL
@@ -511,6 +513,20 @@ void performCommand (uint8_t cmd, int16_t par1, char * keystring, int8_t periodi
     case CMD_IW:
       wipe_IR_commands();
       Serial.println("OK");  // send AT command acknowledge
+      break;
+
+    case CMD_AT:
+#ifdef DEBUG_OUTPUT_FULL
+      Serial.println("transfer audio file");
+#endif
+      audioTransfer(keystring);
+      break;
+
+    case CMD_AP:
+#ifdef DEBUG_OUTPUT_FULL
+      Serial.println("play audio file");
+#endif
+      audioPlayback(keystring);
       break;
 
   #ifdef FLIPMOUSE

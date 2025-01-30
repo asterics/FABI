@@ -45,4 +45,30 @@ void updateTones();
 */
 void makeTone(uint8_t kind, uint8_t param);
 
+
+/**
+   @name initAudio
+   @brief initialize the audio playback system (if available)
+   @return none
+*/
+void initAudio();
+
+
+/**
+   @name audioPlayback
+   @param fn: filename for the audio file
+   @brief starts playback of an audio wav file from LitteFS
+   @return none
+*/
+void audioPlayback(char * fn);
+
+
+/**
+   @name audioTransfer
+   @param fn: filename for the audio file
+   @brief receive binary wav data and store it into a local file in LitteFS (timeout: 10 seconds)
+   @return true if a file was received, false otherwise
+*/
+uint8_t audioTransfer(char * fn);
+
 #endif

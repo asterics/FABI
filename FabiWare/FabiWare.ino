@@ -138,6 +138,8 @@ void setup() {
   initButtons();
   initDebouncers();
   initStorage();   // initialize storage if necessary
+  initAudio();
+  
   #ifndef FLIPMOUSE
     MouseBLE.begin(moduleName);
     KeyboardBLE.begin("");

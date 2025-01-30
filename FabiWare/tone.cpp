@@ -2,7 +2,9 @@
      FabiWare - AsTeRICS Foundation
      For more info please visit: https://www.asterics-foundation.org
 
-     Module: tone.cpp - functions for tone/audio feedback
+     Module: tone.cpp - functions for tone feedback and audio transfer + playback
+     Audio playback is using wav files, PWM and analog audio amp
+     (currently only 22KHz mono 16 bit wav files are supported.)
 
    This program is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; See the GNU General Public License:
@@ -11,16 +13,145 @@
 */
 
 #include "tone.h"
+#include <LittleFS.h>
+
+#define SAMPLEPERIOD_uS 33  // fixed sampling rate for 22050 Hz. TBD: improve!
+#define SKIP_BYTES 2000     // skip first bytes of a wav file.  TBD: improve!
+#define READBUF_LEN 1       // lenght of serial read buffer for audio file transfer
+
+struct sampledata_t {
+  File file;
+  const int16_t *start;
+  const int16_t *p;
+  uint32_t count;
+  uint32_t len;
+  uint8_t isPlaying;
+};
+struct sampledata_t sampleData;
+
+struct repeating_timer timer;
 
 /**
-   static variables for tone signal generation
+   Timer ISR callback function, gets one sample from file and updates PWM
+   (disables timer if no sample is left in file)
 */
+bool repeating_timer_callback(struct repeating_timer *t) {
+
+  struct sampledata_t *sd = (struct sampledata_t *)(t->user_data);
+  //int16_t pwmValue = *(sd->p)++;
+  //uint16_t pv = 32767 + pwmValue;
+  //uint16_t pv =  pwmValue;
+  int16_t pwmValue;
+
+  if (sd->file.available()) {
+    sd->file.read((uint8_t *)&pwmValue, 2);  // read signed 16 bit int from file
+
+    if (sd->count>=SKIP_BYTES) {
+      analogWrite(AUDIO_SIGNAL_PIN, pwmValue + 12000);  // update PWM
+      // not sure why an offset of 12000 gives best playback results ....
+    }
+    sd->count += 2;
+   }
+   else {
+    digitalWrite(AUDIO_AMP_SD_PIN, LOW);
+    cancel_repeating_timer(&timer);
+    sd->isPlaying = 0;
+  }
+  return true;
+}
+
+/**
+   Initialize audio playback (only if AUDIO_SIGNAL_PIN is defined!)
+*/
+void initAudio() {
+  #ifdef AUDIO_SIGNAL_PIN
+    pinMode(AUDIO_AMP_SD_PIN, OUTPUT);
+    digitalWrite(AUDIO_AMP_SD_PIN, LOW);
+    pinMode(AUDIO_SIGNAL_PIN, OUTPUT);
+    analogWriteFreq(250000);
+    analogWriteResolution(16);
+    sampleData.isPlaying = 0;
+  #endif
+}
+
+/**
+   Start an audio playback
+*/
+void audioPlayback(char * fn) {
+  #ifdef AUDIO_SIGNAL_PIN
+    char soundFileName[MAX_NAME_LEN];
+    if ((fn) && (strlen(fn) > 0) && (strlen(fn) < MAX_NAME_LEN-1))
+      strcpy(soundFileName,fn);
+    else sprintf(soundFileName,"slot%d",actSlot);
+    Serial.println("\nPlay Sound File "+String(soundFileName));
+    sampleData.file = LittleFS.open(soundFileName, "r");
+    if (sampleData.file.available()) {
+      sampleData.count = 0;
+      sampleData.isPlaying = 1;
+      add_repeating_timer_us(SAMPLEPERIOD_uS, repeating_timer_callback, &sampleData, &timer);
+      digitalWrite(AUDIO_AMP_SD_PIN, HIGH);
+    } else Serial.printf("cound not open file ...");
+  #endif
+}
+
+
+/**
+   Receive a wav file transfer from Serial interface.
+   A file with name fn is created in the local file system.
+   If fn is null, the active slot number is used as file name (with prefix "slot", eg. "slot1")
+   The function waits max. 10 seconds for the transfer to start, then reads wav file data (samples) until a timeout of 1 second happens.
+*/
+uint8_t audioTransfer(char * fn) {
+  File f;
+  uint32_t cnt = 0, gotBytes=0;
+  char soundFileName[MAX_NAME_LEN];
+  uint8_t buf[READBUF_LEN];
+
+  Serial.println("\nStart Sound upload!");
+  cnt=0;
+  uint32_t ts=millis();
+  while ((!Serial.available()) && (millis()-ts < 10000));
+  if (!Serial.available()) return(0);
+
+  if ((fn) && (strlen(fn) > 0) && (strlen(fn) < MAX_NAME_LEN-1))
+    strcpy(soundFileName,fn);
+  else sprintf(soundFileName,"slot%d",actSlot);
+
+  f = LittleFS.open(soundFileName, "w");
+  if (f) {
+
+    do {
+      gotBytes = Serial.readBytes(buf, READBUF_LEN);   // note that the timeout is used here!
+      if (gotBytes > 0) {
+        f.write(buf, gotBytes);
+        cnt+=gotBytes;
+        // Serial.print("*");
+      }
+    } while (gotBytes == READBUF_LEN);
+
+    // timeout: transfer finished!
+    f.close();
+    Serial.println("\nSound File "+String(soundFileName)+" received, " + String(cnt) + " bytes read!");
+    sampleData.len=cnt;
+    cnt = 0;
+  }
+  return(1);
+}
+
+
+/**
+  Tone Generation using Buzzer 
+*/
+
+//  static variables for tone height and pattern
 uint16_t toneHeight;
 uint16_t toneOnTime;
 uint16_t toneOffTime;
 uint16_t toneCount = 0;
 
-
+/**
+  updateTones() must be called periodically to handle generation of multiple buzzer tones
+*/
 void updateTones()
 {
   if ((!toneCount) || (!globalSettings.buzzerEnabled)) return;
@@ -44,7 +175,9 @@ void updateTones()
   }
 }
 
-
+/**
+  makeTone() creates different tone heights for specific events
+*/
 void makeTone(uint8_t kind, uint8_t param)
 {
   if (!globalSettings.buzzerEnabled) return;
