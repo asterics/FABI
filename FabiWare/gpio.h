@@ -14,22 +14,26 @@
 #define _GPIO_H_
 
 #include "FlipWare.h"
-#include <Adafruit_NeoPixel.h>
 
 /**
-   constant definitions
+   constant definitions for pin assignments
 */
-#ifdef FABI
-  #define NUMBER_OF_PHYSICAL_BUTTONS 5 // number of physical switches for FABI
+#ifdef FLIPMOUSE
+  #define NUMBER_OF_PHYSICAL_BUTTONS 3      // number of physical buttons for FlipMouse
+  #define PHYSICAL_BUTTON_MAP {17, 28, 20}  // gpio pin assignment for buttons
+  #define NEOPIXEL_PIN 15   // physical pin for neopixel LED
+  #define TONE_PIN 25       // physical pin for piezo buzzer
+#else 
+  #define NUMBER_OF_PHYSICAL_BUTTONS 5      // number of physical switches for FABI/FlipPad
+  #define PHYSICAL_BUTTON_MAP {11,9,8,4,3}
   #define NEOPIXEL_PIN 10
+  #define TONE_PIN  2    
+ 
+  // remap pins for I2C interfaces for FABI / FlipPad
   #define PIN_WIRE0_SDA_ 12
   #define PIN_WIRE0_SCL_ 13
   #define PIN_WIRE1_SDA_ 26
   #define PIN_WIRE1_SCL_ 27
-#endif
-#ifdef FLIPMOUSE
-  #define NUMBER_OF_PHYSICAL_BUTTONS 3  // number of physical switches for FlipMouse
-  #define NEOPIXEL_PIN 15
 #endif
 
 

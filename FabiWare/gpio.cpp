@@ -10,17 +10,10 @@
 
 */
 
-#include <Arduino.h>
 #include "gpio.h"
+#include <Adafruit_NeoPixel.h>
 
-#ifdef FABI
-  int8_t  input_map[NUMBER_OF_PHYSICAL_BUTTONS] = {11,9,8,4,3};
-#endif
-
-#ifdef FLIPMOUSE
-  int8_t  input_map[NUMBER_OF_PHYSICAL_BUTTONS] = {17, 28, 20};
-#endif
-
+int8_t  input_map[NUMBER_OF_PHYSICAL_BUTTONS] = PHYSICAL_BUTTON_MAP ;
 uint8_t blinkCount = 0;
 uint8_t blinkTime = 0;
 uint8_t blinkStartTime = 0;
