@@ -14,17 +14,11 @@
 #define _TONE_H_
 
 #include "FlipWare.h"
+#include "gpio.h"
 
 /**
    constant definitions for tone generation 
 */ 
-#ifdef DEBUG_NO_TONE
-  //unconnected pin...
-  #define TONE_PIN 6
-#else
-  #define TONE_PIN  2    // physical pin for piezo tone generation
-#endif
-
 #define TONE_CALIB            1
 #define TONE_CHANGESLOT       2
 #define TONE_ENTER_STRONGSIP  3
