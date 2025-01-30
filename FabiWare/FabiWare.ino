@@ -2,17 +2,19 @@
 /*
      FabiWare - AsTeRICS Foundation
      For more info please visit: https://www.asterics-foundation.org
-     https://github.com/asterics/FLipMouse
 
      Module: FabiWare.ino  (main module)
 
-        This is the universal firmware for FABI, FlipMouse and FlipPad devices (HW version 3 or higher). 
+        This is the universal firmware for FABI, FlipMouse and FlipPad devices (HW version 3 or higher).
+        see https://github.com/asterics/FABI, https://github.com/asterics/FlipMouse, https://github.com/asterics/FlipPad
+
         It supports HID device emulation via USB and/or Bluetooth via connected sensors and/or serial AT-commands
         For a description of the supported commands see: commands.h
+        Pin assignments can be found in gpio.h
 
         HW-requirements:
                   Microcontroller platform:
-                    Raspberry Pi Pico, PicoW or Pico2W (for FABI or FlipPad)
+                    Raspberry Pi PicoW or Pico2W (for FABI or FlipPad)
                     Arduino Nano 2040 Connect (for FlipMouse) 
                   Optional sensors and peripherals:
                     I2C pressure sensor board (MPRLS or DPS310) or analog pressure sensor (e.g. MPX7007)
@@ -30,8 +32,8 @@
                   https://github.com/ChrisVeigl/LoadcellSensor
                   SSD1306Ascii-library by Bill Greiman, see https://github.com/greiman/SSD1306Ascii
 
-       Arduino settings for RP Pico: Tools->Board:"Raspberry Pi Pico W",  "Tools->Flash Size: "1MB Sketch, 1MB FS", Tools->IP/Bluetooth Stack:"IPv4+Bluetooth"
-       Arduino settings for Nano2040 Connect: Tools->Board:"Arduino Nano2040 Connect"
+       Arduino settings for RP Pico: Tools->Board:"Raspberry Pi Pico -> Raspberry Pi Pico W",  Tools->Flash Size: "1MB Sketch, 1MB FS", Tools->IP/Bluetooth Stack:"IPv4+Bluetooth"
+       Arduino settings for Nano2040 Connect: Tools->Board:"Raspberry Pi Pico -> Arduino Nano2040 Connect", Tools->Flash Size: "15MB Sketch, 1MB FS", Tools->IP/Bluetooth Stack:"IPv4only"
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -89,6 +91,10 @@ const struct SlotSettings defaultSlotSettings = {      // default slotSettings v
 /**
    static variables and data structures for settings and sensor data management
 */
+struct GlobalSettings globalSettings {
+  .buzzerEnabled=1   // enable tone output via internal buzzer
+};
+
 struct SensorData sensorData {        
   .x=0, .y=0, .xRaw=0, .yRaw=0, .pressure=0, 
   .deadZone=0, .force=0, .forceRaw=0, .angle=0,
