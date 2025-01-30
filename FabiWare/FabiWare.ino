@@ -57,17 +57,12 @@
 #include "keys.h"
 #include <hardware/watchdog.h>
 
+
+char moduleName[]=MODULE_NAME;   //   device name for ID string & BT-pairing
+
 #ifdef FLIPMOUSE
-  char moduleName[]="FLipmouse";   //   device name for ID string & BT-pairing
   uint8_t addonUpgrade = BTMODULE_UPGRADE_IDLE; // if not "idle": we are upgrading the addon module
 #endif 
-#ifdef FABI
-  char moduleName[]="FABI";
-#endif
-#ifdef FLIPPAD
-  char moduleName[]="FLipPad";
-#endif
-
 
 /**
    default values for empty configuration slot 
@@ -174,8 +169,6 @@ void setup() {
    @return none
 */
 void loop() {
-  static int cnt=0;   pinMode(LED_BUILTIN,OUTPUT); if (!(cnt++%200)) digitalWrite(LED_BUILTIN,!digitalRead(LED_BUILTIN));
-
   #ifdef FLIPMOUSE
     //check if we should go into addon upgrade mode
     if(addonUpgrade != BTMODULE_UPGRADE_IDLE) {
@@ -287,5 +280,11 @@ void loop1() {
     while(1);
   }
   
+  #ifdef DEBUG_ACTIVITY_LED
+    static int cnt=0;   
+    pinMode(LED_BUILTIN,OUTPUT); 
+    if (!(cnt++%200)) digitalWrite(LED_BUILTIN,!digitalRead(LED_BUILTIN));
+  #endif
+
   delay(1);  // core1: sleep a bit ...  
 }
