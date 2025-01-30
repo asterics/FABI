@@ -20,16 +20,6 @@
 #include <Adafruit_NAU7802.h>  //NAU7802 library (Benjamin Aigner's fork with channel change feature)
 
 /**** sensor GPIOs & addresses */
-#define LDO_ENABLE_PIN 7         // Enable pin for the MIC5504 3,3V regulator (VCC supply for sensors)
-#define ANALOG_FORCE_SENSOR_X_PIN A0   // input pin if an analog force sensor is used (x axis) 
-#define ANALOG_FORCE_SENSOR_Y_PIN A1   // input pin if an analog force sensor is used (y axis) 
-#ifdef FLIPMOUSE
-  #define DRDY_PIN        21       // Data ready pin of NAU chip for FlipMouse
-  #define ANALOG_PRESSURE_SENSOR_PIN A3   // input pin if an analog pressure sensor is used with FlipMouse3 PCB 
-#else
-  #define DRDY_PIN        27       // Data ready pin of NAU chip (EXT2)
-  #define ANALOG_PRESSURE_SENSOR_PIN A0   // input pin if an analog pressure sensor is used with FABI3 PCB
-#endif
 
 #define MPRLS_ADDR 0x18          // I2C address of the MPRLS pressure sensor 
 #define DPS310_ADDR 0x77         // I2C address of the DPS310 pressure sensor 

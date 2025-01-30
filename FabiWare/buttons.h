@@ -28,8 +28,8 @@
 */
 
 #ifdef FLIPMOUSE
-  #define NUMBER_OF_BUTTONS  19         // number of physical + virtual switches. Note: if higher than 32, change buttonStates to uint64_t!
-  // (buttons 0-2 are the physical switches on the device)
+  #define NUMBER_OF_BUTTONS  19     // number of physical + virtual buttons. Note: if higher than 32, change buttonStates to uint64_t!
+  // (buttons 0-2 are the physical buttons on the device)
   #define UP_BUTTON                3
   #define DOWN_BUTTON              4
   #define LEFT_BUTTON              5
@@ -50,8 +50,8 @@
   #define STRONGPUFF_LEFT_BUTTON  17
   #define STRONGPUFF_RIGHT_BUTTON 18
 #else
-  #define NUMBER_OF_BUTTONS  21         // number of physical + virtual switches. Note: if higher than 32, change buttonStates to uint64_t!
-  // (buttons 0-4 are the physical switches on the device)  
+  #define NUMBER_OF_BUTTONS  21         // number of physical + virtual buttons. Note: if higher than 32, change buttonStates to uint64_t!
+  // (buttons 0-4 are the physical buttons on the device)  
   #define SIP_BUTTON              5
   #define STRONGSIP_BUTTON        6
   #define PUFF_BUTTON             7

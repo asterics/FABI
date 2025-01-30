@@ -11,6 +11,7 @@
 */
 
 #include "sensors.h"
+#include "gpio.h"
 #include "modes.h"
 
 Adafruit_NAU7802 nau;

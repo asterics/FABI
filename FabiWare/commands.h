@@ -11,21 +11,9 @@
           AT                returns "OK"
           AT ID             returns identification string (e.g. "FABI v3.0")
           AT BM <uint>      puts button into programming mode (e.g. "AT BM 2" -> next AT-command defines the new function for button 2)
-                            for the FABI, there are 17 buttons available (5 physical buttons, 12 virtual functions):
-
-                              1-5: 3.5mm jack plugs 1-5
-                              6: Sip (pressure lower than sip threshold) (pressure sensor addon required)
-                              7: Strong Sip (pressure sensor addon required)
-                              8: Puff (pressure bigger than puff threshold) (pressure sensor addon required)
-                              9: Strong Puff (pressure sensor addon required)
-                              10: StrongSip + jack plug 2 pressed
-                              11: StrongSip + jack plug 3 pressed
-                              12: StrongSip + jack plug 4 pressed
-                              13: StrongSip + jack plug 5 pressed
-                              14: StrongPuff + jack plug 2 pressed
-                              15: StrongPuff + jack plug 3 pressed
-                              16: StrongPuff + jack plug 4 pressed
-                              17: StrongPuff + jack plug 5 pressed
+                            for the FlipMouse, there are 19 buttons available (3 physical buttons, 16 virtual functions)
+                            for FABI/FlipPad, there are 21 buttons available (5 physical buttons, 16 virtual functions)
+                            (see buttons.h)
 
     USB HID commands:
 
@@ -79,8 +67,30 @@
           AT KL <string>    change keyboard layout. No parameter prints the currently used layout. 
                             Currently supported: de_DE, en_US, es_ES, fr_FR, it_IT, sv_SE, da_DK.
 
-    Housekeeping commands:
+    Cursor control / force sensor settings:
 
+          AT CA           calibration of zeropoint
+          AT AX <uint>    acceleration x-axis  (0-100)
+          AT AY <uint>    acceleration y-axis  (0-100)
+          AT DX <uint>    deadzone x-axis  (0-1000)
+          AT DY <uint>    deadzone y-axis  (0-1000)
+          AT MS <uint>    maximum speed  (0-100)
+          AT AC <uint>    acceleration time (0-100)
+          AT GV <uint>    gain vertical drift compensation (0-100)
+          AT RV <uint>    range vertical drift compensation (0-100)
+          AT GH <uint>    gain horizontal drift compensation (0-100)  
+          AT RH <uint>    range horizontal drift compensation (0-100)
+          AT SB <uint>    select a sensorboard (profile-ID), adjusts signal processing parameters (0-3)
+
+      Sip and Puff settings:
+
+          AT TS <uint>    treshold for sip action  (0-512)
+          AT TP <uint>    treshold for puff action (512-1023)
+          AT SP <uint>    treshold for strong puff (512-1023)
+          AT SS <uint>    treshold for strong sip (0-512)
+
+    Housekeeping and storage commands:
+    
           AT SA <string>  save slotSettings and current button modes to next free eeprom slot under given name (e.g. "AT SA mouse1")
           AT LO <string>  load button modes from eeprom slot (e.g. AT LOAD mouse1 -> loads profile named "mouse1")
           AT LA           load all slots (displays names and slotSettings of all stored slots)
@@ -89,22 +99,24 @@
           AT DE <string>  delete slot of given name (deletes all stored slots if no string parameter is given)
           AT RS           resets FABI settings and restores default configuration (deletes EEPROM and restores default Slot "keys")
           AT RE           perform a reboot (SW-reset)
-          AT NC           no command (idle operation)
-          AT BT <uint>    set bluetooth mode, 1=USB only, 2=BT only, 3=both(default)
-                          (e.g. AT BT 2 -> send HID commands only via BT if BT-daughter board is available)
-          AT SC <string>  change slot color: given string 0xRRGGBB                           
 
+    Reporting and Audio feedback commands:
+
+          AT SC <string>  change slot color: given string 0xRRGGBB                           
           AT SR           start reporting raw values (5 sensor values, starting with "VALUES:")
           AT ER           end reporting raw values
-          AT CA           calibration of zeropoint
+          AT AT <string>  audio transfer: start reception of a wav file of given name
+          AT AP <string>  audio play: start playback a wav file of given name
+
+    Mode change and others:
+          AT MM <uint>    mouse mode: cursor on (uint==1) or alternative functions on (uint==0)
+          AT SW           switch between mouse cursor and alternative functions
+          AT BT <uint>    set bluetooth mode, 1=USB only, 2=BT only, 3=both(default)
+                          (e.g. AT BT 2 -> send HID commands only via BT if BT-daughter board is available)
           AT MA <string>  execute a command macro containing multiple commands (separated by semicolon)
                           example: "AT MA MX 100;MY 100;CL;"  use backslash to mask semicolon: "AT MA KW \;;CL;" writes a semicolon and then clicks left
           AT WA <uint>    wait (given in milliseconds, useful for macro commands)
-
-          AT TS <uint>    threshold for sip action  (0-512)
-          AT TP <uint>    threshold for puff action (512-1023)
-          AT SP <uint>    threshold for strong puff (512-1023)
-          AT SS <uint>    threshold for strong sip (0-512)
+          AT NC           no command (idle operation)
 
     Infrared-specific commands:
 
@@ -161,7 +173,7 @@ enum atCommands {
   CMD_RA, CMD_KL, CMD_SA, CMD_LO, CMD_LA, CMD_LI, CMD_NE, CMD_DE, CMD_RS, CMD_RE, CMD_NC, CMD_BT, 
   CMD_SC, CMD_SR, CMD_ER, CMD_CA, CMD_MA, CMD_WA, CMD_TS, CMD_TP, CMD_SP, CMD_SS, CMD_IR, CMD_IP,
   CMD_IH, CMD_IS, CMD_IC, CMD_IW, CMD_IL, CMD_IT, CMD_MM, CMD_SW, CMD_AX, CMD_AY, CMD_DX, CMD_DY,
-  CMD_GV, CMD_RV, CMD_GH, CMD_RH, CMD_MS, CMD_AC, CMD_RO, CMD_SB,
+  CMD_GV, CMD_RV, CMD_GH, CMD_RH, CMD_MS, CMD_AC, CMD_RO, CMD_SB, CMD_AT, CMD_AP,
 #ifdef FLIPMOUSE
   CMD_BC, CMD_BR, CMD_UG,
 #endif

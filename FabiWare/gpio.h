@@ -18,28 +18,41 @@
 /**
    constant definitions for pin assignments
 */
+
+// device-specific settings and pin locations 
 #ifdef FLIPMOUSE
   #define NUMBER_OF_PHYSICAL_BUTTONS 3      // number of physical buttons for FlipMouse
   #define PHYSICAL_BUTTON_MAP {17, 28, 20}  // gpio pin assignment for buttons
   #define NEOPIXEL_PIN   15   // physical pin for neopixel LED
   #define TONE_PIN       25   // physical pin for piezo buzzer
   #define IR_LED_PIN     19   //  IR-Led output pin for FlipMouse
-  #define IR_SENSOR_PIN  16   //  input pin of the TSOP IR receiver
+  #define DRDY_PIN       21   // Data ready pin of NAU chip for FlipMouse
+  #define ANALOG_PRESSURE_SENSOR_PIN A3   // input pin if an analog pressure sensor is used with FlipMouse3 PCB 
 #else 
   #define NUMBER_OF_PHYSICAL_BUTTONS 5      // number of physical switches for FABI/FlipPad
   #define PHYSICAL_BUTTON_MAP {11,9,8,4,3}
   #define NEOPIXEL_PIN   10
   #define TONE_PIN        2    
   #define IR_LED_PIN     14
-  #define IR_SENSOR_PIN  16
+  #define DRDY_PIN       27    // Data ready pin of NAU chip (FABI EXT connector, EXT2 pin)
+  #define ANALOG_PRESSURE_SENSOR_PIN A0   // input pin if an analog pressure sensor is used with FABI3 PCB
  
   // remap pins for I2C interfaces for FABI / FlipPad
   #define PIN_WIRE0_SDA_ 12
   #define PIN_WIRE0_SCL_ 13
-  #define PIN_WIRE1_SDA_ 26
-  #define PIN_WIRE1_SCL_ 27
+  #define PIN_WIRE1_SDA_ 18
+  #define PIN_WIRE1_SCL_ 19
+
+  #define AUDIO_SIGNAL_PIN    3 //6   // PWM audio signal
+  #define AUDIO_AMP_SD_PIN   15   // PAM audio amp shutdown (actve low)
 #endif
 
+
+// common pin locations
+#define IR_SENSOR_PIN   16   //  input pin of the TSOP IR receiver
+#define LDO_ENABLE_PIN   7   // Enable pin for the MIC5504 3,3V regulator (VCC supply for sensors)
+#define ANALOG_FORCE_SENSOR_X_PIN A0   // input pin if an analog force sensor is used (x axis) 
+#define ANALOG_FORCE_SENSOR_Y_PIN A1   // input pin if an analog force sensor is used (y axis) 
 
 
 /**
