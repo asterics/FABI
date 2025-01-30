@@ -23,12 +23,12 @@
 #define _FLIPWARE_H_
 
 // uncomment the target device (FLIPMOUSE or FABI or FLIPPAD):
-// #define FLIPMOUSE
+#define FLIPMOUSE
 // #define FLIPAD
-#define FABI
+// #define FABI
 
 // update the version string with every firmware change:
-#define VERSION_STRING "v3.7.0"
+#define VERSION_STRING "v3.7"
 
 #include <Arduino.h>
 #include <Wire.h>
@@ -60,7 +60,6 @@
 //#define DEBUG_OUTPUT_IR      	 // enable infrared.cpp debugging, showing whats happening on IR recv/send
 #define DEBUG_OUTPUT_SENSORS 	 // enable sensors.cpp debugging, showing whats happening on sensor reading & init
 #define DEBUG_DELAY_STARTUP 	 // enable a 3s delay after Serial.begin and before all the other stuff.
-//#define DEBUG_NO_TONE          // disable tones, to avoid annoying other passengers when programming on the train :-)
 //#define DEBUG_PRESSURE_RAWVALUES // raw output of pressure values and filtered output
 //#define DEBUG_MPRLS_ERRORFLAGS // continously print error flags of MPRLS
 
@@ -92,6 +91,30 @@
 #define DIR_SW  6   // sout-west
 #define DIR_S   7   // south
 #define DIR_SE  8   // south-east
+
+
+/**
+   GlobalSettings struct
+   contains general parameters for device
+*/
+struct GlobalSettings {
+  uint8_t  buzzerEnabled;   // enbale tone output via internal buzzer?
+
+  /*  TBD: include those here ??
+  uint16_t ts;     // threshold sip
+  uint16_t tp;     // threshold puff
+  uint16_t sp;     // threshold strong puff
+  uint16_t ss;     // threshold strong sip
+  uint16_t ro;     // orientation (0,90,180,270)
+  uint16_t tt;     // threshold time for longpress 
+  uint16_t ap;     // antitremor press time 
+  uint16_t ar;     // antitremor release time 
+  uint16_t ai;     // antitremor idle time
+  uint16_t dp;     // double press time  
+  uint16_t ad;     // automatic dwelling time  
+  */
+
+};
 
 /**
    SlotSettings struct
@@ -147,9 +170,10 @@ struct SensorData {
 extern char moduleName[];
 extern uint8_t actSlot;
 extern uint8_t addonUpgrade;
+extern struct GlobalSettings globalSettings;
+extern struct SlotSettings slotSettings; 
 extern struct SensorData sensorData;
 extern struct CurrentSensorDataCore1 currentSensorDataCore1;
-extern struct SlotSettings slotSettings; 
 extern const struct SlotSettings defaultSlotSettings;
 extern uint8_t workingmem[WORKINGMEM_SIZE];            // working memory  (command parser, IR-rec/play)
 extern char keystringBuffer[MAX_KEYSTRINGBUFFER_LEN];  // storage for all button string parameters of a slot
@@ -181,9 +205,6 @@ typedef char* uint_farptr_t_FM;
 #endif
 #ifdef DEBUG_DELAY_STARTUP
   #warning "DELAY_STARTUP is active, do not release this way!"
-#endif
-#ifdef DEBUG_NO_TONE
-  #warning "DEBUG_NO_TONE is defined, do not release this way!"
 #endif
 #ifdef DEBUG_PRESSURE_RAWVALUES
   #warning "DEBUG_PRESSURE_RAWVALUES is defined, do not release this way!"
