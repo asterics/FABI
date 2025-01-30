@@ -25,7 +25,7 @@ void mouseRelease(uint8_t button)
     Mouse.release(button);
 
   if (slotSettings.bt & 2)
-    #ifdef FABI 
+    #ifndef FLIPMOUSE 
       MouseBLE.release(button); 
     #else 
       mouseBTRelease(button);
@@ -38,7 +38,7 @@ void mousePress(uint8_t button)
     Mouse.press(button);
 
   if (slotSettings.bt & 2)
-    #ifdef FABI 
+    #ifndef FLIPMOUSE 
       MouseBLE.press(button);
     #else 
       mouseBTPress(button);
@@ -53,7 +53,7 @@ void mouseToggle(uint8_t button)
   }
 
   if (slotSettings.bt & 2) {
-    #ifdef FABI 
+    #ifndef FLIPMOUSE 
       if (MouseBLE.isPressed(button))
         MouseBLE.release(button); else MouseBLE.press(button);
     #else 
@@ -70,7 +70,7 @@ void mouseScroll(int8_t steps)
     Mouse.move(0,0,steps);
 
   if (slotSettings.bt & 2)
-    #ifdef FABI 
+    #ifndef FLIPMOUSE 
       MouseBLE.move(0, 0, steps);
     #else 
       mouseBT(0, 0, steps);
@@ -87,7 +87,7 @@ void mouseMove(int x, int y)
     if (slotSettings.bt & 1)
       Mouse.move(-128, 0, 0);
     if (slotSettings.bt & 2)
-    #ifdef FABI 
+    #ifndef FLIPMOUSE 
       MouseBLE.move(-128, 0, 0);
     #else 
       mouseBT(-128, 0, 0);
@@ -98,7 +98,7 @@ void mouseMove(int x, int y)
     if (slotSettings.bt & 1)
       Mouse.move(127, 0, 0);
     if (slotSettings.bt & 2)
-    #ifdef FABI 
+    #ifndef FLIPMOUSE 
       MouseBLE.move(127, 0, 0);
     #else 
       mouseBT(127, 0, 0);
@@ -110,7 +110,7 @@ void mouseMove(int x, int y)
     if (slotSettings.bt & 1)
       Mouse.move(0, -128, 0);
     if (slotSettings.bt & 2)
-    #ifdef FABI 
+    #ifndef FLIPMOUSE 
       MouseBLE.move(0, -128, 0);
     #else 
       mouseBT(0, -128, 0);
@@ -121,7 +121,7 @@ void mouseMove(int x, int y)
     if (slotSettings.bt & 1)
       Mouse.move(0, 127, 0);
     if (slotSettings.bt & 2)
-    #ifdef FABI 
+    #ifndef FLIPMOUSE 
       MouseBLE.move(0, 127, 0);
     #else 
       mouseBT(0, 127, 0);
@@ -132,7 +132,7 @@ void mouseMove(int x, int y)
   if (slotSettings.bt & 1)
     Mouse.move(x, y, 0);
   if (slotSettings.bt & 2)
-    #ifdef FABI 
+    #ifndef FLIPMOUSE 
       MouseBLE.move(x, y, 0);
     #else 
       mouseBT(x, y, 0);
@@ -146,7 +146,7 @@ void keyboardPrint(char * keystring)
   {
       if (slotSettings.bt & 1) Keyboard.write(keystring[i]);
       if (slotSettings.bt & 2) 
-      #ifdef FABI 
+      #ifndef FLIPMOUSE 
         KeyboardBLE.write(keystring[i]);
       #else 
         keyboardBTPrint(keystring);  // TODO: check ISO8859-compatibility
@@ -159,7 +159,7 @@ void keyboardPress(int key)
   if (slotSettings.bt & 1)
     Keyboard.press(key);
   if (slotSettings.bt & 2)
-  #ifdef FABI 
+  #ifndef FLIPMOUSE 
     KeyboardBLE.press(key);
   #else 
     keyboardBTPress(key);
@@ -171,7 +171,7 @@ void keyboardRelease(int key)
   if (slotSettings.bt & 1)
     Keyboard.release(key);
   if (slotSettings.bt & 2)
-  #ifdef FABI 
+  #ifndef FLIPMOUSE 
     KeyboardBLE.release(key);
   #else 
     keyboardBTRelease(key);
@@ -183,7 +183,7 @@ void keyboardReleaseAll()
   if (slotSettings.bt & 1)
     Keyboard.releaseAll();
   if (slotSettings.bt & 2)
-  #ifdef FABI 
+  #ifndef FLIPMOUSE 
     KeyboardBLE.releaseAll();
   #else 
     keyboardBTReleaseAll();
@@ -213,7 +213,7 @@ void joystickAxis(int axis1, int axis2, uint8_t select)
   }
   if (slotSettings.bt & 2)
   {
-    #ifdef FABI
+    #ifndef FLIPMOUSE
       switch(select)
       {
         case 0:
@@ -241,7 +241,7 @@ void joystickButton(uint8_t nr, int val)
   if (slotSettings.bt & 1) 
     Joystick.button(nr,val);
   if (slotSettings.bt & 2)
-  #ifdef FABI 
+  #ifndef FLIPMOUSE 
     JoystickBLE.button(nr,val);
   #else 
     joystickBTButton(nr,val);
@@ -253,7 +253,7 @@ void joystickHat(int val)
   if (slotSettings.bt & 1) 
     Joystick.hat(val);
   if (slotSettings.bt & 2)
-  #ifdef FABI 
+  #ifndef FLIPMOUSE 
     JoystickBLE.hat(val);
   #else 
     joystickBTHat(val);

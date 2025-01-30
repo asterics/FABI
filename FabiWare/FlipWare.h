@@ -23,9 +23,15 @@
 #define _FLIPWARE_H_
 
 // uncomment the target device (FLIPMOUSE or FABI or FLIPPAD):
-#define FLIPMOUSE
+#define FABI
+#define MODULE_NAME "FABI"
+
+//#define FLIPMOUSE
+//#define MODULE_NAME "FLipmouse"
+
 // #define FLIPAD
-// #define FABI
+// #define MODULE_NAME "FLipPad"
+
 
 // update the version string with every firmware change:
 #define VERSION_STRING "v3.7"
@@ -60,6 +66,7 @@
 //#define DEBUG_OUTPUT_IR      	 // enable infrared.cpp debugging, showing whats happening on IR recv/send
 #define DEBUG_OUTPUT_SENSORS 	 // enable sensors.cpp debugging, showing whats happening on sensor reading & init
 #define DEBUG_DELAY_STARTUP 	 // enable a 3s delay after Serial.begin and before all the other stuff.
+#define DEBUG_ACTIVITY_LED 	   // enable blinking internal led signaling activity (in sensor loop, core1).
 //#define DEBUG_PRESSURE_RAWVALUES // raw output of pressure values and filtered output
 //#define DEBUG_MPRLS_ERRORFLAGS // continously print error flags of MPRLS
 
