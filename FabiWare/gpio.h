@@ -43,8 +43,8 @@
   #define PIN_WIRE1_SDA_ 18
   #define PIN_WIRE1_SCL_ 19
 
-  #define AUDIO_SIGNAL_PIN    3 //6   // PWM audio signal
-  #define AUDIO_AMP_SD_PIN   15   // PAM audio amp shutdown (actve low)
+  #define AUDIO_SIGNAL_PIN    6   // PWM audio signal pin
+  #define AUDIO_AMP_SD_PIN   15   // PAM audio amp shutdown pin (active low)
 #endif
 
 
