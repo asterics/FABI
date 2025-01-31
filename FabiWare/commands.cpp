@@ -69,10 +69,11 @@ const struct atCommandType atCommands[] PROGMEM = {
   {"GV"  , PARTYPE_UINT }, {"RV"  , PARTYPE_UINT }, {"GH"  , PARTYPE_UINT }, {"RH"  , PARTYPE_UINT },
   {"MS"  , PARTYPE_UINT }, {"AC"  , PARTYPE_UINT }, {"RO"  , PARTYPE_UINT }, {"SB"  , PARTYPE_UINT },
   /***** audio feedback *****/
-  {"AT"  , PARTYPE_STRING}, {"AP"  , PARTYPE_STRING},
+  {"AT"  , PARTYPE_STRING}, {"AP"  , PARTYPE_STRING}, {"AD"  , PARTYPE_STRING}, {"AL"  , PARTYPE_NONE},
+  {"AV"  , PARTYPE_UINT },
   #ifdef FLIPMOUSE
-  /***** BT-Housekeeping / FM-Only *****/
-  {"BC"  , PARTYPE_STRING}, {"BR"  , PARTYPE_UINT }, {"UG", PARTYPE_NONE },
+    /***** BT-Housekeeping / FM-Only *****/
+    {"BC"  , PARTYPE_STRING}, {"BR"  , PARTYPE_UINT }, {"UG", PARTYPE_NONE },
   #endif
 };
 
@@ -529,31 +530,52 @@ void performCommand (uint8_t cmd, int16_t par1, char * keystring, int8_t periodi
       audioPlayback(keystring);
       break;
 
-  #ifdef FLIPMOUSE
-    case CMD_BC:
-      if (isBluetoothAvailable()) {
-        
-        Serial_AUX.write(keystring);
-        Serial_AUX.write('\n'); //terminate command
-        
-        //byte bf[]= {0xfd,0,3,0,5,0,0,0,0};
-        //Serial_AUX.write(bf, 9); //terminate command
+    case CMD_AD:
+#ifdef DEBUG_OUTPUT_FULL
+      Serial.println("delete audio file");
+#endif
+      audioDelete(keystring);
+      break;
 
-        digitalWrite (6,!digitalRead (6));
-      }
+    case CMD_AL:
+#ifdef DEBUG_OUTPUT_FULL
+      Serial.println("list audio file");
+#endif
+      audioList();
       break;
-    case CMD_UG:
-      //we set this flag here, flushing & disabling serial port is done in loop()
-      addonUpgrade = BTMODULE_UPGRADE_START;
-      Serial.println("Starting upgrade for BT addon!");
-      // Command for upgrade sent to ESP - triggering reset into factory reset mode
-      Serial_AUX.println("$UG");
-      // delaying to ensure that UART command is sent and received
-      delay(500);
-      break;  
-    case CMD_BR:
-      resetBTModule (par1);
+
+    case CMD_AV:
+#ifdef DEBUG_OUTPUT_FULL
+      Serial.println("audio volume");
+#endif
+      audioVolume(par1);
       break;
+
+    #ifdef FLIPMOUSE
+      case CMD_BC:
+        if (isBluetoothAvailable()) {
+          
+          Serial_AUX.write(keystring);
+          Serial_AUX.write('\n'); //terminate command
+          
+          //byte bf[]= {0xfd,0,3,0,5,0,0,0,0};
+          //Serial_AUX.write(bf, 9); //terminate command
+
+          digitalWrite (6,!digitalRead (6));
+        }
+        break;
+      case CMD_UG:
+        //we set this flag here, flushing & disabling serial port is done in loop()
+        addonUpgrade = BTMODULE_UPGRADE_START;
+        Serial.println("Starting upgrade for BT addon!");
+        // Command for upgrade sent to ESP - triggering reset into factory reset mode
+        Serial_AUX.println("$UG");
+        // delaying to ensure that UART command is sent and received
+        delay(500);
+        break;  
+      case CMD_BR:
+        resetBTModule (par1);
+        break;
     #endif 
   }
 }

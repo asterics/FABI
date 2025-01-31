@@ -16,6 +16,10 @@
 #include "FlipWare.h"
 #include "gpio.h"
 
+#define SOUND_FOLDER "/sounds/"
+#define MAX_PATH_LEN 32
+#define WAIT_FOR_TRANSFER_TIMEOUT 10000  
+
 /**
    constant definitions for tone generation 
 */ 
@@ -45,7 +49,6 @@ void updateTones();
 */
 void makeTone(uint8_t kind, uint8_t param);
 
-
 /**
    @name initAudio
    @brief initialize the audio playback system (if available)
@@ -53,6 +56,28 @@ void makeTone(uint8_t kind, uint8_t param);
 */
 void initAudio();
 
+/**
+   @name audioList
+   @brief print a list of available audio files
+   @return none
+*/
+void audioList();
+
+/**
+   @name audioVolume
+   @param vol: volume (0-200%)
+   @brief set the volume for audio playback
+   @return none
+*/
+void audioVolume(uint16_t vol);
+
+/**
+   @name audioDelete
+   @param fn: filename for the audio file
+   @brief deletes the audio file from LitteFS (if it exists)
+   @return none
+*/
+void audioDelete(char * fn);
 
 /**
    @name audioPlayback
@@ -61,7 +86,6 @@ void initAudio();
    @return none
 */
 void audioPlayback(char * fn);
-
 
 /**
    @name audioTransfer

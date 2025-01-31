@@ -15,7 +15,7 @@
 #include "tone.h"
 #include <LittleFS.h>
 
-#define SAMPLEPERIOD_uS 33  // fixed sampling rate for 22050 Hz. TBD: improve!
+#define SAMPLEPERIOD_uS 38  // fixed sampling rate for 22050 Hz. TBD: improve!
 #define SKIP_BYTES 2000     // skip first bytes of a wav file.  TBD: improve!
 #define READBUF_LEN 1       // lenght of serial read buffer for audio file transfer
 
@@ -26,6 +26,7 @@ struct sampledata_t {
   uint32_t count;
   uint32_t len;
   uint8_t isPlaying;
+  uint16_t volume;
 };
 struct sampledata_t sampleData;
 
@@ -47,7 +48,7 @@ bool repeating_timer_callback(struct repeating_timer *t) {
     sd->file.read((uint8_t *)&pwmValue, 2);  // read signed 16 bit int from file
 
     if (sd->count>=SKIP_BYTES) {
-      analogWrite(AUDIO_SIGNAL_PIN, pwmValue + 12000);  // update PWM
+      analogWrite(AUDIO_SIGNAL_PIN, (pwmValue + 12000) * sd->volume / 100);  // update PWM
       // not sure why an offset of 12000 gives best playback results ....
     }
     sd->count += 2;
@@ -71,20 +72,65 @@ void initAudio() {
     analogWriteFreq(250000);
     analogWriteResolution(16);
     sampleData.isPlaying = 0;
+    sampleData.volume = 100;
   #endif
 }
+
+/**
+   prepare soundfile path name (include folder prefix or slotname)
+*/
+void prepSoundFilename(char * extendedFn, char *fn) {
+  if ((fn) && (strlen(fn) > 0) && (strlen(fn) < MAX_NAME_LEN-1)) {
+    strcpy(extendedFn,SOUND_FOLDER);
+    strcat(extendedFn,fn);
+  }
+  else sprintf(extendedFn,"%sslot%d",SOUND_FOLDER,actSlot);
+}
+
+/**
+   List available audio files 
+*/
+void audioList() {
+  char path[MAX_PATH_LEN];
+  //open current dir
+  strcpy(path,SOUND_FOLDER);
+  Dir dir = LittleFS.openDir(path);
+  //and iterate over files to remove them.
+  while(dir.next()) {
+    Serial.println(dir.fileName());
+  }
+  Serial.println(dir.fileName());
+}
+
+
+/**
+   Delete audio file 
+*/
+void audioDelete(char * fn) {
+  char soundFilename[MAX_PATH_LEN];
+  prepSoundFilename(soundFilename, fn);
+  Serial.println("\nRemove Sound File "+String(soundFilename));
+  LittleFS.remove(soundFilename);
+}
+
+/**
+  set audio volume
+*/
+void audioVolume(uint16_t vol) {
+  if ((vol>=0) && (vol <= 200))
+    sampleData.volume=vol;
+}
+
 
 /**
    Start an audio playback
 */
 void audioPlayback(char * fn) {
   #ifdef AUDIO_SIGNAL_PIN
-    char soundFileName[MAX_NAME_LEN];
-    if ((fn) && (strlen(fn) > 0) && (strlen(fn) < MAX_NAME_LEN-1))
-      strcpy(soundFileName,fn);
-    else sprintf(soundFileName,"slot%d",actSlot);
-    Serial.println("\nPlay Sound File "+String(soundFileName));
-    sampleData.file = LittleFS.open(soundFileName, "r");
+    char soundFilename[MAX_PATH_LEN];
+    prepSoundFilename(soundFilename, fn);
+    Serial.println("\nPlay Sound File "+String(soundFilename));
+    sampleData.file = LittleFS.open(soundFilename, "r");
     if (sampleData.file.available()) {
       sampleData.count = 0;
       sampleData.isPlaying = 1;
@@ -104,22 +150,19 @@ void audioPlayback(char * fn) {
 uint8_t audioTransfer(char * fn) {
   File f;
   uint32_t cnt = 0, gotBytes=0;
-  char soundFileName[MAX_NAME_LEN];
+  char soundFilename[MAX_PATH_LEN];
   uint8_t buf[READBUF_LEN];
 
-  Serial.println("\nStart Sound upload!");
-  cnt=0;
+  prepSoundFilename(soundFilename, fn);
+  Serial.print("\nStart upload of SoundFile: ");
+  Serial.println(soundFilename);
+
   uint32_t ts=millis();
-  while ((!Serial.available()) && (millis()-ts < 10000));
-  if (!Serial.available()) return(0);
+  while ((!Serial.available()) && (millis()-ts < WAIT_FOR_TRANSFER_TIMEOUT));
+  if (!Serial.available()) return(0);  // if no transfert starts within timeout: abort
 
-  if ((fn) && (strlen(fn) > 0) && (strlen(fn) < MAX_NAME_LEN-1))
-    strcpy(soundFileName,fn);
-  else sprintf(soundFileName,"slot%d",actSlot);
-
-  f = LittleFS.open(soundFileName, "w");
+  f = LittleFS.open(soundFilename, "w");
   if (f) {
-
     do {
       gotBytes = Serial.readBytes(buf, READBUF_LEN);   // note that the timeout is used here!
       if (gotBytes > 0) {
@@ -129,9 +172,9 @@ uint8_t audioTransfer(char * fn) {
       }
     } while (gotBytes == READBUF_LEN);
 
-    // timeout: transfer finished!
+    // read timeout: transfer finished!
     f.close();
-    Serial.println("\nSound File "+String(soundFileName)+" received, " + String(cnt) + " bytes read!");
+    Serial.println("\nSound File "+String(soundFilename)+" received, " + String(cnt) + " bytes read!");
     sampleData.len=cnt;
     cnt = 0;
   }

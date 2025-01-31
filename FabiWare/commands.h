@@ -105,8 +105,12 @@
           AT SC <string>  change slot color: given string 0xRRGGBB                           
           AT SR           start reporting raw values (5 sensor values, starting with "VALUES:")
           AT ER           end reporting raw values
-          AT AT <string>  audio transfer: start reception of a wav file of given name
-          AT AP <string>  audio play: start playback a wav file of given name
+          AT AT <string>  audio transfer: start reception of a wav file of given name (if name is empty, current slot number is used)
+                          (the file will be created in the local file system, existing files will be overwritten)
+          AT AP <string>  audio play: start playback a wav file of given name (if name is empty, current slot number is used)
+          AT AD <string>  audio delete: removes an audio file (if name is empty, current slot number is used)
+          AT AL           audio list: list all available audio files
+          AT AV <uint>    audio volume: audio volume (0-200 %)
 
     Mode change and others:
           AT MM <uint>    mouse mode: cursor on (uint==1) or alternative functions on (uint==0)
@@ -173,7 +177,8 @@ enum atCommands {
   CMD_RA, CMD_KL, CMD_SA, CMD_LO, CMD_LA, CMD_LI, CMD_NE, CMD_DE, CMD_RS, CMD_RE, CMD_NC, CMD_BT, 
   CMD_SC, CMD_SR, CMD_ER, CMD_CA, CMD_MA, CMD_WA, CMD_TS, CMD_TP, CMD_SP, CMD_SS, CMD_IR, CMD_IP,
   CMD_IH, CMD_IS, CMD_IC, CMD_IW, CMD_IL, CMD_IT, CMD_MM, CMD_SW, CMD_AX, CMD_AY, CMD_DX, CMD_DY,
-  CMD_GV, CMD_RV, CMD_GH, CMD_RH, CMD_MS, CMD_AC, CMD_RO, CMD_SB, CMD_AT, CMD_AP,
+  CMD_GV, CMD_RV, CMD_GH, CMD_RH, CMD_MS, CMD_AC, CMD_RO, CMD_SB, CMD_AT, CMD_AP, CMD_AD, CMD_AL,
+  CMD_AV,
 #ifdef FLIPMOUSE
   CMD_BC, CMD_BR, CMD_UG,
 #endif
