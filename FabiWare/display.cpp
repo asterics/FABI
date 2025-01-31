@@ -20,7 +20,9 @@
 
 #define SCREEN_ADDRESS 0x3C
 
-uint8_t displayAvailable=0;
+uint8_t displayAvailable=0;   // indicates if LCD was found on I2C bus
+uint8_t displayPaused=0;      // if true, display updates are paused
+
 SSD1306AsciiWire *oled;    // pointer to the display driver class
 
 /**
@@ -109,7 +111,7 @@ void displayMessage(char * msg) {
    clear display, then print current slotname and mode information
 */
 void displayUpdate(void) {
-  if (!displayAvailable) return;
+  if ((!displayAvailable) || (displayPaused)) return;
   displayClear();
   oled->set2X();
   oled->setCursor(5,1);
@@ -134,4 +136,15 @@ void displayUpdate(void) {
     case 2: oled->print("BT"); break;
     case 3: oled->print("both"); break;
   }
+}
+
+
+/**
+   @name pauseDisplayUpdates
+   @param pause: if true, display updates will be paused
+   @brief allows to bypass display updates
+   @return none
+*/
+void pauseDisplayUpdates(uint8_t pause) {
+  displayPaused=pause;
 }

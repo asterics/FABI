@@ -282,10 +282,12 @@ void performCommand (uint8_t cmd, int16_t par1, char * keystring, int8_t periodi
     case CMD_LO:
       if (keystring) {
         release_all();
+        pauseDisplayUpdates(true);
         if (readFromEEPROM(keystring)) Serial.println("OK");
         else Serial.println(ERRORMESSAGE_NOT_FOUND);
-        displayUpdate();
         setKeyboardLayout(slotSettings.kbdLayout);
+        pauseDisplayUpdates(false);
+        displayUpdate();
       }
       break;
     case CMD_LA:
@@ -302,9 +304,11 @@ void performCommand (uint8_t cmd, int16_t par1, char * keystring, int8_t periodi
       Serial.print("load next slot");
 #endif
       release_all();
+      pauseDisplayUpdates(true);
       if (!readFromEEPROM("")) Serial.println(ERRORMESSAGE_NOT_FOUND);
-      displayUpdate();
       setKeyboardLayout(slotSettings.kbdLayout);
+      pauseDisplayUpdates(false);
+      displayUpdate();
       audioPlayback(0);
       break;
     case CMD_DE:

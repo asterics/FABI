@@ -46,6 +46,15 @@ void displayClear(void);
 void displayUpdate(void);
 
 /**
+   @name pauseDisplayUpdates
+   @param pause: if true, display updates will be paused
+   @brief allows to bypass display updates
+   @return none
+*/
+void pauseDisplayUpdates(uint8_t pause);
+
+
+/**
    @name displayUpdate
    @brief displays a message on the SSD1306 LCD 
    @param msg message string 
