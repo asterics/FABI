@@ -87,7 +87,8 @@ const struct SlotSettings defaultSlotSettings = {      // default slotSettings v
    static variables and data structures for settings and sensor data management
 */
 struct GlobalSettings globalSettings {
-  .buzzerMode=1   // enable tone output via internal buzzer (tone height)
+  .buzzerMode=1,    // enable tone output via internal buzzer (tone height)
+  .audioVolume=50,  // audio volume 50%  (if AUDIO_SIGNAL_PIN defined)
 };
 
 struct SensorData sensorData {        

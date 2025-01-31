@@ -108,7 +108,6 @@ struct GlobalSettings {
   uint8_t  buzzerMode;   // tone output mode via internal buzzer: 0=disable, 1=only height, 2=height and count
   uint16_t audioVolume;  // gain for audio sample values (0-200%, 0=deactivate audio output)
 
-
   /*  TBD: include those here ??
   uint16_t ts;     // threshold sip
   uint16_t tp;     // threshold puff
