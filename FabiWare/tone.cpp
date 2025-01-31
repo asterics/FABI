@@ -30,6 +30,9 @@ struct sampledata_t {
 };
 struct sampledata_t sampleData;
 
+uint16_t freqtable[] = {523, 587, 659, 698, 784, 880, 988, 1047};    // one octave for chromatic tone feedback
+
+
 struct repeating_timer timer;
 
 /**
@@ -74,6 +77,9 @@ void initAudio() {
     sampleData.isPlaying = 0;
     sampleData.volume = 100;
   #endif
+
+  makeTone(TONE_STARTUP,0);
+
 }
 
 /**
@@ -127,6 +133,7 @@ void audioVolume(uint16_t vol) {
 */
 void audioPlayback(char * fn) {
   #ifdef AUDIO_SIGNAL_PIN
+    if (sampleData.isPlaying) return;
     char soundFilename[MAX_PATH_LEN];
     prepSoundFilename(soundFilename, fn);
     Serial.println("\nPlay Sound File "+String(soundFilename));
@@ -228,6 +235,12 @@ void makeTone(uint8_t kind, uint8_t param)
   uint8_t tonePin = TONE_PIN;
 
   switch (kind) {
+    case TONE_STARTUP:
+      tone(tonePin,freqtable[0],200);  delay(200);
+      tone(tonePin,freqtable[2],200);  delay(200);
+      tone(tonePin,freqtable[4],100);  delay(100);
+      break;
+
     case TONE_ENTER_STRONGPUFF:
       tone(tonePin, 400, 200);
       break;
@@ -239,7 +252,7 @@ void makeTone(uint8_t kind, uint8_t param)
       break;
     case TONE_CHANGESLOT:
       if (!toneCount) {
-        toneHeight = 2000 + 200 * param;
+        toneHeight = freqtable[param%8];
         toneOnTime = 150;
         toneOffTime = 50;
         toneCount = param + 1;

@@ -34,6 +34,7 @@
 #define TONE_IR               9
 #define TONE_BT_PAIRING      10
 #define TONE_IR_REC          11
+#define TONE_STARTUP         12
 
 /**
    @name updateTones
