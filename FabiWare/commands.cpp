@@ -70,7 +70,7 @@ const struct atCommandType atCommands[] PROGMEM = {
   {"MS"  , PARTYPE_UINT }, {"AC"  , PARTYPE_UINT }, {"RO"  , PARTYPE_UINT }, {"SB"  , PARTYPE_UINT },
   /***** audio feedback *****/
   {"AT"  , PARTYPE_STRING}, {"AP"  , PARTYPE_STRING}, {"AD"  , PARTYPE_STRING}, {"AL"  , PARTYPE_NONE},
-  {"AV"  , PARTYPE_UINT },
+  {"AV"  , PARTYPE_UINT },  {"AB"  , PARTYPE_UINT },
   #ifdef FLIPMOUSE
     /***** BT-Housekeeping / FM-Only *****/
     {"BC"  , PARTYPE_STRING}, {"BR"  , PARTYPE_UINT }, {"UG", PARTYPE_NONE },
@@ -549,6 +549,13 @@ void performCommand (uint8_t cmd, int16_t par1, char * keystring, int8_t periodi
       Serial.println("audio volume");
 #endif
       audioVolume(par1);
+      break;
+
+    case CMD_AB:
+#ifdef DEBUG_OUTPUT_FULL
+      Serial.println("audio buzzer mode");
+#endif
+      globalSettings.buzzerMode=par1;
       break;
 
     #ifdef FLIPMOUSE

@@ -111,6 +111,7 @@
           AT AD <string>  audio delete: removes an audio file (if name is empty, current slot number is used)
           AT AL           audio list: list all available audio files
           AT AV <uint>    audio volume: audio volume (0-200 %)
+          AT AB <uint>    audio buzzer mode: 0=off, 1=height, 2=height and count
 
     Mode change and others:
           AT MM <uint>    mouse mode: cursor on (uint==1) or alternative functions on (uint==0)
@@ -178,7 +179,7 @@ enum atCommands {
   CMD_SC, CMD_SR, CMD_ER, CMD_CA, CMD_MA, CMD_WA, CMD_TS, CMD_TP, CMD_SP, CMD_SS, CMD_IR, CMD_IP,
   CMD_IH, CMD_IS, CMD_IC, CMD_IW, CMD_IL, CMD_IT, CMD_MM, CMD_SW, CMD_AX, CMD_AY, CMD_DX, CMD_DY,
   CMD_GV, CMD_RV, CMD_GH, CMD_RH, CMD_MS, CMD_AC, CMD_RO, CMD_SB, CMD_AT, CMD_AP, CMD_AD, CMD_AL,
-  CMD_AV,
+  CMD_AV, CMD_AB,
 #ifdef FLIPMOUSE
   CMD_BC, CMD_BR, CMD_UG,
 #endif

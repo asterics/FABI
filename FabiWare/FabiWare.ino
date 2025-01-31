@@ -87,7 +87,7 @@ const struct SlotSettings defaultSlotSettings = {      // default slotSettings v
    static variables and data structures for settings and sensor data management
 */
 struct GlobalSettings globalSettings {
-  .buzzerEnabled=1   // enable tone output via internal buzzer
+  .buzzerMode=1   // enable tone output via internal buzzer (tone height)
 };
 
 struct SensorData sensorData {        
@@ -139,7 +139,7 @@ void setup() {
   initDebouncers();
   initStorage();   // initialize storage if necessary
   initAudio();
-  
+
   #ifndef FLIPMOUSE
     MouseBLE.begin(moduleName);
     KeyboardBLE.begin("");

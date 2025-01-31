@@ -204,7 +204,7 @@ uint16_t toneCount = 0;
 */
 void updateTones()
 {
-  if ((!toneCount) || (!globalSettings.buzzerEnabled)) return;
+  if ((!toneCount) || (!globalSettings.buzzerMode)) return;
 
   static uint16_t toneState = 0;
   static uint16_t cnt = 0;
@@ -230,7 +230,7 @@ void updateTones()
 */
 void makeTone(uint8_t kind, uint8_t param)
 {
-  if (!globalSettings.buzzerEnabled) return;
+  if (!globalSettings.buzzerMode) return;
 
   uint8_t tonePin = TONE_PIN;
 
@@ -255,7 +255,8 @@ void makeTone(uint8_t kind, uint8_t param)
         toneHeight = freqtable[param%8];
         toneOnTime = 150;
         toneOffTime = 50;
-        toneCount = param + 1;
+        if (globalSettings.buzzerMode == 2) toneCount = param + 1;
+        else toneCount = 1;
       }
       break;
     case TONE_ENTER_STRONGSIP:

@@ -105,7 +105,7 @@
    contains general parameters for device
 */
 struct GlobalSettings {
-  uint8_t  buzzerEnabled;   // enbale tone output via internal buzzer?
+  uint8_t  buzzerMode;   // tone output mode via internal buzzer: 0=disable, 1=only height, 2=height and count
 
   /*  TBD: include those here ??
   uint16_t ts;     // threshold sip
