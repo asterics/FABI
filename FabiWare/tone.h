@@ -65,14 +65,6 @@ void initAudio();
 void audioList();
 
 /**
-   @name audioVolume
-   @param vol: volume (0-200%)
-   @brief set the volume for audio playback
-   @return none
-*/
-void audioVolume(uint16_t vol);
-
-/**
    @name audioDelete
    @param fn: filename for the audio file
    @brief deletes the audio file from LitteFS (if it exists)

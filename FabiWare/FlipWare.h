@@ -64,7 +64,7 @@
 //#define DEBUG_OUTPUT_MEMORY    // enables eeprom.cpp debugging, showing memory access
 //#define DEBUG_OUTPUT_KEYS      // enable keys.cpp debugging, showing key press/release events and keycode lookup
 //#define DEBUG_OUTPUT_IR      	 // enable infrared.cpp debugging, showing whats happening on IR recv/send
-#define DEBUG_OUTPUT_SENSORS 	 // enable sensors.cpp debugging, showing whats happening on sensor reading & init
+//#define DEBUG_OUTPUT_SENSORS 	 // enable sensors.cpp debugging, showing whats happening on sensor reading & init
 #define DEBUG_DELAY_STARTUP 	 // enable a 3s delay after Serial.begin and before all the other stuff.
 #define DEBUG_ACTIVITY_LED 	   // enable blinking internal led signaling activity (in sensor loop, core1).
 //#define DEBUG_PRESSURE_RAWVALUES // raw output of pressure values and filtered output
@@ -106,6 +106,8 @@
 */
 struct GlobalSettings {
   uint8_t  buzzerMode;   // tone output mode via internal buzzer: 0=disable, 1=only height, 2=height and count
+  uint16_t audioVolume;  // gain for audio sample values (0-200%, 0=deactivate audio output)
+
 
   /*  TBD: include those here ??
   uint16_t ts;     // threshold sip

@@ -26,7 +26,6 @@ struct sampledata_t {
   uint32_t count;
   uint32_t len;
   uint8_t isPlaying;
-  uint16_t volume;
 };
 struct sampledata_t sampleData;
 
@@ -51,7 +50,7 @@ bool repeating_timer_callback(struct repeating_timer *t) {
     sd->file.read((uint8_t *)&pwmValue, 2);  // read signed 16 bit int from file
 
     if (sd->count>=SKIP_BYTES) {
-      analogWrite(AUDIO_SIGNAL_PIN, (pwmValue + 12000) * sd->volume / 100);  // update PWM
+      analogWrite(AUDIO_SIGNAL_PIN, (pwmValue + 12000) * globalSettings.audioVolume / 100);  // update PWM
       // not sure why an offset of 12000 gives best playback results ....
     }
     sd->count += 2;
@@ -75,7 +74,6 @@ void initAudio() {
     analogWriteFreq(250000);
     analogWriteResolution(16);
     sampleData.isPlaying = 0;
-    sampleData.volume = 100;
   #endif
 
   makeTone(TONE_STARTUP,0);
@@ -105,7 +103,7 @@ void audioList() {
   while(dir.next()) {
     Serial.println(dir.fileName());
   }
-  Serial.println(dir.fileName());
+  Serial.println("OK");
 }
 
 
@@ -115,35 +113,34 @@ void audioList() {
 void audioDelete(char * fn) {
   char soundFilename[MAX_PATH_LEN];
   prepSoundFilename(soundFilename, fn);
-  Serial.println("\nRemove Sound File "+String(soundFilename));
+  #ifdef DEBUG_OUTPUT_FULL
+    Serial.println("\nRemove Sound File "+String(soundFilename));
+  #endif
   LittleFS.remove(soundFilename);
 }
-
-/**
-  set audio volume
-*/
-void audioVolume(uint16_t vol) {
-  if ((vol>=0) && (vol <= 200))
-    sampleData.volume=vol;
-}
-
 
 /**
    Start an audio playback
 */
 void audioPlayback(char * fn) {
   #ifdef AUDIO_SIGNAL_PIN
-    if (sampleData.isPlaying) return;
+    if ((sampleData.isPlaying) || (globalSettings.audioVolume==0)) return;
     char soundFilename[MAX_PATH_LEN];
     prepSoundFilename(soundFilename, fn);
-    Serial.println("\nPlay Sound File "+String(soundFilename));
+    #ifdef DEBUG_OUTPUT_FULL
+      Serial.println("\nPlay Sound File "+String(soundFilename));
+    #endif
     sampleData.file = LittleFS.open(soundFilename, "r");
     if (sampleData.file.available()) {
       sampleData.count = 0;
       sampleData.isPlaying = 1;
       add_repeating_timer_us(SAMPLEPERIOD_uS, repeating_timer_callback, &sampleData, &timer);
       digitalWrite(AUDIO_AMP_SD_PIN, HIGH);
-    } else Serial.printf("cound not open file ...");
+    } else {
+      #ifdef DEBUG_OUTPUT_FULL
+        Serial.printf("cound not open file ...");
+      #endif
+    }
   #endif
 }
 
@@ -161,8 +158,10 @@ uint8_t audioTransfer(char * fn) {
   uint8_t buf[READBUF_LEN];
 
   prepSoundFilename(soundFilename, fn);
-  Serial.print("\nStart upload of SoundFile: ");
-  Serial.println(soundFilename);
+  #ifdef DEBUG_OUTPUT_FULL
+    Serial.print("\nStart upload of SoundFile: ");
+    Serial.println(soundFilename);
+  #endif
 
   uint32_t ts=millis();
   while ((!Serial.available()) && (millis()-ts < WAIT_FOR_TRANSFER_TIMEOUT));
@@ -181,7 +180,9 @@ uint8_t audioTransfer(char * fn) {
 
     // read timeout: transfer finished!
     f.close();
-    Serial.println("\nSound File "+String(soundFilename)+" received, " + String(cnt) + " bytes read!");
+    #ifdef DEBUG_OUTPUT_FULL
+      Serial.println("\nSound File "+String(soundFilename)+" received, " + String(cnt) + " bytes read!");
+    #endif
     sampleData.len=cnt;
     cnt = 0;
   }

@@ -548,7 +548,8 @@ void performCommand (uint8_t cmd, int16_t par1, char * keystring, int8_t periodi
 #ifdef DEBUG_OUTPUT_FULL
       Serial.println("audio volume");
 #endif
-      audioVolume(par1);
+      if ((par1>=0) && (par1<=200))
+        globalSettings.audioVolume=par1;
       break;
 
     case CMD_AB:
