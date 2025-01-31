@@ -62,7 +62,6 @@ void updateLeds()
       b= slotSettings.sc & 0xff;
     }
 
-    #ifdef FLIPMOUSE
     // perform fading LED animation in case BT slot active but no device paired
     if ((slotSettings.bt&2) && (!isBluetoothConnected()))    {
       fadeCount++; if (fadeCount>255) fadeCount=0;
@@ -70,7 +69,6 @@ void updateLeds()
       g = (g*fadeCount)>>8;
       b = (b*fadeCount)>>8;
     }
-    #endif
     
 	} else {   // blinking mode (e.g. to indicate calibration)
     if (blinkTime == 0)

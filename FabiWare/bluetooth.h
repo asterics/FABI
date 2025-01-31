@@ -18,8 +18,20 @@
 #ifndef _BLUETOOTH_H_
 #define _BLUETOOTH_H_
 
- #include "FlipWare.h"
- #ifdef FLIPMOUSE
+#include "FlipWare.h"
+
+/**
+    @name isBluetoothConnected
+    @param none
+    @return true, if the BT module is connected (paired) false if not
+
+    This method returns true, if the BT module is currently paired to a host device
+    False will be returned otherwise
+*/
+bool isBluetoothConnected();
+
+
+#ifdef FLIPMOUSE    // from here, the code is only relevant for the FlipMouse with Arduino Nano 2040 Connect + ESP32 (using our BLE Hid implementation)
 
   //RX/TX3 are used to communicate with an addon board (mounted on AUX header)
   #define Serial_AUX Serial2
@@ -176,17 +188,7 @@
   */
   bool isBluetoothAvailable();
   
-  
-  /**
-     @name isBluetoothConnected
-     @param none
-     @return true, if the BT module is connected (paired) false if not
-  
-     This method returns true, if the BT module is currently paired to a host device
-     False will be returned otherwise
-  */
-  bool isBluetoothConnected();
-  
+
   /**
      @name startBTPairing
      @param none
@@ -251,3 +253,4 @@
   void joystickBTHat(int val);
  #endif
 #endif
+  

@@ -16,7 +16,15 @@
 
 #include "bluetooth.h"
 
-#ifdef FLIPMOUSE
+#ifndef FLIPMOUSE   // for FABI / FlipPad (using the RP Pico(2)W)
+
+  #include <PicoBluetoothBLEHID.h>
+  bool isBluetoothConnected() {
+    return(PicoBluetoothBLEHID.connected());
+  }
+
+#else      // from here, the code is only relevant for the FlipMouse with Arduino Nano 2040 Connect + ESP32 (using our BLE Hid implementation)
+
   //necessary to include keyboard / keyboardlayout.h to have access to the key definitions
   #include <Keyboard.h>
   #include <KeyboardLayout.h>
@@ -670,4 +678,5 @@
     
     sendBTJoystickReport();
   }
+  
 #endif

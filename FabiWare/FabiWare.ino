@@ -176,8 +176,9 @@ void loop() {
     //check if we should go into addon upgrade mode
     if(addonUpgrade != BTMODULE_UPGRADE_IDLE) {
       performAddonUpgrade();
-      return;
+      return;   // in upgrade mode, no other functions or commands are processed!
     }
+    updateBTConnectionState(); // check if BT is connected (for pairing indication LED animation)
     // if incoming data from BT-addOn: forward it to host serial interface
     while (Serial_AUX.available() > 0) {
       Serial.write(detectBTResponse(Serial_AUX.read()));
@@ -218,9 +219,6 @@ void loop() {
 
     reportValues();   // send live data to serial
     updateLeds();     // mode indication via front facing neopixel LEDs
-    #ifdef FLIPMOUSE
-      updateBTConnectionState(); // check if BT is connected (for pairing indication LED animation)
-    #endif
     updateTones();    // mode indication via audio signals (buzzer)
   }
   delay(1);  // core0: sleep a bit ...  
