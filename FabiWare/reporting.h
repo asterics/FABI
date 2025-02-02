@@ -19,6 +19,17 @@
 #define REPORT_NONE  0
 #define REPORT_ALL_SLOTS 1
 
+#define CAP_PRESSURESENSOR (1<<0)
+#define CAP_FORCESENSOR    (1<<1)
+#define CAP_BOARD          (1<<2)
+#define CAP_VID            (1<<3)
+#define CAP_PID            (1<<4)
+#define CAP_TOTALBYTES     (1<<5)
+#define CAP_USEDBYTES      (1<<6)
+#define CAP_FREEBYTES      (1<<7)
+#define CAP_MEMORYUSED     (1<<8)
+#define CAP_ALL           0xffff
+
 /**
    extern declaration of static variables
    which shall be accessed from other modules
@@ -38,4 +49,10 @@ void printCurrentSlot(Stream *S);
 */
 void reportValues();
 
+/**
+   @name reportCapabilities
+   @brief prints the current board, VID and PID, free memory, or available functions (selectable via bitmask)
+   @return none
+*/
+void reportCapabilities(uint16_t mask);
 #endif

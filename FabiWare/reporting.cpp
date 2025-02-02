@@ -16,8 +16,10 @@
 
 
 #include "FlipWare.h"
-#include "parser.h"
 #include "reporting.h"
+#include "parser.h"
+#include "sensors.h"
+#include <LittleFS.h>
 
 /**
   static variables for report management
@@ -142,3 +144,143 @@ void reportValues()
     valueReportCount = 0;
   }
 }
+
+void deleteUnusedFiles() {
+    Dir dir = LittleFS.openDir("/"); // Open directory
+    while (dir.next()) { // Iterate over files & subdirectories
+        if ((!dir.isDirectory()) && (dir.fileName() != "rev.bin"))
+        LittleFS.remove(dir.fileName());
+    }
+}
+
+void listFilesRecursive(String dirName, int level) {
+    Dir dir = LittleFS.openDir(dirName); // Open directory
+    while (dir.next()) { // Iterate over files & subdirectories
+        for (int i = 0; i < level; i++) Serial.print("  "); // Indentation
+
+        Serial.print(dir.isDirectory() ? "[DIR] " : "File: ");
+        Serial.print(dir.fileName());
+        Serial.print(" - Size: ");
+        Serial.print(dir.fileSize());
+        Serial.println(" bytes");
+
+        // If it's a directory, call this function recursively
+        if (dir.isDirectory()) {
+            listFilesRecursive(dir.fileName(), level + 1);
+        }
+    }
+}
+
+/**
+   @name reportFiles
+   @brief prints all files and directories present in the LitteFS flash file system
+   @return none
+*/
+void reportFiles() {
+  // deleteUnusedFiles();
+  listFilesRecursive("/", 0);
+}
+
+
+/**
+   @name reportCapabilities
+   @brief prints the current board, VID and PID, free memory, or available functions (selectable via bitmask)
+   @return none
+*/
+void reportCapabilities(uint16_t mask) {
+  Serial.print(moduleName); Serial.print(" ");
+  Serial.print(VERSION_STRING);
+
+  if (mask & CAP_PRESSURESENSOR) {
+    Serial.print(", PressureSensor=");
+    switch (getPressureSensorType()) {
+      case PRESSURE_NONE: Serial.print("None"); break;
+      case PRESSURE_DPS310: Serial.print("DSP310"); break;
+      case PRESSURE_MPRLS: Serial.print("MPRLS"); break;
+      case PRESSURE_INTERNAL_ADC: Serial.print("InternalADC"); break;
+    }
+  }
+
+  if (mask & CAP_FORCESENSOR) {
+    Serial.print(", ForceSensor=");
+    switch (getForceSensorType()) {
+      case FORCE_NONE: Serial.print("None"); break;
+      case FORCE_NAU7802: Serial.print("NAU7802"); break;
+      case FORCE_INTERNAL_ADC: Serial.print("InternalADC"); break;
+    }
+  }
+
+  if (mask & CAP_BOARD) {
+    #ifdef ARDUINO_RASPBERRY_PI_PICO
+      Serial.print(", Board=Raspberry_Pi_Pico");
+    #elif defined(ARDUINO_RASPBERRY_PI_PICO_W)
+      Serial.print(", Board=Raspberry_Pi_Pico_W");
+    #elif defined(ARDUINO_RASPBERRY_PI_PICO_2)
+      Serial.print(", Board=Raspberry_Pi_Pico_2");
+    #elif defined(ARDUINO_RASPBERRY_PI_PICO_2W)
+      Serial.print(", Board=Raspberry_Pi_Pico_2W");
+    #elif defined(ARDUINO_NANO_2040_CONNECT)
+      Serial.print(", Board=ARDUINO_NANO_2040_CONNECT");
+    #else
+      Serial.print(", Board=UNKNOWN");
+    #endif
+  }
+
+  // Get USB Device Descriptor
+  const tusb_desc_device_t* desc = (const tusb_desc_device_t*) tud_descriptor_device_cb();
+  if (mask & CAP_VID) {
+    Serial.print(", VID=0x"); Serial.print(desc->idVendor, HEX);
+  }
+
+  if (mask & CAP_PID) {
+    Serial.print(", PID=0x"); Serial.print(desc->idProduct, HEX);
+  }
+
+  if (!LittleFS.begin()) {
+      return;
+  }
+  // Get filesystem information
+  FSInfo fs_info;
+  LittleFS.info(fs_info);
+
+  if (mask & CAP_TOTALBYTES) {
+    Serial.print(", TotalBytes="); Serial.print(fs_info.totalBytes);
+  }
+  if (mask & CAP_USEDBYTES) {
+    Serial.print(", UsedBytes="); Serial.print(fs_info.usedBytes);
+  }
+  if (mask & CAP_FREEBYTES) {
+    Serial.print(", FreeBytes="); Serial.print(fs_info.totalBytes - fs_info.usedBytes);
+  }
+  if (mask & CAP_MEMORYUSED) {
+    Serial.print(", MemoryUsed=");  Serial.print((int)(fs_info.usedBytes * 100 / fs_info.totalBytes)); Serial.print("%");
+  }
+
+  Serial.println("");
+
+    /*
+    Serial.println("Detecting Board Type...");
+    // Check RP2040 version (B0 or B1)
+    uint32_t version = rp2040_chip_version();
+    bool is_b1 = (version == 2);
+
+    // Check for Wi-Fi chip
+    bool has_wifi = (cyw43_arch_init() == 0);
+    // init_cyw43_wifi(); // Initialize WiFi and check board type
+
+    // Identify the board
+    if (!is_b1 && !has_wifi) {
+        Serial.println("Board: Raspberry Pi Pico");
+    } else if (!is_b1 && has_wifi) {
+        Serial.println("Board: Raspberry Pi Pico W");
+    } else if (is_b1 && !has_wifi) {
+        Serial.println("Board: Raspberry Pi Pico 2");
+    } else if (is_b1 && has_wifi) {
+        Serial.println("Board: Raspberry Pi Pico 2W");
+    } else {
+        Serial.println("Unknown Board");
+    }
+    */
+}
+
+

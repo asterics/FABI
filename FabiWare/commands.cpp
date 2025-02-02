@@ -112,26 +112,9 @@ void performCommand (uint8_t cmd, int16_t par1, char * keystring, int8_t periodi
 
   switch (cmd) {
     case CMD_ID:
-      Serial.print(moduleName); Serial.print(" ");
-      Serial.print(VERSION_STRING);
-      Serial.print(", PressureSensor=");
-      switch (getPressureSensorType()) {
-        case PRESSURE_NONE: Serial.print("None"); break;
-        case PRESSURE_DPS310: Serial.print("DSP310"); break;
-        case PRESSURE_MPRLS: Serial.print("MPRLS"); break;
-        case PRESSURE_INTERNAL_ADC: Serial.print("InternalADC"); break;
-      }
-      Serial.print(", ForceSensor=");
-      switch (getForceSensorType()) {
-        case FORCE_NONE: Serial.print("None"); break;
-        case FORCE_NAU7802: Serial.print("NAU7802"); break;
-        case FORCE_INTERNAL_ADC: Serial.print("InternalADC"); break;
-      }
-      //Serial.print(", Sensorboard=");
-      //if (slotsettings.sb<SENSORBOARD_SMD_HIGH) Serial.print("StrainGauge"); 
-      //else Serial.print("SMD"); 
-      Serial.println("");
+      reportCapabilities (CAP_ALL);
       break;
+
     case CMD_BM:
       release_all();
 #ifdef DEBUG_OUTPUT_FULL
