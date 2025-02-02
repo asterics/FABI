@@ -19,6 +19,8 @@
 #ifndef _BUTTONS_H_
 #define _BUTTONS_H_
 
+#include "gpio.h"
+
 // Constants and Macro definitions
 #define DEFAULT_DEBOUNCING_TIME 5   // debouncing interval for button-press / release
 
@@ -27,52 +29,26 @@
    (these are not pin numbers but button function identifiers!)
 */
 
-#ifdef FLIPMOUSE
-  #define NUMBER_OF_BUTTONS  19     // number of physical + virtual buttons. Note: if higher than 32, change buttonStates to uint64_t!
-  // (buttons 0-2 are the physical buttons on the device)
-  #define UP_BUTTON                3
-  #define DOWN_BUTTON              4
-  #define LEFT_BUTTON              5
-  #define RIGHT_BUTTON             6
+  #define NUMBER_OF_BUTTONS     (NUMBER_OF_PHYSICAL_BUTTONS + 16)     // number of physical + virtual buttons. Note: if higher than 32, change buttonStates to uint64_t!
+  #define UP_BUTTON               (NUMBER_OF_PHYSICAL_BUTTONS +0)
+  #define DOWN_BUTTON             (NUMBER_OF_PHYSICAL_BUTTONS +1)
+  #define LEFT_BUTTON             (NUMBER_OF_PHYSICAL_BUTTONS +2)
+  #define RIGHT_BUTTON            (NUMBER_OF_PHYSICAL_BUTTONS +3)
   
-  #define SIP_BUTTON               7
-  #define STRONGSIP_BUTTON         8
-  #define PUFF_BUTTON              9
-  #define STRONGPUFF_BUTTON       10
+  #define SIP_BUTTON              (NUMBER_OF_PHYSICAL_BUTTONS +4)
+  #define STRONGSIP_BUTTON        (NUMBER_OF_PHYSICAL_BUTTONS +5)
+  #define PUFF_BUTTON             (NUMBER_OF_PHYSICAL_BUTTONS +6)
+  #define STRONGPUFF_BUTTON       (NUMBER_OF_PHYSICAL_BUTTONS +7)
   
-  #define STRONGSIP_UP_BUTTON     11
-  #define STRONGSIP_DOWN_BUTTON   12
-  #define STRONGSIP_LEFT_BUTTON   13
-  #define STRONGSIP_RIGHT_BUTTON  14
+  #define STRONGSIP_UP_BUTTON     (NUMBER_OF_PHYSICAL_BUTTONS +8)
+  #define STRONGSIP_DOWN_BUTTON   (NUMBER_OF_PHYSICAL_BUTTONS +9)
+  #define STRONGSIP_LEFT_BUTTON   (NUMBER_OF_PHYSICAL_BUTTONS +10)
+  #define STRONGSIP_RIGHT_BUTTON  (NUMBER_OF_PHYSICAL_BUTTONS +11)
   
-  #define STRONGPUFF_UP_BUTTON    15
-  #define STRONGPUFF_DOWN_BUTTON  16
-  #define STRONGPUFF_LEFT_BUTTON  17
-  #define STRONGPUFF_RIGHT_BUTTON 18
-#else
-  #define NUMBER_OF_BUTTONS  21         // number of physical + virtual buttons. Note: if higher than 32, change buttonStates to uint64_t!
-  // (buttons 0-4 are the physical buttons on the device)  
-  #define SIP_BUTTON              5
-  #define STRONGSIP_BUTTON        6
-  #define PUFF_BUTTON             7
-  #define STRONGPUFF_BUTTON       8
-
-  #define UP_BUTTON               9
-  #define DOWN_BUTTON             10
-  #define LEFT_BUTTON             11
-  #define RIGHT_BUTTON            12
-
-  #define STRONGSIP_UP_BUTTON     13
-  #define STRONGSIP_DOWN_BUTTON   14
-  #define STRONGSIP_LEFT_BUTTON   15
-  #define STRONGSIP_RIGHT_BUTTON  16
-  
-  #define STRONGPUFF_UP_BUTTON    17
-  #define STRONGPUFF_DOWN_BUTTON  18
-  #define STRONGPUFF_LEFT_BUTTON  19
-  #define STRONGPUFF_RIGHT_BUTTON 20
-#endif  
-
+  #define STRONGPUFF_UP_BUTTON    (NUMBER_OF_PHYSICAL_BUTTONS +12)
+  #define STRONGPUFF_DOWN_BUTTON  (NUMBER_OF_PHYSICAL_BUTTONS +13)
+  #define STRONGPUFF_LEFT_BUTTON  (NUMBER_OF_PHYSICAL_BUTTONS +14)
+  #define STRONGPUFF_RIGHT_BUTTON (NUMBER_OF_PHYSICAL_BUTTONS +15)
 
 /**
    slotButtonSettings struct

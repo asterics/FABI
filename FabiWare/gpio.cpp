@@ -11,6 +11,7 @@
 */
 
 #include "gpio.h"
+#include "FlipWare.h"
 #include <Adafruit_NeoPixel.h>
 
 int8_t  input_map[NUMBER_OF_PHYSICAL_BUTTONS] = PHYSICAL_BUTTON_MAP ;

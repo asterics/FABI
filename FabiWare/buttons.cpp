@@ -13,8 +13,8 @@
    http://www.gnu.org/licenses/gpl-3.0.en.html
 
 */
-
-#include "FlipWare.h"        //  FABI command definitions
+#include "FlipWare.h"
+#include "buttons.h"
 #include "infrared.h"
 #include "keys.h"
 
@@ -110,21 +110,18 @@ void initButtons() {
   }
   
   #ifdef FLIPMOUSE
-    buttons[0].mode = CMD_KP; setButtonKeystring(0, "KEY_SPACE ");
-    buttons[1].mode = CMD_KP; setButtonKeystring(1, "KEY_ENTER ");
-    buttons[2].mode = CMD_CL;
-    buttons[3].mode = CMD_KP; setButtonKeystring(3, "KEY_LEFT "); 
-    buttons[4].mode = CMD_KP; setButtonKeystring(4, "KEY_RIGHT ");
-  #endif
-  #ifdef FLIPMOUSE
     buttons[0].mode = CMD_NE; // button1: switch to next slot
-    buttons[3].mode = CMD_KP; setButtonKeystring(3, "KEY_UP ");
-    buttons[4].mode = CMD_KP; setButtonKeystring(4, "KEY_DOWN ");
-    buttons[5].mode = CMD_KP; setButtonKeystring(5, "KEY_LEFT "); 
-    buttons[6].mode = CMD_KP; setButtonKeystring(6, "KEY_RIGHT ");
-    buttons[7].mode = CMD_HL; // sip: hold left mouse button
-    buttons[9].mode = CMD_CR; // puff: click right
-    buttons[10].mode = CMD_CA; // strong puff: calibrate
+    buttons[UP_BUTTON].mode = CMD_KH; setButtonKeystring(UP_BUTTON, "KEY_UP ");
+    buttons[DOWN_BUTTON].mode = CMD_KH; setButtonKeystring(DOWN_BUTTON, "KEY_DOWN ");
+    buttons[LEFT_BUTTON].mode = CMD_KH; setButtonKeystring(LEFT_BUTTON, "KEY_LEFT "); 
+    buttons[RIGHT_BUTTON].mode = CMD_KH; setButtonKeystring(RIGHT_BUTTON, "KEY_RIGHT ");
+    buttons[SIP_BUTTON].mode = CMD_HL; // sip: hold left mouse button
+    buttons[PUFF_BUTTON].mode = CMD_CR; // puff: click right
+    buttons[STRONG_PUFF_BUTTON].mode = CMD_CA; // strong puff: calibrate
+  #else
+    buttons[0].mode = CMD_KH; setButtonKeystring(0, "KEY_SPACE ");
+    buttons[1].mode = CMD_KH; setButtonKeystring(1, "KEY_ENTER ");
+    buttons[2].mode = CMD_CL;
   #endif
 }
 
