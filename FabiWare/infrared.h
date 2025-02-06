@@ -43,10 +43,6 @@
 // PWM value for TX (max. 8bit). Warning: be careful not to overdrive anything!
 #define IR_PWM_ON 170
 
-//if activated, firmware will create a new alarm pool. If 0, default alarm pool will be used
-#define IR_ALARM_POOL 0
-
-
 /**
    @name initIR
    @brief initializes IR gpio pins and carrier frequency

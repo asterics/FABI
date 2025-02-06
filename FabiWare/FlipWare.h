@@ -175,6 +175,8 @@ struct SensorData {
    extern declarations of functions and data structures 
    which can be accessed from different modules
 */
+
+extern alarm_pool_t *app_alarm_pool;
 extern char moduleName[];
 extern uint8_t actSlot;
 extern uint8_t addonUpgrade;

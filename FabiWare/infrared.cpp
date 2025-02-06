@@ -27,7 +27,7 @@ volatile uint16_t edges;           // number of edges for current code
 volatile uint16_t act_edge;        // current edge
 
 alarm_id_t ir_alarm_id = -1; //alarm id for replaying
-alarm_pool_t *ir_alarm_pool = nullptr; //alarm pool for replaying
+alarm_pool_t *app_alarm_pool = nullptr; //alarm pool for audio feedback and ir playback
 // Keep std::map safe for multicore use
 auto_init_mutex(_irMutex);
 //initialize with IR_PWM_ON, DC is 0.5 on first timer call
@@ -47,26 +47,12 @@ void start_IR_command_playback(char * name);
    Set Carrier Frequency for PWM
  * */
 void initIR() {
-  
-
-	//RP2040: create a new alarm pool, the default one is already crowded (tone & analogWrite?)
-	//Note/Todo: figure out why the alarm pool fills up and needs to be this big,
-	//even if we just use one alarm.
-  #if IR_ALARM_POOL
-    ir_alarm_pool = alarm_pool_create(2, 64);
-  #else 
-    //RP2040: enable default alarm pool, used for IR edge playback.
-    alarm_pool_init_default();
-  #endif
-	
-	//RP2040:
-	analogWriteFreq(38000);
-	analogWriteRange(255); //set to 8 bit
-
   //GPIO & PWM setup
   pinMode(IR_SENSOR_PIN, INPUT);
   pinMode(IR_LED_PIN, OUTPUT);
   digitalWrite(IR_LED_PIN, LOW);
+	// Note: analogWriteFreq() and Range must be set when playing the IR-Code
+  // (different settings are needed for audio playback, see tone.cpp)
 }
 
 /**
@@ -78,7 +64,6 @@ void initIR() {
  * */
 void record_IR_command(char * name)
 {
-  //RP2040:
   // Ensure only 1 core can start or stop at a time
   //source: Tone.cpp
   CoreMutex m(&_irMutex);
@@ -171,19 +156,19 @@ uint8_t delete_IR_command(char * name)
    @brief generates the current timings for PWM or NON-PWM phases, using a timer 
           updates the stored edge time for the next edge timing
           repeats a whole code playback (repeatCounter times)
-   @return none
+   @return the return value determines the alarm behaviour: 0 no further alarm is scheduled, >0: next alarm in x microseconds
+
 */
 int64_t generate_next_IR_phase(alarm_id_t id, void *user_data)
 {
-  //RP2040: return value determines alarm behaviour
-	//avoid unused parameter warning
+	// avoid unused parameter warning
 	(void)id;
 	(void)user_data;
   int64_t ret = 0; //return 0 -> no reschedule; <0 [us] from last timestamp; >0 [us] from this return.
   if (act_edge > edges) {          // one code repetition finished
     analogWrite(IR_LED_PIN, 0);
     digitalWrite(IR_LED_PIN, LOW);
-    //RP2040: start with pulses.
+    // start with pulses.
     output_state = IR_PWM_ON;
     act_edge = 0;
     if (repeatCounter > 0) repeatCounter--;
@@ -196,20 +181,17 @@ int64_t generate_next_IR_phase(alarm_id_t id, void *user_data)
         start_IR_command_playback((char*)IDLESEQUENCE_NAME);  // in case the idlesequence command exists: play it!
       }
     } else {
-      //RP2040:
       //we need this alarm again
       ret = IR_REPEAT_GAP;
     }
   } else {
     if (act_edge == edges) {
-      //RP2040:
       ret = IR_REPEAT_GAP; // gap between code repetitions
     } else {
       uint32_t duration = timings[act_edge];
       if (duration > MAX_HIGHPRECISION_DURATION) { // timing in milliseconds
         duration = (duration - MAX_HIGHPRECISION_DURATION) * 1000; // switch to microseconds
       }
-      //RP2040:
       ret = duration;        
     }
 
@@ -219,7 +201,6 @@ int64_t generate_next_IR_phase(alarm_id_t id, void *user_data)
 
     act_edge++;   // increase edge index for next interrupt
   }
-  //RP2040:
   return ret;
 }
 
@@ -232,7 +213,6 @@ int64_t generate_next_IR_phase(alarm_id_t id, void *user_data)
 */
 void start_IR_command_playback(char * name)
 {
-  //RP2040:
   // Ensure only 1 core can start or stop at a time
   //source: Tone.cpp
   CoreMutex m(&_irMutex);
@@ -268,17 +248,18 @@ void start_IR_command_playback(char * name)
 #endif
 
   makeTone(TONE_IR, 0);
+
+	analogWriteFreq(38000); // 38 KHz frequency for IR modulation
+	analogWriteRange(255);  // 8 bit resolution 
+  
   act_edge = 0;
-  //RP2040: start with pulses
+  // start modulation with 38kHz pulses
   output_state = IR_PWM_ON;
-  //add CB function as alarm
-  #if IR_ALARM_POOL
-    ir_alarm_id = alarm_pool_add_alarm_in_us(ir_alarm_pool, 25, generate_next_IR_phase, nullptr, true);
-  #else
-    ir_alarm_id = add_alarm_in_us(25, generate_next_IR_phase, nullptr, true);
-  #endif
-  if(ir_alarm_id == -1) Serial.println("IR: no alarm available!");
-  //busy wait for finished IR
+  // add callback function for processing IR edge times and PWM modulation
+  ir_alarm_id = alarm_pool_add_alarm_in_us(app_alarm_pool, 25, generate_next_IR_phase, nullptr, true);
+  if(ir_alarm_id < 0 ) { Serial.println("IR: no alarm available!"); return;}
+
+  // now busy wait until IR replay is finished
   while(act_edge < edges);
 }
 

@@ -114,6 +114,11 @@ void setup() {
 
   // prepare synchronizsation of sensor data exchange between cores
   mutex_init(&(currentSensorDataCore1.sensorDataMutex));
+	
+  // create a seperate alarm pool for audio and IR (the default one is already crowded, maybe by BT-stack?)
+	// Note/Todo: figure out why the alarm pool fills up and needs to be this big (?)
+  app_alarm_pool = alarm_pool_create(2, 64);  // using hw timer2, max. 64 alarm callback functions
+
   #ifdef FLIPMOUSE
     //initialise BT module on Arduino Nano 2040 Connect (must be done early!)
     initBluetooth();
@@ -140,6 +145,7 @@ void setup() {
   initDebouncers();
   initStorage();   // initialize storage if necessary
   initAudio();
+  makeTone(TONE_STARTUP,0);
 
   #ifndef FLIPMOUSE
     MouseBLE.begin(moduleName);
