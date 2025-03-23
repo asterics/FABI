@@ -68,7 +68,7 @@ char moduleName[]=MODULE_NAME;   //   device name for ID string & BT-pairing
    default values for empty configuration slot 
 */
 const struct SlotSettings defaultSlotSettings = {      // default slotSettings valus, for type definition see Flipware.h
-  "slot1",                          // initial slot name
+  "default",                        // initial slot name
   0,                                // initial keystringbuffer length
   1,                                // stickMode: Mouse cursor movement active
   40, 40, 20, 20, 50, 20,           // accx, accy, deadzone x, deadzone y, maxspeed, acceleration time
@@ -112,7 +112,7 @@ unsigned long lastInteractionUpdate;          // timestamp for HID interaction u
 */
 void setup() {
 
-  // prepare synchronizsation of sensor data exchange between cores
+  // prepare synchronization of sensor data exchange between cores
   mutex_init(&(currentSensorDataCore1.sensorDataMutex));
 	
   // create a seperate alarm pool for audio and IR (the default one is already crowded, maybe by BT-stack?)
@@ -138,6 +138,9 @@ void setup() {
     delay(3000);  // allow some time for serial interface to come up
   #endif
 
+  // load default slot settings
+  memcpy(&slotSettings,&defaultSlotSettings,sizeof(struct SlotSettings));
+
   // initialize other peripherals interface  
   initGPIO();
   initIR();
@@ -145,19 +148,15 @@ void setup() {
   initDebouncers();
   initStorage();   // initialize storage if necessary
   initAudio();
-  makeTone(TONE_STARTUP,0);
+
+  // read first configuration slot from storage if possible!
+  readFromEEPROMSlotNumber(0, true); 
 
   #ifndef FLIPMOUSE
     MouseBLE.begin(moduleName);
     KeyboardBLE.begin("");
     JoystickBLE.begin("");
   #endif
-
-  // load default slot settings
-  memcpy(&slotSettings,&defaultSlotSettings,sizeof(struct SlotSettings));
-
-  // read first configuration slot from storage if possible!
-  readFromEEPROMSlotNumber(0, true); 
 
   // NOTE: changed for RP2040!  TBD: why does setBTName damage the console UART TX ??
   // setBTName(moduleName);             // if BT-module installed: set advertising name 
@@ -166,9 +165,11 @@ void setup() {
   initDisplay();
   if (isDisplayAvailable()) displayUpdate();
   
+  makeTone(TONE_STARTUP,0);  // announce readyness!
   #ifdef DEBUG_OUTPUT_FULL 
     Serial.print(moduleName); Serial.println(" ready !");
   #endif
+
   lastInteractionUpdate = millis();  // get first timestamp
 }
 

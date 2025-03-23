@@ -463,25 +463,25 @@ void initStorage()
   LittleFS.begin();
   
   // check if we need to initialize FS (/rev.bin not found)
-  if (!LittleFS.exists("/rev.bin")) {
+  if (!LittleFS.exists("/revision.bin")) {
     makeTone(TONE_CHANGESLOT, 4);
     Serial.println("Initializing flash!");
-    File f = LittleFS.open("/rev.bin", "w");
+    File f = LittleFS.open("/revision.bin", "w");
     if (!f) {
         Serial.println("file open failed");
     } else {
       f.println(VERSION_STRING);
       f.close();
     }
-    saveToEEPROMSlotNumber(0, "slot1");   // save default slotSettings to first slot
+    saveToEEPROMSlotNumber(0, "default");   // save default slotSettings to first slot
     
     //create IR folder
     LittleFS.mkdir("/ir");
   }
   
-  //if no slot is found, save current startup settings to "slot1"
+  //if no slot is found, save current startup settings to "default"
   if(getLastSlotIndex() < 0) {
-    saveToEEPROMSlotNumber(0, "slot1");
+    saveToEEPROMSlotNumber(0, "default");
   }
 }
 

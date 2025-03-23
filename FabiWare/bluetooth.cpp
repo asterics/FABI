@@ -32,6 +32,7 @@
   #include "keys.h"
   
   #define BT_MINIMUM_SENDINTERVAL 20     // reduce mouse reports in BT mode (in milliseconds) !
+//  #define BT_MINIMUM_SENDINTERVAL 150     // reduce mouse reports in BT mode (in milliseconds) !
   
   static char macaddress[] = "00 00 00 00 00 00";  // len: 18
   uint8_t bt_connected = 0;
