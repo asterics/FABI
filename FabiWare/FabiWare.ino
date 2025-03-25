@@ -14,7 +14,7 @@
 
         HW-requirements:
                   Microcontroller platform:
-                    Raspberry Pi PicoW or Pico2W (for FABI or FlipPad)
+                    Raspberry Pi Pico W or Pico 2 W (for FABI or FlipPad)
                     Arduino Nano 2040 Connect (for FlipMouse) 
                   Optional sensors and peripherals:
                     I2C pressure sensor board (MPRLS or DPS310) or analog pressure sensor (e.g. MPX7007)
@@ -27,13 +27,18 @@
                     Piezo Buzzer and/or Analog Audio amplifier (FABI only) for acoustic feedback
 
         SW-requirements:
-                  Arduino-pico core (https://github.com/earlephilhower/arduino-pico), installable via board manager
-                  Adafruit Neopixel library, installable via library manager
-                  https://github.com/ChrisVeigl/LoadcellSensor
-                  SSD1306Ascii-library by Bill Greiman, see https://github.com/greiman/SSD1306Ascii
+                  Arduino-pico core by Earle Philhower, see boards manager, version: 4.5.0
+                  Adafruit BusIO library, see library manager, version: 1.14.1
+                  Adafruit Neopixel library, see library manager, version: 1.11.0
+                  SSD1306Ascii library by Bill Greiman, see library manager, version: 1.3.5
+                  LoadcellSensor library by Chris Veigl: https://github.com/ChrisVeigl/LoadcellSensor
+                  NAU7802 library by Adafruit, adapted for 2 channels by Benjamin Aigner: https://github.com/benjaminaigner/NAU7802-DualChannel
 
-       Arduino settings for RP Pico: Tools->Board:"Raspberry Pi Pico -> Raspberry Pi Pico W",  Tools->Flash Size: "1MB Sketch, 1MB FS", Tools->IP/Bluetooth Stack:"IPv4+Bluetooth"
-       Arduino settings for Nano2040 Connect: Tools->Board:"Raspberry Pi Pico -> Arduino Nano2040 Connect", Tools->Flash Size: "15MB Sketch, 1MB FS", Tools->IP/Bluetooth Stack:"IPv4only"
+
+       Arduino settings for RP Pico: Tools->Board:"Raspberry Pi Pico -> Raspberry Pi Pico (2)W",  Tools->Flash Size: "1MB Sketch, 1MB FS", Tools->IP/Bluetooth Stack:"IPv4+Bluetooth"
+       Arduino settings for Arduino Nano2040 Connect (FlipMouse): Tools->Board:"Raspberry Pi Pico -> Arduino Nano2040 Connect", Tools->Flash Size: "15MB Sketch, 1MB FS", Tools->IP/Bluetooth Stack:"IPv4only"
+          Note that for the FlipMouse (using the Arduino Nano2040 Connect), our custom ESP32 firmware is used and the board must be prepared as described here:
+          https://github.com/asterics/FLipMouse/tree/master/Documentation/Fabrication/rp2040_preparation 
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
