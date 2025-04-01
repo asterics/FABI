@@ -56,6 +56,9 @@ void printCurrentSlot(Stream *S)
 {
   char tmp[10];
   S->println(slotSettings.slotName);
+  S->print("AT AV "); S->println(globalSettings.audioVolume);
+  S->print("AT AB "); S->println(globalSettings.buzzerMode);
+
   S->print("AT AX "); S->println(slotSettings.ax);
   S->print("AT AY "); S->println(slotSettings.ay);
   S->print("AT DX "); S->println(slotSettings.dx);
