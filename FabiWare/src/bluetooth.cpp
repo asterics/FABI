@@ -17,11 +17,12 @@
 #include "bluetooth.h"
 
 #ifndef FLIPMOUSE   // for FABI / FlipPad (using the RP Pico(2)W)
-
+  #include <btstack.h>
   #include <PicoBluetoothBLEHID.h>
   bool isBluetoothConnected() {
     return(PicoBluetoothBLEHID.connected());
   }
+
 
 #else      // from here, the code is only relevant for the FlipMouse with Arduino Nano 2040 Connect + ESP32 (using our BLE Hid implementation)
 

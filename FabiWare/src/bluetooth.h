@@ -29,6 +29,7 @@
     False will be returned otherwise
 */
 bool isBluetoothConnected();
+// void setup_bt_event_handling(void);
 
 
 #ifdef FLIPMOUSE    // from here, the code is only relevant for the FlipMouse with Arduino Nano 2040 Connect + ESP32 (using our BLE Hid implementation)
