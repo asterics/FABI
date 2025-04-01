@@ -164,7 +164,7 @@ void setup() {
   initAudio();
 
   // read first configuration slot from storage if possible!
-  readFromEEPROMSlotNumber(0, true); 
+  readFromEEPROMSlotNumber(0, false); 
 
   #ifndef FLIPMOUSE
     MouseBLE.begin(moduleName);
@@ -183,7 +183,7 @@ void setup() {
   #ifdef DEBUG_OUTPUT_FULL 
     Serial.print(moduleName); Serial.println(" ready !");
   #endif
-
+  audioPlayback(0);
   lastInteractionUpdate = lastBatteryUpdate = millis();  // get first timestamp
 }
 
