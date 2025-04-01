@@ -17,12 +17,24 @@
 #include "bluetooth.h"
 
 #ifndef FLIPMOUSE   // for FABI / FlipPad (using the RP Pico(2)W)
+
+  // TBD: find out / prevent this redfinition problem !?
+  // see workaround: https://github.com/earlephilhower/arduino-pico/issues/2022
+
+  #define HID_REPORT_TYPE_INPUT HID_REPORT_TYPE_INPUT_bt
+  #define HID_REPORT_TYPE_OUTPUT HID_REPORT_TYPE_OUTPUT_bt
+  #define HID_REPORT_TYPE_FEATURE HID_REPORT_TYPE_FEATURE_bt
+  #define hid_report_type_t hid_report_type_t_bt
   #include <btstack.h>
+  #undef HID_REPORT_TYPE_INPUT
+  #undef HID_REPORT_TYPE_OUTPUT
+  #undef HID_REPORT_TYPE_FEATURE
+  #undef hid_report_type_t
   #include <PicoBluetoothBLEHID.h>
   bool isBluetoothConnected() {
     return(PicoBluetoothBLEHID.connected());
+  return(true);
   }
-
 
 #else      // from here, the code is only relevant for the FlipMouse with Arduino Nano 2040 Connect + ESP32 (using our BLE Hid implementation)
 
