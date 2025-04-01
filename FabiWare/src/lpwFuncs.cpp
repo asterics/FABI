@@ -16,7 +16,7 @@
 #include "pico/cyw43_arch.h"
 
 extern "C" {
-  #include "src/sleep.h"
+  #include "../lib/power/sleep.h"
 }
 
 unsigned long inactivityTime=0;  // measures user inactivity (in ms)
@@ -164,7 +164,7 @@ void enable3V3() {
 void disable3V3() {
   gpio_put(LDO_ENABLE_PIN, false);
   gpio_set_dir(LDO_ENABLE_PIN, false);
-  gpio_deinit(LDO_ENABLE_PIN);
+  // gpio_deinit(LDO_ENABLE_PIN);
 }
 
 /**
@@ -226,17 +226,24 @@ void dormantUntilInterrupt(int interruptPin) {
  * @brief Handles inactivity by transitioning the system to dormant mode.
  */
 void inactivityHandler() {
-  displayMessage("ByeBye");
-  deinitBattery();
-  Serial.println("goodbye, going to sleep!");
   inactivityTime=0;
+  deinitBattery();
+  #ifndef FLIPMOUSE
+    MouseBLE.end();     // turn off Bluetooth
+  #endif
+  #ifdef DEBUG_BATTERY_MANAGEMENT
+    Serial.println("goodbye, going to sleep!");
+  #endif 
   Serial.flush();
   Serial.end();
-  delay(2000);
-  disable3V3();
+  displayMessage((char*)"ByeBye");
+  delay(2000);   // time for the user to read the message
+  disable3V3();  // shut down peripherals
+  digitalWrite(LED_BUILTIN,LOW);  // make sure the internal LED is off
 
   dormantUntilInterrupt(input_map[0]); // enter sleepMode, use Button1 to wakeup!
-
+  //  <--   now sleeping!  
+  
   watchdog_reboot(0, 0, 10);  // cause a watchdog reset to wake everything up!
   while (1) { continue; }     
 
