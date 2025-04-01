@@ -3,7 +3,7 @@
      FabiWare - AsTeRICS Foundation
      For more info please visit: https://www.asterics-foundation.org
 
-     Module: FabiWare.ino  (main module)
+     Module: main.cpp  (main module with setup and loop functions for both cores)
 
         This is the universal firmware for FABI, FlipMouse and FlipPad devices (HW version 3 or higher).
         see https://github.com/asterics/FABI, https://github.com/asterics/FlipMouse, https://github.com/asterics/FlipPad
@@ -13,31 +13,31 @@
         Pin assignments can be found in gpio.h
 
         HW-requirements:
-                  Microcontroller platform:
-                    Raspberry Pi Pico W or Pico 2 W (for FABI or FlipPad)
-                    Arduino Nano 2040 Connect (for FlipMouse) 
-                  Optional sensors and peripherals:
-                    I2C pressure sensor board (MPRLS or DPS310) or analog pressure sensor (e.g. MPX7007)
-                    I2C force sensor board (NAU7802-based) or analog 2d force sonsor (e.g. joystick module)
-                    up to 5 external switches connected to GPIO pins
-                    Neopixel LED
-                    1 TSOP 38kHz IR-receiver
-                    1 high current IR-LED, driven with a MOSFET
-                    SSD1306 display
-                    Piezo Buzzer and/or Analog Audio amplifier (FABI only) for acoustic feedback
+          Supported Microcontroller platforms:
+            Raspberry Pi Pico W or Pico 2 W (for FABI or FlipPad)
+            Arduino Nano 2040 Connect (for FlipMouse) 
+          Optional sensors and peripherals:
+            I2C pressure sensor board (MPRLS or DPS310) or analog pressure sensor (e.g. MPX7007)
+            I2C force sensor board (NAU7802-based) or analog 2d force sonsor (e.g. joystick module)
+            up to 5 external switches connected to GPIO pins
+            Neopixel LED
+            1 TSOP 38kHz IR-receiver
+            1 high current IR-LED, driven with a MOSFET
+            SSD1306 display
+            Piezo Buzzer and/or Analog Audio amplifier (FABI only) for acoustic feedback
 
-        SW-requirements:
-                  Arduino-pico core by Earle Philhower, see boards manager, version: 4.5.0
-                  Adafruit BusIO library, see library manager, version: 1.14.1
-                  Adafruit Neopixel library, see library manager, version: 1.11.0
-                  SSD1306Ascii library by Bill Greiman, see library manager, version: 1.3.5
-                  LoadcellSensor library by Chris Veigl: https://github.com/ChrisVeigl/LoadcellSensor
-                  NAU7802 library by Adafruit, adapted for 2 channels by Benjamin Aigner: https://github.com/benjaminaigner/NAU7802-DualChannel
+        SW-requirements (as defined in platformio.ini):
+          For building the SW, VSCode + PlatformIO is recommended, using the platform fork by Maximilian Gerhardt,
+          see: https://arduino-pico.readthedocs.io/en/latest/platformio.html 
+          Arduino-pico core by Earle Philhower, version: 4.5.0
+          Settings for RP Pico Core: File System Size: 1MB, Bluetooth Stack enabled
+          Adafruit BusIO library, version: 1.14.1
+          Adafruit Neopixel library, version: 1.11.0
+          SSD1306Ascii library by Bill Greiman, version: 1.3.5
+          LoadcellSensor library by Chris Veigl: https://github.com/ChrisVeigl/LoadcellSensor
+          NAU7802 library by Adafruit, adapted for 2 channels by Benjamin Aigner: https://github.com/benjaminaigner/NAU7802-DualChannel
 
-
-       Arduino settings for RP Pico: Tools->Board:"Raspberry Pi Pico -> Raspberry Pi Pico (2)W",  Tools->Flash Size: "1MB Sketch, 1MB FS", Tools->IP/Bluetooth Stack:"IPv4+Bluetooth"
-       Arduino settings for Arduino Nano2040 Connect (FlipMouse): Tools->Board:"Raspberry Pi Pico -> Arduino Nano2040 Connect", Tools->Flash Size: "15MB Sketch, 1MB FS", Tools->IP/Bluetooth Stack:"IPv4only"
-          Note that for the FlipMouse (using the Arduino Nano2040 Connect), our custom ESP32 firmware is used and the board must be prepared as described here:
+        Note that for the FlipMouse (using the Arduino Nano2040 Connect), our custom Bluetooth firwmare is used for the onboard ESP32 and the board must be prepared as described here:
           https://github.com/asterics/FLipMouse/tree/master/Documentation/Fabrication/rp2040_preparation 
 
    This program is free software; you can redistribute it and/or modify
@@ -277,6 +277,10 @@ void setup1() {
     delay(3000);  // allow some time for serial interface to come up
   #endif
 
+  #ifdef DEBUG_ACTIVITY_LED
+    pinMode(LED_BUILTIN,OUTPUT);
+  #endif
+
   initSensors();
   if (getForceSensorType()==FORCE_NAU7802)
     setSensorBoard(slotSettings.sb); // apply sensorboard settings
@@ -313,7 +317,6 @@ void loop1() {
   
   #ifdef DEBUG_ACTIVITY_LED
     static int cnt=0;   
-    pinMode(LED_BUILTIN,OUTPUT); 
     if (!(cnt++%200)) digitalWrite(LED_BUILTIN,!digitalRead(LED_BUILTIN));
   #endif
 
