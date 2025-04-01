@@ -36,7 +36,13 @@
   #define IR_LED_PIN     14
   #define DRDY_PIN       27    // Data ready pin of NAU chip (FABI EXT connector, EXT2 pin)
   #define ANALOG_PRESSURE_SENSOR_PIN A0   // input pin if an analog pressure sensor is used with FABI3 PCB
- 
+          // note that A0 is also used by an analog x/y sensor, so both can't be used at the same time
+
+  // pins for battery management system for FABI 
+  #define V_BATT_VD_SWITCH_PIN 0    // GPIO pin controlling the voltage divider for battery measurement
+  #define V_BATT_MEASURE_PIN  A2    // ADC pin for measuring battery voltage
+  #define CHARGE_STAT_PIN      1    // pin connected to the charging status output
+
   // remap pins for I2C interfaces for FABI / FlipPad
   #define PIN_WIRE0_SDA_ 12
   #define PIN_WIRE0_SCL_ 13

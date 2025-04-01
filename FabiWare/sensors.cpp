@@ -102,11 +102,6 @@ void configureDPS() {
 */
 void initSensors()
 {
-  //first: switch on LDO for sensors
-  pinMode(LDO_ENABLE_PIN, OUTPUT);
-  digitalWrite(LDO_ENABLE_PIN, HIGH);
-  delay(10);
-
   currentSensorDataCore1.pressureSensorType = PRESSURE_NONE;
   //detect if there is a DPS310 sensor connected to I2C (Wire)
 

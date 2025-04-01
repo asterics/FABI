@@ -102,13 +102,16 @@ struct SensorData sensorData {
   .dir=0,
   .autoMoveX=0, .autoMoveY=0,
   .xDriftComp=0, .yDriftComp=0,
-  .xLocalMax=0, .yLocalMax=0
+  .xLocalMax=0, .yLocalMax=0,
+  .currentBattPercent = -1, .MCPSTAT = MCPSTAT_HIGHZ,
+  .usbConnected = false
 };
 
 struct SlotSettings slotSettings;             // contains all slot settings
 uint8_t workingmem[WORKINGMEM_SIZE];          // working memory (command parser, IR-rec/play)
 uint8_t actSlot = 0;                          // number of current slot
 unsigned long lastInteractionUpdate;          // timestamp for HID interaction updates
+unsigned long lastBatteryUpdate;              // timestamp for battery management functions
 
 /**
    @name setup
@@ -124,17 +127,23 @@ void setup() {
 	// Note/Todo: figure out why the alarm pool fills up and needs to be this big (?)
   app_alarm_pool = alarm_pool_create(2, 64);  // using hw timer2, max. 64 alarm callback functions
 
-  #ifdef FLIPMOUSE
-    //initialise BT module on Arduino Nano 2040 Connect (must be done early!)
-    initBluetooth();
+  // turn on power suppy for peripherals
+  enable3V3();
+  delay(10);  // some time to settle
+
+  #ifdef FABI
+    initBattery(); // init GPIOs for battery management
   #endif
 
-  // enable Wire I2C interface (used by Core0 for LCD/NFC if connected)
-  #ifndef FLIPMOUSE
-    // set I2C pins for Wire0 (internal I2C for LC-Display / NFC) when using RP Pico 
+  #ifdef FLIPMOUSE
+    // when using Arduino Nano 2040 Connect: initialise BT module  (must be done early!)
+    initBluetooth();
+  #else
+    // when using RP Pico variants: set I2C pins for Wire0 (internal I2C for LC-Display / NFC)  
     Wire.setSDA(PIN_WIRE0_SDA_);
-    Wire.setSCL(PIN_WIRE0_SCL_);    
+    Wire.setSCL(PIN_WIRE0_SCL_);
   #endif  
+
   Wire.begin();
 
   // initialize Serial interface
@@ -175,7 +184,7 @@ void setup() {
     Serial.print(moduleName); Serial.println(" ready !");
   #endif
 
-  lastInteractionUpdate = millis();  // get first timestamp
+  lastInteractionUpdate = lastBatteryUpdate = millis();  // get first timestamp
 }
 
 /**
@@ -233,6 +242,15 @@ void loop() {
     updateLeds();     // mode indication via front facing neopixel LEDs
     updateTones();    // mode indication via audio signals (buzzer)
   }
+
+  #ifdef FABI
+    // every now and then: check battery and power status
+    if (millis() >= lastBatteryUpdate + BATTERY_UPDATE_INTERVAL)  {
+      lastBatteryUpdate = millis();
+      performBatteryManagement();
+    }
+  #endif
+
   delay(1);  // core0: sleep a bit ...  
 }
 

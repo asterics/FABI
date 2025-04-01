@@ -52,11 +52,7 @@ uint8_t initDisplay () {
 
   if (displayAvailable) {
     oled->begin(&Adafruit128x32, SCREEN_ADDRESS);
-    oled->setFont(Adafruit5x7);
-    //oled->setFont(Arial_bold_14);
-    //displayClear();
-    //oled->set2X();
-    //oled->print(moduleName);
+    oled->setFont(Adafruit5x7_mod);
     return true;
   }
   return false;
@@ -136,6 +132,9 @@ void displayUpdate(void) {
     case 2: oled->print("BT"); break;
     case 3: oled->print("both"); break;
   }
+  #ifdef FABI
+    batteryDisplay(true);
+  #endif
 }
 
 
@@ -147,4 +146,48 @@ void displayUpdate(void) {
 */
 void pauseDisplayUpdates(uint8_t pause) {
   displayPaused=pause;
+}
+
+
+/**
+   @name batteryDisplay
+   @param refresh: if false (default), only changes will be drawn
+   @brief Display the battery status/percentage
+   @return none
+*/
+void batteryDisplay(bool refresh){
+  if (!displayAvailable) return;
+  static int iconState=0, oldIconState=0;
+
+  switch(sensorData.MCPSTAT){
+    case MCPSTAT_LOW: 
+      if (sensorData.usbConnected) iconState=(iconState+1)%4;
+      else iconState=sensorData.currentBattPercent/33;
+      break;
+    case MCPSTAT_HIGH:
+      if (sensorData.usbConnected) iconState=4;
+      else iconState=sensorData.currentBattPercent/33;
+      break;
+    default:
+      iconState=-1;    
+  }
+
+  // only draw if we have a change or a refresh was explicitly requested!
+  if (refresh || (oldIconState != iconState)) {
+    oled->set1X();
+    oled->clear(105, 128, 1, 1);
+    oled->setCursor(110, 1);
+    oled->setLetterSpacing(0);
+    switch (iconState) {
+      case -1: oled->print("-?-");  break;
+      case  0: oled->print("!\"#"); break;
+      case  1: oled->print("$\"#"); break;
+      case  2: oled->print("$$#");  break;
+      case  3: oled->print("$$&");  break;
+      case  4: oled->setCursor(105, 1); 
+               oled->print("100%"); break;
+    }
+    oled->setLetterSpacing(1);
+    oldIconState = iconState;
+  }
 }

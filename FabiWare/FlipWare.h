@@ -43,6 +43,7 @@
   #include <MouseBLE.h>
   #include <KeyboardBLE.h>
   #include <JoystickBLE.h>
+  #include "lpwFuncs.h"
 #endif
 #include <Mouse.h>
 #include <Keyboard.h>
@@ -69,6 +70,7 @@
 #define DEBUG_ACTIVITY_LED 	   // enable blinking internal led signaling activity (in sensor loop, core1).
 //#define DEBUG_PRESSURE_RAWVALUES // raw output of pressure values and filtered output
 //#define DEBUG_MPRLS_ERRORFLAGS // continously print error flags of MPRLS
+#define DEBUG_BATTERY_MANAGEMENT 	 // enable a debug output for battery state detection and management.
 
 
 /**
@@ -82,6 +84,7 @@
 
 #define DEFAULT_CLICK_TIME  8    // time for mouse click (loop iterations from press to release)
 #define CALIBRATION_PERIOD  1000  // approx. 1000ms calibration time
+#define BATTERY_UPDATE_INTERVAL  500  // update interval for battery management functions (in milliseconds)
 
 // RAM buffers and memory constraints
 #define WORKINGMEM_SIZE         300    // reserved RAM for working memory (command parser, IR-rec/play)
@@ -169,6 +172,8 @@ struct SensorData {
   int8_t autoMoveX,autoMoveY;
   int xDriftComp, yDriftComp;
   int xLocalMax, yLocalMax;  
+  int8_t currentBattPercent, MCPSTAT;
+  bool usbConnected;
 };
 
 /**
