@@ -17,6 +17,7 @@
 #define BT_MINIMUM_SENDINTERVAL 60  // reduce mouse reports in BT mode (in milliseconds) !
 #define BT_IDRESPONSE_TIMEOUT 2000  // timeout for BT ID response (in milliseconds)
 
+uint8_t * _asciimap = KeyboardLayout_en_US;
 
 uint8_t bt_available = 0;
 uint8_t activeKeyCodes[6];
