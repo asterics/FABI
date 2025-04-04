@@ -129,7 +129,7 @@ void setup() {
 
   // turn on power suppy for peripherals
   enable3V3();
-  delay(10);  // some time to settle
+  delay(50);  // some time to stabilize the power supply
 
   #ifdef FABI
     initBattery(); // init GPIOs for battery management
@@ -265,6 +265,8 @@ void loop() {
    @return none
 */
 void setup1() {
+  delay(50);  // some time to stabilize the power supply
+  
   // enable Wire1 I2C interface (used by Core1 for sensors)
   #ifndef FLIPMOUSE
     Wire1.setSDA(PIN_WIRE1_SDA_);
