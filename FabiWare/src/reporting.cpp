@@ -123,11 +123,9 @@ void reportValues()
     int32_t u=sensorData.yRaw+512; int32_t d=512-sensorData.yRaw;   // just for GUI compatibility with V2 (bar displays up/down)
     int32_t l=sensorData.xRaw+512; int32_t r=512-sensorData.xRaw;   // just for GUI compatibility with V2 (bar displays left/right)
     Serial.print("VALUES:"); Serial.print(sensorData.pressure); Serial.print(",");
-    #ifdef FLIPMOUSE
     Serial.print(u); Serial.print(","); Serial.print(d); Serial.print(",");
     Serial.print(l); Serial.print(","); Serial.print(r); Serial.print(",");
     Serial.print(sensorData.xRaw); Serial.print(","); Serial.print(sensorData.yRaw); Serial.print(",");
-    #endif
     for (uint8_t i = 0; i < NUMBER_OF_BUTTONS; i++)
     {
       if (buttonStates & (1 << i)) Serial.print("1");
