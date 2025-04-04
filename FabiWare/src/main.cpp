@@ -285,7 +285,7 @@ void setup1() {
   if (getForceSensorType()==FORCE_NAU7802)
     setSensorBoard(slotSettings.sb); // apply sensorboard settings
 
-  initBlink(10,20);  // first signs of life!
+  // initBlink(10,20);  // first signs of life!
 }
 
 /**
