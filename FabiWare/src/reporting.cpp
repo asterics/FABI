@@ -130,14 +130,6 @@ void reportValues()
     Serial.print(",");
     Serial.print(actSlot);
     Serial.println("");
-    //  TBD:remove?
-    #ifdef FLIPMOUSE
-    Serial.print(",");
-    Serial.print(sensorData.xDriftComp);
-    Serial.print(",");
-    Serial.print(sensorData.yDriftComp);
-    Serial.println("");
-    #endif    
     valueReportCount = 0;
   }
 }

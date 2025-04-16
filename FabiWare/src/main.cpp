@@ -72,17 +72,16 @@ char moduleName[]=MODULE_NAME;   //   device name for ID string & BT-pairing
 /**
    default values for empty configuration slot 
 */
-const struct SlotSettings defaultSlotSettings = {      // default slotSettings valus, for type definition see Flipware.h
+const struct SlotSettings defaultSlotSettings = {      // default slotSettings values, for type definition see Flipware.h
   "default",                        // initial slot name
   0,                                // initial keystringbuffer length
   1,                                // stickMode: Mouse cursor movement active
   40, 40, 20, 20, 50, 20,           // accx, accy, deadzone x, deadzone y, maxspeed, acceleration time
   400, 600, 3,                      // threshold sip, threshold puff, wheel step,
   800, 10,                          // threshold strong puff, threshold strong sip
-  40, 20, 40, 20 ,                  // gain and range drift compenstation( vertical, horizontal)
   0,                                // orientation
-  1,                                // bt-mode 1: USB, 2: Bluetooth, 3: both (2 & 3 need daughter board))
-  2,                                // default sensorboard profile ID 2
+  1,                                // bt-mode 1: USB, 2: Bluetooth, 3: both (2 & 3 need BT support)
+  2,                                // default sensorboard profile ID 2 (for FlipMouse sensorboard/NAU7802)
   0x0000FF,                         // default slot color: blue
   "en_US",                          // en_US as default keyboard layout.
 };
@@ -101,7 +100,6 @@ struct SensorData sensorData {
   .deadZone=0, .force=0, .forceRaw=0, .angle=0,
   .dir=0,
   .autoMoveX=0, .autoMoveY=0,
-  .xDriftComp=0, .yDriftComp=0,
   .xLocalMax=0, .yLocalMax=0,
   .currentBattPercent = -1, .MCPSTAT = MCPSTAT_HIGHZ,
   .usbConnected = false
