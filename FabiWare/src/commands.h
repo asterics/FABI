@@ -76,10 +76,6 @@
           AT DY <uint>    deadzone y-axis  (0-1000)
           AT MS <uint>    maximum speed  (0-100)
           AT AC <uint>    acceleration time (0-100)
-          AT GV <uint>    gain vertical drift compensation (0-100)
-          AT RV <uint>    range vertical drift compensation (0-100)
-          AT GH <uint>    gain horizontal drift compensation (0-100)  
-          AT RH <uint>    range horizontal drift compensation (0-100)
           AT SB <uint>    select a sensorboard (profile-ID), adjusts signal processing parameters (0-3)
 
       Sip and Puff settings:
@@ -178,8 +174,7 @@ enum atCommands {
   CMD_RA, CMD_KL, CMD_SA, CMD_LO, CMD_LA, CMD_LI, CMD_NE, CMD_DE, CMD_RS, CMD_RE, CMD_NC, CMD_BT, 
   CMD_SC, CMD_SR, CMD_ER, CMD_CA, CMD_MA, CMD_WA, CMD_TS, CMD_TP, CMD_SP, CMD_SS, CMD_IR, CMD_IP,
   CMD_IH, CMD_IS, CMD_IC, CMD_IW, CMD_IL, CMD_IT, CMD_MM, CMD_SW, CMD_AX, CMD_AY, CMD_DX, CMD_DY,
-  CMD_GV, CMD_RV, CMD_GH, CMD_RH, CMD_MS, CMD_AC, CMD_RO, CMD_SB, CMD_AT, CMD_AP, CMD_AD, CMD_AL,
-  CMD_AV, CMD_AB,
+  CMD_MS, CMD_AC, CMD_RO, CMD_SB, CMD_AT, CMD_AP, CMD_AD, CMD_AL, CMD_AV, CMD_AB,
 #ifdef FLIPMOUSE
   CMD_BC, CMD_BR, CMD_UG,
 #endif

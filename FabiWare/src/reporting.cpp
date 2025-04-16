@@ -66,10 +66,6 @@ void printCurrentSlot(Stream *S)
   S->print("AT MS "); S->println(slotSettings.ms);
   S->print("AT AC "); S->println(slotSettings.ac);
   S->print("AT MM "); S->println(slotSettings.stickMode);
-  S->print("AT GV "); S->println(slotSettings.gv);
-  S->print("AT RV "); S->println(slotSettings.rv);
-  S->print("AT GH "); S->println(slotSettings.gh);
-  S->print("AT RH "); S->println(slotSettings.rh);
   S->print("AT RO "); S->println(slotSettings.ro);
   S->print("AT SB "); S->println(slotSettings.sb);
   //IR timeout only if not default value

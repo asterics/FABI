@@ -66,7 +66,6 @@ const struct atCommandType atCommands[] PROGMEM = {
   /***** 2D mouse cursor control *****/
   {"MM"  , PARTYPE_UINT }, {"SW"  , PARTYPE_NONE },
   {"AX"  , PARTYPE_UINT }, {"AY"  , PARTYPE_UINT }, {"DX"  , PARTYPE_UINT }, {"DY"  , PARTYPE_UINT },
-  {"GV"  , PARTYPE_UINT }, {"RV"  , PARTYPE_UINT }, {"GH"  , PARTYPE_UINT }, {"RH"  , PARTYPE_UINT },
   {"MS"  , PARTYPE_UINT }, {"AC"  , PARTYPE_UINT }, {"RO"  , PARTYPE_UINT }, {"SB"  , PARTYPE_UINT },
   /***** audio feedback *****/
   {"AT"  , PARTYPE_STRING}, {"AP"  , PARTYPE_STRING}, {"AD"  , PARTYPE_STRING}, {"AL"  , PARTYPE_NONE},
@@ -414,18 +413,6 @@ void performCommand (uint8_t cmd, int16_t par1, char * keystring, int8_t periodi
       break;
     case CMD_SS:
       slotSettings.ss = par1;
-      break;
-    case CMD_GV:
-      slotSettings.gv = par1;
-      break;
-    case CMD_RV:
-      slotSettings.rv = par1;
-      break;
-    case CMD_GH:
-      slotSettings.gh = par1;
-      break;
-    case CMD_RH:
-      slotSettings.rh = par1;
       break;
     case CMD_SB:
       if ((par1 < SENSORBOARD_REPORT_X) && (slotSettings.sb != par1)) {
