@@ -32,6 +32,8 @@
 // #define FLIPAD
 // #define MODULE_NAME "FLipPad"
 
+// #define FABIJOYSTICK_ENABLED
+
 
 // update the version string with every firmware change:
 #define VERSION_STRING "v3.7"
@@ -42,7 +44,9 @@
   // needed for RP PICO boards
   #include <MouseBLE.h>
   #include <KeyboardBLE.h>
-  #include <JoystickBLE.h>
+  #ifdef FABIJOYSTICK_ENABLED
+    #include <JoystickBLE.h>
+  #endif
   #include "lpwFuncs.h"
 #endif
 #include <Mouse.h>

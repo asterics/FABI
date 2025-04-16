@@ -214,6 +214,9 @@ void joystickAxis(int axis1, int axis2, uint8_t select)
   if (slotSettings.bt & 2)
   {
     #ifndef FLIPMOUSE
+      #ifdef FABIJOYSTICK_ENABLED
+        JoystickBLE.X(axis1);
+        JoystickBLE.Y(axis2);
       switch(select)
       {
         case 0:
@@ -230,6 +233,7 @@ void joystickAxis(int axis1, int axis2, uint8_t select)
         break;
         default: break;
       }
+      #endif
     #else
       joystickBTAxis(axis1, axis2, select);
     #endif
@@ -242,10 +246,13 @@ void joystickButton(uint8_t nr, int val)
     Joystick.button(nr,val);
   if (slotSettings.bt & 2)
   #ifndef FLIPMOUSE 
+    #ifdef FABIJOYSTICK_ENABLED
     JoystickBLE.button(nr,val);
+    #endif
   #else 
     joystickBTButton(nr,val);
   #endif
+  ;
 }
 
 void joystickHat(int val)
@@ -254,8 +261,11 @@ void joystickHat(int val)
     Joystick.hat(val);
   if (slotSettings.bt & 2)
   #ifndef FLIPMOUSE 
+    #ifdef FABIJOYSTICK_ENABLED
     JoystickBLE.hat(val);
+    #endif
   #else 
     joystickBTHat(val);
   #endif
+  ;
 }

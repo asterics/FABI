@@ -169,7 +169,9 @@ void setup() {
   #ifndef FLIPMOUSE
     MouseBLE.begin(moduleName);
     KeyboardBLE.begin("");
-    JoystickBLE.begin("");
+    #ifdef FABIJOYSTICK_ENABLED
+      JoystickBLE.begin("");
+    #endif
   #endif
 
   // NOTE: changed for RP2040!  TBD: why does setBTName damage the console UART TX ??
