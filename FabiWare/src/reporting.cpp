@@ -115,6 +115,16 @@ void reportValues()
   
   if (!reportRawValues)   return;
 
+  // update / override sip and puff button states for reporting
+  if (sensorData.pressure < slotSettings.ts) buttonStates |= (1<<SIP_BUTTON);
+  else buttonStates &= ~(1<<SIP_BUTTON);
+  if (sensorData.pressure < slotSettings.ss) buttonStates |= (1<<STRONGSIP_BUTTON);
+  else buttonStates &= ~(1<<STRONGSIP_BUTTON);
+  if (sensorData.pressure > slotSettings.tp) buttonStates |= (1<<PUFF_BUTTON);
+  else buttonStates &= ~(1<<PUFF_BUTTON);
+  if (sensorData.pressure > slotSettings.sp) buttonStates |= (1<<STRONGPUFF_BUTTON);
+  else buttonStates &= ~(1<<STRONGPUFF_BUTTON);
+
   if (valueReportCount++ > 50/UPDATE_INTERVAL) {      // report raw values approx. every 50ms !
     int32_t u=sensorData.yRaw+512; int32_t d=512-sensorData.yRaw;   // just for GUI compatibility with V2 (bar displays up/down)
     int32_t l=sensorData.xRaw+512; int32_t r=512-sensorData.xRaw;   // just for GUI compatibility with V2 (bar displays left/right)
