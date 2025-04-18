@@ -4,7 +4,7 @@ This folder contains the design files for the 3D printed case for FABI3.
 
 ### Software
 
-FreeCAD v0.20.1, x86_64 Linux
+FreeCAD v1.0, x86_64 Linux
 
 ### Files
 
