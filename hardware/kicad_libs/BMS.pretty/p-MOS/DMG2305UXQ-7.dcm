@@ -1,0 +1,9 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP DMG2305UXQ-7
+D MOSFET MOSFET BVDSS
+K
+F https://www.diodes.com//assets/Datasheets/DMG2305UXQ.pdf
+$ENDCMP
+#
+#End Doc Library
