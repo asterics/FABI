@@ -177,7 +177,7 @@ void setup() {
   setKeyboardLayout(slotSettings.kbdLayout); //load keyboard layout from slot
 
   initDisplay();
-  if (isDisplayAvailable()) displayUpdate();
+  displayUpdate();
   
   makeTone(TONE_STARTUP,0);  // announce readyness!
   #ifdef DEBUG_OUTPUT_FULL 
