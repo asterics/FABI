@@ -20,10 +20,14 @@
 
 #define SCREEN_ADDRESS 0x3C
 
+#define SCREEN_INT (1<<0)
+#define SCREEN_EXT (1<<1)
+
 uint8_t displayAvailable=0;   // indicates if LCD was found on I2C bus
+uint8_t countDisplay = 0;     // how many display instances are used in oleds[]
 uint8_t displayPaused=0;      // if true, display updates are paused
 
-SSD1306AsciiWire *oled;    // pointer to the display driver class
+SSD1306AsciiWire *oleds[2];    // pointers to the display driver class (can be multiple displays)
 
 /**
    @name initDisplay
@@ -34,28 +38,31 @@ SSD1306AsciiWire *oled;    // pointer to the display driver class
 */
 uint8_t initDisplay () {
   displayAvailable=0;
+  countDisplay = 0;
 
-  // check if LCD is found on Wire0 
+  // check if LCD is found on Wire0 (internal)
   Wire.beginTransmission(SCREEN_ADDRESS);  
   if (!Wire.endTransmission()) {
-    displayAvailable=1;
-    oled = new SSD1306AsciiWire(Wire);
+    displayAvailable |= SCREEN_INT;
+    oleds[countDisplay] = new SSD1306AsciiWire(Wire);
+    countDisplay++;
   }
-/*  else {
-    // check if LCD is found on Wire1 
-    Wire1.beginTransmission(SCREEN_ADDRESS);  
-    if (!Wire1.endTransmission()) {
-      displayAvailable=1;
-      oled = new SSD1306AsciiWire(Wire1);
-    } 
-  }  */
 
-  if (displayAvailable) {
-    oled->begin(&Adafruit128x32, SCREEN_ADDRESS);
-    oled->setFont(Adafruit5x7_mod);
-    return true;
+  // check if OLED is found on Wire1 (EXT connector)
+  Wire1.beginTransmission(SCREEN_ADDRESS);  
+  if (!Wire1.endTransmission()) {
+    displayAvailable |= SCREEN_EXT;
+    oleds[countDisplay] = new SSD1306AsciiWire(Wire1);
+    countDisplay++;
   }
-  return false;
+
+  //init all displays
+  for(int i = 0; i<countDisplay; i++) {
+    oleds[i]->begin(&Adafruit128x32, SCREEN_ADDRESS);
+    oleds[i]->setFont(Adafruit5x7_mod);
+  }
+
+  return displayAvailable;
 }
 
 /**
@@ -76,11 +83,12 @@ uint8_t isDisplayAvailable() {
    clears the display and sets correct rotation and display mode
 */
 void displayClear(void) {
-  oled->clear();
-  if (slotSettings.ro>90)
-    oled->displayRemap(true);
-  else oled->displayRemap(false);
-  oled->setInvertMode(false);
+  for(int i = 0; i<countDisplay; i++) {
+    oleds[i]->clear();
+    if (slotSettings.ro>90) oleds[i]->displayRemap(true);
+    else oleds[i]->displayRemap(false);
+    oleds[i]->setInvertMode(false);
+  }
 }
 
 
@@ -94,9 +102,12 @@ void displayClear(void) {
 void displayMessage(char * msg) {
   if (!displayAvailable) return;
   displayClear();
-  oled->set2X();
-  oled->setCursor(5,1);
-  oled->print(msg);  
+  for(int i = 0; i<countDisplay; i++) {
+    oleds[i]->set2X();
+    oleds[i]->setCursor(5,1);
+    oleds[i]->print(msg);  
+  }
+
 }
 
 /**
@@ -109,28 +120,30 @@ void displayMessage(char * msg) {
 void displayUpdate(void) {
   if ((!displayAvailable) || (displayPaused)) return;
   displayClear();
-  oled->set2X();
-  oled->setCursor(5,1);
-  oled->print(slotSettings.slotName);  
-  oled->set1X();
+  for(int i = 0; i<countDisplay; i++) {
+    oleds[i]->set2X();
+    oleds[i]->setCursor(5,1);
+    oleds[i]->print(slotSettings.slotName);  
+    oleds[i]->set1X();
 
-  // display modes for FLipPad
-  #ifdef FLIPPAD
-    oled->setCursor(100,0);
-    switch (slotSettings.stickMode) {
-      case 0:
-      case 1: oled->print("Stk"); break;
-      case 2:
-      case 3:
-      case 4: oled->print("Joy"); break;
+    // display modes for FLipPad
+    #ifdef FLIPPAD
+      oled->setCursor(100,0);
+      switch (slotSettings.stickMode) {
+        case 0:
+        case 1: oleds[i]->print("Stk"); break;
+        case 2:
+        case 3:
+        case 4: oleds[i]->print("Joy"); break;
+      }
+    #endif  
+
+    oleds[i]->setCursor(100,3);
+    switch (slotSettings.bt) {
+      case 1: oleds[i]->print("USB"); break;
+      case 2: oleds[i]->print("BT"); break;
+      case 3: oleds[i]->print("both"); break;
     }
-  #endif  
-
-  oled->setCursor(100,3);
-  switch (slotSettings.bt) {
-    case 1: oled->print("USB"); break;
-    case 2: oled->print("BT"); break;
-    case 3: oled->print("both"); break;
   }
   #ifdef FABI
     batteryDisplay(true);
@@ -174,20 +187,22 @@ void batteryDisplay(bool refresh){
 
   // only draw if we have a change or a refresh was explicitly requested!
   if (refresh || (oldIconState != iconState)) {
-    oled->set1X();
-    oled->clear(105, 128, 1, 1);
-    oled->setCursor(110, 1);
-    oled->setLetterSpacing(0);
-    switch (iconState) {
-      case -1: oled->print("-?-");  break;
-      case  0: oled->print("!\"#"); break;
-      case  1: oled->print("$\"#"); break;
-      case  2: oled->print("$$#");  break;
-      case  3: oled->print("$$&");  break;
-      case  4: oled->setCursor(105, 1); 
-               oled->print("100%"); break;
+    for(int i = 0; i<countDisplay; i++) {
+      oleds[i]->set1X();
+      oleds[i]->clear(105, 128, 1, 1);
+      oleds[i]->setCursor(110, 1);
+      oleds[i]->setLetterSpacing(0);
+      switch (iconState) {
+        case -1: oleds[i]->print("-?-");  break;
+        case  0: oleds[i]->print("!\"#"); break;
+        case  1: oleds[i]->print("$\"#"); break;
+        case  2: oleds[i]->print("$$#");  break;
+        case  3: oleds[i]->print("$$&");  break;
+        case  4: oleds[i]->setCursor(105, 1); 
+        oleds[i]->print("100%"); break;
+      }
+      oleds[i]->setLetterSpacing(1);
     }
-    oled->setLetterSpacing(1);
     oldIconState = iconState;
   }
 }
