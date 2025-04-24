@@ -4,10 +4,14 @@ This folder contains the design files for the 3D printed case for FABI3.
 
 ### Software
 
-FreeCAD v1.0, x86_64 Linux
+FreeCAD v1.1.0, x86_64 Linux
 
-### Files
+### Print file selection
 
-* __FABI_PCB_Bottom.stl__ Normally printed with 0.2mm, no support (place it correctly on the flat surface). One piece needed for a FABI.
-* __FABI_PCB_Top.stl__ Normally printed with 0.2mm, no support (place it correctly on the flat surface). One piece needed for a FABI.
-* __TBA:__ There will be an additional file for FABIs with a connected pressure sensor, we need a tube outlet for that.
+These case files require a FABI v3.3, with battery and speaker support.
+
+| FABI type                                           | Top                     | Bottom                         |
+| --------------------------------------------------- | ----------------------- | ------------------------------ |
+| Pico with 5mm socket, no pressure sensor/pipe       | FABI_Top_PicoSocket.stl | FABI_Bot_PicoSocket_NoPipe.stl |
+| Pico with 5mm socket, hole for pressure sensor pipe | FABI_Top_PicoSocket.stl | FABI_Bot_PicoSocket_Pipe.stl   |
+| Pico directly soldered, no pressure sensor/pipe     | FABI_Top.stl            | FABI_Bot.stl                   |
