@@ -83,60 +83,35 @@ void mouseMove(int x, int y)
     dragRecordingX+=x;
     dragRecordingY+=y;
   }
-  while (x < -128) {
-    if (slotSettings.bt & 1)
-      Mouse.move(-128, 0, 0);
-    if (slotSettings.bt & 2)
-    #ifndef FLIPMOUSE 
-      MouseBLE.move(-128, 0, 0);
-    #else 
-      mouseBT(-128, 0, 0);
-    #endif
-    x += 128;
-  }
-  while (x > 127) {
-    if (slotSettings.bt & 1)
-      Mouse.move(127, 0, 0);
-    if (slotSettings.bt & 2)
-    #ifndef FLIPMOUSE 
-      MouseBLE.move(127, 0, 0);
-    #else 
-      mouseBT(127, 0, 0);
-    #endif
-    x -= 127;
+
+  //as long as one of the axis is out of bounds of int8 (more than one HID report)
+  while(x < -128 || x > 127 || y < -128 || y > 127 ) {
+    int8_t x_now,y_now = 0;
+
+    if(x < -128) { x_now = -128; x += 128; }
+    if(x > 127) { x_now = 127; x -= 127; }
+
+    if(y < -128) { y_now = -128; y += 128; }
+    if(y > 127) { y_now = 127; y -= 127; }
+
+    if (slotSettings.bt & 1) Mouse.move(x_now, y_now, 0);
+    if (slotSettings.bt & 2) {
+      #ifndef FLIPMOUSE 
+        MouseBLE.move(x_now, y_now, 0);
+      #else 
+        mouseBT(x_now, y_now, 0);
+      #endif
+    }
   }
 
-  while (y < -128) {
-    if (slotSettings.bt & 1)
-      Mouse.move(0, -128, 0);
-    if (slotSettings.bt & 2)
-    #ifndef FLIPMOUSE 
-      MouseBLE.move(0, -128, 0);
-    #else 
-      mouseBT(0, -128, 0);
-    #endif
-    y += 128;
-  }
-  while (y > 127) {
-    if (slotSettings.bt & 1)
-      Mouse.move(0, 127, 0);
-    if (slotSettings.bt & 2)
-    #ifndef FLIPMOUSE 
-      MouseBLE.move(0, 127, 0);
-    #else 
-      mouseBT(0, 127, 0);
-    #endif
-    y -= 127;
-  }
-
-  if (slotSettings.bt & 1)
-    Mouse.move(x, y, 0);
-  if (slotSettings.bt & 2)
+  if (slotSettings.bt & 1) Mouse.move(x, y, 0);
+  if (slotSettings.bt & 2) {
     #ifndef FLIPMOUSE 
       MouseBLE.move(x, y, 0);
     #else 
       mouseBT(x, y, 0);
     #endif
+  }
 }
 
 void keyboardPrint(char * keystring)
