@@ -379,87 +379,84 @@ void getNAUValues(int32_t * actX, int32_t * actY) {
 void readPressure()
 {
   int actPressure = 512;
-  static uint32_t lastPressure_ts=0;
 
-  // if desired sampling period for pressure sensor passed: get pressure sensor value
-  if (millis()-lastPressure_ts < 1000/PRESSURE_SAMPLINGRATE) return;
-  lastPressure_ts=millis();
-
-  switch (currentSensorDataCore1.pressureSensorType)
-  {
-    case PRESSURE_MPRLS:
+  NB_DELAY_START(pressure_ts,1000/PRESSURE_SAMPLINGRATE)
+    switch (currentSensorDataCore1.pressureSensorType)
     {
-        // get new value from MPRLS chip
-        int mprlsStatus = getMPRLSValue(&pressure_rawval);
-
-#ifdef DEBUG_MPRLS_ERRORFLAGS
-        // any errors?  - just indicate them via serial message
-        if (mprlsStatus & MPRLS_STATUS_BUSY) {
-          Serial.println("MPRLS: busy");
-        }
-        if (mprlsStatus & MPRLS_STATUS_FAILED) {
-          Serial.println("MPRLS:failed");
-        }
-        if (mprlsStatus & MPRLS_STATUS_MATHSAT) {
-          Serial.println("MPRLS:saturated");
-        }
-#endif
-
-        int med = calculateMedian(pressure_rawval);
-        if (abs(med - pressure_rawval) >  SPIKE_DETECTION_THRESHOLD) {
-          pressure_rawval = med;
-        }
-
-        // calculate filtered pressure value, apply signal conditioning
-        int mprls_filtered = PS.process(pressure_rawval);
-        if (mprls_filtered > 0) mprls_filtered = sqrt(mprls_filtered);
-        if (mprls_filtered < 0) mprls_filtered = -sqrt(-mprls_filtered);
-
-        actPressure = 512 + mprls_filtered / MPRLS_DIVIDER;
-      }
-      break;
-
-    case PRESSURE_DPS310:
+      case PRESSURE_MPRLS:
       {
-        // get new value from DPS chip
-        getDPSValue(&pressure_rawval);
-        pressure_rawval *= DPS_SCALEFACTOR;
-        
-        int med = calculateMedian(pressure_rawval);
-        if (abs(med - pressure_rawval) >  DPS_SPIKE_DETECTION_THRESHOLD) {
-          pressure_rawval = med;
+          // get new value from MPRLS chip
+          int mprlsStatus = getMPRLSValue(&pressure_rawval);
+
+  #ifdef DEBUG_MPRLS_ERRORFLAGS
+          // any errors?  - just indicate them via serial message
+          if (mprlsStatus & MPRLS_STATUS_BUSY) {
+            Serial.println("MPRLS: busy");
+          }
+          if (mprlsStatus & MPRLS_STATUS_FAILED) {
+            Serial.println("MPRLS:failed");
+          }
+          if (mprlsStatus & MPRLS_STATUS_MATHSAT) {
+            Serial.println("MPRLS:saturated");
+          }
+  #endif
+
+          int med = calculateMedian(pressure_rawval);
+          if (abs(med - pressure_rawval) >  SPIKE_DETECTION_THRESHOLD) {
+            pressure_rawval = med;
+          }
+
+          // calculate filtered pressure value, apply signal conditioning
+          int mprls_filtered = PS.process(pressure_rawval);
+          if (mprls_filtered > 0) mprls_filtered = sqrt(mprls_filtered);
+          if (mprls_filtered < 0) mprls_filtered = -sqrt(-mprls_filtered);
+
+          actPressure = 512 + mprls_filtered / MPRLS_DIVIDER;
         }
+        break;
 
-        // calculate filtered pressure value, apply signal conditioning
-        int dps_filtered = PS.process(pressure_rawval);
-        if (dps_filtered > 0) dps_filtered = sqrt(dps_filtered);
-        if (dps_filtered < 0) dps_filtered = -sqrt(-dps_filtered);
+      case PRESSURE_DPS310:
+        {
+          // get new value from DPS chip
+          getDPSValue(&pressure_rawval);
+          pressure_rawval *= DPS_SCALEFACTOR;
+          
+          int med = calculateMedian(pressure_rawval);
+          if (abs(med - pressure_rawval) >  DPS_SPIKE_DETECTION_THRESHOLD) {
+            pressure_rawval = med;
+          }
 
-        actPressure = 512 + dps_filtered / DPS_DIVIDER;
-      }
-      break;
+          // calculate filtered pressure value, apply signal conditioning
+          int dps_filtered = PS.process(pressure_rawval);
+          if (dps_filtered > 0) dps_filtered = sqrt(dps_filtered);
+          if (dps_filtered < 0) dps_filtered = -sqrt(-dps_filtered);
+
+          actPressure = 512 + dps_filtered / DPS_DIVIDER;
+        }
+        break;
+      
+      case PRESSURE_INTERNAL_ADC:
+        actPressure = analogRead(ANALOG_PRESSURE_SENSOR_PIN);
+        break;
+
+      default:
+      case PRESSURE_NONE:
+        actPressure = 512;
+        break;
+    }
     
-    case PRESSURE_INTERNAL_ADC:
-      actPressure = analogRead(ANALOG_PRESSURE_SENSOR_PIN);
-      break;
+    // clamp to 1/1022 (allows disabling strong sip/puff)
+    if (actPressure < 1) actPressure = 1;
+    if (actPressure > 1022) actPressure = 1022;
 
-    default:
-    case PRESSURE_NONE:
-      actPressure = 512;
-      break;
-  }
-  
-  // clamp to 1/1022 (allows disabling strong sip/puff)
-  if (actPressure < 1) actPressure = 1;
-  if (actPressure > 1022) actPressure = 1022;
+    // during calibration period: set pressure to center (bypass)
+    if (currentSensorDataCore1.calib_now) actPressure = 512;
 
-  // during calibration period: set pressure to center (bypass)
-  if (currentSensorDataCore1.calib_now) actPressure = 512;
-
-  // here we provide new pressure values for further processing by core 0 !
-  mutex_enter_blocking(&(currentSensorDataCore1.sensorDataMutex));
-  currentSensorDataCore1.pressure = actPressure;
-  mutex_exit(&(currentSensorDataCore1.sensorDataMutex));
+    // here we provide new pressure values for further processing by core 0 !
+    mutex_enter_blocking(&(currentSensorDataCore1.sensorDataMutex));
+    currentSensorDataCore1.pressure = actPressure;
+    mutex_exit(&(currentSensorDataCore1.sensorDataMutex));
+  NB_DELAY_END
 }
 
 /**

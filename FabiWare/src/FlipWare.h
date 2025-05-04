@@ -200,6 +200,20 @@ extern char keystringBuffer[MAX_KEYSTRINGBUFFER_LEN];  // storage for all button
 typedef char* uint_farptr_t_FM;
 
 /**
+ * Non-blocking delay helper using millis(), but in a single line
+ * Usage:
+ *  NB_DELAY_START(suffix, interval)
+ *    //some code
+ *  NB_DELAY_END
+ */
+#define NB_DELAY_START(suffix, interval) \
+  unsigned long currentMillis##suffix = millis(); \
+  static unsigned long previousMillis##suffix = 0; \
+  if (currentMillis##suffix - previousMillis##suffix >= interval) { \
+    previousMillis##suffix = currentMillis##suffix;
+#define NB_DELAY_END }
+
+/**
  * Some define checks to warn from building in debug settings
  */
 #ifdef DEBUG_OUTPUT_MEMORY

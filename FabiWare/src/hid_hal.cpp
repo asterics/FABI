@@ -98,6 +98,7 @@ void mouseMove(int x, int y)
     if (slotSettings.bt & 2) {
       #ifndef FLIPMOUSE 
         MouseBLE.move(x_now, y_now, 0);
+        delay(1);
       #else 
         mouseBT(x_now, y_now, 0);
       #endif

@@ -108,8 +108,6 @@ struct SensorData sensorData {
 struct SlotSettings slotSettings;             // contains all slot settings
 uint8_t workingmem[WORKINGMEM_SIZE];          // working memory (command parser, IR-rec/play)
 uint8_t actSlot = 0;                          // number of current slot
-unsigned long lastInteractionUpdate;          // timestamp for HID interaction updates
-unsigned long lastBatteryUpdate;              // timestamp for battery management functions
 
 /**
    @name setup
@@ -184,7 +182,7 @@ void setup() {
     Serial.print(moduleName); Serial.println(" ready !");
   #endif
   audioPlayback(0);
-  lastInteractionUpdate = lastBatteryUpdate = millis();  // get first timestamp
+  //lastInteractionUpdate = lastBatteryUpdate = millis();  // get first timestamp
 }
 
 /**
@@ -213,9 +211,7 @@ void loop() {
   }
 
   // perform periodic updates  
-  if (millis() >= lastInteractionUpdate + UPDATE_INTERVAL)  {
-    lastInteractionUpdate = millis();
-  
+  NB_DELAY_START(interaction, UPDATE_INTERVAL)
     // get current sensor data from core1
     mutex_enter_blocking(&(currentSensorDataCore1.sensorDataMutex));
     sensorData.xRaw=currentSensorDataCore1.xRaw;
@@ -241,14 +237,13 @@ void loop() {
     reportValues();   // send live data to serial
     updateLeds();     // mode indication via front facing neopixel LEDs
     updateTones();    // mode indication via audio signals (buzzer)
-  }
+  NB_DELAY_END //lastInteraction
 
   #ifdef FABI
     // every now and then: check battery and power status
-    if (millis() >= lastBatteryUpdate + BATTERY_UPDATE_INTERVAL)  {
-      lastBatteryUpdate = millis();
+    NB_DELAY_START(batteryUpdate,BATTERY_UPDATE_INTERVAL)
       performBatteryManagement();
-    }
+    NB_DELAY_END
   #endif
 
   delay(1);  // core0: sleep a bit ...  

@@ -411,15 +411,13 @@
      periodically polls the BT modue for connections
   */
   void updateBTConnectionState () {
-    static uint32_t timestamp=0;
-    if (millis()-timestamp >= 2000)  {  // every 2 seconds
-        timestamp=millis();      
-        if (isBluetoothAvailable()) {
-          Serial_AUX.write("$GC\n");
-          // digitalWrite (6,!digitalRead (6));
-          bt_connected=0;  // will be updated in case the BT-module sends back connection/mac address
-        }
-    }
+    NB_DELAY_START(btconnection,2000)    
+      if (isBluetoothAvailable()) {
+        Serial_AUX.write("$GC\n");
+        // digitalWrite (6,!digitalRead (6));
+        bt_connected=0;  // will be updated in case the BT-module sends back connection/mac address
+      }
+    NB_DELAY_END
   }
   
   
