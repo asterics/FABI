@@ -106,6 +106,9 @@
 #define DIR_S   7   // south
 #define DIR_SE  8   // south-east
 
+//supported I2C addresses, these are scanned for changes during runtime (plugging / unplugging devices)
+//@note End this list with 0x00!
+const uint8_t supported_devices[] = {0x3C /*OLED*/, 0x77 /*DPS310*/, 0x18 /*MPRLS*/, 0x2A /* NAU78ß02 */, 0x00 /* END */};
 
 /**
    GlobalSettings struct

@@ -109,6 +109,13 @@ struct SlotSettings slotSettings;             // contains all slot settings
 uint8_t workingmem[WORKINGMEM_SIZE];          // working memory (command parser, IR-rec/play)
 uint8_t actSlot = 0;                          // number of current slot
 
+/*
+  Handling I2C devices for check if something changed (will reset device, e.g. if external sensors are connected)
+ */
+uint8_t devicesWire[8] = {0};                 // active I2C devices on Wire, see supported_devices[]
+uint8_t devicesWire1[8] = {0};                 // active I2C devices on Wire1, see supported_devices[]
+void testI2Cdevices(TwoWire *interface, uint8_t *device_list);
+
 /**
    @name setup
    @brief setup function, program execution of core0 starts here
@@ -141,6 +148,9 @@ void setup() {
   #endif  
 
   Wire.begin();
+
+  //check the I2C bus for active devices, add to array
+  testI2Cdevices(&Wire,devicesWire);
 
   // initialize Serial interface
   Serial.begin(115200);
@@ -244,6 +254,21 @@ void loop() {
     NB_DELAY_START(batteryUpdate,BATTERY_UPDATE_INTERVAL)
       performBatteryManagement();
     NB_DELAY_END
+
+    // every 1s: check for changed I2C devices. TBD: for FABI only?
+    NB_DELAY_START(i2cscan,1000)
+      //create a copy of list before checking again
+      uint8_t olddevices[8];
+      memcpy(olddevices,devicesWire,8);      
+      //check again
+      testI2Cdevices(&Wire,devicesWire);
+      //check if they match, if not -> restart
+      if(memcmp(olddevices,devicesWire,8) != 0) {
+        Serial.println("Devices on Wire changed -> restarting!");
+        watchdog_reboot(0, 0, 10);
+        while (1) { continue; }
+      }
+    NB_DELAY_END
   #endif
 
   delay(1);  // core0: sleep a bit ...  
@@ -269,6 +294,9 @@ void setup1() {
   #endif
   Wire1.begin();
   Wire1.setClock(400000);  // use 400kHz I2C clock
+
+  //check the I2C bus for active devices, add to array
+  testI2Cdevices(&Wire1,devicesWire1);
 
   #ifdef DEBUG_DELAY_STARTUP
     delay(3000);  // allow some time for serial interface to come up
@@ -317,5 +345,46 @@ void loop1() {
     if (!(cnt++%200)) digitalWrite(LED_BUILTIN,!digitalRead(LED_BUILTIN));
   #endif
 
-  delay(1);  // core1: sleep a bit ...  
+  // every 1s: check for changed I2C devices. TBD: for FABI only?
+  NB_DELAY_START(i2cscan, 1000)
+    //create a copy of list before checking again
+    uint8_t olddevices[8];
+    memcpy(olddevices, devicesWire1, 8);
+    //check again
+    testI2Cdevices(&Wire1, devicesWire1);
+    //check if they match, if not -> restart
+    if (memcmp(olddevices, devicesWire1, 8) != 0)
+    {
+      Serial.println("Devices on Wire1 changed -> restarting!");
+      watchdog_reboot(0, 0, 10);
+      while (1)
+      {
+        continue;
+      }
+    }
+  NB_DELAY_END
+
+  delay(1); // core1: sleep a bit ...  
+}
+
+void testI2Cdevices(TwoWire *interface, uint8_t *device_list) {
+  int devicenr = 0;     //currently used I2C address index of supported_devices[]
+  int devicecount = 0;  //count of found devices, used as offset in active devices (devicesWire[])
+
+  //reset device list
+  memset(device_list,0,8);
+
+  while(supported_devices[devicenr] != 0x00) { //test until address is 0x00
+    interface->beginTransmission(supported_devices[devicenr]);
+    uint8_t result = interface->endTransmission();
+    //if found: add to array of active devices
+    if (result == 0) {
+      //Serial.print("Found device @0x");
+      //Serial.println(supported_devices[devicenr],HEX);
+      device_list[devicecount] = supported_devices[devicenr];
+      devicecount++;
+    }
+    //next address to be tested
+    devicenr++;
+  }
 }
