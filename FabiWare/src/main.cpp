@@ -253,6 +253,9 @@ void loop() {
     // every now and then: check battery and power status
     NB_DELAY_START(batteryUpdate,BATTERY_UPDATE_INTERVAL)
       performBatteryManagement();
+      //Update Battery level for BLE, use 99% if not valid (-1)
+      if(sensorData.currentBattPercent > 0) MouseBLE.setBattery(sensorData.currentBattPercent);
+      else MouseBLE.setBattery(99);
     NB_DELAY_END
 
     // every 1s: check for changed I2C devices. TBD: for FABI only?
