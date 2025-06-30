@@ -659,12 +659,15 @@
 			(embedded_fonts no)
 		)
 		(symbol "Jumper:SolderJumper_2_Bridged"
+			(pin_numbers
+				(hide yes)
+			)
 			(pin_names
 				(offset 0)
 				(hide yes)
 			)
 			(exclude_from_sim no)
-			(in_bom yes)
+			(in_bom no)
 			(on_board yes)
 			(property "Reference" "JP"
 				(at 0 2.032 0)
@@ -854,8 +857,12 @@
 		)
 		(symbol "power:+3.3VADC"
 			(power)
+			(pin_numbers
+				(hide yes)
+			)
 			(pin_names
 				(offset 0)
+				(hide yes)
 			)
 			(exclude_from_sim no)
 			(in_bom yes)
@@ -870,7 +877,7 @@
 				)
 			)
 			(property "Value" "+3.3VADC"
-				(at 0 2.54 0)
+				(at 0 3.556 0)
 				(effects
 					(font
 						(size 1.27 1.27)
@@ -917,8 +924,7 @@
 				(pin power_in line
 					(at 0 0 90)
 					(length 0)
-					(hide yes)
-					(name "+3.3VADC"
+					(name "~"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -976,8 +982,12 @@
 		)
 		(symbol "power:GND"
 			(power)
+			(pin_numbers
+				(hide yes)
+			)
 			(pin_names
 				(offset 0)
+				(hide yes)
 			)
 			(exclude_from_sim no)
 			(in_bom yes)
@@ -1053,8 +1063,7 @@
 				(pin power_in line
 					(at 0 0 270)
 					(length 0)
-					(hide yes)
-					(name "GND"
+					(name "~"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -1381,7 +1390,7 @@
 		)
 		(uuid "f1949ad8-e211-4ce7-965c-5413f88bfc5a")
 	)
-	(hierarchical_label "audio_out"
+	(hierarchical_label "pam8302_in"
 		(shape input)
 		(at 121.92 60.96 180)
 		(effects
@@ -1392,7 +1401,7 @@
 		)
 		(uuid "3d9527f8-d5e8-47e9-8f16-a889135a5dde")
 	)
-	(hierarchical_label "audio_sd"
+	(hierarchical_label "pam8302_sd"
 		(shape input)
 		(at 157.48 83.82 180)
 		(effects
@@ -1447,7 +1456,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
 			(at 170.18 91.44 0)
 			(effects
 				(font
@@ -1705,7 +1714,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Unpolarized capacitor"
 			(at 128.27 73.66 0)
 			(effects
 				(font
@@ -1810,7 +1819,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Power symbol creates a global label with name \"+3.3VADC\""
 			(at 170.18 63.5 0)
 			(effects
 				(font
@@ -1877,7 +1886,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Unpolarized capacitor"
 			(at 217.17 72.39 0)
 			(effects
 				(font
@@ -1964,7 +1973,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Solder Jumper, 2-pole, closed/bridged"
 			(at 142.24 78.74 0)
 			(effects
 				(font
@@ -2068,7 +2077,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
 			(at 157.48 93.98 0)
 			(effects
 				(font
@@ -2133,7 +2142,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
 			(at 121.92 81.28 0)
 			(effects
 				(font
@@ -2199,7 +2208,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Solder Jumper, 2-pole, closed/bridged"
 			(at 142.24 73.66 0)
 			(effects
 				(font
@@ -2305,7 +2314,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Resistor"
 			(at 142.24 83.82 0)
 			(effects
 				(font
@@ -2410,7 +2419,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Resistor"
 			(at 142.24 68.58 0)
 			(effects
 				(font
@@ -2515,7 +2524,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Resistor"
 			(at 121.92 67.31 0)
 			(effects
 				(font
@@ -2629,7 +2638,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Resistor"
 			(at 121.92 74.93 0)
 			(effects
 				(font
@@ -2744,7 +2753,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Unpolarized capacitor"
 			(at 240.03 72.39 0)
 			(effects
 				(font
@@ -2832,7 +2841,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Unpolarized capacitor"
 			(at 228.6 72.39 0)
 			(effects
 				(font
@@ -2919,7 +2928,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Resistor"
 			(at 157.48 90.17 0)
 			(effects
 				(font
@@ -3023,7 +3032,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
 			(at 228.6 76.2 0)
 			(effects
 				(font
@@ -3089,7 +3098,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Power symbol creates a global label with name \"+3.3VADC\""
 			(at 228.6 68.58 0)
 			(effects
 				(font
@@ -3155,7 +3164,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Unpolarized capacitor"
 			(at 128.27 78.74 0)
 			(effects
 				(font

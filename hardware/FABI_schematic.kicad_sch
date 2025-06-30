@@ -910,7 +910,7 @@
 				(pin passive line
 					(at -2.54 2.54 0)
 					(length 2.54)
-					(name "-"
+					(name "+"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -928,7 +928,7 @@
 				(pin passive line
 					(at -2.54 -2.54 0)
 					(length 2.54)
-					(name "+"
+					(name "-"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -1131,6 +1131,15 @@
 				)
 			)
 			(property "Description" "Light emitting diode"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Sim.Pins" "1=K 2=A"
 				(at 0 0 0)
 				(effects
 					(font
@@ -2004,12 +2013,15 @@
 			(embedded_fonts no)
 		)
 		(symbol "Jumper:SolderJumper_2_Bridged"
+			(pin_numbers
+				(hide yes)
+			)
 			(pin_names
 				(offset 0)
 				(hide yes)
 			)
 			(exclude_from_sim no)
-			(in_bom yes)
+			(in_bom no)
 			(on_board yes)
 			(property "Reference" "JP"
 				(at 0 2.032 0)
@@ -3371,7 +3383,7 @@
 		)
 		(symbol "Mechanical:Fiducial"
 			(exclude_from_sim no)
-			(in_bom yes)
+			(in_bom no)
 			(on_board yes)
 			(property "Reference" "FID"
 				(at 0 5.08 0)
@@ -3517,21 +3529,144 @@
 					(hide yes)
 				)
 			)
+			(symbol "WE-TVS-824015043_0_0"
+				(circle
+					(center -3.556 2.54)
+					(radius 0.0001)
+					(stroke
+						(width 0.508)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(circle
+					(center -1.778 4.572)
+					(radius 0.0001)
+					(stroke
+						(width 0.508)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(circle
+					(center -1.778 0)
+					(radius 0.0001)
+					(stroke
+						(width 0.508)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(circle
+					(center -1.778 -7.112)
+					(radius 0.0001)
+					(stroke
+						(width 0.508)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(circle
+					(center -0.508 4.572)
+					(radius 0.0001)
+					(stroke
+						(width 0.508)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(circle
+					(center -0.508 -7.112)
+					(radius 0.0001)
+					(stroke
+						(width 0.508)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(circle
+					(center 0 -2.54)
+					(radius 0.0001)
+					(stroke
+						(width 0.508)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(circle
+					(center 0.508 4.572)
+					(radius 0.0001)
+					(stroke
+						(width 0.508)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(circle
+					(center 0.508 -7.112)
+					(radius 0.0001)
+					(stroke
+						(width 0.508)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(circle
+					(center 1.778 4.572)
+					(radius 0.0001)
+					(stroke
+						(width 0.508)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(circle
+					(center 1.778 -5.08)
+					(radius 0.0001)
+					(stroke
+						(width 0.508)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(circle
+					(center 1.778 -7.112)
+					(radius 0.0001)
+					(stroke
+						(width 0.508)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
 			(symbol "WE-TVS-824015043_0_1"
-				(rectangle
-					(start -7.62 -7.62)
-					(end 7.62 7.62)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type background)
-					)
-				)
 				(polyline
 					(pts
-						(xy -6.096 3.429) (xy -4.064 3.429) (xy -5.08 5.461) (xy -6.096 3.429)
+						(xy -5.08 2.54) (xy -3.556 2.54)
 					)
 					(stroke
 						(width 0)
@@ -3543,30 +3678,7 @@
 				)
 				(polyline
 					(pts
-						(xy -6.096 -5.461) (xy -4.064 -5.461) (xy -5.08 -3.429) (xy -6.096 -5.461)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(circle
-					(center -5.08 2.54)
-					(radius 0.254)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type outline)
-					)
-				)
-				(polyline
-					(pts
-						(xy -5.08 2.54) (xy -7.62 2.54)
+						(xy -5.08 0) (xy -1.778 0)
 					)
 					(stroke
 						(width 0)
@@ -3578,7 +3690,7 @@
 				)
 				(polyline
 					(pts
-						(xy -4.064 5.461) (xy -6.096 5.461)
+						(xy -5.08 -2.54) (xy 0 -2.54)
 					)
 					(stroke
 						(width 0)
@@ -3590,7 +3702,7 @@
 				)
 				(polyline
 					(pts
-						(xy -4.064 -3.429) (xy -6.096 -3.429)
+						(xy -5.08 -5.08) (xy 1.778 -5.08)
 					)
 					(stroke
 						(width 0)
@@ -3602,7 +3714,7 @@
 				)
 				(polyline
 					(pts
-						(xy -3.556 3.429) (xy -1.524 3.429) (xy -2.54 5.461) (xy -3.556 3.429)
+						(xy -4.064 3.048) (xy -3.048 3.048) (xy -3.556 4.064) (xy -4.064 3.048)
 					)
 					(stroke
 						(width 0)
@@ -3614,87 +3726,7 @@
 				)
 				(polyline
 					(pts
-						(xy -3.556 -5.461) (xy -1.524 -5.461) (xy -2.54 -3.429) (xy -3.556 -5.461)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(circle
-					(center -2.54 6.35)
-					(radius 0.254)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type outline)
-					)
-				)
-				(rectangle
-					(start -2.54 6.35)
-					(end 2.54 -6.35)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -2.54 6.35) (xy -5.08 6.35) (xy -5.08 -6.35) (xy -2.54 -6.35)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(circle
-					(center -2.54 -2.54)
-					(radius 0.254)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type outline)
-					)
-				)
-				(polyline
-					(pts
-						(xy -2.54 -2.54) (xy -7.62 -2.54)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(circle
-					(center -2.54 -6.35)
-					(radius 0.254)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type outline)
-					)
-				)
-				(polyline
-					(pts
-						(xy -1.524 5.461) (xy -3.556 5.461)
+						(xy -4.064 -5.588) (xy -3.048 -5.588)
 					)
 					(stroke
 						(width 0)
@@ -3706,7 +3738,7 @@
 				)
 				(polyline
 					(pts
-						(xy -1.524 -3.429) (xy -3.556 -3.429)
+						(xy -3.048 4.064) (xy -4.064 4.064)
 					)
 					(stroke
 						(width 0)
@@ -3718,30 +3750,7 @@
 				)
 				(polyline
 					(pts
-						(xy -1.016 -1.016) (xy 1.016 -1.016) (xy 0 1.016) (xy -1.016 -1.016)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(circle
-					(center 0 6.35)
-					(radius 0.254)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type outline)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0 6.35) (xy 0 7.62)
+						(xy -3.048 -6.604) (xy -4.064 -6.604) (xy -3.556 -5.588) (xy -3.048 -6.604)
 					)
 					(stroke
 						(width 0)
@@ -3753,7 +3762,7 @@
 				)
 				(polyline
 					(pts
-						(xy 0 1.27) (xy 0 6.35)
+						(xy -2.286 4.064) (xy -1.27 4.064)
 					)
 					(stroke
 						(width 0)
@@ -3765,30 +3774,7 @@
 				)
 				(polyline
 					(pts
-						(xy 0 -6.35) (xy 0 1.27)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(circle
-					(center 0 -6.35)
-					(radius 0.254)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type outline)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0 -7.62) (xy 0 -6.35)
+						(xy -2.286 -5.588) (xy -1.27 -5.588)
 					)
 					(stroke
 						(width 0)
@@ -3800,7 +3786,7 @@
 				)
 				(polyline
 					(pts
-						(xy 1.016 1.016) (xy 0.762 1.016) (xy -1.016 1.016) (xy -1.016 0.508)
+						(xy -1.27 3.048) (xy -2.286 3.048) (xy -1.778 4.064) (xy -1.27 3.048)
 					)
 					(stroke
 						(width 0)
@@ -3812,7 +3798,7 @@
 				)
 				(polyline
 					(pts
-						(xy 1.524 5.461) (xy 3.556 5.461)
+						(xy -1.27 -6.604) (xy -2.286 -6.604) (xy -1.778 -5.588) (xy -1.27 -6.604)
 					)
 					(stroke
 						(width 0)
@@ -3824,7 +3810,7 @@
 				)
 				(polyline
 					(pts
-						(xy 1.524 -3.429) (xy 3.556 -3.429)
+						(xy -0.508 3.048) (xy 0.508 3.048) (xy 0 4.064) (xy -0.508 3.048)
 					)
 					(stroke
 						(width 0)
@@ -3836,64 +3822,7 @@
 				)
 				(polyline
 					(pts
-						(xy 2.54 6.35) (xy 5.08 6.35) (xy 5.08 -6.35) (xy 2.54 -6.35)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(circle
-					(center 2.54 6.35)
-					(radius 0.254)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type outline)
-					)
-				)
-				(polyline
-					(pts
-						(xy 2.54 2.54) (xy 7.62 2.54)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(circle
-					(center 2.54 2.54)
-					(radius 0.254)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type outline)
-					)
-				)
-				(circle
-					(center 2.54 -6.35)
-					(radius 0.254)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type outline)
-					)
-				)
-				(polyline
-					(pts
-						(xy 3.556 3.429) (xy 1.524 3.429) (xy 2.54 5.461) (xy 3.556 3.429)
+						(xy -0.508 -5.588) (xy 0.508 -5.588)
 					)
 					(stroke
 						(width 0)
@@ -3905,7 +3834,7 @@
 				)
 				(polyline
 					(pts
-						(xy 3.556 -5.461) (xy 1.524 -5.461) (xy 2.54 -3.429) (xy 3.556 -5.461)
+						(xy -0.508 -6.604) (xy 0.508 -6.604) (xy 0 -5.588) (xy -0.508 -6.604)
 					)
 					(stroke
 						(width 0)
@@ -3917,7 +3846,7 @@
 				)
 				(polyline
 					(pts
-						(xy 4.064 5.461) (xy 6.096 5.461)
+						(xy 0 5.08) (xy 0.508 4.572)
 					)
 					(stroke
 						(width 0)
@@ -3929,7 +3858,7 @@
 				)
 				(polyline
 					(pts
-						(xy 4.064 -3.429) (xy 6.096 -3.429)
+						(xy 0.508 4.064) (xy -0.508 4.064)
 					)
 					(stroke
 						(width 0)
@@ -3941,30 +3870,7 @@
 				)
 				(polyline
 					(pts
-						(xy 5.08 -2.54) (xy 7.62 -2.54)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(circle
-					(center 5.08 -2.54)
-					(radius 0.254)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type outline)
-					)
-				)
-				(polyline
-					(pts
-						(xy 6.096 3.429) (xy 4.064 3.429) (xy 5.08 5.461) (xy 6.096 3.429)
+						(xy 0.508 -7.112) (xy -0.508 -7.112)
 					)
 					(stroke
 						(width 0)
@@ -3976,7 +3882,79 @@
 				)
 				(polyline
 					(pts
-						(xy 6.096 -5.461) (xy 4.064 -5.461) (xy 5.08 -3.429) (xy 6.096 -5.461)
+						(xy 1.27 4.064) (xy 2.286 4.064)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.27 -6.604) (xy 2.286 -6.604) (xy 1.778 -5.588) (xy 1.27 -6.604)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.778 4.572) (xy 3.302 4.572) (xy 3.302 -7.112) (xy 1.778 -7.112)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 2.286 3.048) (xy 1.27 3.048) (xy 1.778 4.064) (xy 2.286 3.048)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 2.286 -5.588) (xy 1.27 -5.588)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 2.794 -0.762) (xy 2.794 -0.381) (xy 3.81 -0.381)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 3.81 -1.524) (xy 2.794 -1.524) (xy 3.302 -0.508) (xy 3.81 -1.524)
 					)
 					(stroke
 						(width 0)
@@ -3988,8 +3966,67 @@
 				)
 			)
 			(symbol "WE-TVS-824015043_1_1"
+				(rectangle
+					(start -5.08 5.334)
+					(end 5.08 -7.874)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.778 4.572) (xy -3.556 4.572) (xy -3.556 -7.112) (xy -1.778 -7.112)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -0.508 4.572) (xy 1.778 4.572) (xy 1.778 -7.112) (xy 0.508 -7.112)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 -7.62) (xy -0.508 -7.112) (xy -1.778 -7.112) (xy -1.778 4.572) (xy -0.508 4.572)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0.508 -7.112) (xy 0 -6.604) (xy 0 4.064) (xy -0.508 4.572)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
 				(pin passive line
-					(at -10.16 2.54 0)
+					(at -7.62 2.54 0)
 					(length 2.54)
 					(name "I/O1"
 						(effects
@@ -4007,7 +4044,7 @@
 					)
 				)
 				(pin passive line
-					(at -10.16 -2.54 0)
+					(at -7.62 0 0)
 					(length 2.54)
 					(name "I/O2"
 						(effects
@@ -4025,7 +4062,43 @@
 					)
 				)
 				(pin passive line
-					(at 0 10.16 270)
+					(at -7.62 -2.54 0)
+					(length 2.54)
+					(name "I/O3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -7.62 -5.08 0)
+					(length 2.54)
+					(name "I/O4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "6"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 7.62 270)
 					(length 2.54)
 					(name "VBUS"
 						(effects
@@ -4053,42 +4126,6 @@
 						)
 					)
 					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 10.16 2.54 180)
-					(length 2.54)
-					(name "I/O3"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "4"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 10.16 -2.54 180)
-					(length 2.54)
-					(name "I/O4"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "6"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -4311,7 +4348,7 @@
 				)
 			)
 			(property "Datasheet" "https://www.onsemi.com/pub/Collateral/BSS138-D.PDF"
-				(at 0 0 0)
+				(at 5.08 -3.81 0)
 				(effects
 					(font
 						(size 1.27 1.27)
@@ -4574,8 +4611,12 @@
 		)
 		(symbol "power:+3.3VADC"
 			(power)
+			(pin_numbers
+				(hide yes)
+			)
 			(pin_names
 				(offset 0)
+				(hide yes)
 			)
 			(exclude_from_sim no)
 			(in_bom yes)
@@ -4590,7 +4631,7 @@
 				)
 			)
 			(property "Value" "+3.3VADC"
-				(at 0 2.54 0)
+				(at 0 3.556 0)
 				(effects
 					(font
 						(size 1.27 1.27)
@@ -4637,8 +4678,7 @@
 				(pin power_in line
 					(at 0 0 90)
 					(length 0)
-					(hide yes)
-					(name "+3.3VADC"
+					(name "~"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -4696,8 +4736,12 @@
 		)
 		(symbol "power:GND"
 			(power)
+			(pin_numbers
+				(hide yes)
+			)
 			(pin_names
 				(offset 0)
+				(hide yes)
 			)
 			(exclude_from_sim no)
 			(in_bom yes)
@@ -4773,8 +4817,7 @@
 				(pin power_in line
 					(at 0 0 270)
 					(length 0)
-					(hide yes)
-					(name "GND"
+					(name "~"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -4794,8 +4837,12 @@
 		)
 		(symbol "power:GNDA"
 			(power)
+			(pin_numbers
+				(hide yes)
+			)
 			(pin_names
 				(offset 0)
+				(hide yes)
 			)
 			(exclude_from_sim no)
 			(in_bom yes)
@@ -4871,8 +4918,7 @@
 				(pin power_in line
 					(at 0 0 270)
 					(length 0)
-					(hide yes)
-					(name "GNDA"
+					(name "~"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -4993,8 +5039,12 @@
 		)
 		(symbol "power:VBUS"
 			(power)
+			(pin_numbers
+				(hide yes)
+			)
 			(pin_names
 				(offset 0)
+				(hide yes)
 			)
 			(exclude_from_sim no)
 			(in_bom yes)
@@ -5009,7 +5059,7 @@
 				)
 			)
 			(property "Value" "VBUS"
-				(at 0 3.81 0)
+				(at 0 3.556 0)
 				(effects
 					(font
 						(size 1.27 1.27)
@@ -5094,8 +5144,7 @@
 				(pin power_in line
 					(at 0 0 90)
 					(length 0)
-					(hide yes)
-					(name "VBUS"
+					(name "~"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -5115,8 +5164,12 @@
 		)
 		(symbol "power:VCC"
 			(power)
+			(pin_numbers
+				(hide yes)
+			)
 			(pin_names
 				(offset 0)
+				(hide yes)
 			)
 			(exclude_from_sim no)
 			(in_bom yes)
@@ -5131,7 +5184,7 @@
 				)
 			)
 			(property "Value" "VCC"
-				(at 0 3.81 0)
+				(at 0 3.556 0)
 				(effects
 					(font
 						(size 1.27 1.27)
@@ -5216,8 +5269,7 @@
 				(pin power_in line
 					(at 0 0 90)
 					(length 0)
-					(hide yes)
-					(name "VCC"
+					(name "~"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -5436,12 +5488,6 @@
 		(uuid "25c25cc0-4a85-4948-90b4-998f3ff28c5b")
 	)
 	(junction
-		(at 106.68 27.94)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "308081ce-8a5a-4739-b79b-d2304a768e1d")
-	)
-	(junction
 		(at 55.88 30.48)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -5508,6 +5554,12 @@
 		(uuid "6cb4a509-2bfe-476d-bdb0-bcc687f52bef")
 	)
 	(junction
+		(at 91.44 30.48)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "79ba347d-49ad-4741-a59e-24cfa43277a9")
+	)
+	(junction
 		(at 91.44 48.26)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -5568,6 +5620,10 @@
 		(uuid "fcca27b9-2d38-46a5-9c6c-2943239d2e8e")
 	)
 	(no_connect
+		(at 83.82 43.18)
+		(uuid "08bde382-d691-4c0c-854c-47ee0840c5ed")
+	)
+	(no_connect
 		(at 78.74 58.42)
 		(uuid "17a20120-65cd-4edf-a0ec-3ae222e46d7e")
 	)
@@ -5580,7 +5636,7 @@
 		(uuid "412ad857-3a58-40d5-9d3d-f1f275e8e565")
 	)
 	(no_connect
-		(at 81.28 40.64)
+		(at 83.82 38.1)
 		(uuid "437ca762-1042-410e-a2c5-62b1cfa03405")
 	)
 	(no_connect
@@ -5610,10 +5666,6 @@
 	(no_connect
 		(at 78.74 71.12)
 		(uuid "f53f992b-968d-45e3-9d27-a32359e6ebdc")
-	)
-	(no_connect
-		(at 101.6 40.64)
-		(uuid "fdd34a61-44db-45e0-807c-9ea92af7a08a")
 	)
 	(wire
 		(pts
@@ -5707,7 +5759,7 @@
 	)
 	(wire
 		(pts
-			(xy 78.74 35.56) (xy 81.28 35.56)
+			(xy 78.74 35.56) (xy 83.82 35.56)
 		)
 		(stroke
 			(width 0)
@@ -5764,6 +5816,16 @@
 			(type default)
 		)
 		(uuid "1f1816d7-bbbb-44d1-97cb-fa65fac3a756")
+	)
+	(wire
+		(pts
+			(xy 106.68 30.48) (xy 106.68 40.64)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2205df0c-5597-4907-a472-65d03fe7bac2")
 	)
 	(polyline
 		(pts
@@ -5897,6 +5959,16 @@
 	)
 	(wire
 		(pts
+			(xy 91.44 30.48) (xy 106.68 30.48)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5390818f-6d1d-41ca-bfea-81264c77df0e")
+	)
+	(wire
+		(pts
 			(xy 149.86 53.34) (xy 149.86 50.8)
 		)
 		(stroke
@@ -5974,16 +6046,6 @@
 			(type default)
 		)
 		(uuid "617dfeab-e5a0-4c99-a0d6-be9708fed896")
-	)
-	(wire
-		(pts
-			(xy 104.14 43.18) (xy 104.14 35.56)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "623fc477-6402-4fdf-8b66-945299b796d1")
 	)
 	(wire
 		(pts
@@ -6067,13 +6129,13 @@
 	)
 	(wire
 		(pts
-			(xy 104.14 35.56) (xy 101.6 35.56)
+			(xy 80.01 43.18) (xy 80.01 40.64)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "769c27eb-098a-4d7d-88df-7a9f2439740d")
+		(uuid "76e5b9d2-90fe-46db-afba-7bb4cddc7d61")
 	)
 	(wire
 		(pts
@@ -6247,6 +6309,16 @@
 	)
 	(wire
 		(pts
+			(xy 80.01 40.64) (xy 83.82 40.64)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "91b04519-b078-400b-880d-b75f9fe0b815")
+	)
+	(wire
+		(pts
 			(xy 162.56 104.14) (xy 162.56 99.06)
 		)
 		(stroke
@@ -6377,16 +6449,6 @@
 	)
 	(wire
 		(pts
-			(xy 106.68 25.4) (xy 106.68 27.94)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "aee9506d-594c-42b4-9e64-24deee61bcc8")
-	)
-	(wire
-		(pts
 			(xy 167.64 114.3) (xy 167.64 101.6)
 		)
 		(stroke
@@ -6487,16 +6549,6 @@
 	)
 	(wire
 		(pts
-			(xy 78.74 43.18) (xy 104.14 43.18)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "c48e6793-4ca0-4658-b6a3-9463e3460cb5")
-	)
-	(wire
-		(pts
 			(xy 35.56 180.34) (xy 35.56 177.8)
 		)
 		(stroke
@@ -6544,16 +6596,6 @@
 			(type default)
 		)
 		(uuid "d268e565-f243-4dd5-a0ed-eda8a6848198")
-	)
-	(wire
-		(pts
-			(xy 91.44 27.94) (xy 106.68 27.94)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "d3f41ebe-3d16-428c-a755-3dec2bd79f19")
 	)
 	(wire
 		(pts
@@ -6665,16 +6707,6 @@
 		)
 		(uuid "f301b0ae-34b1-4d99-be76-8b7a650ba6b4")
 	)
-	(wire
-		(pts
-			(xy 106.68 27.94) (xy 106.68 40.64)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "f5a41976-321b-4850-9a9f-534fb845fcb7")
-	)
 	(polyline
 		(pts
 			(xy 93.98 144.78) (xy 53.34 144.78)
@@ -6714,6 +6746,16 @@
 			(type default)
 		)
 		(uuid "fe1d130b-4814-4851-8dfc-30f5429f9b3e")
+	)
+	(wire
+		(pts
+			(xy 78.74 43.18) (xy 80.01 43.18)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ff3ae3b4-7b9a-4c0d-9201-bd3dc377b1e5")
 	)
 	(label "BUZZER"
 		(at 35.56 172.72 180)
@@ -7250,7 +7292,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Power symbol creates a global label with name \"VCC\""
 			(at 142.24 96.52 0)
 			(effects
 				(font
@@ -7317,7 +7359,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
 			(at 142.24 93.98 0)
 			(effects
 				(font
@@ -7384,7 +7426,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Generic connector, single row, 01x01, script generated (kicad-library-utils/schlib/autogen/connector/)"
 			(at 33.02 132.08 0)
 			(effects
 				(font
@@ -7451,7 +7493,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
 			(at 27.94 132.08 0)
 			(effects
 				(font
@@ -7518,7 +7560,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Generic connector, single row, 01x01, script generated (kicad-library-utils/schlib/autogen/connector/)"
 			(at 33.02 134.62 0)
 			(effects
 				(font
@@ -7585,7 +7627,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Generic connector, single row, 01x01, script generated (kicad-library-utils/schlib/autogen/connector/)"
 			(at 33.02 137.16 0)
 			(effects
 				(font
@@ -7802,7 +7844,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "IR Receiver Modules for Remote Control Systems"
 			(at 73.66 162.56 0)
 			(effects
 				(font
@@ -7925,7 +7967,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Generic connector, single row, 01x05, script generated"
 			(at 68.58 134.62 0)
 			(effects
 				(font
@@ -8045,7 +8087,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Power symbol creates a global label with name \"VCC\""
 			(at 50.8 30.48 0)
 			(effects
 				(font
@@ -8061,72 +8103,6 @@
 			(project "FABI_schematic"
 				(path "/8404dabe-a0ce-44ce-a3c9-f9e9e54d2b02"
 					(reference "#PWR04")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:VBUS")
-		(at 106.68 25.4 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "0819c6d5-c2dd-472b-ad63-c407fc0b3bcc")
-		(property "Reference" "#PWR01"
-			(at 106.68 29.21 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "VBUS"
-			(at 106.68 21.455 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 106.68 25.4 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 106.68 25.4 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 106.68 25.4 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "1ea20892-8465-4f77-8aa3-0f740c74cd64")
-		)
-		(instances
-			(project "FABI_schematic"
-				(path "/8404dabe-a0ce-44ce-a3c9-f9e9e54d2b02"
-					(reference "#PWR01")
 					(unit 1)
 				)
 			)
@@ -8178,7 +8154,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Power symbol creates a global label with name \"GNDA\" , analog ground"
 			(at 73.66 129.54 0)
 			(effects
 				(font
@@ -8250,7 +8226,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Unpolarized capacitor"
 			(at 106.68 44.45 0)
 			(effects
 				(font
@@ -8361,7 +8337,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Unpolarized capacitor"
 			(at 160.02 138.43 0)
 			(effects
 				(font
@@ -8472,7 +8448,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Resistor"
 			(at 132.08 62.23 0)
 			(effects
 				(font
@@ -8583,7 +8559,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Solder Jumper, 2-pole, closed/bridged"
 			(at 137.16 29.21 0)
 			(effects
 				(font
@@ -8695,7 +8671,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Fiducial Marker"
 			(at 127 124.46 0)
 			(effects
 				(font
@@ -8801,7 +8777,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Fiducial Marker"
 			(at 111.76 143.51 0)
 			(effects
 				(font
@@ -8905,7 +8881,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Power symbol creates a global label with name \"GNDA\" , analog ground"
 			(at 180.34 142.24 0)
 			(effects
 				(font
@@ -8977,7 +8953,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Resistor"
 			(at 132.08 29.21 0)
 			(effects
 				(font
@@ -9089,7 +9065,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Buzzer, polarized"
 			(at 38.1 175.26 0)
 			(effects
 				(font
@@ -9200,7 +9176,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Resistor"
 			(at 144.78 29.21 0)
 			(effects
 				(font
@@ -9310,7 +9286,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Light emitting diode"
 			(at 137.16 36.83 0)
 			(effects
 				(font
@@ -9347,6 +9323,15 @@
 			)
 		)
 		(property "RS Components" "876-8729"
+			(at 137.16 36.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" "1=K 2=A"
 			(at 137.16 36.83 0)
 			(effects
 				(font
@@ -9421,7 +9406,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Unpolarized capacitor"
 			(at 124.46 49.53 0)
 			(effects
 				(font
@@ -9532,7 +9517,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Power symbol creates a global label with name \"+3.3VADC\""
 			(at 220.98 132.08 0)
 			(effects
 				(font
@@ -9603,7 +9588,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Light emitting diode"
 			(at 149.86 46.99 0)
 			(effects
 				(font
@@ -9641,6 +9626,15 @@
 		)
 		(property "Mouser" "720-SFH4045N"
 			(at 149.86 46.99 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" "1=K 2=A"
+			(at 149.86 46.99 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9714,7 +9708,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Resistor"
 			(at 152.4 100.33 0)
 			(effects
 				(font
@@ -9892,7 +9886,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Unpolarized capacitor"
 			(at 220.98 138.43 0)
 			(effects
 				(font
@@ -10007,7 +10001,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "50V Vds, 0.22A Id, N-Channel MOSFET, SOT-23"
 			(at 142.24 58.42 0)
 			(effects
 				(font
@@ -10077,6 +10071,72 @@
 		)
 	)
 	(symbol
+		(lib_id "power:VBUS")
+		(at 60.96 30.48 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "7c8f9c64-c666-4c05-b643-e6589d547d93")
+		(property "Reference" "#PWR050"
+			(at 60.96 34.29 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "VBUS"
+			(at 60.96 25.4 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 60.96 30.48 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 60.96 30.48 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"VBUS\""
+			(at 60.96 30.48 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "07736661-4946-4243-b022-37a7e404e3e6")
+		)
+		(instances
+			(project "FABI_schematic"
+				(path "/8404dabe-a0ce-44ce-a3c9-f9e9e54d2b02"
+					(reference "#PWR050")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:LED")
 		(at 137.16 46.99 90)
 		(unit 1)
@@ -10120,7 +10180,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Light emitting diode"
 			(at 137.16 46.99 0)
 			(effects
 				(font
@@ -10157,6 +10217,15 @@
 			)
 		)
 		(property "RS Components" "876-8729"
+			(at 137.16 46.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" "1=K 2=A"
 			(at 137.16 46.99 0)
 			(effects
 				(font
@@ -10232,7 +10301,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Fiducial Marker"
 			(at 127 137.16 0)
 			(effects
 				(font
@@ -10338,7 +10407,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Versatile and inexpensive wireless microcontroller module (with full pinout for test point and debug connections) powered by RP2040 dual-core Arm Cortex-M0+ processor up to 133 MHz, 264kB SRAM, 2MB QSPI flash, Infineon CYW43439 2.4GHz 802.11n wireless LAN"
 			(at 55.88 71.12 0)
 			(effects
 				(font
@@ -10557,7 +10626,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Power symbol creates a global label with name \"VBUS\""
 			(at 27.94 137.16 0)
 			(effects
 				(font
@@ -10573,71 +10642,6 @@
 			(project "FABI_schematic"
 				(path "/8404dabe-a0ce-44ce-a3c9-f9e9e54d2b02"
 					(reference "#PWR030")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:VBUS")
-		(at 60.96 30.48 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "881f2c5d-fcd7-4f12-a32a-b22bfe7df54c")
-		(property "Reference" "#PWR05"
-			(at 60.96 34.29 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "VBUS"
-			(at 60.96 26.67 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 60.96 30.48 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 60.96 30.48 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 60.96 30.48 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "dbd5b5ed-176d-4e4c-9825-a69e000e6341")
-		)
-		(instances
-			(project "FABI_schematic"
-				(path "/8404dabe-a0ce-44ce-a3c9-f9e9e54d2b02"
-					(reference "#PWR05")
 					(unit 1)
 				)
 			)
@@ -10688,7 +10692,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
 			(at 35.56 180.34 0)
 			(effects
 				(font
@@ -10753,7 +10757,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Light emitting diode"
 			(at 149.86 36.83 0)
 			(effects
 				(font
@@ -10791,6 +10795,15 @@
 		)
 		(property "Mouser" "720-SFH4045N"
 			(at 149.86 36.83 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" "1=K 2=A"
+			(at 149.86 36.83 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10863,7 +10876,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Power symbol creates a global label with name \"VCC\""
 			(at 142.24 25.4 0)
 			(effects
 				(font
@@ -10936,7 +10949,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Fiducial Marker"
 			(at 127 154.305 0)
 			(effects
 				(font
@@ -11041,7 +11054,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Unpolarized capacitor"
 			(at 152.4 138.43 0)
 			(effects
 				(font
@@ -11151,7 +11164,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
 			(at 190.5 144.78 0)
 			(effects
 				(font
@@ -11223,7 +11236,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Solder Jumper, 2-pole, closed/bridged"
 			(at 149.86 29.21 0)
 			(effects
 				(font
@@ -11412,7 +11425,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Fiducial Marker"
 			(at 111.76 128.27 0)
 			(effects
 				(font
@@ -11518,7 +11531,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Fiducial Marker"
 			(at 111.76 138.43 0)
 			(effects
 				(font
@@ -11624,7 +11637,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
 			(at 55.88 111.76 0)
 			(effects
 				(font
@@ -11691,7 +11704,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Fiducial Marker"
 			(at 127 148.59 0)
 			(effects
 				(font
@@ -11797,7 +11810,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "test point (alternative flag-style design)"
 			(at 25.4 91.44 0)
 			(effects
 				(font
@@ -11862,7 +11875,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "300mA Low-dropout Voltage Regulator, Vout 3.3V, Vin up to 5.5V, SOT-23"
 			(at 190.5 134.62 0)
 			(effects
 				(font
@@ -11983,7 +11996,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Fiducial Marker"
 			(at 127 142.875 0)
 			(effects
 				(font
@@ -12089,7 +12102,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Power symbol creates a global label with name \"VBUS\""
 			(at 152.4 129.54 0)
 			(effects
 				(font
@@ -12156,7 +12169,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Power symbol creates a global label with name \"+3.3VADC\""
 			(at 73.66 132.08 0)
 			(effects
 				(font
@@ -12228,7 +12241,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
 			(at 27.94 154.94 0)
 			(effects
 				(font
@@ -12293,7 +12306,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Power symbol creates a global label with name \"VBUS\""
 			(at 55.88 30.48 0)
 			(effects
 				(font
@@ -12358,7 +12371,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Power symbol creates a global label with name \"VCC\""
 			(at 83.82 157.48 0)
 			(effects
 				(font
@@ -12429,7 +12442,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
 			(at 144.78 66.04 0)
 			(effects
 				(font
@@ -12500,7 +12513,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Power symbol creates a global label with name \"VCC\""
 			(at 22.86 157.48 0)
 			(effects
 				(font
@@ -12516,6 +12529,72 @@
 			(project "FABI_schematic"
 				(path "/8404dabe-a0ce-44ce-a3c9-f9e9e54d2b02"
 					(reference "#PWR041")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:VBUS")
+		(at 91.44 30.48 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "ed1def85-ea74-4f85-8761-a309aca42527")
+		(property "Reference" "#PWR01"
+			(at 91.44 34.29 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "VBUS"
+			(at 91.44 25.4 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 91.44 30.48 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 91.44 30.48 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"VBUS\""
+			(at 91.44 30.48 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "da8b149d-3b75-467b-87a0-b15d9b5ce5d0")
+		)
+		(instances
+			(project "FABI_schematic"
+				(path "/8404dabe-a0ce-44ce-a3c9-f9e9e54d2b02"
+					(reference "#PWR01")
 					(unit 1)
 				)
 			)
@@ -12567,7 +12646,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
 			(at 83.82 91.44 0)
 			(effects
 				(font
@@ -12632,7 +12711,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
 			(at 83.82 167.64 0)
 			(effects
 				(font
@@ -12705,7 +12784,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Fiducial Marker"
 			(at 127 130.81 0)
 			(effects
 				(font
@@ -12811,7 +12890,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Fiducial Marker"
 			(at 111.76 133.35 0)
 			(effects
 				(font
@@ -12890,7 +12969,7 @@
 			)
 		)
 		(property "Value" "D5V0F4U6SO"
-			(at 91.44 29.21 0)
+			(at 77.724 31.75 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12898,7 +12977,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Package_TO_SOT_SMD:SC-74-6_1.55x2.9mm_P0.95mm"
+		(property "Footprint" "Package_TO_SOT_SMD:SOT-23-6"
 			(at 92.71 46.99 0)
 			(effects
 				(font
@@ -12916,7 +12995,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Low Capacitance TVS Diode Array, 2 Channels, SOT-23-6"
 			(at 91.44 38.1 0)
 			(effects
 				(font
@@ -13042,7 +13121,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Resistor"
 			(at 160.02 110.49 0)
 			(effects
 				(font
@@ -13153,7 +13232,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Unpolarized capacitor"
 			(at 205.74 138.43 0)
 			(effects
 				(font
@@ -13457,9 +13536,9 @@
 				(justify left top)
 			)
 		)
-		(pin "audio_out" input
+		(pin "pam8302_in" input
 			(at 226.06 30.48 180)
-			(uuid "db5dab4b-c287-4740-9eeb-ba744faf2c6f")
+			(uuid "f380410a-2a74-4fba-8093-8a1ff7ad6bff")
 			(effects
 				(font
 					(size 0.9906 0.9906)
@@ -13467,9 +13546,9 @@
 				(justify left)
 			)
 		)
-		(pin "audio_sd" input
+		(pin "pam8302_sd" input
 			(at 226.06 35.56 180)
-			(uuid "65a640ef-a02a-43b0-a099-22075c11b544")
+			(uuid "05d7e69e-6fcd-44ea-97a2-36eeeb1bcdd2")
 			(effects
 				(font
 					(size 0.9906 0.9906)
