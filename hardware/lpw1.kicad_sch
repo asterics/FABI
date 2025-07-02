@@ -1118,6 +1118,80 @@
 					)
 				)
 			)
+			(symbol "SLW-682715-25A-SMT-TR_1_1"
+				(pin passive line
+					(at -5.08 -10.16 90)
+					(length 2.54)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "SH1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -2.54 -10.16 90)
+					(length 2.54)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "SH2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -10.16 90)
+					(length 2.54)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "SH3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 2.54 -10.16 90)
+					(length 2.54)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "SH4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
 			(embedded_fonts no)
 		)
 		(symbol "Transistor_FET:Q_PMOS_GSD"
@@ -2031,6 +2105,12 @@
 		(uuid "078972bf-c201-43f2-8214-4342ff861b52")
 	)
 	(junction
+		(at 129.54 49.53)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "1a59fa83-0a74-4423-87d3-d9e9614e1d60")
+	)
+	(junction
 		(at 68.58 116.84)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -2041,6 +2121,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "48b3844e-bb04-4e01-a93b-ffd7d88fadae")
+	)
+	(junction
+		(at 129.54 52.07)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "51ce9938-1919-4668-84c1-1ba9283ffe60")
 	)
 	(junction
 		(at 68.58 48.26)
@@ -2061,8 +2147,8 @@
 		(uuid "a05c1af1-9a2f-4e5c-bd90-2ae2fe407db4")
 	)
 	(no_connect
-		(at 119.38 57.15)
-		(uuid "fa8b1036-72b8-4134-90e5-ab6e6b2bb3ee")
+		(at 121.92 41.91)
+		(uuid "4e7a5877-79cc-4f94-a387-0f9dba7d45fd")
 	)
 	(wire
 		(pts
@@ -2113,6 +2199,16 @@
 			(type default)
 		)
 		(uuid "0dfe8d0e-3404-4d34-879d-4c55d2c03467")
+	)
+	(wire
+		(pts
+			(xy 129.54 52.07) (xy 129.54 54.61)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1b04b744-6813-4157-ad01-da48897af722")
 	)
 	(wire
 		(pts
@@ -2186,23 +2282,23 @@
 	)
 	(wire
 		(pts
-			(xy 68.58 63.5) (xy 114.3 63.5)
+			(xy 129.54 49.53) (xy 129.54 52.07)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "65be3eb0-b334-4652-8d05-6299b1c6e576")
+	)
+	(wire
+		(pts
+			(xy 68.58 63.5) (xy 119.38 63.5)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
 		(uuid "6c76d035-7ddf-4c70-bffd-871ed1c25b76")
-	)
-	(wire
-		(pts
-			(xy 114.3 57.15) (xy 114.3 63.5)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "742fa3ba-7f62-4b27-a194-cdf61bf03ba5")
 	)
 	(wire
 		(pts
@@ -2223,6 +2319,16 @@
 			(type default)
 		)
 		(uuid "84c55ae2-8418-4e63-a443-eaf1910ef09e")
+	)
+	(wire
+		(pts
+			(xy 129.54 46.99) (xy 129.54 49.53)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "89a565a6-8a0f-49de-b67d-31e3d1c89480")
 	)
 	(wire
 		(pts
@@ -2343,6 +2449,16 @@
 			(type default)
 		)
 		(uuid "ca3e5257-7db1-4523-b88e-2ac227aeda0c")
+	)
+	(wire
+		(pts
+			(xy 119.38 63.5) (xy 119.38 57.15)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "cadf23c0-ebf2-43e3-9354-aeffba8571f1")
 	)
 	(wire
 		(pts
@@ -2481,8 +2597,7 @@
 	)
 	(symbol
 		(lib_id "SLW-682715-25A-SMT-TR:SLW-682715-25A-SMT-TR")
-		(at 116.84 49.53 90)
-		(mirror x)
+		(at 119.38 49.53 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -2490,7 +2605,7 @@
 		(dnp no)
 		(uuid "02d2cf55-595a-446c-bd03-24cd458f6a32")
 		(property "Reference" "S1"
-			(at 113.03 48.2599 90)
+			(at 115.57 50.8001 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2499,7 +2614,7 @@
 			)
 		)
 		(property "Value" "SLW-682715-25A-SMT-TR"
-			(at 123.698 38.1 0)
+			(at 126.238 60.96 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2508,7 +2623,7 @@
 			)
 		)
 		(property "Footprint" "switch:SW_SLW-682715-25A-SMT-TR"
-			(at 116.84 49.53 0)
+			(at 119.38 49.53 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2518,7 +2633,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 116.84 49.53 0)
+			(at 119.38 49.53 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2527,7 +2642,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 116.84 49.53 0)
+			(at 119.38 49.53 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2536,7 +2651,7 @@
 			)
 		)
 		(property "PARTREV" "1.01"
-			(at 116.84 49.53 0)
+			(at 119.38 49.53 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2546,7 +2661,7 @@
 			)
 		)
 		(property "STANDARD" "Manufacturer Recommendations"
-			(at 116.84 49.53 0)
+			(at 119.38 49.53 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2556,7 +2671,7 @@
 			)
 		)
 		(property "MANUFACTURER" "Same Sky"
-			(at 116.84 49.53 0)
+			(at 119.38 49.53 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2573,6 +2688,18 @@
 		)
 		(pin "1"
 			(uuid "b4658438-7b5c-4760-95b5-729221ad1198")
+		)
+		(pin "SH3"
+			(uuid "54a029f0-6715-45a6-8d90-3216352dd778")
+		)
+		(pin "SH4"
+			(uuid "25df0547-d319-44d1-9ae2-e5d003b3ace7")
+		)
+		(pin "SH2"
+			(uuid "fb1e6c08-5c21-4e56-97b3-f76aa6a365f4")
+		)
+		(pin "SH1"
+			(uuid "028b7744-48ca-438a-9851-8f897bec4967")
 		)
 		(instances
 			(project ""
@@ -3704,6 +3831,73 @@
 			(project "FABI_schematic"
 				(path "/8404dabe-a0ce-44ce-a3c9-f9e9e54d2b02/793a4126-d8fb-49c3-b4dd-9f7725c17758"
 					(reference "#PWR049")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 129.54 49.53 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "a191c2e7-bc6e-4d9d-b746-d7c6fd11e5ee")
+		(property "Reference" "#PWR05"
+			(at 135.89 49.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 133.35 49.5299 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" ""
+			(at 129.54 49.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 129.54 49.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 129.54 49.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "c880d415-f5e3-4aa1-bea8-6b87e031b6b9")
+		)
+		(instances
+			(project "FABI_schematic"
+				(path "/8404dabe-a0ce-44ce-a3c9-f9e9e54d2b02/793a4126-d8fb-49c3-b4dd-9f7725c17758"
+					(reference "#PWR05")
 					(unit 1)
 				)
 			)
