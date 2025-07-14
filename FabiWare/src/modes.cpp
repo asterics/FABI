@@ -350,8 +350,8 @@ void handleMovement()
       mouseMove(sensorData.autoMoveX, sensorData.autoMoveY);
   }
 
-  if (slotSettings.ad && sensorData.mouseMoveTimestamp) {
-    if (millis() - sensorData.mouseMoveTimestamp >= slotSettings.ad) {
+  if (globalSettings.thresholdAutoDwell && sensorData.mouseMoveTimestamp) {
+    if (millis() - sensorData.mouseMoveTimestamp >= globalSettings.thresholdAutoDwell) {
       #ifdef DEBUG_OUTPUT
           Serial.println("Autodwell Click");
       #endif
@@ -379,18 +379,24 @@ void handleMovement()
       break;
       
     case STICKMODE_JOYSTICK_XY:
-      joystickAxis(scaleJoystickAxis((float)sensorData.x * slotSettings.ax), \
-        scaleJoystickAxis((float)sensorData.y * slotSettings.ay),0);
+      { NB_DELAY_START(gamepadAxis, GAMEPAD_MINIMUM_SEND_INTERVAL)
+        joystickAxis(scaleJoystickAxis((float)sensorData.x * slotSettings.ax), \
+          scaleJoystickAxis((float)sensorData.y * slotSettings.ay),0);
+      NB_DELAY_END }
       break;
 
     case STICKMODE_JOYSTICK_ZR:
-      joystickAxis(scaleJoystickAxis((float)sensorData.x * slotSettings.ax), \
+      { NB_DELAY_START(gamepadAxis, GAMEPAD_MINIMUM_SEND_INTERVAL)
+        joystickAxis(scaleJoystickAxis((float)sensorData.x * slotSettings.ax), \
         scaleJoystickAxis((float)sensorData.y * slotSettings.ay),1);
+      NB_DELAY_END }
       break;
 
     case STICKMODE_JOYSTICK_SLIDERS:
-      joystickAxis(scaleJoystickAxis((float)sensorData.x * slotSettings.ax), \
-        scaleJoystickAxis((float)sensorData.y * slotSettings.ay),2);
+      { NB_DELAY_START(gamepadAxis, GAMEPAD_MINIMUM_SEND_INTERVAL)
+        joystickAxis(scaleJoystickAxis((float)sensorData.x * slotSettings.ax), \
+          scaleJoystickAxis((float)sensorData.y * slotSettings.ay),2);
+      NB_DELAY_END }
       break;
   }
 }
