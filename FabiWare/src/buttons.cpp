@@ -136,6 +136,9 @@ void handleRelease (int buttonIndex)    // a button was released: deal with "sti
 {
   buttonStates &= ~(1<<buttonIndex); //save for reporting
   switch (buttons[buttonIndex].mode) {
+    // release mouse actions
+    case CMD_MX: sensorData.autoMoveX = 0; break;
+    case CMD_MY: sensorData.autoMoveY = 0; break;
     case CMD_PL:
     case CMD_HL:
       mouseRelease(MOUSE_LEFT);
@@ -143,15 +146,22 @@ void handleRelease (int buttonIndex)    // a button was released: deal with "sti
     case CMD_PR:
     case CMD_HR:
       mouseRelease(MOUSE_RIGHT);
-      break;
+      break; 
     case CMD_PM:
     case CMD_HM:
       mouseRelease(MOUSE_MIDDLE);
       break;
+    // release gamepad actions
     case CMD_JP: joystickButton(buttons[buttonIndex].value, 0); break;
-    case CMD_MX: sensorData.autoMoveX = 0; break;
-    case CMD_MY: sensorData.autoMoveY = 0; break;
+    case CMD_JX: joystickAxis(512,-1,0); break;
+    case CMD_JY: joystickAxis(-1,512,0); break;
+    case CMD_JZ: joystickAxis(512,-1,1);break;
+    case CMD_JT: joystickAxis(-1,512,1);break;
+    case CMD_JS: joystickAxis(512,-1,2); break;
+    case CMD_JH: joystickHat(-1); break;
+    // release keyboard actions
     case CMD_KH: releaseKeys(buttonKeystrings[buttonIndex]); break;
+    // release infrared actions
     case CMD_IH:
       stop_IR_command();
       break;
@@ -208,6 +218,12 @@ uint8_t inHoldMode (int i)
       (buttons[i].mode == CMD_HR) ||
       (buttons[i].mode == CMD_HM) ||
       (buttons[i].mode == CMD_JP) ||
+      (buttons[i].mode == CMD_JX) ||
+      (buttons[i].mode == CMD_JY) ||
+      (buttons[i].mode == CMD_JZ) ||
+      (buttons[i].mode == CMD_JT) ||
+      (buttons[i].mode == CMD_JS) ||
+      (buttons[i].mode == CMD_JH) ||
       (buttons[i].mode == CMD_MX) ||
       (buttons[i].mode == CMD_MY) ||
       (buttons[i].mode == CMD_KH) ||
