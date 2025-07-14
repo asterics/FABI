@@ -77,7 +77,6 @@ const struct SlotSettings defaultSlotSettings = {      // default slotSettings v
   0,                                // initial keystringbuffer length
   1,                                // stickMode: Mouse cursor movement active
   40, 40, 20, 20, 50, 20,           // accx, accy, deadzone x, deadzone y, maxspeed, acceleration time
-  0,                                // automatic dwelling time (0=disabled)   
   400, 600, 3,                      // threshold sip, threshold puff, wheel step,
   800, 10,                          // threshold strong puff, threshold strong sip
   0,                                // orientation
@@ -92,8 +91,11 @@ const struct SlotSettings defaultSlotSettings = {      // default slotSettings v
    static variables and data structures for settings and sensor data management
 */
 struct GlobalSettings globalSettings {
-  .buzzerMode=1,    // enable tone output via internal buzzer (tone height)
-  .audioVolume=50,  // audio volume 50%  (if AUDIO_SIGNAL_PIN defined)
+  .buzzerMode=1,    // enable tone output via internal buzzer (1=tone height)
+  .audioVolume=100,  // audio volume (0-200%, only applicable if AUDIO_SIGNAL_PIN defined)
+  .thresholdAutoDwell=0,     // threshold time for automatic dwell-click (0=disabled)
+  .thresholdLongPress=0,     // threshold time for button long-press (0=disabled)
+  .thresholdMultiPress=0,    // threshold time for button multi-press (0=disabled)
 };
 
 struct SensorData sensorData {        

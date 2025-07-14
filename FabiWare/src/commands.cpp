@@ -43,7 +43,7 @@ const struct atCommandType atCommands[] PROGMEM = {
   {"RL"  , PARTYPE_NONE }, {"RR"  , PARTYPE_NONE }, {"RM"  , PARTYPE_NONE },
   {"TL"  , PARTYPE_NONE }, {"TR"  , PARTYPE_NONE }, {"TM"  , PARTYPE_NONE },
   {"WU"  , PARTYPE_NONE }, {"WD"  , PARTYPE_NONE }, {"WS"  , PARTYPE_UINT }, 
-  {"MX"  , PARTYPE_INT  }, {"MY"  , PARTYPE_INT  }, {"AD"  , PARTYPE_UINT },
+  {"MX"  , PARTYPE_INT  }, {"MY"  , PARTYPE_INT  }, 
   /***** joystick *****/
   {"JX"  , PARTYPE_INT  }, {"JY"  , PARTYPE_INT  }, {"JZ"  , PARTYPE_INT  }, {"JT"  , PARTYPE_INT  },  
   {"JS"  , PARTYPE_INT  }, {"JP"  , PARTYPE_INT  }, {"JR"  , PARTYPE_INT  }, {"JH"  , PARTYPE_INT  },
@@ -70,6 +70,8 @@ const struct atCommandType atCommands[] PROGMEM = {
   /***** audio feedback *****/
   {"AT"  , PARTYPE_STRING}, {"AP"  , PARTYPE_STRING}, {"AR" , PARTYPE_STRING}, {"AL"  , PARTYPE_NONE},
   {"AV"  , PARTYPE_UINT },  {"AB"  , PARTYPE_UINT },
+  /***** timing *****/
+  {"AD"  , PARTYPE_UINT }, {"LP"  , PARTYPE_UINT }, {"MP"  , PARTYPE_UINT },
   #ifdef FLIPMOUSE
     /***** BT-Housekeeping / FM-Only *****/
     {"BC"  , PARTYPE_STRING}, {"BR"  , PARTYPE_UINT }, {"UG", PARTYPE_NONE },
@@ -196,7 +198,13 @@ void performCommand (uint8_t cmd, int16_t par1, char * keystring, int8_t periodi
       else mouseMove(0, par1);
       break;
     case CMD_AD:
-      slotSettings.ad = par1;
+      globalSettings.thresholdAutoDwell = par1;
+      break;
+    case CMD_LP:
+      globalSettings.thresholdLongPress = par1;
+      break;
+    case CMD_MP:
+      globalSettings.thresholdMultiPress = par1;
       break;
     case CMD_JX:
       joystickAxis(par1,-1,0);

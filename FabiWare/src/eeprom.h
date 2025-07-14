@@ -44,6 +44,9 @@
 
 #include "FlipWare.h"
 #include "parser.h"
+#include <FS.h>
+#include <LittleFS.h>
+
 
 #define MAX_SLOTS_IN_EERPOM 10
 #define MAX_IRCOMMANDS_IN_EERPOM 20
@@ -168,6 +171,14 @@ uint8_t saveToEEPROM(char const * slotname);
    a new slot will be created (at the first possible position)
  * */
 void saveToEEPROMSlotNumber(int8_t nr, char const * slotname);
+
+
+/**
+   load all AT commands from a file
+   The file is expected to be an ASCII text file, with the first line being the slot name.
+   Each line after the first line is an AT command, which is sent to the AT command parser.
+ * */
+void loadATCommands(File &f);
 
 /**
  * If settings are under version control (TBD!), this function returns the current

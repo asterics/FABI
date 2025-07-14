@@ -17,8 +17,6 @@
 #include "reporting.h"
 #include "tone.h"
 
-#include <FS.h>
-#include <LittleFS.h>
 
 /**
    Local copy of IR command header (name and edge count)
@@ -90,8 +88,16 @@ void saveToEEPROMSlotNumber(int8_t nr, char const * slotname)
     Serial.print("Slotsize:");
     Serial.println(f.size());
   #endif
-  
-  //finished
+  f.close();
+
+  sprintf(path,"/%03d/globals",revision);
+  f = LittleFS.open(path,"w");
+  if (!f) {
+    Serial.println("file open failed");
+    return;
+  }
+
+  printGlobalSettings(&f);
   f.close();
 }
 
@@ -169,7 +175,6 @@ uint8_t readFromEEPROMSlotNumber(uint8_t nr, bool playTone)
   char path[32];
   uint8_t revision = getSettingsRevision(); //determine current settings revision number
   sprintf(path,"/%03d/%02d",revision,nr);
-  
   if(!LittleFS.exists(path))
   {
     #ifdef DEBUG_OUTPUT_MEMORY
@@ -180,20 +185,42 @@ uint8_t readFromEEPROMSlotNumber(uint8_t nr, bool playTone)
   }
   
   File f = LittleFS.open(path,"r");
-  
   if(!f) return 0;
-
   // load name & store to slotSettings
   String name = f.readStringUntil('\n');
   name.trim();
   strncpy(slotSettings.slotName,name.c_str(),MAX_NAME_LEN);
-  
-  
+  loadATCommands(f);
+  f.close();
+
+  sprintf(path,"/%03d/globals",revision);
+  f = LittleFS.open(path,"r");
+  if(f) {
+    loadATCommands(f);
+    f.close();
+  } else {
+    #ifdef DEBUG_OUTPUT_MEMORY
+      Serial.println("No global settings found, using defaults.");
+    #endif
+  }
+
+  // finished, now this slot is active!
+  actSlot = nr;
+  if (playTone) makeTone(TONE_CHANGESLOT, actSlot);
+  #ifdef DEBUG_OUTPUT_MEMORY
+    Serial.print("actSlot: "); Serial.println(actSlot);
+  #endif
+  return(1);
+}
+
+
+void loadATCommands(File &f)
+{
   // read line by line & feed into parser
   String line = "";
   do{
-		//check for remaining byte size, otherwise readStringUntil hangs until timeout
-		if((f.position()+5) > f.size()) break;
+    //check for remaining byte size, otherwise readStringUntil hangs until timeout
+    if((f.position()+5) > f.size()) break;
     line = f.readStringUntil('\n');
     line.trim();
     //check again length, we need at least 5 bytes: "AT ..", e.g. "AT NC"
@@ -207,23 +234,6 @@ uint8_t readFromEEPROMSlotNumber(uint8_t nr, bool playTone)
     #endif
     parseCommand((char*)line.c_str());
   } while(line.length()>0);
-  
-  //finished
-  f.close();
-
-  #ifdef DEBUG_OUTPUT_MEMORY
-    Serial.print("read slotname "); Serial.println(slotSettings.slotName);
-  #endif
-
-  //now next slot is active
-  actSlot = nr;
-
-  if (playTone) makeTone(TONE_CHANGESLOT, actSlot);
-  #ifdef DEBUG_OUTPUT_MEMORY
-    Serial.print("actSlot: "); Serial.println(actSlot);
-  #endif
-
-  return(1);
 }
 
 
@@ -616,23 +626,34 @@ int8_t getLastIRIndex(void) {
 
 
 /**
-   print all slot slotSettings and button mode to serial 
+   print all slot slotSettings and button modes to serial 
  * */
 void printAllSlots(void) {
   char path[32];
+  String globals="";
   uint8_t revision = getSettingsRevision(); //determine current settings revision number
-  
+
+  sprintf(path,"/%03d/globals",revision);
+  File f = LittleFS.open(path,"r");
+  if(f) {
+    globals = f.readString();
+    f.close();
+  }
+
   for(uint8_t i = 0; i<MAX_SLOTS_IN_EERPOM; i++)
   {
 	  sprintf(path,"/%03d/%02d",revision,i);
-	  File f = LittleFS.open(path,"r");
+	  f = LittleFS.open(path,"r");
 	  if(f)
 	  {
 		  String slot = f.readString();
 		  Serial.print("Slot"); Serial.print(":");
 		  Serial.print(slot);
+      Serial.print(globals); // append global settings to each slot; TBD: handle globals better (in WebGUI)
+      f.close();
 	  } else break;
 	}
+
 	Serial.println("END");
 }
 

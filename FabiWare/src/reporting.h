@@ -42,6 +42,12 @@ extern uint8_t reportRawValues;
  */
 void printCurrentSlot(Stream *S);
 
+/** 
+ * @brief Print global settings to given stream
+ * @param S Stream to send the AT commands to; in our case Serial or a File
+ */
+void printGlobalSettings(Stream *S);
+
 /**
    @name reportValues
    @brief prints the current live movement data and button values to the serial interface

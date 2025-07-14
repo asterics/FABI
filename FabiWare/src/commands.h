@@ -40,8 +40,6 @@
 
           AT MX <int>       move mouse in x direction (e.g. "AT MX 4" moves cursor 4 pixels to the right)
           AT MY <int>       move mouse in y direction (e.g. "AT MY -10" moves cursor 10 pixels up)
-          AT AD <int>       automatic dwell-click (e.g. "AT DW 700" creates a left click after 700 ms of mouse movement)
-                            if the value is 0, automatic dwelling is disabled
 
           AT JX <int>       set joystick x axis (e.g. "AT JX 512" sets the x-axis to middle position)
           AT JY <int>       set joystick y axis (e.g. "AT JY 1023" sets the y-axis to full up position)
@@ -111,6 +109,11 @@
           AT AV <uint>    audio volume: audio volume (0-200 %)
           AT AB <uint>    audio buzzer mode: 0=off, 1=height, 2=height and count
 
+    Time and threshold settings:
+          AT AD <int>     time threshold for automatic dwell-click (e.g. "AT DW 700" creates a left click 700 ms after mouse movement, 0=disable)
+          AT LP <int>     time threshold for long-press (e.g. "AT LP 1500" select the long-press-function of a button after 1500ms hold time, 0=disable)
+          AT MP <int>     time threshold for multi-press (e.g. "AT MP 400" sets the threshold for time between multiple presses to 400 ms, 0=disable)
+ 
     Mode change and others:
           AT MM <uint>    mouse mode: cursor on (uint==1) or alternative functions on (uint==0)
           AT SW           switch between mouse cursor and alternative functions
@@ -171,12 +174,13 @@
 */
 enum atCommands {
   CMD_ID, CMD_BM, CMD_CL, CMD_CR, CMD_CM, CMD_CD, CMD_PL, CMD_PR, CMD_PM, CMD_HL, CMD_HR, CMD_HM,
-  CMD_RL, CMD_RR, CMD_RM, CMD_TL, CMD_TR, CMD_TM, CMD_WU, CMD_WD, CMD_WS, CMD_MX, CMD_MY, CMD_AD,
+  CMD_RL, CMD_RR, CMD_RM, CMD_TL, CMD_TR, CMD_TM, CMD_WU, CMD_WD, CMD_WS, CMD_MX, CMD_MY, 
   CMD_JX, CMD_JY, CMD_JZ, CMD_JT, CMD_JS, CMD_JP, CMD_JR, CMD_JH, CMD_KW, CMD_KP, CMD_KH, CMD_KT, 
   CMD_KR, CMD_RA, CMD_KL, CMD_SA, CMD_LO, CMD_LA, CMD_LI, CMD_NE, CMD_DE, CMD_RS, CMD_RE, CMD_NC, 
   CMD_BT, CMD_SC, CMD_SR, CMD_ER, CMD_CA, CMD_MA, CMD_WA, CMD_TS, CMD_TP, CMD_SP, CMD_SS, CMD_IR, 
   CMD_IP, CMD_IH, CMD_IS, CMD_IC, CMD_IW, CMD_IL, CMD_IT, CMD_MM, CMD_SW, CMD_AX, CMD_AY, 
   CMD_DX, CMD_DY, CMD_MS, CMD_AC, CMD_RO, CMD_SB, CMD_AT, CMD_AP, CMD_AR, CMD_AL, CMD_AV, CMD_AB,
+  CMD_AD, CMD_LP, CMD_MP, 
 #ifdef FLIPMOUSE
   CMD_BC, CMD_BR, CMD_UG,
 #endif

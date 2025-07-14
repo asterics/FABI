@@ -49,23 +49,20 @@ void makehex(uint32_t val, char* str) {
 
 
 /** 
- * @brief Print current to given stream
+ * @brief Print current slot settings to given stream
  * @param S Stream to send the AT commands to; in our case Serial or a File
  */
 void printCurrentSlot(Stream *S)
 {
   char tmp[10];
   S->println(slotSettings.slotName);
-  S->print("AT AV "); S->println(globalSettings.audioVolume);
-  S->print("AT AB "); S->println(globalSettings.buzzerMode);
-
+  
   S->print("AT AX "); S->println(slotSettings.ax);
   S->print("AT AY "); S->println(slotSettings.ay);
   S->print("AT DX "); S->println(slotSettings.dx);
   S->print("AT DY "); S->println(slotSettings.dy);
   S->print("AT MS "); S->println(slotSettings.ms);
   S->print("AT AC "); S->println(slotSettings.ac);
-  S->print("AT AD "); S->println(slotSettings.ad);
   S->print("AT MM "); S->println(slotSettings.stickMode);
   S->print("AT RO "); S->println(slotSettings.ro);
   S->print("AT SB "); S->println(slotSettings.sb);
@@ -107,6 +104,21 @@ void printCurrentSlot(Stream *S)
     }
     S->println("");
   }
+  S->flush();
+}
+
+
+/** 
+ * @brief Print global settings to given stream
+ * @param S Stream to send the AT commands to; in our case Serial or a File
+ */
+void printGlobalSettings(Stream *S)
+{
+  S->print("AT AV "); S->println(globalSettings.audioVolume);
+  S->print("AT AB "); S->println(globalSettings.buzzerMode);
+  S->print("AT AD "); S->println(globalSettings.thresholdAutoDwell);
+  S->print("AT LP "); S->println(globalSettings.thresholdLongPress);
+  S->print("AT MP "); S->println(globalSettings.thresholdMultiPress);
   S->flush();
 }
 
