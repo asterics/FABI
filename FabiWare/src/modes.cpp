@@ -350,6 +350,21 @@ void handleMovement()
       mouseMove(sensorData.autoMoveX, sensorData.autoMoveY);
   }
 
+  if (slotSettings.ad && sensorData.mouseMoveTimestamp) {
+    if (millis() - sensorData.mouseMoveTimestamp >= slotSettings.ad) {
+      #ifdef DEBUG_OUTPUT
+          Serial.println("Autodwell Click");
+      #endif
+      mousePress(MOUSE_LEFT);
+      sensorData.clickReleaseTimestamp = millis() + DEFAULT_CLICK_TIME;
+      sensorData.mouseMoveTimestamp = 0;
+    }
+  }
+  if ((sensorData.clickReleaseTimestamp) && (millis() > sensorData.clickReleaseTimestamp)) {
+    mouseRelease(MOUSE_LEFT);
+    sensorData.clickReleaseTimestamp = 0;
+  }
+
   switch (slotSettings.stickMode) {  
 
     case STICKMODE_MOUSE:   // handle mouse stick mode

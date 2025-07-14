@@ -77,6 +77,7 @@ const struct SlotSettings defaultSlotSettings = {      // default slotSettings v
   0,                                // initial keystringbuffer length
   1,                                // stickMode: Mouse cursor movement active
   40, 40, 20, 20, 50, 20,           // accx, accy, deadzone x, deadzone y, maxspeed, acceleration time
+  0,                                // automatic dwelling time (0=disabled)   
   400, 600, 3,                      // threshold sip, threshold puff, wheel step,
   800, 10,                          // threshold strong puff, threshold strong sip
   0,                                // orientation
@@ -100,6 +101,8 @@ struct SensorData sensorData {
   .deadZone=0, .force=0, .forceRaw=0, .angle=0,
   .dir=0,
   .autoMoveX=0, .autoMoveY=0,
+  .mouseMoveTimestamp=0,
+  .clickReleaseTimestamp=0,
   .xLocalMax=0, .yLocalMax=0,
   .currentBattPercent = -1, .MCPSTAT = MCPSTAT_HIGHZ,
   .usbConnected = false

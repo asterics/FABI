@@ -65,12 +65,12 @@ void initAudio();
 void audioList();
 
 /**
-   @name audioDelete
+   @name audioRemove
    @param fn: filename for the audio file
-   @brief deletes the audio file from LitteFS (if it exists)
+   @brief removes the audio file from LitteFS (if it exists)
    @return none
 */
-void audioDelete(char * fn);
+void audioRemove(char * fn);
 
 /**
    @name audioPlayback

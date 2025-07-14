@@ -118,12 +118,12 @@ void audioList() {
 }
 
 /**
-   @name audioDelete
+   @name audioRemove
    @param fn: filename of wav file in LitteFS
    @brief removes the file from LitteFS
    @return none
 */
-void audioDelete(char * fn) {
+void audioRemove(char * fn) {
   char soundFilename[MAX_PATH_LEN];
   prepSoundFilename(soundFilename, fn);
   #ifdef DEBUG_OUTPUT_FULL

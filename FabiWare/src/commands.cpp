@@ -43,7 +43,7 @@ const struct atCommandType atCommands[] PROGMEM = {
   {"RL"  , PARTYPE_NONE }, {"RR"  , PARTYPE_NONE }, {"RM"  , PARTYPE_NONE },
   {"TL"  , PARTYPE_NONE }, {"TR"  , PARTYPE_NONE }, {"TM"  , PARTYPE_NONE },
   {"WU"  , PARTYPE_NONE }, {"WD"  , PARTYPE_NONE }, {"WS"  , PARTYPE_UINT }, 
-  {"MX"  , PARTYPE_INT  }, {"MY"  , PARTYPE_INT  },    
+  {"MX"  , PARTYPE_INT  }, {"MY"  , PARTYPE_INT  }, {"AD"  , PARTYPE_UINT },
   /***** joystick *****/
   {"JX"  , PARTYPE_INT  }, {"JY"  , PARTYPE_INT  }, {"JZ"  , PARTYPE_INT  }, {"JT"  , PARTYPE_INT  },  
   {"JS"  , PARTYPE_INT  }, {"JP"  , PARTYPE_INT  }, {"JR"  , PARTYPE_INT  }, {"JH"  , PARTYPE_INT  },
@@ -68,7 +68,7 @@ const struct atCommandType atCommands[] PROGMEM = {
   {"AX"  , PARTYPE_UINT }, {"AY"  , PARTYPE_UINT }, {"DX"  , PARTYPE_UINT }, {"DY"  , PARTYPE_UINT },
   {"MS"  , PARTYPE_UINT }, {"AC"  , PARTYPE_UINT }, {"RO"  , PARTYPE_UINT }, {"SB"  , PARTYPE_UINT },
   /***** audio feedback *****/
-  {"AT"  , PARTYPE_STRING}, {"AP"  , PARTYPE_STRING}, {"AD"  , PARTYPE_STRING}, {"AL"  , PARTYPE_NONE},
+  {"AT"  , PARTYPE_STRING}, {"AP"  , PARTYPE_STRING}, {"AR" , PARTYPE_STRING}, {"AL"  , PARTYPE_NONE},
   {"AV"  , PARTYPE_UINT },  {"AB"  , PARTYPE_UINT },
   #ifdef FLIPMOUSE
     /***** BT-Housekeeping / FM-Only *****/
@@ -195,6 +195,9 @@ void performCommand (uint8_t cmd, int16_t par1, char * keystring, int8_t periodi
       if (periodicMouseMovement) sensorData.autoMoveY = par1;
       else mouseMove(0, par1);
       break;
+    case CMD_AD:
+      slotSettings.ad = par1;
+      break;
     case CMD_JX:
       joystickAxis(par1,-1,0);
       break;
@@ -205,10 +208,10 @@ void performCommand (uint8_t cmd, int16_t par1, char * keystring, int8_t periodi
       joystickAxis(par1,-1,1);
       break;
     case CMD_JT:
-      joystickAxis(-1,par1,0);
+      joystickAxis(-1,par1,1);
       break;
     case CMD_JS:
-      joystickAxis(par1,-1,0);
+      joystickAxis(par1,-1,2);
       break;
     case CMD_JP:
       joystickButton(par1, 1);
@@ -504,11 +507,11 @@ void performCommand (uint8_t cmd, int16_t par1, char * keystring, int8_t periodi
       audioPlayback(keystring);
       break;
 
-    case CMD_AD:
+    case CMD_AR:
 #ifdef DEBUG_OUTPUT_FULL
-      Serial.println("delete audio file");
+      Serial.println("remove audio file");
 #endif
-      audioDelete(keystring);
+      audioRemove(keystring);
       break;
 
     case CMD_AL:

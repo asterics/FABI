@@ -129,9 +129,7 @@ struct GlobalSettings {
   uint16_t ar;     // antitremor release time 
   uint16_t ai;     // antitremor idle time
   uint16_t dp;     // double press time  
-  uint16_t ad;     // automatic dwelling time  
   */
-
 };
 
 /**
@@ -150,6 +148,7 @@ struct SlotSettings {
   int16_t  dy;     // deadzone y
   uint16_t ms;     // maximum speed
   uint16_t ac;     // acceleration time
+  uint16_t ad;     // automatic dwelling time  
   uint16_t ts;     // threshold sip
   uint16_t tp;     // threshold puff
   uint8_t  ws;     // wheel stepsize
@@ -173,6 +172,8 @@ struct SensorData {
   float deadZone, force, forceRaw, angle;
   uint8_t dir;
   int8_t autoMoveX,autoMoveY;
+  uint32_t mouseMoveTimestamp;
+  uint32_t clickReleaseTimestamp;
   int xLocalMax, yLocalMax;  
   int8_t currentBattPercent, MCPSTAT;
   bool usbConnected;
