@@ -101,6 +101,17 @@ void prepSoundFilename(char * extendedFn, char *fn) {
 }
 
 /**
+   @name prepSoundFilenameSlotNum
+   @param extendedFn: target char buffer where filename including path is stored (enough memory must be reserverd!)
+   @param slot: slotnumber
+   @brief  prepare soundfile path name for a given slot number
+   @return none
+*/
+void prepSoundFilenameSlotnum(char * extendedFn, int slot) {
+  sprintf(extendedFn,"%sslot%d",SOUND_FOLDER,slot);
+}
+
+/**
    @name audioList
    @brief Print a list of available audio files 
    @return none

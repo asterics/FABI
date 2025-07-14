@@ -536,12 +536,20 @@ uint8_t deleteSlot(char const * name)
   sprintf(path,"/%03d/%02d",revision,nr);
   LittleFS.remove(path);
 
+  // remove according sound file (if it exists)
+  prepSoundFilenameSlotnum(path, nr);
+  LittleFS.remove(path);
+
   if (nr != lastSlot) {
     // we must move files
     char pathTo[32];
     for (int i=nr; i<lastSlot;i++) {
       sprintf(path,"/%03d/%02d",revision,i+1);
       sprintf(pathTo,"/%03d/%02d",revision,i);
+      LittleFS.rename(path,pathTo);
+      // also move sound file
+      prepSoundFilenameSlotnum(path, i+1);
+      prepSoundFilenameSlotnum(pathTo, i);
       LittleFS.rename(path,pathTo);
     }
   }
