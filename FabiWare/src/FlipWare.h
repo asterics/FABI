@@ -22,18 +22,23 @@
 #ifndef _FLIPWARE_H_
 #define _FLIPWARE_H_
 
-// uncomment the target device (FLIPMOUSE or FABI or FLIPPAD):
-#define FABI
-#define MODULE_NAME "FABI"
+// uncomment the target device (FLIPMOUSE or FABI or FLIPPAD) or define it in the build system (platformio.ini)
+// #define FABI
+// #define FLIPMOUSE
+// #define FLIPPAD
 
-//#define FLIPMOUSE
-//#define MODULE_NAME "FLipmouse"
+#ifdef FLIPMOUSE
+ #define MODULE_NAME "Flipmouse"
+#elif defined(FABI)
+ #define MODULE_NAME "FABI"
+#elif defined(FLIPPAD)
+ #define MODULE_NAME "FlipPad"
+#else
+  #error "Please define a target module: FABI, FLIPMOUSE or FLIPPAD"
+#endif
 
-// #define FLIPAD
-// #define MODULE_NAME "FLipPad"
 
-// #define FABIJOYSTICK_ENABLED
-
+// #define FABI_BLEJOYSTICK_ENABLED
 
 // update the version string with every firmware change:
 #define VERSION_STRING "v3.7"
@@ -44,7 +49,7 @@
   // needed for RP PICO boards
   #include <MouseBLE.h>
   #include <KeyboardBLE.h>
-  #ifdef FABIJOYSTICK_ENABLED
+  #ifdef FABI_BLEJOYSTICK_ENABLED
     #include <JoystickBLE.h>
   #endif
   #include "lpwFuncs.h"
