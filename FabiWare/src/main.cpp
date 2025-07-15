@@ -180,7 +180,7 @@ void setup() {
   #ifndef FLIPMOUSE
     MouseBLE.begin(moduleName);
     KeyboardBLE.begin("");
-    #ifdef FABIJOYSTICK_ENABLED
+    #ifdef FABI_BLEJOYSTICK_ENABLED
       JoystickBLE.begin("");
     #endif
   #endif

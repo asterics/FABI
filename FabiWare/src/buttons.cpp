@@ -117,7 +117,7 @@ void initButtons() {
     buttons[RIGHT_BUTTON].mode = CMD_KH; setButtonKeystring(RIGHT_BUTTON, "KEY_RIGHT ");
     buttons[SIP_BUTTON].mode = CMD_HL; // sip: hold left mouse button
     buttons[PUFF_BUTTON].mode = CMD_CR; // puff: click right
-    buttons[STRONG_PUFF_BUTTON].mode = CMD_CA; // strong puff: calibrate
+    buttons[STRONGPUFF_BUTTON].mode = CMD_CA; // strong puff: calibrate
   #else
     buttons[0].mode = CMD_KH; setButtonKeystring(0, "KEY_SPACE ");
     buttons[1].mode = CMD_KH; setButtonKeystring(1, "KEY_ENTER ");
