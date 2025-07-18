@@ -15,6 +15,8 @@
 #ifndef LPW_FUNCS_H
 #define LPW_FUNCS_H
 
+#ifndef FLIPMOUSE   // low power support not available for FlipMouse
+
 #include "hardware/gpio.h"
 
 /**
@@ -87,4 +89,4 @@ void savePeripherals();    // saves the current state of peripherals for restora
 void printPeripherals();   // prints the current peripheral configuration (debugging)
 
 #endif // LPW_FUNCS_H
-
+#endif // not FLIPMOUSE

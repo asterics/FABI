@@ -7,6 +7,8 @@
 #ifndef _HARDWARE_ROSC_H_
 #define _HARDWARE_ROSC_H_
 
+#ifndef FLIPMOUSE   // low power support not available for FlipMouse
+
 #include "pico.h"
 #include "hardware/structs/rosc.h"
 
@@ -89,4 +91,5 @@ void rosc_enable(void);
 }
 #endif
 
+#endif
 #endif

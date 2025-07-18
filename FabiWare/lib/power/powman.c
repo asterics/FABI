@@ -4,6 +4,8 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
+#ifndef FLIPMOUSE   // low power support not available for FlipMouse
+
 #include <stdint.h>
 #include <stdio.h>
 #include <inttypes.h>
@@ -257,3 +259,5 @@ void powman_disable_all_wakeups(void) {
     }
     powman_disable_alarm_wakeup();
 }
+
+#endif

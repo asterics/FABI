@@ -4,6 +4,8 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
+#ifndef FLIPMOUSE   // low power support not available for FlipMouse
+
 #include "pico.h"
 
 // For MHZ definitions etc
@@ -67,3 +69,5 @@ void rosc_enable(void) {
     //Wait for it to become stable once restarted
     while (!(rosc_hw->status & ROSC_STATUS_STABLE_BITS));
 }
+
+#endif

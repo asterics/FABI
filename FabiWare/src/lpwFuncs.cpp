@@ -10,6 +10,8 @@
 
 */
 
+#ifndef FLIPMOUSE   // low power support not available for FlipMouse
+
 #include "FlipWare.h"
 #include "gpio.h"
 #include "display.h"
@@ -433,3 +435,5 @@ void loadPeripherals() {
 //   delay(1000);
 // }
 
+
+#endif
