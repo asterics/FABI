@@ -22,10 +22,11 @@
 #ifndef _FLIPWARE_H_
 #define _FLIPWARE_H_
 
-// uncomment the target device (FLIPMOUSE or FABI or FLIPPAD) or define it in the build system (platformio.ini)
-// #define FABI
-// #define FLIPMOUSE
-// #define FLIPPAD
+// Important: update the version string with every important firmware change!
+#define VERSION_STRING "v3.7"
+
+// Note: Set the target device (FLIPMOUSE, FABI or FLIPPAD) in platformio.ini (e.g. -DFABI)!
+//       Also, BLE Joystick support for FABI can be configured in platformio.ini
 
 #ifdef FLIPMOUSE
  #define MODULE_NAME "Flipmouse"
@@ -37,11 +38,6 @@
   #error "Please define a target module: FABI, FLIPMOUSE or FLIPPAD"
 #endif
 
-
-// #define FABI_BLEJOYSTICK_ENABLED
-
-// update the version string with every firmware change:
-#define VERSION_STRING "v3.7"
 
 #include <Arduino.h>
 #include <Wire.h>
@@ -57,6 +53,7 @@
 #include <Mouse.h>
 #include <Keyboard.h>
 #include <Joystick.h>
+
 #include <EEPROM.h>
 #include <string.h>
 #include <stdint.h>
