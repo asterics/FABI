@@ -106,7 +106,7 @@ struct SensorData sensorData {
   .mouseMoveTimestamp=0,
   .clickReleaseTimestamp=0,
   .xLocalMax=0, .yLocalMax=0,
-  .currentBattPercent = -1, .MCPSTAT = MCPSTAT_HIGHZ,
+  .currentBattPercent = -1, .MCPSTAT = 0,
   .usbConnected = false
 };
 
@@ -135,25 +135,21 @@ void setup() {
 	// Note/Todo: figure out why the alarm pool fills up and needs to be this big (?)
   app_alarm_pool = alarm_pool_create(2, 64);  // using hw timer2, max. 64 alarm callback functions
 
-  // turn on power suppy for peripherals
-  enable3V3();
-  delay(50);  // some time to stabilize the power supply
-
-  #ifdef FABI
-    initBattery(); // init GPIOs for battery management
-  #endif
-
   #ifdef FLIPMOUSE
-    // when using Arduino Nano 2040 Connect: initialise BT module  (must be done early!)
+    // if using Arduino Nano 2040 Connect: initialise BT module  (must be done early!)
     initBluetooth();
   #else
-    // when using RP Pico variants: set I2C pins for Wire0 (internal I2C for LC-Display / NFC)  
+    // if using RP Pico variants 
+    enable3V3();   // turn on power suppy for peripherals
+    delay(50);     // some time to stabilize the power supply
+    initBattery(); // init GPIOs for battery management
+    
+    // set I2C pins for Wire0 (internal I2C for LC-Display / NFC)  
     Wire.setSDA(PIN_WIRE0_SDA_);
     Wire.setSCL(PIN_WIRE0_SCL_);
   #endif  
 
   Wire.begin();
-
   //check the I2C bus for active devices, add to array
   testI2Cdevices(&Wire,devicesWire);
 
@@ -191,13 +187,14 @@ void setup() {
 
   initDisplay();
   displayUpdate();
-  
-  makeTone(TONE_STARTUP,0);  // announce readyness!
+  makeTone(TONE_STARTUP,0);  // play startup melody!
+  delay (200);       // wait a bit for the melody to finish
+  audioPlayback(0);  // announce first slot name message (if available)
+
   #ifdef DEBUG_OUTPUT_FULL 
     Serial.print(moduleName); Serial.println(" ready !");
   #endif
-  audioPlayback(0);
-  //lastInteractionUpdate = lastBatteryUpdate = millis();  // get first timestamp
+  
 }
 
 /**
