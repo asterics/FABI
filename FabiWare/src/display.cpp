@@ -172,6 +172,8 @@ void batteryDisplay(bool refresh){
   if (!displayAvailable) return;
   static int iconState=0, oldIconState=0;
 
+  #ifndef FLIPMOUSE   // battery support not available for FlipMouse
+
   switch(sensorData.MCPSTAT){
     case MCPSTAT_LOW: 
       if (sensorData.usbConnected) iconState=(iconState+1)%4;
@@ -184,6 +186,7 @@ void batteryDisplay(bool refresh){
     default:
       iconState=-1;    
   }
+  #endif
 
   // only draw if we have a change or a refresh was explicitly requested!
   if (refresh || (oldIconState != iconState)) {
