@@ -231,8 +231,8 @@ void reportCapabilities(uint16_t mask) {
       Serial.print(", Board=Raspberry_Pi_Pico_2");
     #elif defined(ARDUINO_RASPBERRY_PI_PICO_2W)
       Serial.print(", Board=Raspberry_Pi_Pico_2W");
-    #elif defined(ARDUINO_NANO_2040_CONNECT)
-      Serial.print(", Board=ARDUINO_NANO_2040_CONNECT");
+    #elif defined(ARDUINO_NANO_RP2040_CONNECT)
+      Serial.print(", Board=ARDUINO_NANO_RP2040_CONNECT");
     #else
       Serial.print(", Board=UNKNOWN");
     #endif
