@@ -43,6 +43,7 @@ struct sampledata_t sampleData;
    @return none
 */
 bool audio_timer_callback(struct repeating_timer *t) {
+  #ifdef AUDIO_SIGNAL_PIN
 
   struct sampledata_t *sd = (struct sampledata_t *)(t->user_data);
   //int16_t pwmValue = *(sd->p)++;
@@ -65,6 +66,7 @@ bool audio_timer_callback(struct repeating_timer *t) {
     sd->file.close();
     sd->isPlaying = 0;
   }
+  #endif
   return true;
 }
 
