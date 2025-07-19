@@ -61,6 +61,12 @@ void updateLeds()
       r=(slotSettings.sc>>16) & 0xff;
       g=(slotSettings.sc>>8) & 0xff;
       b= slotSettings.sc & 0xff;
+      #ifdef FLIPMOUSE
+        // swap r and b for FlipMouse
+        uint8_t dummy=r;
+        r=g;
+        g=dummy;
+      #endif
     }
 
     // perform fading LED animation in case BT slot active but no device paired
