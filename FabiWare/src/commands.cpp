@@ -45,8 +45,9 @@ const struct atCommandType atCommands[] PROGMEM = {
   {"WU"  , PARTYPE_NONE }, {"WD"  , PARTYPE_NONE }, {"WS"  , PARTYPE_UINT }, 
   {"MX"  , PARTYPE_INT  }, {"MY"  , PARTYPE_INT  }, 
   /***** joystick *****/
-  {"JX"  , PARTYPE_INT  }, {"JY"  , PARTYPE_INT  }, {"JZ"  , PARTYPE_INT  }, {"JT"  , PARTYPE_INT  },  
-  {"JS"  , PARTYPE_INT  }, {"JP"  , PARTYPE_INT  }, {"JR"  , PARTYPE_INT  }, {"JH"  , PARTYPE_INT  },
+  {"J0"  , PARTYPE_INT  }, {"J1"  , PARTYPE_INT  }, {"J2"  , PARTYPE_INT  }, {"J3"  , PARTYPE_INT  },  
+  {"J4"  , PARTYPE_INT  }, {"J5"  , PARTYPE_INT  }, 
+  {"JP"  , PARTYPE_INT  }, {"JR"  , PARTYPE_INT  }, {"JH"  , PARTYPE_INT  },
   /***** keyboard *****/
   {"KW"  , PARTYPE_STRING}, {"KP"  , PARTYPE_STRING}, {"KH"  , PARTYPE_STRING}, {"KT"  , PARTYPE_STRING },
   {"KR"  , PARTYPE_STRING}, {"RA"  , PARTYPE_NONE },  {"KL"  , PARTYPE_STRING },
@@ -206,20 +207,23 @@ void performCommand (uint8_t cmd, int16_t par1, char * keystring, int8_t periodi
     case CMD_MP:
       globalSettings.thresholdMultiPress = par1;
       break;
-    case CMD_JX:
-      joystickAxis(par1,-1,0);
+    case CMD_J0:
+      joystickAxis(0,par1);
       break;
-    case CMD_JY:
-      joystickAxis(-1,par1,0);
+    case CMD_J1:
+      joystickAxis(1,par1);
       break;
-    case CMD_JZ:
-      joystickAxis(par1,-1,1);
+    case CMD_J2:
+      joystickAxis(2,par1);
       break;
-    case CMD_JT:
-      joystickAxis(-1,par1,1);
+    case CMD_J3:
+      joystickAxis(3,par1);
       break;
-    case CMD_JS:
-      joystickAxis(par1,-1,2);
+    case CMD_J4:
+      joystickAxis(4,par1);
+      break;
+    case CMD_J5:
+      joystickAxis(5,par1);
       break;
     case CMD_JP:
       joystickButton(par1, 1);

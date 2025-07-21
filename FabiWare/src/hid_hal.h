@@ -117,17 +117,14 @@ void mouseMove(int x, int y);
 
 /*
    @name joystickAxis
-   @param int axis1       new value for axis 1 (either X,Z or sliderLeft; set by param select)
-   @param int axis2       new value for axis 2 (either Y,Zrotate or sliderRight; set by param select)
-   @param uint8_t select  define axis for values (0: X/Y; 1: Z/Zrotate; 2: sliderLeft/sliderRight)
+   @param int axis       new value for axis (0-5)
+   @param int value      new value for axis, 0-1023
+   @return none
 
-   Updates 2 joystick axis with new values.
-   Which axis are sent depends on the select parameter.
-   
+   Updates joystick axis with new values.
    @note The range for axis1 & axis2 is 0-1023.
-   @note If an axis is set to -1, it will not be updated.
 */
-void joystickAxis(int axis1, int axis2, uint8_t select);
+void joystickAxis(int axis, int value);
 
 
 /*

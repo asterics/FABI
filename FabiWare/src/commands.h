@@ -22,9 +22,9 @@
           AT CM             click middle mouse button
           AT CD             click double with left mouse button
 
-          AT HL             hold the left mouse button (automatic release when user action is done)
-          AT HR             hold the right mouse button (automatic release when user action is done)
-          AT HM             hold the middle mouse button (automatic release when user action is done)
+          AT HL             hold the left mouse button (automatic release when user action has ended)
+          AT HR             hold the right mouse button (automatic release when user action has ended)
+          AT HM             hold the middle mouse button (automatic release when user action has ended)
 
           AT RL             release the left mouse button
           AT RR             release the right mouse button
@@ -41,12 +41,13 @@
           AT MX <int>       move mouse in x direction (e.g. "AT MX 4" moves cursor 4 pixels to the right)
           AT MY <int>       move mouse in y direction (e.g. "AT MY -10" moves cursor 10 pixels up)
 
-          AT JX <int>       set joystick x axis (e.g. "AT JX 512" sets the x-axis to middle position)
-          AT JY <int>       set joystick y axis (e.g. "AT JY 1023" sets the y-axis to full up position)
-          AT JZ <int>       set joystick z axis (e.g. "AT JZ 0" sets the z-axis to lowest position)
-          AT JT <int>       set joystick z turn axis (e.g. "AT JT 512" sets the rotation to middle position)
-          AT JS <int>       set joystick slider position (e.g. "AT JS 512" sets the slider to middle position)
-          AT JP <int>       press joystick button (e.g. "AT JP 1" presses joystick button 1)
+          AT J0 <int>       set joystick axis0 (stick 1 x-axis, e.g. "AT J0 512" sets the x-axis of the left stick to middle position)
+          AT J1 <int>       set joystick axis1 (stick 1 y-axis, e.g. "AT J1 1023" sets the y-axis of the left stick to full down position)
+          AT J2 <int>       set joystick axis2 (stick 2 x-axis, e.g. "AT J2 0" sets the x-axis of the right stick to full left position)
+          AT J3 <int>       set joystick axis3 (stick 2 y-axis)
+          AT J4 <int>       set joystick axis4 (stick 3 x-axis)
+          AT J5 <int>       set joystick axis5 (stick 3 y-axis)
+          AT JP <int>       press joystick button (e.g. "AT JP 1" presses joystick button 1, automatic release when user action has ended)
           AT JR <int>       release joystick button (e.g. "AT JR 2" releases joystick button 2)
           AT JH <int>       set joystick hat position (e.g. "AT JH 45" sets joystick hat to 45 degrees)
                             possible values are: 0, 45, 90, 135, 180, 225, 270, 315 and -1 to set center position)
@@ -175,8 +176,9 @@
 enum atCommands {
   CMD_ID, CMD_BM, CMD_CL, CMD_CR, CMD_CM, CMD_CD, CMD_PL, CMD_PR, CMD_PM, CMD_HL, CMD_HR, CMD_HM,
   CMD_RL, CMD_RR, CMD_RM, CMD_TL, CMD_TR, CMD_TM, CMD_WU, CMD_WD, CMD_WS, CMD_MX, CMD_MY, 
-  CMD_JX, CMD_JY, CMD_JZ, CMD_JT, CMD_JS, CMD_JP, CMD_JR, CMD_JH, CMD_KW, CMD_KP, CMD_KH, CMD_KT, 
-  CMD_KR, CMD_RA, CMD_KL, CMD_SA, CMD_LO, CMD_LA, CMD_LI, CMD_NE, CMD_DE, CMD_RS, CMD_RE, CMD_NC, 
+  CMD_J0, CMD_J1, CMD_J2, CMD_J3, CMD_J4, CMD_J5, CMD_JP, CMD_JR, CMD_JH,  
+  CMD_KW, CMD_KP, CMD_KH, CMD_KT, CMD_KR, CMD_RA, CMD_KL, 
+  CMD_SA, CMD_LO, CMD_LA, CMD_LI, CMD_NE, CMD_DE, CMD_RS, CMD_RE, CMD_NC, 
   CMD_BT, CMD_SC, CMD_SR, CMD_ER, CMD_CA, CMD_MA, CMD_WA, CMD_TS, CMD_TP, CMD_SP, CMD_SS, CMD_IR, 
   CMD_IP, CMD_IH, CMD_IS, CMD_IC, CMD_IW, CMD_IL, CMD_IT, CMD_MM, CMD_SW, CMD_AX, CMD_AY, 
   CMD_DX, CMD_DY, CMD_MS, CMD_AC, CMD_RO, CMD_SB, CMD_AT, CMD_AP, CMD_AR, CMD_AL, CMD_AV, CMD_AB,

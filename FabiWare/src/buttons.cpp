@@ -153,11 +153,12 @@ void handleRelease (int buttonIndex)    // a button was released: deal with "sti
       break;
     // release gamepad actions
     case CMD_JP: joystickButton(buttons[buttonIndex].value, 0); break;
-    case CMD_JX: joystickAxis(512,-1,0); break;
-    case CMD_JY: joystickAxis(-1,512,0); break;
-    case CMD_JZ: joystickAxis(512,-1,1);break;
-    case CMD_JT: joystickAxis(-1,512,1);break;
-    case CMD_JS: joystickAxis(512,-1,2); break;
+    case CMD_J0: joystickAxis(0,512); break;
+    case CMD_J1: joystickAxis(1,512); break;
+    case CMD_J2: joystickAxis(2,512); break;
+    case CMD_J3: joystickAxis(3,512); break;
+    case CMD_J4: joystickAxis(4,512); break;
+    case CMD_J5: joystickAxis(5,512); break;
     case CMD_JH: joystickHat(-1); break;
     // release keyboard actions
     case CMD_KH: releaseKeys(buttonKeystrings[buttonIndex]); break;
@@ -218,11 +219,12 @@ uint8_t inHoldMode (int i)
       (buttons[i].mode == CMD_HR) ||
       (buttons[i].mode == CMD_HM) ||
       (buttons[i].mode == CMD_JP) ||
-      (buttons[i].mode == CMD_JX) ||
-      (buttons[i].mode == CMD_JY) ||
-      (buttons[i].mode == CMD_JZ) ||
-      (buttons[i].mode == CMD_JT) ||
-      (buttons[i].mode == CMD_JS) ||
+      (buttons[i].mode == CMD_J0) ||
+      (buttons[i].mode == CMD_J1) ||
+      (buttons[i].mode == CMD_J2) ||
+      (buttons[i].mode == CMD_J3) ||
+      (buttons[i].mode == CMD_J4) ||
+      (buttons[i].mode == CMD_J5) ||
       (buttons[i].mode == CMD_JH) ||
       (buttons[i].mode == CMD_MX) ||
       (buttons[i].mode == CMD_MY) ||

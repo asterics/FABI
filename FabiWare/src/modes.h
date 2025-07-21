@@ -48,11 +48,11 @@
 #define HOLD_Y        2
 #define HOLD_PRESSURE 3
 
-#define STICKMODE_ALTERNATIVE      0
-#define STICKMODE_MOUSE            1
-#define STICKMODE_JOYSTICK_XY      2
-#define STICKMODE_JOYSTICK_ZR      3
-#define STICKMODE_JOYSTICK_SLIDERS 4
+#define STICKMODE_ALTERNATIVE     0
+#define STICKMODE_MOUSE           1
+#define STICKMODE_JOYSTICK_1      2
+#define STICKMODE_JOYSTICK_2      3
+#define STICKMODE_JOYSTICK_3      4
 
 /**
    @name handleUserInteraction
