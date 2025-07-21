@@ -170,6 +170,10 @@ void keyboardReleaseAll()
 
 void joystickAxis(int axis1, int axis2, uint8_t select)
 {
+  // TBD: update the axis when BLE joystick HID report was updated in RP Pico Core
+  // currently, axis0 (X) and axis1 (Y) are correct, but axis for the second joystick and sliders are mixed up
+  // proposal: use only the axis index (e.g. Joystick.axis0(x) and adjust the AT-commands accordingly
+
   if (slotSettings.bt & 1)
   {
     switch(select)
@@ -180,11 +184,11 @@ void joystickAxis(int axis1, int axis2, uint8_t select)
       break;
       case 1:
         Joystick.Z(axis1);
-        Joystick.Zrotate(axis2);
+        Joystick.sliderLeft(axis2);
       break;
       case 2:
-        Joystick.sliderLeft(axis1);
-        Joystick.sliderRight(axis2);
+        Joystick.sliderRight(axis1);
+        Joystick.Zrotate(axis2);
       break;
       default: break;
     }
