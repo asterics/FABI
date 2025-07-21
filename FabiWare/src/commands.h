@@ -97,6 +97,13 @@
           AT RS           resets FABI settings and restores default configuration (deletes EEPROM and restores default Slot "keys")
           AT RE           perform a reboot (SW-reset)
 
+    Bluetooth Add-On specific commands (only supported by FlipMouse):
+     
+          AT BC <string>  sends parameter to external UART (mostly ESP32 Bluetooth Addon)
+          AT BR <uint>    resets the ESP32 bluetooth module (connected to RP 2040 on ArduinoNanoConnect board)  // NOTE: changed for RP2040! 
+          AT UG           start addon upgrade, Serial ports are transparent until ("$FIN") is received.
+
+
     Reporting and Audio feedback commands:
 
           AT SC <string>  change slot color: given string 0xRRGGBB                           
