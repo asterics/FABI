@@ -135,15 +135,17 @@ void setup() {
 	// Note/Todo: figure out why the alarm pool fills up and needs to be this big (?)
   app_alarm_pool = alarm_pool_create(2, 64);  // using hw timer2, max. 64 alarm callback functions
 
-  #ifdef FLIPMOUSE
-    // if using Arduino Nano 2040 Connect: initialise BT module  (must be done early!)
+  #ifdef FLIPMOUSE  // if using Arduino Nano 2040 Connect: initialise BT module  (must be done early!)
     initBluetooth();
-  #else
-    // if using RP Pico variants 
+  #endif
+
+  #ifdef RP2350    // low power / battery support only available for RP2350
     enable3V3();   // turn on power suppy for peripherals
     delay(50);     // some time to stabilize the power supply
     initBattery(); // init GPIOs for battery management
-    
+  #endif  
+
+  #ifndef FLIPMOUSE  // if not using FlipMouse: set alternative pins for I2C interface   
     // set I2C pins for Wire0 (internal I2C for LC-Display / NFC)  
     Wire.setSDA(PIN_WIRE0_SDA_);
     Wire.setSCL(PIN_WIRE0_SCL_);
@@ -251,7 +253,7 @@ void loop() {
     updateTones();    // mode indication via audio signals (buzzer)
   NB_DELAY_END //lastInteraction
 
-  #ifdef FABI
+  #ifdef RP2350  // low power / battery support only available for RP2350
     // every now and then: check battery and power status
     NB_DELAY_START(batteryUpdate,BATTERY_UPDATE_INTERVAL)
       performBatteryManagement();
@@ -259,8 +261,9 @@ void loop() {
       if(sensorData.currentBattPercent > 0) MouseBLE.setBattery(sensorData.currentBattPercent);
       else MouseBLE.setBattery(99);
     NB_DELAY_END
+  #endif
 
-    // every 1s: check for changed I2C devices. TBD: for FABI only?
+  #ifdef FABI   // every 1s: check for changed I2C devices. TBD: for FABI only?
     NB_DELAY_START(i2cscan,1000)
       //create a copy of list before checking again
       uint8_t olddevices[8];

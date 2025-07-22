@@ -15,7 +15,8 @@
 #ifndef LPW_FUNCS_H
 #define LPW_FUNCS_H
 
-#ifndef FLIPMOUSE   // low power support not available for FlipMouse
+#ifdef RP2350   // low power support only available for RP2350
+
 
 #include "hardware/gpio.h"
 

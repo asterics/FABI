@@ -7,7 +7,7 @@
 #ifndef _HARDWARE_POWMAN_H
 #define _HARDWARE_POWMAN_H
 
-#ifndef FLIPMOUSE   // low power support not available for FlipMouse
+#ifdef RP2350   // low power support only available for RP2350
 
 #include "pico.h"
 #include "hardware/structs/powman.h"

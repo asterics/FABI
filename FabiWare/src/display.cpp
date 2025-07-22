@@ -172,7 +172,7 @@ void batteryDisplay(bool refresh){
   if (!displayAvailable) return;
   static int iconState=0, oldIconState=0;
 
-  #ifndef FLIPMOUSE   // battery support not available for FlipMouse
+  #ifdef RP2350   // low power / battery support only available for RP2350
 
   switch(sensorData.MCPSTAT){
     case MCPSTAT_LOW: 

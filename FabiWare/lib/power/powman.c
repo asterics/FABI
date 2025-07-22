@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-#ifndef FLIPMOUSE   // low power support not available for FlipMouse
+#ifdef RP2350   // low power support only available for RP2350
 
 #include <stdint.h>
 #include <stdio.h>

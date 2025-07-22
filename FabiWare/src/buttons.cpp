@@ -185,7 +185,7 @@ uint8_t handleButton(int i, uint8_t state)    // button debouncing and press det
             buttonStates |= (1<<i); //save for reporting
             handlePress(i);
             buttonDebouncers[i].timestamp = millis(); // start measuring time
-            #ifdef FABI
+            #ifdef RP2350
               userActivity(); // keep system from going into dormant mode (see lpwFuncs.h)
             #endif
           }

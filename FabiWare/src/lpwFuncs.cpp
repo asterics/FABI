@@ -10,7 +10,7 @@
 
 */
 
-#ifndef FLIPMOUSE   // low power support not available for FlipMouse
+#ifdef RP2350   // low power support only available for RP2350
 
 #include "FlipWare.h"
 #include "gpio.h"

@@ -7,7 +7,7 @@
 #ifndef _PICO_SLEEP_H_
 #define _PICO_SLEEP_H_
 
-#ifndef FLIPMOUSE   // low power support not available for FlipMouse
+#ifdef RP2350   // low power support only available for RP2350
 
 #include "pico.h"
 #include "rosc.h"
