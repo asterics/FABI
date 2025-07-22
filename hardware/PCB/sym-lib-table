@@ -1,6 +1,0 @@
-(sym_lib_table
-  (lib (name ProMicro)(type Legacy)(uri ${KIPRJMOD}/kicad_libs/ProMicro-symbol/ProMicro.lib)(options "")(descr ""))
-  (lib (name CMI-9605IC-0380T)(type Legacy)(uri ${KIPRJMOD}/kicad_libs/CMI-9605IC-0380T/CMI-9605IC-0380T.lib)(options "")(descr ""))
-  (lib (name FABI_schematic-rescue)(type Legacy)(uri ${KIPRJMOD}/FABI_schematic-rescue.lib)(options "")(descr ""))
-  (lib (name FABI_customLib)(type Legacy)(uri ${KIPRJMOD}/FABI_customLib.lib)(options "")(descr ""))
-)
