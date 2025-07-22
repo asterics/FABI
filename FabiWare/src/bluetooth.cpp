@@ -16,8 +16,7 @@
 
 #include "bluetooth.h"
 
-#ifndef FLIPMOUSE   // for FABI / FlipPad (using the RP Pico(2)W)
-
+#ifndef FLIPMOUSE   // necessary for RP Pico boards
   // TBD: find out / prevent this redfinition problem !?
   // see workaround: https://github.com/earlephilhower/arduino-pico/issues/2022
 
