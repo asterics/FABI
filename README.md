@@ -21,7 +21,7 @@ Additionally, a bluetooth-module is available for devices that do not have a USB
 Essential information can be found in the following folders
 * _Case Designs:_ different 3d-printable / lasercut designs for enclosures
 * _Documentation:_ all user and construction manuals
-* _FabiGUI_C#:_ the (outdated) graphical user interface (for Windows)
+* _img:_ some images of FABI variants
 * _hardware:_ the KiCad design files and models for schematics and PCB layout
 * _Settings:_ demo configurations which can be loaded into the FABI device via the GUI
 
@@ -34,7 +34,6 @@ You can find information how to configure the individual button functions and sy
 
 * [English user manual for configuration manager](https://github.com/asterics/FABI/blob/master/Documentation/UserManual/Markdown/Fabi%20User%20Manual.md) 
 * [German user manual for configuration manager](https://github.com/asterics/FABI/blob/master/Documentation/UserManual/Markdown/Fabi%20Anwendungsanleitung.md)
-
 
 
 ## Building the hardware
