@@ -22,7 +22,6 @@ Essential information can be found in the following folders
 * _Case Designs:_ different 3d-printable / lasercut designs for enclosures
 * _Documentation:_ all user and construction manuals
 * _FabiGUI_C#:_ the (outdated) graphical user interface (for Windows)
-* _FabiWare:_ the microcontroller firmware
 * _hardware:_ the KiCad design files and models for schematics and PCB layout
 * _Settings:_ demo configurations which can be loaded into the FABI device via the GUI
 
@@ -54,19 +53,12 @@ See [DIY Building Guide](https://github.com/asterics/FABI/blob/master/Documentat
 
 ## Building and Installing the Firmware
 
-The FABI system consists of a firmware part which runs on the [Arduino Pro Micro](https://www.sparkfun.com/products/12640) microcontroller. The firmware can be updated / uploaded directly from the [Configuration Manager](https://fabi.asterics.eu/). Alternatively, you can build and upload the fimware using a recent version of the [Arduino IDE](https://www.arduino.cc/en/software).
-Besides the Arduino framework, the following libraries are used und must be installed before the firmware can be compiled:
+The FABI system consists of a firmware part which runs on a Raspberry Pi Pico microcontroller.
+Since Version v3.7, the firmware development for the FABI (and our other alternative input devices) happens in a dedicated repository, see [FabiWare](https://github.com/asterics/FabiWare).
+All firmware versions until v2.8 can be found in this repository by browsing the release section or by using the desired tags.
+For information about the older firmware for the Arduino Pro Micro microcontroller, and the optional [Bluetooth Module](https://github.com/asterics/esp32_mouse_keyboard) which was used in the legacy hardware version, see https://github.com/asterics/FABI/wiki
+Please __note__ the COM-Port installation instructions for older Windows systems (Win7/8) [here](https://github.com/raspberrypi/pico-feedback/issues/118).
 
-* [Light_WS2812 Neopixel library by cpldcpu](https://github.com/cpldcpu/light_ws2812) 
-* [SSD1306 Oled/LCD library by Lekus2k](https://github.com/lexus2k/ssd1306) (used version: 1.8.2)
-
-Please follow the installation instructions in the respective github repositories.
-
-
-## Bluetooth AddOn
-
-FABI supports the connection of an optional [Bluetooth Module](https://github.com/asterics/esp32_mouse_keyboard). The easiest way to use this module is to build the construction kit, 
-because the PCB offers a dedicated 10-pin connector which fits the module. Pairing process and firmware update for the BT-module will be described in the user manual soon!
 
 ![FABI PCB version, equipped with Bluetooth Module](https://github.com/asterics/FABI/blob/master/img/pcb_open.JPG "FABI PCB version with equipped bluetooth module")
 
@@ -77,32 +69,22 @@ because the PCB offers a dedicated 10-pin connector which fits the module. Pairi
 ![A wooden piece with 6 buttons, arranged between, left and right of your hands. Enabling faster working with shortcuts on each button](https://github.com/asterics/FABI/blob/master/img/2.jpg "RapidCoding prototype, powered by FABI")
 ![A FABI box, where 3 different external buttons are connected](https://github.com/asterics/FABI/blob/master/img/8.jpg "FABI box with external buttons")
 
-More examples are available in the [wiki](https://github.com/asterics/FABI/wiki).
-
-
-
 
 # Links and Credits
 
 Most of the work for FABI has been accomplished at the UAS Technikum Wien in course of the R&D-projects *ToRaDes* (MA23 project 18-04) and *WBT* (MA23 project 26-02), which have been supported by the [City of Vienna](https://www.wien.gv.at/kontakte/ma23/index.html),
 see: [ToRaDes Project Information](https://embsys.technikum-wien.at/projects/torades/index.php), [Webpage WBT project](https://wbt.wien).
 
+Have a look at the [AsTeRICS Foundation homepage](https://www.asterics-foundation.org) for applications and our other Open Source projects:
 
-Have a look at the [AsTeRICS Foundation homepage](https://www.asterics-foundation.org) and our other Open Source AT projects:
-
-* AsTeRICS: [AsTeRICS framework homepage](http://www.asterics.eu), [AsTeRICS framework GitHub](https://github.com/asterics/AsTeRICS): The AsTeRICS framework provides a much higher flexibility for building assistive solutions. 
-The FLipMouse is also AsTeRICS compatible, so it is possible to use the raw input data for a different assistive solution.
-
-* FLipMouse: [The FLipMouse controller](https://github.com/asterics/FLipMouse): an open source alternative input device for controlling computers and mobile devices with minimal muscle movement.
-
-* FLipPad: [The FLipPad controller](https://github.com/asterics/FLipMouse): a flexible touchpad for controlling computers and mobile devices with minimal muscle movement.
-
-* AsTeRICS Grid: [Asterics Grid AAC Web-App](https://grid.asterics.eu): an open source, cross plattform communicator / talker for Augmented and Alternative Communication (AAC).
-
+* [The FLipMouse controller](https://github.com/asterics/FLipMouse) - an open source alternative input device for controlling computers and mobile devices with minimal muscle movement.
+* [The FLipPad controller](https://github.com/asterics/FLipMouse) - a flexible touchpad for controlling computers and mobile devices with minimal muscle movement.
+* [Asterics Grid Open Source AAC](https://grid.asterics.eu) - an open source, cross plattform communicator / talker for Augmented and Alternative Communication (AAC).
+* [The AsTeRICS framework](https://github.com/asterics/AsTeRICS) - provides high flexibility for building Assistive Technology solutions. 
 
 
 # Support us
-Please support the development of FABI by donating to the AsTeRICS Foundation:
+Please support the development of Open Source Assistive Technology projects by donating to the AsTeRICS Foundation:
 
 <div>
 <a title="Donate with PayPal" href="https://www.paypal.com/donate/?hosted_button_id=38AJJNS427MJ2" target="_blank" style="margin-right:3em">
@@ -111,4 +93,5 @@ Please support the development of FABI by donating to the AsTeRICS Foundation:
 <a title="Donate at opencollective.com" href="https://opencollective.com/asterics-foundation" target="_blank">
 <img src="https://github.com/asterics/AsTeRICS-Grid/raw/master/app/img/donate-open-collective.png" width=300/></a>
 </div>
+
 
