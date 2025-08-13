@@ -7,6 +7,8 @@
 #ifndef _PICO_SLEEP_H_
 #define _PICO_SLEEP_H_
 
+#ifndef FLIPMOUSE   // low power support not available for FlipMouse
+
 #include "pico.h"
 #include "rosc.h"
 
@@ -133,3 +135,4 @@ void sleep_power_up(void);
 #endif
 
 #endif
+#endif 

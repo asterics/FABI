@@ -91,8 +91,11 @@ const struct SlotSettings defaultSlotSettings = {      // default slotSettings v
    static variables and data structures for settings and sensor data management
 */
 struct GlobalSettings globalSettings {
-  .buzzerMode=1,    // enable tone output via internal buzzer (tone height)
-  .audioVolume=50,  // audio volume 50%  (if AUDIO_SIGNAL_PIN defined)
+  .buzzerMode=1,    // enable tone output via internal buzzer (1=tone height)
+  .audioVolume=100,  // audio volume (0-200%, only applicable if AUDIO_SIGNAL_PIN defined)
+  .thresholdAutoDwell=0,     // threshold time for automatic dwell-click (0=disabled)
+  .thresholdLongPress=0,     // threshold time for button long-press (0=disabled)
+  .thresholdMultiPress=0,    // threshold time for button multi-press (0=disabled)
 };
 
 struct SensorData sensorData {        
@@ -100,8 +103,10 @@ struct SensorData sensorData {
   .deadZone=0, .force=0, .forceRaw=0, .angle=0,
   .dir=0,
   .autoMoveX=0, .autoMoveY=0,
+  .mouseMoveTimestamp=0,
+  .clickReleaseTimestamp=0,
   .xLocalMax=0, .yLocalMax=0,
-  .currentBattPercent = -1, .MCPSTAT = MCPSTAT_HIGHZ,
+  .currentBattPercent = -1, .MCPSTAT = 0,
   .usbConnected = false
 };
 
@@ -130,25 +135,21 @@ void setup() {
 	// Note/Todo: figure out why the alarm pool fills up and needs to be this big (?)
   app_alarm_pool = alarm_pool_create(2, 64);  // using hw timer2, max. 64 alarm callback functions
 
-  // turn on power suppy for peripherals
-  enable3V3();
-  delay(50);  // some time to stabilize the power supply
-
-  #ifdef FABI
-    initBattery(); // init GPIOs for battery management
-  #endif
-
   #ifdef FLIPMOUSE
-    // when using Arduino Nano 2040 Connect: initialise BT module  (must be done early!)
+    // if using Arduino Nano 2040 Connect: initialise BT module  (must be done early!)
     initBluetooth();
   #else
-    // when using RP Pico variants: set I2C pins for Wire0 (internal I2C for LC-Display / NFC)  
+    // if using RP Pico variants 
+    enable3V3();   // turn on power suppy for peripherals
+    delay(50);     // some time to stabilize the power supply
+    initBattery(); // init GPIOs for battery management
+    
+    // set I2C pins for Wire0 (internal I2C for LC-Display / NFC)  
     Wire.setSDA(PIN_WIRE0_SDA_);
     Wire.setSCL(PIN_WIRE0_SCL_);
   #endif  
 
   Wire.begin();
-
   //check the I2C bus for active devices, add to array
   testI2Cdevices(&Wire,devicesWire);
 
@@ -175,7 +176,7 @@ void setup() {
   #ifndef FLIPMOUSE
     MouseBLE.begin(moduleName);
     KeyboardBLE.begin("");
-    #ifdef FABIJOYSTICK_ENABLED
+    #ifdef FABI_BLEJOYSTICK_ENABLED
       JoystickBLE.begin("");
     #endif
   #endif
@@ -186,13 +187,14 @@ void setup() {
 
   initDisplay();
   displayUpdate();
-  
-  makeTone(TONE_STARTUP,0);  // announce readyness!
+  makeTone(TONE_STARTUP,0);  // play startup melody!
+  delay (200);       // wait a bit for the melody to finish
+  audioPlayback(0);  // announce first slot name message (if available)
+
   #ifdef DEBUG_OUTPUT_FULL 
     Serial.print(moduleName); Serial.println(" ready !");
   #endif
-  audioPlayback(0);
-  //lastInteractionUpdate = lastBatteryUpdate = millis();  // get first timestamp
+  
 }
 
 /**

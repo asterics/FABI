@@ -65,12 +65,12 @@ void initAudio();
 void audioList();
 
 /**
-   @name audioDelete
+   @name audioRemove
    @param fn: filename for the audio file
-   @brief deletes the audio file from LitteFS (if it exists)
+   @brief removes the audio file from LitteFS (if it exists)
    @return none
 */
-void audioDelete(char * fn);
+void audioRemove(char * fn);
 
 /**
    @name audioPlayback
@@ -87,5 +87,27 @@ void audioPlayback(char * fn);
    @return true if a file was received, false otherwise
 */
 uint8_t audioTransfer(char * fn);
+
+
+/**
+   @name prepSoundFilename
+   @param extendedFn: target char buffer where filename including path is stored (enough memory must be reserverd!)
+   @param fn: filename
+   @brief  prepare soundfile path name (prepend folder name). 
+   if no filename was given as parameter, a default name for the active slot is created, e.g. "slot0"
+   @return none
+*/
+void prepSoundFilename(char * extendedFn, char *fn);
+
+
+/**
+   @name prepSoundFilenameSlotNum
+   @param extendedFn: target char buffer where filename including path is stored (enough memory must be reserverd!)
+   @param slot: slotnumber
+   @brief  prepare soundfile path name for a given slot number
+   @return none
+*/
+void prepSoundFilenameSlotnum(char * extendedFn, int slot);
+
 
 #endif

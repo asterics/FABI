@@ -221,17 +221,14 @@ bool isBluetoothConnected();
   
   /**
      @name joystickBTAxis
-     @param int axis1       new value for axis 1 (either X,Z or sliderLeft; set by param select)
-     @param int axis2       new value for axis 2 (either Y,Zrotate or sliderRight; set by param select)
-     @param uint8_t select  define axis for values (0: X/Y; 1: Z/Zrotate; 2: sliderLeft/sliderRight)
+     @param int axis       select axis (0-5)
+     @param int value      new value for axis, 0-1023
      @return none
-  
+ 
      Updates axis on the Joystick report for the BT firmware. Updated report is sent.
-  
      @note Parameter range for axis is 0-1023, but we only have int8_t ranges, so it is mapped.
-     @note Axis set to -1 avoids an update of this axis
   */
-  void joystickBTAxis(int axis1, int axis2, uint8_t select);
+  void joystickBTAxis(int axis, int value);
   
   
   /**

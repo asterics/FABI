@@ -43,6 +43,7 @@ struct sampledata_t sampleData;
    @return none
 */
 bool audio_timer_callback(struct repeating_timer *t) {
+  #ifdef AUDIO_SIGNAL_PIN
 
   struct sampledata_t *sd = (struct sampledata_t *)(t->user_data);
   //int16_t pwmValue = *(sd->p)++;
@@ -65,6 +66,7 @@ bool audio_timer_callback(struct repeating_timer *t) {
     sd->file.close();
     sd->isPlaying = 0;
   }
+  #endif
   return true;
 }
 
@@ -101,6 +103,17 @@ void prepSoundFilename(char * extendedFn, char *fn) {
 }
 
 /**
+   @name prepSoundFilenameSlotNum
+   @param extendedFn: target char buffer where filename including path is stored (enough memory must be reserverd!)
+   @param slot: slotnumber
+   @brief  prepare soundfile path name for a given slot number
+   @return none
+*/
+void prepSoundFilenameSlotnum(char * extendedFn, int slot) {
+  sprintf(extendedFn,"%sslot%d",SOUND_FOLDER,slot);
+}
+
+/**
    @name audioList
    @brief Print a list of available audio files 
    @return none
@@ -118,12 +131,12 @@ void audioList() {
 }
 
 /**
-   @name audioDelete
+   @name audioRemove
    @param fn: filename of wav file in LitteFS
    @brief removes the file from LitteFS
    @return none
 */
-void audioDelete(char * fn) {
+void audioRemove(char * fn) {
   char soundFilename[MAX_PATH_LEN];
   prepSoundFilename(soundFilename, fn);
   #ifdef DEBUG_OUTPUT_FULL

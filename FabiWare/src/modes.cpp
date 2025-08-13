@@ -350,6 +350,21 @@ void handleMovement()
       mouseMove(sensorData.autoMoveX, sensorData.autoMoveY);
   }
 
+  if (globalSettings.thresholdAutoDwell && sensorData.mouseMoveTimestamp) {
+    if (millis() - sensorData.mouseMoveTimestamp >= globalSettings.thresholdAutoDwell) {
+      #ifdef DEBUG_OUTPUT
+          Serial.println("Autodwell Click");
+      #endif
+      mousePress(MOUSE_LEFT);
+      sensorData.clickReleaseTimestamp = millis() + DEFAULT_CLICK_TIME;
+      sensorData.mouseMoveTimestamp = 0;
+    }
+  }
+  if ((sensorData.clickReleaseTimestamp) && (millis() > sensorData.clickReleaseTimestamp)) {
+    mouseRelease(MOUSE_LEFT);
+    sensorData.clickReleaseTimestamp = 0;
+  }
+
   switch (slotSettings.stickMode) {  
 
     case STICKMODE_MOUSE:   // handle mouse stick mode
@@ -363,19 +378,25 @@ void handleMovement()
       handleButton(RIGHT_BUTTON,  sensorData.x > 0 ? 1 : 0);
       break;
       
-    case STICKMODE_JOYSTICK_XY:
-      joystickAxis(scaleJoystickAxis((float)sensorData.x * slotSettings.ax), \
-        scaleJoystickAxis((float)sensorData.y * slotSettings.ay),0);
+    case STICKMODE_JOYSTICK_1:
+      { NB_DELAY_START(gamepadAxis, GAMEPAD_MINIMUM_SEND_INTERVAL)
+        joystickAxis(0,scaleJoystickAxis((float)sensorData.x * slotSettings.ax));
+        joystickAxis(1,scaleJoystickAxis((float)sensorData.y * slotSettings.ay));
+      NB_DELAY_END }
       break;
 
-    case STICKMODE_JOYSTICK_ZR:
-      joystickAxis(scaleJoystickAxis((float)sensorData.x * slotSettings.ax), \
-        scaleJoystickAxis((float)sensorData.y * slotSettings.ay),1);
+    case STICKMODE_JOYSTICK_2:
+      { NB_DELAY_START(gamepadAxis, GAMEPAD_MINIMUM_SEND_INTERVAL)
+        joystickAxis(2,scaleJoystickAxis((float)sensorData.x * slotSettings.ax));
+        joystickAxis(3,scaleJoystickAxis((float)sensorData.y * slotSettings.ay));
+      NB_DELAY_END }
       break;
 
-    case STICKMODE_JOYSTICK_SLIDERS:
-      joystickAxis(scaleJoystickAxis((float)sensorData.x * slotSettings.ax), \
-        scaleJoystickAxis((float)sensorData.y * slotSettings.ay),2);
+    case STICKMODE_JOYSTICK_3:
+      { NB_DELAY_START(gamepadAxis, GAMEPAD_MINIMUM_SEND_INTERVAL)
+        joystickAxis(4,scaleJoystickAxis((float)sensorData.x * slotSettings.ax));
+        joystickAxis(5,scaleJoystickAxis((float)sensorData.y * slotSettings.ay));
+      NB_DELAY_END }
       break;
   }
 }

@@ -117,7 +117,7 @@ void initButtons() {
     buttons[RIGHT_BUTTON].mode = CMD_KH; setButtonKeystring(RIGHT_BUTTON, "KEY_RIGHT ");
     buttons[SIP_BUTTON].mode = CMD_HL; // sip: hold left mouse button
     buttons[PUFF_BUTTON].mode = CMD_CR; // puff: click right
-    buttons[STRONG_PUFF_BUTTON].mode = CMD_CA; // strong puff: calibrate
+    buttons[STRONGPUFF_BUTTON].mode = CMD_CA; // strong puff: calibrate
   #else
     buttons[0].mode = CMD_KH; setButtonKeystring(0, "KEY_SPACE ");
     buttons[1].mode = CMD_KH; setButtonKeystring(1, "KEY_ENTER ");
@@ -136,6 +136,9 @@ void handleRelease (int buttonIndex)    // a button was released: deal with "sti
 {
   buttonStates &= ~(1<<buttonIndex); //save for reporting
   switch (buttons[buttonIndex].mode) {
+    // release mouse actions
+    case CMD_MX: sensorData.autoMoveX = 0; break;
+    case CMD_MY: sensorData.autoMoveY = 0; break;
     case CMD_PL:
     case CMD_HL:
       mouseRelease(MOUSE_LEFT);
@@ -143,15 +146,23 @@ void handleRelease (int buttonIndex)    // a button was released: deal with "sti
     case CMD_PR:
     case CMD_HR:
       mouseRelease(MOUSE_RIGHT);
-      break;
+      break; 
     case CMD_PM:
     case CMD_HM:
       mouseRelease(MOUSE_MIDDLE);
       break;
+    // release gamepad actions
     case CMD_JP: joystickButton(buttons[buttonIndex].value, 0); break;
-    case CMD_MX: sensorData.autoMoveX = 0; break;
-    case CMD_MY: sensorData.autoMoveY = 0; break;
+    case CMD_J0: joystickAxis(0,512); break;
+    case CMD_J1: joystickAxis(1,512); break;
+    case CMD_J2: joystickAxis(2,512); break;
+    case CMD_J3: joystickAxis(3,512); break;
+    case CMD_J4: joystickAxis(4,512); break;
+    case CMD_J5: joystickAxis(5,512); break;
+    case CMD_JH: joystickHat(-1); break;
+    // release keyboard actions
     case CMD_KH: releaseKeys(buttonKeystrings[buttonIndex]); break;
+    // release infrared actions
     case CMD_IH:
       stop_IR_command();
       break;
@@ -208,6 +219,13 @@ uint8_t inHoldMode (int i)
       (buttons[i].mode == CMD_HR) ||
       (buttons[i].mode == CMD_HM) ||
       (buttons[i].mode == CMD_JP) ||
+      (buttons[i].mode == CMD_J0) ||
+      (buttons[i].mode == CMD_J1) ||
+      (buttons[i].mode == CMD_J2) ||
+      (buttons[i].mode == CMD_J3) ||
+      (buttons[i].mode == CMD_J4) ||
+      (buttons[i].mode == CMD_J5) ||
+      (buttons[i].mode == CMD_JH) ||
       (buttons[i].mode == CMD_MX) ||
       (buttons[i].mode == CMD_MY) ||
       (buttons[i].mode == CMD_KH) ||

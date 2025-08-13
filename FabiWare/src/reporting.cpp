@@ -49,16 +49,14 @@ void makehex(uint32_t val, char* str) {
 
 
 /** 
- * @brief Print current to given stream
+ * @brief Print current slot settings to given stream
  * @param S Stream to send the AT commands to; in our case Serial or a File
  */
 void printCurrentSlot(Stream *S)
 {
   char tmp[10];
   S->println(slotSettings.slotName);
-  S->print("AT AV "); S->println(globalSettings.audioVolume);
-  S->print("AT AB "); S->println(globalSettings.buzzerMode);
-
+  
   S->print("AT AX "); S->println(slotSettings.ax);
   S->print("AT AY "); S->println(slotSettings.ay);
   S->print("AT DX "); S->println(slotSettings.dx);
@@ -106,6 +104,21 @@ void printCurrentSlot(Stream *S)
     }
     S->println("");
   }
+  S->flush();
+}
+
+
+/** 
+ * @brief Print global settings to given stream
+ * @param S Stream to send the AT commands to; in our case Serial or a File
+ */
+void printGlobalSettings(Stream *S)
+{
+  S->print("AT AV "); S->println(globalSettings.audioVolume);
+  S->print("AT AB "); S->println(globalSettings.buzzerMode);
+  S->print("AT AD "); S->println(globalSettings.thresholdAutoDwell);
+  S->print("AT LP "); S->println(globalSettings.thresholdLongPress);
+  S->print("AT MP "); S->println(globalSettings.thresholdMultiPress);
   S->flush();
 }
 
@@ -218,8 +231,8 @@ void reportCapabilities(uint16_t mask) {
       Serial.print(", Board=Raspberry_Pi_Pico_2");
     #elif defined(ARDUINO_RASPBERRY_PI_PICO_2W)
       Serial.print(", Board=Raspberry_Pi_Pico_2W");
-    #elif defined(ARDUINO_NANO_2040_CONNECT)
-      Serial.print(", Board=ARDUINO_NANO_2040_CONNECT");
+    #elif defined(ARDUINO_NANO_RP2040_CONNECT)
+      Serial.print(", Board=ARDUINO_NANO_RP2040_CONNECT");
     #else
       Serial.print(", Board=UNKNOWN");
     #endif

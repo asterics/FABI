@@ -22,21 +22,22 @@
 #ifndef _FLIPWARE_H_
 #define _FLIPWARE_H_
 
-// uncomment the target device (FLIPMOUSE or FABI or FLIPPAD):
-#define FABI
-#define MODULE_NAME "FABI"
-
-//#define FLIPMOUSE
-//#define MODULE_NAME "FLipmouse"
-
-// #define FLIPAD
-// #define MODULE_NAME "FLipPad"
-
-// #define FABIJOYSTICK_ENABLED
-
-
-// update the version string with every firmware change:
+// Important: update the version string with every important firmware change!
 #define VERSION_STRING "v3.7"
+
+// Note: Set the target device (FLIPMOUSE, FABI or FLIPPAD) in platformio.ini (e.g. -DFABI)!
+//       Also, BLE Joystick support for FABI can be configured in platformio.ini
+
+#ifdef FLIPMOUSE
+ #define MODULE_NAME "Flipmouse"
+#elif defined(FABI)
+ #define MODULE_NAME "FABI"
+#elif defined(FLIPPAD)
+ #define MODULE_NAME "FlipPad"
+#else
+  #error "Please define a target module: FABI, FLIPMOUSE or FLIPPAD"
+#endif
+
 
 #include <Arduino.h>
 #include <Wire.h>
@@ -44,7 +45,7 @@
   // needed for RP PICO boards
   #include <MouseBLE.h>
   #include <KeyboardBLE.h>
-  #ifdef FABIJOYSTICK_ENABLED
+  #ifdef FABI_BLEJOYSTICK_ENABLED
     #include <JoystickBLE.h>
   #endif
   #include "lpwFuncs.h"
@@ -52,6 +53,7 @@
 #include <Mouse.h>
 #include <Keyboard.h>
 #include <Joystick.h>
+
 #include <EEPROM.h>
 #include <string.h>
 #include <stdint.h>
@@ -89,6 +91,7 @@
 #define DEFAULT_CLICK_TIME  8    // time for mouse click (loop iterations from press to release)
 #define CALIBRATION_PERIOD  1000  // approx. 1000ms calibration time
 #define BATTERY_UPDATE_INTERVAL  500  // update interval for battery management functions (in milliseconds)
+#define GAMEPAD_MINIMUM_SEND_INTERVAL 15 // minimum time between two gamepad axis updates (in milliseconds)
 
 // RAM buffers and memory constraints
 #define WORKINGMEM_SIZE         300    // reserved RAM for working memory (command parser, IR-rec/play)
@@ -112,11 +115,14 @@ const uint8_t supported_devices[] = {0x3C /*OLED*/, 0x77 /*DPS310*/, 0x18 /*MPRL
 
 /**
    GlobalSettings struct
-   contains general parameters for device
+   contains general parameters which apply to all slots
 */
 struct GlobalSettings {
   uint8_t  buzzerMode;   // tone output mode via internal buzzer: 0=disable, 1=only height, 2=height and count
   uint16_t audioVolume;  // gain for audio sample values (0-200%, 0=deactivate audio output)
+  uint16_t thresholdAutoDwell;     // threshold time for automatic creation of a left mouse click after mouse movement
+  uint16_t thresholdLongPress;     // threshold time for button long-press
+  uint16_t thresholdMultiPress;    // threshold time for button multi-press
 
   /*  TBD: include those here ??
   uint16_t ts;     // threshold sip
@@ -124,14 +130,10 @@ struct GlobalSettings {
   uint16_t sp;     // threshold strong puff
   uint16_t ss;     // threshold strong sip
   uint16_t ro;     // orientation (0,90,180,270)
-  uint16_t tt;     // threshold time for longpress 
   uint16_t ap;     // antitremor press time 
   uint16_t ar;     // antitremor release time 
   uint16_t ai;     // antitremor idle time
-  uint16_t dp;     // double press time  
-  uint16_t ad;     // automatic dwelling time  
   */
-
 };
 
 /**
@@ -173,6 +175,8 @@ struct SensorData {
   float deadZone, force, forceRaw, angle;
   uint8_t dir;
   int8_t autoMoveX,autoMoveY;
+  uint32_t mouseMoveTimestamp;
+  uint32_t clickReleaseTimestamp;
   int xLocalMax, yLocalMax;  
   int8_t currentBattPercent, MCPSTAT;
   bool usbConnected;

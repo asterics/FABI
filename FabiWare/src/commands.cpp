@@ -43,10 +43,11 @@ const struct atCommandType atCommands[] PROGMEM = {
   {"RL"  , PARTYPE_NONE }, {"RR"  , PARTYPE_NONE }, {"RM"  , PARTYPE_NONE },
   {"TL"  , PARTYPE_NONE }, {"TR"  , PARTYPE_NONE }, {"TM"  , PARTYPE_NONE },
   {"WU"  , PARTYPE_NONE }, {"WD"  , PARTYPE_NONE }, {"WS"  , PARTYPE_UINT }, 
-  {"MX"  , PARTYPE_INT  }, {"MY"  , PARTYPE_INT  },    
+  {"MX"  , PARTYPE_INT  }, {"MY"  , PARTYPE_INT  }, 
   /***** joystick *****/
-  {"JX"  , PARTYPE_INT  }, {"JY"  , PARTYPE_INT  }, {"JZ"  , PARTYPE_INT  }, {"JT"  , PARTYPE_INT  },  
-  {"JS"  , PARTYPE_INT  }, {"JP"  , PARTYPE_INT  }, {"JR"  , PARTYPE_INT  }, {"JH"  , PARTYPE_INT  },
+  {"J0"  , PARTYPE_INT  }, {"J1"  , PARTYPE_INT  }, {"J2"  , PARTYPE_INT  }, {"J3"  , PARTYPE_INT  },  
+  {"J4"  , PARTYPE_INT  }, {"J5"  , PARTYPE_INT  }, 
+  {"JP"  , PARTYPE_INT  }, {"JR"  , PARTYPE_INT  }, {"JH"  , PARTYPE_INT  },
   /***** keyboard *****/
   {"KW"  , PARTYPE_STRING}, {"KP"  , PARTYPE_STRING}, {"KH"  , PARTYPE_STRING}, {"KT"  , PARTYPE_STRING },
   {"KR"  , PARTYPE_STRING}, {"RA"  , PARTYPE_NONE },  {"KL"  , PARTYPE_STRING },
@@ -68,8 +69,10 @@ const struct atCommandType atCommands[] PROGMEM = {
   {"AX"  , PARTYPE_UINT }, {"AY"  , PARTYPE_UINT }, {"DX"  , PARTYPE_UINT }, {"DY"  , PARTYPE_UINT },
   {"MS"  , PARTYPE_UINT }, {"AC"  , PARTYPE_UINT }, {"RO"  , PARTYPE_UINT }, {"SB"  , PARTYPE_UINT },
   /***** audio feedback *****/
-  {"AT"  , PARTYPE_STRING}, {"AP"  , PARTYPE_STRING}, {"AD"  , PARTYPE_STRING}, {"AL"  , PARTYPE_NONE},
+  {"AT"  , PARTYPE_STRING}, {"AP"  , PARTYPE_STRING}, {"AR" , PARTYPE_STRING}, {"AL"  , PARTYPE_NONE},
   {"AV"  , PARTYPE_UINT },  {"AB"  , PARTYPE_UINT },
+  /***** timing *****/
+  {"AD"  , PARTYPE_UINT }, {"LP"  , PARTYPE_UINT }, {"MP"  , PARTYPE_UINT },
   #ifdef FLIPMOUSE
     /***** BT-Housekeeping / FM-Only *****/
     {"BC"  , PARTYPE_STRING}, {"BR"  , PARTYPE_UINT }, {"UG", PARTYPE_NONE },
@@ -195,20 +198,32 @@ void performCommand (uint8_t cmd, int16_t par1, char * keystring, int8_t periodi
       if (periodicMouseMovement) sensorData.autoMoveY = par1;
       else mouseMove(0, par1);
       break;
-    case CMD_JX:
-      joystickAxis(par1,-1,0);
+    case CMD_AD:
+      globalSettings.thresholdAutoDwell = par1;
       break;
-    case CMD_JY:
-      joystickAxis(-1,par1,0);
+    case CMD_LP:
+      globalSettings.thresholdLongPress = par1;
       break;
-    case CMD_JZ:
-      joystickAxis(par1,-1,1);
+    case CMD_MP:
+      globalSettings.thresholdMultiPress = par1;
       break;
-    case CMD_JT:
-      joystickAxis(-1,par1,0);
+    case CMD_J0:
+      joystickAxis(0,par1);
       break;
-    case CMD_JS:
-      joystickAxis(par1,-1,0);
+    case CMD_J1:
+      joystickAxis(1,par1);
+      break;
+    case CMD_J2:
+      joystickAxis(2,par1);
+      break;
+    case CMD_J3:
+      joystickAxis(3,par1);
+      break;
+    case CMD_J4:
+      joystickAxis(4,par1);
+      break;
+    case CMD_J5:
+      joystickAxis(5,par1);
       break;
     case CMD_JP:
       joystickButton(par1, 1);
@@ -504,11 +519,11 @@ void performCommand (uint8_t cmd, int16_t par1, char * keystring, int8_t periodi
       audioPlayback(keystring);
       break;
 
-    case CMD_AD:
+    case CMD_AR:
 #ifdef DEBUG_OUTPUT_FULL
-      Serial.println("delete audio file");
+      Serial.println("remove audio file");
 #endif
-      audioDelete(keystring);
+      audioRemove(keystring);
       break;
 
     case CMD_AL:

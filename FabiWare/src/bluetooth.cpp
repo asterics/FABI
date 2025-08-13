@@ -608,43 +608,26 @@
     for(uint8_t i = 0; i<11; i++) Serial_AUX.write(joystickReport[i]);
   }
   
-  
-  /**
+    /**
      @name joystickBTAxis
-     @param int axis1       new value for axis 1 (either X,Z or sliderLeft; set by param select)
-     @param int axis2       new value for axis 2 (either Y,Zrotate or sliderRight; set by param select)
-     @param uint8_t select  define axis for values (0: X/Y; 1: Z/Zrotate; 2: sliderLeft/sliderRight)
+     @param int axis       select axis (0-5)
+     @param int value      new value for axis, 0-1023
      @return none
-  
+ 
      Updates axis on the Joystick report for the BT firmware. Updated report is sent.
-  
      @note Parameter range for axis is 0-1023, but we only have int8_t ranges, so it is mapped.
-     @note Axis set to -1 avoids an update of this axis
   */
-  void joystickBTAxis(int axis1, int axis2, uint8_t select)
+  void joystickBTAxis(int axis, int value)
   {
-    //map the axis to int8
-    ///@todo how does map handle -1 as parameter here? will check later anyway.
-    int8_t a1 = map(axis1, 0, 1023, -127, 127);
-    int8_t a2 = map(axis2, 0, 1023, -127, 127);
-    
-    //determine correct axis & update report bytes
-    switch(select)
-    {
-      case 0:
-        if(axis1 != -1) joystickReport[0] = a1;
-        if(axis2 != -1) joystickReport[1] = a2;
-      break;
-      case 1:
-        if(axis1 != -1) joystickReport[2] = a1;
-        if(axis2 != -1) joystickReport[3] = a2;
-      break;
-      case 2:
-        if(axis1 != -1) joystickReport[4] = a1;
-        if(axis2 != -1) joystickReport[5] = a2;
-      break;
-      default: break;
-    }
+    if (axis < 0 || axis > 5) return;  // if invalid axis, do nothing
+
+    // map the axis to int8
+    int8_t mapped_value = map(axis, 0, 1023, -127, 127);
+        
+    // update the report bytes
+    joystickReport[axis] = mapped_value;
+
+    // send the updated report
     sendBTJoystickReport();
   }
   
@@ -658,8 +641,8 @@
   */
   void joystickBTButton(uint8_t nr, int val)
   {
-    int8_t *out = 0; //get a pointer to the right byte for the button
-    uint8_t shift; //determine the individual bit in this byte
+    int8_t *out = 0; // get a pointer to the right byte for the button
+    uint8_t shift;   // determine the individual bit in this byte
     if(nr >= 1 && nr <=8) { out = &joystickReport[7]; shift = nr - 1 ; }
     if(nr >= 9 && nr <=16) { out = &joystickReport[8]; shift = nr - 9; }
     if(nr >= 17 && nr <=24) { out = &joystickReport[9]; shift = nr - 17; }

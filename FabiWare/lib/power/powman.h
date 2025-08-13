@@ -7,6 +7,8 @@
 #ifndef _HARDWARE_POWMAN_H
 #define _HARDWARE_POWMAN_H
 
+#ifndef FLIPMOUSE   // low power support not available for FlipMouse
+
 #include "pico.h"
 #include "hardware/structs/powman.h"
 
@@ -273,3 +275,4 @@ static inline void powman_set_debug_power_request_ignored(bool ignored) {
 }
 
 #endif
+#endif 

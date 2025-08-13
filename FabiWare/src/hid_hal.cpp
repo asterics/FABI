@@ -84,6 +84,8 @@ void mouseMove(int x, int y)
     dragRecordingY+=y;
   }
 
+  if (x || y) sensorData.mouseMoveTimestamp=millis();
+
   //as long as one of the axis is out of bounds of int8 (more than one HID report)
   while(x < -128 || x > 127 || y < -128 || y > 127 ) {
     int8_t x_now,y_now = 0;
@@ -166,52 +168,40 @@ void keyboardReleaseAll()
   #endif
 }
 
-void joystickAxis(int axis1, int axis2, uint8_t select)
+void joystickAxis(int axis, int value)
 {
+  // TBD: update the call to the Joystick class when BLE joystick HID report was updated in RP Pico Core
+  // currently, axis0 (X) and axis1 (Y) are correct, but axis for the second joystick and sliders are mixed up
+  // proposal: use only the axis index, e.g. Joystick.axis0(value) 
+
   if (slotSettings.bt & 1)
   {
-    switch(select)
+    switch(axis)
     {
-      case 0:
-        Joystick.X(axis1);
-        Joystick.Y(axis2);
-      break;
-      case 1:
-        Joystick.Z(axis1);
-        Joystick.Zrotate(axis2);
-      break;
-      case 2:
-        Joystick.sliderLeft(axis1);
-        Joystick.sliderRight(axis2);
-      break;
-      default: break;
+      case 0:  Joystick.X(value); break;
+      case 1:  Joystick.Y(value); break;
+      case 2:  Joystick.Z(value); break;
+      case 3:  Joystick.sliderLeft(value); break;
+      case 4:  Joystick.sliderRight(value); break;
+      case 5:  Joystick.Zrotate(value); break;
     }
   }
   if (slotSettings.bt & 2)
   {
     #ifndef FLIPMOUSE
-      #ifdef FABIJOYSTICK_ENABLED
-        JoystickBLE.X(axis1);
-        JoystickBLE.Y(axis2);
+      #ifdef FABI_BLEJOYSTICK_ENABLED
       switch(select)
       {
-        case 0:
-          JoystickBLE.X(axis1);
-          JoystickBLE.Y(axis2);
-        break;
-        case 1:
-          JoystickBLE.Z(axis1);
-          JoystickBLE.Zrotate(axis2);
-        break;
-        case 2:
-          JoystickBLE.sliderLeft(axis1);
-          JoystickBLE.sliderRight(axis2);
-        break;
-        default: break;
+        case 0:  JoystickBLE.X(value); break;
+        case 1:  JoystickBLE.Y(value); break;
+        case 2:  JoystickBLE.Z(value); break;
+        case 3:  JoystickBLE.sliderLeft(value); break;
+        case 4:  JoystickBLE.sliderRight(value); break;
+        case 5:  JoystickBLE.Zrotate(value); break;
       }
       #endif
     #else
-      joystickBTAxis(axis1, axis2, select);
+      joystickBTAxis(axis, value);
     #endif
   }
 }
@@ -222,7 +212,7 @@ void joystickButton(uint8_t nr, int val)
     Joystick.button(nr,val);
   if (slotSettings.bt & 2)
   #ifndef FLIPMOUSE 
-    #ifdef FABIJOYSTICK_ENABLED
+    #ifdef FABI_BLEJOYSTICK_ENABLED
     JoystickBLE.button(nr,val);
     #endif
   #else 
@@ -237,7 +227,7 @@ void joystickHat(int val)
     Joystick.hat(val);
   if (slotSettings.bt & 2)
   #ifndef FLIPMOUSE 
-    #ifdef FABIJOYSTICK_ENABLED
+    #ifdef FABI_BLEJOYSTICK_ENABLED
     JoystickBLE.hat(val);
     #endif
   #else 
