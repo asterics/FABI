@@ -3686,8 +3686,7 @@
 	)
 	(symbol
 		(lib_id "Connector_Generic:Conn_01x02")
-		(at 55.88 121.92 0)
-		(mirror y)
+		(at 55.88 124.46 180)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -3695,7 +3694,7 @@
 		(dnp no)
 		(uuid "878be1bf-679f-452b-a9de-1685d7248ff1")
 		(property "Reference" "J7"
-			(at 55.88 130.81 0)
+			(at 55.88 115.57 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3703,7 +3702,7 @@
 			)
 		)
 		(property "Value" "JST PH2P ST"
-			(at 55.88 128.27 0)
+			(at 55.88 118.11 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3711,7 +3710,7 @@
 			)
 		)
 		(property "Footprint" "Connector_JST:JST_PH_B2B-PH-K_1x02_P2.00mm_Vertical"
-			(at 55.88 121.92 0)
+			(at 55.88 124.46 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3720,7 +3719,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 55.88 121.92 0)
+			(at 55.88 124.46 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3729,7 +3728,7 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"
-			(at 55.88 121.92 0)
+			(at 55.88 124.46 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3738,7 +3737,7 @@
 			)
 		)
 		(property "Reichelt Price/Stock" "https://www.reichelt.at/at/de/shop/produkt/jst_-_stiftleiste_gerade_1x2-polig_-_ph-185049?PROVID=2807&gad_source=1&gclid=Cj0KCQiA6Ou5BhCrARIsAPoTxrA8KpXldFcYOduG_eGlcCbwNPn1y8pE9fh27UvogsPRKOJYNNm9DSwaAmWJEALw_wcB&q=%2Fat%2Fde%2Fshop%2Fjst-stiftleiste-gerade-1x2-polig-ph-jst-ph2p-st-p185049.html"
-			(at 55.88 121.92 0)
+			(at 55.88 124.46 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3747,7 +3746,7 @@
 			)
 		)
 		(property "Reichelt" "JST PH2P ST"
-			(at 55.88 121.92 0)
+			(at 55.88 124.46 0)
 			(effects
 				(font
 					(size 1.27 1.27)

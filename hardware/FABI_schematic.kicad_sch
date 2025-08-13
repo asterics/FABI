@@ -5,12 +5,13 @@
 	(uuid "8404dabe-a0ce-44ce-a3c9-f9e9e54d2b02")
 	(paper "A4")
 	(title_block
-		(title "FABI3 PCB (PicoW) with 5 jack plugs")
-		(date "2023-08-23")
-		(rev "v3.1")
-		(company "AsTeRICS Foundation")
-		(comment 1 "www.asterics-foundation.org")
-		(comment 2 "Benjamin Aigner")
+		(title "FABI3 PCB (Pico2W) with 5 jack plugs")
+		(date "2025-08-12")
+		(rev "v3.5")
+		(company "AsTeRICS Foundation / Assistronik")
+		(comment 1 "https://www.asterics-foundation.org")
+		(comment 2 "https://assistronik.info")
+		(comment 3 "Benjamin Aigner")
 	)
 	(lib_symbols
 		(symbol "Connector:Conn_01x04_Socket"

@@ -276,6 +276,16 @@
 		(uuid "56d2cf10-24d8-47b0-9ce1-d5e6a55ad100")
 	)
 	(fp_line
+		(start -8.89 -27.432)
+		(end -8.89 26.924)
+		(stroke
+			(width 0.12)
+			(type default)
+		)
+		(layer "F.SilkS")
+		(uuid "7864637d-1f07-48b9-af99-daed9c0bf890")
+	)
+	(fp_line
 		(start -7.51 -25.61)
 		(end -4.235 -25.61)
 		(stroke
@@ -304,6 +314,16 @@
 		)
 		(layer "F.SilkS")
 		(uuid "4f9eeeae-11ae-4fcc-8de0-19e39f9047fe")
+	)
+	(fp_line
+		(start 8.89 -27.432)
+		(end 8.89 26.924)
+		(stroke
+			(width 0.12)
+			(type default)
+		)
+		(layer "F.SilkS")
+		(uuid "4ab65da4-4118-440b-9dfa-172036d724c9")
 	)
 	(fp_line
 		(start 10 -25.61)
@@ -1019,80 +1039,56 @@
 	)
 	(pad "17" smd roundrect
 		(at -8.89 16.51)
-		(size 4 1.6)
-		(drill
-			(offset -0.4 0)
-		)
+		(size 4.8 1.6)
 		(layers "F.Cu" "F.Mask" "F.Paste")
 		(roundrect_rratio 0.5)
 		(uuid "e5731b5f-54d7-4fb6-8fc2-f04f5ab41766")
 	)
 	(pad "18" smd roundrect
 		(at -8.89 19.05)
-		(size 4 1.6)
-		(drill
-			(offset -0.4 0)
-		)
+		(size 4.8 1.6)
 		(layers "F.Cu" "F.Mask" "F.Paste")
 		(roundrect_rratio 0.5)
 		(uuid "89825c3a-a33c-475c-aa13-5db984bf4b5f")
 	)
 	(pad "19" smd roundrect
 		(at -8.89 21.59)
-		(size 4 1.6)
-		(drill
-			(offset -0.4 0)
-		)
+		(size 4.8 1.6)
 		(layers "F.Cu" "F.Mask" "F.Paste")
 		(roundrect_rratio 0.5)
 		(uuid "33b128f4-de51-4697-bbb6-d02f722b6e22")
 	)
 	(pad "20" smd roundrect
 		(at -8.89 24.13)
-		(size 4 1.6)
-		(drill
-			(offset -0.4 0)
-		)
+		(size 4.8 1.6)
 		(layers "F.Cu" "F.Mask" "F.Paste")
 		(roundrect_rratio 0.5)
 		(uuid "4873a318-a3cc-4919-9e36-e7549f3db713")
 	)
 	(pad "21" smd roundrect
 		(at 8.89 24.13)
-		(size 4 1.6)
-		(drill
-			(offset 0.4 0)
-		)
+		(size 4.8 1.6)
 		(layers "F.Cu" "F.Mask" "F.Paste")
 		(roundrect_rratio 0.5)
 		(uuid "2910a98c-654d-4797-9e34-19fe26e38c30")
 	)
 	(pad "22" smd roundrect
 		(at 8.89 21.59)
-		(size 4 1.6)
-		(drill
-			(offset 0.4 0)
-		)
+		(size 4.8 1.6)
 		(layers "F.Cu" "F.Mask" "F.Paste")
 		(roundrect_rratio 0.5)
 		(uuid "86c654dd-be27-4c64-9d1c-475e8561e248")
 	)
 	(pad "23" smd roundrect
 		(at 8.9 19.05)
-		(size 4 1.6)
-		(drill
-			(offset 0.4 0)
-		)
+		(size 4.8 1.6)
 		(layers "F.Cu" "F.Mask" "F.Paste")
 		(roundrect_rratio 0.5)
 		(uuid "c15497de-b3ec-49cc-8650-2e2433bccdeb")
 	)
 	(pad "24" smd roundrect
 		(at 8.89 16.51)
-		(size 4 1.6)
-		(drill
-			(offset 0.4 0)
-		)
+		(size 4.8 1.6)
 		(layers "F.Cu" "F.Mask" "F.Paste")
 		(roundrect_rratio 0.5)
 		(uuid "d6e8f904-b651-4574-aee4-f42503d35ea5")
@@ -1323,8 +1319,8 @@
 		)
 		(polygon
 			(pts
-				(xy -2.4 24.989895) (xy -7.1 21.339895) (xy -7.1 17) (xy 7.1 17) (xy 7.1 21.339895) (xy 2.4 24.989895)
-				(xy 2.4 25) (xy -2.4 25)
+				(xy -2.4 24.989895) (xy -6 21.5) (xy -6 17) (xy 6 17) (xy 6 21.59) (xy 2.4 24.989895) (xy 2.4 25)
+				(xy -2.4 25)
 			)
 		)
 	)
@@ -1390,7 +1386,7 @@
 		)
 		(polygon
 			(pts
-				(xy 7.1 26) (xy 21 26) (xy 21 35) (xy -21 35) (xy -21 26) (xy -7.1 26) (xy -7.1 17) (xy 7.1 17)
+				(xy 6.1 26) (xy 21 26) (xy 21 35) (xy -21 35) (xy -21 26) (xy -6.1 26) (xy -6.1 17) (xy 6.1 17)
 			)
 		)
 	)
