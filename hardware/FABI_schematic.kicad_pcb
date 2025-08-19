@@ -7,6 +7,10 @@
 		(legacy_teardrops no)
 	)
 	(paper "A4")
+	(title_block
+		(date "2025-08-19")
+		(rev "v3.5")
+	)
 	(layers
 		(0 "F.Cu" signal)
 		(2 "B.Cu" signal)
@@ -1303,7 +1307,7 @@
 			(net 1 "GND")
 			(pinfunction "1")
 			(pintype "passive")
-			(uuid "892935ea-dcc4-4a9f-b8a8-170b96481223")
+			(uuid "ef04951a-d8af-449d-82b6-422e2cc99dc0")
 		)
 		(pad "1" smd rect
 			(at -3.81 1.4 270)
@@ -1312,7 +1316,7 @@
 			(net 1 "GND")
 			(pinfunction "1")
 			(pintype "passive")
-			(uuid "892935ea-dcc4-4a9f-b8a8-170b96481223")
+			(uuid "20d37294-d2c0-4536-bfb0-f0c4c57b0e95")
 		)
 		(pad "3" smd rect
 			(at -1.27 -1.4 270)
@@ -1332,7 +1336,7 @@
 			(net 4 "+3.3VADC")
 			(pinfunction "3")
 			(pintype "passive")
-			(uuid "a281d725-30d6-4f93-b0b8-23e27e825aa7")
+			(uuid "313ab749-9aed-4876-9d1b-7fe0549c8bf2")
 		)
 		(pad "3" smd rect
 			(at -1.27 1.4 270)
@@ -1341,7 +1345,7 @@
 			(net 4 "+3.3VADC")
 			(pinfunction "3")
 			(pintype "passive")
-			(uuid "a281d725-30d6-4f93-b0b8-23e27e825aa7")
+			(uuid "47eb584e-edc6-475f-8170-1bbc5814742c")
 		)
 		(pad "5" smd rect
 			(at 1.27 -1.4 270)
@@ -1361,7 +1365,7 @@
 			(net 19 "/SCL_INT")
 			(pinfunction "5")
 			(pintype "passive")
-			(uuid "c300d333-fd6c-427b-88cd-10d847ae3d56")
+			(uuid "4eb32a7e-6c98-41fa-b906-b141f257c3bc")
 		)
 		(pad "5" smd rect
 			(at 1.27 1.4 270)
@@ -1370,7 +1374,7 @@
 			(net 19 "/SCL_INT")
 			(pinfunction "5")
 			(pintype "passive")
-			(uuid "c300d333-fd6c-427b-88cd-10d847ae3d56")
+			(uuid "455aa635-a4f3-49a9-a035-0623185e4a2b")
 		)
 		(pad "7" smd rect
 			(at 3.81 -1.4 270)
@@ -1390,7 +1394,7 @@
 			(net 18 "/SDA_INT")
 			(pinfunction "7")
 			(pintype "passive")
-			(uuid "23e3d8a2-68b3-41d1-b058-936c1968e03c")
+			(uuid "217dc7f6-d7a9-4fd1-8be0-5887db3bb3f6")
 		)
 		(pad "7" smd rect
 			(at 3.81 1.4 270)
@@ -1399,7 +1403,7 @@
 			(net 18 "/SDA_INT")
 			(pinfunction "7")
 			(pintype "passive")
-			(uuid "23e3d8a2-68b3-41d1-b058-936c1968e03c")
+			(uuid "ed11ffe1-e5f0-4852-a027-4d93b6fe0beb")
 		)
 		(embedded_fonts no)
 		(model "E:\\daten_2012_11_16\\eigene_dokumente\\FH\\FH\\Internship\\KiCad_Libs\\SamacSys_Parts.3dshapes\\91601-304LF.stp"
@@ -3984,7 +3988,7 @@
 			(remove_unused_layers no)
 			(net 5 "/BUTTON1")
 			(pintype "passive")
-			(uuid "a1c01b07-7a0f-46aa-a040-31400180d3f8")
+			(uuid "c1b3ade6-8dd3-4c07-9300-5d173a86a9b3")
 		)
 		(pad "6SR" thru_hole circle
 			(at 2.85 5.7 180)
@@ -4430,7 +4434,7 @@
 			(remove_unused_layers no)
 			(net 6 "/BUTTON2")
 			(pintype "passive")
-			(uuid "ea8c785c-5bcb-4597-bcf9-7c02df66107f")
+			(uuid "b3f28187-11f5-4b8a-81ea-36e0cf822577")
 		)
 		(pad "6SR" thru_hole circle
 			(at 2.85 5.7 180)
@@ -4876,7 +4880,7 @@
 			(remove_unused_layers no)
 			(net 7 "/BUTTON3")
 			(pintype "passive")
-			(uuid "10ad91f2-b921-428a-816b-9104920a4578")
+			(uuid "65ddb390-48fb-4d4e-b124-3b1a3fff2c95")
 		)
 		(pad "6SR" thru_hole circle
 			(at 2.85 5.7 180)
@@ -5322,7 +5326,7 @@
 			(remove_unused_layers no)
 			(net 9 "/BUTTON4")
 			(pintype "passive")
-			(uuid "c9b18a3d-f7e0-4e0b-8f68-1fa22ac858c9")
+			(uuid "cd49d8e0-9ab5-4760-b5ea-01ee467e6872")
 		)
 		(pad "6SR" thru_hole circle
 			(at 2.85 5.7)
@@ -5768,7 +5772,7 @@
 			(remove_unused_layers no)
 			(net 12 "/BUTTON5")
 			(pintype "passive")
-			(uuid "f3ed988d-b790-48af-87c2-e1e9a9358a20")
+			(uuid "894a05fb-ebdf-47af-a7f6-fcb0c799276b")
 		)
 		(pad "6SR" thru_hole circle
 			(at 2.85 5.7)
@@ -5810,7 +5814,7 @@
 				)
 			)
 		)
-		(property "Value" "TestPoint_Probe"
+		(property "Value" "~"
 			(at 0 2.05 0)
 			(layer "F.Fab")
 			(uuid "6246a10a-62d9-453b-8650-659ed56dff69")
@@ -9653,7 +9657,7 @@
 				)
 			)
 		)
-		(property "Value" "Conn_01x02_Pin"
+		(property "Value" "~"
 			(at 0 5.31 0)
 			(layer "F.Fab")
 			(uuid "e6309294-ddf1-4709-81a4-dc10d4a989bb")
@@ -10565,7 +10569,7 @@
 				)
 			)
 		)
-		(property "Value" "1u"
+		(property "Value" "1uF / >6.3V / X7R"
 			(at 0 1.43 90)
 			(layer "F.Fab")
 			(uuid "26f1a868-d34f-4667-8db4-6ecdcc830006")
@@ -14750,7 +14754,7 @@
 			(pinfunction "Pin_1")
 			(pintype "passive")
 			(thermal_bridge_angle 45)
-			(uuid "6e31e1a7-495c-4bb3-b812-ee4597f8714b")
+			(uuid "dce9079f-d659-42aa-aca7-a29032a998dc")
 		)
 		(pad "2" smd roundrect
 			(at 2 -3.05 270)
@@ -14772,7 +14776,7 @@
 			(pinfunction "Pin_2")
 			(pintype "passive")
 			(thermal_bridge_angle 45)
-			(uuid "a9a01dc0-2b83-4cec-bc3d-9ec659a23ed8")
+			(uuid "1920c917-21d7-453d-9e9c-651623dd6d9a")
 		)
 		(pad "3" smd roundrect
 			(at 0 -3.05 270)
@@ -14794,7 +14798,7 @@
 			(pinfunction "Pin_3")
 			(pintype "passive")
 			(thermal_bridge_angle 45)
-			(uuid "af449f36-37b0-4a4c-973d-e5d196e983a5")
+			(uuid "edccc45c-7307-417b-b9ea-7f82b73d4014")
 		)
 		(pad "4" smd roundrect
 			(at -2 -3.05 270)
@@ -14816,7 +14820,7 @@
 			(pinfunction "Pin_4")
 			(pintype "passive")
 			(thermal_bridge_angle 45)
-			(uuid "6d5d2ff9-bc54-42a2-b21a-347d091324a0")
+			(uuid "847f0670-b8cd-4b65-a3dc-59409180e051")
 		)
 		(pad "5" smd roundrect
 			(at -4 -3.05 270)
@@ -14838,7 +14842,7 @@
 			(pinfunction "Pin_5")
 			(pintype "passive")
 			(thermal_bridge_angle 45)
-			(uuid "74b281e7-b748-4e63-a62c-72c68f5423e2")
+			(uuid "a67eee4e-ef8f-4794-9ac3-1b5afadf2320")
 		)
 		(embedded_fonts no)
 	)
@@ -16174,7 +16178,7 @@
 				)
 			)
 		)
-		(property "Value" "1u"
+		(property "Value" "1uF / >6.3V / X7R"
 			(at 0 1.43 90)
 			(layer "F.Fab")
 			(uuid "3e56e8f4-6ca0-4be8-b9e3-120f492804c0")
@@ -17552,7 +17556,7 @@
 				)
 			)
 		)
-		(property "Value" "TestPoint_Probe"
+		(property "Value" "~"
 			(at 0 2.05 0)
 			(layer "F.Fab")
 			(uuid "0caad552-d4db-4d81-bb83-a4b4bcfed8f2")
@@ -18444,7 +18448,7 @@
 				)
 			)
 		)
-		(property "Value" "54601-906WPLF"
+		(property "Value" "MTJ-665X1"
 			(at 3.55 18.3 90)
 			(layer "F.Fab")
 			(uuid "16c9206e-1987-4468-84b4-2f1b258a9acd")
@@ -18481,7 +18485,7 @@
 				)
 			)
 		)
-		(property "Digikey" "609-4729-ND"
+		(property "Digikey" "2057-MTJ-665X1-ND"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -18494,7 +18498,7 @@
 				)
 			)
 		)
-		(property "Farnell" "2135977"
+		(property "Farnell" ""
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -18507,7 +18511,7 @@
 				)
 			)
 		)
-		(property "Mouser" " 649-54601-906WPLF"
+		(property "Mouser" "737-MTJ-665X1"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -19140,7 +19144,7 @@
 				)
 			)
 		)
-		(property "Value" "1u"
+		(property "Value" "1uF / >6.3V / X7R"
 			(at 0 1.43 90)
 			(layer "F.Fab")
 			(uuid "c8f187ca-af69-47da-b6d2-dab876d09d8f")
@@ -20943,7 +20947,7 @@
 				)
 			)
 		)
-		(property "Value" "100"
+		(property "Value" "100R"
 			(at 0.125 1.43 90)
 			(layer "F.Fab")
 			(uuid "573192a0-7330-4f95-b390-fcc2d38133a8")
@@ -22048,7 +22052,7 @@
 				)
 			)
 		)
-		(property "Value" "100"
+		(property "Value" "100R"
 			(at 0 1.43 90)
 			(layer "F.Fab")
 			(uuid "49c2015b-6d40-4044-a310-e179918ce573")

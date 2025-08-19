@@ -4496,7 +4496,7 @@
 				)
 			)
 		)
-		(property "Value" "54601-906WPLF"
+		(property "Value" "MTJ-665X1"
 			(at 190.5 50.8 0)
 			(effects
 				(font
@@ -4531,7 +4531,7 @@
 				(hide yes)
 			)
 		)
-		(property "Digikey" "609-4729-ND"
+		(property "Digikey" "2057-MTJ-665X1-ND"
 			(at 172.72 43.18 0)
 			(effects
 				(font
@@ -4540,7 +4540,7 @@
 				(hide yes)
 			)
 		)
-		(property "Farnell" "2135977"
+		(property "Farnell" ""
 			(at 172.72 43.18 0)
 			(effects
 				(font
@@ -4549,7 +4549,7 @@
 				(hide yes)
 			)
 		)
-		(property "Mouser" " 649-54601-906WPLF"
+		(property "Mouser" "737-MTJ-665X1"
 			(at 172.72 43.18 0)
 			(effects
 				(font

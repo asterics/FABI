@@ -3117,7 +3117,7 @@
 		(fields_autoplaced yes)
 		(uuid "3ab655d6-e880-4c56-bc39-898e2b84ac26")
 		(property "Reference" "TP2"
-			(at 72.39 46.6725 0)
+			(at 72.39 46.6724 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3125,7 +3125,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "TestPoint_Probe"
+		(property "Value" "~"
 			(at 72.39 47.9425 0)
 			(effects
 				(font
@@ -3257,7 +3257,7 @@
 				)
 			)
 		)
-		(property "Value" "TestPoint_Probe"
+		(property "Value" "~"
 			(at 130.81 27.94 90)
 			(effects
 				(font
