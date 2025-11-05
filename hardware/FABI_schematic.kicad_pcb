@@ -4002,7 +4002,7 @@
 			(uuid "ca37f7d6-c7a4-42e8-b06f-9a0f1e56c441")
 		)
 		(embedded_fonts no)
-		(model "${KIPRJMOD}/step/FC68125.step"
+		(model "${KIPRJMOD}/kicad_libs/FABI.pretty/FC68125.step"
 			(offset
 				(xyz -0.05 3.8 0)
 			)
@@ -4448,7 +4448,7 @@
 			(uuid "5b9e4bb8-b16e-4b93-b066-6420efd810a1")
 		)
 		(embedded_fonts no)
-		(model "${KIPRJMOD}/step/FC68125.step"
+		(model "${KIPRJMOD}/kicad_libs/FABI.pretty/FC68125.step"
 			(offset
 				(xyz -0.05 3.8 0)
 			)
@@ -4894,7 +4894,7 @@
 			(uuid "1322c0ff-4e5b-4684-866c-3e8966a47fcd")
 		)
 		(embedded_fonts no)
-		(model "${KIPRJMOD}/step/FC68125.step"
+		(model "${KIPRJMOD}/kicad_libs/FABI.pretty/FC68125.step"
 			(offset
 				(xyz -0.05 3.8 0)
 			)
@@ -5340,7 +5340,7 @@
 			(uuid "e2f7dded-ae57-4fa4-bd5b-33c549d2971a")
 		)
 		(embedded_fonts no)
-		(model "${KIPRJMOD}/step/FC68125.step"
+		(model "${KIPRJMOD}/kicad_libs/FABI.pretty/FC68125.step"
 			(offset
 				(xyz -0.05 3.8 0)
 			)
@@ -5786,7 +5786,7 @@
 			(uuid "163c2157-7fea-4c53-b5c8-464a63138c23")
 		)
 		(embedded_fonts no)
-		(model "${KIPRJMOD}/step/FC68125.step"
+		(model "${KIPRJMOD}/kicad_libs/FABI.pretty/FC68125.step"
 			(offset
 				(xyz -0.05 3.8 0)
 			)
@@ -18867,15 +18867,15 @@
 			(uuid "8fd9c5aa-9936-4855-b741-04bfaa3fbd69")
 		)
 		(embedded_fonts no)
-		(model "${KICAD9_3DMODEL_DIR}/Connector_RJ.3dshapes/RJ12_Amphenol_54601-x06_Horizontal.step"
+		(model "${KIPRJMOD}/kicad_libs/FABI.pretty/54601-906WPLF--3DModel-STEP-56544.STEP"
 			(offset
-				(xyz 0 0 0)
+				(xyz 3.15 -8.85 0)
 			)
 			(scale
 				(xyz 1 1 1)
 			)
 			(rotate
-				(xyz 0 0 0)
+				(xyz -90 -0 -0)
 			)
 		)
 	)
