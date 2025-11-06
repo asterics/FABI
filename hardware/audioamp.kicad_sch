@@ -1495,7 +1495,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "Conn_01x02_Pin"
+		(property "Value" "~"
 			(at 180.34 69.088 0)
 			(effects
 				(font
@@ -1687,8 +1687,8 @@
 				(justify left)
 			)
 		)
-		(property "Value" "1u"
-			(at 132.08 70.612 90)
+		(property "Value" "1uF / >6.3V / X7R"
+			(at 131.064 72.136 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2287,7 +2287,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "100"
+		(property "Value" "100R"
 			(at 140.462 83.82 90)
 			(effects
 				(font
@@ -2392,7 +2392,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "100"
+		(property "Value" "100R"
 			(at 140.462 68.58 90)
 			(effects
 				(font
@@ -2726,7 +2726,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "1u"
+		(property "Value" "1uF / >6.3V / X7R"
 			(at 243.84 73.6599 0)
 			(effects
 				(font
@@ -3137,8 +3137,8 @@
 				(justify left)
 			)
 		)
-		(property "Value" "1u"
-			(at 132.334 76.708 90)
+		(property "Value" "1uF / >6.3V / X7R"
+			(at 131.318 99.822 0)
 			(effects
 				(font
 					(size 1.27 1.27)
