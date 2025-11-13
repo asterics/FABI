@@ -1798,6 +1798,12 @@
 		(uuid "0fbe9db1-eb3e-4300-b097-007f747d59aa")
 	)
 	(junction
+		(at 210.82 27.94)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "25bf6d10-3094-4e1c-a4a9-4cdb031e43a3")
+	)
+	(junction
 		(at 110.49 86.36)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -1808,12 +1814,6 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "a1c84193-95bb-4d6c-9bc7-759b77d8ef97")
-	)
-	(junction
-		(at 210.82 27.94)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "aa58aa5e-ae8f-4812-a0d5-bc6e223cb73d")
 	)
 	(junction
 		(at 210.82 48.26)
@@ -3476,72 +3476,6 @@
 		)
 	)
 	(symbol
-		(lib_id "power:+3.3VADC")
-		(at 210.82 27.94 90)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "ad2a64e8-7a45-42f4-a69e-4fc04e77bacc")
-		(property "Reference" "#PWR0104"
-			(at 212.09 24.13 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "+3.3VADC"
-			(at 207.645 27.94 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" ""
-			(at 210.82 27.94 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 210.82 27.94 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"+3.3VADC\""
-			(at 210.82 27.94 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "c3d9f655-a872-450e-89a0-9e463be28210")
-		)
-		(instances
-			(project "FABI_schematic"
-				(path "/8404dabe-a0ce-44ce-a3c9-f9e9e54d2b02/301e6e18-5436-47c5-b1ce-681b8073d9ea"
-					(reference "#PWR0104")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "power:GND")
 		(at 99.06 60.96 90)
 		(mirror x)
@@ -3874,6 +3808,71 @@
 			(project "FABI_schematic"
 				(path "/8404dabe-a0ce-44ce-a3c9-f9e9e54d2b02/301e6e18-5436-47c5-b1ce-681b8073d9ea"
 					(reference "C8")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:VCC")
+		(at 210.82 27.94 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "cd4038ce-d376-41f2-997c-b7c20425db7d")
+		(property "Reference" "#PWR055"
+			(at 214.63 27.94 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "VCC"
+			(at 206.4258 27.559 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 210.82 27.94 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 210.82 27.94 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"VCC\""
+			(at 210.82 27.94 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "3a8c7074-e62d-4799-9090-3f971162b3ac")
+		)
+		(instances
+			(project "FABI_schematic"
+				(path "/8404dabe-a0ce-44ce-a3c9-f9e9e54d2b02/301e6e18-5436-47c5-b1ce-681b8073d9ea"
+					(reference "#PWR055")
 					(unit 1)
 				)
 			)
