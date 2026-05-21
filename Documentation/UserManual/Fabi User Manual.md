@@ -316,11 +316,7 @@ In the *GENERAL Tab*, the Bluetooth settings can be adjusted and the main module
 
 ### USB Mode / Bluetooth Mode
 
-The optional Bluetooth module (hardware add-on) allows keyboard- and mouse actions to be sent to a connected ("paired") Bluetooth-enabled device (such as a smartphone or tablet computer). The **Mode for Slot x** selection defines whether the mouse and keyboard actions shall be generated via USB, Bluetooth or both (see Figure 13 and Figure 14):
-
-![Abbildung13](./Bilder/abb13.PNG) 
-
-*Figure 14*: Bluetooth/USB mode selection
+The optional Bluetooth module (hardware add-on) allows keyboard- and mouse actions to be sent to a connected ("paired") Bluetooth-enabled device (such as a smartphone or tablet computer). The **Mode for Slot x** selection defines whether the mouse and keyboard actions shall be generated via USB, Bluetooth or both (see Figure 13):
 
 ***Note:*** The USB/Bluetooh mode selection is only useful if the optional Bluetooth add-on module is connected to the FABI device (see section "Using the Bluetooth module"). 
 Since this setting is defined per configuration slot, the same FABI device can be used e.g. to control a laptop via USB and a smartphone/tablet via Bluetooth. Switching control between those devices is done by simply changing the active slot.
