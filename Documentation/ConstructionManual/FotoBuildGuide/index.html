@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Anleitung für den Bau des FABI3 Construction Sets!">
+  <title>FABI-Bauanleitung</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <p class="eyebrow" id="eyebrow">AsTeRICS Foundation / Assistronik / Bauanleitung FABI3</p>
+      <h1>Flexible Assistive<br><span>Button Interface</span></h1>
+      <p class="intro" id="intro">Anleitung für den Zusammenbau des FABI3 Bausatzes.</p>
+      <div id="gallery-details" class="header-meta" aria-label="Galerie-Details">
+        <span><strong id="photo-count">In 27</strong> <span id="photo-count-label">einfachen Schritten</span></span>
+        <span class="meta-rule" aria-hidden="true"></span>
+        <span id="sequence-note">Folge der nummerierten Reihenfolge</span>
+      </div>
+    </div>
+    <button id="language-toggle" class="language-toggle" type="button" aria-label="Switch language to English">English</button>
+    <div class="header-mark" aria-hidden="true">FABI<span>3</span></div>
+  </header>
+
+  <main>
+    <section class="gallery-section" aria-labelledby="gallery-title">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow" id="process-label">Flexible Assistive Button Interface</p>
+          <h2 id="gallery-title">Schritt-für-Schritt Anleitung</h2>
+        </div>
+        <p class="section-note" id="section-note">Für detailierte Bilder und Instruktionen, clicke die Übersichtsfotos an!</p>
+      </div>
+      <div id="gallery" class="gallery" aria-live="polite"></div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>FABI / Flexible Assistive Button Interface</p>
+    <p>AsTeRICS Foundation / Assistronik</p>
+  </footer>
+
+  <dialog id="lightbox" class="lightbox" aria-labelledby="lightbox-title">
+    <div class="lightbox-content">
+      <button class="lightbox-close" type="button" aria-label="Bildansicht schließen">&times;</button>
+      <button class="lightbox-nav lightbox-prev" type="button" aria-label="Vorheriges Bild">&#8592;</button>
+      <figure>
+        <img id="lightbox-image" src="" alt="">
+        <figcaption>
+          <span id="lightbox-step"></span>
+          <strong id="lightbox-title"></strong>
+          <span id="lightbox-description"></span>
+        </figcaption>
+      </figure>
+      <button class="lightbox-nav lightbox-next" type="button" aria-label="Nächstes Bild">&#8594;</button>
+    </div>
+  </dialog>
+
+  <script src="gallery.js"></script>
+</body>
+</html>
