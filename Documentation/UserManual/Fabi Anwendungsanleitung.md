@@ -14,7 +14,7 @@ ____
 
 FABI - das „Flexible Assistive Button Interface“ - ermöglicht es, bis zu fünf Taster (Buttons) an einen Computer oder ein Tablet/Smartphone anzuschließen und dadurch Maus-, Keyboard- oder Joystick-Aktionen auszulösen sowie andere Aktionen auszuführen. Ein konfiguriertes FABI-Modul kann mit jedem Computer (Windows, Linux oder Mac) oder mobilem Gerät (iPad/iPhone, Android), ohne Installation von spezieller Software verwendet werden, weil sich das FABI-Modul beim Anschließen an den Computer wie eine gewöhnliche Computermaus bzw. eine Tastatur verhält. Menschen, für die herkömmliche Eingabegeräte nicht geeignet sind, können dadurch Computerspiele spielen, im Internet surfen, E-Mails schreiben und vieles mehr.
 
-
+<div style="page-break-after: always;"></div>
 
 
 
@@ -30,13 +30,19 @@ FABI ist als Open Source Bausatz (inkl. entsprechender Bauanleitung für die Har
 
 Alle Softwaremodule, die Hardware-Designdateien und die Dokumente für die Anleitungen sind unter freien Open Source Lizenzen verfügbar und können kostenlos verwendet und verändert werden. Wir haben uns bemüht, preisgünstigste Komponenten auszuwählen und dennoch keine Kompromisse bei Funktionalität und Flexibilität zu machen – was FABI zu einer erschwinglichen Tasterschnittstelle mit umfangreichen Möglichkeiten macht!
 
+
+
+<img src="./Bilder/abb1.PNG" alt="Abbildung1" style="zoom:80%;" />
+
+*Abbildung 1*: Startseite des Konfigurationsmanagers
+
+#### Der Konfigurationsmanager
+
 Der **FABI-Konfigurationsmanager** wird benötigt, um die Funktionen der Taster / Buttons festlegen zu können. Nachdem eine Konfiguration im FABI-System gespeichert wurde, bleibt sie dort erhalten und das FABI-System kann zur Steuerung unterschiedlicher Geräte verwendet werden (z.B. Windows-PC, Mac-Computer, Tablet oder Smart-Phone mit USB- oder Bluetooth-Anschluss). Der Konfigurationsmanager wird erst wieder benötigt, wenn Einstellungen geändert werden sollen.
 
 Der Konfigurationsmanager wird im Chrome oder Edge Web-Browser (Safari oder Firefox funktionieren nicht) geöffnet und ist unter folgender Adresse zu finden: [fabi.asterics.eu](https://fabi.asterics.eu/index_fabi.htm). Untenstehend in Abbildung 1 sehen sie die Startseite. Wenn Sie auf den Button VERBINDEN ZU FABI (ÜBER USB ANGESCHLOSSEN) klicken, so wird in der Auswahlbox noch kein Kommunikationsanschluss (COM Port) auswählbar sein, sofern Sie das FABI Modul noch nicht mittels USB-Stecker mit dem Computer verbunden haben. 
 
-![Abbildung1](./Bilder/abb1.PNG)
 
-*Abbildung 1*: Startseite des Konfigurationsmanagers
 
 #### Anschließen des USB-Micro Kabels
 
@@ -52,7 +58,7 @@ Um die Funktionen der Web-Konfiguration zu verwenden, folgen Sie den nachfolgend
 2. Danach sollte in einem Pop-Up Fenster ein Kommunikations-Anschluss (COM Port) mit bestimmter Nummer (z.B. COM4) auswählbar sein. Klicken Sie diesen Eintrag an und drücken Sie danach auf *Verbinden*. (Nach dem Ausstecken des FABI-Moduls sollte der COM Port wieder verschwinden.) 
 3. **Sollten Sie nicht die Benutzeroberfläche des FABI Konfigurationsmanagers wie in Abbildung 3 sehen können, so öffnen Sie die Website erneut und wählen Sie einen anderen COM-Port in der aufpoppenden Auswahlbox. Danach klicken Sie erneut auf *Verbinden*.** 
 
-
+<div style="page-break-after: always;"></div>
 
 ## Verwendung des Konfigurationsmanagers
 
@@ -302,6 +308,8 @@ Am unteren Ende des Reiters finden Sie den Button für das Zurücksetzen des FAB
 
 **Viel Spaß beim Ausprobieren und beim Erstellen eigener FABI-Konfigurationen!**
 
+<div style="page-break-after: always;"></div>
+
 ### Liste der unterstützten Makrokommandos
 
 | **Kürzel**  | **Funktion**                                                                                                                   | **Beispiel**                                                                                   |
@@ -377,6 +385,8 @@ Unter der Adresse [www.oneswitch.org.uk](https://www.oneswitch.org.uk/) hat Barr
 
 [Click2Speak](https://www.click2speak.net) ist eine flexible Bildschirmtastatur (On-Screen Keyboard) für Windows, die zusätzliche nützliche Funktionen bietet- etwa eine Maus-Click-Auswahlbox.
 
+<div style="page-break-after: always;"></div>
+
 ## Kontaktinformationen
 
 **AsTeRICS Foundation**
@@ -387,15 +397,15 @@ Email: <office@asterics-foundation.org>
 
 ## Haftungsausschluss
 
-Die Fachhochschule Technikum Wien und die AsTeRICS Foundation übernehmen keinerlei Gewährleistung oder Haftung für die Funktionsfähigkeit der Hardware-/Softwaremodule oder die Richtigkeit der Dokumentation.
+Die AsTeRICS Foundation übernimmt keinerlei Gewährleistung oder Haftung für die Funktionsfähigkeit der Hardware-/Softwaremodule oder die Richtigkeit der Dokumentation.
 
-Weiters haften die FH Technikum Wien und die AsTeRICS Foundation nicht für etwaige Gesundheitsschäden durch eine Verwendung der bereitgestellten Hardware-/Softwaremodule. 
+Weiters haftet die AsTeRICS Foundation nicht für etwaige Gesundheitsschäden durch eine Verwendung der bereitgestellten Hardware-/Softwaremodule. 
 Die Verwendung der bereitgestellten Module und Informationen erfolgt auf eigenes Risiko!
 
 ## Danksagung
 
 Wir danken Miriam Brenner, Fabian Schiegl und Fanny Peternell für ihre Unterstützung bei der Erstellung dieser Anleitung und Andreas Fußthaler für die Entwicklung der FABI-PCB-Version.
 
-Dieses Projekt wurde von der Stadt Wien (Magistratsabteilung 23 für Wirtschaft, Arbeit und Statistik, MA 23) finanziell unterstützt (Projektnummer 14-02, 18-04).
+Dieses Projekt wurde im Rahmen von F&E Projekten an der FH Technikum Wien von der Stadt Wien (Magistratsabteilung 23 für Wirtschaft, Arbeit und Statistik, MA 23) finanziell unterstützt (Projektnummer 14-02, 18-04).
 
 ![Abbildung18](./Bilder/abb18.PNG)

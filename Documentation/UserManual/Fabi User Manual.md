@@ -14,11 +14,7 @@ ____
 
 FABI - the "Flexible Assistive Button Interface" - connects up to five momentary switches (buttons) to a Personal Computer, smartphone or tablet, in order to perform complex mouse-, keyboard- and joystick actions. A configured FABI module can be used with any PC or mobile device (running Windows, Linux, macOS, iOS or Android) without installing additional software, because the FABI module behaves like an ordinary computer mouse/keyboard/joystick. Using FABI, people with limited motor capabilities can play computer games, surf the internet, write e-mails and much more.
 
-
-
-
-
-
+<div style="page-break-after: always;"></div>
 
 
 
@@ -28,7 +24,7 @@ FABI - the "Flexible Assistive Button Interface" - connects up to five momentary
 
 
 
-
+<div style="page-break-after: always;"></div>
 
 ## Introduction
 
@@ -40,13 +36,17 @@ FABI is available as an [open source construction kit](https://github.com/asteri
 
 All software modules, hardware design files, and "how-to"-documents are available under free and open source licenses and can be used and modified without fees. We have made every effort to select low-cost components without compromising functionality and flexibility - making FABI an affordable switch interface with extensive capabilities!
 
-The **FABI configuration manager** enables to assign functions (actions) to connected switches (buttons). Once a configuration has been applied, it remains active, also if the power supply is removed. The FABI system can then be used to control different devices (e.g. Windows/Linux PCs, or Mac computers via USB connection or tablets / smart phones via USB-OTG or Bluetooth connection). The configuration manager is only needed if settings should be changed.
 
-The configuration manager has to be opened in the *Chrome web browser* running on a PC or Mac. It can be found at the following web address: [https://fabi.asterics.eu](https://fabi.asterics.eu/index_fabi.htm). Figure 1 shows the Welcome page of the configuration manager. 
 
-![Abbildung1](./Bilder/ENabb1.PNG)
+<img src="./Bilder/ENabb1.PNG" alt="Abbildung1" style="zoom:80%;" />
 
 *Figure 1*: Welcome page of the configuration manager
+
+
+
+The **FABI configuration manager** enables to assign functions (actions) to connected switches (buttons). Once a configuration has been applied, it remains active, also if the power supply is removed. The FABI system can then be used to control different devices (e.g. Windows/Linux PCs, or Mac computers via USB connection or tablets / smart phones via USB-OTG or Bluetooth connection). The configuration manager is only needed if settings should be changed. The configuration manager has to be opened in the *Chrome web browser* running on a PC or Mac. It can be found at the following web address: [https://fabi.asterics.eu](https://fabi.asterics.eu/index_fabi.htm). Figure 1 shows the Welcome page of the configuration manager. 
+
+
 
 #### Connecting the FABI device
 
@@ -63,7 +63,7 @@ After the Welcome page of the configuration manager is visible, connect your FAB
 
 
 
-
+<div style="page-break-after: always;"></div>
 
 ## Using the configuration manager
 
@@ -421,7 +421,7 @@ At [www.oneswitch.org.uk](https://www.oneswitch.org.uk/) Barrie Ellis has collec
 
 [Click2Speak](https://www.click2speak.net) is a flexible on-screen keyboard for Windows that provides additional useful features - such as a mouse click selection box.
 
-
+<div style="page-break-after: always;"></div>
 
 ## Contact Information
 
@@ -435,9 +435,9 @@ Email: <office@asterics-foundation.org>
 
 ## Disclaimer
 
-The University of Applied Sciences Technikum Wien and the AsTeRICS Foundation do not assume any warranty or liability for the functionality of the hardware/software modules or the correctness of the documentation.
+The AsTeRICS Foundation does not assume any warranty or liability for the functionality of the hardware/software modules or the correctness of the documentation.
 
-Furthermore, the FH Technikum Wien and the AsTeRICS Foundation are not liable for any damage to health caused by the use of the provided hardware/software modules. 
+Furthermore, the AsTeRICS Foundation is not liable for any damage to health caused by the use of the provided hardware/software modules. 
 The use of the provided modules and information is at your own risk!
 
 
@@ -446,6 +446,6 @@ The use of the provided modules and information is at your own risk!
 
 We would like to thank Miriam Brenner, Fabian Schiegl and Fanny Peternell for their support in writing this manual and Andreas Fußthaler for developing the PCB & case of the previous version.
 
-This project was financially supported by the City of Vienna (Magistratsabteilung 23 für Wirtschaft, Arbeit und Statistik, MA 23) (project number 14-02, 18-04).
+This project was financially supported in course of R&D projects at the UAS Technikum Wien, by the City of Vienna (Magistratsabteilung 23 für Wirtschaft, Arbeit und Statistik, MA 23) (project number 14-02, 18-04).
 
 ![Abbildung18](./Bilder/abb18.PNG)
