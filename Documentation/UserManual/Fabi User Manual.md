@@ -389,9 +389,20 @@ At the bottom of the *GENERAL Tab* you will find the button for resetting the FA
 | **Navigation keys**                                                                                                                                                                                                    |
 | KEY_UP  KEY_DOWN  KEY_LEFT  KEY_RIGHT  KEY_TAB  KEY_PAGE_UP  KEY_PAGE_DOWN <br/>KEY_HOME  KEY_END                                                                                                                      |
 | **Special keys**                                                                                                                                                                                                       |
-| KEY_ENTER  KEY_SPACE  KEY_BACKSPACE  KEY_DELETE  KEY_INSERT  KEY_ESC  KEY_NUM_LOCK<br/>KEY_SCROLL_LOCK  KEY_CAPS_LOCK  KEY_PAUSE<br/>                                                                                  |
-| **Tasten für alternative Funktionen**                                                                                                                                                                                  |
-| KEY_SHIFT  KEY_CTRL  KEY_ALT  KEY_RIGHT_ALT  KEY_GUI  KEY_RIGHT_GUI                                                                                                                                                    |
+| KEY_ENTER  KEY_SPACE  KEY_BACKSPACE  KEY_DELETE  KEY_INSERT  KEY_ESC  KEY_NUM_LOCK<br/>KEY_SCROLL_LOCK  KEY_CAPS_LOCK  KEY_PAUSE  KEY_PRINTSCREEN  KEY_MENU<br/>                                                          |
+| **Punctuation and Symbol keys**                                                                                                                                                                                        |
+| KEY_BACKSLASH  KEY_SLASH  KEY_SEMICOLON  KEY_COMMA  KEY_PERIOD  KEY_MINUS  KEY_EQUAL<br/>KEY_LEFT_BRACE  KEY_RIGHT_BRACE  KEY_QUOTE  KEY_TILDE                                                                         |
+| **Keypad keys**                                                                                                                                                                                                        |
+| KEYPAD_0  KEYPAD_1  KEYPAD_2  KEYPAD_3  KEYPAD_4  KEYPAD_5  KEYPAD_6  KEYPAD_7  KEYPAD_8  KEYPAD_9<br/>KEYPAD_SLASH  KEYPAD_ASTERIX  KEYPAD_MINUS  KEYPAD_PLUS  KEYPAD_ENTER  KEYPAD_PERIOD                                |
+| **Modifier keys**                                                                                                                                                                                                      |
+| KEY_SHIFT  KEY_CTRL  KEY_ALT  KEY_RIGHT_ALT  KEY_GUI  KEY_RIGHT_GUI                                                                                                                                                    |
+
+***Note on Backslash (`\`) and Special Characters:***
+To type a backslash (`\`) using button actions:
+- In English layout (en_US): use `KP KEY_BACKSLASH` or `KW \`.
+- In German layout (de_DE): the backslash character is located at AltGr + `ß`. Use `KP KEY_RIGHT_ALT KEY_MINUS` (as the physical `ß` key corresponds to the minus key position).
+- In macros (`AT MA ...`): to pass a literal backslash or semicolon, escape them with a backslash: use `\\` for `\` and `\;` for `;` (e.g. `AT MA KW C:\\path\\to\\dir;`).
+
 
 
 
