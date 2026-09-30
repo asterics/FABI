@@ -372,6 +372,7 @@ At the bottom of the *GENERAL Tab* you will find the button for resetting the FA
 | WA `<int>`       | wait a certain number of milliseconds                                                                                          | WA 100 -> waits 100 milliseconds                                                            |
 | NE               | next slot: load next slot                                                                                                      |                                                                                             |
 | LO `<string>`    | Load slot per name, changes to the given slot                                                                                  | LO mouse                                                                                    |
+| SN `<string>`    | slot name: rename current active slot to given name (or print current slot name if no name given)                             | SN mouse2 -> renames current slot to "mouse2"                                                |
 | NC               | No command                                                                                                                     |                                                                                             |
 
 

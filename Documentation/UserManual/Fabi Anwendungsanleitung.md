@@ -340,6 +340,7 @@ Am unteren Ende des Reiters finden Sie den Button für das Zurücksetzen des FAB
 | WA <int>    | Warten (Millisekunden), bestimmte Anzahl Millisekunden warten                                                                  | WA 100 -> wartet 100 Millisekunden                                                             |
 | NE          | next slot: nächsten Slot laden                                                                                                 |                                                                                                |
 | LO <string> | load slot: Slot per Name laden; wechselt zum angegebenen Slot                                                                  | LO mouse                                                                                       |
+| SN <string> | slot name: aktuellen Slot umbenennen (oder aktuellen Slotnamen ausgeben, wenn kein Name angegeben ist)                          | SN mouse2 -> benennt den aktuellen Slot in „mouse2“ um                                          |
 | NC          | No command: keine Funktion                                                                                                     |                                                                                                |
 
 ### Liste der Kürzel für Keyboard-Tasten
